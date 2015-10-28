@@ -43,6 +43,8 @@ HFE项目主要由web,mobile,coop以及common构成
 	
 		
 ##开发部署
+![logo](http://transfer.green-stone.cn/greenStoneicon300.png “部署流程图")
+
 ```sh
 git add README.md  
 git commit -a -m 'update readme'  
