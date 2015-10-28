@@ -1,6 +1,5 @@
 # HFE
 Hulk Frontend Engineer
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Support us][gittip-image]][gittip-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Gitter chat][gitter-image]][gitter-url]
 
 ##关键词语
 > web
@@ -43,13 +42,14 @@ HFE项目主要由web,mobile,coop以及common构成
 	- 通用站点：存放各站点间共用页面，或共用功能
 	
 		
-##开发部署
+##项目流程
 <p align="center">
   <a href="http://www.askgreenstone.com/">
     <img height="300" width="300" src="http://transfer.green-stone.cn/greenStoneicon300.png">
   </a>
 </p>
 
+##项目部署
 ```sh
 git add README.md  
 git commit -a -m 'update readme'  
