@@ -41,10 +41,10 @@ HFE项目主要由web,mobile,coop以及common构成
 		
 ##开发部署
 ```sh
-- git add README.md  
-- git commit -a -m 'update readme'  
-- git push origin dev  
-- test_service.sh 
+git add README.md  
+git commit -a -m 'update readme'  
+git push origin dev  
+test_service.sh 
 ``` 
 
 ##注意事项
