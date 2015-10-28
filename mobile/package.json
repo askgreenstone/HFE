@@ -1,0 +1,47 @@
+{
+  "name": "flux-demo",
+  "version": "1.0.0",
+  "description": "flux react-router webpack react",
+  "main": "server.js",
+  "dependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "css-loader": "^0.21.0",
+    "events": "^1.1.0",
+    "file-loader": "^0.8.4",
+    "flux": "^2.1.1",
+    "history": "^1.12.5",
+    "jquery": "^2.1.4",
+    "keymirror": "^0.1.1",
+    "object-assign": "^4.0.1",
+    "path": "^0.12.7",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-hot-loader": "^1.3.0",
+    "react-loader": "^2.0.0",
+    "react-router": "^1.0.0-rc3",
+    "style-loader": "^0.13.0",
+    "underscore": "^1.8.3",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.2"
+  },
+  "devDependencies": {
+    "less": "^2.5.3",
+    "less-loader": "^2.2.1",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenfengyanyu/flux-demo.git"
+  },
+  "author": "jartto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenfengyanyu/flux-demo/issues"
+  },
+  "homepage": "https://github.com/chenfengyanyu/flux-demo#readme"
+}
