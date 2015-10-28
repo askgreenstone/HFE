@@ -1,4 +1,4 @@
-# angularjs best practice
+# HFE web - angularjs best practice
 
 ##关键词语
 angularjs, requires, dynamically loading controllers and views, best practice
@@ -39,19 +39,7 @@ angularjs, requires, dynamically loading controllers and views, best practice
 		- circle.html
 	- docs
 		- docs.html
-		
-##代码规范
->
-1.git add README.md  
-2.git commit -a -m 'update readme'  
-3.git push origin dev  
-4.test_service.sh  
-
-##注意事项
-> 
-1.操作前要洗手；  
-2.注意操作姿势；  
-3.选择正确时机；  
+		 
 
 
 
