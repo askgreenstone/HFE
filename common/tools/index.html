@@ -1,0 +1,40 @@
+﻿<html>
+
+<head>
+    <title>优惠码</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/main.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div class="panel panel-info">
+        <div class="panel-heading">添加优惠码</div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <textarea class="form-control" style="width:100%;margin-bottom:10px;" rows="6" placeholder="多个值用英文=隔开，如绿石科技=白石科技=黑石科技" ng-model="user"></textarea>
+                <br/>
+                <button type="submit" ng-click="getServerData()" class="btn btn-info btn-lg btn-block">添 加</button>
+            </form>
+            <br/><br/><br/>
+            <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                    <td>序号</td>
+                    <td>id</td>
+                    <td>名称</td>
+                </tr>
+                <tr ng-repeat="item in codeList">
+                    <td>{{$index+1}}</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

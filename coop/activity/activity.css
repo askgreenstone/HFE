@@ -1,0 +1,465 @@
+html {
+    font-size: 62.5%;
+}
+@media (max-device-width : 375px){
+    html {
+        font-size: 64.5%;
+    }
+}
+
+/*iphone6*/
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+    html {
+        font-size: 66.5%;
+    }
+}
+/* iphone6 plus */
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+    html {
+        font-size: 75.5%;
+    }
+}
+
+@-webkit-keyframes spaceboots {
+    0% {
+        -webkit-transform: scale(0.9);
+    }
+    30% {
+        -webkit-transform: scale(0.9);
+    }
+    40% {
+        -webkit-transform: scale(1.05);
+    }
+    50% {
+        -webkit-transform: scale(0.9);
+    }
+    60% {
+        -webkit-transform: scale(0.9);
+    }
+    70% {
+        -webkit-transform: scale(1.03);
+    }
+    80% {
+        -webkit-transform: scale(0.9);
+    }
+    100% {
+        -webkit-transform: scale(0.9);
+    }
+}
+
+@-webkit-keyframes bigSmall {
+    0% {
+        -webkit-transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: scale(1) rotate(720deg);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes moveOut {
+    0% {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(0);
+        opacity: 0;
+    }
+}
+
+
+body {
+    background: url('image/bg1.png') no-repeat 0 0 transparent;
+    background-size: cover;
+    margin: 0 auto;
+    padding: 0;
+    /*overflow: hidden;*/
+}
+
+.logo {
+    background-color: #019645;
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+.logo img {
+    margin-top: 7px;
+}
+
+.user {
+    position: absolute;
+    top: 80px;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.user span {
+      font-size: 1.6rem;
+  float: left;
+  margin: 10px 5px 0 5px;
+  /*max-width: 97px;*/
+  width:80%;
+  height: 25px;
+  line-height: 25px;
+  overflow: hidden;
+}
+
+.user i {
+    float: left;
+  color: #6c6e64;
+  font-style: normal;
+  line-height: 20px;
+  display: none;
+    width: 190px;
+  font-size: 1.2rem;
+}
+
+.user img {
+    float: left;
+}
+
+.box {
+    /*display: none;*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -115px;
+    margin-top: -190px;
+    z-index: 4;
+    -webkit-animation-name: 'spaceboots';
+    -webkit-animation-duration: 1300ms;
+    -webkit-transform-origin: 70% 70%;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+.carton {
+    position: absolute;
+    bottom: -20px;
+    left: 10px;
+    width: 100px;
+    height: 100px;
+    z-index: 3;
+}
+
+.footer {
+      background: url(image/bg2.png) no-repeat 0 0 transparent;
+  position: absolute;
+  background-size: cover;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+}
+
+.codebox {
+    /*display: none;*/
+    -webkit-transform: scale(0);
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    margin: -150px 0 0 -150px;
+    z-index: 2;
+    text-align: center;
+    /*-webkit-animation-name: 'bigSmall';*/
+    -webkit-animation-duration: 1200ms;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    /* transition:all 0.4s ease-in-out;
+    -webkit-transition:all 0.4s ease-in-out;*/
+}
+
+.codebox .code {
+    margin: 15px 5px 0 15px;
+    float: left;
+}
+
+.codebox .text1 {
+    float: right;
+    margin: 50px 8px 0 0;
+}
+
+.codebox .text2 {
+    margin: 15px 0 10px 0;
+}
+
+.codebox div {
+    font-size: 1.5rem;
+    line-height: 20px;
+    margin: 5px 0 0px;
+}
+
+.info {
+    position: absolute;
+    right: 0;
+    bottom: -230px;
+    color: #595757;
+    line-height: 20px;
+    padding: 0 10px 0 0;
+    font-size: 1.2rem;
+}
+
+.info ol {
+    float: left;
+}
+
+.info img {
+    float: right;
+}
+
+.fix {
+    height: 800px;
+    width: 100%;
+    clear: both;
+}
+
+
+/*兼容iphone6*/
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+/*@media screen and (min-width: 361px) and (max-width: 376px) {*/
+    .logo {
+        background-color: #019645;
+        width: 100%;
+        height: 60px;
+        position: absolute;
+        top: 0;
+        text-align: center;
+    }
+    .logo img {
+        margin-top: 7px;
+    }
+    .user {
+        position: absolute;
+        top: 90px;
+        padding-left: 18px;
+        width: 100%;
+    }
+    .user span {
+        font-size: 1.6rem;
+        float: left;
+        margin: 10px 10px 0 5px;
+        /*max-width: 105px;*/
+        width:80%;
+        height: 25px;
+  line-height: 25px;
+    }
+    .user i {
+        float: left;
+        color: #6c6e64;
+        font-style: normal;
+        line-height: 20px;
+        font-size: 1.3rem;
+          width: 200px;
+    }
+    .user img {
+        float: left;
+    }
+    .box {
+        /*display: none;*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -115px;
+        margin-top: -190px;
+        z-index: 4;
+    }
+    .box img {
+        -webkit-transform: scale(1.3);
+    }
+    .carton {
+        position: absolute;
+        bottom: 70px;
+        left: 30px;
+        width: 100px;
+        height: 100px;
+        z-index: 3;
+    }
+    .carton img {
+        -webkit-transform: scale(1.2);
+    }
+    .footer {
+          background: url(image/bg2.png) no-repeat 0 0 transparent;
+  position: absolute;
+  background-size: cover;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+    }
+    .codebox {
+        width: 350px;
+        height: 350px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -175px 0 0 -175px;
+        z-index: 2;
+        text-align: center;
+    }
+    .codebox .code {
+        margin: 25px 5px 0 30px;
+        float: left;
+        -webkit-transform: scale(1.2);
+    }
+    .codebox .text1 {
+        float: right;
+        margin: 50px 20px 0 0;
+        -webkit-transform: scale(1.2);
+    }
+    .codebox .text2 {
+        margin: 40px 0 22px 0;
+    }
+    .codebox div {
+        font-size: 1.5rem;
+        line-height: 20px;
+        margin: 5px 0 0px;
+    }
+    .info {
+        position: absolute;
+        right: 0;
+        bottom: -200px;
+        color: #595757;
+        line-height: 25px;
+        padding: 0 20px 0 0;
+        font-size: 1.3rem;
+    }
+    .info img {
+        margin-left: 25px;
+    }
+    .fix {
+        height: 900px;
+        width: 100%;
+        clear: both;
+    }
+}
+
+
+/*兼容iphone6 plus*/
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+/*@media screen and (min-width: 377px) {*/
+    .logo {
+        background-color: #019645;
+        width: 100%;
+        height: 60px;
+        position: absolute;
+        top: 0;
+        text-align: center;
+    }
+    .logo img {
+        margin-top: 7px;
+    }
+    .user {
+        position: absolute;
+        top: 100px;
+        padding-left: 10px;
+        width: 100%;
+    }
+    .user span {
+        font-size: 1.6rem;
+        float: left;
+        margin: 10px 5px 0 5px;
+        /*max-width: 120px;*/
+        width: 80%;
+        height: 25px;
+        /*border: 1px solid #ccc;*/
+  line-height: 25px;
+    }
+    .user i {
+        float: left;
+  color: #6c6e64;
+  font-style: normal;
+  line-height: 20px;
+  font-size: 1.2rem;
+  width: 200px;
+    }
+    .user img {
+        float: left;
+    }
+    .box {
+        /*display: none;*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -115px;
+        margin-top: -190px;
+        z-index: 4;
+    }
+    .box img {
+        -webkit-transform: scale(1.3);
+    }
+    .carton {
+        position: absolute;
+        bottom: 60px;
+        left: 42px;
+        width: 100px;
+        height: 100px;
+        z-index: 3;
+        -webkit-transform: scale(1.2);
+    }
+    .carton img {}
+    .footer {
+          background: url(image/bg2.png) no-repeat 0 0 transparent;
+  position: absolute;
+  background-size: cover;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+    }
+    .codebox {
+        width: 360px;
+        height: 360px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -180px 0 0 -180px;
+        z-index: 2;
+        text-align: center;
+    }
+    .codebox .code {
+        margin: 30px 5px 0 35px;
+        float: left;
+        -webkit-transform: scale(1.2);
+    }
+    .codebox .text1 {
+        float: right;
+        margin: 50px 20px 0 0;
+        -webkit-transform: scale(1.2);
+    }
+    .codebox .text2 {
+        margin: 40px 0 20px 0;
+    }
+    .codebox div {
+        font-size: 1.5rem;
+        line-height: 25px;
+        margin: 5px 0 0px;
+    }
+    .info {
+        position: absolute;
+        right: 0;
+        bottom: -225px;
+        color: #595757;
+        line-height: 25px;
+        padding: 40px 25px 0 0;
+        font-size: 1.3rem;
+        width: 90%;
+    }
+    .info img {
+        margin-left: 25px;
+    }
+    .fix {
+        height: 965px;
+        width: 100%;
+        clear: both;
+    }
+}
