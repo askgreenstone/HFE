@@ -12,6 +12,18 @@ Hulk Frontend Engineer
 
 > common
 
+##项目组成
+HFE项目主要由web,mobile,coop以及common构成
+- web
+	- web站点：包含门户，网页版等
+- mobile 
+	- 移动站点：包含微信，H5页面等
+- coop 
+	- 合作站点：包含活动，合作，宣传
+- common 
+	- 通用站点：存放各站点间共用页面，或共用功能
+
+
 ##技术方案
 > web
 - 基于angularjs；
@@ -29,17 +41,6 @@ Hulk Frontend Engineer
 - 拆分了common公用库和layout布局库
 - 尝试添加less文件
 - 添加了loader公共模块
-
-##项目组成
-HFE项目主要由web,mobile,coop以及common构成
-- web
-	- web站点：包含门户，网页版等
-- mobile 
-	- 移动站点：包含微信，H5页面等
-- coop 
-	- 合作站点：包含活动，合作，宣传
-- common 
-	- 通用站点：存放各站点间共用页面，或共用功能
 	
 		
 ##项目流程
