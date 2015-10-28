@@ -3,10 +3,13 @@ Hulk Frontend Engineer
 
 ##关键词语
 > web
-- angularjs, requires, dynamically loading controllers and views, best practice
+- angularjs, requires, dynamically loading controllers and views, best practice  
+
 > mobile
-- react, flux, react-router, webpack
-> coop
+- react, flux, react-router, webpack  
+
+> coop  
+
 > common
 
 ##技术方案
