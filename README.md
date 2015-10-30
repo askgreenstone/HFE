@@ -46,7 +46,7 @@ HFE项目主要由web,mobile,coop以及common构成
 ##项目流程
 <p align="center">
   <a href="http://www.askgreenstone.com/">
-    <img height="560" width="385" src="http://transfer.green-stone.cn/webDeploymentFlow.jpg">
+    <img height="385" width="560" src="http://transfer.green-stone.cn/webDeploymentFlow.jpg">
   </a>
 </p>
 
