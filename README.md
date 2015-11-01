@@ -51,11 +51,23 @@ HFE项目主要由web,mobile,coop以及common构成
 </p>
 
 ##项目部署
+1. 静态缓存文件处理
 ```sh
-git add README.md  
-git commit -a -m 'update readme'  
+cd HFE
+gulp
+```   
+2. push和merge
+```sh
+git add *  
+git commit -a -m 'update HFE'  
 git push origin dev  
-test_service.sh 
+git checkout master
+git merge dev
+git push origin master
+``` 
+3. 服务器端执行clone或者pull
+```sh
+./t-client.sh
 ``` 
 
 ##注意事项
