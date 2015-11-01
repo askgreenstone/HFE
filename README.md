@@ -51,12 +51,12 @@ HFE项目主要由web,mobile,coop以及common构成
 </p>
 
 ##项目部署
-1. 静态缓存文件处理
+首先执行gulp，静态缓存文件处理
 ```sh
 cd HFE
 gulp
 ```   
-2. push和merge
+其次，将dev分支提交远程库，并与master合并
 ```sh
 git add *  
 git commit -a -m 'update HFE'  
@@ -65,7 +65,7 @@ git checkout master
 git merge dev
 git push origin master
 ``` 
-3. 服务器端执行clone或者pull
+最后，运行shell脚本，在服务器端执行clone或者pull
 ```sh
 ./t-client.sh
 ``` 
