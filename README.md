@@ -60,7 +60,8 @@ gulp
 ```sh
 git add *  
 git commit -a -m 'update HFE'  
-git push origin dev  
+git push origin dev    
+
 git checkout master
 git merge dev
 git push origin master
