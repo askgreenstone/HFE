@@ -1,0 +1,33 @@
+{
+  "name": "HFE",
+  "version": "1.0.0",
+  "description": "greenstone web team",
+  "main": "gulpfile.js",
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "gulp-livereload": "^3.8.1",
+    "colors": "^1.1.2",
+    "gulp-static-hash": "^0.1.4",
+    "gulp": "^3.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askgreenstone/HFE.git"
+  },
+  "keywords": [
+    "greenstone",
+    "web",
+    "team"
+  ],
+  "author": "jartto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/askgreenstone/HFE/issues"
+  },
+  "homepage": "https://github.com/askgreenstone/HFE#readme"
+}
