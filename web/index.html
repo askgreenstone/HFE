@@ -2,17 +2,17 @@
 	<head>
 	    <title>绿石开门网页版</title>
 	    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
-	    <link rel="stylesheet" href="lib/bootstrap.min.css?v=2aebf42">
+	    <link rel="stylesheet" href="lib/bootstrap.min.css">
 	    <!-- <link rel="stylesheet" href="css/example.animate.css"> -->
-	    <link rel="stylesheet" href="css/base.css?v=f0caf37">
+	    <link rel="stylesheet" href="css/base.css">
 	</head>
 
 	<body>
 	    <header>
 	    	<div class="nav">
 	    		<div class="logo">
-	    			<img id="dynamicImg" src="image/logo.png?v=54aa3d2" width="40" height="40"/>
-	    			<img src="image/logo_title.png?v=fef8c7a" width="80" height="18"/>
+	    			<img id="dynamicImg" src="image/logo.png" width="40" height="40"/>
+	    			<img src="image/logo_title.png" width="80" height="18"/>
 	    		</div>
 	    		<ul class="menu">
 	    			<li class="active"><a href="#chat">咨询会话</a></li>
@@ -37,11 +37,11 @@
 	    	<div class="copy">©2015 绿石（北京）网络科技有限公司 版权所有 京ICP备14054431号-2</div>
 	    </footer>
 	</body>
-	<script type="text/javascript"  src="lib/jquery.min.js?v=519a5cd"></script>
-	<script type="text/javascript"  src="lib/angular.min.js?v=8ff4bb5"></script>
-	<script type="text/javascript"  src="lib/angular-route.js?v=5152025"></script>
+	<script type="text/javascript"  src="lib/jquery.min.js"></script>
+	<script type="text/javascript"  src="lib/angular.min.js"></script>
+	<script type="text/javascript"  src="lib/angular-route.js"></script>
 	<!-- 视图区域动态加载，其他直接加载静态资源 -->
-	<script data-main="js/main" src="lib/require.min.js?v=73b108e"></script>
+	<script data-main="js/main" src="lib/require.min.js"></script>
 
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
@@ -52,7 +52,7 @@
 			$('.logo').bind('mouseover',function() {
 				$('#dynamicImg').attr({src: 'image/logo.gif'});
 			}).bind('mouseout',function() {
-				$('#dynamicImg').attr({src: 'image/logo.png?v=54aa3d2'});
+				$('#dynamicImg').attr({src: 'image/logo.png'});
 			});
 		});
 	</script>
