@@ -38,16 +38,15 @@ cd $WORKING_DIR
 if [ ! -d dist ]; then
    mkdir dist
 else
-	cd dist
+	cd $WORKING_DIR/dist
 	for f in `ls`
 	do
-	  rm $f
-	  if [ $? == 0 ]
-	  then
-	  	echo "${f} is removed successfully."
+	  if [  -d $f  ]
+	  then  
+	    rm -rf $f
 	  else
-	    echo "WARN: ${f} cannot be removed."
-	  fi
+	    rm  $f
+	  fi  
 	done
 fi
 echo '<----------Progress 60% , create dist folder task complete!---------->'
@@ -68,7 +67,7 @@ echo '<----------Progress 80% , copy HFE task complete!---------->'
 
 # 5.执行gulp
 echo '<----------begin to run gulp!---------->'
-cd $WORKING_DIR/dist/$REPO_NAME
+cd $WORKING_DIR/dist
 gulp
 echo '<----------Progress 90% , gulp task complete!---------->'   
 

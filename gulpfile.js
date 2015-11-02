@@ -36,7 +36,6 @@ gulp.task('static-hash-html', function() {
 });
 
 gulp.task('default' , function() {
-    console.log('start');
     gulp.start('static-hash-html');
 });
 

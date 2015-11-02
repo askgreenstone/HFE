@@ -64,6 +64,30 @@ git push origin master
 第二步，运行shell脚本，在服务器端执行clone或者pull
 ```sh
 ./t-client.sh
+```
+##补充说明
+快速连接测试服务器
+```sh
+ssh root@123.57.73.81 
+```   
+ftp删除太慢，可以执行如下代码
+```sh
+rm -rf dist
+``` 
+shell查看文件
+```sh
+#查看文件
+cat REANDME.md
+#查看文件，每显示一屏后暂停，回车继续
+more package.json
+#显示前10行
+head README.md
+#显示后10行
+tail README.md
+#计算文件的行数、字数或字符数
+wc README.md
+#页查看工具，相对于pg提供了更多高级功能，如可以用上下键滚行，PageUp和PageDown翻页等
+less app.js
 ``` 
 
 ##注意事项
