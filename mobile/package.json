@@ -22,6 +22,7 @@
     "react-loader": "^2.0.0",
     "react-masonry-component": "^2.0.0",
     "react-router": "^1.0.0-rc3",
+    "react-swipe-views": "0.0.10",
     "style-loader": "^0.13.0",
     "swipe-js-iso": "^2.0.1",
     "underscore": "^1.8.3",

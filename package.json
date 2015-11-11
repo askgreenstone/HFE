@@ -4,7 +4,8 @@
   "description": "greenstone web team",
   "main": "gulpfile.js",
   "dependencies": {
-    
+    "react": "^0.14.2",
+    "react-swipe-views": "0.0.10"
   },
   "devDependencies": {
     "gulp-livereload": "^3.8.1",

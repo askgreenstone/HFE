@@ -1,6 +1,8 @@
 var React = require('react');
 var Slider = require('react-slick');
 
+// require('../../../css/lib/slick/slick.css');
+
 var Carousel = React.createClass({
   render: function () {
     var settings = {
