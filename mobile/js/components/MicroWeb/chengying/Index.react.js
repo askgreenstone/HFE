@@ -2,7 +2,7 @@ var React = require('react');
 var Carousel = require('../../common/Carousel.react');
 var Grid2 = require('../../layout/Grid2.react');
 var Grid4 = require('../../layout/Grid4.react');
-var ArticleList = require('./ArticleList.react');
+var List1 = require('../../layout/List1.react');
 
 var Home = React.createClass({
   render: function() {
@@ -12,7 +12,7 @@ var Home = React.createClass({
         <Carousel item={arr} width="100%" height="150"/>
         <Grid2/>
         <Grid4/>
-        <ArticleList legend="true"/>
+        <List1 legend="true"/>
       </div>
     );
   },
