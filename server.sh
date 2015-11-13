@@ -74,6 +74,12 @@ echo '<----------Progress 90% , gulp task complete!---------->'
 # 如果log目录不存在，新建之
 mkdir -p /mnt/web/log
 
+# 启动node服务器
+echo '<----------begin to run node!---------->'
+cd $WORKING_DIR/dist/mobile
+# pm2 start server.js --watch
+node server.js 
+echo '<----------Progress 95% , node server start!---------->' 
 
 echo '<----------Progress 100% , HFE build successfully!---------->'
 
