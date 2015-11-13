@@ -9,11 +9,12 @@ var masonryOptions = {
 
 var Waterfall = React.createClass({
     render: function () {
-        var screenWidth = window.screen.width/2-20;
+        var screenWidth = window.screen.width/2-10;
         var childElements = this.props.item.map(function(ele,i){
            return (
                 <li key={new Date()+i} className="water-fall-list">
-                    <img src={ele} width={screenWidth}/>
+                    <img src={ele.src} width={screenWidth}/>
+                    <div>{ele.des?ele.des:'暂无描述'}</div>
                 </li>
             );
         });
