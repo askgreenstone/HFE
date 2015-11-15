@@ -77,7 +77,7 @@ mkdir -p /mnt/web/log
 # 启动node服务器
 echo '<----------begin to run node!---------->'
 cd $WORKING_DIR/dist/mobile
-pm2 start pm2.json --watch
+pm2 start pm2.json 
 # node server.js 
 echo '<----------Progress 95% , node server start!---------->' 
 
