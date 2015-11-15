@@ -61,7 +61,11 @@ git checkout master
 git merge dev
 git push origin master
 ``` 
-第二步，运行shell脚本，在服务器端执行clone或者pull
+第二步，执行webpack命令，打包生成实际文件
+```sh
+webpack
+``` 
+第三步，运行shell脚本，在服务器端执行clone或者pull
 ```sh
 ./t-client.sh
 ```
