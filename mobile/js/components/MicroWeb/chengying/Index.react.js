@@ -9,7 +9,7 @@ var Home = React.createClass({
     var arr=['image/1.png','image/2.png','image/3.png','image/4.png','image/5.png'];
     return (
       <div>
-        <Carousel item={arr} width="100%" height="150"/>
+        <Carousel item={arr} width="100%" height="180"/>
         <Grid2/>
         <Grid4/>
         <List1 legend="true"/>
