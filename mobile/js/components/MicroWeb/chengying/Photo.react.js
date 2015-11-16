@@ -1,7 +1,7 @@
 var React = require('react');
 var Waterfall = require('../../common/Waterfall.react');
 
-var Home = React.createClass({
+var Photo = React.createClass({
   render: function() {
     var arr=[
       {src:'image/waterfall/a.png',des:'蓝天白云'},
@@ -24,4 +24,4 @@ var Home = React.createClass({
   },
 });
 
-module.exports = Home;
+module.exports = Photo;

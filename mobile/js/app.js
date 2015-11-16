@@ -12,6 +12,7 @@ var Home = require('./components/MicroWeb/Home.react');
 var Index = require('./components/MicroWeb/chengying/Index.react');
 var Photo = require('./components/MicroWeb/chengying/Photo.react');
 var ArticleList = require('./components/MicroWeb/chengying/ArticleList.react');
+var Adress = require('./components/MicroWeb/chengying/Adress.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -20,6 +21,7 @@ ReactDOM.render((
     <Route path="/index" component={Index}/>
     <Route path="/photo" component={Photo}/>
     <Route path="/articlelist" component={ArticleList}/>
+    <Route path="/adress" component={Adress}/>
   </Router>
 ), document.getElementById('myapp'))
 

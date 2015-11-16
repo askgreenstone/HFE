@@ -33,10 +33,15 @@ var config = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.ProvidePlugin({
+            $: 'jquery'
+        })
     ],
+    externals: [],//忽略打包文件
     resolve: {
-        alias: []
+        alias: [],
+        extensions:['','.js','.json']//自动补全文件后缀名
     },
     module: {
         noParse : [],

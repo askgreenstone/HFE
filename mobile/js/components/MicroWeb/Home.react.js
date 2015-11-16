@@ -12,6 +12,7 @@ var Home = React.createClass({
         <div><Link to='/index'>程颖律师微网站</Link></div>
         <div><Link to='/photo'>微相册</Link></div>
         <div><Link to='/articlelist'>文章列表</Link></div>
+        <div><Link to='/adress'>我的位置</Link></div>
       </div>
     );
   },
