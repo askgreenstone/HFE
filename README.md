@@ -50,8 +50,12 @@ HFE项目主要由web,mobile,coop以及common构成
   </a>
 </p>
 
-##项目部署 
-第一步，将dev分支提交远程库，并与master合并
+##项目部署
+第一步，执行webpack命令，打包生成实际文件app.js
+```sh
+webpack
+```  
+第二步，将dev分支提交远程库，并与master合并
 ```sh
 git add *  
 git commit -a -m 'update HFE'  
@@ -60,10 +64,6 @@ git push origin dev
 git checkout master
 git merge dev
 git push origin master
-``` 
-第二步，执行webpack命令，打包生成实际文件
-```sh
-webpack
 ``` 
 第三步，运行shell脚本，在服务器端执行clone或者pull
 ```sh
