@@ -27,7 +27,8 @@ header {
 }
 
 .nav {
-    width: 75%;
+    /*width: 75%;*/
+    width: 960px;
     height: 60px;
     line-height: 60px;
     margin: 0 auto;
