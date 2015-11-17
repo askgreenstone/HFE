@@ -60,7 +60,6 @@ webpack
 第二步，返回HFE目录，将dev分支提交远程库，并与master合并
 ```sh
 cd ../
-
 git add *  
 git commit -a -m 'update HFE'  
 git push origin dev    
