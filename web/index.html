@@ -16,9 +16,10 @@
 	    			<img src="image/logo_title.png" width="80" height="18"/>
 	    		</div>
 	    		<ul class="menu">
-	    			<li class="active"><a href="#chat">咨询会话</a></li>
-	    			<li><a href="#docs">个人文档</a></li>
-	    			<li><a href="#circle">绿 石 圈</a></li>
+	    			<li class="active"><a name="chat" href="#chat">咨询会话</a></li>
+	    			<li><a name="docs" href="#docs">个人文档</a></li>
+	    			<li><a name="circle" href="#circle">绿 石 圈</a></li>
+	    			<li><a name="manage" href="#manage">微网站管理</a></li>
 	    		</ul>
 	    		<div class="logout">注销登录</div>
 	    	</div>
@@ -46,6 +47,17 @@
 
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
+			var url = window.location.href;
+			//菜单默认选中
+			$('.menu a').each(function(index, el) {
+				// console.log($(this).attr('href'));
+				var key = $(this).attr('name');
+				if(url.indexOf(key)>-1){
+					$(this).parents().siblings().removeClass('active');
+					$(this).parent().addClass('active');
+				}
+			});
+			
 			$('.menu li').bind('click',function(){
 				$(this).siblings().removeClass('active');
 				$(this).addClass('active');
