@@ -6,17 +6,13 @@ define(['js/app/app'], function(app) {
     var ManageController = function($location) {
 
         var vm = this;
-        vm.str = 'chat!!!';
+        vm.str = 'manage!!!';
 
-        vm.showMsg = function() {
-            //alert(vm.str);
+        vm.gotoLink = function(path,title) {
+            location.href = '#'+path+'?title='+encodeURI(title);
         };
 
-        function init(){
-          vm.showMsg();
-        }
-
-        init();
+        
     };
 
     ManageController.$inject = injectParams;

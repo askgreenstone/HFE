@@ -1,0 +1,68 @@
+﻿<div class="view">
+	<div class="view_title">微网站管理</div>
+	<div class="manage_content">
+		<div class="mc_left">
+			<ul class="mcl_list">
+				<li>
+					<img src="image/manage/fans.png" width="18" height="18"/>
+					<span><a href="#manage">粉丝数据</a></span>
+				</li>
+				<li>
+					<img src="image/manage/wx.png" width="18" height="18"/>
+					<span><a href="#manage">公众号运营</a></span>
+				</li>
+				<li>
+					<img src="image/manage/data.png" width="18" height="18"/>
+					<span><a href="#manage">访问数据</a></span>
+				</li>
+				<li class="text-active">
+					<img src="image/manage/set.png" width="18" height="18"/>
+					<span><a href="#manage">内容维护</a></span>
+				</li>
+			</ul>
+		</div>
+		<div class="mc_right">
+			<div class="mcr_search">
+				<span>湖北欣安律师事务所</span>
+				<input type="text" placeholder="请输入关键字"/>
+				<i><img src="image/manage/search.png" width="18" height="18"/></i>
+			</div>
+			<div class="list_lenged">
+				<h3 class="red">{{vm.title}}</h3>
+				<span ng-click="vm.gotoLink()"><img src="image/docs/add.png" width="20" height="20"/>添加文章</span>
+				<table class="list_table">
+					<tr>
+						<th width="30%">文章标题</th>
+						<th width="10%">状态</th>
+						<th width="25%">创建时间</th>
+						<th width="10%">创建人</th>
+						<th width="25%">操作</th>
+					</tr>
+					<tr>
+						<td>2015年司考成绩明日公布</td>
+						<td class="stop">暂存</td>
+						<td>2015-11-24 18:50:23</td>
+						<td>Jartto</td>
+						<td>
+							<img src="image/manage/edit.png" width="20" height="20">
+							<img src="image/manage/delete.png" width="20" height="20">
+							<img src="image/manage/publish.png" width="20" height="20">
+						</td>
+					</tr>
+					<tr>
+						<td>“两高”关于刑法确定罪名的...</td>
+						<td class="publish">发布</td>
+						<td>2015-11-24 18:50:23</td>
+						<td>Jartto</td>
+						<td>
+							<img src="image/manage/edit.png" width="20" height="20">
+							<img src="image/manage/delete.png" width="20" height="20">
+							<img src="image/manage/publish.png" width="20" height="20">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="clean"></div>
+	</div>
+</div>

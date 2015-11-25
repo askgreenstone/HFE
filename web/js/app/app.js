@@ -27,8 +27,12 @@ define(['js/services/routeResolver'], function() {
                 .when('/docs', route.resolve('Docs', 'docs/','vm'))
                 .when('/chat', route.resolve('Chat', 'chat/','vm'))
                 .when('/circle', route.resolve('Circle', 'circle/','vm'))
+                //Manage
                 .when('/manage', route.resolve('Manage', 'manage/','vm'))
+                .when('/list', route.resolve('List', 'manage/','vm'))
                 .when('/editor', route.resolve('Editor', 'manage/','vm'))
+                .when('/add', route.resolve('Add', 'manage/','vm'))
+                .when('/photo', route.resolve('Photo', 'manage/','vm'))
                 .otherwise({
                     redirectTo: '/chat'
                 });

@@ -6,20 +6,25 @@ define(['js/app/app'], function(app) {
     var EditorController = function($location) {
 
         var vm = this;
-        vm.str = '';
+        vm.title = '标题';
 
-        vm.showMsg = function() {
-            var ue = UE.getEditor('editor');
-            alert('aaa');
-            var arr = [];
-            arr.push("使用editor.getContent()方法可以获得编辑器的内容");
-            arr.push("内容为：");
-            arr.push(ue.getContent());
-            alert(arr.join("\n"));
+        vm.getUrlParam = function(p) {
+          var url = location.href; 
+          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
+          var paraObj = {} ;
+          for (var i=0,j=0; j=paraString[i]; i++){ 
+            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
+          } 
+          var returnValue = paraObj[p.toLowerCase()]; 
+          if(typeof(returnValue)=="undefined"){ 
+            return ""; 
+          }else{ 
+            return  returnValue;
+          } 
         };
 
         function init(){
-          // vm.showMsg();
+          vm.title = decodeURI(vm.getUrlParam('title'));
         }
 
         init();
