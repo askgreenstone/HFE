@@ -29,7 +29,7 @@
 				<h3 class="red">{{vm.title}}</h3>
 				<span>
 					<a href="#manage">
-						<img src="image/docs/add.png" width="20" height="20"/> 上传
+						<img src="image/docs/add.png" width="20" height="20"/> 创建相册
 					</a>
 					<a href="#manage">
 						<img src="image/return.png" width="20" height="20"/> 返回
@@ -37,25 +37,25 @@
 				</span>
 			</div>
 			<ul class="photo_list">
-				<li>
+				<li ng-click="vm.gotoLink('single','律所风采')">
 					<img src="image/manage/p1.png" width="100%" height="150"/>
 					<p>律所风采</p>
 				</li>
-				<li>
+				<li ng-click="vm.gotoLink('single','我的记忆')">
 					<img src="image/manage/p1.png" width="100%" height="150"/>
-					<p>律所风采</p>
+					<p>我的记忆</p>
 				</li>
-				<li>
+				<li ng-click="vm.gotoLink('single','团队成员')">
 					<img src="image/manage/p1.png" width="100%" height="150"/>
-					<p>律所风采</p>
+					<p>团队成员</p>
 				</li>
-				<li>
+				<li ng-click="vm.gotoLink('single','资深专家汇合')">
 					<img src="image/manage/p1.png" width="100%" height="150"/>
-					<p>律所风采</p>
+					<p>资深专家汇合</p>
 				</li>
-				<li>
+				<li ng-click="vm.gotoLink('single','亲人')">
 					<img src="image/manage/p1.png" width="100%" height="150"/>
-					<p>律所风采</p>
+					<p>亲人</p>
 				</li>
 				<div class="clean"></div>
 			</ul>

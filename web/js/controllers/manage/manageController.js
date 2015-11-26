@@ -2,17 +2,16 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location'];
-    var ManageController = function($location) {
+    var injectParams = ['$location','$window','$http'];
+    var ManageController = function($location,$window,$http) {
 
         var vm = this;
         vm.str = 'manage!!!';
 
         vm.gotoLink = function(path,title) {
-            location.href = '#'+path+'?title='+encodeURI(title);
+            $window.location.href = '#/'+path+'?title='+encodeURI(title);
         };
 
-        
     };
 
     ManageController.$inject = injectParams;

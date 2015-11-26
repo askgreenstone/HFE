@@ -3,7 +3,7 @@
 define(['js/app/app'], function(app) {
 
     var injectParams = ['$location'];
-    var ListController = function($location) {
+    var SingleController = function($location) {
 
         var vm = this;
         vm.title = '标题';
@@ -23,8 +23,8 @@ define(['js/app/app'], function(app) {
           } 
         };
 
-        vm.gotoLink = function(){
-          window.location.href = '#/add';
+        vm.gotoLink = function(path,title){
+          location.href = '#/'+path+'?title='+encodeURI(title);
         };
 
         function init(){
@@ -34,8 +34,8 @@ define(['js/app/app'], function(app) {
         init();
     };
 
-    ListController.$inject = injectParams;
+    SingleController.$inject = injectParams;
 
-    app.register.controller('ListController', ListController);
+    app.register.controller('SingleController', SingleController);
 
 });

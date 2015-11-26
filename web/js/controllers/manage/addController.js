@@ -28,15 +28,13 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         vm.gotoLink = function(){
-          location.href = '#manage';
+          location.href = '#/manage';
         };
 
         function init(){
           // vm.title = decodeURI(vm.getUrlParam('title'));
-          console.log('AddController run');
           var ue = UE.getEditor('editor');
           window['ZeroClipboard']=ZeroClipboard;
-          console.log('AddController end');
         }
 
         init();

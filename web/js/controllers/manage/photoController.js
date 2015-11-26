@@ -23,8 +23,8 @@ define(['js/app/app'], function(app) {
           } 
         };
 
-        vm.gotoLink = function(){
-          location.href = '#photo';
+        vm.gotoLink = function(path,title){
+          location.href = '#/'+path+'?title='+encodeURI(title);
         };
 
         function init(){

@@ -33,6 +33,7 @@ define(['js/services/routeResolver'], function() {
                 .when('/editor', route.resolve('Editor', 'manage/','vm'))
                 .when('/add', route.resolve('Add', 'manage/','vm'))
                 .when('/photo', route.resolve('Photo', 'manage/','vm'))
+                .when('/single', route.resolve('Single', 'manage/','vm'))
                 .otherwise({
                     redirectTo: '/chat'
                 });

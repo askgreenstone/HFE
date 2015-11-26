@@ -298,6 +298,9 @@ footer {
   margin-left: 40px;
   cursor: pointer;
 }
+.mcr_list li:hover{
+  background-color: rgba(247, 244, 244, 0.35);
+}
 .mcr_list img{
   margin: 0 10px 0 -10px;
 }
@@ -351,6 +354,9 @@ footer {
 .list_table tr{
   border-bottom: 1px solid #e5e5e5;
 }
+.list_table tr:hover{
+  background-color: rgba(247, 244, 244, 0.35);
+}
 .list_table td{
   padding: 10px 5px 10px 0;
 }
@@ -369,7 +375,7 @@ footer {
 }
 /*editor.html*/
 .editor_intro{
-  margin: -30px 0px 0 10px;
+  margin: -25px 0px 0 18px;
 }
 /*add.html*/
 .add_form{
@@ -410,7 +416,7 @@ footer {
 }
 .af_btn span{
     color: #fff;
-    background-color: #2ab6ff;
+    background-color: #39d167;
     display: inline-block;
     width: 100px;
     text-align: center;
@@ -422,7 +428,7 @@ footer {
     cursor: pointer;
 }
 .af_btn span:last-child{
-   background-color: #39d167;
+   background-color: #2ab6ff;
 }
 
 /*photo.html*/
@@ -435,19 +441,103 @@ footer {
   float: left;
   padding: 5px 5px 0 5px;
   border-radius: 4px;
-  /*width: 22%;
-  margin: 8px;*/
   width: 23%;
   margin: 1%;
+  cursor: pointer;
 }
 .photo_list p{
   text-align: center;
   margin: 5px 0;
 }
 
-
-
-
+/*single.html*/
+.single_box{
+  margin: -5px 0 10px 18px;
+}
+.sb_view{
+  height: 450px;
+  position: relative;
+}
+.sb_view img{
+  border-radius: 5px;
+}
+.sb_view i{
+  background: url('../image/manage/delete1.png') no-repeat center center transparent;
+  display: inline-block;
+  position: absolute;
+  top: -20px;
+  right: -15px;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+}
+.sb_view .left{
+  background: url('../image/manage/arrow2.png') no-repeat center center transparent;
+  display: inline-block;
+  width: 36px;
+  height: 62px;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  margin: -31px 0 0 0;
+  cursor: pointer;
+}
+.sb_view .right{
+  background: url('../image/manage/arrow1.png') no-repeat center center transparent;
+  display: inline-block;
+  width: 36px;
+  height: 62px;
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  margin: -31px 0 0 0;
+  cursor: pointer;
+}
+.single_box p{
+  margin: 10px 0;
+}
+.single_box p>span{
+  background: url('../image/manage/edit1.png') no-repeat center center transparent;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.sb_list{
+  position: relative;
+  min-height: 100px;
+}
+.sb_list .left{
+  background: url('../image/manage/arrow4.png') no-repeat center center transparent;
+  display: inline-block;
+  width: 36px;
+  height: 62px;
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  margin: -31px 0 0 0;
+  cursor: pointer;
+}
+.sb_list .right{
+  background: url('../image/manage/arrow3.png') no-repeat center center transparent;
+  display: inline-block;
+  width: 36px;
+  height: 62px;
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  margin: -31px 0 0 0;
+  cursor: pointer;
+}
+.sbl_list{
+  margin: 0% 5%;
+}
+.sbl_list li{
+  float: left;
+  margin: 0.8%;
+  width: 15%;
+  cursor: pointer;
+}
 
 
 

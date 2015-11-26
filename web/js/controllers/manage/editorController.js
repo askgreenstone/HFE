@@ -1,9 +1,9 @@
 'use strict';
 
-define(['js/app/app'], function(app) {
+define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
-    var injectParams = ['$location'];
-    var EditorController = function($location) {
+    var injectParams = ['$location','$window'];
+    var EditorController = function($location,$window) {
 
         var vm = this;
         vm.title = '标题';
@@ -23,8 +23,14 @@ define(['js/app/app'], function(app) {
           } 
         };
 
+        vm.setContent = function(isAppendTo){
+          UE.getEditor('editor').setContent('hi～Jartto!', isAppendTo);
+        }
+
         function init(){
           vm.title = decodeURI(vm.getUrlParam('title'));
+          var ue = UE.getEditor('editor');
+          window['ZeroClipboard']=ZeroClipboard;
         }
 
         init();
