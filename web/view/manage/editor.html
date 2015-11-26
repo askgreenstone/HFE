@@ -28,15 +28,15 @@
 				<i><img src="image/manage/search.png" width="18" height="18"/></i>
 			</div>
 			<div class="list_lenged">
-				<h3 class="red">编辑{{vm.title}}</h3>
-				<span><a href="#manage"><img src="image/return.png" width="20" height="20"/> 返回</a></span>
+				<h3 class="red">编辑 &gt; {{vm.title}}</h3>
+				<span ng-click="vm.gotoLink('manage','')"><img src="image/return.png" width="20" height="20"/> 返回</span>
 			</div>
 			<div class="editor_intro">
 				<!-- <iframe  src="lib/ueditor/index.html" frameborder="no" border="0" width="100%" height="100%"></iframe> -->
 				<script id="editor" type="text/plain" style="width:100%;height:300px;"></script>
 			</div>
 			<div class="af_btn">
-				<span ng-click="vm.setContent()">保存</span>
+				<span ng-click="vm.submitContent()">保存</span>
 			</div>
 		</div>
 		<div class="clean"></div>

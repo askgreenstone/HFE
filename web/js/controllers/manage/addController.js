@@ -33,7 +33,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
         function init(){
           // vm.title = decodeURI(vm.getUrlParam('title'));
-          var ue = UE.getEditor('editor');
+          var editor = new UE.ui.Editor();
+          editor.render('editor');
           window['ZeroClipboard']=ZeroClipboard;
         }
 

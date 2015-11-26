@@ -376,6 +376,7 @@ footer {
 /*editor.html*/
 .editor_intro{
   margin: -25px 0px 0 18px;
+  min-height: 300px;
 }
 /*add.html*/
 .add_form{

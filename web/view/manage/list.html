@@ -29,7 +29,15 @@
 			</div>
 			<div class="list_lenged">
 				<h3 class="red">{{vm.title}}</h3>
-				<span ng-click="vm.gotoLink()"><img src="image/docs/add.png" width="20" height="20"/>添加文章</span>
+				<!-- <span ng-click="vm.gotoLink()"><img src="image/docs/add.png" width="20" height="20"/>添加文章</span> -->
+				<span>
+					<a href="#add">
+						<img src="image/docs/add.png" width="20" height="20"/> 添加文章
+					</a>
+					<a href="#manage">
+						<img src="image/return.png" width="20" height="20"/> 返回
+					</a>
+				</span>
 				<table class="list_table">
 					<tr>
 						<th width="30%">文章标题</th>

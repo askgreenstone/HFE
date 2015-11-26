@@ -2,8 +2,8 @@
 
 define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
-    var injectParams = ['$location','$window'];
-    var EditorController = function($location,$window) {
+    var injectParams = ['$location','$window','$http'];
+    var EditorController = function($location,$window,$http) {
 
         var vm = this;
         vm.title = '标题';
@@ -23,14 +23,69 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           } 
         };
 
-        vm.setContent = function(isAppendTo){
-          UE.getEditor('editor').setContent('hi～Jartto!', isAppendTo);
+        vm.queryContent = function(){
+          $http({
+                method: 'GET',
+                url: 'http://t-web.green-stone.cn/exp/QueryNewsContent.do',
+                params: {
+                    debug:1,
+                    utype:1
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
         }
+
+        vm.submitContent = function(){
+          vm.userIntroduce = UE.getEditor('editor').getContent();
+          $http({
+                method: 'POST',
+                url: 'http://t-web.green-stone.cn/exp/SaveNewsContent.do',
+                params: {
+                    debug:1,
+                    utype:1
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
+        vm.gotoLink = function(path, title) {
+            if(title){
+              $window.location.href = '#/' + path + '?title=' + encodeURI(title);
+            }else{
+              $window.location.href = '#/' + path;
+            }
+        };
 
         function init(){
           vm.title = decodeURI(vm.getUrlParam('title'));
-          var ue = UE.getEditor('editor');
+
+          var editor = new UE.ui.Editor();
+          editor.render('editor');
+
           window['ZeroClipboard']=ZeroClipboard;
+          // vm.queryContent();
         }
 
         init();
