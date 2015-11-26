@@ -1,6 +1,6 @@
 require.config({
     baseUrl: '',
-    urlArgs: 'v=1.0',
+    urlArgs: 'v=1.1.1',
     paths:{
     	'ZeroClipboard':'lib/ueditor/third-party/zeroclipboard/ZeroClipboard'
     }
