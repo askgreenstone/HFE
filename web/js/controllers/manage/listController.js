@@ -2,8 +2,8 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location'];
-    var ListController = function($location) {
+    var injectParams = ['$location','$http'];
+    var ListController = function($location,$http) {
 
         var vm = this;
         vm.title = '标题';
@@ -27,8 +27,92 @@ define(['js/app/app'], function(app) {
           window.location.href = '#/add';
         };
 
+        vm.gotoLink = function(path) {
+          var title = vm.getUrlParam('title'),
+              ntid = vm.getUrlParam('ntId');
+          location.href = '#/' + path + '?title=' + title +'&ntId='+ntid;
+        };
+
+        vm.getArticleList = function(){
+          $http({
+                method: 'GET',
+                url: 'http://t-dist.green-stone.cn/exp/QueryNewsList.do',
+                params: {
+                    debug:1,
+                    utype:1,
+                    ntId:vm.ntid
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.articleList = data.nl;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        };
+
+        vm.deleteArticle = function(nid){
+          if(confirm('确定要删除吗？')){
+            $http({
+                method: 'POST',
+                url: 'http://t-dist.green-stone.cn/exp/DeleteNews.do',
+                params: {
+                    debug:1,
+                    utype:1,
+                },
+                data: {
+                    nId:nid
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.getArticleList();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+          }
+        }
+
+        vm.updateArticle = function(nid){
+          location.href = '#/add?title='+vm.getUrlParam('title')+'&nid='+nid;
+        }
+
+        vm.publishArticle = function(nid){
+          $http({
+                method: 'POST',
+                url: 'http://t-dist.green-stone.cn/exp/UpdateNewsStatus.do',
+                params: {
+                    debug:1,
+                    utype:1,
+                },
+                data: {
+                    nId:nid
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.getArticleList();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
         function init(){
           vm.title = decodeURI(vm.getUrlParam('title'));
+          vm.ntid = vm.getUrlParam('ntId');
+          vm.getArticleList();
         }
 
         init();

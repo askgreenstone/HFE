@@ -8,15 +8,15 @@ define(['js/app/app'], function(app) {
         var vm = this;
         vm.str = 'manage!!!';
 
-        vm.gotoLink = function(path, title) {
-            $window.location.href = '#/' + path + '?title=' + encodeURI(title);
+        vm.gotoLink = function(path, title,ntid) {
+            $window.location.href = '#/' + path + '?title=' + encodeURI(title)+'&ntId='+ntid;
             UE.getEditor('editor').destroy();
         };
 
         vm.getServerCatalogue = function() {
             $http({
                 method: 'GET',
-                url: 'http://t-web.green-stone.cn/exp/QueryNewsTypes.do',
+                url: 'http://t-dist.green-stone.cn/exp/QueryNewsTypes.do',
                 params: {
                     debug:1,
                     utype:1

@@ -26,21 +26,21 @@
 				<span>湖北欣安律师事务所</span>
 			</div>
 			<div class="list_lenged">
-				<h3 class="red">添加文章</h3>
-			<span><a href="#manage"><img src="image/return.png" width="20" height="20"/> 返回</a></span>
+				<h3 class="red">{{vm.title}} &gt; {{vm.titleFlag}}</h3>
+			<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span>
 			</div>
 			<form class="add_form">
 				<div class="af_input">
 				  <span>标题：</span>
-					<input type="text" placeholder="请输入文档标题"/>
+					<input type="text" ng-model="vm.createInfo.title" placeholder="请输入文档标题"/>
 				</div>
 				<div class="af_textarea">
 					<span>简介：</span>
-					<textarea>这里写一段简短的文章简介，微网站文章详情页可以看到。</textarea>
+					<textarea ng-model="vm.createInfo.describe">这里写一段简短的文章简介，微网站文章详情页可以看到。</textarea>
 				</div>
 				<div class="af_input">
 					<span>引用链接：</span>
-					<input type="text" placeholder="请输入链接地址"/>
+					<input ng-model="vm.createInfo.url" type="text" placeholder="请输入链接地址"/>
 				</div>
 				<div class="af_ueditor">
 					<span>正文：</span>
@@ -48,8 +48,8 @@
 					<script id="editor" type="text/plain" style="width:100%;height:300px;"></script>
 				</div>
 				<div class="af_btn">
-					<span ng-click="vm.getContent()">暂存</span>
-					<span ng-click="vm.getContent()">发布</span>
+					<span ng-click="vm.submitArticleInfo(0)">暂存</span>
+					<span ng-click="vm.submitArticleInfo(1)">发布</span>
 				</div>
 			</form>
 		</div>

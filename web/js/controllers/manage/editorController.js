@@ -7,6 +7,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
         var vm = this;
         vm.title = '标题';
+        vm.isEdit = false;
+        vm.nId = '';
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -23,13 +25,14 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           } 
         };
 
-        vm.queryContent = function(){
+        vm.queryContentState = function(){
           $http({
                 method: 'GET',
-                url: 'http://t-web.green-stone.cn/exp/QueryNewsContent.do',
+                url: 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do',
                 params: {
                     debug:1,
-                    utype:1
+                    utype:1,
+                    ntId:vm.ntid
                 },
                 data: {
                     
@@ -38,7 +41,9 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  
+                  vm.getServerEdit = data.nc;
+                  vm.nId = data.nId;
+                  setContent();
                 }
             }).
             error(function(data, status, headers, config) {
@@ -48,24 +53,45 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
         vm.submitContent = function(){
           vm.userIntroduce = UE.getEditor('editor').getContent();
+          if(!vm.userIntroduce){
+            alert('请输入内容！');
+            return;
+          }
+          // 判断新增还是修改
+          if(!vm.nId){
+            console.log('new');
+            var datas = {
+              ntId:vm.ntid,
+              nc:vm.userIntroduce,
+              ns:1
+            }
+          }else{
+            console.log('update');
+            var datas = {
+              ntId:vm.ntid,
+              nc:vm.userIntroduce,
+              nId:vm.nId,
+              ns:1
+            }
+          }
+          
           $http({
                 method: 'POST',
-                url: 'http://t-web.green-stone.cn/exp/SaveNewsContent.do',
+                url: 'http://t-dist.green-stone.cn/exp/SaveNewsContent.do',
                 params: {
                     debug:1,
                     utype:1
                 },
-                data: {
-                    
-                }
+                data: datas
             }).
             success(function(data, status, headers, config) {
-                console.log(data);
+                // console.log(data);
                 if(data.c == 1000){
-                  
+                  $window.history.back();
                 }
             }).
             error(function(data, status, headers, config) {
+                alert('发布失败！');
                 console.log(data);
             });
         }
@@ -78,14 +104,20 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
             }
         };
 
+        function setContent(isAppendTo) {
+            UE.getEditor('editor').setContent(vm.getServerEdit, isAppendTo);
+        }
+
         function init(){
           vm.title = decodeURI(vm.getUrlParam('title'));
+          vm.ntid = decodeURI(vm.getUrlParam('ntid'));
 
           var editor = new UE.ui.Editor();
           editor.render('editor');
 
           window['ZeroClipboard']=ZeroClipboard;
-          // vm.queryContent();
+
+          vm.queryContentState();
         }
 
         init();

@@ -24,14 +24,14 @@
 		<div class="mc_right">
 			<div class="mcr_search">
 				<span>湖北欣安律师事务所</span>
-				<input type="text" placeholder="请输入关键字"/>
+				<input type="text" ng-model="vm.keyword" placeholder="请输入关键字"/>
 				<i><img src="image/manage/search.png" width="18" height="18"/></i>
 			</div>
 			<div class="list_lenged">
 				<h3 class="red">{{vm.title}}</h3>
 				<!-- <span ng-click="vm.gotoLink()"><img src="image/docs/add.png" width="20" height="20"/>添加文章</span> -->
 				<span>
-					<a href="#add">
+					<a href="javascript:void(0);" ng-click="vm.gotoLink('add')">
 						<img src="image/docs/add.png" width="20" height="20"/> 添加文章
 					</a>
 					<a href="#manage">
@@ -46,26 +46,15 @@
 						<th width="10%">创建人</th>
 						<th width="25%">操作</th>
 					</tr>
-					<tr>
-						<td>2015年司考成绩明日公布</td>
-						<td class="stop">暂存</td>
-						<td>2015-11-24 18:50:23</td>
-						<td>Jartto</td>
+					<tr ng-repeat="x in vm.articleList|filter:vm.keyword">
+						<td>{{x.ntit.length>12?((x.ntit).substring(0,12)+'...'):x.ntit}}</td>
+						<td ng-class="x.ns==1?'publish':'stop'">{{x.ns==1?'发布':'暂存'}}</td>
+						<td>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+						<td>{{x.ncu}}</td>
 						<td>
-							<img src="image/manage/edit.png" width="20" height="20">
-							<img src="image/manage/delete.png" width="20" height="20">
-							<img src="image/manage/publish.png" width="20" height="20">
-						</td>
-					</tr>
-					<tr>
-						<td>“两高”关于刑法确定罪名的...</td>
-						<td class="publish">发布</td>
-						<td>2015-11-24 18:50:23</td>
-						<td>Jartto</td>
-						<td>
-							<img src="image/manage/edit.png" width="20" height="20">
-							<img src="image/manage/delete.png" width="20" height="20">
-							<img src="image/manage/publish.png" width="20" height="20">
+							<img ng-click="vm.updateArticle(x.nId)" src="image/manage/edit.png" width="20" height="20">
+							<img ng-click="vm.deleteArticle(x.nId)" src="image/manage/delete.png" width="20" height="20">
+							<img ng-click="vm.publishArticle(x.nId)" ng-if="x.ns=='0'" src="image/manage/publish.png" width="20" height="20">
 						</td>
 					</tr>
 				</table>
