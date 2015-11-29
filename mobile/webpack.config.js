@@ -27,9 +27,9 @@ var config = {
         './js/app.js'
     ],
     output: {
-        path: path.join(__dirname, '/public/'),//打包输出路径
+        path: path.join(__dirname, 'public/'),//打包输出路径
         filename: 'app.js',
-        publicPath: '/static/'//本地引用路径
+        publicPath: './static/'//本地引用路径
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
