@@ -14,13 +14,13 @@ var Card = React.createClass({
     			<img className="ui_qrcode" src="image/qrcode.jpg" width="55" height="55"/>
     		</div>
     		<div className="user_content">
-    			<div className="uc_input">18600945636
+    			<div className="uc_input">13718128160
     				<img src="image/theme002/telphone1.png" width="25" height="25"/>
     			</div>
-    			<div className="uc_input">315764765@qq.com
+    			<div className="uc_input">jie.wang@dachenglaw.com
     				<img src="image/theme002/email.png" width="25" height="25"/>
     			</div>
-    			<div className="uc_input">010-18600636
+    			<div className="uc_input">010-4009649288
     				<img src="image/theme002/telphone1.png" width="25" height="25"/>
     			</div>
     			<div className="uc_input">www.askgreenstone.com
