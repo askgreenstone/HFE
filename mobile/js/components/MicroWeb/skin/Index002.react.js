@@ -22,7 +22,7 @@ var Index002 = React.createClass({
             </li>
             <li>
               <img src="image/theme002/team.png" width="45" height="30"/>
-              <div>律师团队</div>
+              <div>律师介绍</div>
             </li>
             <li onClick={this.gotoLink.bind(this,'card')}>
               <img src="image/theme002/card.png" width="45" height="30"/>
