@@ -14,29 +14,19 @@ var List1 = React.createClass({
         <ul className="article_list">
           {legend}
           <li onClick={this.gotoDetail}>
-            <img src="image/1.png" width="70" height="70"/>
-            <span>此处是标题</span>
-            <p>当调用的时候。该子级组件可以是虚拟，也可以是自定义的复合组件...</p>
+            <img src="image/gjdw.jpg" width="70" height="70"/>
+            <span>国家电网</span>
+            <p>国家电网二级子公司亚洲A国绿地投资项目</p>
           </li>
           <li onClick={this.gotoDetail}>
-            <img src="image/2.png" width="70" height="70"/>
-            <span>此处是标题</span>
-            <p>当调用的时候。该子级组件可以是虚拟，也可以是自定义的复合组件...</p>
+            <img src="image/Camecologo.png" width="70" height="70"/>
+            <span>Cameclolgo 公司</span>
+            <p>世界第一大铀材料生产商Cameco公司收购NUKEM能源公...</p>
           </li>
           <li onClick={this.gotoDetail}>
-            <img src="image/3.png" width="70" height="70"/>
-            <span>此处是标题</span>
-            <p>当调用的时候。该子级组件可以是虚拟，也可以是自定义的复合组件...</p>
-          </li>
-          <li onClick={this.gotoDetail}>
-            <img src="image/4.png" width="70" height="70"/>
-            <span>此处是标题</span>
-            <p>当调用的时候。该子级组件可以是虚拟，也可以是自定义的复合组件...</p>
-          </li>
-          <li onClick={this.gotoDetail}>
-            <img src="image/5.png" width="70" height="70"/>
-            <span>此处是标题</span>
-            <p>当调用的时候。该子级组件可以是虚拟，也可以是自定义的复合组件...</p>
+            <img src="image/xhl.jpg" width="70" height="70"/>
+            <span>新华联</span>
+            <p>新华联集团境外地产投资项目</p>
           </li>
         </ul>
       </div>

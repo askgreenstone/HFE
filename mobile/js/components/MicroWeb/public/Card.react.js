@@ -5,7 +5,7 @@ var Card = React.createClass({
     return (
     	<div>
     		<div className="user_info">
-    			<img className="ui_header" src="image/1.png" width="65" height="65"/>
+    			<img className="ui_header" src="image/wj.png" width="65" height="65"/>
     			<p>
     				<span>王杰</span><br/>
     				<span>大成律师事务所</span><br/>
