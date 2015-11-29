@@ -29,7 +29,7 @@ var config = {
     output: {
         path: path.join(__dirname, 'public/'),//打包输出路径
         filename: 'app.js',
-        publicPath: './static/'//本地引用路径
+        publicPath: './public/'//本地引用路径
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
