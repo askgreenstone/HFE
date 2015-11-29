@@ -27,9 +27,9 @@ var config = {
         './js/app.js'
     ],
     output: {
-        path: path.join(__dirname, 'static/'),
+        path: path.join(__dirname, '/public/'),//打包输出路径
         filename: 'app.js',
-        publicPath: '/mobile/static/'//webpack模块打包后在服务器的路径
+        publicPath: '/static/'//本地引用路径
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
