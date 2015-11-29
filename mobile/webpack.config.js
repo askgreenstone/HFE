@@ -55,6 +55,9 @@ var config = {
         },{ 
             test: /\.css$/, 
             loader: 'style-loader!css-loader' 
+        },{
+            test: /\.(jpg|png|svg)$/, 
+            loader: 'url?limit=8192'
         }]
     }
 }

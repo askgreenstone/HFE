@@ -5,7 +5,7 @@ var Location = React.createClass({
   getLocationInfo: function(){
       $.ajax({
           type: 'post',
-          url: 'http://t-mshare.green-stone.cn/comm/QQMapLocation.do',
+          url: 'http://t-dist.green-stone.cn/comm/QQMapLocation.do',
           data: JSON.stringify({
               'region': '北京市',
               'address':'北京市昌平区天通苑西三区'
@@ -27,7 +27,7 @@ var Location = React.createClass({
         // alert('uri:' + uri);
         $.ajax({
             type: 'get',
-            url: 'http://t-mshare.green-stone.cn/usr/WeiXinJSapiSignature.do?apath=' + uri,
+            url: 'http://t-dist.green-stone.cn/usr/WeiXinJSapiSignature.do?apath=' + uri,
             success: function(data) {
                 //alert('wxscan:' + JSON.stringify(data));
                 if (data.c == 1000) {
