@@ -7,7 +7,7 @@ var Index002 = React.createClass({
     location.href = '#'+path;
   },
   componentDidMount: function(){
-    var screenHeight = window.screen.height;
+    var screenHeight = window.screen.availHeight;
     $('.leftBg,.verticalMenu').css('height',screenHeight);
   },
   render: function() {
@@ -18,9 +18,9 @@ var Index002 = React.createClass({
           <ul className="menu_list">
             <li>
               <img src="image/theme002/telphone.png" width="38" height="38"/>
-              <div>电话咨询</div>
+              <div><a href="tel://13718128160">电话咨询</a></div>
             </li>
-            <li>
+            <li onClick={this.gotoLink.bind(this,'articleDetail')}>
               <img src="image/theme002/team.png" width="45" height="30"/>
               <div>律师介绍</div>
             </li>
