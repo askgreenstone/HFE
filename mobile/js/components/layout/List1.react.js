@@ -1,33 +1,73 @@
 var React = require('react');
 
 var List1 = React.createClass({
-  gotoDetail: function(){
-    location.href = '#articleDetail';
+  getInitialState: function(){
+    return {articles:[],curSrc:[]};
+  },
+  gotoDetail: function(nid){
+    location.href = '#articleDetail?nid='+nid;
+  },
+  getServerInfo: function(){
+  $.ajax({
+      type:'get',
+      url: 'http://t-dist.green-stone.cn/exp/QueryNewsList.do?ntId=7&uri=e1107&debug=1&utype=1',
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+           var tempObj = [];
+           //从内容中抓取图片，作为默认显示
+           for(var i=0;i<data.nl.length;i++){
+              tempObj.push(this.getCotentSrc(data.nl[i].nc));
+           }
+
+           this.setState({articles:data.nl,curSrc:tempObj});
+         }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        alert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getCotentSrc: function(str){
+    var m,
+    urls = [], 
+    rex = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
+
+    while (m = rex.exec(str)) {
+        urls.push(m[1]);
+    }
+    if(urls.length>0){
+      return urls[0];
+    }else{
+      return 'image/default.png'
+    }
+  },
+  componentDidMount: function(){
+    this.getServerInfo();
   },
   render: function() {
     var legend;
     if(this.props.legend){
       legend = <h3>最新文章</h3>;
     }
+    var articleNodes = this.state.articles.map(function(item,i){
+     if(item.ns == '1'){
+      return(
+            <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.nId)}>
+              <img src={this.state.curSrc[i]} width="70" height="70"/>
+              <span>{item.ntit.length>12?(item.ntit).substring(0,12)+'...':item.ntit}</span>
+              <p>{item.na.length>30?(item.na).substring(0,30)+'...':item.na}</p>
+            </li>
+       );
+      }
+     }.bind(this));
     return (
       <div>
         <ul className="article_list">
           {legend}
-          <li onClick={this.gotoDetail}>
-            <img src="image/gjdw.jpg" width="70" height="70"/>
-            <span>国家电网</span>
-            <p>国家电网二级子公司亚洲A国绿地投资项目</p>
-          </li>
-          <li onClick={this.gotoDetail}>
-            <img src="image/Camecologo.png" width="70" height="70"/>
-            <span>Cameclolgo 公司</span>
-            <p>世界第一大铀材料生产商Cameco公司收购NUKEM能源公...</p>
-          </li>
-          <li onClick={this.gotoDetail}>
-            <img src="image/xhl.jpg" width="70" height="70"/>
-            <span>新华联</span>
-            <p>新华联集团境外地产投资项目</p>
-          </li>
+          {articleNodes}
         </ul>
       </div>
     );

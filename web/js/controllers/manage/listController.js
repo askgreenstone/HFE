@@ -40,7 +40,8 @@ define(['js/app/app'], function(app) {
                 params: {
                     debug:1,
                     utype:1,
-                    ntId:vm.ntid
+                    ntId:vm.ntid,
+                    uri:'e1107'
                 },
                 data: {
                     

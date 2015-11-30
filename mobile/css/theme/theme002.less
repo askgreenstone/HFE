@@ -17,13 +17,13 @@
     background: url('../../image/theme002/bg1.png') no-repeat 0 0 transparent;
     background-size: cover;
     width: 72%;
-    height: 568px;
+    // height: 568px;
     float: left;
 }
 .verticalMenu{
     background: url('../../image/theme002/bg2.png') repeat-y 0 0 transparent;
     width: 28%;
-    height: 568px;
+    // height: 568px;
     background-size: cover;
     float: left;
 }
@@ -47,9 +47,26 @@
 }
 
 // card
+.clear{
+  clear:both;
+}
 .user_info{
   position: relative;
   height: 80px;
+}
+.qr_hidden{
+  height: 600px;
+  width: 100%;
+  background-color: rgba(0,0,0,0.7);
+  position: absolute;
+  z-index: 999;
+  display: none;
+}
+.qr_hidden img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -75px 0 0 -75px;
 }
 .ui_header{
   border-radius: 50%;

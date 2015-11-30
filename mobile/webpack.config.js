@@ -28,8 +28,11 @@ var config = {
     ],
     output: {
         path: path.join(__dirname, 'public/'),//打包输出路径
-        filename: 'app.js',
-        publicPath: './public/'//本地引用路径
+        // publicPath: '/public/',//本地测试
+        publicPath: './public/',//服务器部署
+        filename: 'app.js'
+        
+
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
@@ -47,7 +50,7 @@ var config = {
         noParse : [],
         loaders: [{
             test: /\.jsx?$/,
-            loaders: ['react-hot', 'babel'],
+            loaders: ['react-hot','babel'],
             exclude: /node_modules/
         },{
             test: /\.less$/, 

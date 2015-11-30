@@ -15,11 +15,12 @@ var Index001 = require('./components/MicroWeb/skin/Index001.react');
 var Index002 = require('./components/MicroWeb/skin/Index002.react');
 
 //公共组件承载页面
-var Photo = require('./components/MicroWeb/Public/Photo.react');
-var ArticleList = require('./components/MicroWeb/Public/ArticleList.react');
-var Adress = require('./components/MicroWeb/Public/Adress.react');
-var ArticleDetail = require('./components/MicroWeb/Public/ArticleDetail.react');
-var Card = require('./components/MicroWeb/Public/Card.react');
+var Photo = require('./components/MicroWeb/public/Photo.react');
+var Single = require('./components/MicroWeb/public/Single.react');
+var ArticleList = require('./components/MicroWeb/public/ArticleList.react');
+var Adress = require('./components/MicroWeb/public/Adress.react');
+var ArticleDetail = require('./components/MicroWeb/public/ArticleDetail.react');
+var Card = require('./components/MicroWeb/public/Card.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -30,6 +31,7 @@ ReactDOM.render((
     <Route path="/index002" component={Index002}/>
     
     <Route path="/photo" component={Photo}/>
+    <Route path="/single" component={Single}/>
     <Route path="/articleList" component={ArticleList}/>
     <Route path="/articleDetail" component={ArticleDetail}/>
     <Route path="/adress" component={Adress}/>

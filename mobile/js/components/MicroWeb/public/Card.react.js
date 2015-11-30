@@ -1,9 +1,18 @@
 var React = require('react');
 
 var Card = React.createClass({
+  qrCode: function(){
+    $('.qr_hidden').show(500);
+  },
+  hideDiv: function(){
+    $('.qr_hidden').hide();
+  },
   render: function() {
     return (
     	<div>
+        <div className="qr_hidden" onClick={this.hideDiv}>
+          <img src="image/qrcode.jpg" width="150" height="150"/>
+        </div>
     		<div className="user_info">
     			<img className="ui_header" src="image/wj.png" width="65" height="65"/>
     			<p>
@@ -11,24 +20,34 @@ var Card = React.createClass({
     				<span>大成律师事务所</span><br/>
     				<span>合伙人</span>
     			</p>
-    			<img className="ui_qrcode" src="image/qrcode.jpg" width="55" height="55"/>
+    			<img onClick={this.qrCode} className="ui_qrcode" src="image/qrcode.jpg" width="55" height="55"/>
     		</div>
     		<div className="user_content">
     			<div className="uc_input">13718128160
-    				<img src="image/theme002/telphone1.png" width="25" height="25"/>
+    				<a href="tel://13718128160">
+              <img src="image/theme002/telphone1.png" width="25" height="25"/>
+            </a>
     			</div>
     			<div className="uc_input">jie.wang@dachenglaw.com
-    				<img src="image/theme002/email.png" width="25" height="25"/>
+            <a href="mailto:jie.wang@dachenglaw.com">
+    				  <img src="image/theme002/email.png" width="25" height="25"/>
+            </a>
     			</div>
     			<div className="uc_input">010-4009649288
-    				<img src="image/theme002/telphone1.png" width="25" height="25"/>
+            <a href="tel://010-4009649288">
+    				  <img src="image/theme002/telphone1.png" width="25" height="25"/>
+            </a>
     			</div>
     			<div className="uc_input">www.askgreenstone.com
-    				<img src="image/theme002/web.png" width="25" height="25"/>
+            <a href="#index002">
+    				  <img src="image/theme002/web.png" width="25" height="25"/>
+            </a>
     			</div>
     			<div className="uc_input fixed">北京市朝阳区三元桥曙光西路<br/>
     				时间国际四号楼1201室，100026
-    				<img src="image/theme002/adress.png" width="25" height="25"/>
+            <a href="#adress">
+    				  <img src="image/theme002/adress.png" width="25" height="25"/>
+            </a>
     			</div>
 	    		<div className="user_intro">
 	    			<i>简介</i>

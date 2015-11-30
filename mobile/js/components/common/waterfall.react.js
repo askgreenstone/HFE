@@ -8,11 +8,15 @@ var masonryOptions = {
 };
 
 var Waterfall = React.createClass({
+    gotoSingle: function(src){
+        location.href = '#single?src='+src;
+    },
     render: function () {
         var screenWidth = window.screen.width/2-10;
+        var that = this;
         var childElements = this.props.item.map(function(ele,i){
            return (
-                <li key={new Date()+i} className="water-fall-list">
+                <li onClick={that.gotoSingle.bind(that,ele.src)} key={new Date().getTime()+i} className="water-fall-list">
                     <img src={ele.src} width={screenWidth}/>
                     <div>{ele.des?ele.des:'暂无描述'}</div>
                 </li>

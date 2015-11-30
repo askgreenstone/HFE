@@ -32,6 +32,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
         vm.getContent = function(){
           vm.createInfo.content = UE.getEditor('editor').getContent();
+          // console.log('nc:'+vm.createInfo.content);
         }
 
         vm.gotoLink = function(){
@@ -43,6 +44,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         };
 
         vm.submitArticleInfo = function(state){
+          vm.getContent();
           if(!vm.nid) {
             var datas = {
                   ntit:vm.createInfo.title,
@@ -64,7 +66,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                   nl:vm.createInfo.url
               }
           }
-          vm.getContent();
+          
+          console.dir(datas);
           $http({
               method: 'POST',
               url: 'http://t-dist.green-stone.cn/exp/SaveNewsContent.do',
@@ -93,7 +96,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                 params: {
                     debug:1,
                     utype:1,
-                    nId:nid
+                    nId:nid,
+                    uri:'e1107'
                 },
                 data: {
                     
