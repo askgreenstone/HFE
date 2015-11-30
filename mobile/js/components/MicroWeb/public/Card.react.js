@@ -7,6 +7,9 @@ var Card = React.createClass({
   hideDiv: function(){
     $('.qr_hidden').hide();
   },
+  componentDidMount: function(){
+    $('.qr_hidden').height(window.screen.height);
+  },
   render: function() {
     return (
     	<div>
