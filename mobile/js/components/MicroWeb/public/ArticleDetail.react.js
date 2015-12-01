@@ -1,20 +1,8 @@
 var React = require('react');
+var CommonMixin = require('../../Mixin');
 
 var ArticleDetail = React.createClass({
-	getUrlParams: function(p){
-    var url = location.href; 
-    var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-    var paraObj = {} ;
-    for (var i=0,j=0; j=paraString[i]; i++){ 
-      paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-    } 
-    var returnValue = paraObj[p.toLowerCase()]; 
-    if(typeof(returnValue)=="undefined"){ 
-      return ""; 
-    }else{ 
-      return  returnValue;
-    } 
-  },
+	mixins:[CommonMixin],
   componentDidMount: function(){
     
   },
@@ -27,9 +15,9 @@ var ArticleDetail = React.createClass({
       ownUri = 'e1107';
     }
     if(nid){
-    	newUrl = 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do?nId='+nid+'&uri='+ownUri+'&debug=1&utype=1';
+    	newUrl = 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&debug=1&utype=1';
     }else{
-    	newUrl = 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do?ntId='+ntid+'&uri='+ownUri+'&debug=1&utype=1';
+    	newUrl = 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri+'&debug=1&utype=1';
     }
 		$.ajax({
       type:'get',

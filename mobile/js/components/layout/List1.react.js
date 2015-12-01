@@ -1,6 +1,8 @@
 var React = require('react');
+var CommonMixin = require('../Mixin');
 
 var List1 = React.createClass({
+  mixins:[CommonMixin],
   getInitialState: function(){
     return {articles:[],curSrc:[]};
   },
@@ -8,9 +10,11 @@ var List1 = React.createClass({
     location.href = '#articleDetail?nid='+nid;
   },
   getServerInfo: function(){
+  var ownUri = this.getUrlParams('ownUri');
+  if(!ownUri) return;
   $.ajax({
       type:'get',
-      url: 'http://t-dist.green-stone.cn/exp/QueryNewsList.do?ntId=7&uri=e1107&debug=1&utype=1',
+      url: 'http://t-dist.green-stone.cn/exp/QueryNewsList.do?ntId=7&ownUri='+ownUri+'&debug=1&utype=1',
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);

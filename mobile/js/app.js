@@ -21,6 +21,7 @@ var ArticleList = require('./components/MicroWeb/public/ArticleList.react');
 var Adress = require('./components/MicroWeb/public/Adress.react');
 var ArticleDetail = require('./components/MicroWeb/public/ArticleDetail.react');
 var Card = require('./components/MicroWeb/public/Card.react');
+var Share = require('./components/MicroWeb/public/Share.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -36,6 +37,7 @@ ReactDOM.render((
     <Route path="/articleDetail" component={ArticleDetail}/>
     <Route path="/adress" component={Adress}/>
     <Route path="/card" component={Card}/>
+    <Route path="/share" component={Share}/>
   </Router>
 ), document.getElementById('myapp'))
 

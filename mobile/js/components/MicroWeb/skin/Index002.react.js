@@ -1,30 +1,20 @@
 var React = require('react');
+
 var ArticleDetail = require('../public/ArticleDetail.react');
 var Card = require('../public/Card.react');
+var CommonMixin = require('../../Mixin');
+var Single = require('../public/Single.react');
 
 require('../../../../css/theme/theme002.less');
 
 var Index002 = React.createClass({
+  mixins:[CommonMixin],
   gotoLink: function(path,ntid){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = 'e1107';
     }
     location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
-  },
-  getUrlParams: function(p){
-    var url = location.href; 
-    var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-    var paraObj = {} ;
-    for (var i=0,j=0; j=paraString[i]; i++){ 
-      paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-    } 
-    var returnValue = paraObj[p.toLowerCase()]; 
-    if(typeof(returnValue)=="undefined"){ 
-      return ""; 
-    }else{ 
-      return  returnValue;
-    } 
   },
   componentDidMount: function(){
     var screenHeight = window.screen.availHeight;
@@ -57,7 +47,7 @@ var Index002 = React.createClass({
             </li>
             <li onClick={this.gotoLink.bind(this,'photo')}>
               <img src="image/theme002/photo.png" width="38" height="38"/>
-              <div>团队风采</div>
+              <div>微相册</div>
             </li>
           </ul>
         </div>

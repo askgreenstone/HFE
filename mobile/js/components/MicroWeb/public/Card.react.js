@@ -1,11 +1,16 @@
 var React = require('react');
+var CommonMixin = require('../../Mixin');
 
 var Card = React.createClass({
+  mixins:[CommonMixin],
   qrCode: function(){
     $('.qr_hidden').show(500);
   },
   hideDiv: function(){
     $('.qr_hidden').hide();
+  },
+  gotoLink: function(path){
+    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
   },
   componentDidMount: function(){
     $('.qr_hidden').height(window.screen.height);
@@ -14,7 +19,7 @@ var Card = React.createClass({
     return (
     	<div>
         <div className="qr_hidden" onClick={this.hideDiv}>
-          <img src="image/qrcode.jpg" width="150" height="150"/>
+          <img src="image/qrcode.jpg" width="200" height="200"/>
         </div>
     		<div className="user_info">
     			<img className="ui_header" src="image/wj.png" width="65" height="65"/>
@@ -38,17 +43,17 @@ var Card = React.createClass({
     			</div>
     			<div className="uc_input">010-4009649288
             <a href="tel://010-4009649288">
-    				  <img src="image/theme002/telphone1.png" width="25" height="25"/>
+    				  <img src="image/theme002/fax.png" width="25" height="25"/>
             </a>
     			</div>
-    			<div className="uc_input">www.askgreenstone.com
-            <a href="#index002">
+    			<div className="uc_input">http://www.askgreenstone.com/
+            <a href="http://www.askgreenstone.com/">
     				  <img src="image/theme002/web.png" width="25" height="25"/>
             </a>
     			</div>
     			<div className="uc_input fixed">北京市朝阳区三元桥曙光西路<br/>
     				时间国际四号楼1201室，100026
-            <a href="#adress">
+            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
     				  <img src="image/theme002/adress.png" width="25" height="25"/>
             </a>
     			</div>
@@ -63,7 +68,9 @@ var Card = React.createClass({
 	    			<i>专业领域</i>
 	    			<p>资本市场、基金、投融资、并购、公司法务、境外直接投资</p>
 	    		</div>
-	    		<div className="user_create">创建我的微名片</div>
+	    		<div className="user_create">
+                    <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
+                </div>
 	    	</div>
     	</div>
     );
