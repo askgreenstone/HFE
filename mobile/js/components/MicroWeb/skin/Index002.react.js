@@ -4,8 +4,7 @@ var ArticleDetail = require('../public/ArticleDetail.react');
 var Card = require('../public/Card.react');
 var CommonMixin = require('../../Mixin');
 var Single = require('../public/Single.react');
-
-
+var Share = require('../../common/Share.react');
 
 require('../../../../css/theme/theme002.less');
 
@@ -53,6 +52,8 @@ var Index002 = React.createClass({
             </li>
           </ul>
         </div>
+        <Share title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
+        imgUrl={"http://transfer.green-stone.cn/greenStoneicon300.png"}/>
       </div>
     );
   },

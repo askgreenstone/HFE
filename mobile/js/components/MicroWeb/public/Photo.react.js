@@ -1,6 +1,7 @@
 var React = require('react');
 var Waterfall = require('../../common/Waterfall.react');
 var CommonMixin = require('../../Mixin');
+var Share = require('../../common/Share.react');
 
 var Photo = React.createClass({
   mixins:[CommonMixin],
@@ -31,7 +32,11 @@ var Photo = React.createClass({
   },
   render: function() {
     return (
-        <Waterfall item={this.state.photos} />
+        <div>
+          <Waterfall item={this.state.photos} />
+          <Share title={"王杰律师微相册"} desc={"王杰律师个人风采展示"} 
+          imgUrl={"http://transfer.green-stone.cn/greenStoneicon300.png"}/>
+        </div>
     );
   },
 });

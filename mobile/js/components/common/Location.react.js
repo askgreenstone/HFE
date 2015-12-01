@@ -10,6 +10,7 @@ var Location = React.createClass({
           ownUri = this.getUrlParams('ownUri');
       if(!ownUri) return;
       // alert(currentPath);
+      var that = this;
       $.ajax({
           type: 'get',
           url: 'http://t-dist.green-stone.cn/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
@@ -22,12 +23,12 @@ var Location = React.createClass({
                       timestamp: data.timestamp, // 必填，生成签名的时间戳
                       nonceStr: data.noncestr, // 必填，生成签名的随机串
                       signature: data.signature, // 必填，签名，见附录1
-                      jsApiList: ['openLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                      jsApiList: ['checkJsApi','openLocation','getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                   });
 
                   wx.ready(function() {
                       wx.checkJsApi({
-                          jsApiList: ['openLocation'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                          jsApiList: ['openLocation','getLocation'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
                           success: function(res) {
                             // alert(JSON.stringify(res));
                               // 以键值对的形式返回，可用的api值true，不可用为false
@@ -35,13 +36,12 @@ var Location = React.createClass({
                           }
                       });
                   });
-                  // alert('openLocation:'+y+'-----'+x+',address:'+this.props.currentpath);
                   wx.openLocation({
                     latitude: x, // 纬度，浮点数，范围为90 ~ -90
                     longitude: y, // 经度，浮点数，范围为180 ~ -180。
                     name: '办公地址', // 位置名
-                    address: '北京市朝阳区时间国际4号楼', // 地址详情说明
-                    scale: 1, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                    address: that.props.currentpath, // 地址详情说明
+                    scale: 13, // 地图缩放级别,整形值,范围从1~28。默认为最大
                     infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
                   });
                   wx.getLocation({
@@ -69,6 +69,7 @@ var Location = React.createClass({
       });
   },
   getLocationInfo: function(){
+    // alert('click');
     var that = this;
     $.ajax({
         type: 'post',
@@ -90,11 +91,16 @@ var Location = React.createClass({
     });
   },
   componentDidMount: function(){
+    $('body').css({'background':'url(image/map.jpg)','background-size':'cover'});
     this.getLocationInfo();
   },
   render: function() {
       return ( 
-        <div></div>
+        <div className="location_page">
+          <h3>北京市朝阳区三元桥曙光西路时间国际四号楼1201室</h3>
+          <span onClick={this.getLocationInfo}>查看详情</span>
+        </div>
+        
       );
   }
 });

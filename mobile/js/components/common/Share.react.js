@@ -8,6 +8,8 @@ var Location = React.createClass({
         var currentPath = window.location.href,
             uri = encodeURIComponent(currentPath.toString()),
             ownUri = this.getUrlParams('ownUri');
+
+        var that = this;
         // alert('uri:' + uri);
         $.ajax({
             type: 'get',
@@ -34,33 +36,33 @@ var Location = React.createClass({
                         });
                         //分享到朋友圈
                         wx.onMenuShareTimeline({
-                            title: this.props.title, // 分享标题
+                            title: that.props.title, // 分享标题
                             link: currentPath, // 分享链接
-                            imgUrl: this.props.imgUrl, // 分享图标
+                            imgUrl: that.props.imgUrl, // 分享图标
                             success: function () {
                                 // 用户确认分享后执行的回调函数
-                                alert('success');
+                                // alert('success');
                             },
                             cancel: function () {
                                 // 用户取消分享后执行的回调函数
-                                alert('取消分享！');
+                                // alert('取消分享！');
                             }
                         });
                         //分享给朋友
                         wx.onMenuShareAppMessage({
-                            title: this.props.title, // 分享标题
-                            desc: this.props.desc, // 分享描述
+                            title: that.props.title, // 分享标题
+                            desc: that.props.desc, // 分享描述
                             link: currentPath,// 分享链接
-                            imgUrl: this.props.imgUrl, // 分享图标
+                            imgUrl: that.props.imgUrl, // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                             success: function () {
                                 // 用户确认分享后执行的回调函数
-                                alert('success');
+                                // alert('success');
                             },
                             cancel: function () {
                                 // 用户取消分享后执行的回调函数
-                                alert('取消分享！');
+                                // alert('取消分享！');
                             }
                         });
                     });
@@ -80,7 +82,7 @@ var Location = React.createClass({
     },
     render: function() {
         return ( 
-          <div>分享</div>
+          <div onClick={this.wxSignature}></div>
         );
     },
 });
