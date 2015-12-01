@@ -7,7 +7,7 @@ var Card = React.createClass({
     $('.qr_hidden').show(500);
   },
   hideDiv: function(){
-    $('.qr_hidden').hide();
+    $('.qr_hidden').hide(500);
   },
   gotoLink: function(path){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
