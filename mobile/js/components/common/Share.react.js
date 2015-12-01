@@ -1,14 +1,17 @@
 var React = require('react');
 var wx = require('weixin-js-sdk');
+var CommonMixin = require('../Mixin');
 
 var Location = React.createClass({
+    mixins:[CommonMixin],
     wxSignature: function() {
         var currentPath = window.location.href,
-            uri = encodeURIComponent(currentPath.toString());
+            uri = encodeURIComponent(currentPath.toString()),
+            ownUri = this.getUrlParams('ownUri');
         // alert('uri:' + uri);
         $.ajax({
             type: 'get',
-            url: 'http://t-dist.green-stone.cn/usr/WeiXinJSapiSignature.do?apath=' + uri,
+            url: 'http://t-dist.green-stone.cn/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
             success: function(data) {
                 //alert('wxscan:' + JSON.stringify(data));
                 if (data.c == 1000) {
@@ -73,11 +76,11 @@ var Location = React.createClass({
         });
     },
     componentDidMount: function(){
-      // this.getLocationInfo();
+      this.wxSignature();
     },
     render: function() {
         return ( 
-          <div>即将开发，敬请期待！！</div>
+          <div>分享</div>
         );
     },
 });
