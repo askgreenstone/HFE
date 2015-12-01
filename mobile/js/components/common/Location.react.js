@@ -90,11 +90,11 @@ var Location = React.createClass({
     });
   },
   componentDidMount: function(){
-    // this.getLocationInfo();
+    this.getLocationInfo();
   },
   render: function() {
       return ( 
-        <button onClick={this.getLocationInfo}>地理定位</button>
+        <div></div>
       );
   }
 });
