@@ -41,7 +41,7 @@ define(['js/app/app'], function(app) {
                     debug:1,
                     utype:1,
                     ntId:vm.ntid,
-                    ownUri:'e1107'
+                    ownUri:'e442'
                 },
                 data: {
                     

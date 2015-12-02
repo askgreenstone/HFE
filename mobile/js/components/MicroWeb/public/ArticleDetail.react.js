@@ -9,7 +9,7 @@ var ArticleDetail = React.createClass({
 		    ntid = this.getUrlParams('ntid'),
 		    ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
-      ownUri = 'e1107';
+      ownUri = 'e442';
     }
     if(nid){
     	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&debug=1&utype=1';

@@ -13,7 +13,7 @@ var Index002 = React.createClass({
   gotoLink: function(path,ntid){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
-      ownUri = 'e1107';
+      ownUri = 'e442';
     }
     location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
   },
