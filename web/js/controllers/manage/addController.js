@@ -97,7 +97,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                     debug:1,
                     utype:1,
                     nId:nid,
-                    uri:'e1107'
+                    ownUri:'e1107'
                 },
                 data: {
                     

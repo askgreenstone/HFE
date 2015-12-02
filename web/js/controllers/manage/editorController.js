@@ -32,7 +32,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                 params: {
                     debug:1,
                     utype:1,
-                    ntId:vm.ntid
+                    ntId:vm.ntid,
+                    ownUri:'e1107'
                 },
                 data: {
                     
