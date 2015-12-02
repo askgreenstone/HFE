@@ -35,7 +35,7 @@ var Photo = React.createClass({
         <div>
           <Waterfall item={this.state.photos} />
           <Share title={"王杰律师微相册"} desc={"王杰律师个人风采展示"} 
-          imgUrl={"http://transfer.green-stone.cn/greenStoneicon300.png"}/>
+          imgUrl={"http://transfer.green-stone.cn/WXweb_wangjiepor.png"}/>
         </div>
     );
   },

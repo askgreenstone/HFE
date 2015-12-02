@@ -91,7 +91,7 @@ var Location = React.createClass({
     });
   },
   componentDidMount: function(){
-    $('body').css({'background':'url(image/map.jpg)','background-size':'cover'});
+    $('body').css({'background':'url(image/map.png)','background-size':'cover'});
     this.getLocationInfo();
   },
   render: function() {
