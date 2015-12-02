@@ -120,30 +120,34 @@ var Card = React.createClass({
     			<img onClick={this.qrCode} className="ui_qrcode" src="image/qrcode.jpg" width="55" height="55"/>
     		</div>
     		<div className="user_content">
-    			<div className="uc_input">13718128160
+    			<div className="uc_input">
     				<a href="tel://13718128160">
+              13718128160
               <img src="image/theme002/telphone1.png" width="25" height="25"/>
             </a>
     			</div>
-    			<div className="uc_input">jie.wang@dachenglaw.com
+    			<div className="uc_input">
             <a href="mailto:jie.wang@dachenglaw.com">
+              jie.wang@dachenglaw.com
     				  <img src="image/theme002/email.png" width="25" height="25"/>
             </a>
     			</div>
-    			<div className="uc_input">010-4009649288
+    			<div className="uc_input">
             <a href="tel://010-4009649288">
+              010-4009649288
     				  <img src="image/theme002/fax.png" width="25" height="25"/>
             </a>
     			</div>
-    			<div className="uc_input">http://www.askgreenstone.com/
-            <a href="http://www.askgreenstone.com/">
+    			<div className="uc_input">
+            <a href="http://www.dachengnet.com/">
+              http://www.dachengnet.com/
     				  <img src="image/theme002/web.png" width="25" height="25"/>
             </a>
     			</div>
-    			<div className="uc_input fixed">北京市朝阳区三元桥曙光西路<br/>
-    				时间国际四号楼1201室，100026
+    			<div className="uc_input fixed">
             <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-    				  <img src="image/theme002/adress.png" width="25" height="25"/>
+    				  北京市朝阳区三元桥曙光西路<br/>时间国际四号楼1201室，100026
+              <img src="image/theme002/adress.png" width="25" height="25"/>
             </a>
     			</div>
 	    		<div className="user_intro">

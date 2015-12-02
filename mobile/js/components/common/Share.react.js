@@ -5,6 +5,7 @@ var CommonMixin = require('../Mixin');
 var Location = React.createClass({
     mixins:[CommonMixin],
     wxSignature: function() {
+        // this.thirdRedirect();
         var currentPath = window.location.href,
             uri = encodeURIComponent(currentPath.toString()),
             ownUri = this.getUrlParams('ownUri');
@@ -76,6 +77,24 @@ var Location = React.createClass({
                 console.error(this.props.url, status, err.toString());
             }
         });
+    },
+    thirdRedirect: function(){
+        $.ajax({
+          type: 'get',
+          url: 'http://t-dist.green-stone.cn/usr/ThirdRedirect.do?reType=1',
+          success: function(data) {
+              alert('ThirdRedirect:' + JSON.stringify(data));
+              if (data.c == 1000) {
+
+              } else {
+                  alert('code:' + data.c + ',error:' + data.d);
+              }
+          },
+          error: function(xhr, status, err) {
+              alert('网络连接错误或服务器异常！');
+              console.error(this.props.url, status, err.toString());
+          }
+      });
     },
     componentDidMount: function(){
       this.wxSignature();
