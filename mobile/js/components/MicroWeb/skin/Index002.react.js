@@ -22,6 +22,7 @@ var Index002 = React.createClass({
     // var screenHeight = document.body.clientHeight;
     // alert('availHeight:'+screenHeight+',height1:'+window.screen.height);
     $('.leftBg,.verticalMenu').css('height',screenHeight);
+    $('body').css({'background':'#ebebeb'});
   },
   render: function() {
     return (

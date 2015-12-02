@@ -101,7 +101,7 @@ var Card = React.createClass({
     });
   },
   componentDidMount: function(){
-    $('.user_info').css({'background':'#ebebeb'});
+    $('body').css({'background':'#ebebeb'});
     $('.qr_hidden').height($('#myapp').height());
   },
   render: function() {

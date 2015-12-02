@@ -28,6 +28,7 @@ var Photo = React.createClass({
     });
   },
   componentDidMount: function(){
+    $('body').css({'background':'#ebebeb'});
     this.getPhotos();
   },
   render: function() {

@@ -49,6 +49,7 @@ var List1 = React.createClass({
     }
   },
   componentDidMount: function(){
+    $('body').css({'background':'#ebebeb'});
     this.getServerInfo();
   },
   render: function() {

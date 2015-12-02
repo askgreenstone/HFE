@@ -38,7 +38,7 @@ var ArticleDetail = React.createClass({
     });
 	},
 	componentDidMount: function(){
-      $('body').css('backgroundColor','#fff');
+      $('body').css({'background':'#fff'});
 	    this.getServerInfo();
 	},
   render: function() {
