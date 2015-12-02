@@ -13,7 +13,7 @@ var Photo = React.createClass({
     if(!ownUri) return;
     $.ajax({
       type:'get',
-      url: 'http://t-dist.green-stone.cn/exp/QueryWXPhotoList.do?ptId=10&ownUri='+ownUri,
+      url: global.url+'/exp/QueryWXPhotoList.do?ptId=10&ownUri='+ownUri,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);

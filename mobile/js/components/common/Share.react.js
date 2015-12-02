@@ -14,7 +14,7 @@ var Location = React.createClass({
         // alert('uri:' + uri);
         $.ajax({
             type: 'get',
-            url: 'http://t-dist.green-stone.cn/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
+            url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
             success: function(data) {
                 //alert('wxscan:' + JSON.stringify(data));
                 if (data.c == 1000) {
@@ -81,7 +81,7 @@ var Location = React.createClass({
     thirdRedirect: function(){
         $.ajax({
           type: 'get',
-          url: 'http://t-dist.green-stone.cn/usr/ThirdRedirect.do?reType=1',
+          url: global.url+'/usr/ThirdRedirect.do?reType=1',
           success: function(data) {
               alert('ThirdRedirect:' + JSON.stringify(data));
               if (data.c == 1000) {

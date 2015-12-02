@@ -14,7 +14,7 @@ var CommonMixin = {
       } else {
           return returnValue;
       }
-  },
+  }
 };
 
 module.exports = CommonMixin;

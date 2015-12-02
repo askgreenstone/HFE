@@ -13,7 +13,7 @@ var Location = React.createClass({
       var that = this;
       $.ajax({
           type: 'get',
-          url: 'http://t-dist.green-stone.cn/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
+          url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
           success: function(data) {
               // alert('ThirdJSapiSignature:' + JSON.stringify(data));
               if (data.c == 1000) {
@@ -58,7 +58,7 @@ var Location = React.createClass({
                       alert(res.errMsg);
                   });
 
-                   $('body').css({'background':'#fff'});
+                   // $('body').css({'background':'#fff'});
 
               } else {
                   alert('code:' + data.c + ',error:' + data.d);
@@ -76,7 +76,7 @@ var Location = React.createClass({
     var that = this;
     $.ajax({
         type: 'post',
-        url: 'http://t-dist.green-stone.cn/comm/QQMapLocation.do',
+        url: global.url+'/comm/QQMapLocation.do',
         data: JSON.stringify({
             'region': this.props.region,
             'address':this.props.target
@@ -95,7 +95,7 @@ var Location = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'url(image/map.png)','background-size':'cover'});
-    this.getLocationInfo();
+    // this.getLocationInfo();
   },
   render: function() {
       return ( 

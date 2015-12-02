@@ -2,6 +2,14 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 
+//后台调用接口兼容
+if(window.location.href.indexOf('localhost')>-1){
+	global.url = 'http://t-dist.green-stone.cn';
+}else{
+	global.url = '';
+}
+
+
 var Home = React.createClass({
   render: function() {
     return (

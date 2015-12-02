@@ -14,7 +14,7 @@ var List1 = React.createClass({
   if(!ownUri) return;
   $.ajax({
       type:'get',
-      url: 'http://t-dist.green-stone.cn/exp/QueryNewsList.do?ntId=7&ownUri='+ownUri+'&debug=1&utype=1',
+      url: global.url+'/exp/QueryNewsList.do?ntId=7&ownUri='+ownUri+'&debug=1&utype=1',
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);

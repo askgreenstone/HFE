@@ -12,9 +12,9 @@ var ArticleDetail = React.createClass({
       ownUri = 'e1107';
     }
     if(nid){
-    	newUrl = 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&debug=1&utype=1';
+    	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&debug=1&utype=1';
     }else{
-    	newUrl = 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri+'&debug=1&utype=1';
+    	newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri+'&debug=1&utype=1';
     }
 		$.ajax({
       type:'get',

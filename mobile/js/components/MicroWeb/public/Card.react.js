@@ -23,7 +23,7 @@ var Card = React.createClass({
       var that = this;
       $.ajax({
           type: 'get',
-          url: 'http://t-dist.green-stone.cn/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
+          url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
           success: function(data) {
               // alert('ThirdJSapiSignature:' + JSON.stringify(data));
               if (data.c == 1000) {
@@ -83,7 +83,7 @@ var Card = React.createClass({
     var that = this;
     $.ajax({
         type: 'post',
-        url: 'http://t-dist.green-stone.cn/comm/QQMapLocation.do',
+        url: global.url+'/comm/QQMapLocation.do',
         data: JSON.stringify({
             'region': '北京',
             'address':'北京市昌平区天通苑西三区'
