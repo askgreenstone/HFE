@@ -102,7 +102,7 @@ var Card = React.createClass({
   },
   componentDidMount: function(){
     $('.user_info').css({'background':'#ebebeb'});
-    $('.qr_hidden').height(window.screen.height);
+    $('.qr_hidden').height($('#myapp').height());
   },
   render: function() {
     return (

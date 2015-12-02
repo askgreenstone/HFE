@@ -3,9 +3,6 @@ var CommonMixin = require('../../Mixin');
 
 var ArticleDetail = React.createClass({
 	mixins:[CommonMixin],
-  componentDidMount: function(){
-    
-  },
 	getServerInfo: function(){
 		var newUrl = '',
 				nid = this.getUrlParams('nid'),
@@ -41,9 +38,9 @@ var ArticleDetail = React.createClass({
     });
 	},
 	componentDidMount: function(){
-    $('body').css('backgroundColor','#fff');
+      $('body').css('backgroundColor','#fff');
 	    this.getServerInfo();
-	  },
+	},
   render: function() {
     return (
     	<div>
@@ -53,7 +50,7 @@ var ArticleDetail = React.createClass({
     		<div className="ad_format"></div>
     	</div>
     );
-  },
+  }
 });
 
 module.exports = ArticleDetail;

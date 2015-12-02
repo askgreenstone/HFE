@@ -58,6 +58,8 @@ var Location = React.createClass({
                       alert(res.errMsg);
                   });
 
+                   $('body').css({'background':'#fff'});
+
               } else {
                   alert('code:' + data.c + ',error:' + data.d);
               }
@@ -69,6 +71,7 @@ var Location = React.createClass({
       });
   },
   getLocationInfo: function(){
+    // $('.location_page').hide();
     // alert('click');
     var that = this;
     $.ajax({
@@ -92,7 +95,7 @@ var Location = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'url(image/map.png)','background-size':'cover'});
-    this.getLocationInfo();
+    // this.getLocationInfo();
   },
   render: function() {
       return ( 

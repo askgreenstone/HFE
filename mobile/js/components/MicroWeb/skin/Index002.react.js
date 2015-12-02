@@ -18,14 +18,17 @@ var Index002 = React.createClass({
     location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
   },
   componentDidMount: function(){
-    var screenHeight = window.screen.availHeight;
-    // alert('availHeight:'+screenHeight+',height:'+window.screen.height);
+    var screenHeight = document.body.clientHeight;
+    // var screenHeight = document.body.clientHeight;
+    // alert('availHeight:'+screenHeight+',height1:'+window.screen.height);
     $('.leftBg,.verticalMenu').css('height',screenHeight);
   },
   render: function() {
     return (
       <div className="container">
-        <div className="leftBg"></div>
+        <div className="leftBg">
+          <img src="image/theme002/bg1.png" width="100%" height="100%"/>
+        </div>
         <div className="verticalMenu">
           <ul className="menu_list">
             <li>
