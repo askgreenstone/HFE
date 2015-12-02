@@ -3,7 +3,14 @@
 define(['js/services/routeResolver'], function() {
 
     var app = angular.module('webApp', ['ngRoute','routeResolverServices']);
-
+    
+    //后台调用接口兼容
+    if(window.location.href.indexOf('localhost')>-1){
+        app.constant('GlobalUrl', 'http://t-dist.green-stone.cn');
+    }else{
+        app.constant('GlobalUrl', '');
+    }
+    
     app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider',
         '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
 

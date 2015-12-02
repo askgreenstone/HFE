@@ -2,8 +2,8 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location', '$window', '$http'];
-    var ManageController = function($location, $window, $http) {
+    var injectParams = ['$location', '$window', '$http','GlobalUrl'];
+    var ManageController = function($location, $window, $http,GlobalUrl) {
 
         var vm = this;
         vm.str = 'manage!!!';
@@ -16,7 +16,7 @@ define(['js/app/app'], function(app) {
         vm.getServerCatalogue = function() {
             $http({
                 method: 'GET',
-                url: 'http://t-dist.green-stone.cn/exp/QueryNewsTypes.do',
+                url: GlobalUrl+'/exp/QueryNewsTypes.do',
                 params: {
                     debug:1,
                     utype:1

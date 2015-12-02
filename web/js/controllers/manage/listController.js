@@ -2,8 +2,8 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location','$http'];
-    var ListController = function($location,$http) {
+    var injectParams = ['$location','$http','GlobalUrl'];
+    var ListController = function($location,$http,GlobalUrl) {
 
         var vm = this;
         vm.title = '标题';
@@ -36,7 +36,7 @@ define(['js/app/app'], function(app) {
         vm.getArticleList = function(){
           $http({
                 method: 'GET',
-                url: 'http://t-dist.green-stone.cn/exp/QueryNewsList.do',
+                url: GlobalUrl+'/exp/QueryNewsList.do',
                 params: {
                     debug:1,
                     utype:1,
@@ -62,7 +62,7 @@ define(['js/app/app'], function(app) {
           if(confirm('确定要删除吗？')){
             $http({
                 method: 'POST',
-                url: 'http://t-dist.green-stone.cn/exp/DeleteNews.do',
+                url: GlobalUrl+'/exp/DeleteNews.do',
                 params: {
                     debug:1,
                     utype:1,
@@ -90,7 +90,7 @@ define(['js/app/app'], function(app) {
         vm.publishArticle = function(nid){
           $http({
                 method: 'POST',
-                url: 'http://t-dist.green-stone.cn/exp/UpdateNewsStatus.do',
+                url: GlobalUrl+'/exp/UpdateNewsStatus.do',
                 params: {
                     debug:1,
                     utype:1,

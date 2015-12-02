@@ -2,9 +2,8 @@
 
 define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
-    var injectParams = ['$location','$http','$window'];
-    var AddController = function($location,$http,$window) {
-
+    var injectParams = ['$location','$http','$window','GlobalUrl'];
+    var AddController = function($location,$http,$window,GlobalUrl) {
         var vm = this;
         vm.title = '标题';
         vm.titleFlag = '添加文章';
@@ -70,7 +69,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           console.dir(datas);
           $http({
               method: 'POST',
-              url: 'http://t-dist.green-stone.cn/exp/SaveNewsContent.do',
+              url: GlobalUrl+'/exp/SaveNewsContent.do',
               params: {
                   debug:1,
                   utype:1
@@ -92,7 +91,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           // alert(nid);
           $http({
                 method: 'GET',
-                url: 'http://t-dist.green-stone.cn/exp/QueryNewsContent.do',
+                url: GlobalUrl+'/exp/QueryNewsContent.do',
                 params: {
                     debug:1,
                     utype:1,
