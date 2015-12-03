@@ -7,20 +7,21 @@ var Location = React.createClass({
     wxSignature: function() {
         var that = this;
         var ownUri = this.getUrlParams('ownUri'),
-            currentPath = 'http://dist.green-stone.cn/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
-            uri = encodeURIComponent(currentPath.toString());
+            // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
+            wxPath = window.location.href,
+            uri = encodeURIComponent(wxPath.toString());
             
         // if(!ownUri) return;
-        alert('this.props.wxsharetype:'+this.props.wxsharetype+',ownUri:'+ownUri+',currentPath:'+currentPath);
+        // alert('currentPath:'+currentPath+',wxPath:'+wxPath);
         // alert('uri:' + uri);
         $.ajax({
             type: 'get',
             url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri+'&ownUri='+ownUri,
             success: function(data) {
-                //alert('wxscan:' + JSON.stringify(data));
+                // alert('wxscan:' + JSON.stringify(data));
                 if (data.c == 1000) {
                     wx.config({
-                        debug: ture, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: data.appId, // 必填，公众号的唯一标识
                         timestamp: data.timestamp, // 必填，生成签名的时间戳
                         nonceStr: data.noncestr, // 必填，生成签名的随机串
@@ -39,11 +40,12 @@ var Location = React.createClass({
                         //分享到朋友圈
                         wx.onMenuShareTimeline({
                             title: that.props.title, // 分享标题
-                            link: currentPath, // 分享链接
+                            link: 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype, // 分享链接
                             imgUrl: that.props.imgUrl, // 分享图标
                             success: function () {
                                 // 用户确认分享后执行的回调函数
                                 // alert('success');
+                                // alert(currentPath);
                             },
                             cancel: function () {
                                 // 用户取消分享后执行的回调函数
@@ -54,7 +56,7 @@ var Location = React.createClass({
                         wx.onMenuShareAppMessage({
                             title: that.props.title, // 分享标题
                             desc: that.props.desc, // 分享描述
-                            link: currentPath,// 分享链接
+                            link: 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,// 分享链接
                             imgUrl: that.props.imgUrl, // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空

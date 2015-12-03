@@ -57,21 +57,22 @@
 </head>
 
 <body>
-    <div class="spinner-bounce-circle">
+   <!--  <div class="spinner-bounce-circle">
         <div></div>
         <div></div>
-    </div>
+    </div> -->
     <script src="js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             //此处增加分享逻辑1－首页，2-名片，3－相册
             var wxShareType = getUrlParams('wxsharetype'),
-                ntid = getUrlParams('ntid');
-            if(wxShareType == '1'){
+                ownUri = getUrlParams('ownUri');
+            // alert(wxShareType);
+            if(wxShareType == 1){
               location.href = '/mobile/#/index002?ownUri='+ownUri;
-            }else if(wxShareType == '2'){
+            }else if(wxShareType == 2){
               location.href = '/mobile/#/card?ownUri='+ownUri;
-            }else if(wxShareType == '3'){
+            }else if(wxShareType == 3){
               location.href = '/mobile/#/photo?ownUri='+ownUri;
             }
         });
