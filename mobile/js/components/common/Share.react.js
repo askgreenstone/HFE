@@ -5,12 +5,13 @@ var CommonMixin = require('../Mixin');
 var Location = React.createClass({
     mixins:[CommonMixin],
     wxSignature: function() {
-        // this.thirdRedirect();
-        var currentPath = window.location.href,
-            uri = encodeURIComponent(currentPath.toString()),
-            ownUri = this.getUrlParams('ownUri');
-        // if(!ownUri) return;
         var that = this;
+        var ownUri = this.getUrlParams('ownUri'),
+            currentPath = global.url+'/test/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+that.props.wxsharetype,
+            uri = encodeURIComponent(currentPath.toString());
+            
+        // if(!ownUri) return;
+        
         // alert('uri:' + uri);
         $.ajax({
             type: 'get',
