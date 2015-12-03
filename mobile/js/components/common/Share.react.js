@@ -7,11 +7,11 @@ var Location = React.createClass({
     wxSignature: function() {
         var that = this;
         var ownUri = this.getUrlParams('ownUri'),
-            currentPath = global.url+'/test/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+that.props.wxsharetype,
+            currentPath = 'http://dist.green-stone.cn/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
             uri = encodeURIComponent(currentPath.toString());
             
         // if(!ownUri) return;
-        
+        alert('this.props.wxsharetype:'+this.props.wxsharetype+',ownUri:'+ownUri+',currentPath:'+currentPath);
         // alert('uri:' + uri);
         $.ajax({
             type: 'get',
@@ -20,7 +20,7 @@ var Location = React.createClass({
                 //alert('wxscan:' + JSON.stringify(data));
                 if (data.c == 1000) {
                     wx.config({
-                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        debug: ture, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: data.appId, // 必填，公众号的唯一标识
                         timestamp: data.timestamp, // 必填，生成签名的时间戳
                         nonceStr: data.noncestr, // 必填，生成签名的随机串
@@ -67,6 +67,10 @@ var Location = React.createClass({
                                 // alert('取消分享！');
                             }
                         });
+                        wx.error(function(res) {
+                           // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                            alert(res.errMsg);
+                         });
                     });
 
                 } else {
