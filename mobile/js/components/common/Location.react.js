@@ -5,11 +5,14 @@ var CommonMixin = require('../Mixin');
 var Location = React.createClass({
   mixins:[CommonMixin],
   wxSignature: function(x,y) {
-      var currentPath = window.location.href,
-          uri = encodeURIComponent(currentPath.toString()),
+    // alert('wxSignature');
+      var temp = window.location.href+'',
+          currentUrl = this.fixWxUrl(temp),
+          uri = encodeURIComponent(currentUrl),
           ownUri = this.getUrlParams('ownUri');
       if(!ownUri) return;
-      // alert(currentPath);
+      // alert(temp);
+      // alert(currentUrl);
       var that = this;
       $.ajax({
           type: 'get',
@@ -61,7 +64,7 @@ var Location = React.createClass({
                    // $('body').css({'background':'#fff'});
 
               } else {
-                  alert('code:' + data.c + ',error:' + data.d);
+                  alert('wx location code:' + data.c + ',error:' + data.d);
               }
           },
           error: function(xhr, status, err) {

@@ -139,8 +139,8 @@ var Card = React.createClass({
             </a>
     			</div>
     			<div className="uc_input">
-            <a href="http://www.dachengnet.com/">
-              http://www.dachengnet.com/
+            <a href="http://www.dentons.com/zh/">
+              http://www.dentons.com/zh/
     				  <img src="image/theme002/web.png" width="25" height="25"/>
             </a>
     			</div>

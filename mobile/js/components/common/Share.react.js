@@ -9,7 +9,7 @@ var Location = React.createClass({
         var currentPath = window.location.href,
             uri = encodeURIComponent(currentPath.toString()),
             ownUri = this.getUrlParams('ownUri');
-
+        // if(!ownUri) return;
         var that = this;
         // alert('uri:' + uri);
         $.ajax({
@@ -69,7 +69,7 @@ var Location = React.createClass({
                     });
 
                 } else {
-                    alert('code:' + data.c + ',error:' + data.d);
+                    alert('share code:' + data.c + ',error:' + data.d);
                 }
             },
             error: function(xhr, status, err) {
