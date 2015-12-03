@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <title>晓龙测试</title>
+    <style>
+    html {
+        font-size: 62.5%;
+    }
+    
+    @media screen and (max-width: 360px) {
+        html {
+            font-size: 62.5%;
+        }
+    }
+    
+    @media screen and (min-width: 361px) and (max-width: 376px) {
+        html {
+            font-size: 66.5%;
+        }
+    }
+    
+    @media screen and (min-width: 377px) {
+        html {
+            font-size: 75.5%;
+        }
+    }
+    
+    body {
+        margin: 0 auto;
+        padding: 0;
+        background-color: #f4efec;
+    }
+    
+    .bg1 {
+        margin: 50px auto 40px;
+        width: 300px;
+        height: 300px;
+    }
+    
+    .title1 {
+        color: #E30a20;
+        font-size: 1.8rem;
+        text-align: center;
+        margin: 10px 0 35px 0;
+    }
+    
+    .tel {
+        color: #838181;
+        font-size: 1.3rem;
+        line-height: 22px;
+        margin: 5px 0 -5px 18px;
+        width: 90%;
+    }
+    
+    .close {
+        background-color: #39d167;
+        color: #fff;
+        width: 92%;
+        border-radius: 5px;
+        text-align: center;
+        margin: 20px auto;
+        padding: 15px 0;
+        font-size: 1.56rem;
+        cursor: pointer;
+        /*-webkit-tap-highlight-color:transparent;*/
+    }
+    </style>
+</head>
+
+<body>
+    <div class="close" onclick="test()">点击跳转</div>
+    <script src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+        function test(){
+            /*window.location.href='https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=wx4b8402e6f018f81e&pre_auth_code=preauthcode@@@InSQMTnRUAMbezXOerjy5gWj_puJgK5CklIrZ6YFLDUeuQnLbTfsWnTmp8b03tZx&redirect_uri=http%3a%2f%2ft-mshare.green-stone.cn%2fcomm%2fThirdAuthNotify.do';*/
+            //$(".close").css("background","red")
+            $.ajax({
+                type:"get",
+                url:"http://dist.green-stone.cn/comm/ThirdAuthRedirect.do",
+                success:function(data){
+                    //console.log(data)
+                    if(data.c==1000){
+                         window.location.href=data.url
+                    }else{
+                        alert("服务器异常，请重试！")
+                    }
+                    
+                },
+                error:function(){
+                    alert("网络异常")
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
