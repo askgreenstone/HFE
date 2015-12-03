@@ -7,6 +7,7 @@ var Location = React.createClass({
     wxSignature: function() {
         var that = this;
         var ownUri = this.getUrlParams('ownUri'),
+            currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
             wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
@@ -40,7 +41,7 @@ var Location = React.createClass({
                         //分享到朋友圈
                         wx.onMenuShareTimeline({
                             title: that.props.title, // 分享标题
-                            link: 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype, // 分享链接
+                            link: currentPath, // 分享链接
                             imgUrl: that.props.imgUrl, // 分享图标
                             success: function () {
                                 // 用户确认分享后执行的回调函数
@@ -56,7 +57,7 @@ var Location = React.createClass({
                         wx.onMenuShareAppMessage({
                             title: that.props.title, // 分享标题
                             desc: that.props.desc, // 分享描述
-                            link: 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,// 分享链接
+                            link: currentPath,// 分享链接
                             imgUrl: that.props.imgUrl, // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
