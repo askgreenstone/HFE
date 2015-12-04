@@ -28,9 +28,6 @@
 			<div class="list_lenged">
 				<h3 class="red">团队风采 &gt; {{vm.title}}</h3>
 				<span>
-					<a href="#manage">
-						<img src="image/docs/add.png" width="20" height="20"/> 上传
-					</a>
 					<a  ng-click="vm.gotoLink('photo','团队风采')">
 						<img src="image/return.png" width="20" height="20"/> 返回
 					</a>
@@ -40,19 +37,16 @@
 				<div class="sb_view">
 					<i></i>
 					<span class="left"></span>
-					<img src="image/manage/p1.png" width="100%" height="100%"/>
+					<img ng-src={{'http://t-transfer.green-stone.cn/'+vm.pth}} width="" height="450"/>
 					<span class="right"></span>
 				</div>
 				<p>照片描述，还要可编辑！<span></span></p>
 				<div class="sb_list">
 					<span class="left"></span>
 					<ul class="sbl_list">
-						<li><img src="image/manage/p1.png" width="100%" height="80" /></li>
-						<li><img src="image/manage/p1.png" width="100%" height="80" /></li>
-						<li><img src="image/manage/p1.png" width="100%" height="80" /></li>
-						<li><img src="image/manage/p1.png" width="100%" height="80" /></li>
-						<li><img src="image/manage/p1.png" width="100%" height="80" /></li>
-						<li><img src="image/manage/p1.png" width="100%" height="80" /></li>
+						<li ng-class="x.pn == vm.pth ? 'active':''" ng-repeat="x in vm.photos">
+							<img ng-src={{'http://t-transfer.green-stone.cn/'+x.pn}} width="100%" height="80" />
+						</li>
 						<div class="clean"></div>
 					</ul>
 					<span class="right"></span>

@@ -15,7 +15,13 @@ var Index002 = React.createClass({
     if(!ownUri){
       ownUri = 'e442';
     }
-    location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
+    
+    if(ntid){
+      location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
+    }else{
+      location.href = '#'+path+'?ownUri='+ownUri;
+    }
+    
   },
   componentDidMount: function(){
     var screenHeight = document.body.clientHeight;
@@ -38,7 +44,7 @@ var Index002 = React.createClass({
                 <div>电话咨询</div>
               </a>
             </li>
-            <li onClick={this.gotoLink.bind(this,'articleDetail','4')}>
+            <li onClick={this.gotoLink.bind(this,'articleDetail',4)}>
               <img src="image/theme002/team.png" width="45" height="30"/>
               <div>律师介绍</div>
             </li>

@@ -450,6 +450,15 @@ footer {
   text-align: center;
   margin: 5px 0;
 }
+.file_input{
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 48px;
+  cursor: pointer;
+  opacity: 0;
+  width: 80px;
+}
 
 /*single.html*/
 .single_box{
@@ -458,6 +467,9 @@ footer {
 .sb_view{
   height: 450px;
   position: relative;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
 .sb_view img{
   border-radius: 5px;
@@ -532,13 +544,97 @@ footer {
 }
 .sbl_list{
   margin: 0% 5%;
+  height: 95px;
+  overflow: hidden;
 }
 .sbl_list li{
   float: left;
   margin: 0.8%;
   width: 15%;
   cursor: pointer;
+  border: 2px solid #E2DEDE;
 }
+.sbl_list .active{
+  border: 2px solid #3BBFFC;
+}
+
+/*data.html*/
+.data_describe{
+  color: rgba(0,0,0,0.5);
+  font-size: 14px;
+  margin: 10px 15px 0px;
+}
+.data_tab{
+  margin: 10px 15px;
+}
+.data_tab li{
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #cfcdce;
+  padding: 0 30px;
+  float: left;
+  margin-right: 25px;
+  cursor: pointer;
+}
+.data_tab .active{
+  color: #fff;
+  background-color: #3bbffc;
+  border:1px solid #3bbffc;
+}
+.data_tab li:hover{
+  color: #fff;
+  background-color: #3bbffc;
+  border:1px solid #3bbffc;
+}
+.data_circle{
+  height: 140px;
+}
+.data_circle li{
+  float: left;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  margin: 15px;
+}
+.data_circle span{
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.data_circle i{
+  font-style: normal;
+}
+.circle_red{
+  border:2px solid #ff858a;
+}
+.circle_yellow{
+  border:2px solid #f9cc8d;
+}
+.circle_pruple{
+  border:2px solid #c391be;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

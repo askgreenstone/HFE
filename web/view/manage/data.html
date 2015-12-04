@@ -29,32 +29,46 @@
 			</div>
 			<div class="mcr_lenged">
 				<h3 class="red">统计期间</h3>
-				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('editor',x.tn,x.ntId)" ng-repeat="x in vm.introduce|filter:vm.keyword">
-						<img ng-src={{'http://t-transfer.green-stone.cn/'+x.lg}} width="18" height="18"/>
-						<span>{{x.tn}}</span>
-						<i>编辑</i>
-					</li>
+				<div class="data_describe">数据统计时间：当前时间</div>
+				<ul class="data_tab">
+					<li class="active">全部</li>
+					<li>今日</li>
+					<li>本周</li>
+					<li>本月</li>
+					<div class="clean"></div>
 				</ul>
 			</div>
 			<div class="mcr_lenged">
-				<h3 class="orange">网站内容库</h3>
-				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('list',x.tn,x.ntId)" ng-repeat="x in vm.content|filter:vm.keyword">
-						<img ng-src={{'http://t-transfer.green-stone.cn/'+x.lg}} width="18" height="18"/>
-						<span>{{x.tn}}</span>
-						<i>进入</i>
+				<h3 class="orange">微信公众号：绿石开门法律顾问</h3>
+				<div class="data_describe">提示：不受统计期间范围影响</div>
+				<ul class="data_circle">
+					<li>
+						<span class="circle_red">120</span>
+						<i>累计关注</i>
 					</li>
+					<li>
+						<span class="circle_yellow">1098</span>
+						<i>新增关注</i>
+					</li>
+					<div class="clean"></div>
 				</ul>
 			</div>
 			<div class="mcr_lenged">
-				<h3 class="green">微相册</h3>
-				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('photo',x.tn,x.ntId)" ng-repeat="x in vm.photos|filter:vm.keyword">
-						<img ng-src={{'http://t-transfer.green-stone.cn/'+x.lg}} width="18" height="18"/>
-						<span>{{x.tn}}</span>
-						<i>进入</i>
+				<h3 class="green">微网站：王杰律师微网站</h3>
+				<ul class="data_circle">
+					<li>
+						<span class="circle_red">398</span>
+						<i>网站访问量</i>
 					</li>
+					<li>
+						<span class="circle_yellow">2670</span>
+						<i>线上咨询量</i>
+					</li>
+					<li>
+						<span class="circle_pruple">190</span>
+						<i>电话呼入量</i>
+					</li>
+					<div class="clean"></div>
 				</ul>
 			</div>
 		</div>

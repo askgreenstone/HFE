@@ -2,8 +2,8 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location'];
-    var SingleController = function($location) {
+    var injectParams = ['$location','$http','GlobalUrl'];
+    var SingleController = function($location,$http,GlobalUrl) {
 
         var vm = this;
         vm.title = '标题';
@@ -27,8 +27,39 @@ define(['js/app/app'], function(app) {
           location.href = '#/'+path+'?title='+encodeURI(title);
         };
 
+        vm.getServerPhotos = function() {
+            var ownUri = vm.getUrlParam('ownUri');
+            ownUri = 'e1107';
+            if(!ownUri) return;
+
+            $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/QueryWXPhotoList.do?ptId=10&ownUri='+ownUri,
+                params: {
+                    debug:1,
+                    utype:1
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.photos = data.pl;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        }
+
         function init(){
+          vm.getServerPhotos();
           vm.title = decodeURI(vm.getUrlParam('title'));
+          vm.pid = decodeURI(vm.getUrlParam('pid'));
+          vm.pth = decodeURI(vm.getUrlParam('pth'));
         }
 
         init();
