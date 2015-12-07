@@ -2,11 +2,12 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl'];
-    var PhotoController = function($location,$http,GlobalUrl) {
+    var injectParams = ['$location','$http','GlobalUrl','$window'];
+    var PhotoController = function($location,$http,GlobalUrl,$window) {
 
         var vm = this;
         vm.title = '标题';
+        vm.sess = '';
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -24,20 +25,17 @@ define(['js/app/app'], function(app) {
         };
 
         vm.gotoLink = function(path,title,pid,pth){
-          location.href = '#/'+path+'?title='+encodeURI(title)+'&pid='+pid+'&pth='+pth;
+          location.href = '#/'+path+'?session='+vm.sess+'&title='+encodeURI(title)+'&pid='+pid+'&pth='+pth;
         };
 
         vm.getServerPhotos = function() {
-            var ownUri = vm.getUrlParam('ownUri');
-            ownUri = 'e1107';
-            if(!ownUri) return;
+            if(!vm.sess) return;
 
             $http({
                 method: 'GET',
-                url: GlobalUrl+'/exp/QueryWXPhotoList.do?ptId=10&ownUri='+ownUri,
+                url: GlobalUrl+'/exp/QueryWXPhotoList.do?ptId=10',
                 params: {
-                    debug:1,
-                    utype:1
+                    session:vm.sess
                 },
                 data: {
                     
@@ -55,11 +53,16 @@ define(['js/app/app'], function(app) {
             });
         }
 
+        vm.goBack = function(){
+          $window.history.back();
+        };
+
         vm.test = function(){
           alert(vm.uploadPath);
         }
 
         function init(){
+          vm.sess = vm.getUrlParam('session');
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.getServerPhotos();
         }

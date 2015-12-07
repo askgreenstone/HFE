@@ -2,11 +2,12 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl'];
-    var ListController = function($location,$http,GlobalUrl) {
+    var injectParams = ['$location','$http','GlobalUrl','$window'];
+    var ListController = function($location,$http,GlobalUrl,$window) {
 
         var vm = this;
         vm.title = '标题';
+        vm.sess = '';
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -23,14 +24,14 @@ define(['js/app/app'], function(app) {
           } 
         };
 
-        vm.gotoLink = function(){
-          window.location.href = '#/add';
-        };
-
         vm.gotoLink = function(path) {
           var title = vm.getUrlParam('title'),
               ntid = vm.getUrlParam('ntId');
-          location.href = '#/' + path + '?title=' + title +'&ntId='+ntid;
+          location.href = '#/' + path + '?session='+vm.sess+'&title=' + title +'&ntId='+ntid;
+        };
+
+        vm.goBack = function(){
+          $window.history.back();
         };
 
         vm.getArticleList = function(){
@@ -38,10 +39,8 @@ define(['js/app/app'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsList.do',
                 params: {
-                    debug:1,
-                    utype:1,
                     ntId:vm.ntid,
-                    ownUri:'e442'
+                    session:vm.sess
                 },
                 data: {
                     
@@ -64,8 +63,7 @@ define(['js/app/app'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/DeleteNews.do',
                 params: {
-                    debug:1,
-                    utype:1,
+                    session:vm.sess
                 },
                 data: {
                     nId:nid
@@ -84,7 +82,7 @@ define(['js/app/app'], function(app) {
         }
 
         vm.updateArticle = function(nid){
-          location.href = '#/add?title='+vm.getUrlParam('title')+'&nid='+nid;
+          location.href = '#/add?session='+vm.sess+'&title='+vm.getUrlParam('title')+'&nid='+nid;
         }
 
         vm.publishArticle = function(nid){
@@ -92,8 +90,7 @@ define(['js/app/app'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateNewsStatus.do',
                 params: {
-                    debug:1,
-                    utype:1,
+                    session:vm.sess
                 },
                 data: {
                     nId:nid
@@ -113,6 +110,7 @@ define(['js/app/app'], function(app) {
         function init(){
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.ntid = vm.getUrlParam('ntId');
+          vm.sess = vm.getUrlParam('session');
           vm.getArticleList();
         }
 

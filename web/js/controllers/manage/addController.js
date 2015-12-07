@@ -6,6 +6,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
     var AddController = function($location,$http,$window,GlobalUrl) {
         var vm = this;
         vm.title = '标题';
+        vm.sess = '';
         vm.titleFlag = '添加文章';
         vm.createInfo = {
           title:'',
@@ -35,7 +36,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         vm.gotoLink = function(){
-          location.href = '#/manage';
+          location.href = '#/manage?session'+vm.sess;
         };
 
         vm.goBack = function(){
@@ -71,8 +72,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
               method: 'POST',
               url: GlobalUrl+'/exp/SaveNewsContent.do',
               params: {
-                  debug:1,
-                  utype:1
+                  session:vm.sess
               },
               data: datas
           }).
@@ -93,10 +93,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsContent.do',
                 params: {
-                    debug:1,
-                    utype:1,
                     nId:nid,
-                    ownUri:'e442'
+                    session:vm.sess
                 },
                 data: {
                     
@@ -123,6 +121,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         function init(){
+          vm.sess = vm.getUrlParam('session');
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.ntid = decodeURI(vm.getUrlParam('ntId'));
           vm.nid = vm.getUrlParam('nid');

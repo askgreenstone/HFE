@@ -16,10 +16,10 @@
 	    			<img src="image/logo_title.png" width="80" height="18"/>
 	    		</div>
 	    		<ul class="menu">
-	    			<li class="active"><a name="chat" href="#chat">咨询会话</a></li>
-	    			<li><a name="docs" href="#docs">个人文档</a></li>
-	    			<li><a name="circle" href="#circle">绿 石 圈</a></li>
-	    			<li><a name="manage" href="#manage">微网站管理</a></li>
+	    			<li class="active"><a name="chat" href="javascript:void(0);" onclick="gotoWebsite('','chat')">咨询会话</a></li>
+	    			<li><a name="docs" href="javascript:void(0);" onclick="gotoWebsite('','file')">个人文档</a></li>
+	    			<li><a name="circle" href="javascript:void(0);" onclick="gotoWebsite('','circle')">绿 石 圈</a></li>
+	    			<li><a name="manage" href="javascript:void(0);" onclick="gotoWebsite('true','manage')">微网站管理</a></li>
 	    		</ul>
 	    		<div class="logout">注销登录</div>
 	    	</div>
@@ -70,5 +70,53 @@
 				$('#dynamicImg').attr({src: 'image/logo.png'});
 			});
 		});
+
+		function gotoWebsite(news,which){
+			var sess = getSession();
+			if(!sess) return;
+			setCookie ('session', sess, 24);
+			if(news){
+				window.location.href = '#'+which+'?session='+sess;
+			}else{
+				window.location.href = 'http://t-web.green-stone.cn/htm/index.html#!/'+which;
+			}
+		}
+
+		function getCookie (name)
+    {
+        var cookieValue = "";
+        var search = name + "=";
+        if (document.cookie.length > 0)
+        {
+            offset = document.cookie.indexOf (search);
+            if (offset != -1)
+            {
+                offset += search.length;
+                end = document.cookie.indexOf (";", offset);
+                if (end == -1)
+                    end = document.cookie.length;
+                cookieValue = unescape (document.cookie.substring (offset, end))
+            }
+        }
+        return cookieValue;
+    }
+
+    function setCookie (name, value, hours)
+    {
+        var expire = "";
+        if (hours != null)
+        {
+            expire = new Date ((new Date ()).getTime () + hours * 3600000);
+            expire = "; expires=" + expire.toGMTString ();
+        }
+        document.cookie = name + "=" + escape (value) + expire;
+    }
+
+		function getSession(){
+			var sess = localStorage.getItem('globalSession');
+			if(sess){
+				return sess;
+			}
+		}
 	</script>
 </html>

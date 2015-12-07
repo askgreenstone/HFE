@@ -9,6 +9,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.title = '标题';
         vm.isEdit = false;
         vm.nId = '';
+        
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -30,10 +31,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsContent.do',
                 params: {
-                    debug:1,
-                    utype:1,
                     ntId:vm.ntid,
-                    ownUri:'e442'
+                    session:vm.sess
                 },
                 data: {
                     
@@ -80,8 +79,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/SaveNewsContent.do',
                 params: {
-                    debug:1,
-                    utype:1
+                    session:vm.sess
                 },
                 data: datas
             }).
@@ -99,9 +97,9 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
         vm.gotoLink = function(path, title) {
             if(title){
-              $window.location.href = '#/' + path + '?title=' + encodeURI(title);
+              $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title);
             }else{
-              $window.location.href = '#/' + path;
+              $window.location.href = '#/' + path+'?session='+vm.sess;
             }
         };
 
@@ -112,6 +110,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         function init(){
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.ntid = decodeURI(vm.getUrlParam('ntid'));
+          vm.sess = vm.getUrlParam('session');
 
           var editor = new UE.ui.Editor();
           editor.render('editor');

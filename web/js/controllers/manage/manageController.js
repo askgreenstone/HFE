@@ -7,23 +7,35 @@ define(['js/app/app'], function(app) {
 
         var vm = this;
         vm.str = 'manage!!!';
+        vm.sess = '';
+
+        vm.getUrlParam = function(p) {
+          var url = location.href; 
+          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
+          var paraObj = {} ;
+          for (var i=0,j=0; j=paraString[i]; i++){ 
+            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
+          } 
+          var returnValue = paraObj[p.toLowerCase()]; 
+          if(typeof(returnValue)=="undefined"){ 
+            return ""; 
+          }else{ 
+            return  returnValue;
+          } 
+        };
 
         vm.gotoLink = function(path, title,ntid) {
-            $window.location.href = '#/' + path + '?title=' + encodeURI(title)+'&ntId='+ntid;
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ntId='+ntid;
             UE.getEditor('editor').destroy();
         };
 
         vm.getServerCatalogue = function() {
+            if(!vm.sess) return;
             $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsTypes.do',
-                params: {
-                    debug:1,
-                    utype:1
-                },
-                data: {
-                    
-                }
+                params: {session:vm.sess},
+                data: {}
             }).
             success(function(data, status, headers, config) {
                 console.log(data);
@@ -38,8 +50,19 @@ define(['js/app/app'], function(app) {
             });
         }
 
+        vm.storeCurrentSession = function(sess){
+          var isSession = localStorage.getItem('globalSession');
+          if(isSession){
+            localStorage.removeItem('globalSession');
+          }
+
+          localStorage.setItem('globalSession',sess);
+        }
+
         function init(){
+          vm.sess = vm.getUrlParam('session');
           vm.getServerCatalogue();
+          vm.storeCurrentSession(vm.sess);
         }
 
         init();
