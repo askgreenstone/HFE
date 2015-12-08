@@ -2,11 +2,13 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl'];
-    var SingleController = function($location,$http,GlobalUrl) {
+    var injectParams = ['$location','$http','GlobalUrl','$window'];
+    var SingleController = function($location,$http,GlobalUrl,$window) {
 
         var vm = this;
         vm.title = '标题';
+        vm.pohtoDesc ='';
+        vm.updateFlag = false;
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -27,17 +29,77 @@ define(['js/app/app'], function(app) {
           location.href = '#/'+path+'?title='+encodeURI(title);
         };
 
-        vm.getServerPhotos = function() {
-            var ownUri = vm.getUrlParam('ownUri');
-            ownUri = 'e1107';
-            if(!ownUri) return;
+        vm.goBack = function(){
+          $window.history.back();
+        };
+
+        vm.deleteOne = function(){
+          console.log(vm.pid);
+          if(confirm('确认删除该图片吗？')){
+            $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/DeleteWXPhoto.do',
+                params: {
+                    pId:vm.pid,
+                    session:vm.sess
+                },
+                data: {
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log('success:'+data);
+                if(data.c == 1000){
+                  vm.getServerPhotos('delete');
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+          }
+        }
+
+        vm.submitDesc = function(){
+          console.log(vm.pohtoDesc);
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/SaveWXPhoto.do',
+                params: {
+                  pId:vm.pid,
+                  session:vm.sess,
+                  ntId:vm.ntid 
+                },
+                data: {
+                  pd:vm.pohtoDesc
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.dir('success:'+JSON.stringify(data));
+                if(data.c == 1000){
+                  vm.title = data.pd;
+                  vm.updateFlag = false;
+                  console.log(vm.updateFlag);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        }
+
+        vm.updateDescribe = function(){
+          vm.updateFlag = true;
+        }
+
+        vm.getServerPhotos = function(flag) {
+            if(!vm.sess) return;
 
             $http({
                 method: 'GET',
-                url: GlobalUrl+'/exp/QueryWXPhotoList.do?ptId=10&ownUri='+ownUri,
+                url: GlobalUrl+'/exp/QueryWXPhotoList.do',
                 params: {
-                    debug:1,
-                    utype:1
+                    ntId:vm.ntid,
+                    session:vm.sess
                 },
                 data: {
                     
@@ -47,6 +109,11 @@ define(['js/app/app'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.photos = data.pl;
+                  if(flag == 'delete'){
+                    vm.pid = data.pl[0].pId;
+                    vm.pth = data.pl[0].pn;
+                    console.log('删除成功！');
+                  }
                 }
             }).
             error(function(data, status, headers, config) {
@@ -56,10 +123,12 @@ define(['js/app/app'], function(app) {
         }
 
         function init(){
-          vm.getServerPhotos();
+          vm.sess = vm.getUrlParam('session');
+          vm.ntid = vm.getUrlParam('ntid');
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.pid = decodeURI(vm.getUrlParam('pid'));
           vm.pth = decodeURI(vm.getUrlParam('pth'));
+          vm.getServerPhotos();
         }
 
         init();

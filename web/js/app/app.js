@@ -42,6 +42,7 @@ define(['js/services/routeResolver'], function() {
                 .when('/photo', route.resolve('Photo', 'manage/','vm'))
                 .when('/single', route.resolve('Single', 'manage/','vm'))
                 .when('/data', route.resolve('Data', 'manage/','vm'))
+                .when('/preview', route.resolve('Preview', 'manage/','vm'))
                 .otherwise({
                     redirectTo: '/chat'
                 });

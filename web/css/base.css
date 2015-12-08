@@ -450,15 +450,6 @@ footer {
   text-align: center;
   margin: 5px 0;
 }
-.file_input{
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 48px;
-  cursor: pointer;
-  opacity: 0;
-  width: 80px;
-}
 
 /*single.html*/
 .single_box{
@@ -617,8 +608,64 @@ footer {
 .circle_pruple{
   border:2px solid #c391be;
 }
-
-
+/*preview.html*/
+.upload_style{
+  min-height: 350px;
+  margin: -20px 0px 20px 20px;
+  width: 100%;
+}
+.upload_left{
+  width: 65%;
+  height: 400px;
+  float: left;
+}
+.upload_left span{
+  display: inline-block;
+  margin-bottom: 15px;
+  color: rgba(0,0,0,0.5);
+}
+.upload_right{
+  border-left: 1px solid #e5e5e5;
+  width: 30%;
+  min-height: 350px;
+  float: right;
+  text-align: center;
+}
+.upload_right span{
+  display: inline-block;
+  margin-bottom: 15px;
+  color: rgba(0,0,0,0.5);
+}
+.upload_right i{
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  background-color: #3bbffc;
+  font-style: normal;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.upload_right p{
+  border: 1px dashed #e1e1e1;
+  margin: 0 auto 20px;
+  height: 140px;
+  overflow: hidden;
+}
+.choose_btn input{
+  position: absolute;
+  top: 10px;
+  visibility: hidden;
+}
+#choose_file{
+  display: inline;
+  position: absolute;
+  left: 0;
+  width: 125px;
+  opacity: 0;
+}
 
 
 

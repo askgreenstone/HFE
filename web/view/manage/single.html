@@ -28,19 +28,22 @@
 			<div class="list_lenged">
 				<h3 class="red">团队风采 &gt; {{vm.title}}</h3>
 				<span>
-					<a  ng-click="vm.gotoLink('photo','团队风采')">
+					<a  ng-click="vm.goBack()">
 						<img src="image/return.png" width="20" height="20"/> 返回
 					</a>
 				</span>
 			</div>
 			<div class="single_box">
 				<div class="sb_view">
-					<i></i>
+					<i ng-click="vm.deleteOne(vm.pid)"></i>
 					<span class="left"></span>
 					<img ng-src={{'http://t-transfer.green-stone.cn/'+vm.pth}} width="" height="450"/>
 					<span class="right"></span>
 				</div>
-				<p>照片描述，还要可编辑！<span></span></p>
+				<p>{{vm.title}}
+					<input type="text" ng-blur="vm.submitDesc()" ng-if="vm.updateFlag" ng-model="vm.pohtoDesc"/>
+					<span ng-click="vm.updateDescribe()"></span>
+				</p>
 				<div class="sb_list">
 					<span class="left"></span>
 					<ul class="sbl_list">

@@ -8,6 +8,7 @@ define(['js/app/app'], function(app) {
         var vm = this;
         vm.title = '标题';
         vm.sess = '';
+        vm.ntid = 0;
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -25,7 +26,14 @@ define(['js/app/app'], function(app) {
         };
 
         vm.gotoLink = function(path,title,pid,pth){
-          location.href = '#/'+path+'?session='+vm.sess+'&title='+encodeURI(title)+'&pid='+pid+'&pth='+pth;
+          if(!title){
+            title = '查看照片';
+          }
+          location.href = '#/'+path+'?session='+vm.sess+'&title='+encodeURI(title)+'&pid='+pid+'&pth='+pth+'&ntid='+vm.ntid;
+        };
+
+        vm.gotoUpload = function(path){
+          location.href = '#/'+path+'?session='+vm.sess+'&ntId='+vm.ntid;
         };
 
         vm.getServerPhotos = function() {
@@ -33,7 +41,7 @@ define(['js/app/app'], function(app) {
 
             $http({
                 method: 'GET',
-                url: GlobalUrl+'/exp/QueryWXPhotoList.do?ptId=10',
+                url: GlobalUrl+'/exp/QueryWXPhotoList.do?ntId='+vm.ntid,
                 params: {
                     session:vm.sess
                 },
@@ -57,12 +65,9 @@ define(['js/app/app'], function(app) {
           $window.history.back();
         };
 
-        vm.test = function(){
-          alert(vm.uploadPath);
-        }
-
         function init(){
           vm.sess = vm.getUrlParam('session');
+          vm.ntid = vm.getUrlParam('ntId');
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.getServerPhotos();
         }
