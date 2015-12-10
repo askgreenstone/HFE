@@ -7,12 +7,12 @@ var Location = React.createClass({
     wxSignature: function() {
         var that = this;
         var ownUri = this.getUrlParams('ownUri'),
-            currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
+            currentPath = 'http://t-dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
             wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
             
-        // if(!ownUri) return;
+        if(!ownUri) return;
         // alert('currentPath:'+currentPath+',wxPath:'+wxPath);
         // alert('uri:' + uri);
         $.ajax({
@@ -73,6 +73,7 @@ var Location = React.createClass({
                         wx.error(function(res) {
                            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
                             // alert(res.errMsg);
+                            that.sendWxMsg(data.appId,res);
                             window.location.reload();
                          });
                     });
@@ -86,24 +87,6 @@ var Location = React.createClass({
                 console.error(this.props.url, status, err.toString());
             }
         });
-    },
-    thirdRedirect: function(){
-        $.ajax({
-          type: 'get',
-          url: global.url+'/usr/ThirdRedirect.do?reType=1',
-          success: function(data) {
-              alert('ThirdRedirect:' + JSON.stringify(data));
-              if (data.c == 1000) {
-
-              } else {
-                  alert('code:' + data.c + ',error:' + data.d);
-              }
-          },
-          error: function(xhr, status, err) {
-              alert('网络连接错误或服务器异常！');
-              console.error(this.props.url, status, err.toString());
-          }
-      });
     },
     componentDidMount: function(){
       this.wxSignature();

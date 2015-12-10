@@ -9,12 +9,12 @@ var ArticleDetail = React.createClass({
 		    ntid = this.getUrlParams('ntid'),
 		    ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
-      ownUri = 'e442';
+      ownUri = this.checkDevOrPro();
     }
     if(nid){
-    	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&debug=1&utype=1';
+    	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri;
     }else{
-    	newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri+'&debug=1&utype=1';
+    	newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
     }
 		$.ajax({
       type:'get',

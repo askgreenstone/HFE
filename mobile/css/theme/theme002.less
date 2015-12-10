@@ -14,26 +14,26 @@
 .container {
     font-size: @l-size;
     overflow: hidden;
+    display: -webkit-box;
+    display: box;
 }
 
 .leftBg {
-    // background: url('../../image/theme002/bg1.png') no-repeat 0 0 transparent;
-    // background-size: cover;
     width: 75%;
-    // height: 568px;
-    float: left;
 }
 
 .verticalMenu {
-    background: url('../../image/theme002/bg2.png') no-repeat 0 0 transparent;
+    background: url('../../image/theme002/bg2.png') repeat 0 0 transparent;
     width: 25%;
-    // height: 568px;
     background-size: cover;
-    float: left;
 }
 
 .menu_list {
     margin-top: 30%;
+    display: -webkit-box;
+    display: box;
+    -webkit-box-orient:vertical;
+    box-orient:vertical;//垂直排列
 }
 
 .menu_list a {
@@ -44,14 +44,16 @@
 .menu_list li {
     color: #fff;
     text-align: center;
-    margin: 15% 5%;
+    margin: 5% 0;
     height: 95px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    -webkit-box-flex:1;
+    box-flex:1;
 }
 
 .menu_list img {
-    margin-bottom: 15%;
+    margin-bottom: 5%;
 }
 
 // card
@@ -182,6 +184,7 @@
     text-align: justify;
     margin: 5%;
     line-height: 20px;
+    background: #fff;
 }
 
 .ad_format img{

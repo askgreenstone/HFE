@@ -1,5 +1,34 @@
 //常用公用方法封装
 var CommonMixin = {
+  //本地兼容：检测是测试环境还是正式环境
+  checkDevOrPro: function(){
+    var str = window.location.href;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+      return 'e1107';
+    }else{
+      return 'e442';
+    }
+  },
+  //发送微信错误
+  sendWxMsg: function(appid,error){
+      $.ajax({
+        type: 'post',
+        url: global.url+'/comm/SendWeixinWarnSms.do',
+        data:JSON.stringify({'ai':appid,'em':error}),
+        success: function(data) {
+            // alert('ThirdRedirect:' + JSON.stringify(data));
+            if (data.c == 1000) {
+
+            } else {
+                alert('code:' + data.c + ',error:' + data.d);
+            }
+        },
+        error: function(xhr, status, err) {
+            alert('网络连接错误或服务器异常！');
+            console.error(this.props.url, status, err.toString());
+        }
+    });
+  },
   //获取url参数
   getUrlParams: function(p) {
       var url = location.href;
@@ -26,6 +55,20 @@ var CommonMixin = {
     }
     console.log('newUrl:'+newUrl+',url:'+url);
     return newUrl;
+  },
+  //检测android客户端
+  isAndroid: function(){
+    var u = navigator.userAgent, 
+        app = navigator.appVersion;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+    return isAndroid;
+  },
+  //检测ios客户端
+  isIOS: function(){
+    var u = navigator.userAgent, 
+        app = navigator.appVersion;
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    return isiOS;
   }
 };
 

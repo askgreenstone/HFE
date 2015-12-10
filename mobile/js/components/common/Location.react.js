@@ -59,6 +59,7 @@ var Location = React.createClass({
                   wx.error(function(res) {
                       // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
                       // alert(res.errMsg);
+                      that.sendWxMsg(data.appId,res);
                   });
 
                    // $('body').css({'background':'#fff'});
@@ -103,7 +104,7 @@ var Location = React.createClass({
   render: function() {
       return ( 
         <div className="location_page">
-          <h3>北京市朝阳区三元桥曙光西路时间国际四号楼1201室</h3>
+          <h3>{this.props.target}</h3>
           <span onClick={this.getLocationInfo}>查看详情</span>
         </div>
         

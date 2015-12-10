@@ -10,10 +10,14 @@ var Photo = React.createClass({
   },
   getPhotos: function(){
     var ownUri = this.getUrlParams('ownUri');
+    var ntid = this.getUrlParams('ntid');
     if(!ownUri) return;
+    if(!ntid||ntid == '4'){
+      ntid = 10;
+    }
     $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryWXPhotoList.do?ptId=10&ownUri='+ownUri,
+      url: global.url+'/exp/QueryWXPhotoList.do?ntId='+ntid+'&ownUri='+ownUri,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);

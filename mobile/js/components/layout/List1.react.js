@@ -11,10 +11,14 @@ var List1 = React.createClass({
   },
   getServerInfo: function(){
   var ownUri = this.getUrlParams('ownUri');
-  if(!ownUri) return;
+  var ntid = this.getUrlParams('ntid');
+  if(!ownUri){
+    ownUri = this.checkDevOrPro();
+  }
+  if(!ntid) return;
   $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryNewsList.do?ntId=7&ownUri='+ownUri+'&debug=1&utype=1',
+      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -50,6 +54,7 @@ var List1 = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
+    $('.spinner-bounce-circle').css({'display':'none'});
     this.getServerInfo();
   },
   render: function() {
@@ -63,7 +68,7 @@ var List1 = React.createClass({
             <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.nId)}>
               <img src={this.state.curSrc[i]} width="70" height="70"/>
               <span>{item.ntit.length>12?(item.ntit).substring(0,12)+'...':item.ntit}</span>
-              <p>{item.na.length>30?(item.na).substring(0,30)+'...':item.na}</p>
+              <p>{item.na?(item.na.length>30?(item.na).substring(0,30)+'...':item.na):'暂无摘要'}</p>
             </li>
        );
       }
