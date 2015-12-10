@@ -48,14 +48,15 @@ var Index002 = React.createClass({
       }.bind(this)
     });
   },
-  staticWebPV: function(){
+  staticWebPV: function(vt){
+    //vt:1,网站 ｜ vt:2,电话呼入
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
     $.ajax({
       type:'get',
-      url: global.url+'/exp/SaveWXWebPV.do?&ownUri='+ownUri+'&vt=1',
+      url: global.url+'/exp/SaveWXWebPV.do?&ownUri='+ownUri+'&vt='+vt,
       success: function(data) {
         // alert(JSON.stringify(data));
         // console.log(data);
@@ -70,7 +71,7 @@ var Index002 = React.createClass({
     });
   },
   componentDidMount: function(){
-    this.staticWebPV();
+    this.staticWebPV(1);
     this.getUserList();
     
     $('body').css({'background':'#ebebeb'});
@@ -93,7 +94,7 @@ var Index002 = React.createClass({
         <div className="verticalMenu">
           <ul className="menu_list">
             <li>
-              <a href="tel://13718128160">
+              <a href="tel://13718128160" onClick={this.staticWebPV.bind(this,2)}>
                 <img src="image/theme002/telphone.png" width="55" height="55"/>
                 <div>电话咨询</div>
               </a>
