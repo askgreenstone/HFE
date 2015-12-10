@@ -80,7 +80,7 @@ var Card = React.createClass({
                 </div>
 	    	</div>
         <Share wxsharetype={"2"} title={"王杰律师微名片"} desc={"王杰律师:北京大成律师事务所高级合伙人"} 
-        imgUrl={"http://transfer.green-stone.cn/WXweb_wangjiepor.png"}/>
+        imgUrl={global.img+"WXweb_wangjiepor.png"}/>
     	</div>
     );
   },

@@ -17,7 +17,7 @@ var Waterfall = React.createClass({
         var childElements = this.props.item.map(function(ele,i){
            return (
                 <li onClick={that.gotoSingle.bind(that,ele.pn)} key={new Date().getTime()+i} className="water-fall-list">
-                    <img src={'http://transfer.green-stone.cn/'+ele.pn} width={screenWidth}/>
+                    <img src={global.img+ele.pn} width={screenWidth}/>
                     <div>{ele.pd?ele.pd:'暂无描述'}</div>
                 </li>
             );

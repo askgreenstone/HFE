@@ -7,7 +7,7 @@ var Location = React.createClass({
     wxSignature: function() {
         var that = this;
         var ownUri = this.getUrlParams('ownUri'),
-            currentPath = 'http://t-dist.green-stone.cn/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
+            currentPath = global.share+'mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
             wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());

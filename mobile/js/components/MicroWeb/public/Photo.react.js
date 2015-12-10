@@ -40,7 +40,7 @@ var Photo = React.createClass({
         <div>
           <Waterfall item={this.state.photos} />
           <Share wxsharetype={"3"} title={"王杰律师微相册"} desc={"王杰律师个人风采展示"} 
-          imgUrl={"http://transfer.green-stone.cn/WXweb_wangjiepor.png"}/>
+          imgUrl={global.img+"WXweb_wangjiepor.png"}/>
         </div>
     );
   },

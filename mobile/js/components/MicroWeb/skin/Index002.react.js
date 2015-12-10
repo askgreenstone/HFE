@@ -48,19 +48,30 @@ var Index002 = React.createClass({
       }.bind(this)
     });
   },
+  staticWebPV: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/SaveWXWebPV.do?&ownUri='+ownUri+'&vt=1',
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        // console.log(data);
+        if(data.c == 1000){
+          console.log('统计接口运行中！');
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        alert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   componentDidMount: function(){
-    // var screenHeight = '';
-    // var flag = this.isIOS();
-    // if(flag){
-    //   screenHeight = window.screen.height;
-    // }else{
-    //   screenHeight = document.body.clientHeight;
-    // }
+    this.staticWebPV();
     this.getUserList();
-    // var temp = $('.leftBg img').height();
-    // console.log(temp);
-    // $('.menu_list').height(temp);
-    // $('.leftBg,.verticalMenu').height(screenHeight);
     
     $('body').css({'background':'#ebebeb'});
     
@@ -69,7 +80,7 @@ var Index002 = React.createClass({
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <img src={this.state.imgs[i]} width="45" height="45"/>
+              <img src={this.state.imgs[i]} width="55" height="55"/>
               <div>{item.tn}</div>
             </li>
        );
@@ -83,19 +94,19 @@ var Index002 = React.createClass({
           <ul className="menu_list">
             <li>
               <a href="tel://13718128160">
-                <img src="image/theme002/telphone.png" width="45" height="45"/>
+                <img src="image/theme002/telphone.png" width="55" height="55"/>
                 <div>电话咨询</div>
               </a>
             </li>
             <li onClick={this.gotoLink.bind(this,'card')}>
-              <img src="image/theme002/card.png" width="45" height="45"/>
+              <img src="image/theme002/card.png" width="55" height="55"/>
               <div>微名片</div>
             </li>
             {navNodes}
           </ul>
         </div>
         <Share wxsharetype={"1"} title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
-        imgUrl={"http://transfer.green-stone.cn/WXweb_wangjiepor.png"}/>
+        imgUrl={global.img+"WXweb_wangjiepor.png"}/>
       </div>
     );
   },
