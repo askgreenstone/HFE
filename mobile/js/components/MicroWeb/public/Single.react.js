@@ -3,9 +3,6 @@ var CommonMixin = require('../../Mixin');
 
 var Single = React.createClass({
   mixins:[CommonMixin],
-  componentDidMount: function(){
-    $('.spinner-bounce-circle').css({'display':'none'});
-  },
   render: function() {
     var tempSrc = 'http://transfer.green-stone.cn/'+ this.getUrlParams('src');
     return (

@@ -54,7 +54,6 @@ var List1 = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
-    $('.spinner-bounce-circle').css({'display':'none'});
     this.getServerInfo();
   },
   render: function() {
