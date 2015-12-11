@@ -79,7 +79,7 @@ var Location = React.createClass({
                     });
 
                 } else {
-                    // alert('share code:' + data.c + ',error:' + data.d);
+                    alert('share code:' + data.c + ',error:' + data.d);
                 }
             },
             error: function(xhr, status, err) {

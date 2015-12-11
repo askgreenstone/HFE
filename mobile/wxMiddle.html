@@ -57,25 +57,22 @@
 </head>
 
 <body>
-   <!--  <div class="spinner-bounce-circle">
+    <div class="spinner-bounce-circle">
         <div></div>
         <div></div>
-    </div> -->
+    </div>
     <script src="js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             //此处增加分享逻辑1－首页，2-名片，3－相册
             var wxShareTarget = getUrlParams('target'),
-                ownUri = getUrlParams('ownUri');
-            // alert(wxShareTarget);
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri;
-            // if(wxShareType == 1){
-            //   location.href = '/mobile/#/index002?ownUri='+ownUri;
-            // }else if(wxShareType == 2){
-            //   location.href = '/mobile/#/card?ownUri='+ownUri;
-            // }else if(wxShareType == 3){
-            //   location.href = '/mobile/#/photo?ownUri='+ownUri;
-            // }
+                ownUri = getUrlParams('ownUri'),
+                ntid = localStorage.getItem('tempNtid');
+            if(ntid){
+              location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid;
+            }else{
+              location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri;
+            }
         });
        function getUrlParams(p) {
           var url = location.href;

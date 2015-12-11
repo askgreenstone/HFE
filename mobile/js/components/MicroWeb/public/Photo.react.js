@@ -11,10 +11,7 @@ var Photo = React.createClass({
   getPhotos: function(){
     var ownUri = this.getUrlParams('ownUri');
     var ntid = this.getUrlParams('ntid');
-    if(!ownUri) return;
-    if(!ntid||ntid == '4'){
-      ntid = 10;
-    }
+    if(!ownUri||!ntid) return;
     $.ajax({
       type:'get',
       url: global.url+'/exp/QueryWXPhotoList.do?ntId='+ntid+'&ownUri='+ownUri,
@@ -23,6 +20,7 @@ var Photo = React.createClass({
         console.log(data);
         if(data.c == 1000){
           this.setState({photos:data.pl});
+          localStorage.setItem('tempNtid',ntid);
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -40,7 +38,7 @@ var Photo = React.createClass({
         <div>
           <Waterfall item={this.state.photos} />
           <Share title={"王杰律师微相册"} desc={"王杰律师个人风采展示"} 
-          imgUrl={global.img+"WXweb_wangjiepor.png"} target="photo"/>
+          imgUrl={global.img+"WXweb_wangjiepor.png"}  target="photo"/>
         </div>
     );
   },

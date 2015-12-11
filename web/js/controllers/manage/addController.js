@@ -123,16 +123,35 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         function setContent(isAppendTo) {
-            UE.getEditor('editor').setContent(vm.createInfo.content, isAppendTo);
+            var editor = UE.getEditor('editor');
+            if(editor)
+            {
+              try{
+                editor.setContent(vm.createInfo.content, isAppendTo);
+              }
+              catch(error){
+                setTimeout(function(){
+                  setContent(isAppendTo)
+                },500);
+              }
+            }
+            else{
+              setTimeout(function(){
+                setContent(isAppendTo)
+              },500);
+            }
         }
+
 
         function init(){
           vm.sess = vm.getUrlParam('session');
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.ntid = decodeURI(vm.getUrlParam('ntId'));
           vm.nid = vm.getUrlParam('nid');
+
           var editor = new UE.ui.Editor();
           editor.render('editor');
+
           window['ZeroClipboard']=ZeroClipboard;
 
           if(vm.nid){
