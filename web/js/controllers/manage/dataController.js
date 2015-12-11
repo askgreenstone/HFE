@@ -33,22 +33,26 @@ define(['js/app/app'], function(app) {
 
         vm.getServerStatic = function(index) {
             console.log(index);
-            // if(!vm.sess) return;
-            // $http({
-            //     method: 'GET',
-            //     url: GlobalUrl+'/exp/ThirdStatistic.do',
-            //     params: {session:vm.sess,qt:index},
-            //     data: {}
-            // }).
-            // success(function(data, status, headers, config) {
-            //     console.log(data);
-            //     if(data.c == 1000){
-                  
-            //     }
-            // }).
-            // error(function(data, status, headers, config) {
-            //     console.log(data);
-            // });
+            if(!vm.sess) return;
+            $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/ThirdStatistic.do',
+                params: {session:vm.sess,qt:index},
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.webCt = data.webCt;
+                  vm.phoneCt = data.phoneCt;
+                  vm.muCt = data.muCt;
+                  vm.IDCt = data.IDCt;
+                  vm.usrCt = data.usrCt;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
         }
 
         vm.initTabState = function(){

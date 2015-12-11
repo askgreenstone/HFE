@@ -89,6 +89,9 @@ var Index002 = React.createClass({
     return (
       <div className="container">
         <div className="leftBg">
+          <div className="logo002">
+            <img src="image/theme002/logo.png" width="110" height="115"/>
+          </div>
           <img src="image/theme002/bg1.png" width="100%"/>
         </div>
         <div className="verticalMenu">

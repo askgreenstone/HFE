@@ -56,7 +56,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                   ntId:vm.ntid,
                   nc:vm.createInfo.content,
                   ns:state,
-                  nl:vm.createInfo.url
+                  nl:vm.createInfo.url,
+                  ntype:2
               }
           }
           else{
@@ -67,7 +68,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                   nId:vm.nid,
                   nc:vm.createInfo.content,
                   ns:state,
-                  nl:vm.createInfo.url
+                  nl:vm.createInfo.url,
+                  ntype:2
               }
           }
           

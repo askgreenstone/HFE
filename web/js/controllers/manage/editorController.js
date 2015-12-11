@@ -63,7 +63,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
             var datas = {
               ntId:vm.ntid,
               nc:vm.userIntroduce,
-              ns:1
+              ns:1,
+              ntype:1
             }
           }else{
             console.log('update');
@@ -71,7 +72,8 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
               ntId:vm.ntid,
               nc:vm.userIntroduce,
               nId:vm.nId,
-              ns:1
+              ns:1,
+              ntype:1
             }
           }
           

@@ -536,7 +536,7 @@ footer {
 }
 .sbl_list{
   margin: 0% 5%;
-  /*height: 95px;*/
+  height: 95px;
   overflow: hidden;
 }
 .sbl_list li{
