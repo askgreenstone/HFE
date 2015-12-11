@@ -23,6 +23,7 @@ var Home = React.createClass({
         <div><Link to='/index001'>程颖律师微网站</Link></div>
         <div><Link to='/index002'>王杰律师微网站</Link></div>
         <div><Link to='/index003'>王杰律师微网站二</Link></div>
+        <div><Link to='/index004'>王杰律师微网站三</Link></div>
       </div>
     );
   },

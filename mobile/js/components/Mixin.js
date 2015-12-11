@@ -69,6 +69,29 @@ var CommonMixin = {
         app = navigator.appVersion;
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     return isiOS;
+  },
+  //统计接口
+  staticWebPV: function(vt){
+    //vt:1,网站 ｜ vt:2,电话呼入
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/SaveWXWebPV.do?ownUri='+ownUri+'&vt='+vt,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        // console.log(data);
+        if(data.c == 1000){
+          console.log('统计接口运行中！');
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        alert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   }
 };
 
