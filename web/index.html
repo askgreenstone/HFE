@@ -22,7 +22,7 @@
 	    			<li><a name="circle" href="javascript:void(0);" onclick="gotoWebsite('','circle')">绿 石 圈</a></li>
 	    			<li><a name="manage" href="javascript:void(0);" onclick="gotoWebsite('true','manage')">微网站管理</a></li>
 	    		</ul>
-	    		<div class="logout">注销登录</div>
+	    		<div class="logout" onclick="logout()">注销登录</div>
 	    	</div>
 	    </header>
 
@@ -120,6 +120,10 @@
 			if(sess){
 				return sess;
 			}
+		}
+
+		function logout(){
+			window.location.href = 'http://t-web.green-stone.cn/';
 		}
 	</script>
 </html>

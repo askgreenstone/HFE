@@ -63,6 +63,7 @@ header {
 
 .logout {
     float: right;
+    cursor: pointer;
 }
 
 .menu {
@@ -308,6 +309,7 @@ footer {
   font-style: normal;
   float: right;
   margin-right: 20px;
+  color: #3bbffc;
 }
 
 /*list.html*/
@@ -405,7 +407,6 @@ footer {
   border: 1px solid #ccc;
   padding: 5px;
   margin: 5px 0 20px;
-  color: #ACACAC;
 }
 .af_ueditor span{
   display: inline-block;
@@ -535,7 +536,7 @@ footer {
 }
 .sbl_list{
   margin: 0% 5%;
-  height: 95px;
+  /*height: 95px;*/
   overflow: hidden;
 }
 .sbl_list li{
@@ -622,7 +623,8 @@ footer {
 .upload_left span{
   display: inline-block;
   margin-bottom: 15px;
-  color: rgba(0,0,0,0.5);
+  /*color: rgba(0,0,0,0.5);*/
+  color: #cb0c14;
 }
 .upload_right{
   border-left: 1px solid #e5e5e5;

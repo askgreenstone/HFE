@@ -13,6 +13,8 @@ var Home = require('./components/MicroWeb/Home.react');
 var Index001 = require('./components/MicroWeb/skin/Index001.react');
 //英伦版风格
 var Index002 = require('./components/MicroWeb/skin/Index002.react');
+//皮肤三
+var Index003 = require('./components/MicroWeb/skin/Index003.react');
 
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
@@ -30,6 +32,7 @@ ReactDOM.render((
     
     <Route path="/index001" component={Index001}/>
     <Route path="/index002" component={Index002}/>
+    <Route path="/index003" component={Index003}/>
     
     <Route path="/photo" component={Photo}/>
     <Route path="/single" component={Single}/>

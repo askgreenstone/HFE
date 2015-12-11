@@ -2,8 +2,8 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location'];
-    var DataController = function($location) {
+    var injectParams = ['$location','$window','$http','GlobalUrl'];
+    var DataController = function($location,$window,$http,GlobalUrl) {
 
         var vm = this;
         vm.title = '标题';
@@ -27,8 +27,44 @@ define(['js/app/app'], function(app) {
           location.href = '#/'+path+'?title='+encodeURI(title);
         };
 
+        vm.menuLink = function(path){
+          $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
+
+        vm.getServerStatic = function(index) {
+            console.log(index);
+            // if(!vm.sess) return;
+            // $http({
+            //     method: 'GET',
+            //     url: GlobalUrl+'/exp/ThirdStatistic.do',
+            //     params: {session:vm.sess,qt:index},
+            //     data: {}
+            // }).
+            // success(function(data, status, headers, config) {
+            //     console.log(data);
+            //     if(data.c == 1000){
+                  
+            //     }
+            // }).
+            // error(function(data, status, headers, config) {
+            //     console.log(data);
+            // });
+        }
+
+        vm.initTabState = function(){
+
+        }
+
+        $('.data_tab li').bind('click',function(){
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+          vm.getServerStatic($(this).attr('value'));
+        })
+
         function init(){
+          vm.sess = vm.getUrlParam('session');
           vm.title = decodeURI(vm.getUrlParam('title'));
+          vm.getServerStatic(1);
         }
 
         init();

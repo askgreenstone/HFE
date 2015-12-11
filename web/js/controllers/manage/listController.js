@@ -30,6 +30,10 @@ define(['js/app/app'], function(app) {
           location.href = '#/' + path + '?session='+vm.sess+'&title=' + title +'&ntId='+ntid;
         };
 
+        vm.menuLink = function(path){
+          $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
+
         vm.goBack = function(){
           $window.history.back();
         };

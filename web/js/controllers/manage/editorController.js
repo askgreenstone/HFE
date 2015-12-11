@@ -103,6 +103,10 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
             }
         };
 
+        vm.menuLink = function(path){
+          $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
+
         function setContent(isAppendTo) {
             UE.getEditor('editor').setContent(vm.getServerEdit, isAppendTo);
         }

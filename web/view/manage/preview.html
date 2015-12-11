@@ -11,13 +11,13 @@
 					<img src="image/manage/wx.png" width="18" height="18"/>
 					<span><a href="#manage">公众号运营</a></span>
 				</li> -->
-				<li>
+				<li ng-click="vm.menuLink('data')">
 					<img src="image/manage/data.png" width="18" height="18"/>
-					<span><a href="#data">用户数据</a></span>
+					<span><a href="javascript:void(0)">用户数据</a></span>
 				</li>
-				<li class="text-active">
-					<img src="image/manage/set.png" width="18" height="18"/>
-					<span><a href="#manage">内容维护</a></span>
+				<li class="text-active" ng-click="vm.menuLink('manage')">
+					<img src="image/manage/set.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">内容维护</a></span>
 				</li>
 			</ul>
 		</div>
@@ -40,7 +40,7 @@
 			<!-- 图片上传 -->
 			<div class="upload_style">
 				<div class="upload_left">
-						<span>说明：点击“选择照片”，添加jpg或png格式图片</span>
+						<span>说明：点击右上角按钮“选择照片”，添加jpg，png或gif格式图片</span>
 						<img id="imageCropper" src="image/placeholder.png">
 				</div>
 				<div class="upload_right">

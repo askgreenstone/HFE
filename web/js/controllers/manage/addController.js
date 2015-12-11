@@ -39,6 +39,10 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           location.href = '#/manage?session'+vm.sess;
         };
 
+        vm.menuLink = function(path){
+          $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
+
         vm.goBack = function(){
           $window.history.back();
         };

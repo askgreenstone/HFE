@@ -28,6 +28,10 @@ define(['js/app/app'], function(app) {
         vm.gotoLink = function(path,title){
           location.href = '#/'+path+'?title='+encodeURI(title);
         };
+        
+        vm.menuLink = function(path){
+          $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
 
         vm.goBack = function(){
           $window.history.back();
@@ -121,6 +125,20 @@ define(['js/app/app'], function(app) {
                 alert('网络连接错误或服务器异常！');
             });
         }
+
+        //图片切换效果
+        vm.switchImg = function(path){
+          vm.pth = path;
+        }
+
+        vm.singleLeft = function(){
+
+        }
+
+        vm.singleRight = function(){
+          
+        }
+
 
         function init(){
           vm.sess = vm.getUrlParam('session');

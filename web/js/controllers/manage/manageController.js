@@ -24,6 +24,11 @@ define(['js/app/app'], function(app) {
           } 
         };
 
+        vm.menuLink = function(path){
+          $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
+
+
         vm.gotoLink = function(path, title,ntid) {
             $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ntId='+ntid;
             UE.getEditor('editor').destroy();

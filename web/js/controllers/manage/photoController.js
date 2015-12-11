@@ -31,6 +31,10 @@ define(['js/app/app'], function(app) {
           }
           location.href = '#/'+path+'?session='+vm.sess+'&title='+encodeURI(title)+'&pid='+pid+'&pth='+pth+'&ntid='+vm.ntid;
         };
+        
+        vm.menuLink = function(path){
+          $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
 
         vm.gotoUpload = function(path){
           location.href = '#/'+path+'?session='+vm.sess+'&ntId='+vm.ntid;

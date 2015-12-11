@@ -103,10 +103,11 @@
             var authAppId=$("input.authAppId").val();
              $.ajax({
                 type:"get",
-                url:"http://dist.green-stone.cn/comm/ThirdAuthNotify.do?authCode="+authCode+"&authAppId="+authAppId,
+                url:"/comm/ThirdAuthNotify.do?authCode="+authCode+"&authAppId="+authAppId,
                 success:function(data){
                     console.log(data)
                     if(data.c==1000){
+                        $("div.btn").hide();
                         alert("提交成功！")
                     }
                 },
