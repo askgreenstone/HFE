@@ -110,7 +110,23 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         function setContent(isAppendTo) {
-            UE.getEditor('editor').setContent(vm.getServerEdit, isAppendTo);
+          var editor = UE.getEditor('editor');
+            if(editor)
+            {
+              try{
+                editor.setContent(vm.getServerEdit, isAppendTo);
+              }
+              catch(error){
+                setTimeout(function(){
+                  setContent(isAppendTo)
+                },500);
+              }
+            }
+            else{
+              setTimeout(function(){
+                setContent(isAppendTo)
+              },500);
+            }
         }
 
         function init(){

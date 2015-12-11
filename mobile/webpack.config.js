@@ -31,8 +31,6 @@ var config = {
         // publicPath: '/public/',//热加载－本地测试
         publicPath: './public/',//服务器部署
         filename: 'app.js'
-        
-
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),

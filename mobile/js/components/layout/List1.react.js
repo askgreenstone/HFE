@@ -27,9 +27,13 @@ var List1 = React.createClass({
            var tempObj = [];
            //从内容中抓取图片，作为默认显示
            for(var i=0;i<data.nl.length;i++){
-              tempObj.push(this.getCotentSrc(data.nl[i].nc));
+             // setTimeout(function(){
+             //      tempObj.push(this.getCotentSrc(data.nl[i].nc));
+             // },300);
+             tempObj.push(this.getCotentSrc(data.nl[i].nc));
            }
-
+           console.log(tempObj);
+           // alert(tempObj);
            this.setState({articles:data.nl,curSrc:tempObj});
          }
       }.bind(this),
@@ -47,6 +51,7 @@ var List1 = React.createClass({
     while (m = rex.exec(str)) {
         urls.push(m[1]);
     }
+    // console.dir(urls);
     if(urls.length>0){
       return urls[0];
     }else{
