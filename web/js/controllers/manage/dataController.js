@@ -7,6 +7,11 @@ define(['js/app/app'], function(app) {
 
         var vm = this;
         vm.title = '标题';
+        vm.webCt = 0;
+        vm.phoneCt = 0;
+        vm.muCt = 0;
+        vm.IDCt = 0;
+        vm.usrCt = 0;
 
         vm.getUrlParam = function(p) {
           var url = location.href; 

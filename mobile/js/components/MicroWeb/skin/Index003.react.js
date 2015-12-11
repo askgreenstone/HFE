@@ -5,10 +5,6 @@ var Index003=React.createClass({
 	render:function(){
 		return (
 				<div>
-					<header className="theme3_header">
-						<span>返回</span>
-						<h2>王杰微网站</h2>
-					</header>
 					<div className="theme3_main">
 						<div>
 							<img src="image/theme003/photo65.png" alt="" className="theme3_main_bg"/>

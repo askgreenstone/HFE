@@ -140,6 +140,7 @@ define(['js/app/app'], function(app) {
         }
 
 
+
         function init(){
           vm.sess = vm.getUrlParam('session');
           vm.ntid = vm.getUrlParam('ntid');
