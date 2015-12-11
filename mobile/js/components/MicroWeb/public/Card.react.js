@@ -79,8 +79,8 @@ var Card = React.createClass({
                     <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
                 </div>
 	    	</div>
-        <Share wxsharetype={"2"} title={"王杰律师微名片"} desc={"王杰律师:北京大成律师事务所高级合伙人"} 
-        imgUrl={global.img+"WXweb_wangjiepor.png"}/>
+        <Share title={"王杰律师微名片"} desc={"王杰律师:北京大成律师事务所高级合伙人"} 
+        imgUrl={global.img+"WXweb_wangjiepor.png"} target="card"/>
     	</div>
     );
   },

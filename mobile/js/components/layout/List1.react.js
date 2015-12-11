@@ -7,7 +7,8 @@ var List1 = React.createClass({
     return {articles:[],curSrc:[]};
   },
   gotoDetail: function(nid){
-    location.href = '#articleDetail?nid='+nid;
+    var ownUri = this.getUrlParams('ownUri');
+    location.href = '#articleDetail?nid='+nid+'&ownUri='+ownUri;
   },
   getServerInfo: function(){
   var ownUri = this.getUrlParams('ownUri');

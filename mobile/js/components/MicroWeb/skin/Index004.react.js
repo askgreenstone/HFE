@@ -75,6 +75,8 @@ var Index004=React.createClass({
 							<li><img src="image/theme004/team.png"/><p>团队风采</p></li>
 						</ul>
 					</div>
+					<Share  title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
+        imgUrl={global.img+"WXweb_wangjiepor.png"} target="index004"/>
 				</div>
 			)
 	}

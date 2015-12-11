@@ -46,7 +46,7 @@
 						<th width="10%">创建人</th>
 						<th width="25%">操作</th>
 					</tr>
-					<tr ng-repeat="x in vm.articleList|filter:vm.keyword">
+					<tr ng-repeat="x in vm.articleList|filter:{'ntit':vm.keyword}">
 						<td>{{x.ntit.length>12?((x.ntit).substring(0,12)+'...'):x.ntit}}</td>
 						<td ng-class="x.ns==1?'publish':'stop'">{{x.ns==1?'发布':'暂存'}}</td>
 						<td>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</td>

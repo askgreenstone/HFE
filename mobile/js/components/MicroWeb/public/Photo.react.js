@@ -39,8 +39,8 @@ var Photo = React.createClass({
     return (
         <div>
           <Waterfall item={this.state.photos} />
-          <Share wxsharetype={"3"} title={"王杰律师微相册"} desc={"王杰律师个人风采展示"} 
-          imgUrl={global.img+"WXweb_wangjiepor.png"}/>
+          <Share title={"王杰律师微相册"} desc={"王杰律师个人风采展示"} 
+          imgUrl={global.img+"WXweb_wangjiepor.png"} target="photo"/>
         </div>
     );
   },

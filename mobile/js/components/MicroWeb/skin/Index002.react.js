@@ -87,8 +87,8 @@ var Index002 = React.createClass({
             {navNodes}
           </ul>
         </div>
-        <Share wxsharetype={"1"} title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
-        imgUrl={global.img+"WXweb_wangjiepor.png"}/>
+        <Share title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
+        imgUrl={global.img+"WXweb_wangjiepor.png"} target="index002"/>
       </div>
     );
   },

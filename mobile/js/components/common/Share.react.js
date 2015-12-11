@@ -7,11 +7,11 @@ var Location = React.createClass({
     wxSignature: function() {
         var that = this;
         var ownUri = this.getUrlParams('ownUri'),
-            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&wxsharetype='+this.props.wxsharetype,
+            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
             wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
-            
+        // alert(currentPath);
         if(!ownUri) return;
         // alert('currentPath:'+currentPath+',wxPath:'+wxPath);
         // alert('uri:' + uri);
@@ -79,7 +79,7 @@ var Location = React.createClass({
                     });
 
                 } else {
-                    alert('share code:' + data.c + ',error:' + data.d);
+                    // alert('share code:' + data.c + ',error:' + data.d);
                 }
             },
             error: function(xhr, status, err) {

@@ -65,16 +65,17 @@
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             //此处增加分享逻辑1－首页，2-名片，3－相册
-            var wxShareType = getUrlParams('wxsharetype'),
+            var wxShareTarget = getUrlParams('target'),
                 ownUri = getUrlParams('ownUri');
-            // alert(wxShareType);
-            if(wxShareType == 1){
-              location.href = '/mobile/#/index002?ownUri='+ownUri;
-            }else if(wxShareType == 2){
-              location.href = '/mobile/#/card?ownUri='+ownUri;
-            }else if(wxShareType == 3){
-              location.href = '/mobile/#/photo?ownUri='+ownUri;
-            }
+            // alert(wxShareTarget);
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri;
+            // if(wxShareType == 1){
+            //   location.href = '/mobile/#/index002?ownUri='+ownUri;
+            // }else if(wxShareType == 2){
+            //   location.href = '/mobile/#/card?ownUri='+ownUri;
+            // }else if(wxShareType == 3){
+            //   location.href = '/mobile/#/photo?ownUri='+ownUri;
+            // }
         });
        function getUrlParams(p) {
           var url = location.href;
