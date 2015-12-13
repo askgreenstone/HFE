@@ -462,8 +462,13 @@ footer {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  /*overflow: hidden;*/
 }
-.sb_view img{
+.sb_view div{
+  /*height: 450px;
+  overflow: hidden;*/
+}
+.sb_view div>img{
   border-radius: 5px;
 }
 .sb_view i{
@@ -512,6 +517,13 @@ footer {
   position: relative;
   min-height: 100px;
 }
+.ul_box{
+  overflow: hidden;
+  /*border:1px solid black;*/
+  width: 90%;
+  /*padding: 0 20px;*/
+  margin-left: 5%;
+}
 .sb_list .left{
   background: url('../image/manage/arrow4.png') no-repeat center center transparent;
   display: inline-block;
@@ -535,14 +547,19 @@ footer {
   cursor: pointer;
 }
 .sbl_list{
-  margin: 0% 5%;
+  margin: 0;
   height: 95px;
-  overflow: hidden;
+  position: relative;
+  left:0;
+  transition:All 0.4s ease-in-out;    
+  -webkit-transition:All 0.4s ease-in-out;    
 }
 .sbl_list li{
   float: left;
-  margin: 0.8%;
-  width: 15%;
+  /*margin: 0.8%;*/
+  margin: 5px;
+  /*width: 15%;*/
+  width: 120px;
   cursor: pointer;
   border: 2px solid #E2DEDE;
 }

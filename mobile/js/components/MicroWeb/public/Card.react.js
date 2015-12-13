@@ -5,75 +5,111 @@ var Share = require('../../common/Share.react');
 
 var Card = React.createClass({
   mixins:[CommonMixin],
+  getInitialState: function(){
+    return {datas:[]};
+  },
   qrCode: function(){
     $('.qr_hidden').show(500);
   },
   hideDiv: function(){
     $('.qr_hidden').hide(500);
   },
-  gotoLink: function(path){
-    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
+  gotoLink: function(path,map){
+    // var ln = map.split(',')[0];
+    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&ln='+encodeURI(map)+'&region='+this.state.rg;
+  },
+  getServerInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        // alert('ownUri:'+ownUri+'ntid:'+ntid);
+        if(data.c == 1000){
+           this.setState({
+            QR:global.img+data.QR,
+            hI:global.img+data.hI,
+            nm:data.nm,
+            dp:data.dp,
+            rk:data.rk,
+            Mob:data.Mob,
+            eml:data.eml,
+            tel:data.tel,
+            web:data.web,
+            adr:data.adr,
+            abs:data.abs,
+            rg:data.rg,
+            itd:data.itd
+          });
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        alert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     $('.qr_hidden').height($('#myapp').height());
+    this.getServerInfo();
   },
   render: function() {
     return (
     	<div>
         <div className="qr_hidden" onClick={this.hideDiv}>
-          <img src="image/qrcode.jpg" width="200" height="200"/>
+          <img src={this.state.QR} width="200" height="200"/>
         </div>
     		<div className="user_info">
-    			<img className="ui_header" src="image/wj.png" width="65" height="65"/>
+    			<img className="ui_header" src={this.state.hI} width="65" height="65"/>
     			<p>
-    				<span>王杰</span><br/>
-    				<span>大成律师事务所</span><br/>
-    				<span>高级合伙人</span>
+    				<span>{this.state.nm}</span><br/>
+    				<span>{this.state.dp}</span><br/>
+    				<span>{this.state.rk}</span>
     			</p>
-    			<img onClick={this.qrCode} className="ui_qrcode" src="image/qrcode.jpg" width="55" height="55"/>
+    			<img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
     		</div>
     		<div className="user_content">
     			<div className="uc_input">
-    				<a href="tel://13718128160">
-              13718128160
+    				<a href={'tel://'+this.state.Mob}>
+              {this.state.Mob}
               <img src="image/theme002/telphone1.png" width="25" height="25"/>
             </a>
     			</div>
     			<div className="uc_input">
-            <a href="mailto:jie.wang@dachenglaw.com">
-              jie.wang@dachenglaw.com
+            <a href={'mailto:'+this.state.eml}>
+              {this.state.eml}
     				  <img src="image/theme002/email.png" width="25" height="25"/>
             </a>
     			</div>
     			<div className="uc_input">
-            <a href="tel://010-4009649288">
-              010-4009649288
+            <a href={'tel://'+this.state.tel}>
+              {this.state.tel}
     				  <img src="image/theme002/fax.png" width="25" height="25"/>
             </a>
     			</div>
     			<div className="uc_input">
-            <a href="http://www.dentons.com/zh/">
-              http://www.dentons.com/zh/
+            <a href={'http://'+this.state.web}>
+              {this.state.web}
     				  <img src="image/theme002/web.png" width="25" height="25"/>
             </a>
     			</div>
     			<div className="uc_input fixed">
-            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-    				  北京市朝阳区东大桥路9号<br/>侨福芳草地大厦B座7层 邮编: 100020
+            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress',this.state.adr)}>
+    				  {this.state.adr}
               <img src="image/theme002/adress.png" width="25" height="25"/>
             </a>
     			</div>
 	    		<div className="user_intro">
 	    			<i>简介</i>
-	    			<p>王杰律师常年担任众多大型国有企业、跨国公司、国际投资机构、商业银行机构、
-	    			投资基金等常年法律顾问，对企业改制、上市、并购、投融资、不良贷款剥离与处置等有
-	    			深入的了解和掌握。涉及业务包括境内外VC／PE、改制重组、IPO、企业改制、产权交易。
+	    			<p>{this.state.abs}
 	    			</p>
 	    		</div>
 	    		<div className="user_intro">
 	    			<i>专业领域</i>
-	    			<p>资本市场、基金、投融资、并购、公司法务、境外直接投资</p>
+	    			<p>{this.state.itd}</p>
 	    		</div>
 	    		<div className="user_create">
                     <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>

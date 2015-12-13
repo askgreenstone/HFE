@@ -113,6 +113,7 @@ define(['js/app/app'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.photos = data.pl;
+                  vm.initUl(vm.photos.length);
                   if(flag == 'delete'){
                     vm.pid = data.pl[0].pId;
                     vm.pth = data.pl[0].pn;
@@ -131,15 +132,48 @@ define(['js/app/app'], function(app) {
           vm.pth = path;
         }
 
+        vm.initUl = function(len){
+          var mUl = $('.sbl_list'),
+              mBox = $('.ul_box');
+          // console.log(len);
+          $(mUl).css({
+              'width':len*130+2+'px'
+          })
+          console.log('mUl:'+$(mUl).width());
+          console.log('mBox:'+$(mBox).width());
+          vm.countClickTime();
+        }
+
         vm.singleLeft = function(){
-
+          var mli = $('.sbl_list');
+          $(mli).css({
+              'left':0+'px'
+          })
+          vm.countClickTime();
         }
 
+        vm.countClickTime = function(){
+          vm.totleWidth = $('.sbl_list').width();
+          vm.viewWidth = $('.ul_box').width();
+
+          vm.times = Math.floor(vm.totleWidth / vm.viewWidth);
+          console.log('global times:'+vm.times);
+          vm.flag = 0;
+        }
+
+        
         vm.singleRight = function(){
-          
+          console.log(vm.times);
+          vm.flag++;
+          if(vm.times == 0){
+            return;
+          }else{
+            $('.sbl_list').css({
+              'left':-vm.viewWidth*vm.flag+'px'
+            })
+            vm.times--;
+          }
         }
-
-
 
         function init(){
           vm.sess = vm.getUrlParam('session');

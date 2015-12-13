@@ -36,23 +36,28 @@
 			<div class="single_box">
 				<div class="sb_view">
 					<i ng-click="vm.deleteOne(vm.pid)"></i>
-					<span class="left"></span>
-					<img ng-src={{'http://t-transfer.green-stone.cn/'+vm.pth}} width="" height="450"/>
-					<span class="right"></span>
+					<!-- <span class="left"></span> -->
+					<div>
+						<img ng-src={{'http://t-transfer.green-stone.cn/'+vm.pth}} width="" height="450"/>
+					</div>
+					<!-- <span class="right"></span> -->
 				</div>
 				<p>{{vm.title}}
 					<input type="text" ng-blur="vm.submitDesc()" ng-if="vm.updateFlag" ng-model="vm.pohtoDesc"/>
 					<span ng-click="vm.updateDescribe()"></span>
 				</p>
 				<div class="sb_list">
-					<span class="left"></span>
-					<ul class="sbl_list">
-						<li ng-click="vm.switchImg(x.pn)" ng-class="x.pn == vm.pth ? 'active':''" ng-repeat="x in vm.photos">
-							<img ng-src={{'http://t-transfer.green-stone.cn/'+x.pn}} width="100%" height="80" />
-						</li>
+					<span ng-click="vm.singleLeft()" class="left"></span>
+					<div class="ul_box">
+						<ul class="sbl_list">
+							<li ng-click="vm.switchImg(x.pn)" ng-class="x.pn == vm.pth ? 'active':''" ng-repeat="x in vm.photos">
+								<img ng-src={{'http://t-transfer.green-stone.cn/'+x.pn}} width="100%" height="80" />
+							</li>
+							<!-- <div class="clean"></div> -->
+						</ul>
 						<div class="clean"></div>
-					</ul>
-					<span class="right"></span>
+					</div>
+					<span ng-click="vm.singleRight()" class="right"></span>
 				</div>
 			</div>
 			<!-- <div class="clean"></div> -->

@@ -1,10 +1,25 @@
 var React = require('react');
 var Location = require('../../common/Location.react');
+var CommonMixin = require('../../Mixin');
 
 var Adress = React.createClass({
+  mixins:[CommonMixin],
+  getInitialState: function(){
+    return {ln:[]};
+  },
+  componentDidMount: function(){
+  	var ln = this.getUrlParams('ln'),
+  		region = this.getUrlParams('region');
+  	console.log('ln:'+decodeURI(ln)+',rg:'+decodeURI(region));
+    this.setState({
+    	ln:decodeURI(ln),
+    	rg:decodeURI(region)
+    })
+  },
   render: function() {
+
     return (
-        <Location currentpath={"北京市朝阳区东大桥路9号侨福芳草地大厦B座"} target={"北京市朝阳区东大桥路9号侨福芳草地大厦B座"} region={"北京市"}/>
+        <Location currentpath={this.state.ln} target={this.state.ln} region={this.state.rg}/>
     );
   },
 });
