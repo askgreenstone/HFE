@@ -47,7 +47,16 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           $window.history.back();
         };
 
+        vm.replaceHtmlTag = function(str){
+          var newStr = str.replace(/<[^>].*?>/g,'');
+          console.log(newStr);
+          return newStr;
+        }
+
         vm.submitArticleInfo = function(state){
+          if(vm.createInfo.describe.length>100){
+            alert('文章摘要过长，请控制在100字以内！');
+          }
           vm.getContent();
           if(!vm.nid) {
             var datas = {

@@ -38,6 +38,18 @@ define(['js/app/app'], function(app) {
             $window.history.back();
         };
 
+        //多次点击控制
+        vm.doubleClickFlag = true;
+        vm.controlTimes = function(){
+          if(vm.doubleClickFlag){
+              vm.uploadFile();
+              vm.doubleClickFlag = false;
+          }
+          setTimeout(function(){
+              vm.doubleClickFlag = true;
+          },1000);
+        }
+
         // 图片上传
         vm.uploadFile = function() {
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
