@@ -38,7 +38,7 @@
 					<i ng-click="vm.deleteOne(vm.pid)"></i>
 					<!-- <span class="left"></span> -->
 					<div class="pic_vertical">
-						<img ng-src={{'http://t-transfer.green-stone.cn/'+vm.pth}} width="" height=""/>
+						<img ng-src={{vm.transferUrl+vm.pth}} width="" height=""/>
 					</div>
 					<!-- <span class="right"></span> -->
 				</div>
@@ -50,8 +50,8 @@
 					<span ng-click="vm.singleLeft()" class="left"></span>
 					<div class="ul_box">
 						<ul class="sbl_list">
-							<li ng-click="vm.switchImg(x.pn)" ng-class="x.pn == vm.pth ? 'active':''" ng-repeat="x in vm.photos">
-								<img ng-src={{'http://t-transfer.green-stone.cn/'+x.pn}} width="100%" height="80" />
+							<li ng-click="vm.switchImg(x.pn,x.pd)" ng-class="x.pn == vm.pth ? 'active':''" ng-repeat="x in vm.photos">
+								<img ng-src={{vm.transferUrl+x.pn}} width="100%" height="80" />
 							</li>
 							<!-- <div class="clean"></div> -->
 						</ul>

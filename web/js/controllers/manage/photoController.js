@@ -2,13 +2,14 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl','$window'];
-    var PhotoController = function($location,$http,GlobalUrl,$window) {
+    var injectParams = ['$location','$http','GlobalUrl','$window','TransferUrl'];
+    var PhotoController = function($location,$http,GlobalUrl,$window,TransferUrl) {
 
         var vm = this;
         vm.title = '标题';
         vm.sess = '';
         vm.ntid = 0;
+        vm.transferUrl = TransferUrl;
 
         vm.getUrlParam = function(p) {
           var url = location.href; 

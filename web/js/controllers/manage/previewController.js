@@ -9,7 +9,7 @@ define(['js/app/app'], function(app) {
         vm.title = '标题';
         vm.updateFlag = 'false';
         vm.fileName = '';
-        vm.fileUrl = 'http://t-transfer.green-stone.cn/A4466A00305BF5FC7B3FC99B82C77F99_W292_H220_S13.jpg';
+        vm.fileUrl = '';
 
         vm.getUrlParam = function(p) {
             var url = location.href;

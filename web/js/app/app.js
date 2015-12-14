@@ -10,7 +10,13 @@ define(['js/services/routeResolver'], function() {
     }else{
         app.constant('GlobalUrl', '');
     }
-    
+    //测试服务器和正式环境图片路径兼容
+    if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+        app.constant('TransferUrl', 'http://t-transfer.green-stone.cn/');
+    }else{
+        app.constant('TransferUrl', 'http://transfer.green-stone.cn/');
+    }
+
     app.config(['$routeProvider', 'routeResolverProvider', '$controllerProvider',
         '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
 

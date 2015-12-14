@@ -2,12 +2,13 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location', '$window', '$http','GlobalUrl'];
-    var ManageController = function($location, $window, $http,GlobalUrl) {
+    var injectParams = ['$location', '$window', '$http','GlobalUrl','TransferUrl'];
+    var ManageController = function($location, $window, $http,GlobalUrl,TransferUrl) {
 
         var vm = this;
         vm.str = 'manage!!!';
         vm.sess = '';
+        vm.transferUrl = TransferUrl;
 
         vm.getUrlParam = function(p) {
           var url = location.href; 

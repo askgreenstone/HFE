@@ -2,13 +2,14 @@
 
 define(['js/app/app'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl','$window'];
-    var SingleController = function($location,$http,GlobalUrl,$window) {
+    var injectParams = ['$location','$http','GlobalUrl','$window','TransferUrl'];
+    var SingleController = function($location,$http,GlobalUrl,$window,TransferUrl) {
 
         var vm = this;
         vm.title = '标题';
         vm.pohtoDesc ='';
         vm.updateFlag = false;
+        vm.transferUrl = TransferUrl;
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -128,8 +129,9 @@ define(['js/app/app'], function(app) {
         }
 
         //图片切换效果
-        vm.switchImg = function(path){
+        vm.switchImg = function(path,title){
           vm.pth = path;
+          vm.title = title;
         }
 
         vm.initUl = function(len){
