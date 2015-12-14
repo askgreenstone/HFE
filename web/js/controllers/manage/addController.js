@@ -55,11 +55,12 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         vm.submitArticleInfo = function(state){
+          // 文章摘要长度控制
           if(vm.createInfo.describe.length>100){
             alert('文章摘要过长，请控制在100字以内！');
             return;
           }
-
+          //引用链接检测
           if(!vm.isURL(vm.createInfo.url)){
             alert('引用链接格式不正确，请输入超链接！');
             return;
@@ -132,6 +133,11 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
                   vm.createInfo.content = data.nc;
                   vm.createInfo.url = data.nl;
                   setContent();
+                  if(vm.createInfo.url){
+                    // alert(vm.createInfo.url);
+                    $('.ai_checkbox i').addClass('active');
+                    vm.showUeditorFlag = false;
+                  }
                 }
             }).
             error(function(data, status, headers, config) {
