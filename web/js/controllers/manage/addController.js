@@ -60,8 +60,9 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
             alert('文章摘要过长，请控制在100字以内！');
             return;
           }
+
           //引用链接检测
-          if(!vm.isURL(vm.createInfo.url)){
+          if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
             alert('引用链接格式不正确，请输入超链接！');
             return;
           }

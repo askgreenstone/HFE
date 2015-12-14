@@ -7,14 +7,30 @@ var Adress = React.createClass({
   getInitialState: function(){
     return {ln:[]};
   },
+  getServerInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        // alert('ownUri:'+ownUri+'ntid:'+ntid);
+        if(data.c == 1000){
+           this.setState({
+              ln:data.adr,
+              rg:data.rg
+            })
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        alert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   componentDidMount: function(){
-  	var ln = this.getUrlParams('ln'),
-  		region = this.getUrlParams('region');
-  	console.log('ln:'+decodeURI(ln)+',rg:'+decodeURI(region));
-    this.setState({
-    	ln:decodeURI(ln),
-    	rg:decodeURI(region)
-    })
+    this.getServerInfo();
   },
   render: function() {
 

@@ -14,9 +14,8 @@ var Card = React.createClass({
   hideDiv: function(){
     $('.qr_hidden').hide(500);
   },
-  gotoLink: function(path,map){
-    // var ln = map.split(',')[0];
-    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&ln='+encodeURI(map)+'&region='+this.state.rg;
+  gotoLink: function(path){
+    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
   },
   getServerInfo: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -97,7 +96,7 @@ var Card = React.createClass({
             </a>
     			</div>
     			<div className="uc_input fixed">
-            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress',this.state.adr)}>
+            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
     				  {this.state.adr}
               <img src="image/theme002/adress.png" width="25" height="25"/>
             </a>
