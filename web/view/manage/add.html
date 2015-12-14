@@ -39,10 +39,10 @@
 					<textarea ng-model="vm.createInfo.describe">这里写一段简短的文章简介，微网站文章详情页可以看到。</textarea>
 				</div>
 				<div class="af_input">
-					<span>引用链接：</span>
-					<input ng-model="vm.createInfo.url" type="text" placeholder="请输入链接地址"/>
+					<span class="ai_checkbox">引用链接：<i ng-click="vm.checkUserChoose()" class="">√</i></span>
+					<input ng-show="!vm.showUeditorFlag" ng-model="vm.createInfo.url" type="text" placeholder="请输入链接地址"/>
 				</div>
-				<div class="af_ueditor">
+				<div class="af_ueditor" ng-show="vm.showUeditorFlag">
 					<span>正文：</span>
 					<!-- <iframe  src="lib/ueditor/index.html" frameborder="no" border="0" width="100%" height="100%"></iframe> -->
 					<script id="editor" type="text/plain" style="width:100%;height:300px;"></script>

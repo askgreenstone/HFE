@@ -20,8 +20,9 @@
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
     // window.UEDITOR_HOME_URL = 'http://t-dist.green-stone.cn:8080/ueditor1_4_3_1-utf8-gstone/';
-    var URL = window.UEDITOR_HOME_URL || getUEBasePath();
-
+    // var URL = window.UEDITOR_HOME_URL || getUEBasePath();
+    var URL = window.UEDITOR_HOME_URL||'http://t-dist.green-stone.cn/ueditor1_4_3_1-utf8-gstone/'
+    // alert('URL:'+URL);
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */

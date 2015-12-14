@@ -397,6 +397,25 @@ footer {
   padding: 5px;
   margin: 5px 0 20px;
 }
+.ai_checkbox i{
+  border: 1px solid #ccc;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  border-radius: 2px;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff; 
+  margin: 5px;
+  line-height: 12px;
+  cursor: pointer;
+  font-size: 10px;
+  margin: -2px 0 0 5px;
+}
+.ai_checkbox .active{
+  background-color: #3bbffc;
+  border: 1px solid #3bbffc;
+}
 .af_textarea span{
   display: block;
 }
@@ -457,20 +476,22 @@ footer {
   margin: -5px 0 10px 18px;
 }
 .sb_view{
-  height: 450px;
   position: relative;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   /*overflow: hidden;*/
 }
-.sb_view div{
-  /*height: 450px;
-  overflow: hidden;*/
+.pic_vertical{
+  width: 500px;
+  text-align: center;
+  margin: 0 auto;
 }
-.sb_view div>img{
-  border-radius: 5px;
+.pic_vertical img{
+  width: 100%;
+  vertical-align:middle;
 }
+
 .sb_view i{
   background: url('../image/manage/delete1.png') no-repeat center center transparent;
   display: inline-block;

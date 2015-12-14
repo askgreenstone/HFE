@@ -92,7 +92,7 @@ var Location = React.createClass({
             that.wxSignature(data.result.location.lat,data.result.location.lng);
         },
         error: function(xhr, status, err) {
-            alert('getLocationInfo error:' + JSON.stringify(xhr));
+            // alert('getLocationInfo error:' + JSON.stringify(xhr));
             console.error(this.props.url, status, err.toString());
         }
     });

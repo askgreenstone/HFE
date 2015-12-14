@@ -43,6 +43,7 @@ var Card = React.createClass({
             rg:data.rg,
             itd:data.itd
           });
+          $('.qr_hidden').height($('#myapp').height());
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -54,7 +55,6 @@ var Card = React.createClass({
   componentDidMount: function(){
     this.getServerInfo();
     $('body').css({'background':'#ebebeb'});
-    $('.qr_hidden').height($('#myapp').height());
   },
   render: function() {
     return (

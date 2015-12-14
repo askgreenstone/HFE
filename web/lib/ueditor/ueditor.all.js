@@ -24462,11 +24462,13 @@ UE.plugin.register('simpleupload', function (){
 
                 function callback(){
                     try{
+                        // console.log('domain:'+window.domain);
                         var link, json, loader,
                             body = (iframe.contentDocument || iframe.contentWindow.document).body,
                             result = body.innerText || body.textContent || '';
                         json = (new Function("return " + result))();
                         link = me.options.imageUrlPrefix + json.url;
+                        console.log('link:'+link);
                         if(json.state == 'SUCCESS' && json.url) {
                             loader = me.document.getElementById(loadingId);
                             loader.setAttribute('src', link);
@@ -24479,6 +24481,8 @@ UE.plugin.register('simpleupload', function (){
                             showErrorLoader && showErrorLoader(json.state);
                         }
                     }catch(er){
+                        console.log('error:'+er);
+                        // console.log('domian:'+window.domain);
                         showErrorLoader && showErrorLoader(me.getLang('simpleupload.loadError'));
                     }
                     form.reset();

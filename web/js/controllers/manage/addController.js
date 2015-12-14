@@ -14,6 +14,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           url:'',
           content:''
         }
+        vm.showUeditorFlag = true;
 
         vm.getUrlParam = function(p) {
           var url = location.href; 
@@ -58,6 +59,12 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
             alert('文章摘要过长，请控制在100字以内！');
             return;
           }
+
+          if(!vm.isURL(vm.createInfo.url)){
+            alert('引用链接格式不正确，请输入超链接！');
+            return;
+          }
+
           vm.getContent();
           if(!vm.nid) {
             var datas = {
@@ -130,6 +137,22 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
             error(function(data, status, headers, config) {
                 console.log(data);
             });
+        }
+
+        //判断是否为超链接
+        vm.isURL = function(str){
+            return!!str.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g);
+        }
+
+        vm.checkUserChoose = function(){
+          var $chooseEle = $('.ai_checkbox i');
+          if($chooseEle.hasClass('active')){
+            $chooseEle.removeClass('active');
+            vm.showUeditorFlag = true;
+          }else{
+            $chooseEle.addClass('active');
+            vm.showUeditorFlag = false;
+          }
         }
 
         function setContent(isAppendTo) {
