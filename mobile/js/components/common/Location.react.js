@@ -82,8 +82,8 @@ var Location = React.createClass({
         type: 'post',
         url: global.url+'/comm/QQMapLocation.do',
         data: JSON.stringify({
-            'region': this.props.region,
-            'address':this.props.target
+            'region': that.props.region,
+            'address':that.props.target
         }),
         success: function(data) {
             // alert(JSON.stringify(data));

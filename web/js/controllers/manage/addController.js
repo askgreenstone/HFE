@@ -56,6 +56,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.submitArticleInfo = function(state){
           if(vm.createInfo.describe.length>100){
             alert('文章摘要过长，请控制在100字以内！');
+            return;
           }
           vm.getContent();
           if(!vm.nid) {

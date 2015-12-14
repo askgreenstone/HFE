@@ -52,9 +52,9 @@ var Card = React.createClass({
     });
   },
   componentDidMount: function(){
+    this.getServerInfo();
     $('body').css({'background':'#ebebeb'});
     $('.qr_hidden').height($('#myapp').height());
-    this.getServerInfo();
   },
   render: function() {
     return (
@@ -91,7 +91,7 @@ var Card = React.createClass({
             </a>
     			</div>
     			<div className="uc_input">
-            <a href={'http://'+this.state.web}>
+            <a href={this.state.web}>
               {this.state.web}
     				  <img src="image/theme002/web.png" width="25" height="25"/>
             </a>
