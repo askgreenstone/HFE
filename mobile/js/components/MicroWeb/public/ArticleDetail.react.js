@@ -64,7 +64,7 @@ var ArticleDetail = React.createClass({
 	    	</div>
         <div className="ad_format"></div>
         <div style={{'height':tempHeight,'display':isShow}}>
-          <iframe style={{'border':'0'}} src={'https://'+this.state.webUrl} width="100%" height="100%"></iframe>
+          <iframe style={{'border':'0'}} src={this.state.webUrl} width="100%" height="100%"></iframe>
         </div>
     	</div>
     );
