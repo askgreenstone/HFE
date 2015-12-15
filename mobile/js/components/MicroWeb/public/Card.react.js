@@ -114,8 +114,8 @@ var Card = React.createClass({
                     <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
                 </div>
 	    	</div>
-        <Share title={"王杰律师微名片"} desc={"王杰律师:北京大成律师事务所高级合伙人"} 
-        imgUrl={global.img+"WXweb_wangjiepor.png"} target="card"/>
+        <Share title={this.state.nm+"律师微名片"} desc={this.state.nm+"律师:北京大成律师事务所高级合伙人"} 
+        imgUrl={global.img+this.state.hI} target="card"/>
     	</div>
     );
   },

@@ -65,7 +65,7 @@ define(['js/app/app'], function(app) {
         }
 
         vm.submitDesc = function(){
-          console.log(vm.pohtoDesc);
+          console.log('vm.pohtoDesc:'+vm.pohtoDesc);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/SaveWXPhoto.do',
@@ -79,11 +79,13 @@ define(['js/app/app'], function(app) {
                 }
             }).
             success(function(data, status, headers, config) {
-                console.dir('success:'+JSON.stringify(data));
+                console.log('success:'+JSON.stringify(data));
                 if(data.c == 1000){
                   vm.title = data.pd;
+                  
                   vm.updateFlag = false;
                   console.log(vm.updateFlag);
+                  vm.pohtoDesc = '';
                 }
             }).
             error(function(data, status, headers, config) {
@@ -132,6 +134,7 @@ define(['js/app/app'], function(app) {
         vm.switchImg = function(path,title){
           vm.pth = path;
           vm.title = title;
+          vm.getServerPhotos();
         }
 
         vm.initUl = function(len){
