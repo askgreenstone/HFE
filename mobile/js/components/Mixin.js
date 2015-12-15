@@ -4,7 +4,7 @@ var CommonMixin = {
   checkDevOrPro: function(){
     var str = window.location.href;
     if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
-      return 'e1107';
+      return 'e399';
     }else{
       return 'e442';
     }
