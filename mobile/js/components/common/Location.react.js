@@ -87,7 +87,7 @@ var Location = React.createClass({
         }),
         success: function(data) {
             // alert(JSON.stringify(data));
-            // console.log(JSON.stringify(data));
+            console.log(JSON.stringify(data));
             // alert('lng:'+data.result.location.lng+'---'+'lat:'+data.result.location.lat);
             that.wxSignature(data.result.location.lat,data.result.location.lng);
         },
