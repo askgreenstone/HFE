@@ -52,10 +52,15 @@ var Card = React.createClass({
     });
   },
   componentDidMount: function(){
-    this.getServerInfo();
     $('body').css({'background':'#ebebeb'});
   },
+  componentWillMount:function(){
+    this.getServerInfo();
+  }, 
   render: function() {
+    var ShareTitile = (this.state.nm?this.state.nm:'')+'律师微名片';
+    var ShareDesc = (this.state.nm?this.state.nm:'')+' 北京大成律师事务所高级合伙人';
+    var ShareUrl = this.state.hI?this.state.hI:'';
     return (
     	<div>
         <div className="qr_hidden" onClick={this.hideDiv}>
@@ -114,8 +119,7 @@ var Card = React.createClass({
                     <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
                 </div>
 	    	</div>
-        <Share title={this.state.nm+"律师微名片"} desc={this.state.nm+"律师:北京大成律师事务所高级合伙人"} 
-        imgUrl={global.img+this.state.hI} target="card"/>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl} target="card"/>
     	</div>
     );
   },

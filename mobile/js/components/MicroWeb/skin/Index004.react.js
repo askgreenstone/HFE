@@ -75,7 +75,7 @@ var Index004=React.createClass({
 							<li><img src="image/theme004/team.png"/><p>团队风采</p></li>
 						</ul>
 					</div>
-					<Share  title={"刘晓燕律师微网站"} desc={"刘晓燕律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
+					<Share  title={"刘晓燕律师微网站"} desc={"刘晓燕律师专注于公司业务，招投标业务，非银行金融机构、投资公司业务"} 
         imgUrl={global.img+"lxy20151215113726.png"} target="index004"/>
 				</div>
 			)

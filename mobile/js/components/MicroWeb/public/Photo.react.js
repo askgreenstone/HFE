@@ -54,7 +54,7 @@ var Photo = React.createClass({
             rg:data.rg,
             itd:data.itd
           });
-          $('.qr_hidden').height($('#myapp').height());
+          // $('.qr_hidden').height($('#myapp').height());
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -69,11 +69,13 @@ var Photo = React.createClass({
     this.getServerInfo();
   },
   render: function() {
+    var ShareTitile = (this.state.nm?this.state.nm:'')+'律师微相册';
+    var ShareDesc = (this.state.nm?this.state.nm:'')+'律师个人风采展示';
+    var ShareUrl = this.state.hI?this.state.hI:'';
     return (
         <div>
           <Waterfall item={this.state.photos} />
-          <Share title={this.state.nm+"律师微相册"} desc={this.state.nm+"律师个人风采展示"} 
-          imgUrl={global.img+this.state.hI}  target="photo"/>
+          <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl}  target="photo"/>
         </div>
     );
   },

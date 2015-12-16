@@ -6,6 +6,7 @@ var Location = React.createClass({
     mixins:[CommonMixin],
     wxSignature: function() {
         var that = this;
+        // if(that.props.title) return;
         var ownUri = this.getUrlParams('ownUri'),
             currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
