@@ -70,9 +70,6 @@ var Index004=React.createClass({
 						<ul className="theme4_main_list">
 							<li onClick={this.gotoLink.bind(this,'card')}><img src="image/theme004/card.png"/><p>微名片</p></li>
 							{navNodes}
-							<li><img src="image/theme004/laywers.png"/><p>律师介绍</p></li>
-							<li><img src="image/theme004/case.png"/><p>典型案例</p></li>
-							<li><img src="image/theme004/team.png"/><p>团队风采</p></li>
 						</ul>
 					</div>
 					<Share  title={"刘晓燕律师微网站"} desc={"刘晓燕律师专注于公司业务，招投标业务，非银行金融机构、投资公司业务"} 
