@@ -66,8 +66,10 @@ var Photo = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     this.getPhotos();
-    this.getServerInfo();
   },
+  componentWillMount:function(){
+    this.getServerInfo();
+  }, 
   render: function() {
     var ShareTitile = (this.state.nm?this.state.nm:'')+'律师微相册';
     var ShareDesc = (this.state.nm?this.state.nm:'')+'律师个人风采展示';
