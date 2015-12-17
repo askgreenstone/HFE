@@ -1,6 +1,6 @@
 var React = require('react');
 var CommonMixin = require('../../Mixin');
-
+//待修改
 var Single = React.createClass({
   mixins:[CommonMixin],
   render: function() {
