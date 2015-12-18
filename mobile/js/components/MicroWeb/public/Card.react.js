@@ -2,17 +2,6 @@ var React = require('react');
 var CommonMixin = require('../../Mixin');
 var wx = require('weixin-js-sdk');
 var Share = require('../../common/Share.react');
-var Clipboard = require('clipboard');
-
-//初始化粘贴板
-var clipboard = new Clipboard('.clipboardTest');
-  console.log(clipboard);
-  clipboard.on('success', function(e) {
-      console.info('Action:', e.action);
-      console.info('Text:', e.text);
-      console.info('Trigger:', e.trigger);
-      e.clearSelection();
-});
 
 var Card = React.createClass({
   mixins:[CommonMixin],
@@ -62,6 +51,10 @@ var Card = React.createClass({
       }.bind(this)
     });
   },
+  handleCopy: function(e){
+    console.log("copied");
+    console.log(e);
+  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
   },
@@ -94,7 +87,7 @@ var Card = React.createClass({
             </a>
     			</div>
     			<div className="uc_input">
-            <a href="javascript:void(0);" data-clipboard-text={this.state.eml} className="clipboardTest">
+            <a href={'mailto:'+this.state.eml}>
               {this.state.eml}
     				  <img src="image/theme002/email.png" width="25" height="25"/>
             </a>
