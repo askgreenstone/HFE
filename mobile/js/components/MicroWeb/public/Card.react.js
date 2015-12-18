@@ -42,7 +42,7 @@ var Card = React.createClass({
             rg:data.rg,
             itd:data.itd
           });
-          $('.qr_hidden').height($('#myapp').height());
+          $('.qr_hidden').height(document.body.scrollHeight);
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -50,6 +50,10 @@ var Card = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  handleCopy: function(e){
+    console.log("copied");
+    console.log(e);
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});

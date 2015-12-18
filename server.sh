@@ -30,7 +30,7 @@ cd $WORKING_DIR/$REPO_NAME
 npm install
 cd $WORKING_DIR/$REPO_NAME/mobile
 npm install
-echo '<----------Progress 40% , install package task complete!---------->'
+echo '<----------Progress 45% , install package task complete!---------->'
 
 # 3.如果dist目录不存在，新建之；如果存在，清空目录
 echo '<----------begin to create dist folder!---------->'
@@ -49,7 +49,7 @@ else
 	  fi  
 	done
 fi
-echo '<----------Progress 60% , create dist folder task complete!---------->'
+echo '<----------Progress 56% , create dist folder task complete!---------->'
 
 # 4.拷贝HFE目录到dist
 echo '<----------begin to copy HFE to dist!---------->'
@@ -63,17 +63,22 @@ do
     cp $f $WORKING_DIR/dist #拷贝文件
   fi                  
 done 
-echo '<----------Progress 80% , copy HFE task complete!---------->'        
+echo '<----------Progress 72% , copy HFE task complete!---------->'        
 
 # 5.执行gulp
 echo '<----------begin to run gulp!---------->'
 cd $WORKING_DIR/dist
 gulp
-echo '<----------Progress 90% , gulp task complete!---------->'   
+echo '<----------Progress 88% , gulp task complete!---------->'   
 
 # 如果log目录不存在，新建之
-mkdir -p /mnt/web/log
+# mkdir -p /mnt/web/log
 
+# 6.webpack 打包处理
+echo '<----------begin to run webpack!---------->'
+cd $WORKING_DIR/dist/mobile
+webpack
+echo '<----------Progress 95% , webpack task complete!---------->'
 # 启动node服务器
 # echo '<----------begin to run node!---------->'
 # cd $WORKING_DIR/dist/mobile
