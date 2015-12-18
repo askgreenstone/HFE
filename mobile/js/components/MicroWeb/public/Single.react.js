@@ -2,13 +2,21 @@ var React = require('react');
 var CommonMixin = require('../../Mixin');
 
 var Single = React.createClass({
+	getInitialState:function(){
+		return {flag:false}
+	},
   mixins:[CommonMixin],
+  singleHidden:function(e){
+  	alert(0)
+  },
   render: function() {
-    var tempSrc = global.img + this.getUrlParams('src');
     return (
-      <div className="single_show">
-      	<span className="helper"></span><img src={tempSrc} width="100%" height="100%"/>
-      </div>
+     <div onClick={this.singleHidden} className='single_show'>
+         
+         <span className="single_describe">{this.props.describe}</span>
+         <img src={this.props.src} width="100%" />
+         
+     </div>
     );
   },
 });
