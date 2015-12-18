@@ -8,6 +8,20 @@ var Share = require('../../common/Share.react');
 
 require('../../../../css/theme/theme002.less');
 
+//横屏检测
+window.addEventListener('orientationchange', function(event){
+    if ( window.orientation == 180 || window.orientation==0 ) {
+        $('#myapp').css('display','block');
+    }
+    if( window.orientation == 90 || window.orientation == -90 ) {
+        $('#myapp').css('display','none');
+        setTimeout(function(){
+          alert('横屏体验较差，请竖屏查看');
+        },500);
+        
+    }
+}); 
+
 var Index002 = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
