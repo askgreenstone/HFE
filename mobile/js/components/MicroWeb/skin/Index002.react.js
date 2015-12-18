@@ -18,7 +18,6 @@ window.addEventListener('orientationchange', function(event){
         setTimeout(function(){
           alert('横屏体验较差，请竖屏查看');
         },500);
-        
     }
 }); 
 
