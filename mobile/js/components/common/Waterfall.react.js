@@ -9,40 +9,24 @@ var masonryOptions = {
 
 var Waterfall = React.createClass({
   getInitialState:function(){
-    return {flag:true,src:"",describe:""}
+    return {src:'',describe:''};
   },
-
+  hideShadow: function(e){
+    // if(e.target.tagName.toLowerCase()!='img'){
+    //   $('.single_show').hide();
+    // }
+    $('.single_show').hide();
+  },
   gotoSingle: function(src,describe){
-    var single = '<div class="single_show"></span><img src='+global.img+src+' width="100%" /><span class="single_describe">'+describe+'</span></div>';
-      if($("div.single_show").length==0){
-
-          $(single).appendTo($("body"));
-          var windowH = $(window).height(),
-              describeH = $("span.single_describe").height(),
-              contentH = $("div.single_show img").height(),
-              top = (windowH-contentH-describeH)/2,
-              scrollT = $(window).scrollTop();
-          
-          $("div.single_show").css("height",scrollT+windowH+10+"px");
-          $("div.single_show img").css("top",scrollT+top+"px");
-          $("span.single_describe").css("top",scrollT+contentH+top+"px");
-          
-          $("body,html").css({"overflow":"hidden"})
-          $("div.single_show").click(function(e){
-            console.log(e.target.tagName)
-              if(e.target.tagName.toLowerCase()!="img"){
-                 $('div.single_show').hide();
-                 $("body,html").css({"overflow":"auto"});
-              };
-              
-          });
-
-      }
-      
-      
+    $('.single_show').height(document.body.scrollHeight);
+    this.setState({
+      src:src,
+      describe:describe
+    });
+    $('.single_show').show();
   },
   render: function () {
-      var screenWidth = window.screen.width/2-10;
+      var screenWidth = document.body.scrollWidth/2-10;
       var that = this;
       var childElements = this.props.item.map(function(ele,i){
          return (
@@ -52,18 +36,21 @@ var Waterfall = React.createClass({
               </li>
           );
       });
-
       return (
           <div>
-          
-          <Masonry
-              className={'water-fall-ul'} 
-              elementType={'ul'} 
-              options={masonryOptions} 
-              disableImagesLoaded={false} >
-              {childElements}
-          </Masonry>
-          
+            <Masonry
+                className={'water-fall-ul'} 
+                elementType={'ul'} 
+                options={masonryOptions} 
+                disableImagesLoaded={false} >
+                {childElements}
+            </Masonry>
+            <div className="single_show" onClick={this.hideShadow}>
+              <img src={global.img+this.state.src} width="100%" />
+              <span className="single_describe">
+                {this.state.describe+'描述'}
+              </span>
+            </div>
           </div>
       );
   }
