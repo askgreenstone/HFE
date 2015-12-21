@@ -67,7 +67,7 @@ var Index003=React.createClass({
 							<img src="image/theme003/logo.jpg" className="theme3_main_logo"/>
 						</div>
 						<ul className="theme3_main_list">
-              <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-card</p><span></span></li>
+              <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-Card</p><span></span></li>
 							{navNodes}
 						</ul>
 					</div>
