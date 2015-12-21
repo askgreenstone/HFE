@@ -70,6 +70,21 @@ var CommonMixin = {
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     return isiOS;
   },
+  showAlert: function(content){
+    //调用：this.showAlert('网络连接错误或服务器异常！');
+    $('.base_shadow').show();
+    $('.base_alert').show().siblings().hide();
+    $('.base_alert span').text(content);
+  },
+  showTip: function(content){
+    //调用：this.showTip('操作成功！');
+    $('.base_shadow').show();
+    $('.base_tip').show().siblings().hide();
+    $('.base_tip span').text(content);
+    setTimeout(function(){
+      $('.base_shadow').hide();
+    },800);
+  },
   //统计接口
   staticWebPV: function(vt){
     //vt:1,网站 ｜ vt:2,电话呼入
@@ -88,7 +103,7 @@ var CommonMixin = {
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });

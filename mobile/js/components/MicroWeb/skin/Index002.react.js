@@ -57,7 +57,7 @@ var Index002 = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -103,6 +103,7 @@ var Index002 = React.createClass({
         </div>
         <Share title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
         imgUrl={global.img+"WXweb_wangjiepor.png"} target="index002"/>
+        <Message/>
       </div>
     );
   },
