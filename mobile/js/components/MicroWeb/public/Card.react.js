@@ -51,10 +51,6 @@ var Card = React.createClass({
       }.bind(this)
     });
   },
-  handleCopy: function(e){
-    console.log("copied");
-    console.log(e);
-  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
   },
