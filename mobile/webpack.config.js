@@ -28,8 +28,8 @@ var config = {
     ],
     output: {
         path: path.join(__dirname, 'public/'),//打包输出路径
-        publicPath: '/public/',//热加载－本地测试
-        // publicPath: './public/',//服务器部署
+        // publicPath: '/public/',//热加载－本地测试
+        publicPath: './public/',//服务器部署
         filename: 'app.js'
     },
     plugins: [
