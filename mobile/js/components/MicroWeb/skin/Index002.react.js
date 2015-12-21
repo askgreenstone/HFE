@@ -66,6 +66,7 @@ var Index002 = React.createClass({
     this.staticWebPV(1);
     this.getUserList();
     $('.leftBg').height(document.body.scrollHeight);
+    $('.leftBg>img').attr({'src':'image/theme002/bg1.png?'+Math.random()});
     $('body').css({'background':'#ebebeb'});
   },
   render: function() {
