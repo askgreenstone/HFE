@@ -51,7 +51,14 @@ var Index003=React.createClass({
     this.getUserList();
   },
 	render:function(){
-		
+		var navChi=['Professional Profile','Representative Cases','Micro Album'];
+    var navNodes = this.state.navArrs.map(function(item,i){
+      return(
+            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
+              <h2>{item.tn}</h2><p>{navChi[i]}</p><span></span>
+            </li>
+       );
+    }.bind(this));
 		return (
 				<div>
 					<div className="theme3_main">
@@ -60,10 +67,8 @@ var Index003=React.createClass({
 							<img src="image/theme003/logo.png" className="theme3_main_logo"/>
 						</div>
 						<ul className="theme3_main_list">
-							<li><h2>律师介绍</h2><p>Professional Profile</p><span></span></li>
-							<li><h2>代表案例</h2><p>Representative Cases</p><span></span></li>
-							<li><h2>团队介绍</h2><p>Our Team</p><span></span></li>
-							<li><h2>微 名 片</h2><p>E-card</p><span></span></li>
+              <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-card</p><span></span></li>
+							{navNodes}
 						</ul>
 					</div>
 				</div>
