@@ -281,19 +281,40 @@ p{
 }
 
 //遮罩
-#overlay {
-    background: #000;
-    filter: alpha(opacity=50); /* IE的透明度 */
-    opacity: 0.5;  /* 透明度 */
+.base_shadow {
+    background: rgba(0,0,0,0.4);
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
     z-index: 100; /* 此处的图层要大于页面 */
     display:none;
+    .base_alert{
+        width: 250px;
+        height: 150px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: relative;
+        top:50%;
+        left:50%;
+        margin:-75px 0 0 -125px;
+    }
+    .base_tip{
+        width: 150px;
+        height: 32px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        margin: -16px 0 0 -75px;
+        text-align: center;
+        line-height: 32px;
+    }
 }
+
 
 
 /*适配手机*/

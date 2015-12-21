@@ -5,6 +5,7 @@ var Card = require('../public/Card.react');
 var CommonMixin = require('../../Mixin');
 var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
+var Message = require('../../common/Message.react');
 
 require('../../../../css/theme/theme002.less');
 
@@ -64,9 +65,8 @@ var Index002 = React.createClass({
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
-    
+    $('.leftBg').height(document.body.scrollHeight);
     $('body').css({'background':'#ebebeb'});
-    
   },
   render: function() {
     var navNodes = this.state.navArrs.map(function(item,i){
