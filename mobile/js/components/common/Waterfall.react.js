@@ -48,7 +48,7 @@ var Waterfall = React.createClass({
             <div className="single_show" onClick={this.hideShadow}>
               <img src={global.img+this.state.src} width="100%" />
               <span className="single_describe">
-                {this.state.describe+'描述'}
+                {this.state.describe}
               </span>
             </div>
           </div>
