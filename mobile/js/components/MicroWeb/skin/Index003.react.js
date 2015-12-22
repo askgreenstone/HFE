@@ -72,6 +72,7 @@ var Index003=React.createClass({
 						</ul>
             <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划法律行业发展高级顾问"} 
             imgUrl={global.img+"wzd20151221145959.png"} target="index003"/>
+            
 					</div>
 				</div>
 			)
