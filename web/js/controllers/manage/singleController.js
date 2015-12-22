@@ -6,8 +6,7 @@ define(['js/app/app'], function(app) {
     var SingleController = function($location,$http,GlobalUrl,$window,TransferUrl) {
 
         var vm = this;
-        vm.title = '标题';
-        vm.pohtoDesc ='';
+        vm.title = '';
         vm.updateFlag = false;
         vm.transferUrl = TransferUrl;
 
@@ -66,6 +65,9 @@ define(['js/app/app'], function(app) {
 
         vm.submitDesc = function(){
           console.log('vm.pohtoDesc:'+vm.pohtoDesc);
+          console.log('vm.des1:'+vm.des);
+          vm.des = vm.pohtoDesc;
+          console.log('vm.des2:'+vm.des);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/SaveWXPhoto.do',
@@ -81,8 +83,7 @@ define(['js/app/app'], function(app) {
             success(function(data, status, headers, config) {
                 console.log('success:'+JSON.stringify(data));
                 if(data.c == 1000){
-                  vm.title = data.pd;
-                  
+                  vm.getServerPhotos();
                   vm.updateFlag = false;
                   console.log(vm.updateFlag);
                   vm.pohtoDesc = '';
@@ -96,6 +97,10 @@ define(['js/app/app'], function(app) {
 
         vm.updateDescribe = function(){
           vm.updateFlag = true;
+        }
+
+        vm.cancleDescribe = function(){
+          vm.updateFlag = false;
         }
 
         vm.getServerPhotos = function(flag) {
@@ -131,10 +136,12 @@ define(['js/app/app'], function(app) {
         }
 
         //图片切换效果
-        vm.switchImg = function(path,title){
-          vm.pth = path;
-          vm.title = title;
+        vm.switchImg = function(id,path,title){
+          console.log('switchImg des:'+title);
           vm.getServerPhotos();
+          vm.pid = id;
+          vm.pth = path;
+          vm.des = title;
         }
 
         vm.initUl = function(len){
@@ -186,6 +193,8 @@ define(['js/app/app'], function(app) {
           vm.title = decodeURI(vm.getUrlParam('title'));
           vm.pid = decodeURI(vm.getUrlParam('pid'));
           vm.pth = decodeURI(vm.getUrlParam('pth'));
+          //当前图片描述
+          vm.des = vm.title;
           vm.getServerPhotos();
         }
 
