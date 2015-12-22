@@ -1,5 +1,6 @@
 var React = require('react');
 var CommonMixin = require('../Mixin');
+var Message = require('../common/Message.react');
 
 var List1 = React.createClass({
   mixins:[CommonMixin],
@@ -34,7 +35,7 @@ var List1 = React.createClass({
          }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -87,6 +88,7 @@ var List1 = React.createClass({
           {legend}
           {articleNodes}
         </ul>
+        <Message/>
       </div>
     );
   },

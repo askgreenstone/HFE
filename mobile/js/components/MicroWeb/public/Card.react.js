@@ -2,6 +2,7 @@ var React = require('react');
 var CommonMixin = require('../../Mixin');
 var wx = require('weixin-js-sdk');
 var Share = require('../../common/Share.react');
+var Message = require('../../common/Message.react');
 
 var Card = React.createClass({
   mixins:[CommonMixin],
@@ -46,7 +47,7 @@ var Card = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -120,6 +121,7 @@ var Card = React.createClass({
                 </div>
 	    	</div>
         <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl} target="card"/>
+        <Message/>
     	</div>
     );
   },

@@ -1,6 +1,7 @@
 var React = require('react');
 var wx = require('weixin-js-sdk');
 var CommonMixin = require('../Mixin');
+var Message = require('./Message.react');
 
 var Location = React.createClass({
     mixins:[CommonMixin],
@@ -80,11 +81,11 @@ var Location = React.createClass({
                     });
 
                 } else {
-                    alert('share code:' + data.c + ',error:' + data.d);
+                     that.showAlert('share code:' + data.c);
                 }
             },
             error: function(xhr, status, err) {
-                alert('网络连接错误或服务器异常！');
+                that.showAlert('网络连接错误或服务器异常！');
                 console.error(this.props.url, status, err.toString());
             }
         });
@@ -94,7 +95,10 @@ var Location = React.createClass({
     },
     render: function() {
         return ( 
+          <div>  
           <div onClick={this.wxSignature}></div>
+          <Message/>
+          </div>
         );
     },
 });

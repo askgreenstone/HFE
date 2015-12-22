@@ -2,6 +2,7 @@ var React = require('react');
 var Waterfall = require('../../common/Waterfall.react');
 var CommonMixin = require('../../Mixin');
 var Share = require('../../common/Share.react');
+var Message = require('../../common/Message.react');
 
 var Photo = React.createClass({
   mixins:[CommonMixin],
@@ -24,7 +25,7 @@ var Photo = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -58,7 +59,7 @@ var Photo = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -78,6 +79,7 @@ var Photo = React.createClass({
         <div>
           <Waterfall item={this.state.photos} />
           <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl}  target="photo"/>
+          <Message/>
         </div>
     );
   },

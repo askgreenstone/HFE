@@ -11,14 +11,20 @@
 @black07:rgba(0,0,0,0.7);
 @black06:rgba(0,0,0,0.6);
 
+
+/*公共样式*/
 html {
     font-size: 62.5%;
+    width:100%;
+    height:100%;
 }
 
 body {
     margin: 0 auto;
     color: #595757;
     background-color: #ebebeb;
+    width:100%;
+    height:100%;
 }
 #myapp{
     width:100%;
@@ -50,17 +56,17 @@ p{
 
 .temp div{
     background-color: #fff;
-    width:47%;
-    padding:2%;
-    box-sizing:border-box;
-    float:left;
+    width: 47%;
+    padding: 2%;
+    box-sizing: border-box;
+    float: left;
     color: rgba(0, 0, 0, 0.6);
     font-size: 1.4rem;
-    margin:1% 1%;
-    border-radius:5px;
+    margin: 1% 1%;
+    border-radius: 5px;
 }
 .temp div img{
-    width:100%;
+    width: 100%;   
 }
 .temp div span{
     width: 100%;
@@ -171,7 +177,7 @@ p{
   margin: 4%;
 }
 
-// card
+/*微名片*/
 .clear {
     clear: both;
 }
@@ -285,6 +291,107 @@ p{
     font-weight: bold;
 }
 
+// articleDetail.html
+.article_detail {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+}
+
+.article_detail h3 {
+    text-align: center;
+    font-size: @l-size;
+}
+
+.ad_format {
+    text-align: justify;
+    margin: 5%;
+    line-height: 20px;
+    background: #fff;
+    word-break: break-word;
+}
+
+.ad_format img{
+    text-align: center;
+    // width: 100%;
+    // height: 100%;   
+}
+
+.location_page{
+    text-align: center;
+    margin-top: 20%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -100px;
+    border-radius: 5px;
+}
+.location_page h3{
+    text-align: left;
+    margin: 20% 5%;
+    line-height: 20px;
+    font-size: @s-size;
+}
+.location_page span{
+    display: inline-block;
+    background-color: rgba(110,48,145,0.8);
+    padding: 5% 0;
+    margin: 0 5%;
+    width: 90%;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: @m-size;
+    -webkit-tap-highlight-color: transparent;
+}
+.logo002{
+    position: fixed;
+    bottom: 3%;
+    left: 37.5%;
+    margin: 0 0 0 -55px;
+}
+
+// single.html
+ .single_show {
+     width: 100%;
+     height: 100%;
+     position:fixed;
+     left:0px;
+     top:0px;
+     white-space: nowrap;
+     background: rgba(0,0,0,0.8);
+     display: block;
+     vertical-align:middle;
+     text-align:center;
+     z-index:2;
+     cursor:pointer;
+     display: none;
+ }
+ 
+ .single_show img{
+     background: #fff;
+     position:absolute;
+     left:0px;
+     top:50px;
+ }
+ .single_describe{
+     width:100%;
+     height:30px;
+     text-align:center;
+     line-height:30px;
+     display:block;
+     color:#fff;
+     font-size:@l-size;
+     position:absolute;
+     left:0px;
+     top:0px;
+     cursor:pointer;
+     margin-top: 10px;
+ }
+
 //遮罩
 .base_shadow {
     background: rgba(0,0,0,0.4);
@@ -343,6 +450,12 @@ p{
     html {
         font-size: 66.5%;
     }
+    .user_create {
+        width: 105px;
+    }
+    .menu_list li {
+        height: 115px;
+    }
 }
 
 @media screen and (min-width: 377px) {
@@ -354,5 +467,11 @@ p{
           width: 280px;
           margin: -28px 0 0 -150px;
       }
+    }
+    .user_create {
+        width: 120px;
+    }
+    .menu_list li {
+        height: 125px;
     }
 }

@@ -5,6 +5,7 @@ var Card = require('../public/Card.react');
 var CommonMixin = require('../../Mixin');
 var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
+var Message = require('../../common/Message.react');
 
 require('../../../../css/theme/theme003.less');
 var Index003=React.createClass({
@@ -41,7 +42,7 @@ var Index003=React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -72,8 +73,8 @@ var Index003=React.createClass({
 						</ul>
             <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划法律行业发展高级顾问"} 
             imgUrl={global.img+"wzd20151221145959.png"} target="index003"/>
-            
 					</div>
+          <Message/>
 				</div>
 			)
 	}

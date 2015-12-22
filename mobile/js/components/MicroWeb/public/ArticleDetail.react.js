@@ -1,5 +1,6 @@
 var React = require('react');
 var CommonMixin = require('../../Mixin');
+var Message = require('../../common/Message.react');
 
 var ArticleDetail = React.createClass({
 	mixins:[CommonMixin],
@@ -40,7 +41,7 @@ var ArticleDetail = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -66,6 +67,7 @@ var ArticleDetail = React.createClass({
         <div style={{'height':tempHeight,'display':isShow}}>
           <iframe style={{'border':'0'}} src={this.state.webUrl} width="100%" height="100%"></iframe>
         </div>
+        <Message/>
     	</div>
     );
   }
