@@ -1,6 +1,7 @@
 var React = require('react');
 var Location = require('../../common/Location.react');
 var CommonMixin = require('../../Mixin');
+var Message = require('../../common/Message.react');
 
 var Adress = React.createClass({
   mixins:[CommonMixin],
@@ -24,7 +25,7 @@ var Adress = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('网络连接错误或服务器异常！');
+        this.showAlert('网络连接错误或服务器异常！');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -35,7 +36,10 @@ var Adress = React.createClass({
   render: function() {
 
     return (
+        <div>
         <Location currentpath={this.state.ln} target={this.state.ln} region={this.state.rg}/>
+        <Message/>
+        </div>
     );
   },
 });

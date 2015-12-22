@@ -1,6 +1,7 @@
 var React = require('react');
 var wx = require('weixin-js-sdk');
 var CommonMixin = require('../Mixin');
+var Message = require('./Message.react');
 
 var Location = React.createClass({
   mixins:[CommonMixin],
@@ -69,7 +70,7 @@ var Location = React.createClass({
               }
           },
           error: function(xhr, status, err) {
-              alert('网络连接错误或服务器异常！');
+              this.showAlert('网络连接错误或服务器异常！');
               console.error(this.props.url, status, err.toString());
           }
       });
@@ -106,6 +107,7 @@ var Location = React.createClass({
         <div className="location_page">
           <h3>{this.props.target}</h3>
           <span onClick={this.getLocationInfo}>查看详情</span>
+          <Message/>
         </div>
         
       );
