@@ -1,9 +1,9 @@
 ﻿<div class="view">
-	<div class="view_title">微网站管理</div>
-	<div class="manage_content">
-		<div class="mc_left">
-			<ul class="mcl_list">
-				<!-- <li>
+    <div class="view_title">微网站管理</div>
+    <div class="manage_content">
+        <div class="mc_left">
+            <ul class="mcl_list">
+                <!-- <li>
 					<img src="image/manage/fans.png" width="18" height="18"/>
 					<span><a href="#manage">粉丝数据</a></span>
 				</li>
@@ -11,57 +11,59 @@
 					<img src="image/manage/wx.png" width="18" height="18"/>
 					<span><a href="#manage">公众号运营</a></span>
 				</li> -->
-				<li ng-click="vm.menuLink('data')">
-					<img src="image/manage/data.png" width="18" height="18"/>
-					<span><a href="javascript:void(0)">用户数据</a></span>
-				</li>
-				<li class="text-active" ng-click="vm.menuLink('manage')">
-					<img src="image/manage/set.png"  width="18" height="18"/>
-					<span><a href="javascript:void(0)">内容维护</a></span>
-				</li>
-			</ul>
-		</div>
-		<div class="mc_right">
-			<div class="mcr_search">
-				<span>我的律师团队</span>
-			</div>
-			<div class="list_lenged">
-				<h3 class="red">团队风采 &gt; {{vm.title}}</h3>
-				<span>
+                <li ng-click="vm.menuLink('data')">
+                    <img src="image/manage/data.png" width="18" height="18" />
+                    <span><a href="javascript:void(0)">用户数据</a></span>
+                </li>
+                <li class="text-active" ng-click="vm.menuLink('manage')">
+                    <img src="image/manage/set.png" width="18" height="18" />
+                    <span><a href="javascript:void(0)">内容维护</a></span>
+                </li>
+            </ul>
+        </div>
+        <div class="mc_right">
+            <div class="mcr_search">
+                <span>我的律师团队</span>
+            </div>
+            <div class="list_lenged">
+                <h3 class="red">团队风采</h3>
+                <span>
 					<a  ng-click="vm.goBack()">
 						<img src="image/return.png" width="20" height="20"/> 返回
 					</a>
 				</span>
-			</div>
-			<div class="single_box">
-				<div class="sb_view">
-					<i ng-click="vm.deleteOne(vm.pid)"></i>
-					<!-- <span class="left"></span> -->
-					<div class="pic_vertical">
-						<img ng-src={{vm.transferUrl+vm.pth}} width="" height=""/>
-					</div>
-					<!-- <span class="right"></span> -->
-				</div>
-				<p>{{vm.title}}
-					<input type="text" ng-blur="vm.submitDesc()" ng-if="vm.updateFlag" ng-model="vm.pohtoDesc"/>
-					<span ng-click="vm.updateDescribe()"></span>
-				</p>
-				<div class="sb_list">
-					<span ng-click="vm.singleLeft()" class="left"></span>
-					<div class="ul_box">
-						<ul class="sbl_list">
-							<li ng-click="vm.switchImg(x.pn,x.pd)" ng-class="x.pn == vm.pth ? 'active':''" ng-repeat="x in vm.photos">
-								<img ng-src={{vm.transferUrl+x.pn}} width="100%" height="80" />
-							</li>
-							<!-- <div class="clean"></div> -->
-						</ul>
-						<div class="clean"></div>
-					</div>
-					<span ng-click="vm.singleRight()" class="right"></span>
-				</div>
-			</div>
-			<!-- <div class="clean"></div> -->
-		</div>
-		<div class="clean"></div>
-	</div>
+            </div>
+            <div class="single_box">
+                <div class="sb_list">
+                    <span ng-click="vm.singleLeft()" class="left"></span>
+                    <div class="ul_box">
+                        <ul class="sbl_list">
+                            <li ng-click="vm.switchImg(x.pId,x.pn,x.pd)" ng-class="x.pn == vm.pth ? 'active':''" ng-repeat="x in vm.photos">
+                                <img ng-src={{vm.transferUrl+x.pn}} width="100%" height="80" />
+                            </li>
+                            <!-- <div class="clean"></div> -->
+                        </ul>
+                        <div class="clean"></div>
+                    </div>
+                    <span ng-click="vm.singleRight()" class="right"></span>
+                </div>
+                <p><i>图片描述：</i>{{vm.des?vm.des:'暂无描述'}}
+                    <input type="text" ng-if="vm.updateFlag" ng-model="vm.pohtoDesc" />
+                    <img ng-if="vm.updateFlag" src="image/right.png" width="32" height="32" ng-click="vm.submitDesc()">
+                    <img ng-if="vm.updateFlag" src="image/error.png" width="32" height="32" ng-click="vm.cancleDescribe()">
+                    <span ng-if="!vm.updateFlag" ng-click="vm.updateDescribe()"></span>
+                </p>
+                <div class="sb_view">
+                    <i ng-click="vm.deleteOne(vm.pid)"></i>
+                    <!-- <span class="left"></span> -->
+                    <div class="pic_vertical">
+                        <img ng-src={{vm.transferUrl+vm.pth}} width="" height="" />
+                    </div>
+                    <!-- <span class="right"></span> -->
+                </div>
+            </div>
+            <!-- <div class="clean"></div> -->
+        </div>
+        <div class="clean"></div>
+    </div>
 </div>

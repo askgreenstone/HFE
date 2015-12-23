@@ -525,14 +525,26 @@ footer {
   cursor: pointer;
 }
 .single_box p{
-  margin: 10px 0;
+  margin: 0px;
+}
+.single_box p>img{
+  /*-webkit-transform:scale(0.5);*/
+  margin: 16px 0;
+  cursor: pointer;
+}
+.single_box p>i{
+  font-style: normal;
+  color: #3bbffc;
+  font-weight: bold;
 }
 .single_box p>span{
-  background: url('../image/manage/edit1.png') no-repeat center center transparent;
+  background: url('../image/edit.png') no-repeat center center transparent;
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 64px;
+  height: 64px;
   cursor: pointer;
+  vertical-align: middle;
+  -webkit-transform:scale(0.5);
 }
 .sb_list{
   position: relative;
