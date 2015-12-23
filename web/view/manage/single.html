@@ -47,7 +47,7 @@
                     </div>
                     <span ng-click="vm.singleRight()" class="right"></span>
                 </div>
-                <p><i>图片描述：</i>{{vm.des}}
+                <p><i>图片描述：</i>{{vm.des?vm.des:'暂无描述'}}
                     <input type="text" ng-if="vm.updateFlag" ng-model="vm.pohtoDesc" />
                     <img ng-if="vm.updateFlag" src="image/right.png" width="32" height="32" ng-click="vm.submitDesc()">
                     <img ng-if="vm.updateFlag" src="image/error.png" width="32" height="32" ng-click="vm.cancleDescribe()">

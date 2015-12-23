@@ -123,8 +123,12 @@ define(['js/app/app'], function(app) {
                   vm.photos = data.pl;
                   vm.initUl(vm.photos.length);
                   if(flag == 'delete'){
-                    vm.pid = data.pl[0].pId;
-                    vm.pth = data.pl[0].pn;
+                    if(data.pl.length>0){
+                      vm.pid = data.pl[0].pId;
+                      vm.pth = data.pl[0].pn;
+                    }else{
+                      $window.history.back();
+                    }
                     console.log('删除成功！');
                   }
                 }

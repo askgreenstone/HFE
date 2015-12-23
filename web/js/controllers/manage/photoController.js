@@ -28,7 +28,7 @@ define(['js/app/app'], function(app) {
 
         vm.gotoLink = function(path,title,pid,pth){
           if(!title){
-            title = '暂无';
+            title = '暂无描述';
           }
           location.href = '#/'+path+'?session='+vm.sess+'&title='+encodeURI(title)+'&pid='+pid+'&pth='+pth+'&ntid='+vm.ntid;
         };
