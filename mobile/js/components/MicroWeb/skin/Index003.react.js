@@ -71,7 +71,7 @@ var Index003=React.createClass({
               <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-Card</p><span></span></li>
 							{navNodes}
 						</ul>
-            <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划法律行业发展高级顾问"} 
+            <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划，法律行业发展咨询"} 
             imgUrl={global.img+"wzd20151221145959.png"} target="index003"/>
 					</div>
           <Message/>
