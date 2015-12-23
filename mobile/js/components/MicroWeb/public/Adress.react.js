@@ -20,7 +20,8 @@ var Adress = React.createClass({
         if(data.c == 1000){
            this.setState({
               ln:data.adr,
-              rg:data.rg
+              rg:data.rg,
+              bg:data.adrh
             })
         }
       }.bind(this),
@@ -37,7 +38,7 @@ var Adress = React.createClass({
 
     return (
         <div>
-        <Location currentpath={this.state.ln} target={this.state.ln} region={this.state.rg}/>
+        <Location currentpath={this.state.ln} target={this.state.ln} region={this.state.rg} displayname={this.state.bg}/>
         <Message/>
         </div>
     );

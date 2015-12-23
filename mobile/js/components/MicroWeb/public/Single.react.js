@@ -1,6 +1,6 @@
 var React = require('react');
 var CommonMixin = require('../../Mixin');
-//待修改
+//待修改(已废弃！！！！)
 var Single = React.createClass({
 	getInitialState:function(){
 		return {flag:false}

@@ -65,7 +65,7 @@ var Index003=React.createClass({
 					<div className="theme3_main">
 						<div>
 							<img src="image/theme003/photo65.png" alt="" className="theme3_main_bg"/>
-							<img src="image/theme003/logo.jpg" className="theme3_main_logo"/>
+							<img src="image/theme003/logo.png" width="130" className="theme3_main_logo"/>
 						</div>
 						<ul className="theme3_main_list">
               <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-Card</p><span></span></li>
