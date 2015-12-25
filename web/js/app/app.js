@@ -50,8 +50,9 @@ define(['RouteResolver','Common'], function() {
                 .when('/data', route.resolve('Data', 'manage/','vm'))
                 .when('/preview', route.resolve('Preview', 'manage/','vm'))
                 .when('/user', route.resolve('User', 'manage/','vm'))
+                .when('/temp', route.resolve('Temp', 'manage/','vm'))
                 .otherwise({
-                    redirectTo: '/chat'
+                    redirectTo: '/manage'
                 });
 
         }

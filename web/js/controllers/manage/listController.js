@@ -71,7 +71,7 @@ define(['App'], function(app) {
         }
 
         vm.updateArticle = function(nid){
-          location.href = '#/add?session='+vm.sess+'&title='+vm.getUrlParam('title')+'&nid='+nid;
+          location.href = '#/add?session='+vm.sess+'&title='+Common.getUrlParam('title')+'&nid='+nid;
         }
 
         vm.publishArticle = function(nid){
