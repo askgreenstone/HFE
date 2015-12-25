@@ -1,32 +1,17 @@
 'use strict';
 
-define(['js/app/app'], function(app) {
+define(['App'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl','$window'];
-    var ListController = function($location,$http,GlobalUrl,$window) {
+    var injectParams = ['$location','$http','GlobalUrl','$window','Common'];
+    var ListController = function($location,$http,GlobalUrl,$window,Common) {
 
         var vm = this;
         vm.title = '标题';
         vm.sess = '';
 
-        vm.getUrlParam = function(p) {
-          var url = location.href; 
-          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-          var paraObj = {} ;
-          for (var i=0,j=0; j=paraString[i]; i++){ 
-            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-          } 
-          var returnValue = paraObj[p.toLowerCase()]; 
-          if(typeof(returnValue)=="undefined"){ 
-            return ""; 
-          }else{ 
-            return  returnValue;
-          } 
-        };
-
         vm.gotoLink = function(path) {
-          var title = vm.getUrlParam('title'),
-              ntid = vm.getUrlParam('ntId');
+          var title = Common.getUrlParam('title'),
+              ntid = Common.getUrlParam('ntId');
           location.href = '#/' + path + '?session='+vm.sess+'&title=' + title +'&ntId='+ntid;
         };
 
@@ -112,9 +97,9 @@ define(['js/app/app'], function(app) {
         }
 
         function init(){
-          vm.title = decodeURI(vm.getUrlParam('title'));
-          vm.ntid = vm.getUrlParam('ntId');
-          vm.sess = vm.getUrlParam('session');
+          vm.title = decodeURI(Common.getUrlParam('title'));
+          vm.ntid = Common.getUrlParam('ntId');
+          vm.sess = Common.getUrlParam('session');
           vm.getArticleList();
         }
 

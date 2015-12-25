@@ -1,29 +1,14 @@
 'use strict';
 
-define(['js/app/app'], function(app) {
+define(['App'], function(app) {
 
-    var injectParams = ['$location', '$window', '$http','GlobalUrl','TransferUrl'];
-    var ManageController = function($location, $window, $http,GlobalUrl,TransferUrl) {
+    var injectParams = ['$location', '$window', '$http','GlobalUrl','TransferUrl','Common'];
+    var ManageController = function($location, $window, $http,GlobalUrl,TransferUrl,Common) {
 
         var vm = this;
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
-
-        vm.getUrlParam = function(p) {
-          var url = location.href; 
-          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-          var paraObj = {} ;
-          for (var i=0,j=0; j=paraString[i]; i++){ 
-            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-          } 
-          var returnValue = paraObj[p.toLowerCase()]; 
-          if(typeof(returnValue)=="undefined"){ 
-            return ""; 
-          }else{ 
-            return  returnValue;
-          } 
-        };
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -66,7 +51,7 @@ define(['js/app/app'], function(app) {
         }
 
         function init(){
-          vm.sess = vm.getUrlParam('session');
+          vm.sess = Common.getUrlParam('session');
           vm.getServerCatalogue();
           vm.storeCurrentSession(vm.sess);
         }

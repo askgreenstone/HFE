@@ -1,25 +1,10 @@
 'use strict';
 
-define(['js/app/app'], function(app) {
+define(['App'], function(app) {
 
-    var injectParams = ['$location','$http','$window','GlobalUrl'];
-    var UserController = function($location,$http,$window,GlobalUrl) {
+    var injectParams = ['$location','$http','$window','GlobalUrl','Common'];
+    var UserController = function($location,$http,$window,GlobalUrl,Common) {
         var vm = this;
-
-        vm.getUrlParam = function(p) {
-          var url = location.href; 
-          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-          var paraObj = {} ;
-          for (var i=0,j=0; j=paraString[i]; i++){ 
-            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-          } 
-          var returnValue = paraObj[p.toLowerCase()]; 
-          if(typeof(returnValue)=="undefined"){ 
-            return ""; 
-          }else{ 
-            return  returnValue;
-          } 
-        };
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -126,7 +111,7 @@ define(['js/app/app'], function(app) {
         // }
 
         function init(){
-          vm.sess = vm.getUrlParam('session');
+          vm.sess = Common.getUrlParam('session');
         }
 
         init();

@@ -1,30 +1,14 @@
 'use strict';
 
-define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
+define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
-    var injectParams = ['$location','$window','$http','GlobalUrl'];
-    var EditorController = function($location,$window,$http,GlobalUrl) {
+    var injectParams = ['$location','$window','$http','GlobalUrl','Common'];
+    var EditorController = function($location,$window,$http,GlobalUrl,Common) {
 
         var vm = this;
         vm.title = '标题';
         vm.isEdit = false;
         vm.nId = '';
-        
-
-        vm.getUrlParam = function(p) {
-          var url = location.href; 
-          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-          var paraObj = {} ;
-          for (var i=0,j=0; j=paraString[i]; i++){ 
-            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-          } 
-          var returnValue = paraObj[p.toLowerCase()]; 
-          if(typeof(returnValue)=="undefined"){ 
-            return ""; 
-          }else{ 
-            return  returnValue;
-          } 
-        };
 
         vm.queryContentState = function(){
           $http({
@@ -111,28 +95,29 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
         function setContent(isAppendTo) {
           var editor = UE.getEditor('editor');
-            if(editor)
-            {
-              try{
-                editor.setContent(vm.getServerEdit, isAppendTo);
-              }
-              catch(error){
-                setTimeout(function(){
-                  setContent(isAppendTo)
-                },500);
-              }
+          //ueditor内部bug处理
+          if(editor)
+          {
+            try{
+              editor.setContent(vm.getServerEdit, isAppendTo);
             }
-            else{
+            catch(error){
               setTimeout(function(){
                 setContent(isAppendTo)
               },500);
             }
+          }
+          else{
+            setTimeout(function(){
+              setContent(isAppendTo)
+            },500);
+          }
         }
 
         function init(){
-          vm.title = decodeURI(vm.getUrlParam('title'));
-          vm.ntid = decodeURI(vm.getUrlParam('ntid'));
-          vm.sess = vm.getUrlParam('session');
+          vm.title = decodeURI(Common.getUrlParam('title'));
+          vm.ntid = decodeURI(Common.getUrlParam('ntid'));
+          vm.sess = Common.getUrlParam('session');
 
           var editor = new UE.ui.Editor();
           editor.render('editor');

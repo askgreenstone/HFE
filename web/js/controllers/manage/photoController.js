@@ -1,30 +1,15 @@
 'use strict';
 
-define(['js/app/app'], function(app) {
+define(['App'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl','$window','TransferUrl'];
-    var PhotoController = function($location,$http,GlobalUrl,$window,TransferUrl) {
+    var injectParams = ['$location','$http','GlobalUrl','$window','TransferUrl','Common'];
+    var PhotoController = function($location,$http,GlobalUrl,$window,TransferUrl,Common) {
 
         var vm = this;
         vm.title = '标题';
         vm.sess = '';
         vm.ntid = 0;
         vm.transferUrl = TransferUrl;
-
-        vm.getUrlParam = function(p) {
-          var url = location.href; 
-          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-          var paraObj = {} ;
-          for (var i=0,j=0; j=paraString[i]; i++){ 
-            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-          } 
-          var returnValue = paraObj[p.toLowerCase()]; 
-          if(typeof(returnValue)=="undefined"){ 
-            return ""; 
-          }else{ 
-            return  returnValue;
-          } 
-        };
 
         vm.gotoLink = function(path,title,pid,pth){
           if(!title){
@@ -71,9 +56,9 @@ define(['js/app/app'], function(app) {
         };
 
         function init(){
-          vm.sess = vm.getUrlParam('session');
-          vm.ntid = vm.getUrlParam('ntId');
-          vm.title = decodeURI(vm.getUrlParam('title'));
+          vm.sess = Common.getUrlParam('session');
+          vm.ntid = Common.getUrlParam('ntId');
+          vm.title = decodeURI(Common.getUrlParam('title'));
           vm.getServerPhotos();
         }
 

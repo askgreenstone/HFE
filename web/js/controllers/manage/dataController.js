@@ -1,9 +1,9 @@
 'use strict';
 
-define(['js/app/app'], function(app) {
+define(['App'], function(app) {
 
-    var injectParams = ['$location','$window','$http','GlobalUrl'];
-    var DataController = function($location,$window,$http,GlobalUrl) {
+    var injectParams = ['$location','$window','$http','GlobalUrl','Common'];
+    var DataController = function($location,$window,$http,GlobalUrl,Common) {
 
         var vm = this;
         vm.title = '标题';
@@ -12,21 +12,6 @@ define(['js/app/app'], function(app) {
         vm.muCt = 0;
         vm.IDCt = 0;
         vm.usrCt = 0;
-
-        vm.getUrlParam = function(p) {
-          var url = location.href; 
-          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-          var paraObj = {} ;
-          for (var i=0,j=0; j=paraString[i]; i++){ 
-            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-          } 
-          var returnValue = paraObj[p.toLowerCase()]; 
-          if(typeof(returnValue)=="undefined"){ 
-            return ""; 
-          }else{ 
-            return  returnValue;
-          } 
-        };
 
         vm.gotoLink = function(path,title){
           location.href = '#/'+path+'?title='+encodeURI(title);
@@ -71,8 +56,8 @@ define(['js/app/app'], function(app) {
         })
 
         function init(){
-          vm.sess = vm.getUrlParam('session');
-          vm.title = decodeURI(vm.getUrlParam('title'));
+          vm.sess = Common.getUrlParam('session');
+          vm.title = decodeURI(Common.getUrlParam('title'));
           vm.getServerStatic(1);
         }
 

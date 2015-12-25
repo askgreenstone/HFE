@@ -1,8 +1,8 @@
 'use strict';
 
-define(['js/services/routeResolver'], function() {
+define(['RouteResolver','Common'], function() {
 
-    var app = angular.module('webApp', ['ngRoute','routeResolverServices']);
+    var app = angular.module('webApp', ['ngRoute','routeResolverServices','CommonServices']);
     
     //后台调用接口兼容
     if(window.location.href.indexOf('localhost')>-1){

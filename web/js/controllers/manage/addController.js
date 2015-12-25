@@ -1,9 +1,9 @@
 'use strict';
 
-define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
+define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
-    var injectParams = ['$location','$http','$window','GlobalUrl'];
-    var AddController = function($location,$http,$window,GlobalUrl) {
+    var injectParams = ['$location','$http','$window','GlobalUrl','Common'];
+    var AddController = function($location,$http,$window,GlobalUrl,Common) {
         var vm = this;
         vm.title = '标题';
         vm.sess = '';
@@ -15,21 +15,6 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
           content:''
         }
         vm.showUeditorFlag = true;
-
-        vm.getUrlParam = function(p) {
-          var url = location.href; 
-          var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
-          var paraObj = {} ;
-          for (var i=0,j=0; j=paraString[i]; i++){ 
-            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
-          } 
-          var returnValue = paraObj[p.toLowerCase()]; 
-          if(typeof(returnValue)=="undefined"){ 
-            return ""; 
-          }else{ 
-            return  returnValue;
-          } 
-        };
 
         vm.getContent = function(){
           vm.createInfo.content = UE.getEditor('editor').getContent();
@@ -184,10 +169,10 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
 
         function init(){
-          vm.sess = vm.getUrlParam('session');
-          vm.title = decodeURI(vm.getUrlParam('title'));
-          vm.ntid = decodeURI(vm.getUrlParam('ntId'));
-          vm.nid = vm.getUrlParam('nid');
+          vm.sess = Common.getUrlParam('session');
+          vm.title = decodeURI(Common.getUrlParam('title'));
+          vm.ntid = decodeURI(Common.getUrlParam('ntId'));
+          vm.nid = Common.getUrlParam('nid');
 
           var editor = new UE.ui.Editor();
           editor.render('editor');
@@ -196,7 +181,7 @@ define(['js/app/app','ZeroClipboard'], function(app,ZeroClipboard) {
 
           if(vm.nid){
             vm.titleFlag = '修改文章';
-            vm.queryContentState(vm.getUrlParam('nid'));
+            vm.queryContentState(Common.getUrlParam('nid'));
           }
         }
 
