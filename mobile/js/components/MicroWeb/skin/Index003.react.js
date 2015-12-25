@@ -13,7 +13,7 @@ var Index003=React.createClass({
 	getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleDetail','articleList','photo']
+      path:['articleDetail','articleList','photo','articleList']
     };
   },
   gotoLink: function(path,ntid){
@@ -52,7 +52,7 @@ var Index003=React.createClass({
     this.getUserList();
   },
 	render:function(){
-		var navChi=['Professional Profile','Representative Cases','Micro Album'];
+		var navChi=['Professional Profile','Representative Cases','Micro Album','Management Research'];
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
@@ -68,10 +68,10 @@ var Index003=React.createClass({
 							<img src="image/theme003/logo.png" width="130" className="theme3_main_logo"/>
 						</div>
 						<ul className="theme3_main_list">
+              {navNodes}
               <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-Card</p><span></span></li>
-							{navNodes}
 						</ul>
-            <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划，法律行业发展咨询"} 
+            <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划，法律行业发展研究与实践"} 
             imgUrl={global.img+"wzd20151221145959.png"} target="index003"/>
 					</div>
           <Message/>
