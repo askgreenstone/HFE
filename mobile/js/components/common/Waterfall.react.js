@@ -16,14 +16,16 @@ var Waterfall = React.createClass({
     //   $('.single_show').hide();
     // }
     $('.single_show').hide();
+    $('body,html').css({'overflow-y':'auto'});
   },
-  gotoSingle: function(src,describe){
+  gotoSingle: function(src,describe,e){
     $('.single_show').height(document.body.scrollHeight);
     this.setState({
       src:src,
       describe:describe
     });
     $('.single_show').show();
+    $('body,html').css({'overflow-y':'hidden'});
   },
   render: function () {
       var screenWidth = document.body.scrollWidth/2-10;
