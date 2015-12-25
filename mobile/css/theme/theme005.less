@@ -1,0 +1,60 @@
+/*字体大小*/
+@b-size: 1.2rem;
+@s-size: 1.3rem;
+@m-size: 1.4rem;
+@l-size: 1.5rem;
+@xl-size: 1.6rem;
+/*常用色值*/
+@black10:#000;
+@black07:rgba(0,0,0,0.7);
+@black06:rgba(0,0,0,0.6);
+
+
+#myapp>div{
+	width:100%;
+	height:100%;
+}
+.theme5_main{
+	width: 100%;
+	height: 100%;
+	background: url('../../image/theme005/photo.png') no-repeat;
+	background-size: cover;
+	position: relative;
+}
+.theme5_main_logo{
+	position: absolute;
+	left: 5%;
+	top: 5%;
+}
+.theme5_main_list{
+	position: absolute;
+	top:30%;
+	left: 10%;
+	width:80%;
+	margin: 0px;
+	padding: 0px;
+}
+.theme5_main_list li{
+	width:100%;
+	height: 3.5rem;
+	line-height: 3.5rem;
+	margin-bottom: 1rem;
+	padding: 0 5%;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	list-style: none;
+	background: rgba(89,168,223,0.5);
+}
+.theme5_main_list li span:nth-child(1){
+	width:30%;
+	display: inline-block;
+	color:#fff;
+	font-size: @l-size;
+}
+.theme5_main_list li span:nth-child(2){
+	width:70%;
+	display: inline-block;
+	color:#fff;
+	font-size: @l-size;
+}
+
