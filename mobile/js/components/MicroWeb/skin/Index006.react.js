@@ -57,7 +57,7 @@ var Index006 = React.createClass({
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
               <span>{item.tn}</span>
-              <span>desE[i]</span>
+              <span>{desE[i]}</span>
             </li>
        );
     }.bind(this));
