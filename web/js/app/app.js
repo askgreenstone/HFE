@@ -49,7 +49,11 @@ define(['RouteResolver','Common'], function() {
                 .when('/single', route.resolve('Single', 'manage/','vm'))
                 .when('/data', route.resolve('Data', 'manage/','vm'))
                 .when('/preview', route.resolve('Preview', 'manage/','vm'))
-                .when('/user', route.resolve('User', 'manage/','vm'))
+                .when('/micro', route.resolve('Micro', 'manage/','vm'))
+                .when('/micro1', route.resolve('Micro1', 'manage/','vm'))
+                .when('/micro2', route.resolve('Micro2', 'manage/','vm'))
+                .when('/step1', route.resolve('Step1', 'manage/','vm'))
+                .when('/card', route.resolve('Card', 'manage/','vm'))
                 .when('/temp', route.resolve('Temp', 'manage/','vm'))
                 .otherwise({
                     redirectTo: '/manage'

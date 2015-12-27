@@ -3,7 +3,7 @@
 define(['App'], function(app) {
 
     var injectParams = ['$location','$http','$window','GlobalUrl','Common'];
-    var UserController = function($location,$http,$window,GlobalUrl,Common) {
+    var CardController = function($location,$http,$window,GlobalUrl,Common) {
         var vm = this;
 
         vm.gotoLink = function(){
@@ -117,8 +117,8 @@ define(['App'], function(app) {
         init();
     };
 
-    UserController.$inject = injectParams;
+    CardController.$inject = injectParams;
 
-    app.register.controller('UserController', UserController);
+    app.register.controller('CardController', CardController);
 
 });
