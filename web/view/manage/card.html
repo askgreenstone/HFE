@@ -6,16 +6,12 @@
 				<!-- <li>
 					<img src="image/manage/fans.png" width="18" height="18"/>
 					<span><a href="#manage">粉丝数据</a></span>
-				</li>
-				<li>
-					<img src="image/manage/wx.png" width="18" height="18"/>
-					<span><a href="#manage">公众号运营</a></span>
 				</li> -->
 				<li ng-click="vm.menuLink('micro')">
 					<img src="image/manage/micro.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微网站首页设置</a></span>
 				</li>
-				<li ng-click="vm.menuLink('card')">
+				<li class="text-active" ng-click="vm.menuLink('card')">
 					<img src="image/manage/card.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微名片信息</a></span>
 				</li>
@@ -23,36 +19,34 @@
 					<img src="image/manage/data.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">用户数据</a></span>
 				</li>
-				<li class="text-active" ng-click="vm.menuLink('manage')">
+				<li ng-click="vm.menuLink('manage')">
 					<img src="image/manage/set.png"  width="18" height="18"/>
 					<span><a href="javascript:void(0)">内容维护</a></span>
 				</li>
 			</ul>
 		</div>
 		<div class="mc_right">
-			<div class="mcr_search">
-				<span>我的律师团队</span>
-			</div>
 			<div class="list_lenged">
-				<h3 class="red">{{vm.title}}</h3>
-				<span>
-					<a href="javascript:void(0);" ng-click="vm.gotoUpload('preview','上传照片')">
-						<img src="image/docs/add.png" width="20" height="20"/> 上传照片
-					</a>
-					<a href="javascript:void(0);" ng-click="vm.goBack()">
-						<img src="image/return.png" width="20" height="20"/> 返回
-					</a>
-				</span>
+				<h3 class="red">微名片信息</h3>
+			<!-- <span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span> -->
 			</div>
-			<ul class="photo_list">
-				<li ng-click="vm.gotoLink('single',x.pd,x.pId,x.pn)" ng-repeat="x in vm.photos|orderBy:'pId':true">
-					<img ng-src={{vm.transferUrl+x.pn}} width="100%" height="150"/>
-					<p>
-					{{x.pd?(x.pd.length>10?x.pd.substring(0,10):x.pd):'暂无描述'}}
-					</p>
-				</li>
-				<div class="clean"></div>
-			</ul>
+			<div class="mr_box">
+				<!-- <div class="mb_left">
+					<div class="mb_shadow"></div>
+					<iframe src="http://dist.green-stone.cn/mobile/#/index002" width="320" height="575"></iframe>
+				</div>
+				<div class="mb_right">
+					<span>重新定制</span>
+					<div class="mb_input">
+						<i>微网站地址</i>
+						<input type="text" placeholder="http://dist.green-stone.cn/mobile/#/index002"/>
+					</div>
+					<div class="mb_input">
+						<i>二维码地址</i>
+						<img src="" height="" width="">
+					</div> -->
+				</div>
+			</div>
 		</div>
 		<div class="clean"></div>
 	</div>
