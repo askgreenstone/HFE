@@ -2,9 +2,13 @@
 
 define(['App'], function(app) {
 
-    var injectParams = ['$location','$http','$window','GlobalUrl','Common'];
-    var Step1Controller = function($location,$http,$window,GlobalUrl,Common) {
+    var injectParams = ['$location','$http','$window','GlobalUrl','TransferUrl','Common'];
+    var Step1Controller = function($location,$http,$window,GlobalUrl,TransferUrl,Common) {
         var vm = this;
+        vm.transferUrl = TransferUrl;
+        vm.id = '';
+        vm.url = '';
+        vm.ar = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -18,100 +22,71 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
-        // vm.submitArticleInfo = function(state){
-        //   // 文章摘要长度控制
-        //   if(vm.createInfo.describe.length>100){
-        //     alert('文章摘要过长，请控制在100字以内！');
-        //     return;
-        //   }
-
-        //   //引用链接检测
-        //   if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
-        //     alert('引用链接格式不正确，请输入超链接！');
-        //     return;
-        //   }
-
-        //   vm.getContent();
-        //   if(!vm.nid) {
-        //     var datas = {
-        //           ntit:vm.createInfo.title,
-        //           na:vm.createInfo.describe,
-        //           ntId:vm.ntid,
-        //           nc:vm.createInfo.content,
-        //           ns:state,
-        //           nl:vm.createInfo.url,
-        //           ntype:2
-        //       }
-        //   }
-        //   else{
-        //     var datas = {
-        //           ntit:vm.createInfo.title,
-        //           na:vm.createInfo.describe,
-        //           ntId:vm.ntid,
-        //           nId:vm.nid,
-        //           nc:vm.createInfo.content,
-        //           ns:state,
-        //           nl:vm.createInfo.url,
-        //           ntype:2
-        //       }
-        //   }
-          
-        //   console.dir(datas);
-        //   $http({
-        //       method: 'POST',
-        //       url: GlobalUrl+'/exp/SaveNewsContent.do',
-        //       params: {
-        //           session:vm.sess
-        //       },
-        //       data: datas
-        //   }).
-        //   success(function(data, status, headers, config) {
-        //       console.log(data);
-        //       if(data.c == 1000){
-        //         $window.history.back();
-        //       }
-        //   }).
-        //   error(function(data, status, headers, config) {
-        //       console.log(data);
-        //   });
-        // };
-
-        // vm.queryContentState = function(nid){
-        //   // alert(nid);
-        //   $http({
-        //         method: 'GET',
-        //         url: GlobalUrl+'/exp/QueryNewsContent.do',
-        //         params: {
-        //             nId:nid,
-        //             session:vm.sess
-        //         },
-        //         data: {
+        vm.getMicroImg = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/GetMicWebModel.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
                     
-        //         }
-        //     }).
-        //     success(function(data, status, headers, config) {
-        //         console.log(data);
-        //         if(data.c == 1000){
-        //           vm.createInfo.title = data.ntit;
-        //           vm.createInfo.describe = data.na;
-        //           vm.ntid = data.ntId;
-        //           vm.createInfo.content = data.nc;
-        //           vm.createInfo.url = data.nl;
-        //           setContent();
-        //           if(vm.createInfo.url){
-        //             // alert(vm.createInfo.url);
-        //             $('.ai_checkbox i').addClass('active');
-        //             vm.showUeditorFlag = false;
-        //           }
-        //         }
-        //     }).
-        //     error(function(data, status, headers, config) {
-        //         console.log(data);
-        //     });
-        // }
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.showList = data.ml;
+                  setTimeout(function(){
+                    // $('.step1_theme li').eq(0).addClass('active');
+                    $('.step1_theme li').bind('click',function(){
+                      $(this).siblings().removeClass('active');
+                      $(this).addClass('active');
+                    })
+                  }, 300);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        };
+
+        vm.setPageInfo = function(id,url,ar){
+          vm.id = id;
+          vm.url = url;
+          vm.ar = ar;
+        }
+
+        vm.saveMicroImg = function(){
+          if(!vm.id||!vm.url){
+            alert('请选择模版！');
+            return false;
+          }
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/ChooseMicWebModel.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    wmi:vm.id,
+                    wmu:vm.url
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  $window.location.href = '#/step2?session='+vm.sess+'&ar='+vm.ar;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        };
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.getMicroImg();
         }
 
         init();

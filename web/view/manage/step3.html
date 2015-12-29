@@ -27,32 +27,47 @@
 		</div>
 		<div class="mc_right">
 			<div class="list_lenged">
-				<h3 class="red">微网站首页设置</h3>
-			<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span>
+				<h3 class="red">微网站logo设置</h3>
+			<span>
+				<a href="javascript:void(0);" ng-click="vm.gotoUpload('preview','上传照片')">
+					<img src="image/docs/add.png" width="20" height="20"/> 选择照片
+					<input type="file" id="choose_file" ng-model="vm.fileName"/>
+				</a>
+				<a href="javascript:void(0);" ng-click="vm.goBack()">
+					<img src="image/return.png" width="20" height="20"/> 返回
+				</a>
+			</span>
 			</div>
 			<div class="mr_box">
 				<ul class="step_nav">
-					<li ng-click="vm.menuLink('step1')" class="color"><i></i>选择模版<b></b></li>
+					<li ng-click="vm.menuLink('step1')" class="line"><i></i>选择模版<b></b></li>
 					<li ng-click="vm.menuLink('step2')" class="line"><i></i>选择主题背景<b></b></li>
-					<li ng-click="vm.menuLink('step3')" class="line"><i></i>logo设置<b></b></li>
+					<li ng-click="vm.menuLink('step3')" class="color"><i></i>logo设置<b></b></li>
 					<li ng-click="vm.menuLink('step4')" class="line"><i></i>菜单设置<b></b></li>
 					<li ng-click="vm.menuLink('step5')" class="line"><i></i>分享设置<b></b></li>
 				</ul>
 			</div>
-			<ul class="step1_theme">
-				<!-- <li class="active">
-					<b></b>
-					<img src="image/manage/index001.png" width="100%" height=""/>
-					<i>主题背景＋logo＋5菜单</i>
-				</li> -->
-				<li ng-repeat="x in vm.showList" ng-click="vm.setPageInfo(x.wmi,x.tu,x.ar)">
-					<b></b>
-					<img ng-src={{vm.transferUrl+x.wmp}} width="100%" height=""/>
-					<i>{{x.wmd}}</i>
-				</li>
-			</ul>
+			<div class="step2_box">
+				<div class="step2_left">
+					<img id="themeCropper" src="image/placeholder.png"/>
+				</div>
+				<div class="step2_right">
+					<span>logo素材</span>
+					<ul class="step2_bgs">
+						<li><img src="image/manage/index001.png" width="100%" height=""></li>
+						<li><img src="image/manage/index002.png" width="100%" height=""></li>
+						<li><img src="image/manage/index003.png" width="100%" height=""></li>
+						<li><img src="image/manage/index004.png" width="100%" height=""></li>
+						<li><img src="image/manage/index005.png" width="100%" height=""></li>
+						<li><img src="image/manage/index006.png" width="100%" height=""></li>
+					</ul>
+					<span>logo预览</span>
+					<div class="step2_preview" id="img_preview"></div>
+				</div>
+			</div>
 			<div class="af_btn fix_center">
-				<span ng-click="vm.saveMicroImg()">下一步</span>
+				<span ng-click="vm.menuLink('step2')">上一步</span>
+				<span ng-click="vm.menuLink('step4')">下一步</span>
 			</div>
 		</div>
 		<div class="clean"></div>

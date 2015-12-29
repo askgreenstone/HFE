@@ -23,6 +23,15 @@ define([], function() {
         } 
       };
 
+      //格式化图片比例如：'4-10'转化为0.4
+      this.formatAr = function(str){
+        // console.log(str);
+        var w = str.split('-')[0];
+        var h = str.split('-')[1];
+        var ar = parseInt(w)/parseInt(h);
+        return ar;
+      }
+
     };
     var servicesApp = angular.module('CommonServices', []);
 
