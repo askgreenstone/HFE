@@ -8,12 +8,12 @@ var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
 require('../../../../css/theme/theme003.less');
-var Index003=React.createClass({
+var Index007=React.createClass({
 	mixins:[CommonMixin],
 	getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleDetail','articleList','photo']
+      path:['articleDetail','articleList','photo','articleList']
     };
   },
   gotoLink: function(path,ntid){
@@ -64,9 +64,9 @@ var Index003=React.createClass({
 				<div>
 					<div className="theme3_main">
 						<div className="main">
-							<img src="image/theme003/photo65.png" alt="" className="theme3_main_bg"/>
-              <div className='logo'>
-                <img src="image/theme003/logo.png" />
+							<img src="image/theme007/photo.png" alt="" className="theme3_main_bg"/>
+              <div className="logo">
+                <img src="image/theme007/logo.png"/>
               </div>
 							
 						</div>
@@ -83,4 +83,4 @@ var Index003=React.createClass({
 	}
 })
 
-module.exports = Index003;
+module.exports = Index007;

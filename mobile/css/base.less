@@ -437,10 +437,56 @@ p{
 
 
 
+/*logo*/
+
+
+.logo{
+  position: absolute;
+  left: 3%;
+  top: 0;
+  width: 130px;
+  height: 130px;
+}
+.logo img{
+  width:100%;
+  margin:auto;
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+}
+.logo002{
+    position: fixed;
+    bottom: 5%;
+    left: 37.5%;
+    margin: 0 0 0 -65px;
+    width: 130px;
+    height: 130px;
+}
+.logo002 img{
+    width:100%;
+    margin:auto;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+}
+
 /*适配手机*/
 @media screen and (max-width: 360px) {
     html {
         font-size: 62.5%;
+    }
+    .logo{
+      left:0%;
+    }
+    .logo002{
+      bottom:0%;
+    }
+    .logo img,.logo002 img{
+      width:80%;
     }
 }
 

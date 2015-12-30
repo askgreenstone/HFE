@@ -71,7 +71,7 @@ var Index002 = React.createClass({
       <div className="container">
         <div className="leftBg">
           <div className="logo002">
-            <img src="image/theme002/logo.png" width="130"/>
+            <img src="image/theme002/logo.png"/>
           </div>
           <img src="image/theme002/bg1.png" width="100%"/>
         </div>

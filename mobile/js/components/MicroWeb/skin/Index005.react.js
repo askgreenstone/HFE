@@ -64,8 +64,8 @@ var Index005 = React.createClass({
 		return (
 				<div>
 					<div className="theme5_main">
-							<div className="theme5_main_logo">
-								<img src="image/theme005/logo.png" width="130" />
+							<div className="logo">
+								<img src="image/theme005/logo.png" />
 							</div>
 							<ul className="theme5_main_list">
 								{navNodes}
