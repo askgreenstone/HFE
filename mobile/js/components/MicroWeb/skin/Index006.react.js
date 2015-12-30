@@ -64,8 +64,8 @@ var Index006 = React.createClass({
 		return (
 				<div>
 					<div className="theme6_main">
-							<div className="theme6_main_logo">
-								<img src="image/theme006/logo.png" width="130" />
+							<div className="logo logo006">
+								<img src="image/theme006/logo.png"/>
 							</div>
 							<ul className="theme6_main_list">
                 <li onClick={this.gotoLink.bind(this,'card')}><span>微 名 片</span><span>E-Card</span></li>
