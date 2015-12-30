@@ -720,7 +720,7 @@ footer {
 }
 /*micro.html*/
 .mr_box{
-  margin: -25px 0 0px 0px;
+  margin: -25px 0 25px 0px;
   position: relative;
   display: flex;
 }
@@ -729,7 +729,7 @@ footer {
 }
 .mb_left{
   width: 320px;
-  height: 575px;
+  min-height: 575px;
   border: 1px solid #ccc;
   border-radius: 4px;
   /*position: relative; */

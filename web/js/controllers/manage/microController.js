@@ -52,19 +52,38 @@ define(['App'], function(app) {
             });
         };
 
-        // $(function() {
-        //     $('.mb_left').unslider({
-        //       speed: 500,               
-        //       delay: 3000,              
-        //       complete: function() {},  
-        //       keys: true,               
-        //       dots: true,               
-        //       fluid: false  
-        //     });
-        // });
+        //判断主题制定状态：0未设置，1已设置，2已完成
+        vm.getMicroStatus = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/MicWebSetUpStatus.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  if(data.s == 0){
+                    vm.menuLink('micro');
+                  }else if(data.s == 1){
+                    vm.menuLink('micro2');
+                  }else if(data.s == 2){
+                    vm.menuLink('micro1');
+                  }
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        };
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.getMicroStatus();
           vm.getMicroImg();
         }
 
