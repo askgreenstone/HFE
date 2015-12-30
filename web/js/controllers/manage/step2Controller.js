@@ -96,7 +96,7 @@ define(['App'], function(app) {
                 $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=3', fd, {
                     transformRequest: angular.identity,
                     headers: {
-                        'Content-Type': ''
+                        'Content-Type': undefined
                     }
                 })
                 .success(function(data) {
