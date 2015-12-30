@@ -33,12 +33,15 @@
 			<div class="mr_box">
 				<div class="mb_left">
 			    <ul>
-			     <li><img src="image/manage/index001.png" width="320" height="100%"/></li>
-			     <li><img src="image/manage/index002.png" width="320" height="100%"/></li>
+			     <!-- <li><img src="image/manage/index001.png" width="320" height="100%"/></li> -->
+			     <!-- <li><img src="image/manage/index002.png" width="320" height="100%"/></li>
 			     <li><img src="image/manage/index003.png" width="320" height="100%"/></li>
 			     <li><img src="image/manage/index004.png" width="320" height="100%"/></li>
 			     <li><img src="image/manage/index005.png" width="320" height="100%"/></li>
-			     <li><img src="image/manage/index006.png" width="320" height="100%"/></li>
+			     <li><img src="image/manage/index006.png" width="320" height="100%"/></li> -->
+			     <li ng-repeat="x in vm.showList">
+			     	<img ng-src={{vm.transferUrl+x.wmp}} width="320" height="100%"/>
+			     </li>
 			    </ul>
 				</div>
 				<div class="mb_right">

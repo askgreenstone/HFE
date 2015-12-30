@@ -53,6 +53,10 @@ define(['RouteResolver','Common'], function() {
                 .when('/micro1', route.resolve('Micro1', 'manage/','vm'))
                 .when('/micro2', route.resolve('Micro2', 'manage/','vm'))
                 .when('/step1', route.resolve('Step1', 'manage/','vm'))
+                .when('/step2', route.resolve('Step2', 'manage/','vm'))
+                .when('/step3', route.resolve('Step3', 'manage/','vm'))
+                .when('/step4', route.resolve('Step4', 'manage/','vm'))
+                .when('/step5', route.resolve('Step5', 'manage/','vm'))
                 .when('/card', route.resolve('Card', 'manage/','vm'))
                 .when('/temp', route.resolve('Temp', 'manage/','vm'))
                 .otherwise({

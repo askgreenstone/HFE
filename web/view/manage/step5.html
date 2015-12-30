@@ -27,26 +27,17 @@
 		</div>
 		<div class="mc_right">
 			<div class="list_lenged">
-				<h3 class="red">微网站首页设置 &gt; 继续定制</h3>
-			<!-- <span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span> -->
+				<h3 class="red">微网站首页设置</h3>
+			<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span>
 			</div>
 			<div class="mr_box">
-				<div class="mb_left">
-					<!-- <div class="mb_shadow"></div>
-					<iframe src="http://dist.green-stone.cn/mobile/#/index002" width="320" height="575"></iframe> -->
-					<p>您还未完成您的定制，请点击“继续定制”以完成</p>
-				</div>
-				<div class="mb_right">
-					<span>继续定制</span>
-					<!-- <div class="mb_input">
-						<i>微网站地址</i>
-						<input type="text"/>
-					</div>
-					<div class="mb_input">
-						<i>二维码地址</i>
-						<img src="" height="" width="">
-					</div> -->
-				</div>
+				<ul class="step_nav">
+					<li ng-click="vm.menuLink('step1')" class="line"><i></i>选择模版<b></b></li>
+					<li ng-click="vm.menuLink('step2')" class="line"><i></i>选择主题背景<b></b></li>
+					<li ng-click="vm.menuLink('step3')" class="line"><i></i>logo设置<b></b></li>
+					<li ng-click="vm.menuLink('step4')" class="line"><i></i>菜单设置<b></b></li>
+					<li ng-click="vm.menuLink('step5')" class="color"><i></i>分享设置<b></b></li>
+				</ul>
 			</div>
 		</div>
 		<div class="clean"></div>
