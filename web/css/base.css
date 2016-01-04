@@ -893,8 +893,7 @@ footer {
   cursor: pointer;
   width: 31%;
   margin: 0 2% 2% 0;
-  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
-  border-radius: 5px;
+  /*border-radius: 2px;*/
   display: inline-table;
   position: relative;
   border: 2px solid #ccc;
@@ -919,6 +918,7 @@ footer {
 }
 .step1_theme .active{
   border:2px solid #2ab6ff;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
 }
 .fix_center{
   text-align: center;
@@ -944,6 +944,7 @@ footer {
   overflow: auto;
   margin: 0 0 15px 0;
   padding: 2%;
+  background-color: rgba(204, 204, 204, 0.7);
 }
 .step2_preview{
   border: 1px dashed #ccc;
@@ -954,7 +955,7 @@ footer {
   width: 23%;
   float: left;
   margin: 0 2% 2% 0;
-  border: 1px solid #ccc;
+  border: 1px solid #fff;
   cursor: pointer;
 }
 .step2_desc{

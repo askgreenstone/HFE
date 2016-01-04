@@ -49,17 +49,14 @@
 			</div>
 			<div class="step2_box">
 				<div class="step2_left">
-					<img id="themeCropper" src="image/placeholder.png"/>
+					<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.userBg}}>
 				</div>
 				<div class="step2_right">
 					<span>logo素材</span>
 					<ul class="step2_bgs">
-						<li><img src="image/manage/index001.png" width="100%" height=""></li>
-						<li><img src="image/manage/index002.png" width="100%" height=""></li>
-						<li><img src="image/manage/index003.png" width="100%" height=""></li>
-						<li><img src="image/manage/index004.png" width="100%" height=""></li>
-						<li><img src="image/manage/index005.png" width="100%" height=""></li>
-						<li><img src="image/manage/index006.png" width="100%" height=""></li>
+						<li ng-repeat="x in vm.sourceImage" ng-click="vm.chooseSourceBg(x.in)">
+							<img ng-src={{vm.transferUrl+x.in}} width="100%" height="">
+						</li>
 					</ul>
 					<span id="test">logo预览(宽：0，高：0)</span>
 					<div class="step2_preview" id="img_preview"></div>

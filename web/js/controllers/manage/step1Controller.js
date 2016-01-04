@@ -37,6 +37,14 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.showList = data.ml;
+                  
+                  //回显处理
+                  if(data.sid){
+                    vm.CurrentTheme = data.sid;
+                    console.log(vm.CurrentTheme);
+                    vm.setPageInfo(data.sid,data.stu,data.sar);
+                  }
+                  
                   setTimeout(function(){
                     // $('.step1_theme li').eq(0).addClass('active');
                     $('.step1_theme li').bind('click',function(){
@@ -76,6 +84,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
+                  localStorage.ar = vm.ar;
                   $window.location.href = '#/step2?session='+vm.sess+'&ar='+vm.ar;
                 }
             }).

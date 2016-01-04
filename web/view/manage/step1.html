@@ -45,7 +45,7 @@
 					<img src="image/manage/index001.png" width="100%" height=""/>
 					<i>主题背景＋logo＋5菜单</i>
 				</li> -->
-				<li ng-repeat="x in vm.showList" ng-click="vm.setPageInfo(x.wmi,x.tu,x.ar)">
+				<li ng-class="x.wmi == vm.CurrentTheme?'active':''" ng-repeat="x in vm.showList" ng-click="vm.setPageInfo(x.wmi,x.tu,x.ar)">
 					<b></b>
 					<img ng-src={{vm.transferUrl+x.wmp}} width="100%" height=""/>
 					<i>{{x.wmd}}</i>
