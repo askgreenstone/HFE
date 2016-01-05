@@ -2,11 +2,15 @@
 
 define(['App'], function(app) {
 
-    var injectParams = ['$location','$http','$window','GlobalUrl','Common'];
-    var Step3Controller = function($location,$http,$window,GlobalUrl,Common) {
+    var injectParams = ['$location','$http','$window','GlobalUrl','TransferUrl','Common'];
+    var Step3Controller = function($location,$http,$window,GlobalUrl,TransferUrl,Common) {
         var vm = this;
         var curw = 0;
         var curh = 0;
+        vm.userBg = '';
+        vm.transferUrl = TransferUrl;
+        vm.isServerData = false;//服务器端数据还是本地上传
+        vm.hiddenInitImg = false;//裁图初始化之后置为true
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -22,6 +26,7 @@ define(['App'], function(app) {
 
         // 图片裁切
         vm.initCropper = function() {
+          vm.hiddenInitImg = true;
             $('#themeCropper').cropper({
                 aspectRatio: 1 / 1,
                 preview: '#img_preview',
@@ -77,7 +82,16 @@ define(['App'], function(app) {
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
-            if (!f) return;
+            if(!f){
+              if(!vm.isServerData){
+                alert('请先选择图片！');
+                return;
+              }
+              else{
+                $window.location.href = '#/step4?session='+vm.sess;
+                return;
+              }
+            }
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -96,7 +110,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
-                    // $window.history.back();
+                    $window.location.href = '#/step4?session='+vm.sess;
                 })
                 .error(function() {
                     console.log('error');
@@ -105,9 +119,97 @@ define(['App'], function(app) {
             r.readAsDataURL(f);
         }
 
+        //素材库：1，背景图；2，logo
+        vm.getSourceImage = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/QueryImgMaterial.do',
+                params: {
+                    session:vm.sess,
+                    it:2
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.sourceImage = data.il;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
+        //查询用户上传背景图片
+        vm.getServerBg = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/GetMicWebImgs.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  //后台数据标示
+                  vm.isServerData = true;
+                  if(data.l){
+                    vm.userBg = TransferUrl+data.l;
+                  }else{
+                    vm.userBg = 'image/placeholder.png';
+                  }
+
+                  //延迟初始化裁图插件
+                  setTimeout(function() {
+                    vm.initCropper();
+                  }, 300);
+                  
+                  // console.log(vm.userBg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log('error:'+data);
+            });
+        }
+
+        //it:1背景图，it:2logo
+        vm.chooseSourceBg = function(name){
+          vm.isServerData = true;
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    in:name,
+                    it:2
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  // vm.userBg = TransferUrl+name;
+                  $window.location.reload();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+          console.log(vm.userBg);
+        }
+
         function init(){
-          vm.initCropper();
           vm.sess = Common.getUrlParam('session');
+          vm.getServerBg();
+          vm.getSourceImage();
         }
 
         init();
