@@ -22,8 +22,14 @@ var Index005 = require('./components/MicroWeb/skin/Index005.react');
 //皮肤六
 var Index006 = require('./components/MicroWeb/skin/Index006.react');
 
-//皮肤七
+//皮肤七（同皮肤三）
 var Index007 = require('./components/MicroWeb/skin/Index007.react');
+
+//皮肤八（同皮肤二，背景图为GIF格式）
+var Index008 = require('./components/MicroWeb/skin/Index008.react');
+
+//主题九
+var Index009 = require('./components/MicroWeb/skin/Index009.react');
 
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
@@ -46,6 +52,11 @@ ReactDOM.render((
     <Route path="/index005" component={Index005}/>
     <Route path="/index006" component={Index006}/>
     <Route path="/index007" component={Index007}/>
+    <Route path="/index008" component={Index008}/>
+    <Route path="/index009" component={Index009}/>
+
+
+
     
     <Route path="/photo" component={Photo}/>
     <Route path="/single" component={Single}/>
