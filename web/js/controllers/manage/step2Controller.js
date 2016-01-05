@@ -59,9 +59,6 @@ define(['App'], function(app) {
                   curw = Math.round(cropDatas.width);
                   curh = Math.round(cropDatas.height);
                   $('#test').text('背景预览(宽：'+curw+'，高：'+curh+')');
-                  if(vm.choosePic){
-                    vm.chooseSourceBg(vm.choosePic);
-                  }
                 }
             });
 
@@ -102,6 +99,7 @@ define(['App'], function(app) {
                 return;
               }
               else{
+                vm.clipSourceImg(vm.choosePic);
                 $window.location.href = '#/step3?session='+vm.sess;
                 return;
               }
@@ -135,9 +133,22 @@ define(['App'], function(app) {
 
         //it:1背景图，it:2logo
         vm.chooseSourceBg = function(name){
-          vm.isServerData = true;
+          console.log('name:'+name);
           vm.choosePic = name;
-          console.log('choosePic:'+vm.choosePic);
+          
+          vm.userBg = TransferUrl+name;
+          $('#themeCropper').cropper('destroy');
+          console.log('userBg:'+vm.userBg);
+          //延迟初始化裁图插件
+          setTimeout(function() {
+            vm.initCropper();
+          }, 300);
+          vm.isServerData = true;
+        }
+
+        //裁切素材
+        vm.clipSourceImg = function(name){
+          console.log('name:'+name);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
@@ -156,14 +167,15 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
+                  // $('#themeCropper').cropper('destroy');
                   // vm.userBg = TransferUrl+name;
-                  $window.location.reload();
+                  // vm.initCropper();
+                  console.log('clipSourceImg success');
                 }
             }).
             error(function(data, status, headers, config) {
                 console.log(data);
             });
-          console.log(vm.userBg);
         }
 
         //素材库：1，背景图；2，logo

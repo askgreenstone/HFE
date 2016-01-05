@@ -50,9 +50,6 @@ define(['App'], function(app) {
                   curw = Math.round(cropDatas.width);
                   curh = Math.round(cropDatas.height);
                   $('#test').text('logo预览(宽：'+curw+'，高：'+curh+')');
-                  if(vm.choosePic){
-                    vm.chooseSourceBg(vm.choosePic);
-                  }
                 }
             });
             var $choose_file = $('#choose_file'),
@@ -91,6 +88,7 @@ define(['App'], function(app) {
                 return;
               }
               else{
+                vm.clipSourceImg(vm.choosePic);
                 $window.location.href = '#/step4?session='+vm.sess;
                 return;
               }
@@ -186,6 +184,19 @@ define(['App'], function(app) {
         vm.chooseSourceBg = function(name){
           vm.isServerData = true;
           vm.choosePic = name;
+          vm.userBg = TransferUrl+name;
+          $('#themeCropper').cropper('destroy');
+          console.log('userBg:'+vm.userBg);
+          //延迟初始化裁图插件
+          setTimeout(function() {
+            vm.initCropper();
+          }, 300);
+          vm.isServerData = true;
+        }
+
+        //裁切素材
+        vm.clipSourceImg = function(name){
+          console.log('name:'+name);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
@@ -204,14 +215,15 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
+                  // $('#themeCropper').cropper('destroy');
                   // vm.userBg = TransferUrl+name;
-                  $window.location.reload();
+                  // vm.initCropper();
+                  console.log('clipSourceImg success');
                 }
             }).
             error(function(data, status, headers, config) {
                 console.log(data);
             });
-          console.log(vm.userBg);
         }
 
         function init(){
