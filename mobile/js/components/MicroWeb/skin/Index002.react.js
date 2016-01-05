@@ -73,7 +73,7 @@ var Index002 = React.createClass({
           <div className="logo002">
             <img src="image/theme002/logo.png"/>
           </div>
-          <img src="image/theme002/bg1.png" width="100%"/>
+          <img src="" width="100%"/>
         </div>
         <div className="verticalMenu">
           <ul className="menu_list">
