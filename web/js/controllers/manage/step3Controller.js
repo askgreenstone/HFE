@@ -50,6 +50,9 @@ define(['App'], function(app) {
                   curw = Math.round(cropDatas.width);
                   curh = Math.round(cropDatas.height);
                   $('#test').text('logo预览(宽：'+curw+'，高：'+curh+')');
+                  if(vm.choosePic){
+                    vm.chooseSourceBg(vm.choosePic);
+                  }
                 }
             });
             var $choose_file = $('#choose_file'),
@@ -182,6 +185,7 @@ define(['App'], function(app) {
         //it:1背景图，it:2logo
         vm.chooseSourceBg = function(name){
           vm.isServerData = true;
+          vm.choosePic = name;
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
@@ -190,7 +194,11 @@ define(['App'], function(app) {
                 },
                 data: {
                     in:name,
-                    it:2
+                    it:2,
+                    w:vm.imgw,
+                    h:vm.imgh,
+                    x:vm.imgx,
+                    y:vm.imgy
                 }
             }).
             success(function(data, status, headers, config) {

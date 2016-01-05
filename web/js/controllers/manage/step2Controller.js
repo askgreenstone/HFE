@@ -59,7 +59,9 @@ define(['App'], function(app) {
                   curw = Math.round(cropDatas.width);
                   curh = Math.round(cropDatas.height);
                   $('#test').text('背景预览(宽：'+curw+'，高：'+curh+')');
-                  vm.chooseSourceBg(vm.choosePic);
+                  if(vm.choosePic){
+                    vm.chooseSourceBg(vm.choosePic);
+                  }
                 }
             });
 
