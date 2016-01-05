@@ -155,7 +155,7 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   // vm.userBg = TransferUrl+name;
-                  // $window.location.reload();
+                  $window.location.reload();
                 }
             }).
             error(function(data, status, headers, config) {
