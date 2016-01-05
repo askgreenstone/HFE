@@ -221,6 +221,7 @@ define(['App'], function(app) {
                   vm.isServerData = true;
                   if(data.bi){
                     vm.userBg = TransferUrl+data.bi;
+                    vm.choosePic = data.bi;
                   }else{
                     vm.userBg = 'image/placeholder.png';
                   }
