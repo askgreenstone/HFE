@@ -30,6 +30,10 @@ define(['App'], function(app) {
           //格式化图片比例
           // var ar1 = Common.getUrlParam('ar');
           var ar1 = localStorage.getItem('ar');
+          if(!ar1){
+            alert('请先选择主题！');
+            return;
+          }
           var ar2 = Common.formatAr(ar1);
           // console.log(ar2);
             $('#themeCropper').cropper({
@@ -55,6 +59,7 @@ define(['App'], function(app) {
                   curw = Math.round(cropDatas.width);
                   curh = Math.round(cropDatas.height);
                   $('#test').text('背景预览(宽：'+curw+'，高：'+curh+')');
+                  vm.chooseSourceBg(vm.choosePic);
                 }
             });
 
@@ -129,6 +134,8 @@ define(['App'], function(app) {
         //it:1背景图，it:2logo
         vm.chooseSourceBg = function(name){
           vm.isServerData = true;
+          vm.choosePic = name;
+          console.log('choosePic:'+vm.choosePic);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
@@ -137,14 +144,18 @@ define(['App'], function(app) {
                 },
                 data: {
                     in:name,
-                    it:1
+                    it:1,
+                    w:vm.imgw,
+                    h:vm.imgh,
+                    x:vm.imgx,
+                    y:vm.imgy
                 }
             }).
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
                   // vm.userBg = TransferUrl+name;
-                  $window.location.reload();
+                  // $window.location.reload();
                 }
             }).
             error(function(data, status, headers, config) {

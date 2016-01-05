@@ -968,6 +968,7 @@ footer {
 .step2_left{
   border: 1px dashed #ccc;
   flex:3;
+  overflow: hidden;
 }
 .step2_right{
   flex:2;
