@@ -88,6 +88,7 @@ define(['App'], function(app) {
                 return;
               }
               else{
+                vm.clipSourceImg(vm.choosePic);
                 $window.location.href = '#/step4?session='+vm.sess;
                 return;
               }
@@ -162,6 +163,7 @@ define(['App'], function(app) {
                   vm.isServerData = true;
                   if(data.l){
                     vm.userBg = TransferUrl+data.l;
+                    vm.choosePic = data.bi;
                   }else{
                     vm.userBg = 'image/placeholder.png';
                   }
@@ -182,6 +184,20 @@ define(['App'], function(app) {
         //it:1背景图，it:2logo
         vm.chooseSourceBg = function(name){
           vm.isServerData = true;
+          vm.choosePic = name;
+          vm.userBg = TransferUrl+name;
+          $('#themeCropper').cropper('destroy');
+          console.log('userBg:'+vm.userBg);
+          //延迟初始化裁图插件
+          setTimeout(function() {
+            vm.initCropper();
+          }, 300);
+          vm.isServerData = true;
+        }
+
+        //裁切素材
+        vm.clipSourceImg = function(name){
+          console.log('name:'+name);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
@@ -190,20 +206,25 @@ define(['App'], function(app) {
                 },
                 data: {
                     in:name,
-                    it:2
+                    it:2,
+                    w:vm.imgw,
+                    h:vm.imgh,
+                    x:vm.imgx,
+                    y:vm.imgy
                 }
             }).
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
+                  // $('#themeCropper').cropper('destroy');
                   // vm.userBg = TransferUrl+name;
-                  $window.location.reload();
+                  // vm.initCropper();
+                  console.log('clipSourceImg success');
                 }
             }).
             error(function(data, status, headers, config) {
                 console.log(data);
             });
-          console.log(vm.userBg);
         }
 
         function init(){

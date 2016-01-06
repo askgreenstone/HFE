@@ -30,6 +30,10 @@ define(['App'], function(app) {
           //格式化图片比例
           // var ar1 = Common.getUrlParam('ar');
           var ar1 = localStorage.getItem('ar');
+          if(!ar1){
+            alert('请先选择主题！');
+            return;
+          }
           var ar2 = Common.formatAr(ar1);
           // console.log(ar2);
             $('#themeCropper').cropper({
@@ -95,6 +99,7 @@ define(['App'], function(app) {
                 return;
               }
               else{
+                vm.clipSourceImg(vm.choosePic);
                 $window.location.href = '#/step3?session='+vm.sess;
                 return;
               }
@@ -128,7 +133,22 @@ define(['App'], function(app) {
 
         //it:1背景图，it:2logo
         vm.chooseSourceBg = function(name){
+          console.log('name:'+name);
+          vm.choosePic = name;
+          
+          vm.userBg = TransferUrl+name;
+          $('#themeCropper').cropper('destroy');
+          console.log('userBg:'+vm.userBg);
+          //延迟初始化裁图插件
+          setTimeout(function() {
+            vm.initCropper();
+          }, 300);
           vm.isServerData = true;
+        }
+
+        //裁切素材
+        vm.clipSourceImg = function(name){
+          console.log('name:'+name);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
@@ -137,20 +157,25 @@ define(['App'], function(app) {
                 },
                 data: {
                     in:name,
-                    it:1
+                    it:1,
+                    w:vm.imgw,
+                    h:vm.imgh,
+                    x:vm.imgx,
+                    y:vm.imgy
                 }
             }).
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
+                  // $('#themeCropper').cropper('destroy');
                   // vm.userBg = TransferUrl+name;
-                  $window.location.reload();
+                  // vm.initCropper();
+                  console.log('clipSourceImg success');
                 }
             }).
             error(function(data, status, headers, config) {
                 console.log(data);
             });
-          console.log(vm.userBg);
         }
 
         //素材库：1，背景图；2，logo
@@ -196,6 +221,7 @@ define(['App'], function(app) {
                   vm.isServerData = true;
                   if(data.bi){
                     vm.userBg = TransferUrl+data.bi;
+                    vm.choosePic = data.bi;
                   }else{
                     vm.userBg = 'image/placeholder.png';
                   }

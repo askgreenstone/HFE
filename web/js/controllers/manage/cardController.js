@@ -37,6 +37,10 @@ define(['App'], function(app) {
           }); 
         }
 
+
+        vm.UploadHead = function(){
+          
+        }
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.checkCardState();
