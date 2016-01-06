@@ -2,9 +2,15 @@
 
 define(['App'], function(app) {
 
-    var injectParams = ['$location','$http','$window','GlobalUrl','Common'];
-    var Card2Controller = function($location,$http,$window,GlobalUrl,Common) {
+    var injectParams = ['$location','$http','$window','GlobalUrl','TransferUrl','Common'];
+    var Card2Controller = function($location,$http,$window,GlobalUrl,TransferUrl,Common) {
         var vm = this;
+        vm.TransferUrl = TransferUrl;
+        vm.user = {
+          title:'',
+          desc:'',
+          preview:''
+        }
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -18,100 +24,116 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
-        // vm.submitArticleInfo = function(state){
-        //   // 文章摘要长度控制
-        //   if(vm.createInfo.describe.length>100){
-        //     alert('文章摘要过长，请控制在100字以内！');
-        //     return;
-        //   }
+        vm.uploadFile = function() {
+            var f = document.getElementById('step5_upload').files[0],
+                r = new FileReader();
+            if (!f) return;
+            r.onloadend = function(e) {
+                var data = e.target.result;
+                var fd = new FormData();
+                fd.append('ThirdUpload', f);
+                fd.append('filename', f.name);
+                // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6 微信分享图标
+                $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=6', fd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                })
+                .success(function(data) {
+                    console.log(data);
+                    vm.user.preview = data.on;
+                })
+                .error(function() {
+                    console.log('error');
+                });
+            };
+            r.readAsDataURL(f);
+        }
 
-        //   //引用链接检测
-        //   if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
-        //     alert('引用链接格式不正确，请输入超链接！');
-        //     return;
-        //   }
+        //分享首页st：1，微名片st：2
+        vm.setWxShare = function(){
+          if(!vm.user.title){
+            alert('分享标题不能为空！');
+            return;
+          }else if(!vm.user.desc){
+            alert('分享摘要不能为空！');
+            return;
+          }
 
-        //   vm.getContent();
-        //   if(!vm.nid) {
-        //     var datas = {
-        //           ntit:vm.createInfo.title,
-        //           na:vm.createInfo.describe,
-        //           ntId:vm.ntid,
-        //           nc:vm.createInfo.content,
-        //           ns:state,
-        //           nl:vm.createInfo.url,
-        //           ntype:2
-        //       }
-        //   }
-        //   else{
-        //     var datas = {
-        //           ntit:vm.createInfo.title,
-        //           na:vm.createInfo.describe,
-        //           ntId:vm.ntid,
-        //           nId:vm.nid,
-        //           nc:vm.createInfo.content,
-        //           ns:state,
-        //           nl:vm.createInfo.url,
-        //           ntype:2
-        //       }
-        //   }
-          
-        //   console.dir(datas);
-        //   $http({
-        //       method: 'POST',
-        //       url: GlobalUrl+'/exp/SaveNewsContent.do',
-        //       params: {
-        //           session:vm.sess
-        //       },
-        //       data: datas
-        //   }).
-        //   success(function(data, status, headers, config) {
-        //       console.log(data);
-        //       if(data.c == 1000){
-        //         $window.history.back();
-        //       }
-        //   }).
-        //   error(function(data, status, headers, config) {
-        //       console.log(data);
-        //   });
-        // };
+          if(vm.shareId){//更新
+            vm.tempData = {
+                si:vm.shareId,
+                st:1,
+                sti:vm.user.title,
+                sd:vm.user.desc,
+                spu:vm.user.preview
+            }
+          }else{//插入
+            vm.tempData = {
+                st:1,
+                sti:vm.user.title,
+                sd:vm.user.desc,
+                spu:vm.user.preview
+            }
+          }
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/ThirdSetShareInfo.do',
+                params: {
+                    session:vm.sess
+                },
+                data: vm.tempData
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.menuLink('micro');
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
 
-        // vm.queryContentState = function(nid){
-        //   // alert(nid);
-        //   $http({
-        //         method: 'GET',
-        //         url: GlobalUrl+'/exp/QueryNewsContent.do',
-        //         params: {
-        //             nId:nid,
-        //             session:vm.sess
-        //         },
-        //         data: {
-                    
-        //         }
-        //     }).
-        //     success(function(data, status, headers, config) {
-        //         console.log(data);
-        //         if(data.c == 1000){
-        //           vm.createInfo.title = data.ntit;
-        //           vm.createInfo.describe = data.na;
-        //           vm.ntid = data.ntId;
-        //           vm.createInfo.content = data.nc;
-        //           vm.createInfo.url = data.nl;
-        //           setContent();
-        //           if(vm.createInfo.url){
-        //             // alert(vm.createInfo.url);
-        //             $('.ai_checkbox i').addClass('active');
-        //             vm.showUeditorFlag = false;
-        //           }
-        //         }
-        //     }).
-        //     error(function(data, status, headers, config) {
-        //         console.log(data);
-        //     });
-        // }
+        vm.GetWxShare = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/GetMicWebShareInfo.do',
+                params: {
+                    session:vm.sess,
+                    st:1
+                },
+                data: {
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  if(data.sil.length>0){
+                    vm.user = {
+                      title:data.sil[0].sti,
+                      desc:data.sil[0].sd,
+                      preview:data.sil[0].spu
+                    }
+                    vm.shareId = data.sil[0].si;
+                  }else{
+                    vm.user = {
+                      title:'XX律师微网站',
+                      desc:'XX律师专注于资本市场、基金、投融资、并购、公司法务等等',
+                      preview:'greenStoneicon300.png'
+                    }
+                  }
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.GetWxShare();
         }
 
         init();

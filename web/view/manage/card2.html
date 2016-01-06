@@ -37,7 +37,53 @@
 					<li ng-click="vm.menuLink('card3')" class="line"><i></i>微名片预览<b></b></li>
 				</ul>
 			</div>
+		
+			<div class="card2_box">
+				<div class="card2_left">
+					<div class="card2_shadow">
+						<div class="ss_box">
+							<h3>{{vm.user.title?(vm.user.title.length>15?vm.user.title.substring(0,15):vm.user.title):'分享标题'}}</h3>
+							<p>
+								<img ng-src={{vm.TransferUrl+vm.user.preview}} width="45" height="45">
+								<span>{{vm.user.desc.length>26?(vm.user.desc.substring(0,26)+'...'):vm.user.desc}}</span>
+							</p>
+							<input type="text" disabled="disabled" placeholder="给朋友留言"/>
+							<ul>
+								<li>取消</li>
+								<li>发送</li>
+							</ul>
+						</div>
+					</div>
+					<iframe src="http://dist.green-stone.cn/mobile/#/card?ownUri=e442" width="320" height="660"></iframe>
+				</div>
+				<div class="card2_right">
+					<div class="mb_input">
+						<i>分享标题</i>
+						<input style="width:220px;" type="text" ng-model="vm.user.title" placeholder="请输入标题"/>
+					</div>
+					<div class="card2_textarea">
+						<i>分享摘要</i>
+						<textarea ng-model="vm.user.desc" placeholder="请输入描述信息"></textarea>
+					</div>
+					<div class="mb_input input_file_fix">
+						<i>分享图标</i>
+						<input id="card2_upload" type="file"/>
+					</div>
+					<span class="card2_upload" ng-click="vm.uploadFile()">
+							<img src="image/docs/add.png" width="20" height="20"/> 上传
+					</span>
+					<div class="card2_preview">
+						<img ng-src={{vm.TransferUrl+vm.user.preview}} width="100" height="100">
+					</div>
+				</div>
+			</div>
+			<div class="af_btn fix_center">
+				<span ng-click="vm.menuLink('step4')">上一步</span>
+				<span ng-click="vm.setWxShare()">完 成</span>
+			</div>
 		</div>
+		</div>
+			
 		<div class="clean"></div>
 	</div>
 </div>
