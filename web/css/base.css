@@ -1000,3 +1000,125 @@ footer {
   margin: 0 0 0 20px;
   color: #cb0c14;
 }
+.step5_box{
+  display: flex;
+  margin-top: -25px;
+}
+.step5_box iframe{
+  border:0;
+}
+.step5_left{
+  width: 322px;
+  min-height: 575px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  overflow: auto;
+}
+.step5_right{
+  flex:1;
+  border-left: 1px dashed #ccc;
+  margin-left: 20px;
+}
+.step5_shadow{
+  background-color: rgba(0,0,0,0.7);
+  width: 322px;
+  height: 575px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.ss_box{
+  width: 264px;
+  height: 163px;
+  background-color: rgb(245, 241, 241);
+  border-radius: 4px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -81px 0 0 -132px;
+}
+.ss_box h3{
+  font-size: 16px;
+  margin: 10px;
+}
+.ss_box span{
+  display: inline-block;
+  width: 76%;
+  text-align: justify;
+}
+.ss_box img{
+  float: left;
+  margin-right: 10px;
+}
+.ss_box input{
+  width: 93%;
+  margin:5px 10px;
+}
+.ss_box ul{
+  height: 20px;
+  display: flex;
+  margin-top:5px;
+}
+.ss_box ul>li{
+  flex: 1;
+  /*border:1px solid #ccc;*/
+  text-align: center;
+  height: 35px;
+  line-height: 35px;
+}
+.ss_box p{
+  margin-left: 10px;
+}
+.ss_box ul>li:first-child{
+  border-top: 1px solid #ccc;
+}
+.ss_box ul>li:last-child{
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  color:#5BAD3D;
+}
+.step5_textarea,.step5_pic{
+  margin: 0 0 20px 20px;
+}
+.step5_textarea i,.step5_pic i{
+  font-style: normal;
+  display: inline-block;
+  margin-right: 10px;
+}
+.step5_textarea textarea{
+  border:1px solid #ccc;
+  border-radius: 2px;
+  width: 300px;
+  height: 100px;
+  vertical-align: middle;
+}
+.input_file_fix input{
+  border:0;
+  display: inline-block;
+  color: #E01818;
+  font-size: 12px;
+  cursor: pointer;
+}
+.step5_upload{
+  color: #3bbffc;
+  margin-left: 90px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: -15px;
+}
+.step5_preview{
+  margin-left: 90px;
+  margin-top: 15px;
+  width: 72px;
+  padding: 5px;
+  border:1px dashed #ccc;
+}
+
+
+
+
+
+
+
+

@@ -39,7 +39,45 @@
 					<li ng-click="vm.menuLink('step5')" class="color"><i></i>分享设置<b></b></li>
 				</ul>
 			</div>
-			
+			<div class="step5_box">
+				<div class="step5_left">
+					<div class="step5_shadow">
+						<div class="ss_box">
+							<h3>{{vm.user.title}}</h3>
+							<p>
+								<img src="image/logo.png" width="45" height="45">
+								<span>{{vm.user.desc}}</span>
+							</p>
+							<input type="text" disabled="disabled" placeholder="给朋友留言"/>
+							<ul>
+								<li>取消</li>
+								<li>发送</li>
+							</ul>
+						</div>
+					</div>
+					<iframe src="http://dist.green-stone.cn/mobile/#/index002" width="320" height="575"></iframe>
+				</div>
+				<div class="step5_right">
+					<div class="mb_input">
+						<i>分享标题</i>
+						<input type="text" ng-model="vm.user.title" placeholder="请输入标题"/>
+					</div>
+					<div class="step5_textarea">
+						<i>分享摘要</i>
+						<textarea ng-model="vm.user.desc" placeholder="请输入描述信息"></textarea>
+					</div>
+					<div class="mb_input input_file_fix">
+						<i>分享图标</i>
+						<input type="file"/>
+					</div>
+					<span class="step5_upload" ng-click="">
+							<img src="image/docs/add.png" width="20" height="20"/> 上传
+					</span>
+					<div class="step5_preview">
+						<img src="image/logo.png" width="" height="">
+					</div>
+				</div>
+			</div>
 			<div class="af_btn fix_center">
 				<span ng-click="vm.menuLink('step4')">上一步</span>
 				<span ng-click="vm.menuLink('micro')">完 成</span>
