@@ -1091,7 +1091,7 @@ footer {
 .step5_textarea textarea{
   border:1px solid #ccc;
   border-radius: 2px;
-  width: 300px;
+  width: 220px;
   height: 100px;
   vertical-align: middle;
 }
@@ -1101,6 +1101,7 @@ footer {
   color: #E01818;
   font-size: 12px;
   cursor: pointer;
+  width: 220px;
 }
 .step5_upload{
   color: #3bbffc;
