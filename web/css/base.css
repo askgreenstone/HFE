@@ -1046,6 +1046,8 @@ footer {
   display: inline-block;
   width: 76%;
   text-align: justify;
+  font-size: 13px;
+  margin-top: 5px;
 }
 .ss_box img{
   float: left;
@@ -1110,7 +1112,7 @@ footer {
 .step5_preview{
   margin-left: 90px;
   margin-top: 15px;
-  width: 72px;
+  width: 112px;
   padding: 5px;
   border:1px dashed #ccc;
 }
