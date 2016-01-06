@@ -19,7 +19,10 @@ var Index009 = React.createClass({
       imgs:['image/theme002/team.png','image/theme002/laws.png','image/theme002/photo.png'],
       path:['articleDetail','articleList','photo'],
       bg:'',
-      logo:''
+      logo:'',
+      shareTitle:'',
+      shareDesc:'',
+      shareImg:''
     };
   },
   gotoLink: function(path,ntid){
@@ -79,6 +82,40 @@ var Index009 = React.createClass({
       }.bind(this)
     });
   },
+  getWxShareInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          if(data.sil.length>0){
+            this.setState({
+              shareTitle:data.sil[0].sti,
+              shareDesc:data.sil[0].sd,
+              shareImg:data.sil[0].spu
+            });
+          }else{
+            this.setState({
+              shareTitle:'微网站首页',
+              shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
+              shareImg:'greenStoneicon300.png'
+            });
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
@@ -90,6 +127,7 @@ var Index009 = React.createClass({
   componentWillMount: function(){
     this.getBgLogo();
     console.log('bg:'+this.state.bg);
+    this.getWxShareInfo();
   },
   render: function() {
     var navNodes = this.state.navArrs.map(function(item,i){
@@ -123,8 +161,8 @@ var Index009 = React.createClass({
             {navNodes}
           </ul>
         </div>
-        <Share title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
-        imgUrl={global.img+"WXweb_wangjiepor.png"} target="index009"/>
+        <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+        imgUrl={global.img+this.state.shareImg} target="index009"/>
         <Message/>
       </div>
     );
