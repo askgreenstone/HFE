@@ -237,11 +237,20 @@ footer {
 .mc_right_do{
   width: 100%;
   height: 775px;
-  display: none;
+  display: block;
 }
 .mc_right_undo{
   width: 100%;
-  height: 1200px;
+  height: 1225px;
+}
+.form_box{
+  position: relative;
+}
+.form_box .form_box_crop{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 300px;
 }
 .form_box .input_box{
   width: 70px;
@@ -257,19 +266,10 @@ footer {
   font-weight: normal;
   margin-left: 50px;
 }
-.form_box p span{
-  width: 80px;
-  height: 30px;
-  line-height: 30px;
-  display: inline-block;
-}
-.form_box p i{
-  margin-left: 50px;
-  font-style: normal;
-}
-.form_box p span.input_span{
+.input_box input{
+  width: 70px;
   height: 70px;
-  line-height: 70px;
+  display: none;
 }
 .mcr_search{
   position: relative;
@@ -833,13 +833,40 @@ footer {
 .mb_input{
   margin: 20px;
 }
-.mb_input input{
+.mc_input{
+  width: 400px;
+}
+.mb_input input[type='text']{
   border: 1px solid #ccc;
   border-radius: 2px;
   width: 300px;
   height: 35px;
+  text-indent: 10px;
+}
+.mb_input input[type='file']{
+  display: inline-block;
 }
 .mb_input i{
+  font-style: normal;
+  display: inline-block;
+  margin-right: 10px;
+}
+.mb_input .mb_input_tip{
+  margin-left: 60px;
+  height: 35px;
+  line-height: 35px;
+}
+.mb_input .mb_input_red{
+  color: red;
+  margin-left: 0px;
+  line-height: 35px;
+}
+.mb_input i.area{
+  float: left;
+  width: 70px;
+  line-height: 70px;
+}
+.mb_input span{
   font-style: normal;
   display: inline-block;
   margin-right: 10px;
@@ -850,6 +877,38 @@ footer {
   vertical-align: top;
   cursor: pointer;
 }
+.mb_input textarea{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 270px;
+  height: 70px;
+  resize: none;
+  text-indent: 10px;
+}
+.mb_input .mb_input_btn{
+  color: #666;
+  border: 1px solid #999;
+  background-color: #fff;
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  border-radius: 3px;
+  margin-left: 20px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.mb_input .mb_input_active{
+  background-color: #ccc; 
+}
+.md_input textarea{
+  width: 300px;
+}
+.md_input .input_box{
+  line-height: 26px;
+}
+
 /*step1.html*/
 .step_nav{
   /*border: 1px solid red;*/
@@ -996,6 +1055,49 @@ footer {
   cursor: pointer;
 }
 .step2_desc{
+  margin: 0 0 0 20px;
+  color: #cb0c14;
+}
+
+
+
+
+.crop_box{
+  margin:0;
+  min-height: 575px;
+  display: flex;
+}
+.crop_left{
+  border: 1px dashed #ccc;
+  flex:3;
+}
+.crop_right{
+  flex:2;
+  padding:0 10px;
+  color: #3bbffc;
+  margin: 0 auto;
+}
+.crop_bgs{
+  border: 1px dashed;
+  height: 235px;
+  overflow: auto;
+  margin: 0 0 15px 0;
+  padding: 2%;
+  background-color: rgba(204, 204, 204, 0.7);
+}
+.crop_preview{
+  border: 1px dashed #ccc;
+  min-height: 300px;
+  overflow: hidden;
+}
+.crop_bgs li{
+  width: 23%;
+  float: left;
+  margin: 0 2% 2% 0;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+.crop_desc{
   margin: 0 0 0 20px;
   color: #cb0c14;
 }
