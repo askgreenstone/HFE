@@ -241,7 +241,7 @@ footer {
 }
 .mc_right_undo{
   width: 100%;
-  height: 1225px;
+  height: 832px;
 }
 .form_box{
   position: relative;
@@ -839,7 +839,7 @@ footer {
 .mb_input input[type='text']{
   border: 1px solid #ccc;
   border-radius: 2px;
-  width: 300px;
+  width: 260px;
   height: 35px;
   text-indent: 10px;
 }
@@ -852,7 +852,7 @@ footer {
   color: #3bbffc;
 }
 .mb_input a input{
-  margin-left: 60px;
+  margin: 55px 100px;
 }
 .mb_input i{
   font-style: normal;
@@ -871,7 +871,6 @@ footer {
 }
 .mb_input i.area{
   float: left;
-  width: 70px;
   line-height: 70px;
 }
 .mb_input span{
@@ -882,7 +881,7 @@ footer {
 .mb_input textarea{
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 270px;
+  width: 260px;
   height: 70px;
   resize: none;
   text-indent: 10px;
@@ -903,6 +902,9 @@ footer {
 }
 .mb_input .mb_input_active{
   background-color: #ccc; 
+}
+.mc_input i{
+  width: 70px;
 }
 .md_input textarea{
   width: 300px;
@@ -1088,7 +1090,7 @@ footer {
 }
 .card1_preview{
   border: 1px dashed #ccc;
-  min-height: 70px;
+  height: 70px;
   width: 70px;
   display: inline-block;
   overflow: hidden;
