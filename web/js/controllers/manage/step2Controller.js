@@ -100,9 +100,15 @@ define(['App'], function(app) {
               }
               else{
                 vm.clipSourceImg(vm.choosePic);
+                $('#themeCropper').cropper('destroy');
                 $window.location.href = '#/step3?session='+vm.sess;
                 return;
               }
+            }
+            //gif图片不被裁切
+            if(f.type.toString().toLowerCase().indexOf('gif')>-1){
+              alert('暂不支持gif！');
+              return;
             }
             r.onloadend = function(e) {
                 var data = e.target.result;
@@ -122,6 +128,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
+                    $('#themeCropper').cropper('destroy');
                     $window.location.href = '#/step3?session='+vm.sess;
                 })
                 .error(function() {
@@ -167,9 +174,6 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  // $('#themeCropper').cropper('destroy');
-                  // vm.userBg = TransferUrl+name;
-                  // vm.initCropper();
                   console.log('clipSourceImg success');
                 }
             }).

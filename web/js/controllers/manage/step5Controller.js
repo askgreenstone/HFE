@@ -28,6 +28,12 @@ define(['App'], function(app) {
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
             if (!f) return;
+            //验证上传图片格式
+            console.log('type:'+f.type);
+            if(f.type.toLowerCase().indexOf('image')==-1){
+              alert('请选择正确图片格式文件！');
+              return;
+            }
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -51,16 +57,31 @@ define(['App'], function(app) {
             r.readAsDataURL(f);
         }
 
-        //分享首页st：1，微名片st：2
-        vm.setWxShare = function(){
+        vm.validateInput = function(){
           if(!vm.user.title){
             alert('分享标题不能为空！');
-            return;
-          }else if(!vm.user.desc){
-            alert('分享摘要不能为空！');
-            return;
+            return false;
+          }else if(vm.user.title.length>15){
+            alert('分享标题不能超过15个字！');
+            return false;
           }
 
+          console.log('vm.user.desc.length:'+vm.user.desc.length);
+          if(!vm.user.desc){
+            alert('分享摘要不能为空！');
+            return false;
+          }else if(vm.user.desc.length>40){
+            alert('分享摘要不能超过40个字！');
+            return false;
+          }else{
+            return true;
+          }
+        }
+
+        //分享首页st：1，微名片st：2
+        vm.setWxShare = function(){
+          if(!vm.validateInput()) return;
+          
           if(vm.shareId){//更新
             vm.tempData = {
                 si:vm.shareId,
