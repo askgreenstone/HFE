@@ -105,6 +105,11 @@ define(['App'], function(app) {
                 return;
               }
             }
+            //gif图片不被裁切
+            if(f.type.toString().toLowerCase().indexOf('gif')>-1){
+              alert('暂不支持gif！');
+              return;
+            }
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();

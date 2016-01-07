@@ -94,6 +94,11 @@ define(['App'], function(app) {
                 return;
               }
             }
+            //gif图片不被裁切
+            if(f.type.toString().toLowerCase().indexOf('gif')>-1){
+              alert('暂不支持gif！');
+              return;
+            }
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -187,6 +192,7 @@ define(['App'], function(app) {
         vm.chooseSourceBg = function(name){
           vm.isServerData = true;
           vm.choosePic = name;
+          
           vm.userBg = TransferUrl+name;
           $('#step3Cropper').cropper('destroy');
           console.log('userBg:'+vm.userBg);
