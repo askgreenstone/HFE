@@ -1,0 +1,89 @@
+<div class="view">
+	<div class="view_title">微网站管理</div>
+	<div class="manage_content">
+		<div class="mc_left">
+			<ul class="mcl_list">
+				<!-- <li>
+					<img src="image/manage/fans.png" width="18" height="18"/>
+					<span><a href="#manage">粉丝数据</a></span>
+				</li> -->
+				<li ng-click="vm.menuLink('micro')">
+					<img src="image/manage/micro.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">微网站首页设置</a></span>
+				</li>
+				<li class="text-active" ng-click="vm.menuLink('card')">
+					<img src="image/manage/card.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">微名片信息</a></span>
+				</li>
+				<li ng-click="vm.menuLink('data')">
+					<img src="image/manage/data.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">用户数据</a></span>
+				</li>
+				<li ng-click="vm.menuLink('manage')">
+					<img src="image/manage/set.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">内容维护</a></span>
+				</li>
+			</ul>
+		</div>
+		<div class="mc_right">
+			<div class="list_lenged">
+				<h3 class="red">微网站首页设置</h3>
+			<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span>
+			</div>
+			<div class="mr_box">
+				<ul class="step_nav">
+					<li ng-click="vm.menuLink('card')" class="line"><i></i>资料填写<b></b></li>
+					<li ng-click="vm.menuLink('card2')" class="color"><i></i>分享设置<b></b></li>
+					<li ng-click="vm.menuLink('card3')" class="line"><i></i>微名片预览<b></b></li>
+				</ul>
+			</div>
+		
+			<div class="card2_box">
+				<div class="card2_left">
+					<div class="card2_shadow">
+						<div class="ss_box">
+							<h3>{{vm.user.title?(vm.user.title.length>15?vm.user.title.substring(0,15):vm.user.title):'分享标题'}}</h3>
+							<p>
+								<img ng-src={{vm.TransferUrl+vm.user.preview}} width="45" height="45">
+								<span>{{vm.user.desc.length>26?(vm.user.desc.substring(0,26)+'...'):vm.user.desc}}</span>
+							</p>
+							<input type="text" disabled="disabled" placeholder="给朋友留言"/>
+							<ul>
+								<li>取消</li>
+								<li>发送</li>
+							</ul>
+						</div>
+					</div>
+					<iframe src="http://dist.green-stone.cn/mobile/#/card?ownUri=e442" width="320" height="660"></iframe>
+				</div>
+				<div class="card2_right">
+					<div class="mb_input">
+						<i>分享标题</i>
+						<input style="width:220px;" type="text" ng-model="vm.user.title" placeholder="请输入标题"/>
+					</div>
+					<div class="card2_textarea">
+						<i>分享摘要</i>
+						<textarea ng-model="vm.user.desc" placeholder="请输入描述信息"></textarea>
+					</div>
+					<div class="mb_input input_file_fix">
+						<i>分享图标</i>
+						<input id="card2_upload" type="file"/>
+					</div>
+					<span class="card2_upload" ng-click="vm.uploadFile()">
+							<img src="image/docs/add.png" width="20" height="20"/> 上传
+					</span>
+					<div class="card2_preview">
+						<img ng-src={{vm.TransferUrl+vm.user.preview}} width="100" height="100">
+					</div>
+				</div>
+			</div>
+			<div class="af_btn fix_center">
+				<span ng-click="vm.menuLink('step4')">上一步</span>
+				<span ng-click="vm.setWxShare()">完 成</span>
+			</div>
+		</div>
+		</div>
+			
+		<div class="clean"></div>
+	</div>
+</div>

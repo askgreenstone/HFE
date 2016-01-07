@@ -237,11 +237,20 @@ footer {
 .mc_right_do{
   width: 100%;
   height: 775px;
-  display: none;
+  display: block;
 }
 .mc_right_undo{
   width: 100%;
-  height: 1200px;
+  height: 1225px;
+}
+.form_box{
+  position: relative;
+}
+.form_box .form_box_crop{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 300px;
 }
 .form_box .input_box{
   width: 70px;
@@ -257,19 +266,10 @@ footer {
   font-weight: normal;
   margin-left: 50px;
 }
-.form_box p span{
-  width: 80px;
-  height: 30px;
-  line-height: 30px;
-  display: inline-block;
-}
-.form_box p i{
-  margin-left: 50px;
-  font-style: normal;
-}
-.form_box p span.input_span{
+.input_box input{
+  width: 70px;
   height: 70px;
-  line-height: 70px;
+  display: none;
 }
 .mcr_search{
   position: relative;
@@ -833,23 +833,85 @@ footer {
 .mb_input{
   margin: 20px;
 }
-.mb_input input{
+.mc_input{
+  width: 400px;
+}
+.mb_input input[type='text']{
   border: 1px solid #ccc;
   border-radius: 2px;
   width: 300px;
   height: 35px;
+  text-indent: 10px;
+}
+.mb_input input[type='file']{
+  display: inline-block;
+}
+.mb_input a{
+  margin-left: 25px;
+  cursor: pointer;
+  color: #3bbffc;
+}
+.mb_input a input{
+  margin-left: 60px;
 }
 .mb_input i{
   font-style: normal;
   display: inline-block;
   margin-right: 10px;
 }
-.mb_input img{
-  width: 180px;
-  height: 180px;
-  vertical-align: top;
+.mb_input .mb_input_tip{
+  margin-left: 60px;
+  height: 35px;
+  line-height: 35px;
+}
+.mb_input .mb_input_red{
+  color: red;
+  margin-left: 0px;
+  line-height: 35px;
+}
+.mb_input i.area{
+  float: left;
+  width: 70px;
+  line-height: 70px;
+}
+.mb_input span{
+  font-style: normal;
+  display: inline-block;
+  margin-right: 10px;
+}
+.mb_input textarea{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 270px;
+  height: 70px;
+  resize: none;
+  text-indent: 10px;
+}
+.mb_input .mb_input_btn{
+  color: #666;
+  border: 1px solid #999;
+  background-color: #fff;
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  border-radius: 3px;
+  margin-left: 20px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
   cursor: pointer;
 }
+.mb_input .mb_input_active{
+  background-color: #ccc; 
+}
+.md_input textarea{
+  width: 300px;
+}
+.me_input{
+  line-height: 70px;
+}
+
+
 /*step1.html*/
 .step_nav{
   /*border: 1px solid red;*/
@@ -1000,6 +1062,52 @@ footer {
   margin: 0 0 0 20px;
   color: #cb0c14;
 }
+
+.card1_box{
+  margin:0;
+  min-height: 575px;
+  display: flex;
+}
+.card1_left{
+  border: 1px dashed #ccc;
+  flex:3;
+}
+.card1_right{
+  flex:2;
+  padding:0 10px;
+  color: #3bbffc;
+  margin: 0 auto;
+}
+.card1_bgs{
+  border: 1px dashed;
+  height: 235px;
+  overflow: auto;
+  margin: 0 0 15px 0;
+  padding: 2%;
+  background-color: rgba(204, 204, 204, 0.7);
+}
+.card1_preview{
+  border: 1px dashed #ccc;
+  min-height: 70px;
+  width: 70px;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  top: 20px;
+  left: 30px;
+}
+.card1_bgs li{
+  width: 23%;
+  float: left;
+  margin: 0 2% 2% 0;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+.card1_desc{
+  margin: 0 0 0 20px;
+  color: #cb0c14;
+}
+
 .step5_box{
   display: flex;
   margin-top: -25px;
@@ -1028,6 +1136,67 @@ footer {
   top: 0;
   left: 0;
 }
+
+
+.card2_box{
+  display: flex;
+  margin-top: -25px;
+}
+.card2_box iframe{
+  border:0;
+}
+.card2_left{
+  width: 330px;
+  min-height: 680px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  overflow: auto;
+}
+.card2_right{
+  flex:1;
+  border-left: 1px dashed #ccc;
+  margin-left: 20px;
+}
+.card2_shadow{
+  background-color: rgba(0,0,0,0.7);
+  width: 326px;
+  height: 674px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.card2_textarea,.card2_pic{
+  margin: 0 0 20px 20px;
+}
+.card2_textarea i,.card2_pic i{
+  font-style: normal;
+  display: inline-block;
+  margin-right: 10px;
+}
+.card2_textarea textarea{
+  border:1px solid #ccc;
+  border-radius: 2px;
+  width: 220px;
+  height: 100px;
+  vertical-align: middle;
+}
+.card2_upload{
+  color: #3bbffc;
+  margin-left: 90px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: -15px;
+}
+.card2_preview{
+  margin-left: 90px;
+  margin-top: 15px;
+  width: 112px;
+  padding: 5px;
+  border:1px dashed #ccc;
+}
+
+
 .ss_box{
   width: 264px;
   height: 163px;
@@ -1039,8 +1208,9 @@ footer {
   margin: -81px 0 0 -132px;
 }
 .ss_box h3{
-  font-size: 16px;
   margin: 10px;
+  font-size: 14px;
+  font-weight: bold;
 }
 .ss_box span{
   display: inline-block;
@@ -1127,6 +1297,7 @@ footer {
   color: red;
   font-size: 12px;
 }
+
 
 
 
