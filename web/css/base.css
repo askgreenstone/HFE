@@ -1098,7 +1098,7 @@ footer {
 .input_file_fix input{
   border:0;
   display: inline-block;
-  color: #E01818;
+  color: red;
   font-size: 12px;
   cursor: pointer;
   width: 220px;
@@ -1117,9 +1117,16 @@ footer {
   padding: 5px;
   border:1px dashed #ccc;
 }
-
-
-
+.step5_validate{
+  margin-left: 70px;
+}
+.step5_validate .red{
+  color: red;
+}
+.step5_validate b{
+  color: red;
+  font-size: 12px;
+}
 
 
 

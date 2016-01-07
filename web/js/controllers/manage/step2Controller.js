@@ -100,6 +100,7 @@ define(['App'], function(app) {
               }
               else{
                 vm.clipSourceImg(vm.choosePic);
+                $('#themeCropper').cropper('destroy');
                 $window.location.href = '#/step3?session='+vm.sess;
                 return;
               }
@@ -122,6 +123,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
+                    $('#themeCropper').cropper('destroy');
                     $window.location.href = '#/step3?session='+vm.sess;
                 })
                 .error(function() {
@@ -167,9 +169,6 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  // $('#themeCropper').cropper('destroy');
-                  // vm.userBg = TransferUrl+name;
-                  // vm.initCropper();
                   console.log('clipSourceImg success');
                 }
             }).

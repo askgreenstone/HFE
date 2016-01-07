@@ -27,7 +27,7 @@ define(['App'], function(app) {
         // 图片裁切
         vm.initCropper = function() {
           vm.hiddenInitImg = true;
-            $('#themeCropper').cropper({
+            $('#step3Cropper').cropper({
                 aspectRatio: 1 / 1,
                 preview: '#img_preview',
                 crop: function(e) {
@@ -65,7 +65,7 @@ define(['App'], function(app) {
 
                         if (/^image\/\w+$/.test(file.type)) {
                             blobURL = URL.createObjectURL(file);
-                            $('#themeCropper').one('built.cropper', function() {
+                            $('#step3Cropper').one('built.cropper', function() {
                                 URL.revokeObjectURL(blobURL); // Revoke when load complete
                             }).cropper('reset').cropper('replace', blobURL);
                         } else {
@@ -89,6 +89,7 @@ define(['App'], function(app) {
               }
               else{
                 vm.clipSourceImg(vm.choosePic);
+                $('#step3Cropper').cropper('destroy');
                 $window.location.href = '#/step4?session='+vm.sess;
                 return;
               }
@@ -111,6 +112,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
+                    $('#step3Cropper').cropper('destroy');
                     $window.location.href = '#/step4?session='+vm.sess;
                 })
                 .error(function() {
@@ -186,7 +188,7 @@ define(['App'], function(app) {
           vm.isServerData = true;
           vm.choosePic = name;
           vm.userBg = TransferUrl+name;
-          $('#themeCropper').cropper('destroy');
+          $('#step3Cropper').cropper('destroy');
           console.log('userBg:'+vm.userBg);
           //延迟初始化裁图插件
           setTimeout(function() {
@@ -216,9 +218,6 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  // $('#themeCropper').cropper('destroy');
-                  // vm.userBg = TransferUrl+name;
-                  // vm.initCropper();
                   console.log('clipSourceImg success');
                 }
             }).
