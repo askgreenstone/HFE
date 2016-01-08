@@ -13,7 +13,7 @@ var Index010 = React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleDetail','articleList','articleList']
+      path:['articleDetail','articleList','photo']
     };
   },
   gotoLink: function(path,ntid){
@@ -52,7 +52,7 @@ var Index010 = React.createClass({
     this.getUserList();
   },
 	render:function(){
-		var desE = ['Lawyer Profile','Team Introduction','Professional Field'];
+		var desE = ['Lawyer Profile','Team Introduction','Micro Album'];
 		var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
