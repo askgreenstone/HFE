@@ -25,6 +25,7 @@ define(['App'], function(app) {
         };
 
         vm.uploadFile = function() {
+            Common.getLoading(true);
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
             if (!f) return;
@@ -49,8 +50,12 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     vm.user.preview = data.on;
+                    setTimeout(function(){
+                      Common.getLoading(false);
+                    }, 300);
                 })
                 .error(function() {
+                    Common.getLoading(false);
                     console.log('error');
                 });
             };
