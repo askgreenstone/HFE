@@ -203,13 +203,13 @@ define(['App'], function(app) {
               console.log(textarea.length);
           //验证所有input不能为空
           for (var k in inputs){
-            if($.trim(inputs[k].val()) != ""){
+            if($.trim(inputs[k].value) != ""){
               vm.isInputFill = true;
             }
           }
           //验证textare不能为空
           for (var m in textarea){
-            if($.trim(textarea[m].val()) != ""){
+            if($.trim(textarea[m].value) != ""){
               vm.isTextFill = true;
             }
           }
@@ -225,7 +225,8 @@ define(['App'], function(app) {
             alert("电话格式不正确");
             console.log($.trim($("#tel").val()));
           }else if(!$.trim($("#tel").val()).match(regExpEmail)){
-            alert("邮箱格式不正确")
+            alert("邮箱格式不正确");
+            console.log($.trim($("#tel").val()));
           }
         }
        
