@@ -52,7 +52,7 @@ var Index003=React.createClass({
     this.getUserList();
   },
 	render:function(){
-		var navChi=['Professional Profile','Representative Cases','Micro Album'];
+		var navChi=['Lawyer Profile','Representative Cases','Micro Album','Management Research'];
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>

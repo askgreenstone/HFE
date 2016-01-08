@@ -199,32 +199,33 @@ define(['App'], function(app) {
         vm.setBasicInfo = function(){
           var inputs = $("input[type='text']"),
               textarea = $("textarea");
+              console.log(inputs.length);
+              console.log(textarea.length);
           //验证所有input不能为空
           for (var k in inputs){
-            if($.trim(inputs[k].value) != ""){
+            if($.trim(inputs[k].val()) != ""){
               vm.isInputFill = true;
             }
           }
           //验证textare不能为空
           for (var m in textarea){
-            if($.trim(textarea[k].value) != ""){
+            if($.trim(textarea[m].val()) != ""){
               vm.isTextFill = true;
             }
           }
-          //验证电话格式正确
-          if($.trim($("#tel").value).match((/d{11})|^((/d{7,8})|(/d{4}|/d{3})-(/d{7,8})|(/d{4}|/d{3})-(/d{7,8})-(/d{4}|/d{3}|/d{2}|/d{1})|(/d{7,8})-(/d{4}|/d{3}|/d{2}|/d{1}))$)){
-            vm.isTelNum = true;
-          }else{
-            alert("电话格式不正确")
-          }
-          //验证邮箱格式正确
-          if($.trim($("#tel").value).match(^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$ )){
-            vm.isEmail = true;
-          }else{
-            alert("邮箱格式不正确")
-          }
+          //验证电话格式正确//验证邮箱格式正确
+          var regExpTel = /(0?1[358]\d{9})$/,
+              regExpEmail = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+          
+          
+          
           if(!vm.isInputFill || !vm.isTextFill){
             alert("请完善您的个人信息")
+          }else if(!$.trim($("#tel").val()).match(regExpTel)){
+            alert("电话格式不正确");
+            console.log($.trim($("#tel").val()));
+          }else if(!$.trim($("#tel").val()).match(regExpEmail)){
+            alert("邮箱格式不正确")
           }
         }
        
