@@ -11,7 +11,11 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
-        vm.preview = '';
+        vm.preview = '',
+        vm.isInputFill = false,
+        vm.isTextFill = false,
+        vm.isTelNum = false,
+        vm.isEmail = false;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -121,7 +125,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
-                    $window.location.href = '#/card2?session='+vm.sess;
+                    
                 })
                 .error(function() {
                     console.log('error');
@@ -190,6 +194,38 @@ define(['App'], function(app) {
                 });
             };
             r.readAsDataURL(f);
+        }
+
+        vm.setBasicInfo = function(){
+          var inputs = $("input[type='text']"),
+              textarea = $("textarea");
+          //验证所有input不能为空
+          for (var k in inputs){
+            if($.trim(inputs[k].value) != ""){
+              vm.isInputFill = true;
+            }
+          }
+          //验证textare不能为空
+          for (var m in textarea){
+            if($.trim(textarea[k].value) != ""){
+              vm.isTextFill = true;
+            }
+          }
+          //验证电话格式正确
+          if($.trim($("#tel").value).match((/d{11})|^((/d{7,8})|(/d{4}|/d{3})-(/d{7,8})|(/d{4}|/d{3})-(/d{7,8})-(/d{4}|/d{3}|/d{2}|/d{1})|(/d{7,8})-(/d{4}|/d{3}|/d{2}|/d{1}))$)){
+            vm.isTelNum = true;
+          }else{
+            alert("电话格式不正确")
+          }
+          //验证邮箱格式正确
+          if($.trim($("#tel").value).match(^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$ )){
+            vm.isEmail = true;
+          }else{
+            alert("邮箱格式不正确")
+          }
+          if(!vm.isInputFill || !vm.isTextFill){
+            alert("请完善您的个人信息")
+          }
         }
        
         function init(){
