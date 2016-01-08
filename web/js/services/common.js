@@ -32,6 +32,19 @@ define([], function() {
         return ar;
       }
 
+      //全局加载loading,flag为true则显示，否者隐藏
+      this.getLoading = function(flag){
+        $('#globle_load_box').empty();
+        var htmlContent = '<div class="globle_load_shadow"><div class="spinner-bounce-circle"><div></div><div></div></div>';
+        $('#globle_load_box').append(htmlContent);
+        console.log(flag);
+        if(flag){
+          $('.globle_load_shadow').show();
+        }else{
+          $('.globle_load_shadow').hide();
+        }
+      }
+
     };
     var servicesApp = angular.module('CommonServices', []);
 

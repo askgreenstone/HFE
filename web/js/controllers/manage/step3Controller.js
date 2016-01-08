@@ -170,7 +170,7 @@ define(['App'], function(app) {
                   vm.isServerData = true;
                   if(data.l){
                     vm.userBg = TransferUrl+data.l;
-                    vm.choosePic = data.bi;
+                    vm.choosePic = data.l;
                   }else{
                     vm.userBg = 'image/placeholder.png';
                   }
@@ -190,7 +190,6 @@ define(['App'], function(app) {
 
         //it:1背景图，it:2logo
         vm.chooseSourceBg = function(name){
-          vm.isServerData = true;
           vm.choosePic = name;
           
           vm.userBg = TransferUrl+name;
