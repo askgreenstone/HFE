@@ -7,13 +7,13 @@ var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
-require('../../../../css/theme/theme003.less');
-var Index003=React.createClass({
+require('../../../../css/theme/theme006.less');
+var Index010 = React.createClass({
 	mixins:[CommonMixin],
-	getInitialState: function(){
+  getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleDetail','articleList','photo']
+      path:['articleDetail','articleList','articleList']
     };
   },
   gotoLink: function(path,ntid){
@@ -25,7 +25,7 @@ var Index003=React.createClass({
     }
     location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
   },
-	getUserList: function(){
+  getUserList: function(){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
@@ -47,40 +47,36 @@ var Index003=React.createClass({
       }.bind(this)
     });
   },
-	componentDidMount: function(){
+  componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
   },
 	render:function(){
-		var navChi=['Lawyer Profile','Representative Cases','Micro Album','Management Research'];
-    var navNodes = this.state.navArrs.map(function(item,i){
+		var desE = ['Lawyer Profile','Team Introduction','Professional Field'];
+		var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <h2>{item.tn}</h2><p>{navChi[i]}</p><span></span>
+              <span>{item.tn}</span>
+              <span>{desE[i]}</span>
             </li>
        );
     }.bind(this));
 		return (
 				<div>
-					<div className="theme3_main">
-						<div className="main">
-							<img src="image/theme003/photo65.png" alt="" className="theme3_main_bg"/>
-              <div className='logo'>
-                <img src="image/theme003/logo.png" />
-              </div>
-							
+					<div className="theme6_main">
+							<div className="logo">
+								<img src="image/theme010/logo.png"/>
+							</div>
+							<ul className="theme6_main_list" style={{'top':'35%'}}>
+								{navNodes}
+								<li onClick={this.gotoLink.bind(this,'card')}><span>微 名 片</span><span>E-Card</span></li>
+							</ul>
 						</div>
-						<ul className="theme3_main_list">
-              {navNodes}
-              <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-Card</p><span></span></li>
-						</ul>
-            <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划，法律行业发展研究与实践"} 
-            imgUrl={global.img+"wzd20151221145959.png"} target="index003"/>
-					</div>
-          <Message/>
+					<Share title={"大成金融律师团队微网站"} desc={"大成金融律师团队专注于融资租赁、银行、保险、信托、家族办公室咨询服务、保理、互联网金融、金融衍生品"} 
+        imgUrl={global.img+"dcjr20160108111315.jpg"} target="index010"/>
+        <Message/>
 				</div>
 			)
 	}
 })
-
-module.exports = Index003;
+module.exports = Index010;

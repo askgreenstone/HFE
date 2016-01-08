@@ -44,6 +44,7 @@ var Home = React.createClass({
         <div><Link to='/index007'><img src='image/index003.png'/><span>肖飒007</span></Link></div>
         <div><Link to='/index008'><img src='image/index002.png'/><span>山西008</span></Link></div>
         <div><Link to='/index009'><img src='image/index002.png'/><span>测试009</span></Link></div>
+        <div><Link to='/index010'><img src='image/index006.png'/><span>大成金融</span></Link></div>
       </div>
       );
     } else{
@@ -58,6 +59,7 @@ var Home = React.createClass({
           <div><Link to='/index007?ownUri=e2102'><img src='image/index003.png'/><span>肖飒007</span></Link></div>
           <div><Link to='/index008'><img src='image/index002.png'/><span>山西008</span></Link></div>
           <div><Link to='/index009?ownUri=e399'><img src='image/index002.png'/><span>测试009</span></Link></div>
+          <div><Link to='/index010?ownUri=e487'><img src='image/index006.png'/><span>大成金融</span></Link></div>
         </div>
         );
     } 
