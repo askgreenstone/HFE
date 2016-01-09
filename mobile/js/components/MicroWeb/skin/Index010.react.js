@@ -68,7 +68,7 @@ var Index010 = React.createClass({
 								<img src="image/theme010/logo.png"/>
 							</div>
 							<ul className="theme6_main_list" style={{'top':'35%'}}>
-                <li onClick={this.gotoLink.bind(this,'card')}><span>金融业务介绍</span><span>Practices & Capabilities</span></li>
+                <li onClick={this.gotoLink.bind(this,'card2')}><span>金融业务介绍</span><span>Practices & Capabilities</span></li>
 								{navNodes}
                 <li><a href="tel:010-58137799"><span>金融业务咨询</span><span>Finance Legal Consultancy</span></a></li>
 							</ul>
