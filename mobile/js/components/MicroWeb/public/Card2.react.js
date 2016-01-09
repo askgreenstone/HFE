@@ -80,12 +80,6 @@ var Card2 = React.createClass({
     		<div className="user_content">
     			
     			<div className="uc_input">
-            <a href={'tel://'+this.state.tel}>
-              {this.state.tel}
-    				  <img src="image/theme002/fax.png" width="25" height="25"/>
-            </a>
-    			</div>
-    			<div className="uc_input">
             <a href={this.state.web}>
               {this.state.web}
     				  <img src="image/theme002/web.png" width="25" height="25"/>
