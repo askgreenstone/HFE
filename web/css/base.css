@@ -1357,6 +1357,121 @@ footer {
   color: red;
   font-size: 12px;
 }
+.step4_content{
+  margin-top: -10px;
+}
+.step4_input input{
+  width: 30%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+.step4_list{
+  /*border:1px solid #ccc;*/
+  margin-top:15px;
+  min-height: 300px;
+}
+.step4_list li{
+  width: 48%;
+  background-color: rgba(239, 237, 237, 0.5);
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  float: left;
+  margin-right: 12px;
+  margin-top: 15px;
+  height: 120px;
+}
+.step4_list li>.left{
+  /*border: 1px solid red;*/
+  display: inline-block;
+  width: 25%;
+  text-align: center;
+  padding: 10px;
+}
+.step4_list .left>i,.step4_list .right>i{
+  font-style: normal;
+}
+.step4_list .left>img{
+  background-color: #ccc;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.step4_list li>.right{
+  /*border: 1px solid yellow;*/
+  display: inline-block;
+  width: 70%;
+  padding: 10px 0;
+  float: right;
+}
+.step4_list .left b>input{
+  width: 60px;
+  border: 0;
+  background-color: rgba(239, 237, 237, 0.5);
+}
+.step4_list .right b{
+  display: inline-block;
+  margin-top: 10px;
+  color: #e30a20;
+}
+.step4_list .right>input{
+  margin-top: 10px;
+}
+.step4_list .right b>span{
+  background-color: #fff;
+  padding:5px;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  border:1px solid #ccc;
+  border-radius: 3px;
+  color: #000;
+}
+.step4_list .right b>.active{
+  background-color: #3bbffc;
+  border:1px solid #3bbffc;
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
