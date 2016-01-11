@@ -6,7 +6,7 @@ var CommonMixin = {
     if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
       return 'e399';
       //临时添加
-      // return 'e487';
+      // return 'e2103';
     }else{
       return 'e442';
     }

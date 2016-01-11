@@ -13,7 +13,7 @@ var Index006 = React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleDetail','articleList','photo']
+      path:['articleList','articleList','articleList','articleList']
     };
   },
   gotoLink: function(path,ntid){
@@ -52,7 +52,7 @@ var Index006 = React.createClass({
     this.getUserList();
   },
 	render:function(){
-		var desE = ['Professional Profile','Representative Cases','Micro Album'];
+		var desE = ['Representative Cases','Business Salon','Learning to share','Our Team'];
 		var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
@@ -70,8 +70,7 @@ var Index006 = React.createClass({
 							<ul className="theme6_main_list">
                 <li onClick={this.gotoLink.bind(this,'card')}><span>微 名 片</span><span>E-Card</span></li>
 								{navNodes}
-								<li><span>律师论坛</span><span>Lawyers Forum</span></li>
-								<li><span>普法宣传</span><span>Articles and Publications</span></li>
+								<li><a href="tel:035-14606444"><span>电话咨询</span><span>Phone Consultation</span></a></li>
 							</ul>
 						</div>
 					<Share title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
