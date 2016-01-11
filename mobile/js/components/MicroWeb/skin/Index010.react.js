@@ -13,7 +13,7 @@ var Index010 = React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleDetail','articleList','photo']
+      path:['articleList','articleList','photo']
     };
   },
   gotoLink: function(path,ntid){
@@ -52,7 +52,7 @@ var Index010 = React.createClass({
     this.getUserList();
   },
 	render:function(){
-		var desE = ['Lawyer Profile','Team Introduction','Micro Album'];
+		var desE = ['Area of Focus','Professionals','News & Events'];
 		var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
@@ -68,10 +68,12 @@ var Index010 = React.createClass({
 								<img src="image/theme010/logo.png"/>
 							</div>
 							<ul className="theme6_main_list" style={{'top':'35%'}}>
+                <li onClick={this.gotoLink.bind(this,'card2')}><span>金融业务介绍</span><span>Practices & Capabilities</span></li>
 								{navNodes}
-								<li onClick={this.gotoLink.bind(this,'card')}><span>微 名 片</span><span>E-Card</span></li>
+                <li><a href="tel:010-58137799"><span>金融业务咨询</span><span>Finance Legal Consultancy</span></a></li>
 							</ul>
 						</div>
+            <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
 					<Share title={"大成金融律师团队微网站"} desc={"大成金融律师团队专注于融资租赁、银行、保险、信托、家族办公室咨询服务、保理、互联网金融、金融衍生品"} 
         imgUrl={global.img+"dcjr20160108111315.jpg"} target="index010"/>
         <Message/>

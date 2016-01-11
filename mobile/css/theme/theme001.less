@@ -37,6 +37,8 @@
 .article_list img{
     // border-radius: 2px;
     vertical-align: middle;
+    margin-top: -1px;
+    padding-top: 0;
     // float: left;
     // margin: 4%;
 }
@@ -50,6 +52,7 @@
     color: @black06;
     // font-size: @s-size;
     line-height: 20px;
+    padding-right: 5px;
 }
 .article_list li i{
     width:100%;
@@ -60,7 +63,13 @@
     font-size:@l-size;
     font-style:normal;
 }
-
+//临时需求添加，列表第一项字体放大一号
+.article_list li:first-child>span{
+    font-size:@l-size;
+}
+.article_list li:first-child>p{
+    font-size:@s-size;
+}
 
 
 

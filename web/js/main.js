@@ -5,7 +5,8 @@ require.config({
     	'ZeroClipboard':'lib/ueditor/third-party/zeroclipboard/ZeroClipboard',
         'App':'js/app/app',
         'RouteResolver':'js/services/routeResolver',
-        'Common':'js/services/common'
+        'Common':'js/services/common',
+        'Sortable':'lib/sortable'
     }
 });
 
@@ -13,7 +14,8 @@ require(
     [
         'App',
         'RouteResolver',
-        'Common'
+        'Common',
+        'Sortable'
     ],
     function () {
         angular.bootstrap(document, ['webApp']);

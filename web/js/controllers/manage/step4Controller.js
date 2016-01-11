@@ -1,6 +1,6 @@
 'use strict';
 
-define(['App'], function(app) {
+define(['App','Sortable'], function(app) {
 
     var injectParams = ['$location','$http','$window','GlobalUrl','Common'];
     var Step4Controller = function($location,$http,$window,GlobalUrl,Common) {
@@ -14,8 +14,23 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
+        vm.initSortable = function(){
+            $('.step4_list').sortable().bind('sortupdate', function() {
+                var newArray=[];
+                var temp;
+                $('.step4_list li').each(function(i){
+                    newArray.push($(this).val());
+                });
+                
+                var message="当前排序："+newArray;
+                console.log(message);
+                
+            });
+        }
+
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.initSortable();
         }
 
         init();
