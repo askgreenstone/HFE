@@ -20,7 +20,7 @@ define(['App'], function(app) {
 
 
         vm.resetCard = function(){
-            $window.location.href = '#/cardMake?session='+vm.sess;
+            $window.location.href = '#/card?session='+vm.sess;
         }
         
 

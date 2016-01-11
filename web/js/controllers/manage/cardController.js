@@ -12,10 +12,9 @@ define(['App'], function(app) {
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
         vm.preview = '',
-        vm.isInputFill = false,
-        vm.isTextFill = false,
-        vm.isTelNum = false,
-        vm.isEmail = false;
+        vm.isHeadUpload = false,
+        vm.isQrcodeUpload = false,
+        vm.head = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -28,7 +27,7 @@ define(['App'], function(app) {
         vm.goBack = function(){
           $window.history.back();
         };
-
+        //检测微名片编辑状态，已完成跳转预览，未完成跳转填写资料页面
         vm.checkCardState = function(){
           $http({
               method: 'GET',
@@ -101,7 +100,7 @@ define(['App'], function(app) {
                 
             }
         }
-
+        //上传头像（裁切处理）
         vm.uploadFile = function() {
           //console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
@@ -125,7 +124,8 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
-                    
+                    vm.head = data.on;
+                    vm.isHeadUpload =true;
                 })
                 .error(function() {
                     console.log('error');
@@ -133,42 +133,7 @@ define(['App'], function(app) {
             };
             r.readAsDataURL(f);
         }
-        vm.getServerBg = function(){
-          $http({
-                method: 'GET',
-                url: GlobalUrl+'/exp/GetMicWebImgs.do',
-                params: {
-                    session:vm.sess
-                },
-                data: {
-                    
-                }
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  //后台数据标示
-                  vm.isServerData = true;
-                  if(data.bi){
-                    vm.userBg = TransferUrl+data.bi;
-                    vm.choosePic = data.bi;
-                  }else{
-                    vm.userBg = 'image/placeholder.png';
-                  }
-
-                  //延迟初始化裁图插件
-                  setTimeout(function() {
-                    vm.initCropper();
-                  }, 300);
-                  
-                  // console.log(vm.userBg);
-                }
-            }).
-            error(function(data, status, headers, config) {
-                console.log('error:'+data);
-            });
-        }
-        //二维码
+        //二维码（不需裁切处理）
         vm.uploadQrcode = function() {
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
@@ -188,6 +153,7 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     vm.preview = data.on;
+                    vm.isQrcodeUpload = true;
                 })
                 .error(function() {
                     console.log('error');
@@ -199,34 +165,108 @@ define(['App'], function(app) {
         vm.setBasicInfo = function(){
           var inputs = $("input[type='text']"),
               textarea = $("textarea");
-              console.log(inputs.length);
-              console.log(textarea.length);
-          //验证所有input不能为空
-          for (var k in inputs){
-            if($.trim(inputs[k].value) != ""){
-              vm.isInputFill = true;
-            }
-          }
-          //验证textare不能为空
-          for (var m in textarea){
-            if($.trim(textarea[m].value) != ""){
-              vm.isTextFill = true;
-            }
-          }
-          //验证电话格式正确//验证邮箱格式正确
+          
+          //验证电话格式正确//验证邮箱格式正确//验证所有信息必须填写//提交到数据库保存
           var regExpTel = /(0?1[358]\d{9})$/,
-              regExpEmail = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
-          
-          
-          
-          if(!vm.isInputFill || !vm.isTextFill){
-            alert("请完善您的个人信息")
+              regExpEmail = /^\w+@[\da-z]+\.(com|cn|edu|net|com.cn)$/;
+          if(!vm.isHeadUpload){
+            alert("请上传头像！");
+          }else if(!vm.isQrcodeUpload){
+            alert("请上传二维码！");
+          }else if(!$.trim($("#name").val())){
+            alert("请填写您的姓名！");
+          }else if(!$.trim($("#firm").val())){
+            alert("请填写您的律所！");
+          }else if(!$.trim($("#post").val())){
+            alert("请填写您的职务！");
+          }else if(!$.trim($("#tel").val())){
+            alert("请填写您的电话！");  
           }else if(!$.trim($("#tel").val()).match(regExpTel)){
-            alert("电话格式不正确");
-            console.log($.trim($("#tel").val()));
-          }else if(!$.trim($("#tel").val()).match(regExpEmail)){
-            alert("邮箱格式不正确");
-            console.log($.trim($("#tel").val()));
+              alert("电话格式不正确！");
+          }else if(!$.trim($("#email").val())){
+            alert("请填写您的邮箱！"); 
+          }else if(!$.trim($("#email").val()).match(regExpEmail)){
+            alert("邮箱格式不正确!");
+          }else if(!$.trim($("#fax").val())){
+            alert("请填写您的传真！");
+          }else if(!$.trim($("#website").val())){
+            alert("请填写您的网址！");
+          }else if(!$.trim($("#address").val())){
+            alert("请填写您的地址！");
+          }else if(!$.trim($("#intro").val())){
+            alert("请填写您的简介！");
+          }else if(!$.trim($("#profess").val())){
+            alert("请填写您的专业领域！");
+          }else{
+            var fd = {
+              "tn": "jlt_expmicrocard",
+              "cols": [
+                {
+                  "cn": "HeadImg",
+                  "cv": vm.head
+                },
+                {
+                  "cn": "NAME",
+                  "cv": $.trim($("#name").val())
+                },
+                {
+                  "cn": "Depart",
+                  "cv": $.trim($("#firm").val())
+                },
+                {
+                  "cn": "Rank",
+                  "cv": $.trim($("#post").val())
+                },
+                {
+                  "cn": "QRCodeImg",
+                  "cv": vm.preview
+                },
+                {
+                  "cn": "Mobile",
+                  "cv": $.trim($("#tel").val())
+                },
+                {
+                  "cn": "Email",
+                  "cv": $.trim($("#email").val())
+                },
+                {
+                  "cn": "TelNo",
+                  "cv": $.trim($("#fax").val())
+                },
+                {
+                  "cn": "WebSite",
+                  "cv": $.trim($("#website").val())
+                },
+                {
+                  "cn": "Address",
+                  "cv": $.trim($("#address").val())
+                },
+                {
+                  "cn": "Abstract",
+                  "cv": $.trim($("#intro").val())
+                },
+                {
+                  "cn": "Introduction",
+                  "cv": $.trim($("#profess").val())
+                }
+              ]
+            };
+            $http({
+                  method: 'POST',
+                  url: GlobalUrl+'/exp/DataInsert.do?session='+vm.sess,
+                  params: {
+                  },
+                  data: fd
+              }).
+              success(function(data, status, headers, config) {
+                  console.log(data);
+                  if(data.c == 1000){
+                    $window.location.href = '#/card2?session='+vm.sess;
+                  }
+              }).
+              error(function(data, status, headers, config) {
+                  console.log(data);
+              });
           }
         }
        
@@ -234,9 +274,8 @@ define(['App'], function(app) {
           vm.sess = Common.getUrlParam('session');
           vm.checkCardState();
           vm.initCropper();
-          vm.getServerBg();
+          vm.preview = '750F02EADCF5428CE9BE09D481E38D8B_W1_H1_S0.png';
         }
-
         init();
     };
 

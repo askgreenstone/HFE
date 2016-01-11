@@ -47,19 +47,20 @@
 								<input type="file" id="choose_file" ng-model="vm.fileName"/>
 							</a>
 							<span class="card1_preview" id="img_preview"></span>
+							<span class="step5_upload" ng-click="vm.uploadFile()">
+										<img src="image/docs/add.png" width="20" height="20"/> 上传
+								</span>
 							<div class="form_box_crop">
 								<div class="card1_left">
 									<img ng-show="vm.hiddenInitImg" id="themeCropper" src='image/placeholder.png'>
 								</div>
-								<span class="step5_upload" ng-click="vm.uploadFile()">
-										<img src="image/docs/add.png" width="20" height="20"/> 上传
-								</span>
+								
 							</div>
 							
 						</div>
-						<div class="mb_input mc_input"><i>姓名：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>律所：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>职务：</i><input type="text"></div>
+						<div class="mb_input mc_input"><i>姓名：</i><input type="text" id="name"></div>
+						<div class="mb_input mc_input"><i>律所：</i><input type="text" id="firm"></div>
+						<div class="mb_input mc_input"><i>职务：</i><input type="text" id="post"></div>
 						<div class="mb_input mc_input input_file_fix">
 							<i>二维码：</i>
 							<input id="step5_upload" type="file"/>
@@ -74,11 +75,11 @@
 						
 						<div class="mb_input mc_input"><i>电话：</i><input type="text" id="tel"></div>
 						<div class="mb_input mc_input"><i>邮箱：</i><input type="text" id="email"></div>
-						<div class="mb_input mc_input"><i>传真：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>网址：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>地址：</i><input type="text"><div class="mb_input_tip">（请正确填写，用于地图导航）</div></div>
-						<div class="mb_input mc_input"><i class="area">简介：</i><textarea></textarea></div>
-						<div class="mb_input mc_input"><i class="area">专业领域：</i><textarea></textarea></div>
+						<div class="mb_input mc_input"><i>传真：</i><input type="text" id="fax"></div>
+						<div class="mb_input mc_input"><i>网址：</i><input type="text" id="website"></div>
+						<div class="mb_input mc_input"><i>地址：</i><input type="text" id="address"><div class="mb_input_tip">（请正确填写，用于地图导航）</div></div>
+						<div class="mb_input mc_input"><i class="area">简介：</i><textarea id="intro"></textarea></div>
+						<div class="mb_input mc_input"><i class="area">专业领域：</i><textarea id="profess"></textarea></div>
 					</form>
 					</div>
 					<div class="clean"></div>

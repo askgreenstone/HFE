@@ -111,7 +111,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.menuLink('micro');
+                  vm.menuLink('card3');
                 }
             }).
             error(function(data, status, headers, config) {

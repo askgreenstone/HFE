@@ -908,9 +908,13 @@ footer {
   margin-left: 25px;
   cursor: pointer;
   color: #3bbffc;
+  margin-right: -15px;
 }
 .mb_input a input{
   margin: 55px 100px;
+}
+.mb_input .step5_upload{
+  margin-left: 30px;
 }
 .mb_input i{
   font-style: normal;
@@ -920,11 +924,6 @@ footer {
 .mb_input .mb_input_tip{
   margin-left: 60px;
   height: 35px;
-  line-height: 35px;
-}
-.mb_input .mb_input_red{
-  color: red;
-  margin-left: 0px;
   line-height: 35px;
 }
 .mb_input i.area{
@@ -1220,8 +1219,8 @@ footer {
 }
 .card2_shadow{
   background-color: rgba(0,0,0,0.7);
-  width: 326px;
-  height: 674px;
+  width: 328px;
+  height: 678px;
   position: absolute;
   top: 0;
   left: 0;
