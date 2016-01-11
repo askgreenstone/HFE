@@ -73,8 +73,8 @@ var Index006 = React.createClass({
 								<li><a href="tel:035-14606444"><span>电话咨询</span><span>Phone Consultation</span></a></li>
 							</ul>
 						</div>
-					<Share title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
-        imgUrl={global.img+"WXweb_wangjiepor.png"} target="index006"/>
+					<Share title={"赵多政律师微网站"} desc={"赵多政律师专注于资本与证券市场类、收购兼并、改制重组、发行上市、投融资、企业税务筹划等法律服务。"} 
+        imgUrl={global.img+"tzsxjlb20160111154037.jpg"} target="index006"/>
         <Message/>
 				</div>
 			)
