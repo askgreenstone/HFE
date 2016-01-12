@@ -27,6 +27,7 @@ define(['App'], function(app) {
         vm.goBack = function(){
           $window.history.back();
         };
+        
         //检测微名片编辑状态，已完成跳转预览，未完成跳转填写资料页面
         vm.checkCardState = function(){
           $http({
