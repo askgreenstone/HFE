@@ -14,7 +14,17 @@ define(['App'], function(app) {
         vm.preview = '',
         vm.isHeadUpload = false,
         vm.isQrcodeUpload = false,
-        vm.head = '';
+        vm.head = '',
+        vm.NAME = '',
+        vm.Depart = '',
+        vm.Rank = '',
+        vm.Mobile = '',
+        vm.Email = '',
+        vm.TelNo = '',
+        vm.WebSite = '',
+        vm.Address = '',
+        vm.Abstract = '',
+        vm.Introduction = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -27,26 +37,61 @@ define(['App'], function(app) {
         vm.goBack = function(){
           $window.history.back();
         };
-        
-        //检测微名片编辑状态，已完成跳转预览，未完成跳转填写资料页面
-        vm.checkCardState = function(){
-          $http({
-              method: 'GET',
-              url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
-          }).
-          success(function(data, status, headers, config) {
-              console.log(data);
-              // 状态码  0  未完成  1  已完成
-              if(data.s == 1){
-                $window.location.href = '#/card?session='+vm.sess;
-              }else if(data.s == 0){
-                $window.location.href = '#/card3?session='+vm.sess;
-              }
-          }).
-          error(function(data, status, headers, config) {
-              console.log(data);
-          }); 
+        vm.resetCard = function(){
+            $window.location.href = '#/card?session='+vm.sess+'&state=do';
         }
+
+        //从后台拿数据，拿到的话就回显，没有数据就为空//
+        vm.checkCardState = function(){
+          if(vm.state == 'do'){
+            $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.Mob == ''){
+                  $window.location.href = '#/card?session='+vm.sess+'&state=undo';
+                }else{
+                  $window.location.href = '#/card?session='+vm.sess+'&state=do';
+                  $("#img_preview img").attr("src",vm.transferUrl+data.hI);
+                  $(".cropper-canvas img").attr("src",vm.transferUrl+data.hI);
+                  $("#QRCodeImg img").attr("src",vm.transferUrl+data.QR);
+                  vm.NAME = data.nm;
+                  vm.Depart = data.dp;
+                  vm.Rank = data.rk;
+                  vm.Mobile = data.Mob;
+                  vm.Email = data.eml;
+                  vm.TelNo = data.tel;
+                  vm.WebSite = data.web;
+                  vm.Address = data.adr;
+                  vm.Abstract = data.abs;
+                  vm.Introduction = data.itd;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            }); 
+          } else{
+            $http({
+                  method: 'GET',
+                  url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
+              }).
+              success(function(data, status, headers, config) {
+                  console.log(data);
+                  // 状态码  0  未完成  1  已完成
+                  if(data.s == 1){
+                    $window.location.href = '#/card?session='+vm.sess;
+                  }else if(data.s == 0){
+                    $window.location.href = '#/card3?session='+vm.sess;
+                  }
+              }).
+              error(function(data, status, headers, config) {
+                  console.log(data);
+              }); 
+          }
+        }
+       
         // 图片裁切
         vm.initCropper = function() {
           vm.hiddenInitImg = true;
@@ -103,10 +148,27 @@ define(['App'], function(app) {
         }
         //上传头像（裁切处理）
         vm.uploadFile = function() {
+          Common.getLoading(true);
           //console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
-            
+            if(!f){
+              if(!vm.isServerData){
+                alert('请先选择图片！');
+                return;
+              }
+              else{
+                vm.clipSourceImg(vm.choosePic);
+                $('#themeCropper').cropper('destroy');
+                $window.location.href = '#/card2?session='+vm.sess;
+                return;
+              }
+            }
+            //gif图片不被裁切
+            if(f.type.toString().toLowerCase().indexOf('gif')>-1){
+              alert('暂不支持gif！');
+              return;
+            }
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -127,12 +189,45 @@ define(['App'], function(app) {
                     console.log(data);
                     vm.head = data.on;
                     vm.isHeadUpload =true;
+                    setTimeout(function(){
+                      Common.getLoading(false);
+                    }, 300);
                 })
                 .error(function() {
+                    Common.getLoading(false);
                     console.log('error');
                 });
             };
             r.readAsDataURL(f);
+        }
+
+        //裁切素材
+        vm.clipSourceImg = function(name){
+          console.log('name:'+name);
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    in:name,
+                    it:1,
+                    w:vm.imgw,
+                    h:vm.imgh,
+                    x:vm.imgx,
+                    y:vm.imgy
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  console.log('clipSourceImg success');
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
         }
         //二维码（不需裁切处理）
         vm.uploadQrcode = function() {
@@ -163,6 +258,45 @@ define(['App'], function(app) {
             r.readAsDataURL(f);
         }
 
+
+         //查询用户上传背景图片
+        vm.getServerBg = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/GetMicWebImgs.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  //后台数据标示
+                  vm.isServerData = true;
+                  if(data.bi){
+                    vm.userBg = TransferUrl+data.bi;
+                    vm.choosePic = data.bi;
+                  }else{
+                    vm.userBg = 'image/placeholder.png';
+                  }
+
+                  //延迟初始化裁图插件
+                  setTimeout(function() {
+                    vm.initCropper();
+                  }, 300);
+                  
+                  // console.log(vm.userBg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log('error:'+data);
+            });
+        }
+
+
         vm.setBasicInfo = function(){
           var inputs = $("input[type='text']"),
               textarea = $("textarea");
@@ -174,29 +308,29 @@ define(['App'], function(app) {
             alert("请上传头像！");
           }else if(!vm.isQrcodeUpload){
             alert("请上传二维码！");
-          }else if(!$.trim($("#name").val())){
+          }else if(!$.trim($("#NAME").val())){
             alert("请填写您的姓名！");
-          }else if(!$.trim($("#firm").val())){
+          }else if(!$.trim($("#Depart").val())){
             alert("请填写您的律所！");
-          }else if(!$.trim($("#post").val())){
+          }else if(!$.trim($("#Rank").val())){
             alert("请填写您的职务！");
-          }else if(!$.trim($("#tel").val())){
+          }else if(!$.trim($("#Mobile").val())){
             alert("请填写您的电话！");  
-          }else if(!$.trim($("#tel").val()).match(regExpTel)){
+          }else if(!$.trim($("#Mobile").val()).match(regExpTel)){
               alert("电话格式不正确！");
-          }else if(!$.trim($("#email").val())){
+          }else if(!$.trim($("#Email").val())){
             alert("请填写您的邮箱！"); 
-          }else if(!$.trim($("#email").val()).match(regExpEmail)){
+          }else if(!$.trim($("#Email").val()).match(regExpEmail)){
             alert("邮箱格式不正确!");
-          }else if(!$.trim($("#fax").val())){
+          }else if(!$.trim($("#TelNo").val())){
             alert("请填写您的传真！");
-          }else if(!$.trim($("#website").val())){
+          }else if(!$.trim($("#WebSite").val())){
             alert("请填写您的网址！");
-          }else if(!$.trim($("#address").val())){
+          }else if(!$.trim($("#Address").val())){
             alert("请填写您的地址！");
-          }else if(!$.trim($("#intro").val())){
+          }else if(!$.trim($("#Abstract").val())){
             alert("请填写您的简介！");
-          }else if(!$.trim($("#profess").val())){
+          }else if(!$.trim($("#Introduction").val())){
             alert("请填写您的专业领域！");
           }else{
             var fd = {
@@ -208,15 +342,15 @@ define(['App'], function(app) {
                 },
                 {
                   "cn": "NAME",
-                  "cv": $.trim($("#name").val())
+                  "cv": $.trim($("#NAME").val())
                 },
                 {
                   "cn": "Depart",
-                  "cv": $.trim($("#firm").val())
+                  "cv": $.trim($("#Depart").val())
                 },
                 {
                   "cn": "Rank",
-                  "cv": $.trim($("#post").val())
+                  "cv": $.trim($("#Rank").val())
                 },
                 {
                   "cn": "QRCodeImg",
@@ -224,31 +358,31 @@ define(['App'], function(app) {
                 },
                 {
                   "cn": "Mobile",
-                  "cv": $.trim($("#tel").val())
+                  "cv": $.trim($("#Mobile").val())
                 },
                 {
                   "cn": "Email",
-                  "cv": $.trim($("#email").val())
+                  "cv": $.trim($("#Email").val())
                 },
                 {
                   "cn": "TelNo",
-                  "cv": $.trim($("#fax").val())
+                  "cv": $.trim($("#TelNo").val())
                 },
                 {
                   "cn": "WebSite",
-                  "cv": $.trim($("#website").val())
+                  "cv": $.trim($("#WebSite").val())
                 },
                 {
                   "cn": "Address",
-                  "cv": $.trim($("#address").val())
+                  "cv": $.trim($("#Address").val())
                 },
                 {
                   "cn": "Abstract",
-                  "cv": $.trim($("#intro").val())
+                  "cv": $.trim($("#Abstract").val())
                 },
                 {
                   "cn": "Introduction",
-                  "cv": $.trim($("#profess").val())
+                  "cv": $.trim($("#Introduction").val())
                 }
               ]
             };
@@ -273,6 +407,8 @@ define(['App'], function(app) {
        
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.state = Common.getUrlParam('state');
+          console.log(vm.state);  
           vm.checkCardState();
           vm.initCropper();
           vm.preview = '750F02EADCF5428CE9BE09D481E38D8B_W1_H1_S0.png';
