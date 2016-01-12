@@ -52,7 +52,7 @@ var Index006 = React.createClass({
     this.getUserList();
   },
 	render:function(){
-		var desE = ['Representative Cases','Business Salon','Learning to share','Our Team'];
+		var desE = ['Representative Cases','Practices','Learning & Sharing','Our Team'];
 		var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>

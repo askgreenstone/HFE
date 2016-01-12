@@ -65,7 +65,9 @@ var Location = React.createClass({
 
                    // $('body').css({'background':'#fff'});
 
-              } else {
+              } else if(data.c == 1040){
+                  console.log("避开微信认证")
+              }  else {
                   alert('wx location code:' + data.c + ',error:' + data.d);
               }
           },

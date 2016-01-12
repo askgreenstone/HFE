@@ -80,6 +80,8 @@ var Location = React.createClass({
                          });
                     });
 
+                } else if(data.c == 1040){
+                    console.log("避开微信认证")
                 } else {
                      that.showAlert('share code:' + data.c);
                 }
