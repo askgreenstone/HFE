@@ -24,7 +24,12 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
+        vm.resetCard = function(){
+            $window.location.href = '#/card?session='+vm.sess+'&state=do';
+        }
+
         vm.uploadFile = function() {
+            Common.getLoading(true);
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
             if (!f) return;
@@ -49,8 +54,12 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     vm.user.preview = data.on;
+                    setTimeout(function(){
+                      Common.getLoading(false);
+                    }, 300);
                 })
                 .error(function() {
+                    Common.getLoading(false);
                     console.log('error');
                 });
             };
@@ -111,7 +120,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.menuLink('micro');
+                  vm.menuLink('card3');
                 }
             }).
             error(function(data, status, headers, config) {

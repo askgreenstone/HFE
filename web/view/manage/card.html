@@ -28,11 +28,11 @@
 		<div class="mc_right">
 			<div class="list_lenged">
 				<h3 class="red">微名片基本信息</h3>
-			<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span>
+			<!-- <span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span> -->
 			</div>
 			<div class="mr_box">
 				<ul class="step_nav">
-					<li ng-click="vm.menuLink('card')" class="color"><i></i>资料填写<b></b></li>
+					<li ng-click="vm.resetcard()" class="color"><i></i>资料填写<b></b></li>
 					<li ng-click="vm.menuLink('card2')" class="line"><i></i>分享设置<b></b></li>
 					<li ng-click="vm.menuLink('card3')" class="line"><i></i>微名片预览<b></b></li>
 				</ul>
@@ -47,38 +47,39 @@
 								<input type="file" id="choose_file" ng-model="vm.fileName"/>
 							</a>
 							<span class="card1_preview" id="img_preview"></span>
+							<span class="step5_upload" ng-click="vm.uploadFile()">
+										<img src="image/docs/add.png" width="20" height="20"/> 上传
+								</span>
 							<div class="form_box_crop">
 								<div class="card1_left">
 									<img ng-show="vm.hiddenInitImg" id="themeCropper" src='image/placeholder.png'>
 								</div>
-								<span class="step5_upload" ng-click="vm.uploadFile()">
-										<img src="image/docs/add.png" width="20" height="20"/> 上传
-								</span>
+								
 							</div>
 							
 						</div>
-						<div class="mb_input mc_input"><i>姓名：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>律所：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>职务：</i><input type="text"></div>
+						<div class="mb_input mc_input"><i>姓名：</i><input type="text" id="NAME" value={{vm.NAME}}></div>
+						<div class="mb_input mc_input"><i>律所：</i><input type="text" id="Depart" value={{vm.Depart}}></div>
+						<div class="mb_input mc_input"><i>职务：</i><input type="text" id="Rank" value={{vm.Rank}}></div>
 						<div class="mb_input mc_input input_file_fix">
 							<i>二维码：</i>
 							<input id="step5_upload" type="file"/>
 						</div>
-						<span class="step5_upload" ng-click="vm.uploadQrcode()">
+						<span class="step5_upload" ng-click="vm.uploadQrcode()" style="margin-left:105px">
 								<img src="image/docs/add.png" width="20" height="20"/> 上传
 						</span>
-						<div class="step5_preview">
+						<div class="step5_preview" id="QRCodeImg">
 							<img ng-src={{vm.transferUrl+vm.preview}} width="100" height="100">
 						</div>
 						<div class="mb_input_tip">（建议选择上传个人微信公众号的二维码）</div>
 						
-						<div class="mb_input mc_input"><i>电话：</i><input type="text" id="tel"></div>
-						<div class="mb_input mc_input"><i>邮箱：</i><input type="text" id="email"></div>
-						<div class="mb_input mc_input"><i>传真：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>网址：</i><input type="text"></div>
-						<div class="mb_input mc_input"><i>地址：</i><input type="text"><div class="mb_input_tip">（请正确填写，用于地图导航）</div></div>
-						<div class="mb_input mc_input"><i class="area">简介：</i><textarea></textarea></div>
-						<div class="mb_input mc_input"><i class="area">专业领域：</i><textarea></textarea></div>
+						<div class="mb_input mc_input"><i>电话：</i><input type="text" id="Mobile" value={{vm.Mobile}}></div>
+						<div class="mb_input mc_input"><i>邮箱：</i><input type="text" id="Email" value={{vm.Email}}></div>
+						<div class="mb_input mc_input"><i>传真：</i><input type="text" id="TelNo" value={{vm.TelNo}}></div>
+						<div class="mb_input mc_input"><i>网址：</i><input type="text" id="WebSite" value={{vm.WebSite}}></div>
+						<div class="mb_input mc_input"><i>地址：</i><input type="text" id="Address" value={{vm.Address}}><div class="mb_input_tip">（请正确填写，用于地图导航）</div></div>
+						<div class="mb_input mc_input"><i class="area">简介：</i><textarea id="Abstract">{{vm.Abstract}}</textarea></div>
+						<div class="mb_input mc_input"><i class="area">专业领域：</i><textarea id="Introduction">{{vm.Introduction}}</textarea></div>
 					</form>
 					</div>
 					<div class="clean"></div>
