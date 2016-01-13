@@ -29,7 +29,7 @@
 			<div class="list_lenged">
 				<h3 class="red">微网站菜单设置</h3>
 				<span>
-					<a href="javascript:void(0);" ng-click="">
+					<a href="javascript:void(0);" ng-click="vm.showShadow()">
 						<img src="image/docs/add.png" width="20" height="20"/> 添加菜单
 					</a>
 					<a href="javascript:void(0);" ng-click="vm.goBack()">
@@ -49,13 +49,12 @@
 			<div class="step4_content">
 				<div class="step4_input">
 					<span>命名您的微网站</span>
-					<input type="text" placeholder="如：XX律师微网站"/>
+					<input type="text" ng-blur="vm.setMicroName()" ng-model="vm.microName" placeholder="如：XX律师微网站"/>
 				</div>
-				<!-- <h3>请选择8个菜单，以完成微网站的菜单配置</h3> -->
 				<ul class="step4_list">
 					<li value="1">
 						<span class="left">
-							<img src="image/logo.png" width="75" height="75"/><br/>
+							<img src="image/temp.png" width="75" height="75"/><br/>
 							<b>
 								<input type="text" placeholder="菜单名称" value="地图导航"/>
 								<!-- <img src="image/edit.png" width="20" height="20"> -->
@@ -69,10 +68,11 @@
 								<span>内容列表</span>
 							</b>
 						</span>
+						<img src="image/delete.png" width="30" height="30">
 					</li>
 					<li value="2">
 						<span class="left">
-							<img src="image/logo.png" width="75" height="75"/><br/>
+							<img src="image/temp.png" width="75" height="75"/><br/>
 							<i>微名片
 								<!-- <img src="image/edit.png" width="20" height="20">
 								<img src="image/right.png" width="20" height="20">
@@ -87,10 +87,11 @@
 								<span>内容列表</span>
 							</b>
 						</span>
+						<img src="image/delete.png" width="30" height="30">
 					</li>
 					<li value="3">
 						<span class="left">
-							<img src="image/logo.png" width="75" height="75"/><br/>
+							<img src="image/temp.png" width="75" height="75"/><br/>
 							<i>微 相 册
 								<!-- <img src="image/edit.png" width="20" height="20">
 								<img src="image/right.png" width="20" height="20">
@@ -105,6 +106,7 @@
 								<span>内容列表</span>
 							</b>
 						</span>
+						<img src="image/delete.png" width="30" height="30">
 					</li>
 					<div class="clean"></div>
 				</ul>
@@ -116,4 +118,29 @@
 		</div>
 		<div class="clean"></div>
 	</div>
+	<div class="step4_shadow">
+      <div class="step4_box">
+      		<span class="step4_close" ng-click="vm.hiddenShadow()">
+      			<img src="image/delete.png" width="30" height="30">
+      		</span>
+      		<i>添加微网站菜单<br/><span>已选择菜单 <big class="step4_count" id="userChooseCount">
+      		</big> 个，还可添加 <big class="step4_count">{{vm.menuCount}}</big> 个</span></i>
+          <ul>
+          		<h4>特定菜单功能</h4>
+              <li ng-repeat="x in vm.menu1List" name={{x.mcid}}>
+              	<span><img ng-src={{vm.transferUrl+x.in}} width="45" height="45"></span><br/>
+              	<b>{{x.mn}}</b>
+              </li>
+              <div class="clean"></div>
+          </ul>
+          <ul>
+          		<h4>介绍页或内容列表</h4>
+              <li ng-repeat="x in vm.menu2List" name={{x.mcid}}>
+              	<span><img ng-src={{vm.transferUrl+x.in}} width="45" height="45"></span><br/>
+              	<b>{{x.mn}}</b>
+              </li>
+              <div class="clean"></div>
+          </ul>
+      </div>
+  </div>
 </div>
