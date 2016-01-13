@@ -47,20 +47,22 @@
 								<input type="file" id="choose_file" ng-model="vm.fileName"/>
 							</a>
 							<span class="card1_preview" id="img_preview"></span>
-							<span class="step5_upload" ng-click="vm.uploadFile()">
-										<img src="image/docs/add.png" width="20" height="20"/> 上传
-								</span>
+							
 							<div class="form_box_crop">
+							<button ng-click="vm.uploadFile()">
+								上传头像
+							</button>
 								<div class="card1_left">
-									<img ng-show="vm.hiddenInitImg" id="themeCropper" src='image/placeholder.png'>
+									<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.tempImageUrl}}>
 								</div>
 								
 							</div>
 							
+							
 						</div>
-						<div class="mb_input mc_input"><i>姓名：</i><input type="text" id="NAME" value={{vm.NAME}}></div>
-						<div class="mb_input mc_input"><i>律所：</i><input type="text" id="Depart" value={{vm.Depart}}></div>
-						<div class="mb_input mc_input"><i>职务：</i><input type="text" id="Rank" value={{vm.Rank}}></div>
+						<div class="mb_input mc_input"><i>姓名：</i><input type="text" ng-model="vm.user.NAME"></div>
+						<div class="mb_input mc_input"><i>律所：</i><input type="text" ng-model="vm.user.Depart"></div>
+						<div class="mb_input mc_input"><i>职务：</i><input type="text" ng-model="vm.user.Rank"></div>
 						<div class="mb_input mc_input input_file_fix">
 							<i>二维码：</i>
 							<input id="step5_upload" type="file"/>
@@ -69,17 +71,19 @@
 								<img src="image/docs/add.png" width="20" height="20"/> 上传
 						</span>
 						<div class="step5_preview" id="QRCodeImg">
-							<img ng-src={{vm.transferUrl+vm.preview}} width="100" height="100">
+							<img src={{vm.tempImageQr}} width="100" height="100">
 						</div>
-						<div class="mb_input_tip">（建议选择上传个人微信公众号的二维码）</div>
+						<div class="mb_input">
+							<div class="mb_input_tip">（建议选择上传个人微信公众号的二维码）</div>
+						</div>
 						
-						<div class="mb_input mc_input"><i>电话：</i><input type="text" id="Mobile" value={{vm.Mobile}}></div>
-						<div class="mb_input mc_input"><i>邮箱：</i><input type="text" id="Email" value={{vm.Email}}></div>
-						<div class="mb_input mc_input"><i>传真：</i><input type="text" id="TelNo" value={{vm.TelNo}}></div>
-						<div class="mb_input mc_input"><i>网址：</i><input type="text" id="WebSite" value={{vm.WebSite}}></div>
-						<div class="mb_input mc_input"><i>地址：</i><input type="text" id="Address" value={{vm.Address}}><div class="mb_input_tip">（请正确填写，用于地图导航）</div></div>
-						<div class="mb_input mc_input"><i class="area">简介：</i><textarea id="Abstract">{{vm.Abstract}}</textarea></div>
-						<div class="mb_input mc_input"><i class="area">专业领域：</i><textarea id="Introduction">{{vm.Introduction}}</textarea></div>
+						<div class="mb_input mc_input"><i>电话：</i><input type="text" ng-model="vm.user.Mobile"></div>
+						<div class="mb_input mc_input"><i>邮箱：</i><input type="text" ng-model="vm.user.Email"></div>
+						<div class="mb_input mc_input"><i>传真：</i><input type="text" ng-model="vm.user.TelNo"></div>
+						<div class="mb_input mc_input"><i>网址：</i><input type="text" ng-model="vm.user.WebSite"></div>
+						<div class="mb_input mc_input"><i>地址：</i><input type="text" ng-model="vm.user.Address"><div class="mb_input_tip">（请正确填写，用于地图导航）</div></div>
+						<div class="mb_input mc_input"><i class="area">简介：</i><textarea ng-model="vm.user.Abstract"></textarea></div>
+						<div class="mb_input mc_input"><i class="area">专业领域：</i><textarea ng-model="vm.user.Introduction"></textarea></div>
 					</form>
 					</div>
 					<div class="clean"></div>
