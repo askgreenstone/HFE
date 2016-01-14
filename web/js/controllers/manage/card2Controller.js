@@ -30,7 +30,7 @@ define(['App'], function(app) {
 
         vm.uploadFile = function() {
             Common.getLoading(true);
-            var f = document.getElementById('step5_upload').files[0],
+            var f = document.getElementById('card2_upload').files[0],
                 r = new FileReader();
             if (!f) return;
             //验证上传图片格式
@@ -134,7 +134,7 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/GetMicWebShareInfo.do',
                 params: {
                     session:vm.sess,
-                    st:1
+                    st:2
                 },
                 data: {
                 }

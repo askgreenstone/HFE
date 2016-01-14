@@ -41,17 +41,17 @@
 				<div class="mr_box">
 					<div class="mb_left" style="height:662px;">
 						<div class="mb_shadow"></div>
-						<iframe src="http://dist.green-stone.cn/mobile/#/card?ownUri=e442" width="320" height="660"></iframe>
+						<!-- <iframe ng-src={{vm.url}} width="320" height="660"></iframe> -->
 					</div>
 					<div class="mb_right">
 						<span  ng-click="vm.resetCard()">重新定制</span>
 						<div class="mb_input">
 							<i>微网站地址</i>
-							<input type="text" disabled value="http://dist.green-stone.cn/mobile/#/card?ownUri=e442"/>
+							<input type="text" disabled value={{vm.url}} />
 						</div>
 						<div class="mb_input">
 							<i>二维码地址</i>
-							<img src="" height="" width="">
+							<img src={{vm.qrcode}} height="200" width="200">
 						</div>
 					</div>
 				</div>
