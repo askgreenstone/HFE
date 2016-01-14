@@ -7,7 +7,7 @@ var Message = require('../../common/Message.react');
 var Card = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
-    return {datas:[]};
+    return {datas:[],Abstract:'',Introduction:''};
   },
   qrCode: function(){
     $('.qr_hidden').show(500);
@@ -41,7 +41,8 @@ var Card = React.createClass({
             adr:data.adr,
             abs:data.abs,
             rg:data.rg,
-            itd:data.itd
+            itd:data.itd,
+            Abstract:data.abs.substr(0,60)+'...'
           });
           $('.qr_hidden').height(document.body.scrollHeight);
         }
@@ -51,6 +52,20 @@ var Card = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  absToggle: function(e){
+    console.log(e.target.innerText);
+    if(e.target.innerText=='全文'){
+      e.target.innerText='收起';
+      this.setState({
+        Abstract:this.state.abs
+      })
+    }else{
+      e.target.innerText='全文';
+      this.setState({
+        Abstract:this.state.abs.substr(0,60)+'...'
+      })
+    };
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
@@ -109,8 +124,9 @@ var Card = React.createClass({
     			</div>
 	    		<div className="user_intro">
 	    			<i>简介</i>
-	    			<p>{this.state.abs}
+	    			<p>{this.state.Abstract}
 	    			</p>
+            <div onClick={this.absToggle}>全文</div>
 	    		</div>
 	    		<div className="user_intro">
 	    			<i>专业领域</i>

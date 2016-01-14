@@ -262,7 +262,8 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
-                    vm.preview = data.on;
+                    vm.tempImageQr = vm.transferUrl+data.on;
+                    console.log(vm.tempImageQr);
                     vm.isQrcodeUpload = true;
                     setTimeout(function(){
                       Common.getLoading(false);
@@ -274,7 +275,12 @@ define(['App'], function(app) {
             };
             r.readAsDataURL(f);
         }
-
+        //
+        vm.onlyNumber = function(e){
+          if(!((ss.keyCode>47&&ss.keyCode<58)||(ss.keyCode>64&&ss.keyCode<91)||(ss.keyCode>95&&ss.keyCode<106))){
+                ss.preventDefault();
+            }
+        }
 
          vm.setBasicInfo = function(){
           
@@ -297,24 +303,24 @@ define(['App'], function(app) {
           if(!vm.user.NAME){
             alert("请填写您的姓名！");
             return false;
-          }else if(vm.user.NAME.length>10){
-            alert("姓名长度不能超过十位！"); 
+          }else if(vm.user.NAME.length>9){
+            alert("姓名长度不能超过九位！"); 
             return false;
           }
 
           if(!vm.user.Depart){
             alert("请填写您的律所！");
             return false;
-          }else if(vm.user.Depart.length>13){
-            alert("律所长度不能超过十三位！"); 
+          }else if(vm.user.Depart.length>12){
+            alert("律所长度不能超过十二位！"); 
             return false;
           }
 
           if(!vm.user.Rank){
             alert("请填写您的职务！");
             return false;
-          }else if(vm.user.Rank.length>13){
-            alert("职务长度不能超过十三位！"); 
+          }else if(vm.user.Rank.length>12){
+            alert("职务长度不能超过十二位！"); 
             return false;
           }
 
@@ -361,16 +367,16 @@ define(['App'], function(app) {
           if(!vm.user.Abstract){
             alert("请填写您的简介！");
             return false;
-          }else if(vm.user.Abstract.length>200){
-            alert("简介长度不能超过二百位！"); 
+          }else if(vm.user.Abstract.length>140){
+            alert("简介长度不能超过一百四十位！"); 
             return false;
           }
 
           if(!vm.user.Introduction){
             alert("请填写您的专业领域！");
             return false;
-          }else if(vm.user.Depart.length>13){
-            alert("专业领域长度不能超过十三位！"); 
+          }else if(vm.user.Depart.length>100){
+            alert("专业领域长度不能超过一百位！"); 
             return false;
           }
 
@@ -398,6 +404,8 @@ define(['App'], function(app) {
                   console.log(data);
                   if(data.c == 1000){
                     $window.location.href = '#/card2?session='+vm.sess;
+                  }else if(data.c == 1037){
+                    console.log("该用户微名片信息已存在，走update接口")
                   }
               }).
               error(function(data, status, headers, config) {
