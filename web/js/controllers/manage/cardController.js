@@ -286,33 +286,95 @@ define(['App'], function(app) {
               regExpEmail = /^\w+@[\da-z]+\.(com|cn|edu|net|com.cn)$/;
           if(!vm.isHeadUpload){
             alert("请上传头像！");
-          }else if(!vm.isQrcodeUpload){
+            return false;
+          }
+
+          if(!vm.isQrcodeUpload){
             alert("请上传二维码！");
-          }else if(!vm.user.NAME){
+            return false;
+          }
+
+          if(!vm.user.NAME){
             alert("请填写您的姓名！");
-          }else if(!vm.user.Depart){
+            return false;
+          }else if(vm.user.NAME.length>10){
+            alert("姓名长度不能超过十位！"); 
+            return false;
+          }
+
+          if(!vm.user.Depart){
             alert("请填写您的律所！");
-          }else if(!vm.user.Rank){
+            return false;
+          }else if(vm.user.Depart.length>13){
+            alert("律所长度不能超过十三位！"); 
+            return false;
+          }
+
+          if(!vm.user.Rank){
             alert("请填写您的职务！");
-          }else if(!vm.user.Mobile){
+            return false;
+          }else if(vm.user.Rank.length>13){
+            alert("职务长度不能超过十三位！"); 
+            return false;
+          }
+
+          if(!vm.user.Mobile){
             alert("请填写您的电话！");  
+            return false;
           }else if(!vm.user.Mobile.match(regExpTel)){
               alert("电话格式不正确！");
-          }else if(!vm.user.Email){
-            alert("请填写您的邮箱！"); 
+              return false;
+          }
+
+          if(!vm.user.Email){
+            alert("请填写您的邮箱！");
+            return false; 
           }else if(!vm.user.Email.match(regExpEmail)){
             alert("邮箱格式不正确!");
-          }else if(!vm.user.TelNo){
+            return false;
+          }
+
+          if(!vm.user.TelNo){
             alert("请填写您的传真！");
-          }else if(!vm.user.WebSite){
+            return false;
+          }else if(vm.user.TelNo.length>20){
+            alert("传真长度不能超过二十位！"); 
+            return false;
+          }
+
+          if(!vm.user.WebSite){
             alert("请填写您的网址！");
-          }else if(!vm.user.Address){
+            return false;
+          }else if(vm.user.WebSite.length>30){
+            alert("网址长度不能超过三十位！"); 
+            return false;
+          }
+
+          if(!vm.user.Address){
             alert("请填写您的地址！");
-          }else if(!vm.user.Abstract){
+            return false;
+          }else if(vm.user.Address.length>30){
+            alert("地址长度不能超过三十位！"); 
+            return false;
+          }
+
+          if(!vm.user.Abstract){
             alert("请填写您的简介！");
-          }else if(!vm.user.Introduction){
+            return false;
+          }else if(vm.user.Abstract.length>200){
+            alert("简介长度不能超过二百位！"); 
+            return false;
+          }
+
+          if(!vm.user.Introduction){
             alert("请填写您的专业领域！");
-          }else if(vm.state == "do"){
+            return false;
+          }else if(vm.user.Depart.length>13){
+            alert("专业领域长度不能超过十三位！"); 
+            return false;
+          }
+
+          if(vm.state == "do"){
             var fd = {
               "tn": "jlt_expmicrocard",
               "cols": [],

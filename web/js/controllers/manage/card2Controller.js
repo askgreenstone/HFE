@@ -134,7 +134,7 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/GetMicWebShareInfo.do',
                 params: {
                     session:vm.sess,
-                    st:1
+                    st:2
                 },
                 data: {
                 }
