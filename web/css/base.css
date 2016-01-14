@@ -1433,8 +1433,9 @@ footer {
   float: right;
 }
 .step4_list .left b>input{
-  width: 60px;
+  width: 75px;
   border: 0;
+  text-align: center;
   /*background-color: rgba(239, 237, 237, 0.5);*/
 }
 .step4_list .right b{

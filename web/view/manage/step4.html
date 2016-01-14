@@ -52,61 +52,22 @@
 					<input type="text" ng-blur="vm.setMicroName()" ng-model="vm.microName" placeholder="如：XX律师微网站"/>
 				</div>
 				<ul class="step4_list">
-					<li value="1">
+					<li value={{$index}} id={{x.ntId}} ng-repeat="x in vm.serverChooseList">
 						<span class="left">
-							<img src="image/temp.png" width="75" height="75"/><br/>
+							<img ng-src={{vm.transferUrl+x.lg}} width="75" height="75"/><br/>
 							<b>
-								<input type="text" placeholder="菜单名称" value="地图导航"/>
-								<!-- <img src="image/edit.png" width="20" height="20"> -->
+								<input type="text" placeholder="菜单名称" ng-value="x.tn"/>
 							</b>
 						</span>
 						<span class="right">
 							<i>菜单功能：在地图上显示您的位置</i><br/>
-							<input type="text" placeholder="请设置您的地址"/><br/>
-							<b>展现形式：
-								<span class="active">介 绍 页</span>
-								<span>内容列表</span>
+							<input type="text" placeholder="请设置"/><br/>
+							<b ng-hide="x.nc==0||x.nc==3">展现形式：
+								<span ng-class="x.nc==1?'active':''">介 绍 页</span>
+								<span ng-class="x.nc==2?'active':''">内容列表</span>
 							</b>
 						</span>
-						<img src="image/delete.png" width="30" height="30">
-					</li>
-					<li value="2">
-						<span class="left">
-							<img src="image/temp.png" width="75" height="75"/><br/>
-							<i>微名片
-								<!-- <img src="image/edit.png" width="20" height="20">
-								<img src="image/right.png" width="20" height="20">
-								<img src="image/error.png" width="20" height="20"> -->
-							</i>
-						</span>
-						<span class="right">
-							<i>菜单功能：在地图上显示您的位置</i><br/>
-							<input type="text" placeholder="请设置您的地址"/><br/>
-							<b>
-								<span>介 绍 页</span>
-								<span>内容列表</span>
-							</b>
-						</span>
-						<img src="image/delete.png" width="30" height="30">
-					</li>
-					<li value="3">
-						<span class="left">
-							<img src="image/temp.png" width="75" height="75"/><br/>
-							<i>微 相 册
-								<!-- <img src="image/edit.png" width="20" height="20">
-								<img src="image/right.png" width="20" height="20">
-								<img src="image/error.png" width="20" height="20"> -->
-							</i>
-						</span>
-						<span class="right">
-							<i>菜单功能：在地图上显示您的位置</i><br/>
-							<input type="text" placeholder="请设置您的地址"/><br/>
-							<b>
-								<span>介 绍 页</span>
-								<span>内容列表</span>
-							</b>
-						</span>
-						<img src="image/delete.png" width="30" height="30">
+						<img ng-click="vm.deleteMenu(x.ntId)" src="image/delete.png" width="30" height="30">
 					</li>
 					<div class="clean"></div>
 				</ul>
@@ -124,8 +85,7 @@
       			<img src="image/delete.png" width="30" height="30">
       		</span>
       		<i>添加微网站菜单<br/><span>已选择菜单 
-      		<big class="step4_count" id="userChooseCount">
-      		</big> 个， 
+      		<big class="step4_count" id="userChooseCount"></big> 个， 
       		<big class="step4_count" id="userTotalCount"></big> 个</span></i>
           <ul>
           		<h4>特定菜单功能</h4>
