@@ -120,9 +120,9 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   // 状态码  0  未完成  1  已完成
-                  if(data.s == 1){
+                  if(data.s == 0){
                     $window.location.href = '#/card?session='+vm.sess;
-                  }else if(data.s == 0){
+                  }else if(data.s == 1){
                     $window.location.href = '#/card3?session='+vm.sess;
                   }
               }).
