@@ -123,24 +123,30 @@
       		<span class="step4_close" ng-click="vm.hiddenShadow()">
       			<img src="image/delete.png" width="30" height="30">
       		</span>
-      		<i>添加微网站菜单<br/><span>已选择菜单 <big class="step4_count" id="userChooseCount">
-      		</big> 个，还可添加 <big class="step4_count">{{vm.menuCount}}</big> 个</span></i>
+      		<i>添加微网站菜单<br/><span>已选择菜单 
+      		<big class="step4_count" id="userChooseCount">
+      		</big> 个， 
+      		<big class="step4_count" id="userTotalCount"></big> 个</span></i>
           <ul>
           		<h4>特定菜单功能</h4>
-              <li ng-repeat="x in vm.menu1List" name={{x.mcid}}>
-              	<span><img ng-src={{vm.transferUrl+x.in}} width="45" height="45"></span><br/>
+              <li ng-repeat="x in vm.menu1List" name={{x}}>
+              	<span><img ng-src={{vm.transferUrl+x.in}} width="50" height="50"></span><br/>
               	<b>{{x.mn}}</b>
               </li>
               <div class="clean"></div>
           </ul>
           <ul>
           		<h4>介绍页或内容列表</h4>
-              <li ng-repeat="x in vm.menu2List" name={{x.mcid}}>
-              	<span><img ng-src={{vm.transferUrl+x.in}} width="45" height="45"></span><br/>
+              <li ng-repeat="x in vm.menu2List" name={{x}}>
+              	<span><img ng-src={{vm.transferUrl+x.in}} width="50" height="50"></span><br/>
               	<b>{{x.mn}}</b>
               </li>
               <div class="clean"></div>
           </ul>
-      </div>
+	      <div class="af_btn fix_center">
+					<span ng-click="vm.submitUserChoose()">确 认</span>
+					<span ng-click="vm.cancleChoose()">取 消</span>
+				</div>
+			</div>
   </div>
 </div>

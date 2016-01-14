@@ -7,7 +7,6 @@ define(['App','Sortable'], function(app) {
         var vm = this;
         vm.modelId = 0;
         vm.transferUrl = TransferUrl;
-        vm.submitCountFlag = false;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -31,53 +30,59 @@ define(['App','Sortable'], function(app) {
             });
         }
 
+        vm.showShadow = function(){
+          $('body').css('overflow','hidden');
+          $('.step4_shadow').show();
+          vm.getMenuList();
+        }
+
         vm.hiddenShadow = function(){
-          console.log(vm.submitCountFlag);
-          vm.submitUserChoose();
-          if(vm.submitCountFlag){
-            $('.step4_shadow').hide();
-          }
+          $('.step4_shadow').hide();
+          $('body').css('overflow','auto');
+        }
+
+        vm.cancleChoose = function(){
+          vm.getMenuList();
         }
 
         //提交用户选中菜单
         vm.submitUserChoose = function(){
-          console.log('选中菜单：'+vm.userMenuNameArrs);
+          // console.log(vm.userMenuNameArrs);
           if(vm.userMenuNameArrs.length > vm.menuCount){
             alert('选择菜单数不得超过'+vm.menuCount+'个！');
-            vm.submitCountFlag = false;
+            return;
           }else{
             //后台存储
-            vm.submitCountFlag = true;
-            // $http({
-            //     method: 'POST',
-            //     url: GlobalUrl+'/exp/ThirdSetNewsType.do',
-            //     params: {
-            //         session:vm.sess,
-            //         mId:vm.modelId
-            //     },
-            //     data: {
-                    
-            //     }
-            // }).
-            // success(function(data, status, headers, config) {
-            //     console.log(data);
-            //     if(data.c == 1000){
-            //       vm.filterArr(data.il);
-            //       //点击聚焦
-            //       setTimeout(function(){
-            //         vm.initMenuActive();
-            //       }, 300);
-            //     }
-            // }).
-            // error(function(data, status, headers, config) {
-            //     console.log(data);
-            // });
+            var newType = [];
+            for(var i=0;i<vm.userMenuNameArrs.length;i++){
+              newType.push({
+                miid:vm.userMenuNameArrs[i].miid,
+                tn:vm.userMenuNameArrs[i].mn,
+                etn:vm.userMenuNameArrs[i].men,
+                ac:'',
+                //特定菜单0,介绍页为1,内容列表2
+                nc:vm.userMenuNameArrs[i].mt>6?1:0
+              });
+            }
+            console.log(newType);
+            $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/ThirdSetNewsType.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {newType:newType}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.hiddenShadow();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
           }
-        }
-
-        vm.showShadow = function(){
-          $('.step4_shadow').show();
-          vm.getMenuList();
         }
 
         vm.setMicroName = function(){
@@ -118,9 +123,12 @@ define(['App','Sortable'], function(app) {
         vm.countActive = function(){
           vm.userMenuNameArrs = [];
           var tempCount = $('.step4_box li').find('.active').length;
+          //刷新统计数据
           $('#userChooseCount').text(tempCount);
+          $('#userTotalCount').text((vm.menuCount-tempCount)<0?('需要删除 '+Math.abs(vm.menuCount-tempCount)):('还可添加 '+(vm.menuCount-tempCount)));
           for(var i=0;i<tempCount;i++){
-            vm.userMenuNameArrs.push($('.step4_box li').find('.active').parent().eq(i).attr('name'));
+            var tempValue = $('.step4_box li').find('.active').parent().eq(i).attr('name');
+            vm.userMenuNameArrs.push(JSON.parse(tempValue));
           }
         }
 
