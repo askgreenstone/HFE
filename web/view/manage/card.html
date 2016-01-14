@@ -60,27 +60,27 @@
 							<i>姓名：</i>
 							<input type="text" ng-model="vm.user.NAME">
 							<div class="step5_validate">
-								<span ng-class="vm.user.NAME.length>10?'red':''">
-								{{vm.user.NAME.length}}</span><i> / 10</i>
-								<b ng-show="vm.user.NAME.length>10">字数超过限制</b>
+								<span ng-class="vm.user.NAME.length>9?'red':''">
+								{{vm.user.NAME.length}}</span><i> / 9</i>
+								<b ng-show="vm.user.NAME.length>9">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i>律所：</i>
 							<input type="text" ng-model="vm.user.Depart">
 							<div class="step5_validate">
-								<span ng-class="vm.user.Depart.length>13?'red':''">
-								{{vm.user.Depart.length}}</span><i> / 13</i>
-								<b ng-show="vm.user.Depart.length>13">字数超过限制</b>
+								<span ng-class="vm.user.Depart.length>12?'red':''">
+								{{vm.user.Depart.length}}</span><i> / 12</i>
+								<b ng-show="vm.user.Depart.length>12">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i>职务：</i>
 							<input type="text" ng-model="vm.user.Rank">
 							<div class="step5_validate">
-								<span ng-class="vm.user.Rank.length>13?'red':''">
-								{{vm.user.Rank.length}}</span><i> / 13</i>
-								<b ng-show="vm.user.Rank.length>13">字数超过限制</b>
+								<span ng-class="vm.user.Rank.length>12?'red':''">
+								{{vm.user.Rank.length}}</span><i> / 12</i>
+								<b ng-show="vm.user.Rank.length>12">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input input_file_fix">
@@ -105,8 +105,8 @@
 							<input type="text" ng-model="vm.user.Email">
 						</div>
 						<div class="mb_input mc_input">
-							<i>传真：</i>
-							<input type="text" ng-model="vm.user.TelNo">
+							<i>座机：</i>
+							<input type="text" ng-model="vm.user.TelNo" ng-keydown="vm.onlyNumber()">
 							<div class="step5_validate">
 								<span ng-class="vm.user.TelNo.length>20?'red':''">
 								{{vm.user.TelNo.length}}</span><i> / 20</i>
@@ -136,18 +136,18 @@
 							<i class="area">简介：</i>
 							<textarea ng-model="vm.user.Abstract"></textarea>
 							<div class="step5_validate">
-								<span ng-class="vm.user.Abstract.length>200?'red':''">
-								{{vm.user.Abstract.length}}</span><i> / 200</i>
-								<b ng-show="vm.user.Abstract.length>200">字数超过限制</b>
+								<span ng-class="vm.user.Abstract.length>140?'red':''">
+								{{vm.user.Abstract.length}}</span><i> / 140</i>
+								<b ng-show="vm.user.Abstract.length>140">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i class="area">专业领域：</i>
 							<textarea ng-model="vm.user.Introduction"></textarea>
 							<div class="step5_validate">
-								<span ng-class="vm.user.Introduction.length>200?'red':''">
-								{{vm.user.Introduction.length}}</span><i> / 200</i>
-								<b ng-show="vm.user.Introduction.length>200">字数超过限制</b>
+								<span ng-class="vm.user.Introduction.length>100?'red':''">
+								{{vm.user.Introduction.length}}</span><i> / 100</i>
+								<b ng-show="vm.user.Introduction.length>100">字数超过限制</b>
 							</div>
 						</div>
 					</form>
