@@ -28,11 +28,17 @@ var Index007 = require('./components/MicroWeb/skin/Index007.react');
 //皮肤八（同皮肤二，背景图为GIF格式）
 var Index008 = require('./components/MicroWeb/skin/Index008.react');
 
-//主题九（测试）
+//皮肤九（测试）
 var Index009 = require('./components/MicroWeb/skin/Index009.react');
 
-//主题十（同主题六）
+//皮肤十（同皮肤六，大成金融）
 var Index010 = require('./components/MicroWeb/skin/Index010.react');
+
+//皮肤十一（同皮肤六，青山律师）
+var Index011 = require('./components/MicroWeb/skin/Index011.react');
+
+//皮肤十二
+var Index012 = require('./components/MicroWeb/skin/Index012.react');
 
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
@@ -59,6 +65,8 @@ ReactDOM.render((
     <Route path="/index008" component={Index008}/>
     <Route path="/index009" component={Index009}/>
     <Route path="/index010" component={Index010}/>
+    <Route path="/index011" component={Index011}/>
+    <Route path="/index012" component={Index012}/>
 
 
 
