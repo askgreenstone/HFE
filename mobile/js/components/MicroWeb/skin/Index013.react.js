@@ -7,13 +7,13 @@ var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
-require('../../../../css/theme/theme006.less');
-var Index011 = React.createClass({
+require('../../../../css/theme/theme013.less');
+var Index013 = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleList','articleList','photo','ArticleDetail']
+      path:['articleList','articleList','photo']
     };
   },
   gotoLink: function(path,ntid){
@@ -52,31 +52,30 @@ var Index011 = React.createClass({
     this.getUserList();
   },
 	render:function(){
-		var desE = ['Articles & Publications','Lawyers Forum','Our Team','Map Navigation','Personal Micro Blog'];
-		var navNodes = this.state.navArrs.map(function(item,i){
-      return(
-            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <span>{item.tn}</span>
-              <span>{desE[i]}</span>
-            </li>
-       );
-    }.bind(this));
 		return (
 				<div>
-					<div className="theme6_main">
-							<div className="logo">
-								<img src=""/>
-							</div>
-							<ul className="theme6_main_list">
-                {navNodes}
-                <li onClick={this.gotoLink.bind(this,'card')}><span>微 名 片</span><span>E-Card</span></li>
-							</ul>
-						</div>
+					<div className="theme013_container">
+            <img src="image/theme013/bg.png" width="100%"/>
+            <div className="logo">
+              <img src="image/theme013/logo.png"/>
+            </div>
+            <ul className="theme013_menu_list">
+              <li><a><div className="theme013_circle"><img src="image/theme013/self.png"/></div><div>律师简介</div></a></li>
+              <li><div className="theme013_circle"><img src="image/theme013/telphone.png"/></div><div>电话咨询</div></li>
+              <li><div className="theme013_circle"><img src="image/theme013/lytm.png"/></div><div>律师团队</div></li>
+              <li><div className="theme013_circle"><img src="image/theme013/online.png"/></div><div>线上咨询</div></li>
+              <li><div className="theme013_circle"><img src="image/theme013/lwrs.png"/></div><div>法律法规</div></li>
+              <li><div className="theme013_circle"><img src="image/theme013/photo.png"/></div><div>团队风采</div></li>
+              <li><div className="theme013_circle"><img src="image/theme013/lycp.png"/></div><div>律师文集</div></li>
+              <li><div className="theme013_circle"><img src="image/theme013/clcs.png"/></div><div>经典案例</div></li>
+              <li><div className="theme013_circle"><img src="image/theme013/card.png"/></div><div>微名片</div></li>
+            </ul>
+          </div>
 					<Share title={"青山律师团队微网站"} desc={"《青山律师直通车》是由武汉市青山区司法局整合全区律师资源，为社会提供法律服务的电商平台。汇集了5个青山区的优秀律师事务所：湖北欣安律师事务所、湖北扬子律师事务所、湖北联正律师事务所、湖北静海律师事务所、湖北圣青律师事务所。"} 
-        imgUrl={global.img+"tzsxjlb20160111154037.jpg"} target="index011"/>
+        imgUrl={global.img+"tzsxjlb20160111154037.jpg"} target="index013"/>
         <Message/>
 				</div>
 			)
 	}
 })
-module.exports = Index011;
+module.exports = Index013;

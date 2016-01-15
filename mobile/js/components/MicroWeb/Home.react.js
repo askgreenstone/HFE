@@ -49,6 +49,7 @@ var Home = React.createClass({
         <div><Link to='/index010'><img src='image/index006.png'/><span>大成金融010</span></Link></div>
         <div><Link to='/index011'><img src='image/index006.png'/><span>青山律师011</span></Link></div>
         <div><Link to='/index012'><img src='image/index012.png'/><span>index012</span></Link></div>
+        <div><Link to='/index013'><img src='image/index013.png'/><span>index013</span></Link></div>
       </div>
       );
     } else{
@@ -66,6 +67,7 @@ var Home = React.createClass({
           <div><Link to='/index010?ownUri=e487'><img src='image/index006.png'/><span>大成金融010</span></Link></div>
           <div><Link to='/index011'><img src='image/index006.png'/><span>青山律师011</span></Link></div>
           <div><Link to='/index012'><img src='image/index012.png'/><span>index012</span></Link></div>
+          <div><Link to='/index013'><img src='image/index013.png'/><span>index013</span></Link></div>
         </div>
         );
     } 
