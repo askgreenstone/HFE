@@ -18,13 +18,15 @@ define(['App','Sortable'], function(app) {
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
-          vm.getMenuList();
+          vm.getMenuList(vm.serverChooseList.length);
+          $('#userTotalCount').text();
         }
 
         vm.hiddenShadow = function(){
           $('.step4_shadow').hide();
           $('body').css('overflow','auto');
           vm.getServerMenuList();
+          vm.getMenuList(vm.serverChooseList.length);
         }
 
         vm.cancleChoose = function(){
@@ -34,7 +36,8 @@ define(['App','Sortable'], function(app) {
         //提交用户选中菜单
         vm.submitUserChoose = function(){
           // console.log(vm.userMenuNameArrs);
-          if(vm.userMenuNameArrs.length > vm.menuCount){
+          var temp = vm.menuCount-vm.serverChooseList.length;
+          if(vm.userMenuNameArrs.length > temp){
             alert('选择菜单数不得超过'+vm.menuCount+'个！');
             return;
           }else{
@@ -72,25 +75,14 @@ define(['App','Sortable'], function(app) {
           }
         }
 
-        vm.filterArr = function(arr){
-          vm.menu1List = [];//特定菜单功能
-          vm.menu2List = [];//介绍页或内容列表
-          for(var i=0;i<arr.length;i++){
-            if(arr[i].mt>6){
-              vm.menu2List.push(arr[i]);
-            }else{
-              vm.menu1List.push(arr[i]);
-            }
-          }
-        }
-
         //统计用户选中菜单数
         vm.countActive = function(){
+          console.log('aaa');
           vm.userMenuNameArrs = [];
           var tempCount = $('.step4_box li').find('.active').length;
           //刷新统计数据
-          $('#userChooseCount').text(tempCount);
-          $('#userTotalCount').text((vm.menuCount-tempCount)<0?('需要删除 '+Math.abs(vm.menuCount-tempCount)):('还可添加 '+(vm.menuCount-tempCount)));
+          // $('#userChooseCount').text(vm.menuCount);
+          $('#userTotalCount').text((vm.menuCount-vm.serverChooseList.length-tempCount)<0?('需要删除 '+Math.abs(vm.menuCount-vm.serverChooseList.length-tempCount)):('还可添加 '+(vm.menuCount-vm.serverChooseList.length-tempCount)));
           for(var i=0;i<tempCount;i++){
             var tempValue = $('.step4_box li').find('.active').parent().eq(i).attr('name');
             vm.userMenuNameArrs.push(JSON.parse(tempValue));
@@ -108,6 +100,35 @@ define(['App','Sortable'], function(app) {
           })
         }
 
+        vm.filterArr = function(arr){
+          vm.menu1List = [];//特定菜单功能
+          vm.menu2List = [];//介绍页或内容列表
+          for(var i=0;i<arr.length;i++){
+            if(arr[i].mt>6){
+              vm.menu2List.push(arr[i]);
+            }else{
+              vm.menu1List.push(arr[i]);
+            }
+          }
+        }
+
+        //数组对象中过滤相同数组对象
+        vm.splitArrs = function(a,b){
+          // console.log(a);
+          // console.log(b);
+          for(var i = 0;i < a.length;i ++){
+            for(var j = 0;j < b.length;j ++){
+                 if(a[i].miid == b[j].miid){
+                    a.splice(i,1);
+                    --i;
+                    break;
+                 }
+            }
+          }
+          // console.log(a);
+          return a;
+        }
+
         //获取服务器菜单集合
         vm.getMenuList = function(){
           vm.countActive();
@@ -118,14 +139,14 @@ define(['App','Sortable'], function(app) {
                     session:vm.sess,
                     mId:vm.microWebId
                 },
-                data: {
-                    
-                }
+                data: {}
             }).
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.filterArr(data.il);
+                  //过滤掉用户已选菜单
+                  var resultMenu = vm.splitArrs(data.il,vm.serverChooseList);
+                  vm.filterArr(resultMenu);
                   //点击聚焦
                   setTimeout(function(){
                     vm.initMenuActive();
