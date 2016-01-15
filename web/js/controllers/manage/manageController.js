@@ -25,7 +25,7 @@ define(['App'], function(app) {
             $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsTypes.do',
-                params: {session:vm.sess},
+                params: {session:vm.sess,wf:1},
                 data: {}
             }).
             success(function(data, status, headers, config) {

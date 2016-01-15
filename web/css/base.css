@@ -1392,22 +1392,22 @@ footer {
   min-height: 300px;
 }
 .step4_list li{
-  width: 48%;
+  width: 47%;
   background-color: #fff;
   border-radius: 5px;
   border: 1px dashed #ccc;
   cursor: move;
   float: left;
-  margin-right: 12px;
-  margin-top: 15px;
+  margin-right: 20px;
+  margin-top: 22px;
   height: 120px;
   position: relative;
 }
 .step4_list li>img{
   position: absolute;
   cursor: pointer;
-  top: -10px;
-  right: -5px;
+  top: -15px;
+  right: -15px;
   background-color: #fff;
 }
 .step4_list li>.left{
@@ -1419,6 +1419,8 @@ footer {
 }
 .step4_list .left>i,.step4_list .right>i{
   font-style: normal;
+  font-size: 12px;
+  color: #999;
 }
 .step4_list .left>img{
   background-color: #3bbffc;
@@ -1431,10 +1433,12 @@ footer {
   width: 70%;
   padding: 10px 0;
   float: right;
+  padding-right: 15px;
 }
 .step4_list .left b>input{
-  width: 60px;
+  width: 75px;
   border: 0;
+  text-align: center;
   /*background-color: rgba(239, 237, 237, 0.5);*/
 }
 .step4_list .right b{
@@ -1442,6 +1446,7 @@ footer {
   margin-top: 10px;
   color: #e30a20;
   font-weight: normal;
+  font-size: 12px;
 }
 .step4_list .right>input{
   margin-top: 10px;
@@ -1449,6 +1454,7 @@ footer {
   padding: 4px;
   border-radius: 2px;
   border: 1px solid #ccc;
+  width: 89%;
 }
 .step4_list .right b>span{
   background-color: #fff;

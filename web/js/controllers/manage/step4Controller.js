@@ -5,7 +5,6 @@ define(['App','Sortable'], function(app) {
     var injectParams = ['$location','$http','$window','TransferUrl','GlobalUrl','Common'];
     var Step4Controller = function($location,$http,$window,TransferUrl,GlobalUrl,Common) {
         var vm = this;
-        vm.modelId = 0;
         vm.transferUrl = TransferUrl;
 
         vm.menuLink = function(path){
@@ -16,20 +15,6 @@ define(['App','Sortable'], function(app) {
           $window.history.back();
         };
 
-        vm.initSortable = function(){
-            $('.step4_list').sortable().bind('sortupdate', function() {
-                var newArray=[];
-                var temp;
-                $('.step4_list li').each(function(i){
-                    newArray.push($(this).val());
-                });
-                
-                var message="当前排序："+newArray;
-                console.log(message);
-                
-            });
-        }
-
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
@@ -39,6 +24,7 @@ define(['App','Sortable'], function(app) {
         vm.hiddenShadow = function(){
           $('.step4_shadow').hide();
           $('body').css('overflow','auto');
+          vm.getServerMenuList();
         }
 
         vm.cancleChoose = function(){
@@ -60,8 +46,9 @@ define(['App','Sortable'], function(app) {
                 tn:vm.userMenuNameArrs[i].mn,
                 etn:vm.userMenuNameArrs[i].men,
                 ac:'',
-                //特定菜单0,介绍页为1,内容列表2
-                nc:vm.userMenuNameArrs[i].mt>6?1:0
+                mt:vm.userMenuNameArrs[i].mt,
+                //特定菜单0,介绍页为1,内容列表2(微相册菜单需要置为3)
+                nc:vm.userMenuNameArrs[i].mt>6?1:(vm.userMenuNameArrs[i].mt==5?3:0)
               });
             }
             console.log(newType);
@@ -83,28 +70,6 @@ define(['App','Sortable'], function(app) {
                 console.log(data);
             });
           }
-        }
-
-        vm.setMicroName = function(){
-          $http({
-                method: 'GET',
-                url: GlobalUrl+'/exp/ThirdSetNewsType.do',
-                params: {
-                    session:vm.sess
-                },
-                data: {
-                    
-                }
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  
-                }
-            }).
-            error(function(data, status, headers, config) {
-                console.log(data);
-            });
         }
 
         vm.filterArr = function(arr){
@@ -143,15 +108,15 @@ define(['App','Sortable'], function(app) {
           })
         }
 
+        //获取服务器菜单集合
         vm.getMenuList = function(){
-          var that = this;
           vm.countActive();
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryTheModelIcon.do',
                 params: {
                     session:vm.sess,
-                    mId:vm.modelId
+                    mId:vm.microWebId
                 },
                 data: {
                     
@@ -172,6 +137,116 @@ define(['App','Sortable'], function(app) {
             });
         }
 
+        //获取用户选择菜单列表
+        vm.getServerMenuList = function(){
+          console.log('vm.microWebId:'+vm.microWebId);
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/QueryNewsTypes.do',
+                params: {
+                    session:vm.sess,
+                    //wf:0不包含父菜单，1包含父菜单
+                    wf:0,
+                    mwm:vm.microWebId
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.microName = data.mwn;
+                  vm.serverChooseList = data.ntl;
+                  //菜单渲染完之后初始化拖拽
+                  setTimeout(function(){
+                    vm.initSortable();
+                  }, 300);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
+        //删除菜单
+        vm.deleteMenu = function(id){
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/DeleteUriMenu.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    ntId:id
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.getServerMenuList();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
+        vm.initSortable = function(){
+            $('.step4_list').sortable().bind('sortupdate', function() {
+                vm.currentSortArray=[];
+                $('.step4_list li').each(function(i){
+                    // newArray.push($(this).val());
+                    vm.currentSortArray.push({ntId:$(this).attr('id'),mo:i});
+                });
+                // console.log(vm.currentSortArray);
+                vm.saveSortable();
+            });
+        }
+
+        vm.createSortable = function(){
+           vm.currentSortArray=[];
+           $('.step4_list li').each(function(i){
+              // newArray.push($(this).val());
+              vm.currentSortArray.push({ntId:$(this).attr('id'),mo:i});
+           });
+           return vm.currentSortArray;
+        }
+
+        //存储网站名称和拖拽排序
+        vm.saveSortable = function(){
+          //未拖动直接提交
+          if(!vm.currentSortArray){
+            vm.createSortable(); 
+          }
+          console.log(vm.currentSortArray);
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/ThirdUpdateOrderAndTitle.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    mwn:vm.microName?vm.microName:'我的微网站',
+                    mol: vm.currentSortArray,
+                    mwm:vm.microWebId
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.getServerMenuList();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
+        vm.submitAllInfo = function(){
+          vm.saveSortable();
+        }
+
         //查询模版信息
         vm.getMicroImg = function(){
           $http({
@@ -187,8 +262,9 @@ define(['App','Sortable'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.modelId = data.sid;
+                  vm.microWebId = data.sid;
                   vm.menuCount = data.sbn;
+                  vm.getServerMenuList();
                 }
             }).
             error(function(data, status, headers, config) {
@@ -198,7 +274,6 @@ define(['App','Sortable'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.initSortable();
           vm.getMicroImg();
         }
 

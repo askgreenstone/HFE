@@ -13,7 +13,7 @@ var Index003=React.createClass({
 	getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleDetail','articleList','photo']
+      path:['articleDetail','articleList','photo','articleList']
     };
   },
   gotoLink: function(path,ntid){
