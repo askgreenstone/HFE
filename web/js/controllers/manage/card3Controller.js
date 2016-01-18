@@ -39,7 +39,7 @@ define(['App'], function(app) {
                     vm.qrcode = vm.transferurl+data.QR;
                     vm.url = GlobalUrl+'/mobile/#/card?ownUri='+vm.ownUri;
                     console.log(vm.url);
-                    var iframe = '<iframe src='+vm.url+' width="320" height="660"></iframe>';
+                    var iframe = '<iframe src='+vm.url+' width="320" height="720"></iframe>';
                     $("div.mb_left").append(iframe);
                 }else{
                     alert("您还没有制定您的微名片，点击确定跳转到资料填写页面");

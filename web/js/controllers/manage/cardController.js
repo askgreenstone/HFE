@@ -277,7 +277,9 @@ define(['App'], function(app) {
         }
         //
         vm.onlyNumber = function(e){
-          if(!((ss.keyCode>47&&ss.keyCode<58)||(ss.keyCode>64&&ss.keyCode<91)||(ss.keyCode>95&&ss.keyCode<106))){
+          var ss= e||window.event;
+          console.log(ss.keyCode);
+          if(!((ss.keyCode>47&&ss.keyCode<58)||(ss.keyCode>95&&ss.keyCode<106)||ss.keyCode==8||ss.keyCode==116)){
                 ss.preventDefault();
             }
         }
