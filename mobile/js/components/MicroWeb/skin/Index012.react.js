@@ -70,7 +70,7 @@ var Index012 = React.createClass({
             </div>
             <ul className="theme012_menu_list">
               <li>
-                <a href="tel://13718128160" onClick={this.staticWebPV.bind(this,2)}>
+                <a href="tel://13834238386" onClick={this.staticWebPV.bind(this,2)}>
                   <img src="image/theme012/telphone.png"/>
                   <div>电话咨询</div>
                 </a>

@@ -65,12 +65,6 @@ define(['App'], function(app) {
                   vm.CardID = data.cId;
                   // alert(vm.CardID);
                   $window.location.href = '#/card?session='+vm.sess+'&state=do';
-                  // $("#img_preview img").attr("src",vm.transferUrl+data.hI);
-                  // $(".cropper-canvas img").attr("src",vm.transferUrl+data.hI);
-                  // $("#QRCodeImg img").attr("src",vm.transferUrl+data.QR);
-                  //vm.choosePic = vm.transferUrl+data.hI;
-                  //vm.preview = data.QR;
-                  //vm.head = data.hI;
                   vm.user = {
                     HeadImg: data.hI,
                     NAME: data.nm,
@@ -87,6 +81,7 @@ define(['App'], function(app) {
                   }
                   vm.tempImageUrl = vm.transferUrl+vm.user.HeadImg;
                   vm.tempImageQr = vm.transferUrl+vm.user.QRCodeImg;
+                  // vm.isServerData = true;
                   setTimeout(function() {
                     vm.initCropper();
                     vm.isHeadUpload = true;
@@ -198,8 +193,8 @@ define(['App'], function(app) {
                 return;
               }
               else{
-                vm.clipSourceImg(vm.choosePic);
-                $('#themeCropper').cropper('destroy');
+                // vm.clipSourceImg(vm.choosePic);
+                // $('#themeCropper').cropper('destroy');
                 vm.isHeadUpload = true;
                 return;
               }
@@ -278,7 +273,7 @@ define(['App'], function(app) {
         //
         vm.onlyNumber = function(e){
           var ss= e||window.event;
-          console.log(ss.keyCode);
+          //console.log(ss.keyCode);
           if(!((ss.keyCode>47&&ss.keyCode<58)||(ss.keyCode>95&&ss.keyCode<106)||ss.keyCode==8||ss.keyCode==116)){
                 ss.preventDefault();
             }
@@ -421,6 +416,7 @@ define(['App'], function(app) {
             for (var k in vm.user){
               fd.cols.push({"cn":k,"cv":vm.user[k]})
             };
+            console.log(fd);
             $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/DataInsert.do?session='+vm.sess,
