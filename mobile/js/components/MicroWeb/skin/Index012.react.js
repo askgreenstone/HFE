@@ -13,7 +13,8 @@ var Index012 = React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleList','articleList','photo']
+      imgs:['image/theme012/self.png','image/theme012/yewu.png','image/theme012/learning.png','image/theme012/lytm.png','image/theme012/photo.png','image/theme012/lycp.png'],
+      path:['articleList','articleList','articleList','articleList','photo','articleList']
     };
   },
   gotoLink: function(path,ntid){
@@ -52,6 +53,14 @@ var Index012 = React.createClass({
     this.getUserList();
   },
 	render:function(){
+     var navNodes = this.state.navArrs.map(function(item,i){
+      return(
+            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
+              <img src={this.state.imgs[i]}/>
+              <div>{item.tn}</div>
+            </li>
+       );
+    }.bind(this));
 		return (
 				<div>
 					<div className="theme012_container">
@@ -60,17 +69,20 @@ var Index012 = React.createClass({
               <img src="image/theme012/logo.png"/>
             </div>
             <ul className="theme012_menu_list">
-              <li><a><img src="image/theme012/self.png"/><div>律师简介</div></a></li>
-              <li><img src="image/theme012/telphone.png"/><div>电话咨询</div></li>
-              <li><img src="image/theme012/online.png"/><div>线上咨询</div></li>
-              <li><img src="image/theme012/lwrs.png"/><div>法律法规</div></li>
-              <li><img src="image/theme012/lytm.png"/><div>律师团队</div></li>
-              <li><img src="image/theme012/lycp.png"/><div>律师文集</div></li>
-              <li><img src="image/theme012/photo.png"/><div>团队风采</div></li>
-              <li><img src="image/theme012/card.png"/><div>微名片</div></li>
+              <li>
+                <a href="tel://13718128160" onClick={this.staticWebPV.bind(this,2)}>
+                  <img src="image/theme012/telphone.png"/>
+                  <div>电话咨询</div>
+                </a>
+              </li>
+              <li onClick={this.gotoLink.bind(this,'card')}>
+                <img src="image/theme012/card.png"/>
+                <div>微名片</div>
+              </li>
+              {navNodes}
             </ul>
           </div>
-					<Share title={"青山律师团队微网站"} desc={"《青山律师直通车》是由武汉市青山区司法局整合全区律师资源，为社会提供法律服务的电商平台。汇集了5个青山区的优秀律师事务所：湖北欣安律师事务所、湖北扬子律师事务所、湖北联正律师事务所、湖北静海律师事务所、湖北圣青律师事务所。"} 
+					<Share title={"赵多政律师微网站"} desc={"赵多政律师专注于资本与证券市场类、收购兼并、改制重组、发行上市、投融资、企业税务筹划等法律服务。"} 
         imgUrl={global.img+"tzsxjlb20160111154037.jpg"} target="index012"/>
         <Message/>
 				</div>
