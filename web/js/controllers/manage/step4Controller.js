@@ -18,7 +18,9 @@ define(['App','Sortable'], function(app) {
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
-          vm.getMenuList(vm.serverChooseList.length);
+          if(vm.serverChooseList&&vm.serverChooseList.length>0){
+            vm.getMenuList(vm.serverChooseList.length);
+          }
           $('#userTotalCount').text();
         }
 
@@ -26,11 +28,13 @@ define(['App','Sortable'], function(app) {
           $('.step4_shadow').hide();
           $('body').css('overflow','auto');
           vm.getServerMenuList();
-          vm.getMenuList(vm.serverChooseList.length);
+          if(vm.serverChooseList&&vm.serverChooseList.length>0){
+            vm.getMenuList(vm.serverChooseList.length);
+          }
         }
 
         vm.cancleChoose = function(){
-          vm.getMenuList();
+          vm.hiddenShadow();
         }
 
         //提交用户选中菜单
@@ -89,6 +93,7 @@ define(['App','Sortable'], function(app) {
           }
         }
 
+        //初始化弹窗菜单选中效果
         vm.initMenuActive = function(){
           $('.step4_box ul>li').bind('click',function(){
               if($(this).find('span').hasClass('active')){
@@ -99,6 +104,58 @@ define(['App','Sortable'], function(app) {
             vm.countActive();
           })
         }
+
+        //初始化内容页和介绍页
+        vm.initContentAndIndroActive = function(){
+          $('.step4_list .right>b>span').bind('click',function(){
+              $('.step4_list .right>b>span').each(function(i){
+                 $(this).removeClass('active');
+              });
+              $(this).addClass('active');
+          })
+        }
+
+        //提交菜单更新数据
+        vm.submitAllInfo = function(){
+          //优先提交排序信息
+          // vm.saveSortable();
+          //组织提交数据
+          var submitInfo = [];
+          $('.step4_list li').each(function(i){
+             var tempInfo = $('.step4_list li>[type=hidden]').eq(i).val();
+             var tempNc = $('.step4_list .right>b').eq(i).find('span').filter('.active').attr('value');
+             submitInfo.push({
+              nt:parseInt($('.step4_list li').eq(i).attr('id')),
+              miid:JSON.parse(tempInfo).miid,
+              tn:$('.step4_list .left input').eq(i).val(),
+              etn:JSON.parse(tempInfo).etn,
+              ac:$('.step4_list .right>input').eq(i).val(),
+              mt:JSON.parse(tempInfo).mt,
+              //特定菜单0,介绍页为1,内容列表2(微相册菜单需要置为3)
+              nc:tempNc?parseInt(tempNc):-1,
+              mo:parseInt($('.step4_list li').eq(i).attr('value'))
+            });
+          });
+          console.log(submitInfo);
+          //提交后台数据
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/ThirdSetNewsType.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {newType:submitInfo}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.getServerMenuList();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        } 
 
         vm.filterArr = function(arr){
           vm.menu1List = [];//特定菜单功能
@@ -160,7 +217,7 @@ define(['App','Sortable'], function(app) {
 
         //获取用户选择菜单列表
         vm.getServerMenuList = function(){
-          console.log('vm.microWebId:'+vm.microWebId);
+          // console.log('vm.microWebId:'+vm.microWebId);
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsTypes.do',
@@ -182,6 +239,7 @@ define(['App','Sortable'], function(app) {
                   //菜单渲染完之后初始化拖拽
                   setTimeout(function(){
                     vm.initSortable();
+                    vm.initContentAndIndroActive();
                   }, 300);
                 }
             }).
@@ -254,7 +312,7 @@ define(['App','Sortable'], function(app) {
                 }
             }).
             success(function(data, status, headers, config) {
-                console.log(data);
+                console.log('排序：'+JSON.stringify(data));
                 if(data.c == 1000){
                   vm.getServerMenuList();
                 }
@@ -262,10 +320,6 @@ define(['App','Sortable'], function(app) {
             error(function(data, status, headers, config) {
                 console.log(data);
             });
-        }
-
-        vm.submitAllInfo = function(){
-          vm.saveSortable();
         }
 
         //查询模版信息

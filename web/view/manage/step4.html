@@ -53,18 +53,20 @@
 				</div>
 				<ul class="step4_list">
 					<li value={{x.mo==-1?$index:x.mo}} id={{x.ntId}} ng-repeat="x in vm.serverChooseList">
+						<input type="hidden" value={{x}}>
 						<span class="left">
-							<img ng-src={{vm.transferUrl+x.lg}} width="75" height="75"/><br/>
+							<img ng-src={{vm.transferUrl+x.lg}} width="50" height="50"/><br/>
 							<b>
 								<input type="text" placeholder="菜单名称" ng-value="x.tn"/>
 							</b>
 						</span>
 						<span class="right">
 							<i>{{x.md}}</i><br/>
-							<input type="text" placeholder="请设置"/><br/>
-							<b ng-hide="x.nc==0||x.nc==3">
-								<span ng-class="x.nc==1?'active':''">介 绍 页</span>
-								<span ng-class="x.nc==2?'active':''">内容列表</span>
+							<!-- <input ng-if="x.etn" type="text" placeholder="英文名称" ng-value="x.etn"/><br/> -->
+							<input ng-hide="x.mt==7||x.mt==2||x.mt==4||x.mt==5" type="text" placeholder="请填写..."/ value={{x.ac}}><br/>
+							<b ng-hide="x.mt!=7">
+								<span value="1" ng-class="x.nc==1?'active':''">介 绍 页</span>
+								<span value="2" ng-class="x.nc==2?'active':''">内容列表</span>
 							</b>
 						</span>
 						<img ng-click="vm.deleteMenu(x.ntId)" src="image/delete.png" width="30" height="30">
