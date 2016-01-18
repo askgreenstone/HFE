@@ -18,6 +18,7 @@ define(['App','Sortable'], function(app) {
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
+          vm.saveSortable();
           vm.submitAllInfo(false);
           if(vm.serverChooseList&&vm.serverChooseList.length>0){
             vm.getMenuList(vm.serverChooseList.length);
