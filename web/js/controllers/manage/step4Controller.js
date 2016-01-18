@@ -18,8 +18,11 @@ define(['App','Sortable'], function(app) {
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
+          vm.submitAllInfo(false);
           if(vm.serverChooseList&&vm.serverChooseList.length>0){
             vm.getMenuList(vm.serverChooseList.length);
+          }else{
+            vm.getMenuList(0);
           }
           $('#userTotalCount').text();
         }
@@ -116,7 +119,7 @@ define(['App','Sortable'], function(app) {
         }
 
         //提交菜单更新数据
-        vm.submitAllInfo = function(){
+        vm.submitAllInfo = function(flag){
           //优先提交排序信息
           // vm.saveSortable();
           //组织提交数据
@@ -150,6 +153,9 @@ define(['App','Sortable'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.getServerMenuList();
+                  if(flag){
+                    vm.menuLink('step5');
+                  }
                 }
             }).
             error(function(data, status, headers, config) {
