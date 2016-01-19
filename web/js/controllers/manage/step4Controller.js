@@ -18,12 +18,15 @@ define(['App','Sortable'], function(app) {
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
-          vm.submitAllInfo(false);
+          vm.getServerMenuList();
           if(vm.serverChooseList&&vm.serverChooseList.length>0){
             vm.getMenuList(vm.serverChooseList.length);
           }else{
             vm.getMenuList(0);
           }
+
+          vm.submitAllInfo(false);
+          
           $('#userTotalCount').text();
         }
 
