@@ -60,6 +60,7 @@ define(['RouteResolver','Common'], function() {
                 .when('/card', route.resolve('Card', 'manage/','vm'))
                 .when('/card2', route.resolve('Card2', 'manage/','vm'))
                 .when('/card3', route.resolve('Card3', 'manage/','vm'))
+                .when('/wx', route.resolve('Wx', 'manage/','vm'))
                 .when('/temp', route.resolve('Temp', 'manage/','vm'))
                 .otherwise({
                     redirectTo: '/manage'
