@@ -81,7 +81,7 @@ define(['App'], function(app) {
                   }
                   vm.tempImageUrl = vm.transferUrl+vm.user.HeadImg;
                   vm.tempImageQr = vm.transferUrl+vm.user.QRCodeImg;
-                  // vm.isServerData = true;
+                  vm.isServerData = true;
                   setTimeout(function() {
                     vm.initCropper();
                     vm.isHeadUpload = true;
@@ -131,7 +131,7 @@ define(['App'], function(app) {
         vm.initCropper = function() {
           vm.hiddenInitImg = true;
             $('#themeCropper').cropper({
-                aspectRatio: 1,
+                aspectRatio: 1 / 1,
                 preview: '#img_preview',
                 crop: function(e) {
                     // Output the result data for cropping image.
@@ -150,12 +150,11 @@ define(['App'], function(app) {
                 cropend:function(){
                   var cropDatas = $(this).cropper('getData');
                   console.log(cropDatas);
-                  // curw = Math.round(cropDatas.width);
-                  // curh = Math.round(cropDatas.height);
-                  // $('#test').text('背景预览(宽：'+curw+'，高：'+curh+')');
+                  curw = Math.round(cropDatas.width);
+                  curh = Math.round(cropDatas.height);
+                  console.log('width,height:'+curw+curh);
                 }
             });
-
             var $choose_file = $('#choose_file'),
                 URL = window.URL || window.webkitURL,
                 blobURL;
@@ -181,21 +180,21 @@ define(['App'], function(app) {
                 
             }
         }
-        //上传头像（裁切处理）
+
         vm.uploadFile = function() {
-         
-          //console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
+          console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
+            // console.log('f,r:'+f,r);
             if(!f){
               if(!vm.isServerData){
                 alert('请先选择图片！');
                 return;
               }
               else{
-                // vm.clipSourceImg(vm.choosePic);
-                // $('#themeCropper').cropper('destroy');
-                vm.isHeadUpload = true;
+                vm.clipSourceImg(vm.choosePic);
+                $('#themeCropper').cropper('destroy');
+                
                 return;
               }
             }
@@ -204,7 +203,6 @@ define(['App'], function(app) {
               alert('暂不支持gif！');
               return;
             }
-            Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -214,6 +212,7 @@ define(['App'], function(app) {
                 fd.append('h', vm.imgh);
                 fd.append('x', vm.imgx);
                 fd.append('y', vm.imgy);
+                console.log(fd);
                 // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
                 $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=2', fd, {
                     transformRequest: angular.identity,
@@ -223,14 +222,9 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
-                    vm.user.HeadImg = data.on;
-                    vm.isHeadUpload =true;
-                    setTimeout(function(){
-                      Common.getLoading(false);
-                    }, 300);
+                    // $('#themeCropper').cropper('destroy');
                 })
                 .error(function() {
-                    Common.getLoading(false);
                     console.log('error');
                 });
             };
