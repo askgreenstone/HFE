@@ -39,11 +39,11 @@
 			</div>
 			<div class="mr_box">
 				<ul class="step_nav">
-					<li ng-click="vm.menuLink('step1')" class="line"><i></i>选择模版<b></b></li>
-					<li ng-click="vm.menuLink('step2')" class="line"><i></i>选择主题背景<b></b></li>
-					<li ng-click="vm.menuLink('step3')" class="line"><i></i>logo设置<b></b></li>
-					<li ng-click="vm.menuLink('step4')" class="color"><i></i>菜单设置<b></b></li>
-					<li ng-click="vm.menuLink('step5')" class="line"><i></i>分享设置<b></b></li>
+					<li  class="line"><i></i>选择模版<b></b></li>
+					<li  class="line"><i></i>选择主题背景<b></b></li>
+					<li  class="line"><i></i>logo设置<b></b></li>
+					<li  class="color"><i></i>菜单设置<b></b></li>
+					<li  class="line"><i></i>分享设置<b></b></li>
 				</ul>
 			</div>
 			<div class="step4_content">
@@ -65,8 +65,8 @@
 							<!-- <input ng-if="x.etn" type="text" placeholder="英文名称" ng-value="x.etn"/><br/> -->
 							<input ng-hide="x.mt==7||x.mt==2||x.mt==4||x.mt==5" type="text" placeholder="请填写..."/ value={{x.ac}}><br/>
 							<b ng-hide="x.mt!=7">
-								<span value="1" ng-class="x.nc==1?'active':''">介 绍 页</span>
-								<span value="2" ng-class="x.nc==2?'active':''">内容列表</span>
+								<span ng-click="vm.checkThis($event)" value="1" ng-class="x.nc==1?'active':''">介 绍 页</span>
+								<span ng-click="vm.checkThis($event)" value="2" ng-class="x.nc==2?'active':''">内容列表</span>
 							</b>
 						</span>
 						<img ng-click="vm.deleteMenu(x.ntId)" src="image/delete.png" width="30" height="30">
@@ -76,7 +76,7 @@
 			</div>
 			<div class="af_btn fix_center" style="margin-left: -33px;">
 				<span ng-click="vm.menuLink('step3')">上一步</span>
-				<span ng-click="vm.submitAllInfo()">下一步</span>
+				<span ng-click="vm.submitAllInfo(true)">下一步</span>
 			</div>
 		</div>
 		<div class="clean"></div>
@@ -106,7 +106,7 @@
               <div class="clean"></div>
           </ul>
 	      <div class="af_btn fix_center">
-					<span ng-click="vm.submitUserChoose(true)">确 认</span>
+					<span ng-click="vm.submitUserChoose()">确 认</span>
 					<span ng-click="vm.cancleChoose()">取 消</span>
 				</div>
 			</div>

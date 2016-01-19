@@ -18,12 +18,15 @@ define(['App','Sortable'], function(app) {
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
-          vm.submitAllInfo(false);
+          vm.getServerMenuList();
           if(vm.serverChooseList&&vm.serverChooseList.length>0){
             vm.getMenuList(vm.serverChooseList.length);
           }else{
             vm.getMenuList(0);
           }
+
+          vm.submitAllInfo(false);
+          
           $('#userTotalCount').text();
         }
 
@@ -84,7 +87,7 @@ define(['App','Sortable'], function(app) {
 
         //统计用户选中菜单数
         vm.countActive = function(){
-          console.log('aaa');
+          // console.log('aaa');
           vm.userMenuNameArrs = [];
           var tempCount = $('.step4_box li').find('.active').length;
           //刷新统计数据
@@ -109,19 +112,28 @@ define(['App','Sortable'], function(app) {
         }
 
         //初始化内容页和介绍页
-        vm.initContentAndIndroActive = function(){
-          $('.step4_list .right>b>span').bind('click',function(){
-              $('.step4_list .right>b>span').each(function(i){
-                 $(this).removeClass('active');
-              });
-              $(this).addClass('active');
-          })
+        // vm.initContentAndIndroActive = function(){
+        //   $('.step4_list .right>b>span').bind('click',function(){
+        //       $('.step4_list .right>b>span').each(function(i){
+        //          $(this).removeClass('active');
+        //       });
+        //       $(this).addClass('active');
+        //   })
+        // }
+
+        //选中菜单
+        vm.checkThis = function(e){
+         // console.log(e.currentTarget);
+         $(e.currentTarget).siblings('span').removeClass('active');
+         $(e.currentTarget).addClass('active');
         }
 
         //提交菜单更新数据
         vm.submitAllInfo = function(flag){
+          //列表重新排序
+          vm.createSortable();
           //优先提交排序信息
-          // vm.saveSortable();
+          vm.saveSortable();
           //组织提交数据
           var submitInfo = [];
           $('.step4_list li').each(function(i){
@@ -245,7 +257,7 @@ define(['App','Sortable'], function(app) {
                   //菜单渲染完之后初始化拖拽
                   setTimeout(function(){
                     vm.initSortable();
-                    vm.initContentAndIndroActive();
+                    // vm.initContentAndIndroActive();
                   }, 300);
                 }
             }).
@@ -256,6 +268,7 @@ define(['App','Sortable'], function(app) {
 
         //删除菜单
         vm.deleteMenu = function(id){
+          // vm.submitAllInfo(false);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/DeleteUriMenu.do',
@@ -300,6 +313,7 @@ define(['App','Sortable'], function(app) {
 
         //存储网站名称和拖拽排序
         vm.saveSortable = function(){
+          // vm.submitAllInfo(false);
           //未拖动直接提交
           if(!vm.currentSortArray){
             vm.createSortable(); 
@@ -318,7 +332,7 @@ define(['App','Sortable'], function(app) {
                 }
             }).
             success(function(data, status, headers, config) {
-                console.log('排序：'+JSON.stringify(data));
+                // console.log('排序：'+JSON.stringify(data));
                 if(data.c == 1000){
                   vm.getServerMenuList();
                 }
