@@ -27,15 +27,15 @@
 		</div>
 		<div class="mc_right">
 			<div class="mcr_search">
-				<span>我的律师团队</span>
+				<span>{{vm.microName}}</span>
 				<input type="text" ng-model="vm.keyword" placeholder="请输入关键字"/>
-				<i><img src="image/manage/search.png" width="18" height="18"/></i>
+				<i><img src="image/manage/search.png" width="30" height="30"/></i>
 			</div>
 			<div class="mcr_lenged">
 				<h3 class="red">网站介绍页</h3>
 				<ul class="mcr_list">
 					<li ng-click="vm.gotoLink('editor',x.tn,x.ntId)" ng-repeat="x in vm.introduce|filter:vm.keyword">
-						<img ng-src={{vm.transferUrl+x.lg}} width="18" height="18"/>
+						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
 						<span>{{x.tn}}</span>
 						<i>编辑</i>
 					</li>
@@ -45,7 +45,7 @@
 				<h3 class="orange">网站内容库</h3>
 				<ul class="mcr_list">
 					<li ng-click="vm.gotoLink('list',x.tn,x.ntId)" ng-repeat="x in vm.content|filter:vm.keyword">
-						<img ng-src={{vm.transferUrl+x.lg}} width="18" height="18"/>
+						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
 						<span>{{x.tn}}</span>
 						<i>进入</i>
 					</li>
@@ -55,7 +55,7 @@
 				<h3 class="green">微相册</h3>
 				<ul class="mcr_list">
 					<li ng-click="vm.gotoLink('photo',x.tn,x.ntId)" ng-repeat="x in vm.photos|filter:vm.keyword">
-						<img ng-src={{vm.transferUrl+x.lg}} width="18" height="18"/>
+						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
 						<span>{{x.tn}}</span>
 						<i>进入</i>
 					</li>

@@ -50,10 +50,63 @@ define(['App'], function(app) {
           localStorage.setItem('globalSession',sess);
         }
 
+        //获取用户网站信息
+        vm.getServerMenuList = function(){
+          // console.log('vm.microWebId:'+vm.microWebId);
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/QueryNewsTypes.do',
+                params: {
+                    session:vm.sess,
+                    //wf:0不包含父菜单，1包含父菜单
+                    wf:0,
+                    mwm:vm.microWebId
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.microName = data.mwn;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
+        //查询模版信息
+        vm.getMicroImg = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/GetMicWebModel.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.microWebId = data.sid;
+                  vm.menuCount = data.sbn;
+                  vm.getServerMenuList();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        };
+
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.getServerCatalogue();
           vm.storeCurrentSession(vm.sess);
+          vm.getMicroImg();
         }
 
         init();
