@@ -258,7 +258,7 @@ define(['App','Sortable'], function(app) {
 
         //删除菜单
         vm.deleteMenu = function(id){
-          vm.submitAllInfo(false);
+          // vm.submitAllInfo(false);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/DeleteUriMenu.do',
