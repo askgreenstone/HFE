@@ -139,7 +139,7 @@ var Card = React.createClass({
           </div>
           <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl} target="card"/>
           <Message/>
-        </div>
+        </div>)
       }else {
         return (
       <div>
@@ -198,11 +198,9 @@ var Card = React.createClass({
         </div>
         <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl} target="card"/>
         <Message/>
-      </div>
-      }
-    
-    );
-  },
+      </div>)
+    }
+  }
 });
 
 module.exports = Card;
