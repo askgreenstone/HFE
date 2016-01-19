@@ -14,6 +14,27 @@ define(['App'], function(app) {
           $window.location.href = '#/' + path + '?session='+vm.sess;
         }
 
+        vm.wxAuthor = function(){
+          $http({
+              method: 'get',
+              url: GlobalUrl+'/comm/ThirdAuthRedirect.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                // $window.location.href=data.url;
+                $window.open(data.url,'_blank');
+              }
+          }).
+          error(function(data, status, headers, config) {
+              console.log(data);
+          });
+        }
+
         function init(){
           vm.sess = Common.getUrlParam('session');
         }
