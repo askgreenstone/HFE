@@ -79,8 +79,7 @@ define(['App'], function(app) {
                     Abstract: data.abs,
                     Introduction: data.itd
                   }
-                  vm.tempImageUrl = vm.transferUrl+vm.user.HeadImg;
-                  vm.tempImageQr = vm.transferUrl+vm.user.QRCodeImg;
+                  vm.choosePic = data.hI;
                   vm.isServerData = true;
                   setTimeout(function() {
                     vm.initCropper();
@@ -194,7 +193,6 @@ define(['App'], function(app) {
               else{
                 vm.clipSourceImg(vm.choosePic);
                 $('#themeCropper').cropper('destroy');
-                
                 return;
               }
             }
@@ -222,6 +220,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
+                    vm.user.HeadImg = data.on;
                     // $('#themeCropper').cropper('destroy');
                 })
                 .error(function() {
@@ -251,8 +250,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
-                    vm.tempImageQr = vm.transferUrl+data.on;
-                    console.log(vm.tempImageQr);
+                    vm.user.QRCodeImg = data.on;
                     vm.isQrcodeUpload = true;
                     setTimeout(function(){
                       Common.getLoading(false);
@@ -264,7 +262,7 @@ define(['App'], function(app) {
             };
             r.readAsDataURL(f);
         }
-        //
+        //座机只能输入数字
         vm.onlyNumber = function(e){
           var ss= e||window.event;
           //console.log(ss.keyCode);
@@ -272,12 +270,42 @@ define(['App'], function(app) {
                 ss.preventDefault();
             }
         }
+        //裁切素材
+        vm.clipSourceImg = function(name){
+          console.log('name:'+name);
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {
+                    in:name,
+                    it:3,
+                    w:vm.imgw,
+                    h:vm.imgh,
+                    x:vm.imgx,
+                    y:vm.imgy
+                }
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  console.log('clipSourceImg success');
+                  vm.user.HeadImg = data.in;
+                  setTimeout(function() {
+                    vm.initCropper();
+                  }, 300);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            });
+        }
+
+
 
          vm.setBasicInfo = function(){
-          
-          var inputs = $("input[type='text']"),
-              textarea = $("textarea");
-          
           //验证电话格式正确//验证邮箱格式正确//验证所有信息必须填写//提交到数据库保存
           var regExpTel = /(0?1[358]\d{9})$/,
               regExpEmail = /^\w+@[\da-z]+\.(com|cn|edu|net|com.cn)$/;
@@ -434,8 +462,6 @@ define(['App'], function(app) {
           vm.sess = Common.getUrlParam('session');
           vm.state = Common.getUrlParam('state');
           vm.checkCardState();
-          // vm.initCropper();
-          vm.preview = '750F02EADCF5428CE9BE09D481E38D8B_W1_H1_S0.png';
         }
         init();
     };

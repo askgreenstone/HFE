@@ -82,27 +82,16 @@ var List1 = React.createClass({
        );
       }
      }.bind(this));
-    if(articleNodes.length>0){
-      return (
-        <div>
-          <ul className="article_list">
-            {legend}
-            {articleNodes}
-          </ul>
-          <Message/>
-        </div>
-      );
-    }else{
-      return (
-        <div>
-          <ul className="article_list">
-            {legend}
-            <li><i>暂无动态</i></li>
-          </ul>
-          <Message/>
-        </div>
-      );
-    }
+    
+    return (
+      <div>
+        <ul className="article_list">
+          {legend}
+          {articleNodes}
+        </ul>
+        <Message/>
+      </div>
+    );
     
   },
 });

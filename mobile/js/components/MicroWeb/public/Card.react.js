@@ -7,7 +7,7 @@ var Message = require('../../common/Message.react');
 var Card = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
-    return {datas:[],Abstract:'',Introduction:''};
+    return {datas:[],Abstract:'',Title:'',Introduction:'',Img:''};
   },
   qrCode: function(){
     $('.qr_hidden').show(500);
@@ -53,6 +53,29 @@ var Card = React.createClass({
       }.bind(this)
     });
   },
+  getShareInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/GetMicWebShareInfo.do?ownUri='+ownUri+'&st=2',
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        // alert('ownUri:'+ownUri+'ntid:'+ntid);
+        if(data.c == 1000){
+          this.setState({
+            Title:data.sil[0].sti,
+            Introduction:data.sil[0].sd,
+            Img:data.sil[0].spu
+          });
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   absToggle: function(e){
     console.log(e.target.innerText);
     if(e.target.innerText=='全文'){
@@ -72,11 +95,12 @@ var Card = React.createClass({
   },
   componentWillMount:function(){
     this.getServerInfo();
+    this.getShareInfo();
   }, 
   render: function() {
-    var ShareTitile = (this.state.nm?this.state.nm:'')+'律师微名片';
-    var ShareDesc = this.state.Abstract?this.state.Abstract:((this.state.nm?this.state.nm:'')+'律师微名片');
-    var ShareUrl = this.state.hI?this.state.hI:'';
+    var ShareTitile = this.state.Title;
+    var ShareDesc = this.state.Introduction;
+    var ShareImg = this.state.Img;
     if(this.state.itd){
       return (
         <div>
@@ -137,7 +161,7 @@ var Card = React.createClass({
                 <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
             </div>
           </div>
-          <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl} target="card"/>
+          <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
           <Message/>
         </div>)
       }else {
@@ -196,7 +220,7 @@ var Card = React.createClass({
               <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
           </div>
         </div>
-        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl} target="card"/>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
         <Message/>
       </div>)
     }

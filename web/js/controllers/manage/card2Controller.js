@@ -29,7 +29,7 @@ define(['App'], function(app) {
         }
 
         vm.uploadFile = function() {
-            Common.getLoading(true);
+            
             var f = document.getElementById('card2_upload').files[0],
                 r = new FileReader();
             if (!f) return;
@@ -39,6 +39,7 @@ define(['App'], function(app) {
               alert('请选择正确图片格式文件！');
               return;
             }
+            Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
