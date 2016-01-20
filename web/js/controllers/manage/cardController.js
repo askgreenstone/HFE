@@ -24,7 +24,9 @@ define(['App'], function(app) {
           Email: '',
           TelNo: '',
           WebSite: '',
+          Region: '',
           Address: '',
+          Address_srh: '',
           Abstract: '',
           Introduction: ''
         };
@@ -76,6 +78,8 @@ define(['App'], function(app) {
                     TelNo: data.tel,
                     WebSite: data.web,
                     Address: data.adr,
+                    Region: data.rg,
+                    Address_srh: data.adr,
                     Abstract: data.abs,
                     Introduction: data.itd
                   }
@@ -262,14 +266,6 @@ define(['App'], function(app) {
             };
             r.readAsDataURL(f);
         }
-        //座机只能输入数字
-        vm.onlyNumber = function(e){
-          var ss= e||window.event;
-          //console.log(ss.keyCode);
-          if(!((ss.keyCode>47&&ss.keyCode<58)||(ss.keyCode>95&&ss.keyCode<106)||ss.keyCode==8||ss.keyCode==116)){
-                ss.preventDefault();
-            }
-        }
         //裁切素材
         vm.clipSourceImg = function(name){
           console.log('name:'+name);
@@ -308,7 +304,9 @@ define(['App'], function(app) {
          vm.setBasicInfo = function(){
           //验证电话格式正确//验证邮箱格式正确//验证所有信息必须填写//提交到数据库保存
           var regExpTel = /(0?1[358]\d{9})$/,
-              regExpEmail = /^\w+@[\da-z]+\.(com|cn|edu|net|com.cn)$/;
+              regExpEmail = /^\w+@[\da-z]+\.(com|cn|edu|net|com.cn)$/,
+              regExpTelNo = /(\d{3,4}-)?\d{7,8}/;
+          vm.user.Address_srh = vm.user.Address;
           if(!vm.isHeadUpload){
             alert("请上传头像！");
             return false;
@@ -360,10 +358,10 @@ define(['App'], function(app) {
           }
 
           if(!vm.user.TelNo){
-            alert("请填写您的传真！");
+            alert("请填写您的座机！");
             return false;
-          }else if(vm.user.TelNo.length>20){
-            alert("传真长度不能超过二十位！"); 
+          }else if(!vm.user.TelNo.match(regExpTelNo)){
+            alert("座机格式不正确！"); 
             return false;
           }
 

@@ -110,12 +110,7 @@
 						</div>
 						<div class="mb_input mc_input">
 							<i>座机：</i>
-							<input type="text" ng-model="vm.user.TelNo" ng-keydown="vm.onlyNumber()">
-							<div class="step5_validate">
-								<span ng-class="vm.user.TelNo.length>20?'red':''">
-								{{vm.user.TelNo.length}}</span><i> / 20</i>
-								<b ng-show="vm.user.TelNo.length>20">字数超过限制</b>
-							</div>
+							<input type="text" ng-model="vm.user.TelNo">
 						</div>
 						<div class="mb_input mc_input">
 							<i>网址：</i>
@@ -124,6 +119,15 @@
 								<span ng-class="vm.user.WebSite.length>30?'red':''">
 								{{vm.user.WebSite.length}}</span><i> / 30</i>
 								<b ng-show="vm.user.WebSite.length>30">字数超过限制</b>
+							</div>
+						</div>
+						<div class="mb_input mc_input">
+							<i>区域：</i>
+							<input type="text" ng-model="vm.user.Region" placeholder="例如：北京市">
+							<div class="step5_validate">
+								<span ng-class="vm.user.Region.length>30?'red':''">
+								{{vm.user.Region.length}}</span><i> / 30</i>
+								<b ng-show="vm.user.Region.length>30">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input">

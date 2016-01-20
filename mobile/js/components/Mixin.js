@@ -133,7 +133,7 @@ var CommonMixin = {
           ntid:jsons[i].ntId,
           src:jsons[i].lg,
           ac:'',
-          type:'',
+          type:'consult',
           localtion:''
         });
       }else if(jsons[i].mt==3){
@@ -208,15 +208,18 @@ var CommonMixin = {
     if(!type) return;
     if(type=='telphone'){
       this.staticWebPV(2);
-    }else{
+    }else if(type == 'consult'){
+      WeixinJSBridge.call('closeWindow'); 
+    }
+    else{
       var ownUri = this.getUrlParams('ownUri');
       //测试环境和正式环境用户切换
       if(!ownUri){
         ownUri = this.checkDevOrPro();
         console.log(ownUri);
-      }
-      location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
     }
+    location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+  }
   }
 };
 
