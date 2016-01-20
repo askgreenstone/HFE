@@ -63,10 +63,11 @@ var Card = React.createClass({
         console.log(data);
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
+          console.log(data.sil[0].spu)
           this.setState({
             Title:data.sil[0].sti,
             Introduction:data.sil[0].sd,
-            Img:data.sil[0].spu
+            Img:global.img+data.sil[0].spu
           });
         }
       }.bind(this),

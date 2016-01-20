@@ -66,7 +66,7 @@ var Card2 = React.createClass({
           this.setState({
             Title:data.sil[0].sti,
             Introduction:data.sil[0].sd,
-            Img:data.sil[0].spu
+            Img:global.img+data.sil[0].spu
           });
         }
       }.bind(this),
