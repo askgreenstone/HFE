@@ -28,10 +28,14 @@
 		<div class="mc_right">
 			<div class="list_lenged">
 				<h3 class="red">公众号授权</h3>
-				<div class="wx_author_btn">
+				<div class="wx_author_btn" ng-if="vm.authorFlag">
 					<img ng-click="vm.wxAuthor()" src="image/manage/wxauthor.png"/>
 				</div>
 			</div>
+			<div class="af_btn author_btn">
+					<span ng-click="vm.getWxAuthorResult()">查看授权结果</span>
+					<i>{{vm.authorReault}}</i>
+				</div>
 			<!-- <div class="mcr_lenged">
 				<h3 class="orange">网站内容库</h3>
 				<ul class="mcr_list">
