@@ -109,6 +109,114 @@ var CommonMixin = {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  //菜单分类预处理，返回处理后数组
+  checkMenuType: function(jsons){
+    var tempType = [];
+    for(var i=0;i<jsons.length;i++){
+      //特定菜单mt:1-电话，2-线上咨询，3-地图导航，4-微名片，5-微相册，6-个人微博
+      //介绍页或者列表mt:7
+      if(jsons[i].mt==1){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'tel://'+jsons[i].ac,
+          type:'telphone',
+          localtion:''
+        });
+      }else if(jsons[i].mt==2){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'',
+          type:'',
+          localtion:''
+        });
+      }else if(jsons[i].mt==3){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'',
+          type:'adress',
+          localtion:jsons[i].ac
+        });
+      }else if(jsons[i].mt==4){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'',
+          type:'card',
+          localtion:''
+        });
+      }else if(jsons[i].mt==5){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'',
+          type:'photo',
+          localtion:''
+        });
+      }else if(jsons[i].mt==6){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:jsons[i].ac,
+          type:'',
+          localtion:''
+        });
+      }else if(jsons[i].mt==7){
+        if(jsons[i].nc == 1){
+          tempType.push({
+            title:jsons[i].tn,
+            english:jsons[i].etn,
+            ntid:jsons[i].ntId,
+            src:jsons[i].lg,
+            ac:'',
+            type:'articleDetail',
+            localtion:''
+          });
+        }else if(jsons[i].nc == 2){
+          tempType.push({
+            title:jsons[i].tn,
+            english:jsons[i].etn,
+            ntid:jsons[i].ntId,
+            src:jsons[i].lg,
+            ac:'',
+            type:'articleList',
+            localtion:''
+          });
+        }
+      }
+    }
+    console.log(tempType);
+    return tempType;
+  },
+  //菜单跳转公用方法
+  menuLink: function(type,ntid){
+    if(!type) return;
+    if(type=='telphone'){
+      this.staticWebPV(2);
+    }else{
+      var ownUri = this.getUrlParams('ownUri');
+      //测试环境和正式环境用户切换
+      if(!ownUri){
+        ownUri = this.checkDevOrPro();
+        console.log(ownUri);
+      }
+      location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+    }
   }
 };
 

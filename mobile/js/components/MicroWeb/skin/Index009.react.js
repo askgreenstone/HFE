@@ -9,30 +9,17 @@ var Message = require('../../common/Message.react');
 
 require('../../../../css/theme/theme002.less');
 
-
-
 var Index009 = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
     return {
       navArrs:[],
-      imgs:['image/theme002/team.png','image/theme002/laws.png','image/theme002/photo.png'],
-      path:['articleDetail','articleList','photo'],
       bg:'',
       logo:'',
       shareTitle:'',
       shareDesc:'',
       shareImg:''
     };
-  },
-  gotoLink: function(path,ntid){
-    var ownUri = this.getUrlParams('ownUri');
-    //测试环境和正式环境用户切换
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
   },
   getUserList: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -47,7 +34,9 @@ var Index009 = React.createClass({
         // alert(JSON.stringify(data));
         console.log(data);
         if(data.c == 1000){
-          this.setState({navArrs:data.ntl});
+          // this.setState({navArrs:data.ntl});
+          var temp = this.checkMenuType(data.ntl);
+          this.setState({navArrs:temp});
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -90,7 +79,7 @@ var Index009 = React.createClass({
     }
     $.ajax({
       type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri,
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -132,9 +121,11 @@ var Index009 = React.createClass({
   render: function() {
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
-            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <img src={this.state.imgs[i]} width="55" height="55"/>
-              <div>{item.tn}</div>
+            <li key={new Date().getTime()+i}>
+              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+                <img src={global.img+item.src} width="55" height="55"/>
+                <div>{item.title}</div>
+              </a>
             </li>
        );
     }.bind(this));
@@ -148,16 +139,6 @@ var Index009 = React.createClass({
         </div>
         <div className="verticalMenu">
           <ul className="menu_list">
-            <li>
-              <a href="tel://13718128160" onClick={this.staticWebPV.bind(this,2)}>
-                <img src="image/theme002/telphone.png" width="55" height="55"/>
-                <div>电话咨询</div>
-              </a>
-            </li>
-            <li onClick={this.gotoLink.bind(this,'card')}>
-              <img src="image/theme002/card.png" width="55" height="55"/>
-              <div>微名片</div>
-            </li>
             {navNodes}
           </ul>
         </div>
