@@ -1389,6 +1389,13 @@ footer {
   border: 1px solid #ccc;
   padding: 5px;
 }
+.step4_warn{
+  color: #cb0c14;
+  margin: 15px 0 -20px;
+}
+.step4_warn span{
+  font-size: 18px;
+}
 .step4_list{
   /*border:1px solid #ccc;*/
   margin-top:15px;

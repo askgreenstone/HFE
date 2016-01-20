@@ -130,6 +130,10 @@ define(['App','Sortable'], function(app) {
 
         //提交菜单更新数据
         vm.submitAllInfo = function(flag){
+          if(vm.serverMenuCount > vm.menuCount){
+            alert('菜单数目过多，请重新选择！');
+            return;
+          }
           //列表重新排序
           vm.createSortable();
           //优先提交排序信息
@@ -254,6 +258,7 @@ define(['App','Sortable'], function(app) {
                 if(data.c == 1000){
                   vm.microName = data.mwn;
                   vm.serverChooseList = data.ntl;
+                  vm.serverMenuCount = data.ntl.length;
                   //菜单渲染完之后初始化拖拽
                   setTimeout(function(){
                     vm.initSortable();
