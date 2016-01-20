@@ -9,6 +9,7 @@ define(['App'], function(app) {
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
+        vm.authorFlag = false;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -17,7 +18,7 @@ define(['App'], function(app) {
         vm.wxAuthor = function(){
           $http({
               method: 'get',
-              url: GlobalUrl+'/comm/ThirdAuthRedirect.do',
+              url: GlobalUrl+'/exp/ThirdAuthRedirect.do',
               params: {
                   session:vm.sess
               },
@@ -28,6 +29,30 @@ define(['App'], function(app) {
               if(data.c == 1000){
                 // $window.location.href=data.url;
                 $window.open(data.url,'_blank');
+                vm.authorFlag = true;
+              }
+          }).
+          error(function(data, status, headers, config) {
+              console.log(data);
+          });
+        }
+
+        vm.getWxAuthorResult = function(){
+          $http({
+              method: 'get',
+              url: GlobalUrl+'/exp/ThirdAuthInfoQuery.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                vm.authorReault = '授权成功！';
+              }else if(data.c == 1014){
+                vm.authorReault = '授权失败！';
+                vm.authorFlag = false;
               }
           }).
           error(function(data, status, headers, config) {
@@ -37,6 +62,7 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.authorFlag = false;
         }
 
         init();
