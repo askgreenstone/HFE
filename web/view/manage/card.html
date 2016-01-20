@@ -56,7 +56,7 @@
 									上传头像
 								</button>
 								<div class="card1_left">
-									<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.tempImageUrl}}>
+									<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.transferUrl+vm.user.HeadImg}}>
 								</div>
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 								<img src="image/docs/add.png" width="20" height="20"/> 上传
 						</span>
 						<div class="step5_preview" id="QRCodeImg">
-							<img src={{vm.tempImageQr}} width="100" height="100">
+							<img src={{vm.transferUrl+vm.user.QRCodeImg}} width="100" height="100">
 						</div>
 						<div class="mb_input">
 							<div class="mb_input_tip">（建议选择上传个人微信公众号的二维码）</div>
