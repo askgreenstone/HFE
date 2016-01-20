@@ -67,7 +67,7 @@ var Index011 = React.createClass({
 							<div className="logo">
 								<img src="image/theme006/logo11.png"/>
 							</div>
-							<ul className="theme11_main_list">
+							<ul className="theme006_main_list">
                 {navNodes}
                 <li onClick={this.gotoLink.bind(this,'card')}><span>微 名 片</span><span>E-Card</span></li>
 							</ul>
