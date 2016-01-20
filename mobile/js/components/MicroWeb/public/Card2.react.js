@@ -57,7 +57,7 @@ var Card2 = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     $.ajax({
       type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ownUri='+ownUri+'&st=2',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=2',
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
