@@ -120,7 +120,7 @@ var Card2 = React.createClass({
                     <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
                 </div>
 	    	</div>
-        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl} target="card"/>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
         <Message/>
     	</div>
     );
