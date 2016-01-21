@@ -42,7 +42,7 @@ var Card = React.createClass({
             abs:data.abs,
             rg:data.rg,
             itd:data.itd,
-            Abstract:data.abs.substr(0,60)+'...'
+            Abstract:data.abs.length>60?data.abs.substr(0,60)+'...':data.abs
           });
           $('.qr_hidden').height(document.body.scrollHeight);
         }
@@ -93,6 +93,7 @@ var Card = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
+    console.log(this.state.Abstract);
   },
   componentWillMount:function(){
     this.getServerInfo();
@@ -102,267 +103,69 @@ var Card = React.createClass({
     var ShareTitile = this.state.Title;
     var ShareDesc = this.state.Introduction;
     var ShareImg = this.state.Img;
-    if(this.state.itd){
-      if(this.state.abs.length>60){
-         return (
-          <div>
-            <div className="qr_hidden" onClick={this.hideDiv}>
-              <img src={this.state.QR} width="200" height="200"/>
-            </div>
-            <div className="user_info">
-              <img className="ui_header" src={this.state.hI} width="65" height="65"/>
-              <p>
-                <span>{this.state.nm}</span><br/>
-                <span>{this.state.dp}</span><br/>
-                <span>{this.state.rk}</span>
-              </p>
-              <img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
-            </div>
-            <div className="user_content">
-              <div className="uc_input">
-                <a href={'tel://'+this.state.Mob}>
-                  {this.state.Mob}
-                  <img src="image/theme002/telphone1.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'mailto:'+this.state.eml}>
-                  {this.state.eml}
-                  <img src="image/theme002/email.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'tel://'+this.state.tel}>
-                  {this.state.tel}
-                  <img src="image/theme002/fax.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={this.state.web}>
-                  {this.state.web}
-                  <img src="image/theme002/web.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input fixed">
-                <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-                  {this.state.adr}
-                  <img src="image/theme002/adress.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="user_intro">
-                <i>简介</i>
-                <p>{this.state.abs}
-                </p>
-              </div>
-              <div className="user_intro">
-                <i>专业领域</i>
-                <p>{this.state.itd}</p>
-              </div>
-              <div className="user_create">
-                  <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
-              </div>
-            </div>
-            <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
-            <Message/>
+      return (
+      <div>
+        <div className="qr_hidden" onClick={this.hideDiv}>
+          <img src={this.state.QR} width="200" height="200"/>
+        </div>
+        <div className="user_info">
+          <img className="ui_header" src={this.state.hI} width="65" height="65"/>
+          <p>
+            <span>{this.state.nm}</span><br/>
+            <span>{this.state.dp}</span><br/>
+            <span>{this.state.rk}</span>
+          </p>
+          <img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
+        </div>
+        <div className="user_content">
+          <div className="uc_input">
+            <a href={'tel://'+this.state.Mob}>
+              {this.state.Mob}
+              <img src="image/theme002/telphone1.png" width="25" height="25"/>
+            </a>
           </div>
-          )
-      }
-      else{
-          return (
-          <div>
-            <div className="qr_hidden" onClick={this.hideDiv}>
-              <img src={this.state.QR} width="200" height="200"/>
-            </div>
-            <div className="user_info">
-              <img className="ui_header" src={this.state.hI} width="65" height="65"/>
-              <p>
-                <span>{this.state.nm}</span><br/>
-                <span>{this.state.dp}</span><br/>
-                <span>{this.state.rk}</span>
-              </p>
-              <img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
-            </div>
-            <div className="user_content">
-              <div className="uc_input">
-                <a href={'tel://'+this.state.Mob}>
-                  {this.state.Mob}
-                  <img src="image/theme002/telphone1.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'mailto:'+this.state.eml}>
-                  {this.state.eml}
-                  <img src="image/theme002/email.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'tel://'+this.state.tel}>
-                  {this.state.tel}
-                  <img src="image/theme002/fax.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={this.state.web}>
-                  {this.state.web}
-                  <img src="image/theme002/web.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input fixed">
-                <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-                  {this.state.adr}
-                  <img src="image/theme002/adress.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="user_intro">
-                <i>简介</i>
-                <p>{this.state.Abstract}
-                </p>
-                <div onClick={this.absToggle}>全文</div>
-              </div>
-              <div className="user_intro">
-                <i>专业领域</i>
-                <p>{this.state.itd}</p>
-              </div>
-              <div className="user_create">
-                  <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
-              </div>
-            </div>
-            <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
-            <Message/>
+          <div className="uc_input">
+            <a href={'mailto:'+this.state.eml}>
+              {this.state.eml}
+              <img src="image/theme002/email.png" width="25" height="25"/>
+            </a>
           </div>
-          )
-      }  
-    }else {
-      if(this.state.abs.length>60){
-         return (
-          <div>
-            <div className="qr_hidden" onClick={this.hideDiv}>
-              <img src={this.state.QR} width="200" height="200"/>
-            </div>
-            <div className="user_info">
-              <img className="ui_header" src={this.state.hI} width="65" height="65"/>
-              <p>
-                <span>{this.state.nm}</span><br/>
-                <span>{this.state.dp}</span><br/>
-                <span>{this.state.rk}</span>
-              </p>
-              <img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
-            </div>
-            <div className="user_content">
-              <div className="uc_input">
-                <a href={'tel://'+this.state.Mob}>
-                  {this.state.Mob}
-                  <img src="image/theme002/telphone1.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'mailto:'+this.state.eml}>
-                  {this.state.eml}
-                  <img src="image/theme002/email.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'tel://'+this.state.tel}>
-                  {this.state.tel}
-                  <img src="image/theme002/fax.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={this.state.web}>
-                  {this.state.web}
-                  <img src="image/theme002/web.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input fixed">
-                <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-                  {this.state.adr}
-                  <img src="image/theme002/adress.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="user_intro">
-                <i>简介</i>
-                <p>{this.state.abs}
-                </p>
-              </div>
-              <div className="user_intro">
-                <i>专业领域</i>
-                <p>{this.state.itd}</p>
-              </div>
-              <div className="user_create">
-                  <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
-              </div>
-            </div>
-            <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
-            <Message/>
+          <div className="uc_input">
+            <a href={'tel://'+this.state.tel}>
+              {this.state.tel}
+              <img src="image/theme002/fax.png" width="25" height="25"/>
+            </a>
           </div>
-          )
-      }
-      else{
-          return (
-          <div>
-            <div className="qr_hidden" onClick={this.hideDiv}>
-              <img src={this.state.QR} width="200" height="200"/>
-            </div>
-            <div className="user_info">
-              <img className="ui_header" src={this.state.hI} width="65" height="65"/>
-              <p>
-                <span>{this.state.nm}</span><br/>
-                <span>{this.state.dp}</span><br/>
-                <span>{this.state.rk}</span>
-              </p>
-              <img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
-            </div>
-            <div className="user_content">
-              <div className="uc_input">
-                <a href={'tel://'+this.state.Mob}>
-                  {this.state.Mob}
-                  <img src="image/theme002/telphone1.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'mailto:'+this.state.eml}>
-                  {this.state.eml}
-                  <img src="image/theme002/email.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={'tel://'+this.state.tel}>
-                  {this.state.tel}
-                  <img src="image/theme002/fax.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input">
-                <a href={this.state.web}>
-                  {this.state.web}
-                  <img src="image/theme002/web.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="uc_input fixed">
-                <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-                  {this.state.adr}
-                  <img src="image/theme002/adress.png" width="25" height="25"/>
-                </a>
-              </div>
-              <div className="user_intro">
-                <i>简介</i>
-                <p>{this.state.Abstract}
-                </p>
-                <div onClick={this.absToggle}>全文</div>
-              </div>
-              <div className="user_intro">
-                <i>专业领域</i>
-                <p>{this.state.itd}</p>
-              </div>
-              <div className="user_create">
-                  <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
-              </div>
-            </div>
-            <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
-            <Message/>
+          <div className="uc_input">
+            <a href={this.state.web}>
+              {this.state.web}
+              <img src="image/theme002/web.png" width="25" height="25"/>
+            </a>
           </div>
-          )
-      }
-    }
+          <div className="uc_input fixed">
+            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
+              {this.state.adr}
+              <img src="image/theme002/adress.png" width="25" height="25"/>
+            </a>
+          </div>
+          <div className="user_intro">
+            <i>简介</i>
+            <p>{this.state.Abstract}
+            </p>
+            <div onClick={this.absToggle}>全文</div>
+          </div>
+          <div className="user_intro" style={{display:this.state.itd?'block':'none'}}>
+            <i>专业领域</i>
+            <p>{this.state.itd}</p>
+          </div>
+          <div className="user_create">
+              <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
+          </div>
+        </div>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
+        <Message/>
+      </div>
+      )
   }
 });
 
