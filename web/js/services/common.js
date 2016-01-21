@@ -37,6 +37,9 @@ define([], function() {
         $('#globle_load_box').empty();
         var htmlContent = '<div class="globle_load_shadow"><div class="spinner-bounce-circle"><div></div><div></div></div>';
         $('#globle_load_box').append(htmlContent);
+
+        $('.globle_load_shadow').height($(document).height());
+        
         console.log(flag);
         if(flag){
           $('.globle_load_shadow').show();

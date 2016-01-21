@@ -32,7 +32,10 @@ define(['App'], function(app) {
             
             var f = document.getElementById('card2_upload').files[0],
                 r = new FileReader();
-            if (!f) return;
+            if (!f){
+              alert('请先选择文件！');
+              return;
+            } 
             //验证上传图片格式
             console.log('type:'+f.type);
             if(f.type.toLowerCase().indexOf('image')==-1){
