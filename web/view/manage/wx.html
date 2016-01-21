@@ -32,7 +32,7 @@
 					<img ng-click="vm.wxAuthor()" src="image/manage/wxauthor.png"/>
 				</div>
 			</div>
-			<div class="af_btn author_btn">
+			<div class="af_btn author_btn" ng-if="!vm.authorFlag">
 					<span ng-click="vm.getWxAuthorResult()">查看授权结果</span>
 					<i>{{vm.authorReault}}</i>
 				</div>
