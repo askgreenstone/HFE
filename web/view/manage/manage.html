@@ -32,7 +32,7 @@
 				<i><img src="image/manage/search.png" width="30" height="30"/></i>
 			</div>
 			<div class="mcr_lenged">
-				<h3 class="red">网站介绍页</h3>
+				<h3 class="red">{{vm.title1}}</h3>
 				<ul class="mcr_list">
 					<li ng-click="vm.gotoLink('editor',x.tn,x.ntId)" ng-repeat="x in vm.introduce|filter:vm.keyword">
 						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
@@ -42,7 +42,7 @@
 				</ul>
 			</div>
 			<div class="mcr_lenged">
-				<h3 class="orange">网站内容库</h3>
+				<h3 class="orange">{{vm.title2}}</h3>
 				<ul class="mcr_list">
 					<li ng-click="vm.gotoLink('list',x.tn,x.ntId)" ng-repeat="x in vm.content|filter:vm.keyword">
 						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
@@ -52,7 +52,7 @@
 				</ul>
 			</div>
 			<div class="mcr_lenged">
-				<h3 class="green">微相册</h3>
+				<h3 class="green">{{vm.title3}}</h3>
 				<ul class="mcr_list">
 					<li ng-click="vm.gotoLink('photo',x.tn,x.ntId)" ng-repeat="x in vm.photos|filter:vm.keyword">
 						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
