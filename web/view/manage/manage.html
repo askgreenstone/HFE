@@ -44,7 +44,7 @@
 			<div class="mcr_lenged">
 				<h3 class="orange">{{vm.title2}}</h3>
 				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('list',x.tn,x.ntId)" ng-repeat="x in vm.content|filter:vm.keyword">
+					<li ng-click="vm.gotoLink('photo',x.tn,x.ntId)" ng-repeat="x in vm.content|filter:vm.keyword">
 						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
 						<span>{{x.tn}}</span>
 						<i>进入</i>
@@ -54,7 +54,7 @@
 			<div class="mcr_lenged">
 				<h3 class="green">{{vm.title3}}</h3>
 				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('photo',x.tn,x.ntId)" ng-repeat="x in vm.photos|filter:vm.keyword">
+					<li ng-click="vm.gotoLink('list',x.tn,x.ntId)" ng-repeat="x in vm.photos|filter:vm.keyword">
 						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
 						<span>{{x.tn}}</span>
 						<i>进入</i>
