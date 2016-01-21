@@ -16,8 +16,11 @@ var Index002 = React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      imgs:['image/theme002/team.png','image/theme002/laws.png','image/theme002/photo.png'],
-      path:['articleDetail','articleList','photo']
+      bg:'',
+      logo:'',
+      shareTitle:'',
+      shareDesc:'',
+      shareImg:''
     };
   },
   gotoLink: function(path,ntid){
@@ -42,7 +45,68 @@ var Index002 = React.createClass({
         // alert(JSON.stringify(data));
         console.log(data);
         if(data.c == 1000){
-          this.setState({navArrs:data.ntl});
+          var temp = this.checkMenuType(data.ntl);
+          this.setState({navArrs:temp});
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getBgLogo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      async:false,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          // this.setState({navArrs:data.ntl});
+          //alert(0);
+          this.setState({bg:data.bi,logo:data.l});
+
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getWxShareInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          if(data.sil.length>0){
+            this.setState({
+              shareTitle:data.sil[0].sti,
+              shareDesc:data.sil[0].sd,
+              shareImg:data.sil[0].spu
+            });
+          }else{
+            this.setState({
+              shareTitle:'微网站首页',
+              shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
+              shareImg:'greenStoneicon300.png'
+            });
+          }
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -55,15 +119,22 @@ var Index002 = React.createClass({
     this.staticWebPV(1);
     this.getUserList();
     $('.leftBg').height(document.body.scrollHeight);
-    $('.leftBg>img').attr({'src':'image/theme002/bg1.png?'+Math.random()});
+    $('.leftBg>img').attr({'src':(global.img+this.state.bg)});
     $('body').css({'background':'#ebebeb'});
+  },
+  componentWillMount: function(){
+    this.getBgLogo();
+    console.log('bg:'+this.state.bg);
+    this.getWxShareInfo();
   },
   render: function() {
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
-            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <img src={this.state.imgs[i]} width="55" height="55"/>
-              <div>{item.tn}</div>
+            <li key={new Date().getTime()+i}>
+              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+                <img src={global.img+item.src} width="55" height="55"/>
+                <div>{item.title}</div>
+              </a>
             </li>
        );
     }.bind(this));
@@ -71,27 +142,17 @@ var Index002 = React.createClass({
       <div className="container">
         <div className="leftBg">
           <div className="logo002">
-            <img src="image/theme002/logo.png"/>
+            <img src={global.img+this.state.logo}/>
           </div>
           <img src="" width="100%"/>
         </div>
         <div className="verticalMenu">
           <ul className="menu_list">
-            <li>
-              <a href="tel://13718128160" onClick={this.staticWebPV.bind(this,2)}>
-                <img src="image/theme002/telphone.png" width="55" height="55"/>
-                <div>电话咨询</div>
-              </a>
-            </li>
-            <li onClick={this.gotoLink.bind(this,'card')}>
-              <img src="image/theme002/card.png" width="55" height="55"/>
-              <div>微名片</div>
-            </li>
             {navNodes}
           </ul>
         </div>
-        <Share title={"王杰律师微网站"} desc={"王杰律师专注于资本市场、基金、投融资、并购、公司法务、境外直接投资"} 
-        imgUrl={global.img+"WXweb_wangjiepor.png"} target="index002"/>
+        <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+        imgUrl={global.img+this.state.shareImg} target="index002"/>
         <Message/>
       </div>
     );
