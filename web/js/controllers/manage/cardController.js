@@ -14,6 +14,7 @@ define(['App'], function(app) {
         vm.preview = '';
         vm.isHeadUpload = false;
         vm.isQrcodeUpload = false;
+        vm.head = '';
         vm.user = {
           HeadImg: '',
           NAME: '',
@@ -85,6 +86,7 @@ define(['App'], function(app) {
                   }
                   vm.choosePic = data.hI;
                   vm.isServerData = true;
+                  vm.head = vm.transferUrl+vm.HeadImg;
                   setTimeout(function() {
                     vm.initCropper();
                     vm.isHeadUpload = true;
@@ -122,6 +124,10 @@ define(['App'], function(app) {
                   // 状态码  0  未完成  1  已完成
                   if(data.s == 0){
                     $window.location.href = '#/card?session='+vm.sess;
+                    vm.head = 'image/placeholder.png';
+                    setTimeout(function(){
+                      vm.initCropper()
+                    },300)
                   }else if(data.s == 1){
                     $window.location.href = '#/card3?session='+vm.sess;
                   }
@@ -228,6 +234,7 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     vm.user.HeadImg = data.on;
+                    vm.head = vm.transferUrl+vm.HeadImg;
                     // $('#themeCropper').cropper('destroy');
                 })
                 .error(function() {
@@ -294,6 +301,7 @@ define(['App'], function(app) {
                 if(data.c == 1000){
                   console.log('clipSourceImg success');
                   vm.user.HeadImg = data.in;
+                  vm.head = vm.transferUrl+vm.HeadImg;
                   setTimeout(function() {
                     vm.initCropper();
                   }, 300);
