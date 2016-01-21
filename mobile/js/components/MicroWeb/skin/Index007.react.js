@@ -59,7 +59,7 @@ var Index007=React.createClass({
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <h2>{item.tn}</h2><p>{navChi[i]}</p><span></span>
+              <a href="javascript:void(0)"><h2>{item.tn}</h2><p>{navChi[i]}</p><span></span></a>
             </li>
        );
     }.bind(this));
@@ -75,7 +75,7 @@ var Index007=React.createClass({
 						</div>
 						<ul className="theme3_main_list">
               {navNodes}
-              <li onClick={this.gotoLink.bind(this,'card')}><h2>微 名 片</h2><p>E-Card</p><span></span></li>
+              <li onClick={this.gotoLink.bind(this,'card')}><a href="javascript:void(0)"><h2>微 名 片</h2><p>E-Card</p><span></span></a></li>
 						</ul>
             <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划，法律行业发展研究与实践"} 
             imgUrl={global.img+"wzd20151221145959.png"} target="index003"/>
