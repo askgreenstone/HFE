@@ -23,15 +23,6 @@ var Index002 = React.createClass({
       shareImg:''
     };
   },
-  gotoLink: function(path,ntid){
-    var ownUri = this.getUrlParams('ownUri');
-    //测试环境和正式环境用户切换
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
-  },
   getUserList: function(){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){

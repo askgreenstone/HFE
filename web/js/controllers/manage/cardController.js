@@ -231,7 +231,8 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     vm.user.HeadImg = data.on;
-                    vm.head = vm.transferUrl+vm.HeadImg;
+                    vm.head = vm.transferUrl+vm.user.HeadImg;
+                    console.log(vm.head);
                     // $('#themeCropper').cropper('destroy');
                 })
                 .error(function() {

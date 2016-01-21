@@ -13,17 +13,12 @@ var Index013 = React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      path:['articleList','articleList','photo']
+      bg:'',
+      logo:'',
+      shareTitle:'',
+      shareDesc:'',
+      shareImg:''
     };
-  },
-  gotoLink: function(path,ntid){
-    var ownUri = this.getUrlParams('ownUri');
-    //测试环境和正式环境用户切换
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
   },
   getUserList: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -47,32 +42,102 @@ var Index013 = React.createClass({
       }.bind(this)
     });
   },
+  getBgLogo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      async:false,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          // this.setState({navArrs:data.ntl});
+          //alert(0);
+          this.setState({bg:data.bi,logo:data.l});
+
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getWxShareInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          if(data.sil.length>0){
+            this.setState({
+              shareTitle:data.sil[0].sti,
+              shareDesc:data.sil[0].sd,
+              shareImg:data.sil[0].spu
+            });
+          }else{
+            this.setState({
+              shareTitle:'微网站首页',
+              shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
+              shareImg:'greenStoneicon300.png'
+            });
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
+    $('body').css({'background':'#ebebeb'});
+  },
+  componentWillMount: function(){
+    this.getBgLogo();
+    console.log('bg:'+this.state.bg);
+    this.getWxShareInfo();
   },
 	render:function(){
+    var navNodes = this.state.navArrs.map(function(item,i){
+      return(
+            <li key={new Date().getTime()+i}>
+              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+                <div className="theme013_circle">
+                  <img src={global.img+item.lg}/>
+                </div>
+                <div>{item.tn}</div>
+              </a>
+            </li>
+       );
+    }.bind(this));
 		return (
 				<div>
 					<div className="theme013_container">
-            <img src="image/theme013/bg.png" width="100%"/>
+            <img src={global.img+this.state.bg} width="100%"/>
             <div className="logo">
-              <img src="image/theme013/logo.png"/>
+              <img src={global.img+this.state.logo}/>
             </div>
             <ul className="theme013_menu_list">
-              <li><a><div className="theme013_circle"><img src="image/theme013/self.png"/></div><div>律师简介</div></a></li>
-              <li><div className="theme013_circle"><img src="image/theme013/telphone.png"/></div><div>电话咨询</div></li>
-              <li><div className="theme013_circle"><img src="image/theme013/lytm.png"/></div><div>律师团队</div></li>
-              <li><div className="theme013_circle"><img src="image/theme013/online.png"/></div><div>线上咨询</div></li>
-              <li><div className="theme013_circle"><img src="image/theme013/lwrs.png"/></div><div>法律法规</div></li>
-              <li><div className="theme013_circle"><img src="image/theme013/photo.png"/></div><div>团队风采</div></li>
-              <li><div className="theme013_circle"><img src="image/theme013/lycp.png"/></div><div>律师文集</div></li>
-              <li><div className="theme013_circle"><img src="image/theme013/clcs.png"/></div><div>经典案例</div></li>
-              <li><div className="theme013_circle"><img src="image/theme013/card.png"/></div><div>微名片</div></li>
+               {navNodes}
             </ul>
           </div>
-					<Share title={"青山律师团队微网站"} desc={"《青山律师直通车》是由武汉市青山区司法局整合全区律师资源，为社会提供法律服务的电商平台。汇集了5个青山区的优秀律师事务所：湖北欣安律师事务所、湖北扬子律师事务所、湖北联正律师事务所、湖北静海律师事务所、湖北圣青律师事务所。"} 
-        imgUrl={global.img+"tzsxjlb20160111154037.jpg"} target="index013"/>
+					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+        imgUrl={global.img+this.state.shareImg} target="index013"/>
         <Message/>
 				</div>
 			)
