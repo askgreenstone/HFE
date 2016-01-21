@@ -31,7 +31,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.qrSrc = vm.transferUrl+data.qrn;
+                  vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
                   vm.inputUrl = data.url;
                   $('#iframe_src').empty();
                   $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="575"></iframe>');
