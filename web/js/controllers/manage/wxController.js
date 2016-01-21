@@ -50,6 +50,7 @@ define(['App'], function(app) {
               console.log(data);
               if(data.c == 1000){
                 vm.authorReault = '授权成功！';
+                vm.authorFlag = false;
               }else if(data.c == 1014){
                 vm.authorReault = '授权失败！';
                 vm.authorFlag = true;
@@ -75,6 +76,7 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.getWxAuthorResult();
           vm.checkAuthorParam();
         }
 
