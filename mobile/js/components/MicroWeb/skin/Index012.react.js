@@ -33,7 +33,8 @@ var Index012 = React.createClass({
         // alert(JSON.stringify(data));
         console.log(data);
         if(data.c == 1000){
-          this.setState({navArrs:data.ntl});
+          var temp = this.checkMenuType(data.ntl);
+          this.setState({navArrs:temp});
         }
       }.bind(this),
       error: function(xhr, status, err) {
