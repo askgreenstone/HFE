@@ -32,8 +32,13 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.introduce = data.ntl[0].td;
+                  vm.title1 = data.ntl[0].tn;
+
                   vm.content = data.ntl[1].td;
+                  vm.title2 = data.ntl[1].tn;
+
                   vm.photos = data.ntl[2].td;
+                  vm.title3 = data.ntl[2].tn;
                 }
             }).
             error(function(data, status, headers, config) {
