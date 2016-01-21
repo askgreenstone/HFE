@@ -13,18 +13,12 @@ var Index004=React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      imgs:['image/theme004/laywers.png','image/theme004/case.png','image/theme004/team.png'],
-      path:['articleDetail','articleList','photo']
+      bg:'',
+      logo:'',
+      shareTitle:'',
+      shareDesc:'',
+      shareImg:''
     };
-  },
-  gotoLink: function(path,ntid){
-    var ownUri = this.getUrlParams('ownUri');
-    //测试环境和正式环境用户切换
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
   },
   getUserList: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -48,16 +42,84 @@ var Index004=React.createClass({
       }.bind(this)
     });
   },
+  getBgLogo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      async:false,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          // this.setState({navArrs:data.ntl});
+          //alert(0);
+          this.setState({bg:data.bi,logo:data.l});
+
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getWxShareInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          if(data.sil.length>0){
+            this.setState({
+              shareTitle:data.sil[0].sti,
+              shareDesc:data.sil[0].sd,
+              shareImg:data.sil[0].spu
+            });
+          }else{
+            this.setState({
+              shareTitle:'微网站首页',
+              shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
+              shareImg:'greenStoneicon300.png'
+            });
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
+    $('body').css({'background':'#ebebeb'});
+  },
+  componentWillMount: function(){
+    this.getBgLogo();
+    console.log('bg:'+this.state.bg);
+    this.getWxShareInfo();
   },
 	render:function(){
-		var navNodes = this.state.navArrs.map(function(item,i){
+		 var navNodes = this.state.navArrs.map(function(item,i){
       return(
-            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <img src={this.state.imgs[i]}/>
-              <p>{item.tn}</p>
+            <li key={new Date().getTime()+i}>
+              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+                <img src={global.img+item.lg}/>
+                <p>{item.tn}</p>
+              </a>
             </li>
        );
     }.bind(this));
@@ -65,19 +127,18 @@ var Index004=React.createClass({
 				<div>
 					<div className="theme4_main">
 						<div className="main">
-							<img src="image/theme004/photo.png" alt="" className="theme4_main_bg"/>
+							<img src={global.img+this.state.bg} alt="" className="theme4_main_bg"/>
               <div className='logo'>
-                <img src="image/theme004/logo.png" />
+                <img src={global.img+this.state.logo}/>
               </div>
 							
 						</div>
 						<ul className="theme4_main_list">
-							<li onClick={this.gotoLink.bind(this,'card')}><img src="image/theme004/card.png"/><p>微名片</p></li>
 							{navNodes}
 						</ul>
 					</div>
-					<Share  title={"刘晓燕律师微网站"} desc={"刘晓燕律师专注于公司业务，招投标业务，非银行金融机构、投资公司业务"} 
-        imgUrl={global.img+"lxy20151215113726.png"} target="index004"/>
+					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+        imgUrl={global.img+this.state.shareImg} target="index004"/>
         <Message/>
 				</div>
 			)

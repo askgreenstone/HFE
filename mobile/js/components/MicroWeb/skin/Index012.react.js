@@ -13,18 +13,12 @@ var Index012 = React.createClass({
   getInitialState: function(){
     return {
       navArrs:[],
-      imgs:['image/theme012/self.png','image/theme012/yewu.png','image/theme012/learning.png','image/theme012/lytm.png','image/theme012/photo.png','image/theme012/lycp.png'],
-      path:['articleList','articleList','articleList','articleList','photo','articleList']
+      bg:'',
+      logo:'',
+      shareTitle:'',
+      shareDesc:'',
+      shareImg:''
     };
-  },
-  gotoLink: function(path,ntid){
-    var ownUri = this.getUrlParams('ownUri');
-    //测试环境和正式环境用户切换
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    location.href = '#'+path+'?ownUri='+ownUri+'&ntid='+ntid;
   },
   getUserList: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -48,42 +42,101 @@ var Index012 = React.createClass({
       }.bind(this)
     });
   },
-  componentDidMount: function(){
-    this.staticWebPV(1);
-    this.getUserList();
-  },
+  getBgLogo: function(){
+      var ownUri = this.getUrlParams('ownUri');
+      if(!ownUri){
+        ownUri = this.checkDevOrPro();
+        console.log(ownUri);
+      }
+      $.ajax({
+        type:'get',
+        async:false,
+        url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+        success: function(data) {
+          // alert(JSON.stringify(data));
+          console.log(data);
+          if(data.c == 1000){
+            // this.setState({navArrs:data.ntl});
+            //alert(0);
+            this.setState({bg:data.bi,logo:data.l});
+
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          this.showAlert('网络连接错误或服务器异常！');
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    getWxShareInfo: function(){
+      var ownUri = this.getUrlParams('ownUri');
+      if(!ownUri){
+        ownUri = this.checkDevOrPro();
+        console.log(ownUri);
+      }
+      $.ajax({
+        type:'get',
+        url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
+        success: function(data) {
+          // alert(JSON.stringify(data));
+          console.log(data);
+          console.log(global.img);
+          if(data.c == 1000){
+            if(data.sil.length>0){
+              this.setState({
+                shareTitle:data.sil[0].sti,
+                shareDesc:data.sil[0].sd,
+                shareImg:data.sil[0].spu
+              });
+            }else{
+              this.setState({
+                shareTitle:'微网站首页',
+                shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
+                shareImg:'greenStoneicon300.png'
+              });
+            }
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          this.showAlert('网络连接错误或服务器异常！');
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.staticWebPV(1);
+      this.getUserList();
+      $('body').css({'background':'#ebebeb'});
+    },
+    componentWillMount: function(){
+      this.getBgLogo();
+      console.log('bg:'+this.state.bg);
+      this.getWxShareInfo();
+    },
 	render:function(){
      var navNodes = this.state.navArrs.map(function(item,i){
       return(
-            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <img src={this.state.imgs[i]}/>
-              <div>{item.tn}</div>
+            <li key={new Date().getTime()+i}>
+              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+                <img src={global.img+item.lg}/>
+                <div>{item.tn}</div>
+              </a>
             </li>
        );
     }.bind(this));
 		return (
 				<div>
 					<div className="theme012_container">
-            <img src="image/theme012/bg.png" width="100%"/>
+            <img src={global.img+this.state.bg} width="100%"/>
             <div className="logo">
-              <img src="image/theme012/logo.png"/>
+              <img src={global.img+this.state.logo}/>
             </div>
             <ul className="theme012_menu_list">
-              <li>
-                <a href="tel://13834238386" onClick={this.staticWebPV.bind(this,2)}>
-                  <img src="image/theme012/telphone.png"/>
-                  <div>电话咨询</div>
-                </a>
-              </li>
-              <li onClick={this.gotoLink.bind(this,'card')}>
-                <img src="image/theme012/card.png"/>
-                <div>微名片</div>
-              </li>
               {navNodes}
             </ul>
           </div>
-					<Share title={"赵多政律师微网站"} desc={"赵多政律师专注于资本与证券市场类、收购兼并、改制重组、发行上市、投融资、企业税务筹划等法律服务。"} 
-        imgUrl={global.img+"tzsxjlb20160111154037.jpg"} target="index012"/>
+					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+        imgUrl={global.img+this.state.shareImg} target="index012"/>
         <Message/>
 				</div>
 			)
