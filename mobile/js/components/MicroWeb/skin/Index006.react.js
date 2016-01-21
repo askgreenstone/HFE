@@ -121,8 +121,8 @@ var Index006 = React.createClass({
       return(
             <li key={new Date().getTime()+i}>
               <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
-                <span>{item.tn}</span>
-                <span>{item.etn}</span>
+                <span>{item.title}</span>
+                <span>{item.english}</span>
               </a>
             </li>
        );

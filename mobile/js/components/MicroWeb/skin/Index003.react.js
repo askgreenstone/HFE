@@ -34,6 +34,7 @@ var Index003=React.createClass({
         console.log(data);
         if(data.c == 1000){
           var temp = this.checkMenuType(data.ntl);
+          console.log(temp);
           this.setState({navArrs:temp});
         }
       }.bind(this),
@@ -118,7 +119,7 @@ var Index003=React.createClass({
       return(
             <li key={new Date().getTime()+i}>
               <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
-                <h2>{item.tn}</h2><p>{item.etn}</p><span></span>
+                <h2>{item.title}</h2><p>{item.english}</p><span></span>
               </a>
             </li>
        );

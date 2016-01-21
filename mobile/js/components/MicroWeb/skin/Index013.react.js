@@ -119,9 +119,9 @@ var Index013 = React.createClass({
             <li key={new Date().getTime()+i}>
               <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
                 <div className="theme013_circle">
-                  <img src={global.img+item.lg}/>
+                  <img src={global.img+item.src}/>
                 </div>
-                <div>{item.tn}</div>
+                <div>{item.title}</div>
               </a>
             </li>
        );
