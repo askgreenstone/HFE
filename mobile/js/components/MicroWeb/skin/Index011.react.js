@@ -33,7 +33,8 @@ var Index011 = React.createClass({
         // alert(JSON.stringify(data));
         console.log(data);
         if(data.c == 1000){
-          this.setState({navArrs:data.ntl});
+          var temp = this.checkMenuType(data.ntl);
+          this.setState({navArrs:temp});
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -120,8 +121,8 @@ var Index011 = React.createClass({
       return(
             <li key={new Date().getTime()+i}>
               <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
-                <span>{item.tn}</span>
-                <span>{item.etn}</span>
+                <span>{item.title}</span>
+                <span>{item.english}</span>
               </a>
             </li>
        );

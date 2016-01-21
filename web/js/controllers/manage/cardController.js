@@ -86,7 +86,8 @@ define(['App'], function(app) {
                   }
                   vm.choosePic = data.hI;
                   vm.isServerData = true;
-                  vm.head = vm.transferUrl+vm.HeadImg;
+                  vm.head = vm.transferUrl+vm.user.HeadImg;
+                  console.log(vm.head);
                   setTimeout(function() {
                     vm.initCropper();
                     vm.isHeadUpload = true;
@@ -235,7 +236,9 @@ define(['App'], function(app) {
                     console.log(data);
                     vm.user.HeadImg = data.on;
                     vm.head = vm.transferUrl+vm.user.HeadImg;
+                    console.log(vm.head);
                     vm.isHeadUpload = true;
+                    alert('上传成功');
                     // $('#themeCropper').cropper('destroy');
                 })
                 .error(function() {
@@ -302,10 +305,10 @@ define(['App'], function(app) {
                 if(data.c == 1000){
                   console.log('clipSourceImg success');
                   vm.user.HeadImg = data.in;
-                  vm.head = vm.transferUrl+vm.HeadImg;
+                  vm.head = vm.transferUrl+vm.user.HeadImg;
                   setTimeout(function() {
                     vm.initCropper();
-                  }, 300);
+                  }, 100);
                 }
             }).
             error(function(data, status, headers, config) {
