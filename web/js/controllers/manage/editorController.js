@@ -31,7 +31,8 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 }
             }).
             error(function(data, status, headers, config) {
-                console.log(data);
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
             });
         }
 
@@ -76,8 +77,9 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 }
             }).
             error(function(data, status, headers, config) {
-                alert('发布失败！');
-                console.log(data);
+                // alert('发布失败！');
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
             });
         }
 

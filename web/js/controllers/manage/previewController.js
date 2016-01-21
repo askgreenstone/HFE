@@ -61,7 +61,8 @@ define(['App'], function(app) {
                         $window.history.back();
                     })
                     .error(function() {
-                        console.log('error');
+                        // console.log('error');
+                        alert('网络连接错误或服务器异常！');
                     });
             };
             r.readAsDataURL(f);

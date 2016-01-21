@@ -33,7 +33,8 @@ define(['App'], function(app) {
               }
           }).
           error(function(data, status, headers, config) {
-              console.log(data);
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
           });
         }
 
@@ -56,7 +57,8 @@ define(['App'], function(app) {
               }
           }).
           error(function(data, status, headers, config) {
-              console.log(data);
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
           });
         }
 

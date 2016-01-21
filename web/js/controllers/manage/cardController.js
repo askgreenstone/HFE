@@ -96,7 +96,8 @@ define(['App'], function(app) {
                 }
             }).
             error(function(data, status, headers, config) {
-                console.log(data);
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
             }); 
           } else{
             $http({
@@ -109,7 +110,8 @@ define(['App'], function(app) {
               // alert(vm.CardID);
             }).
             error(function(data, status, headers, config) {
-                console.log(data);
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
             }); 
             $http({
                   method: 'GET',
@@ -125,7 +127,8 @@ define(['App'], function(app) {
                   }
               }).
               error(function(data, status, headers, config) {
-                  console.log(data);
+                  // console.log(data);
+                  alert('网络连接错误或服务器异常！');
               }); 
           }
         }
@@ -228,7 +231,8 @@ define(['App'], function(app) {
                     // $('#themeCropper').cropper('destroy');
                 })
                 .error(function() {
-                    console.log('error');
+                    // console.log('error');
+                    alert('网络连接错误或服务器异常！');
                 });
             };
             r.readAsDataURL(f);
@@ -261,7 +265,8 @@ define(['App'], function(app) {
                     }, 300);
                 })
                 .error(function() {
-                    console.log('error');
+                    // console.log('error');
+                    alert('网络连接错误或服务器异常！');
                 });
             };
             r.readAsDataURL(f);
@@ -426,7 +431,8 @@ define(['App'], function(app) {
                   }
               }).
               error(function(data, status, headers, config) {
-                  console.log(data);
+                  // console.log(data);
+                  alert('网络连接错误或服务器异常！');
               });
           }else{
             var fd = {
@@ -451,7 +457,8 @@ define(['App'], function(app) {
                   }
               }).
               error(function(data, status, headers, config) {
-                  console.log(data);
+                  // console.log(data);
+                  alert('网络连接错误或服务器异常！');
               });
           }
         }
