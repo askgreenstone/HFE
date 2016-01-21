@@ -28,7 +28,12 @@ define(['App'], function(app) {
             Common.getLoading(true);
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
-            if (!f) return;
+            if (!f) {
+              // console.log(f);
+              alert('请先选择文件！');
+              Common.getLoading(false);
+              return;
+            }
             //验证上传图片格式
             console.log('type:'+f.type);
             if(f.type.toLowerCase().indexOf('image')==-1){
