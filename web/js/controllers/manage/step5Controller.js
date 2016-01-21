@@ -25,22 +25,23 @@ define(['App'], function(app) {
         };
 
         vm.uploadFile = function() {
-            Common.getLoading(true);
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
             if (!f) {
               // console.log(f);
               alert('请先选择文件！');
-              Common.getLoading(false);
               return;
             }
+
             //验证上传图片格式
             console.log('type:'+f.type);
             if(f.type.toLowerCase().indexOf('image')==-1){
               alert('请选择正确图片格式文件！');
               return;
             }
+            Common.getLoading(true);
             r.onloadend = function(e) {
+                
                 var data = e.target.result;
                 var fd = new FormData();
                 fd.append('ThirdUpload', f);
