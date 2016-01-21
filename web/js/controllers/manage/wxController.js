@@ -29,7 +29,7 @@ define(['App'], function(app) {
               if(data.c == 1000){
                 // $window.location.href=data.url;
                 $window.open(data.url,'_blank');
-                vm.authorFlag = true;
+                vm.authorFlag = false;
               }
           }).
           error(function(data, status, headers, config) {
@@ -52,7 +52,7 @@ define(['App'], function(app) {
                 vm.authorReault = '授权成功！';
               }else if(data.c == 1014){
                 vm.authorReault = '授权失败！';
-                vm.authorFlag = false;
+                vm.authorFlag = true;
               }
           }).
           error(function(data, status, headers, config) {
@@ -62,7 +62,7 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.authorFlag = false;
+          vm.authorFlag = true;
         }
 
         init();
