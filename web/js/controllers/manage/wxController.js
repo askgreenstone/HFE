@@ -9,7 +9,6 @@ define(['App'], function(app) {
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
-        vm.authorFlag = false;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -62,9 +61,21 @@ define(['App'], function(app) {
           });
         }
 
+        vm.checkAuthorParam = function(){
+          vm.wxUrlFlag = Common.getUrlParam('authSucc');
+          if(vm.wxUrlFlag&&vm.wxUrlFlag == 1){
+            vm.authorFlag = false;
+          }else if(vm.wxUrlFlag&&vm.wxUrlFlag == 0){
+            vm.authorFlag = true;
+          }else{
+            vm.authorFlag = true;
+            return;
+          }
+        }
+
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.authorFlag = true;
+          vm.checkAuthorParam();
         }
 
         init();
