@@ -8,7 +8,7 @@ var Message = require('../../common/Message.react');
 var Card2 = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
-    return {datas:[],Title:'',Introduction:'',Img:''};
+    return {datas:[]};
   },
   qrCode: function(){
     $('.qr_hidden').show(500);
@@ -53,40 +53,16 @@ var Card2 = React.createClass({
       }.bind(this)
     });
   },
-  getShareInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    $.ajax({
-      type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=2',
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        // alert('ownUri:'+ownUri+'ntid:'+ntid);
-        if(data.c == 1000){
-          this.setState({
-            Title:data.sil[0].sti,
-            Introduction:data.sil[0].sd,
-            Img:global.img+data.sil[0].spu
-          });
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
   },
   componentWillMount:function(){
     this.getServerInfo();
-    this.getShareInfo();
   }, 
   render: function() {
-    var ShareTitile = this.state.Title;
-    var ShareDesc = this.state.Introduction;
-    var ShareImg = this.state.Img;
+    var ShareTitile = this.state.nm;
+    var ShareDesc = this.state.abs;
+    var ShareImg = this.state.hI;
     return (
     	<div>
         <div className="qr_hidden" onClick={this.hideDiv}>
@@ -120,7 +96,7 @@ var Card2 = React.createClass({
                     <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
                 </div>
 	    	</div>
-        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card2"/>
         <Message/>
     	</div>
     );
