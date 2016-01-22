@@ -130,7 +130,7 @@ var Index013 = React.createClass({
 				<div>
 					<div className="theme013_container">
             <img src={global.img+this.state.bg} width="100%"/>
-            <div className="logo">
+            <div className="logo" style={{display:this.state.logo?'block':'none'}}>
               <img src={global.img+this.state.logo}/>
             </div>
             <ul className="theme013_menu_list">

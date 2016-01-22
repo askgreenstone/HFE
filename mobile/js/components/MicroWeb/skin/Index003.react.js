@@ -129,7 +129,7 @@ var Index003=React.createClass({
 					<div className="theme3_main">
 						<div className="main">
 							<img src={global.img+this.state.bg} alt="" className="theme3_main_bg"/>
-              <div className='logo'>
+              <div className="logo" style={{display:this.state.logo?'block':'none'}}>
                 <img src={global.img+this.state.logo} />
               </div>
 							

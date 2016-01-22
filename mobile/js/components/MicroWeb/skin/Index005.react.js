@@ -131,7 +131,7 @@ var Index005 = React.createClass({
 		return (
 				<div>
 					<div className="theme5_main">
-							<div className="logo">
+							<div className="logo" style={{display:this.state.logo?'block':'none'}}>
 								<img src={global.img+this.state.logo} />
 							</div>
 							<ul className="theme5_main_list">
