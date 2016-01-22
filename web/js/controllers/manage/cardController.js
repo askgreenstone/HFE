@@ -372,24 +372,18 @@ define(['App'], function(app) {
           if(!vm.user.Email){
             alert("请填写您的邮箱！");
             return false; 
-          }else if(!vm.user.Email.match(regExpEmail)){
-            alert("邮箱格式不正确!");
-            return false;
           }
 
           if(!vm.user.TelNo){
             alert("请填写您的座机！");
-            return false;
-          }else if(!vm.user.TelNo.match(regExpTelNo)){
-            alert("座机格式不正确！"); 
             return false;
           }
 
           if(!vm.user.WebSite){
             alert("请填写您的网址！");
             return false;
-          }else if(vm.user.WebSite.length>30){
-            alert("网址长度不能超过三十位！"); 
+          }else if(!vm.user.WebSite.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g)){
+            alert("网址格式不正确！")
             return false;
           }
 
