@@ -253,7 +253,10 @@ define(['App'], function(app) {
         vm.uploadQrcode = function() {
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
-            if (!f) return;
+            if (!f){
+              alert('请先选择文件！');
+              return;
+            } 
             Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;

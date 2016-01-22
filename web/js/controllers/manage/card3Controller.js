@@ -37,7 +37,7 @@ define(['App'], function(app) {
                 if(data.Mob){
                     vm.ownUri = data.uri;
                     vm.qrcode = vm.transferurl+data.QR;
-                    vm.url = GlobalUrl+'/mobile/#/card?ownUri='+vm.ownUri;
+                    vm.url = data.mwUrl;
                     console.log(vm.url);
                     var iframe = '<iframe src='+vm.url+' width="320" height="720"></iframe>';
                     $("div.mb_left").append(iframe);
