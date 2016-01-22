@@ -69,7 +69,7 @@
 				</div>
 			</div>
 			<div class="af_btn fix_center">
-				<span ng-click="vm.menuLink('step1')">上一步</span>
+				<span ng-if="vm.originFlag" ng-click="vm.menuLink('step1')">上一步</span>
 				<span ng-click="vm.uploadFile()">下一步</span>
 			</div>
 		</div>
