@@ -15,6 +15,11 @@ define(['App'], function(app) {
           $window.location.href = '#/' + path + '?session='+vm.sess;
         }
 
+        //重新订制新加参数from，上一步按钮隐藏标示
+        vm.resetStep = function(path,from){
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&from='+from;
+        }
+
         vm.goBack = function(){
           $window.history.back();
         };

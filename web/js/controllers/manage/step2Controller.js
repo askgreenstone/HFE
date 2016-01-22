@@ -249,6 +249,14 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.origin = Common.getUrlParam('from');
+          //重新订制跳转后，通过该标识隐藏上一步按钮
+          if(vm.origin){
+            vm.originFlag = false;
+          }
+          else{
+            vm.originFlag = true;
+          }
           vm.getServerBg();
           vm.getSourceImage();
         }

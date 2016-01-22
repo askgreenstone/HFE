@@ -11,6 +11,7 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
+        vm.jumpFlag = false;//跳过
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -18,6 +19,11 @@ define(['App'], function(app) {
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
+
+        //重新订制新加参数from，上一步按钮隐藏标示
+        vm.resetStep = function(path,from){
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&from='+from;
         }
 
         vm.goBack = function(){
@@ -79,6 +85,10 @@ define(['App'], function(app) {
         }
 
         vm.uploadFile = function() {
+          if(vm.jumpFlag){
+            $window.location.href = '#/step4?session='+vm.sess;
+            return;
+          }
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
@@ -175,6 +185,7 @@ define(['App'], function(app) {
                     vm.choosePic = data.l;
                   }else{
                     vm.userBg = 'image/placeholder.png';
+                    vm.jumpFlag = true;
                   }
 
                   //延迟初始化裁图插件
