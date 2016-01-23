@@ -18,7 +18,9 @@ define(['App','Sortable'], function(app) {
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
           $('.step4_shadow').show();
+          
           vm.getServerMenuList();
+          
           if(vm.serverChooseList&&vm.serverChooseList.length>0){
             vm.getMenuList(vm.serverChooseList.length);
           }else{
@@ -33,7 +35,9 @@ define(['App','Sortable'], function(app) {
         vm.hiddenShadow = function(){
           $('.step4_shadow').hide();
           $('body').css('overflow','auto');
+
           vm.getServerMenuList();
+
           if(vm.serverChooseList&&vm.serverChooseList.length>0){
             vm.getMenuList(vm.serverChooseList.length);
           }

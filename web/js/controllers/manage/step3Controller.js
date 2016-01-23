@@ -11,7 +11,6 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
-        vm.jumpFlag = false;//跳过
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -85,10 +84,10 @@ define(['App'], function(app) {
         }
 
         vm.uploadFile = function() {
-          if(vm.jumpFlag){
-            $window.location.href = '#/step4?session='+vm.sess;
-            return;
-          }
+          // if(vm.jumpFlag){
+          //   $window.location.href = '#/step4?session='+vm.sess;
+          //   return;
+          // }
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
@@ -98,6 +97,10 @@ define(['App'], function(app) {
                 return;
               }
               else{
+                // if(!vm.choosePic){
+                //   $window.location.href = '#/step4?session='+vm.sess;
+                //   return;
+                // }
                 vm.clipSourceImg(vm.choosePic);
                 $('#step3Cropper').cropper('destroy');
                 $window.location.href = '#/step4?session='+vm.sess;
@@ -185,7 +188,7 @@ define(['App'], function(app) {
                     vm.choosePic = data.l;
                   }else{
                     vm.userBg = 'image/placeholder.png';
-                    vm.jumpFlag = true;
+                    vm.choosePic = '';
                   }
 
                   //延迟初始化裁图插件

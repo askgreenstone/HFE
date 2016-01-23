@@ -55,7 +55,7 @@
 					<span>命名您的微网站</span>
 					<input type="text" ng-model="vm.microName" placeholder="如：XX律师微网站"/>
 				</div>
-				<div class="step4_warn">注意：该模版支持的最佳菜单数为 <span>{{vm.menuCount}}</span> 个</div>
+				<div class="step4_warn">注意：点击右上角“添加菜单”，当前选择模版支持的最佳菜单数为 <span>{{vm.menuCount}}</span> 个</div>
 				<ul class="step4_list">
 					<li value={{x.mo==-1?$index:x.mo}} id={{x.ntId}} ng-repeat="x in vm.serverChooseList">
 						<input type="hidden" value={{x}}>
