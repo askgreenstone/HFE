@@ -132,7 +132,7 @@ var Index002 = React.createClass({
     return (
       <div className="container">
         <div className="leftBg">
-          <div className="logo002">
+          <div className="logo002" style={{display:this.state.logo?'block':'none'}}>
             <img src={global.img+this.state.logo}/>
           </div>
           <img src="" width="100%"/>

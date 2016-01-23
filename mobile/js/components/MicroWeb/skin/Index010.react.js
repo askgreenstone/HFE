@@ -64,7 +64,7 @@ var Index010 = React.createClass({
 		return (
 				<div>
 					<div className="theme6_main">
-							<div className="logo">
+							<div className="logo" style={{display:this.state.logo?'block':'none'}}>
 								<img src="image/theme010/logo.png"/>
 							</div>
 							<ul className="theme6_main_list" style={{'top':'35%'}}>
