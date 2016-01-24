@@ -136,6 +136,7 @@ var Index012 = React.createClass({
               {navNodes}
             </ul>
           </div>
+          <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index012"/>
         <Message/>
