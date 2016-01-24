@@ -130,21 +130,24 @@ var Index002 = React.createClass({
        );
     }.bind(this));
     return (
-      <div className="container">
-        <div className="leftBg">
-          <div className="logo002" style={{display:this.state.logo?'block':'none'}}>
-            <img src={global.img+this.state.logo}/>
+      <div>
+        <div className="container">
+          <div className="leftBg">
+            <div className="logo002" style={{display:this.state.logo?'block':'none'}}>
+              <img src={global.img+this.state.logo}/>
+            </div>
+            <img src="" width="100%"/>
           </div>
-          <img src="" width="100%"/>
+          <div className="verticalMenu">
+            <ul className="menu_list">
+              {navNodes}
+            </ul>
+          </div>
+          <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+          imgUrl={global.img+this.state.shareImg} target="index002"/>
+          <Message/>
         </div>
-        <div className="verticalMenu">
-          <ul className="menu_list">
-            {navNodes}
-          </ul>
-        </div>
-        <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={global.img+this.state.shareImg} target="index002"/>
-        <Message/>
+        <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
       </div>
     );
   },

@@ -74,7 +74,7 @@ var Index010 = React.createClass({
 							</ul>
 						</div>
             <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
-					<Share title={"大成金融律师团队微网站"} desc={"大成金融律师团队专注于融资租赁、银行、保险、信托、家族办公室咨询服务、保理、互联网金融、金融衍生品"} 
+					  <Share title={"大成金融律师团队微网站"} desc={"大成金融律师团队专注于融资租赁、银行、保险、信托、家族办公室咨询服务、保理、互联网金融、金融衍生品"} 
         imgUrl={global.img+"dcjr20160108111315.jpg"} target="index010"/>
         <Message/>
 				</div>
