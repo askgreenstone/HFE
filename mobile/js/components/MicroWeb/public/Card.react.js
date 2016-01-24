@@ -169,7 +169,7 @@ var Card = React.createClass({
       )
     }else{
        return(
-          <div>微名片未编辑，请到后台管理页面编辑</div>
+          <div className="card_unedit">微名片未编辑，请到后台管理页面编辑</div>
         )
     }
   }
