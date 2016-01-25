@@ -958,6 +958,7 @@ footer {
   font-style: normal;
   display: inline-block;
   margin-right: 10px;
+  border-radius: 50%;
 }
 .mb_input textarea{
   border: 1px solid #ccc;
@@ -1114,6 +1115,7 @@ footer {
   border: 1px dashed #ccc;
   flex:3;
   overflow: hidden;
+  height: 600px;
 }
 .step2_right{
   flex:2;
@@ -1154,6 +1156,7 @@ footer {
 .card1_left{
   border: 1px dashed #ccc;
   flex:3;
+  height: 300px;
 }
 .card1_right{
   flex:2;
@@ -1170,7 +1173,8 @@ footer {
   background-color: rgba(204, 204, 204, 0.7);
 }
 .card1_preview{
-  border: 1px dashed #ccc;
+  /*border: 1px dashed #ccc;*/
+  background-color: rgba(204, 204, 204, 0.25);
   height: 70px;
   width: 70px;
   display: inline-block;
