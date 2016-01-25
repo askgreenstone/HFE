@@ -104,6 +104,9 @@ var Location = React.createClass({
     $('body').css({'background':'url(image/map.png)','background-size':'cover'});
     this.getLocationInfo();
   },
+  componentWillMount: function(){
+    // this.getLocationInfo();
+  },
   render: function() {
       return ( 
         <div className="location_page">

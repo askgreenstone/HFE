@@ -93,12 +93,14 @@ var Location = React.createClass({
         });
     },
     componentDidMount: function(){
+      // this.wxSignature();
+    },
+    componentWillMount: function(){
       this.wxSignature();
     },
     render: function() {
         return ( 
           <div>  
-          <div onClick={this.wxSignature}></div>
           <Message/>
           </div>
         );
