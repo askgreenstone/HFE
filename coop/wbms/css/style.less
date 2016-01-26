@@ -82,8 +82,8 @@ p{
     -webkit-box-sizing:border-box;
     div {
         width:100%;
-        height:3.6rem;
-        line-height:3.6rem;
+        height:3rem;
+        line-height:3rem;
         text-align:center;
         margin-bottom:1rem;
         color:#fff;
@@ -109,6 +109,9 @@ p{
             color:#fff;
             font-family:'纤黑';
             font-size:@m-size;
+            cursor:pointer;
+            box-sizing:border-box;
+            -webkit-box-sizing:border-box;
         }
         a {
             float:left;
@@ -129,8 +132,8 @@ p{
 }
 .index_button {
     width:40%;
-    height:3.6rem;
-    line-height:3.6rem;
+    height:3rem;
+    line-height:3rem;
     color:#fff;
     text-align:center;
     font-family:'中黑';
@@ -140,6 +143,10 @@ p{
     position:absolute;
     left:30%;
     bottom:5rem;
+    cursor:pointer;
+    a {
+        color:#fff;
+    }
     span {
         width:8px;
         height:8px;
@@ -176,12 +183,12 @@ p{
     height:100%;
     background:url('../image/bg3.png') no-repeat;
     background-size:cover;
-    padding-top:4rem;
+    padding-top:3rem;
     box-sizing:border-box;
     -webkit-box-sizing:border-box;
 }
 .reg_head {
-    margin:-1rem auto 2rem;
+    margin:0 auto 2rem;
 }
 .reg_main {
     width:100%;
@@ -194,8 +201,8 @@ p{
     width:100%;
     dislay:box;
     display:-webkit-box;
-    height:3.6rem;
-    line-height:3.6rem;
+    height:3rem;
+    line-height:3rem;
     margin-bottom:1rem;
     span {
         width:21%;
@@ -203,12 +210,12 @@ p{
         text-align:right;
         display:block;
         border:1px solid transparent;
-        padding: 1px 10px 0 0;
+        padding: 0 10px 0 0;
         box-sizing:border-box;
         -webkit-box-sizing:border-box;
         color:#fff;
         font-family:'中黑';
-        font-size:@xl-size;
+        font-size:@l-size;
     }
     input {
         box-flex:1;
@@ -221,7 +228,7 @@ p{
         color:#fff;
         outline:none;
         font-family:'中黑';
-        font-size:@l-size;
+        font-size:@m-size;
     }
     input[type='button'] {
         width:55%;
@@ -234,11 +241,11 @@ p{
 }
 .reg_tip {
     width:100%；
-    height:3.6rem;
-    line-height:3.6rem;
+    height:3rem;
+    line-height:3rem;
     text-align:center;
     font-family:'中黑';
-    font-size:@l-size;
+    font-size:@m-size;
     color:#fff;
     position:relative;
     label {
@@ -250,7 +257,9 @@ p{
         background-size:cover;
         position:absolute;
         top:25%;
-        left:25%;
+        left:22%;
+        cursor:pointer;
+        margin-right:1rem;
     }
     input:checked+label{
         background-image:url('../image/checked.png');
@@ -291,23 +300,23 @@ p{
     height:100%;
     background:url('../image/bg4.png') no-repeat;
     background-size:cover;
-    padding-top:4rem;
+    padding-top:3rem;
     box-sizing:border-box;
     -webkit-box-sizing:border-box;
 }
 .share_head {
-    margin:-1rem auto 1rem;
+    margin:0 auto 1rem;
 }
 .share_main div{
     text-align:left;
     margin-bottom:0.5rem;
     font-family:'中黑';
-    font-size:@l-size;
+    font-size:@m-size;
 }
 .share_main input{
     width:100%;
-    height:3.6rem;
-    line-height:3.6rem;
+    height:3rem;
+    line-height:3rem;
     background:transparent;
     border:1px solid #fff;
     text-indent:10px;
@@ -336,11 +345,7 @@ p{
     display:-webkit-box;
     position:relative;
 }
-.share_main input#icon {
-    width: 40%;
-    height: 3.6rem;
-    display:block;
-}
+
 
 .share_button {
     top:0;
@@ -361,14 +366,14 @@ p{
     height:100%;
     background:url('../image/bg5.png') no-repeat;
     background-size:cover;
-    padding-top:4rem;
+    padding-top:3rem;
     box-sizing:border-box;
     -webkit-box-sizing:border-box;
 }
 .template_head {
     text-align:left;
     text-indent:10%;
-    margin: -1rem auto 2rem;
+    margin: 0 auto 2rem;
 }
 
 /*微名片*/
@@ -388,6 +393,66 @@ p{
     top:0px;
     margin-bottom:1rem;
 }
+.index_main div.card_box {
+    height:6rem;
+}
+.card_box label{
+    width:6rem;
+    height:6rem;
+    display:block;    
+    background:url('../image/plus.png') no-repeat;
+    background-size:cover;
+    cursor:pointer;
+}
+.index_main div.card_area {
+    height:6rem;
+}
+.card_area textarea {
+    box-fkex:1;
+    -webkit-box-flex:1;
+    height:100%;
+    display:block;
+    background:transparent;
+    border:1px solid #fff;
+    text-indent:10px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    color:#fff;
+    font-family:'纤黑';
+    font-size:@l-size;
+}
+
+
+/*主题背景*/
+.themeBg {
+    width:100%;
+    height:100%;
+    background:url('../image/bg7.png');
+    background-size:cover;
+    padding:4rem 0 1rem;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+.themeBg_head {
+    margin:-1rem auto 2rem;
+    text-align:left;
+    text-indent:10%;
+}
+.themeBg_main {
+    width:60%;
+    padding:0;
+    margin:1rem auto;
+}
+.themeBg_main img{
+    width:100%;
+    display:block;
+}
+.themeBg_button {
+    width:30%;
+    right:-5rem;
+    top:3rem;
+}
+
 
 
 /*适配手机*/
@@ -403,17 +468,24 @@ p{
     }
     .index_button {
         bottom:10rem;
-        height:4rem;
-        line-height:4.5rem;
+        height:3.6rem;
+        line-height:3.6rem;
     }
     .reg_button {
-        bottom:6rem;
+        bottom:5rem;
     }
     .index_main div{
         height:4rem;
     }
     .reg_main div input[type='button']{
         width:50%;
+    }
+    .index_main div.card_box {
+        height:7rem;
+    }
+    .card_box label{
+        width:7rem;
+        height:7rem;
     }
 }
 
@@ -423,13 +495,23 @@ p{
     }
     .index_button {
         bottom:12rem;
-        height:4.5rem;
-        line-height:4.5rem;
+        height:4rem;
+        line-height:4rem;
+    }
+    .reg_button {
+        bottom:8rem;
     }
     .index_main div{
         height:4.5rem;
     }
     .reg_main div input[type='button']{
         width:50%;
+    }
+    .index_main div.card_box {
+        height:8rem;
+    }
+    .card_box label{
+        width:8rem;
+        height:8rem;
     }
 }
