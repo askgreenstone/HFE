@@ -73,7 +73,7 @@ p {
   margin-bottom: 1rem;
   color: #fff;
   font-family: '纤黑';
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 .index_main div span {
   height: 100%;
@@ -102,7 +102,7 @@ p {
 .index_main div a {
   float: left;
   font-family: '纤黑';
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #fff;
   line-height: 2rem;
 }
@@ -186,6 +186,7 @@ p {
   height: 3.6rem;
   line-height: 3.6rem;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 .reg_main div span {
   width: 21%;
@@ -198,7 +199,6 @@ p {
   -webkit-box-sizing: border-box;
   color: #fff;
   font-family: '中黑';
-  font-size: 1.5rem;
 }
 .reg_main div input {
   box-flex: 1;
@@ -219,6 +219,7 @@ p {
   margin-left: 10px;
   text-indent: 0px;
   height: 100%;
+  font-size: 1.4rem;
 }
 .reg_tip {
   width: 100%；
@@ -301,7 +302,7 @@ p {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   font-family: '纤黑';
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #fff;
 }
 .share_main textarea {
@@ -381,7 +382,7 @@ p {
   height: 6rem;
 }
 .card_area textarea {
-  box-fkex: 1;
+  box-flex: 1;
   -webkit-box-flex: 1;
   height: 100%;
   display: block;
@@ -392,7 +393,7 @@ p {
   -webkit-box-sizing: border-box;
   color: #fff;
   font-family: '纤黑';
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 /*主题背景*/
 .themeBg {
@@ -439,7 +440,7 @@ p {
     line-height: 4rem;
   }
   .reg_button {
-    bottom: 5rem;
+    bottom: 3rem;
   }
   .index_main div {
     height: 4rem;
@@ -465,7 +466,7 @@ p {
     line-height: 4.5rem;
   }
   .reg_button {
-    bottom: 8rem;
+    bottom: 6rem;
   }
   .index_main div {
     height: 4.5rem;
