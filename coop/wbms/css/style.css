@@ -306,7 +306,7 @@ p {
 }
 .share_main textarea {
   width: 100%;
-  height: 6rem;
+  height: 9rem;
   line-height: 3rem;
   background: transparent;
   border: 1px solid #fff;
@@ -330,8 +330,8 @@ p {
   height: 8px;
 }
 .share_main div.icon {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border: 1px solid #fff;
 }
 /*选择模板页*/
