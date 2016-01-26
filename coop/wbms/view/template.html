@@ -2,23 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>移动建站</title>
+  <title>选择模版</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
   <meta name="x5-orientation" content="portrait">
+
+  <link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../css/default.css">
+	<link rel="stylesheet" type="text/css" media="screen,print" href="../css/image-gallery-three.css" />
+  <link rel="stylesheet" type="text/css" media="screen,print" href="../css/style.css" />
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 	<div id="wrap">
 		<div class="template">
-			<div class="index_head template_head">选择模板</div>
-			<ul class="template_list">
-				<li><img src="../image/1.png"></li>
-				<li><img src="../image/2.png"></li>
-				<li><img src="../image/3.png"></li>
-			</ul>
+			<div class="index_head template_head" style="text-align:center;text-indent:0;">选择模板</div>
+			<!-- <ul class="template_list">
+				<li><img src="../image/themes/1.png"></li>
+				<li><img src="../image/themes/2.png"></li>
+				<li><img src="../image/themes/3.png"></li>
+				<li><img src="../image/themes/4.png"></li>
+				<li><img src="../image/themes/5.png"></li>
+				<li><img src="../image/themes/6.png"></li>
+			</ul> -->
+			<div class="box"></div>
+			<div class="index_button" style="bottom:4rem;"><span></span><span></span><span></span><span></span>下一步</div>
 		</div>
 		
 	</div>
+	<script type="text/javascript" src="../lib/zepto.min.js"></script>
+	<script type="text/javascript" src="../lib/three.min.js"></script>
+	<script type="text/javascript" src="../lib/assets.js"></script>
+	<script type="text/javascript" src="../lib/preloadjs.min.js"></script>
+	<script type="text/javascript" src="../lib/TweenMax.min.js"></script>
+	<script type="text/javascript" src="../lib/Stats.js"></script>
+	<script type="text/javascript" src="../lib/image-gallery-three.js"></script>
+	<script type='text/javascript'>//<![CDATA[
+	$(function(){
+	    var box = $(".box").ig3js({
+	        manifest: [
+	            {src:"1.png", id:"image1"},
+	            {src:"2.png", id:"image2"},
+	            {src:"3.png", id:"image3"},
+	            {src:"4.png", id:"image4"},
+	            {src:"5.png", id:"image5"},
+	            {src:"6.png", id:"image6"},
+	            {src:"7.png", id:"image7"}
+	        ],
+	        imagePath: '../image/themes/',
+	        alphaBackground: true,
+	        // ambientLight:'#fff',
+	        // light:'#fff;',
+	        dx:'300',
+	        planeSize:'350',
+	        onNavigateComplete: function(obj){
+	       //     console.log("navigation complete");
+	           console.log(obj);
+	        }
+	    });
+
+	    //初始化
+	    function initAll(){
+	    	var ctop,cmargin,cwidth,cheight;
+	    	//适配屏幕宽度
+	    	if(window.screen.width < 320 || window.screen.width == 320){
+	    		ctop='-12%';
+	    		cmargin='-140px';
+	    		cwidth='280px';
+	    		cheight='800px';
+	    	}else if(window.screen.width > 320 && window.screen.width < 375 || window.screen.width == 375){
+	    		ctop='-12%';
+	    		cmargin='-165px';
+	    		cwidth='330px';
+	    		cheight='905px';
+	    	}
+	    	else if(window.screen.width > 375 && window.screen.width < 414 || window.screen.width == 414){
+	    		ctop='-12%';
+	    		cmargin='-180px';
+	    		cwidth='360px';
+	    		cheight='1060px';
+	    	}
+
+	    	$('body').css('overflow','hidden');
+		    $('canvas').parent().css({
+		    	position: 'absolute',
+		    	left: '50%',
+	    		top: ctop,
+	    		marginLeft: cmargin
+	    	});
+		    $('canvas').css({
+		    	width:cwidth,
+		    	height:cheight
+		    });
+	    }
+
+	    //判断滑动方向
+	    function swipeDirection(x1, x2, y1, y2) {
+         var xDelta = Math.abs(x1 - x2), yDelta = Math.abs(y1 - y2)
+         return xDelta >= yDelta ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+     	}
+
+     	//
+     	var x1,y1,x2,y2,swipeX,swipeY ;
+			document.addEventListener('touchstart',function(event){
+			    x1 = event.targetTouches[0].screenX ;
+			    y1 = event.targetTouches[0].screenY ;
+			    swipeX = true;
+			    swipeY = true ;
+			})
+			document.addEventListener('touchmove',function(event){
+		      x2 = event.targetTouches[0].screenX ;
+		      y2 = event.targetTouches[0].screenY ;
+		  })
+		  document.addEventListener('touchend',function(event){
+		  	if(swipeX && Math.abs(x2-x1)-Math.abs(y2-y1)>0)  //左右滑动
+		      {
+		          event.stopPropagation();//组织冒泡
+		          event.preventDefault();//阻止浏览器默认事件
+		          swipeY = false ;
+		          //左右滑动
+		          var flag = swipeDirection(x1, x2, y1, y2);
+		          console.log(flag);
+		          if(flag == 'Left'){
+		          	box.navigate.next();
+        				return false;
+		          }else if(flag == 'Right'){
+		          	box.navigate.prev();
+        				return false;
+		          }
+		      }
+		      else if(swipeY && Math.abs(x2-x1)-Math.abs(y2-y1)<0){  //上下滑动
+		          swipeX = false ;
+		          //上下滑动，使用浏览器默认的上下滑动
+		      }
+		  });
+
+	    for(count=1; count<=7; count++){
+	        $(".goto").append('<a href="#" class="goto'+count+'" pos="'+(count-1)+'"> '+count+' </a>');
+	        $(".goto"+count).click(function(){
+	            box.navigate.goTo($(this).attr("pos"));
+	            return false;
+	        });
+	    }
+
+	    initAll();
+
+	});//]]>
+
+	</script>
 </body>
 </html>
