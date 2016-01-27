@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>选择模版</title>
+  <title>微网站主题定制</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
   <meta name="x5-orientation" content="portrait">
@@ -16,7 +16,7 @@
 <body>
 	<div id="wrap">
 		<div class="template">
-			<div class="index_head template_head" style="text-align:center;text-indent:0;">选择模板</div>
+			<div id="template_title" class="index_head template_head" style="text-align:center;text-indent:0;"></div>
 			<!-- <ul class="template_list">
 				<li><img src="../image/themes/1.png"></li>
 				<li><img src="../image/themes/2.png"></li>
@@ -26,7 +26,7 @@
 				<li><img src="../image/themes/6.png"></li>
 			</ul> -->
 			<div class="box"></div>
-			<div class="index_button" style="bottom:4rem;"><span></span><span></span><span></span><span></span>下一步</div>
+			<div class="index_button" style="bottom:3.5rem;" onclick="test()"><span></span><span></span><span></span><span></span>下一步</div>
 		</div>
 		
 	</div>
@@ -53,23 +53,50 @@
 	        alphaBackground: true,
 	        // ambientLight:'#fff',
 	        // light:'#fff;',
-	        dx:'300',
-	        planeSize:'350',
+	        dx:300,
+	        planeSize:350,
 	        onNavigateComplete: function(obj){
 	       //     console.log("navigation complete");
 	           console.log(obj);
 	        }
 	    });
 
+	    //判断客户端类型
+	    function judgeClient(){
+	    	var u = navigator.userAgent, app = navigator.appVersion;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+				var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if(isiOS){
+					$('#template_title').text('滑动选择模版');
+					return true;
+				}else{
+					$('#template_title').text('点击选择模版');
+					return false;
+				}
+	    }
+	    
+	    initAll();
 	    //初始化
 	    function initAll(){
-	    	var ctop,cmargin,cwidth,cheight;
+	    	// judgeClient();
+	    	if(judgeClient()){
+	    		//android 500,ios 690
+	    		if(window.screen.width == 320){
+	    			var switchHeight = '480px';
+	    		}else{
+	    			var switchHeight = '690px';
+	    		}
+	    	}else{
+	    		var switchHeight = '500px';
+	    	}
+	    	// alert(window.screen.width);
+	    	var ctop,cmargin,cwidth,cheight,ctemp;
 	    	//适配屏幕宽度
 	    	if(window.screen.width < 320 || window.screen.width == 320){
 	    		ctop='-12%';
 	    		cmargin='-140px';
 	    		cwidth='280px';
-	    		cheight='800px';
+	    		cheight='750px';
 	    	}else if(window.screen.width > 320 && window.screen.width < 375 || window.screen.width == 375){
 	    		ctop='-12%';
 	    		cmargin='-165px';
@@ -77,22 +104,36 @@
 	    		cheight='905px';
 	    	}
 	    	else if(window.screen.width > 375 && window.screen.width < 414 || window.screen.width == 414){
-	    		ctop='-12%';
+	    		ctop='-16%';
 	    		cmargin='-180px';
 	    		cwidth='360px';
 	    		cheight='1060px';
+	    	}else if(window.screen.width > 414 && window.screen.width < 1080||window.screen.width == 1080){
+	    		ctop='12%';
+	    		cmargin='-179px';
+	    		cwidth='358px';
+	    		cheight='950px';
+	    		ctemp = '750px';
+	    	}else if(window.screen.width > 1080 && window.screen.width < 1152||window.screen.width == 1152){
+	    		ctop='-12%';
+	    		cmargin='-179px';
+	    		cwidth='358px';
+	    		cheight='750px';
+	    		ctemp = '750px';
 	    	}
 
-	    	$('body').css('overflow','hidden');
 		    $('canvas').parent().css({
 		    	position: 'absolute',
 		    	left: '50%',
 	    		top: ctop,
-	    		marginLeft: cmargin
+	    		marginLeft: cmargin,
+	    		height: switchHeight,
+    			overflowY: 'hidden'
 	    	});
 		    $('canvas').css({
 		    	width:cwidth,
-		    	height:cheight
+		    	height:cheight,
+		    	marginTop:ctemp
 		    });
 	    }
 
@@ -102,19 +143,19 @@
          return xDelta >= yDelta ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
      	}
 
-     	//
+     	//滑动手势判断
      	var x1,y1,x2,y2,swipeX,swipeY ;
-			document.addEventListener('touchstart',function(event){
+			$(document).on('touchstart',function(event){
 			    x1 = event.targetTouches[0].screenX ;
 			    y1 = event.targetTouches[0].screenY ;
 			    swipeX = true;
 			    swipeY = true ;
 			})
-			document.addEventListener('touchmove',function(event){
+			$(document).on('touchmove',function(event){
 		      x2 = event.targetTouches[0].screenX ;
 		      y2 = event.targetTouches[0].screenY ;
 		  })
-		  document.addEventListener('touchend',function(event){
+		  $(document).on('touchend',function(event){
 		  	if(swipeX && Math.abs(x2-x1)-Math.abs(y2-y1)>0)  //左右滑动
 		      {
 		          event.stopPropagation();//组织冒泡
@@ -137,6 +178,21 @@
 		      }
 		  });
 
+		  //横屏检测
+			window.addEventListener('orientationchange', function(event){
+			    if ( window.orientation == 180 || window.orientation==0 ) {
+			        window.location.reload();
+			        // $('.box').css('display','block');
+			        initAll();
+			    }
+			    if( window.orientation == 90 || window.orientation == -90 ) {
+			        $('canvas').css('display','none');
+			        setTimeout(function(){
+			          alert('横屏体验较差，请竖屏查看');
+			        },500);
+			    }
+			}); 
+
 	    for(count=1; count<=7; count++){
 	        $(".goto").append('<a href="#" class="goto'+count+'" pos="'+(count-1)+'"> '+count+' </a>');
 	        $(".goto"+count).click(function(){
@@ -145,10 +201,10 @@
 	        });
 	    }
 
-	    initAll();
-
 	});//]]>
-
+	function test(){
+		alert('aaa');
+	}
 	</script>
 </body>
 </html>
