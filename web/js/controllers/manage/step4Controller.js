@@ -135,6 +135,7 @@ define(['App','Sortable'], function(app) {
 
         //提交菜单更新数据
         vm.submitAllInfo = function(flag){
+          Common.getLoading(true);
           if(vm.serverMenuCount > vm.menuCount){
             alert('菜单数目过多，请重新选择！');
             return;
@@ -146,21 +147,22 @@ define(['App','Sortable'], function(app) {
           //组织提交数据
           var submitInfo = [];
           $('.step4_list li').each(function(i){
+            console.log('english:'+$('.step4_list .right>.step4_english').eq(i).val());
              var tempInfo = $('.step4_list li>[type=hidden]').eq(i).val();
              var tempNc = $('.step4_list .right>b').eq(i).find('span').filter('.active').attr('value');
              submitInfo.push({
               nt:parseInt($('.step4_list li').eq(i).attr('id')),
               miid:JSON.parse(tempInfo).miid,
               tn:$('.step4_list .left input').eq(i).val(),
-              etn:$('.step4_list .right>input').eq(i).val(),
-              ac:$('.step4_list .right>input').eq(i+1).val(),
+              etn:$('.step4_list .right>.step4_english').eq(i).val(),
+              ac:$('.step4_list .right>.step4_ac').eq(i).val(),
               mt:JSON.parse(tempInfo).mt,
               //特定菜单0,介绍页为1,内容列表2(微相册菜单需要置为3)
               nc:tempNc?parseInt(tempNc):(JSON.parse(tempInfo).mt==5?3:-1),
               mo:parseInt($('.step4_list li').eq(i).attr('value'))
             });
           });
-          console.log(submitInfo);
+          // console.log(submitInfo);
           //提交后台数据
           $http({
                 method: 'POST',
@@ -171,15 +173,17 @@ define(['App','Sortable'], function(app) {
                 data: {newType:submitInfo}
             }).
             success(function(data, status, headers, config) {
+                Common.getLoading(false);
                 console.log(data);
                 if(data.c == 1000){
                   vm.getServerMenuList();
                   if(flag){
-                    vm.menuLink('step5');
+                    // vm.menuLink('step5');
                   }
                 }
             }).
             error(function(data, status, headers, config) {
+                Common.getLoading(false);
                 // console.log(data);
                 alert('网络连接错误或服务器异常！');
             });
