@@ -152,8 +152,8 @@ define(['App','Sortable'], function(app) {
               nt:parseInt($('.step4_list li').eq(i).attr('id')),
               miid:JSON.parse(tempInfo).miid,
               tn:$('.step4_list .left input').eq(i).val(),
-              etn:JSON.parse(tempInfo).etn,
-              ac:$('.step4_list .right>input').eq(i).val(),
+              etn:$('.step4_list .right>input').eq(i).val(),
+              ac:$('.step4_list .right>input').eq(i+1).val(),
               mt:JSON.parse(tempInfo).mt,
               //特定菜单0,介绍页为1,内容列表2(微相册菜单需要置为3)
               nc:tempNc?parseInt(tempNc):(JSON.parse(tempInfo).mt==5?3:-1),
@@ -374,6 +374,8 @@ define(['App','Sortable'], function(app) {
                 if(data.c == 1000){
                   vm.microWebId = data.sid;
                   vm.menuCount = data.sbn;
+                  //smt=1,中文加logo组合；smt=2，中英文组合
+                  vm.languageType= data.smt;
                   vm.getServerMenuList();
                 }
             }).
