@@ -39,6 +39,7 @@ define(['App'], function(app) {
             $('#themeCropper').cropper({
                 aspectRatio: ar2,
                 preview: '#img_preview',
+                viewMode:1,
                 crop: function(e) {
                     // Output the result data for cropping image.
                     // console.log(e.x);
