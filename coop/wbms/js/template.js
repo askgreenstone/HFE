@@ -3,13 +3,23 @@
 // 	console.log(data);
 // });
 
-Zepto(function($){
-  var api =new Api();
-  $('#custom_begin').click(function(event) {
+Zepto(function($) {
+    var api = new Api();
     var sess = Common.getUrlParam('session');
-  	window.location.href = 'template.html?session='+sess;
-  });
-  $('#custom_logout').click(function(event) {
-    window.location.href = 'template.html';
-  });
+    $('#template_next').click(function(event) {
+	  	window.location.href = 'themebg.html?session='+sess;
+	  });
+    function getAllModel() {
+    	$.ajax({
+			    type : 'POST',
+			    url : 'http://t-dist.green-stone.cn/exp/ChooseMicWebModel.do?session='+ sess,
+			    success : function(data) {
+			      console.log(data);
+			    },
+			    error : function(error){
+			      alert('网络连接错误或服务器异常！');
+			    }
+			  })
+    }
+    getAllModel();
 })
