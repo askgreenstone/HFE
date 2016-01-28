@@ -178,7 +178,7 @@ define(['App','Sortable'], function(app) {
                 if(data.c == 1000){
                   vm.getServerMenuList();
                   if(flag){
-                    // vm.menuLink('step5');
+                    vm.menuLink('step5');
                   }
                 }
             }).
