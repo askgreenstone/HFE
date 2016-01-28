@@ -138,6 +138,7 @@ define(['App','Sortable'], function(app) {
           Common.getLoading(true);
           if(vm.serverMenuCount > vm.menuCount){
             alert('菜单数目过多，请重新选择！');
+            Common.getLoading(false);
             return;
           }
           //列表重新排序
