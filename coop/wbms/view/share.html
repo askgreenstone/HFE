@@ -14,13 +14,13 @@
 			<div class="index_head share_head">首页微信分享设置</div>
 			<div class="index_main share_main">
 				<div>分享标题</div>
-				<input type="text" placeholder="张X律师微网站">
+				<input type="text" id="title" placeholder="张X律师微网站">
 				<div>分享摘要</div>
-				<textarea placeholder="分享摘要分享摘要分享摘要分享摘要"></textarea>
+				<textarea id="desc" placeholder="分享摘要分享摘要分享摘要分享摘要"></textarea>
 				<div class="share_icon"><span>分享图标</span><label for="icon" class="index_button share_button"><span></span><span></span><span></span><span></span>选择图标</label><input id="icon" type="file" style="display:none"></div>
 				<div class="icon"></div>
 			</div>
-			<div class="index_button"><span></span><span></span><span></span><span></span><a href="custom.html">下一步</a></div>
+			<div class="index_button"><span></span><span></span><span></span><span></span><a href="javascript:void(0)" onclick="setWxShare()">下一步</a></div>
 		</div>
 	</div>
 	<script type="text/javascript" src="../lib/zepto.min.js"></script>

@@ -306,6 +306,7 @@ p {
   font-size: 1.4rem;
   -webkit-appearance: none;
   outline: none;
+  resize: none;
 }
 .share_icon {
   margin-top: 1rem;
@@ -388,6 +389,7 @@ p {
   font-size: 1.4rem;
   -webkit-appearance: none;
   outline: none;
+  resize: none;
 }
 /*主题背景*/
 .themeBg {
@@ -405,19 +407,31 @@ p {
   text-indent: 10%;
 }
 .themeBg_main {
-  width: 60%;
-  padding: 0;
+  width: 80%;
+  height: 30rem;
   margin: 1rem auto;
-}
-.themeBg_main img {
-  width: 100%;
-  display: block;
 }
 .themeBg_button {
   position: absolute;
   width: 30%;
   left: 50%;
   top: 1rem;
+}
+.themeBg_input {
+  position: absolute;
+  width: 30%;
+  left: 50%;
+  top: 1rem;
+  height: 3.6rem;
+  line-height: 3.6rem;
+  color: #fff;
+  text-align: center;
+  font-family: '中黑';
+  font-size: 1.6rem;
+  border: 1px solid #fff;
+  margin: 2rem auto;
+  cursor: pointer;
+  opacity: 0;
 }
 /*适配手机*/
 @media screen and (max-width: 360px) {
@@ -432,7 +446,11 @@ p {
   #wrap {
     height: 65rem;
   }
-  .index_button {
+  .themeBg_main {
+    height: 35rem;
+  }
+  .index_button,
+  .themeBg_input {
     height: 4rem;
     line-height: 4rem;
   }
@@ -457,7 +475,11 @@ p {
   #wrap {
     height: 65rem;
   }
-  .index_button {
+  .themeBg_main {
+    height: 40rem;
+  }
+  .index_button,
+  .themeBg_input {
     height: 4.5rem;
     line-height: 4.5rem;
   }

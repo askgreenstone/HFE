@@ -1,5 +1,5 @@
 var session = Common.getUrlParam('session'),
-    globalUrl = Common.getGlobalUrl(),
+    globalUrl = Common.globalJltUrl(),
     CardID = '';
 console.log(session);
 console.log(globalUrl);
@@ -11,13 +11,13 @@ console.log(globalUrl);
 window.onload = function(){
   $.ajax({
     type : 'get',
-    url : 'http://t-dist.green-stone.cn/' + '/exp/GetMicroCardEditStatus.do?session='+ session,
+    url : globalUrl + '/exp/GetMicroCardEditStatus.do?session='+ session,
     success : function(data) {
       console.log(data);
       if(data.s == 1){
         $.ajax({
           type : 'get',
-          url : 'http://t-dist.green-stone.cn/' + '/exp/QueryMicroCard.do?session='+ session,
+          url : globalUrl + '/exp/QueryMicroCard.do?session='+ session,
           success : function(data) {
             console.log(data);
             CardID = data.cId;
