@@ -61,7 +61,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
               ntype:1
             }
           }
-          
+          Common.getLoading(true);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/SaveNewsContent.do',
@@ -71,12 +71,14 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 data: datas
             }).
             success(function(data, status, headers, config) {
+                Common.getLoading(false);
                 // console.log(data);
                 if(data.c == 1000){
                   $window.history.back();
                 }
             }).
             error(function(data, status, headers, config) {
+                Common.getLoading(false);
                 // alert('发布失败！');
                 // console.log(data);
                 alert('网络连接错误或服务器异常！');

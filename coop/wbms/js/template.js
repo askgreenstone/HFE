@@ -12,7 +12,7 @@ Zepto(function($) {
     function getAllModel() {
     	$.ajax({
 			    type : 'POST',
-			    url : 'http://t-dist.green-stone.cn/exp/ChooseMicWebModel.do?session='+ sess,
+			    url : 'http://t-dist.green-stone.cn/exp/GetMicWebModel.do?session='+ sess,
 			    success : function(data) {
 			      console.log(data);
 			    },
