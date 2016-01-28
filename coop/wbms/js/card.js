@@ -1,5 +1,5 @@
 var session = Common.getUrlParam('session'),
-    globalUrl = Common.globalJltUrl(),
+    globalUrl = Common.globalDistUrl(),
     CardID = '';
 console.log(session);
 console.log(globalUrl);

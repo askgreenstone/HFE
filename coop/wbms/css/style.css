@@ -172,26 +172,16 @@ p {
   margin: 0 auto 2rem;
 }
 .reg_main {
-  width: 100%;
   padding: 0 5% 0 0;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   margin-bottom: 2rem;
 }
 .reg_main div {
-  width: 100%;
   dislay: box;
   display: -webkit-box;
-  height: 3.6rem;
-  line-height: 3.6rem;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
 }
 .reg_main div span {
   width: 21%;
-  height: 100%;
   text-align: right;
-  display: block;
   border: 1px solid transparent;
   padding: 1% 10px 2% 0;
   box-sizing: border-box;
@@ -200,18 +190,7 @@ p {
   font-family: '中黑';
 }
 .reg_main div input {
-  box-flex: 1;
-  -webkit-box-flex: 1;
-  height: 100%;
-  background: transparent;
   border: 1px solid #fff;
-  display: block;
-  padding-left: 10px;
-  color: #fff;
-  outline: none;
-  font-family: '中黑';
-  font-size: 1.4rem;
-  -webkit-appearance: none;
 }
 .reg_main div input[type='button'] {
   width: 55%;

@@ -1,5 +1,5 @@
 var session = Common.getUrlParam('session'),
-    globalUrl = Common.globalJltUrl(),
+    globalUrl = Common.globalDistUrl(),
     shareId = '',
     tempData = '';
 console.log(session);
