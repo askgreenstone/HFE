@@ -19,7 +19,7 @@ body {
 }
 #wrap {
   width: 100%;
-  height: 55rem;
+  height: 60rem;
 }
 a:link,
 a:visited {
@@ -424,7 +424,7 @@ p {
     font-size: 66.5%;
   }
   #wrap {
-    height: 60rem;
+    height: 65rem;
   }
   .index_button {
     height: 4rem;
