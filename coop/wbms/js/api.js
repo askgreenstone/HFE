@@ -1,4 +1,4 @@
-var server = 'http://dist.green-stone.cn';
+var server = Common.globalDistUrl();
 var verify_url = server + '/comm/Verify.do';
 var reg_url = server + '/exp/Reg.do';
 var forget_pwd_url =  server + '/exp/Pwd.do';

@@ -14,12 +14,20 @@ var Common = {
       return  returnValue;
     } 
   },
-  //获取GlobalUrl
-  getGlobalUrl : function(){
+  //获取transfer url
+  globalTransferUrl : function(){
   	if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
   	    return 'http://t-transfer.green-stone.cn/';
   	}else{
   	    return 'http://transfer.green-stone.cn/';
   	}
+  },
+  //获取dist url
+  globalDistUrl : function(){
+    if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+        return 'http://t-dist.green-stone.cn/';
+    }else{
+        return 'http://dist.green-stone.cn/';
+    }
   }
 }
