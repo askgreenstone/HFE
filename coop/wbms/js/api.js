@@ -8,15 +8,37 @@ var Api;
 Api = (function() {
 	function Api() {}
 
- 	Api.prototype.login = function(username, password, callback) {
- 		return callback();
- 	};
+ 	Api.prototype.login = function(username, password, successCallback,errorCallback) {
+      //1002  ，短时间内输入次数过多，被锁定，需要验证码，来不及就先不做这里了。
+      var uri = username.toLowerCase();
+      var ts = Date.parse(new Date());
+      var nonce = 'BPDDYoz7';
+      
+      var mac = username+ts+nonce+'GET'+this.host+'/usr/Login.do';
+      var pwd = CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex).toUpperCase();
+      result = CryptoJS.HmacSHA1(mac,pwd).toString(CryptoJS.enc.Base64);
+    
+      $.ajax({
+        type:'GET',
+        url:'http://'+this.host+'/usr/Login.do',
+        beforeSend:function(req){
+          
+          var auth = "MAC id=\""+username+"\",ts=\""+ts+"\",nonce=\""+nonce+"\",mac=\""+result+"\"";
+          req.setRequestHeader('Authorization',auth);
+
+        },
+        success:successCallback,
+        error:errorCallback
+      });
+  };
+
  	Api.prototype.verify = function(phonenumber, callback) {
 		$.get(verify_url+'?pn='+phonenumber, function(json){
 			if (callback)
 				callback(json);
 		});
  	};
+
  	Api.prototype.register = function(phonenumber, username, password, vcode, callback) {
  		var data = {};
 		data.pn = phonenumber;
@@ -28,6 +50,7 @@ Api = (function() {
 				callback(json);
 		});
  	};
+
  	Api.prototype.forgetpassword = function(phonenumber, newpassword, vcode, callback) {
  		var data = {};
 		data.pn = phonenumber;
