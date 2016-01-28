@@ -63,7 +63,7 @@ var List1 = React.createClass({
     if(urls.length>0){
       return urls[0];
     }else{
-      return 'image/default.png'
+      return 'image/default3.png'
     }
   },
   componentDidMount: function(){
