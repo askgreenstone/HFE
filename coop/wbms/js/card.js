@@ -1,8 +1,53 @@
+var session = Common.getUrlParam('session'),
+    globalUrl = Common.getGlobalUrl(),
+    CardID = '';
+console.log(session);
+console.log(globalUrl);
 
-var ownUri = Common.getUrlParam('ownuri'),
-    globalUrl = Common.getGlobalUrl();
-// console.log(ownUri);
-// console.log(globalUrl);
+
+//从后台拿数据，拿到的话就回显，没有数据就为空
+//globalUrl  待处理
+//头像二维码 待处理
+window.onload = function(){
+  $.ajax({
+    type : 'get',
+    url : 'http://t-dist.green-stone.cn/' + '/exp/GetMicroCardEditStatus.do?session='+ session,
+    success : function(data) {
+      console.log(data);
+      if(data.s == 1){
+        $.ajax({
+          type : 'get',
+          url : 'http://t-dist.green-stone.cn/' + '/exp/QueryMicroCard.do?session='+ session,
+          success : function(data) {
+            console.log(data);
+            CardID = data.cId;
+            // HeadImg: data.hI;
+            $('#NAME').val(data.nm);
+            $('#Depart').val(data.dp);
+            $('#Rank').val(data.rk);
+            // QRCodeImg: data.QR;
+            $('#Mobile').val(data.Mob);
+            $('#Email').val(data.eml);
+            $('#TelNo').val(data.tel);
+            $('#WebSite').val(data.web);
+            $('#Address').val(data.adr);
+            $('#Region').val(data.rg);
+            $('#Abstract').val(data.abs);
+            $('#Introduction').val(data.itd)    
+          },
+          error : function(){
+            alert('网络连接错误或服务器异常！');
+          }
+        })
+      }
+    },
+    error : function(){
+      alert('网络连接错误或服务器异常！');
+    }
+  })
+}
+
+
 //二维码（不需裁切处理）
 
 function uploadQrcode() {
@@ -19,7 +64,7 @@ function uploadQrcode() {
         // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6 微信分享图标
         $.ajax({
           type : 'post',
-          url : globalUrl + '/exp/ThirdUpload.do?ownuri=' + ownuri + '&type=1',
+          url : globalUrl + '/exp/ThirdUpload.do?session=' + session + '&type=1',
           data : fd,
           success : function(data) {
             console.log(data);
@@ -33,180 +78,193 @@ function uploadQrcode() {
             alert('网络连接错误或服务器异常！');
           }
         })
-        $.ajax(GlobalUrl + '/exp/ThirdUpload.do?ownuri=' + ownuri + '&type=1', fd, {
-            transformRequest: angular.identity,
-            headers: {
-                'Content-Type': undefined
-            }
-        })
-        .success(function(data) {
-            console.log(data);
-            // vm.user.QRCodeImg = data.on;
-            // vm.isQrcodeUpload = true;
-            // setTimeout(function(){
-            //   Common.getLoading(false);
-            // }, 300);
-        })
-        .error(function() {
-            // console.log('error');
-            alert('网络连接错误或服务器异常！');
-        });
     };
-    // r.readAsDataURL(f);
-}
-var selectQrcode = function(){
-  uploadQrcode();
+    r.readAsDataURL(f);
 }
 
 
 //设置微名片信息
 var setBasicInfo = function(){
-  //验证电话格式正确//验证邮箱格式正确//验证所有信息必须填写//提交到数据库保存
-  var regExpTel = /(0?1[358]\d{9})$/,
-      regExpEmail = /^\w+@[\da-z]+\.(com|cn|edu|net|com.cn)$/,
-      regExpTelNo = /(\d{3,4}-)?\d{7,8}/;
-  vm.user.Address_srh = vm.user.Address;
-  if(!vm.isHeadUpload){
-    alert("请上传头像！");
-    return false;
-  }
+  // if(!vm.isHeadUpload){
+  //   alert("请上传头像！");
+  //   return false;
+  // }
 
-  if(!vm.isQrcodeUpload){
-    alert("请上传二维码！");
-    return false;
-  }
+  // if(!vm.isQrcodeUpload){
+  //   alert("请上传二维码！");
+  //   return false;
+  // }
 
   if(!$('#NAME').val()){
     alert("请填写您的姓名！");
     return false;
-  }else if(vm.user.NAME.length>9){
+  }else if($('#NAME').val().length>9){
     alert("姓名长度不能超过九位！"); 
     return false;
   }
 
-  if(!vm.user.Depart){
+
+  if(!$('#Depart').val()){
     alert("请填写您的律所！");
     return false;
-  }else if(vm.user.Depart.length>12){
+  }else if($('#Depart').val().length>12){
     alert("律所长度不能超过十二位！"); 
     return false;
   }
 
-  if(!vm.user.Rank){
-    alert("请填写您的职务！");
-    return false;
-  }else if(vm.user.Rank.length>12){
-    alert("职务长度不能超过十二位！"); 
-    return false;
-  }
 
-  if(!vm.user.Mobile){
+  if(!$('#Mobile').val()){
     alert("请填写您的电话！");  
     return false;
-  }else if(!vm.user.Mobile.match(regExpTel)){
-      alert("电话格式不正确！");
-      return false;
   }
 
-  if(!vm.user.Email){
+  if(!$('#Email').val()){
     alert("请填写您的邮箱！");
     return false; 
   }
 
-  if(!vm.user.TelNo){
+  if(!$('#TelNo').val()){
     alert("请填写您的座机！");
     return false;
   }
 
-  if(!vm.user.WebSite){
+  if(!$('#WebSite').val()){
     alert("请填写您的网址！");
     return false;
-  }else if(!vm.user.WebSite.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g)){
+  }else if(!$('#WebSite').val().match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g)){
     alert("网址格式不正确！")
     return false;
   }
 
-  if(!vm.user.Address){
-    alert("请填写您的地址！");
-    return false;
-  }else if(vm.user.Address.length>30){
-    alert("地址长度不能超过三十位！"); 
+  if(!$('#Region').val()){
+    alert("请填写您的区域位置！");
     return false;
   }
 
-  if(!vm.user.Abstract){
+  if(!$('#Address').val()){
+    alert("请填写您的地址！");
+    return false;
+  }
+
+  if(!$('#Abstract').val()){
     alert("请填写您的简介！");
     return false;
-  }else if(vm.user.Abstract.length>140){
+  }else if($('#Abstract').val().length>140){
     alert("简介长度不能超过一百四十位！"); 
     return false;
   }
 
-  if(!vm.user.Introduction){
+  if(!$('#Introduction').val()){
     alert("请填写您的专业领域！");
     return false;
-  }else if(vm.user.Depart.length>100){
+  }else if($('#Introduction').val().length>100){
     alert("专业领域长度不能超过一百位！"); 
     return false;
   }
 
-  if(vm.state == "do"){
+  var userData = [
+      {
+        "cn": "HeadImg",
+        "cv": "abc.png"
+      },
+      {
+        "cn": "NAME",
+        "cv": $('#NAME').val()
+      },
+      {
+        "cn": "Depart",
+        "cv": $('#Depart').val()
+      },
+      {
+        "cn": "Rank",
+        "cv": $('#Rank').val()
+      },
+      {
+        "cn": "QRCodeImg",
+        "cv": "abc.png"
+      },
+      {
+        "cn": "Mobile",
+        "cv": $('#Mobile').val()
+      },
+      {
+        "cn": "Email",
+        "cv": $('#Email').val()
+      },
+      {
+        "cn": "TelNo",
+        "cv": $('#TelNo').val()
+      },
+      {
+        "cn": "WebSite",
+        "cv": $('#WebSite').val()
+      },
+      {
+        "cn": "Address",
+        "cv": $('#Address').val()
+      },
+      {
+        "cn": "Region",
+        "cv": $('#Region').val()
+      },
+      {
+        "cn": "Address_srh",
+        "cv": $('#Address').val()
+      },
+      {
+        "cn": "Abstract",
+        "cv": $('#Abstract').val()
+      },
+      {
+        "cn": "Introduction",
+        "cv": $('#Introduction').val()
+      }
+  ];
+  
+  console.log(userData);
+  if(state == "do"){ 
     var fd = {
       "tn": "jlt_expmicrocard",
-      "cols": [],
+      "cols": userData,
       "cds":[{
         "cn": "CardID",
-        "cv": vm.CardID
+        "cv": CardID
       }]
     };
-    for (var k in vm.user){
-      fd.cols.push({"cn":k,"cv":vm.user[k]})
-    };
-    console.log(fd);
-    $http({
-        method: 'POST',
-        url: GlobalUrl+'/exp/DataUpdate.do?session='+vm.sess,
-        params: {
-        },
-        data: fd
-      }).
-      success(function(data, status, headers, config) {
-          console.log(data);
-          if(data.c == 1000){
-            $window.location.href = '#/card2?session='+vm.sess;
-          }else if(data.c == 1037){
-            console.log("该用户微名片信息已存在，走update接口")
-          }
-      }).
-      error(function(data, status, headers, config) {
-          // console.log(data);
-          alert('网络连接错误或服务器异常！');
-      });
+    $.ajax({
+      type : 'post',
+      url : globalUrl + '/exp/DataUpdate.do?session='+ session,
+      data : fd,
+      success : function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          window.location.href = 'share.html?session='+session;
+          console.log('fqfqfqfwq')
+        }
+      },
+      error : function(){
+        alert('网络连接错误或服务器异常！');
+      }
+    })
   }else{
     var fd = {
       "tn": "jlt_expmicrocard",
-      "cols": []
+      "cols": userData
     };
-    for (var k in vm.user){
-      fd.cols.push({"cn":k,"cv":vm.user[k]})
-    };
-    console.log(fd);
-    $http({
-        method: 'POST',
-        url: GlobalUrl+'/exp/DataInsert.do?session='+vm.sess,
-        params: {
-        },
-        data: fd
-      }).
-      success(function(data, status, headers, config) {
-          console.log(data);
-          if(data.c == 1000){
-            $window.location.href = '#/card2?session='+vm.sess;
-          }
-      }).
-      error(function(data, status, headers, config) {
-          // console.log(data);
-          alert('网络连接错误或服务器异常！');
-      });
+    $.ajax({
+      type : 'post',
+      url : globalUrl + '/exp/DataInsert.do?session='+ session,
+      data : fd,
+      success : function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          window.location.href = 'share.html?session='+session;
+          console.log('fqfqfqfwq')
+        }
+      },
+      error : function(){
+        alert('网络连接错误或服务器异常！');
+      }
+    })
   }
 }

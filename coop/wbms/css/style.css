@@ -193,7 +193,7 @@ p {
   text-align: right;
   display: block;
   border: 1px solid transparent;
-  padding: 0 10px 0 0;
+  padding: 1% 10px 2% 0;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   color: #fff;
@@ -298,13 +298,14 @@ p {
   line-height: 3rem;
   background: transparent;
   border: 1px solid #fff;
-  padding-left: 10px;
+  text-indent: 10px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   color: #fff;
   font-family: '纤黑';
   font-size: 1.4rem;
   -webkit-appearance: none;
+  outline: none;
 }
 .share_icon {
   margin-top: 1rem;
@@ -368,6 +369,10 @@ p {
 .index_main div.card_area {
   height: 6rem;
 }
+.index_main div.card_area span {
+  padding: 0 10px 0 0;
+  line-height: 2.5rem;
+}
 .card_area textarea {
   box-flex: 1;
   -webkit-box-flex: 1;
@@ -375,13 +380,14 @@ p {
   display: block;
   background: transparent;
   border: 1px solid #fff;
-  padding-left: 10px;
+  text-indent: 10px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   color: #fff;
   font-family: '纤黑';
   font-size: 1.4rem;
   -webkit-appearance: none;
+  outline: none;
 }
 /*主题背景*/
 .themeBg {

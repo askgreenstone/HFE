@@ -386,6 +386,11 @@ define(['App'], function(app) {
             alert("网址格式不正确！")
             return false;
           }
+          
+          if(!vm.user.Region){
+            alert("请填写您的区域位置！");
+            return false;
+          }
 
           if(!vm.user.Address){
             alert("请填写您的地址！");
