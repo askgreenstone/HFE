@@ -23,11 +23,11 @@ var Common = {
   	}
   },
   //获取dist url
-  globalDistUrl : function(){
+  globalJltUrl : function(){
     if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
-        return 'http://t-dist.green-stone.cn/';
+        return 'http://t-jlt.green-stone.cn/';
     }else{
-        return 'http://dist.green-stone.cn/';
+        return 'http://jlt.green-stone.cn/';
     }
   }
 }
