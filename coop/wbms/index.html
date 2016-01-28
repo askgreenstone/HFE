@@ -14,19 +14,26 @@
 			<div class="index_head">律师微应用管理入口</div>
 			<div class="index_main">
 				<div>（请使用律师注册手机号登陆）</div>
-				<div class="border"><span><img src="image/user.png" alt=""></span><input type="text" placeholder="注册手机号"></div>
-				<div class="border"><span><img src="image/pwd.png" alt=""></span><input type="text" placeholder="密码"></div>
+				<div class="border">
+					<span><img src="image/user.png" alt=""></span>
+					<input id="index_phone" type="text" placeholder="注册手机号">
+				</div>
+				<div class="border">
+					<span><img src="image/pwd.png" alt=""></span>
+					<input id="index_pwd" type="password" placeholder="密码">
+				</div>
 				<div><a href="#">忘记密码?</a><a href="view/register.html">注册</a></div>
 			</div>
-			<div class="index_button"><span></span><span></span><span></span><span></span><a href="view/custom.html">登录</a></div>
+			<div id="index_submit" class="index_button"><span></span><span></span><span></span><span></span><a href="javascript:void(0);">登录</a></div>
 		</div>
 	</div>
 	<script src="lib/zepto.min.js"></script>
 	<script src="lib/hmac-md5.js"></script>
 	<script src="http://t-csc.green-stone.cn/lib/sha1.js"></script>
 	<script src="http://t-csc.green-stone.cn/lib/enc-base64-min.js"></script>
+	<script src="js/common.js"></script>
 	<script src="js/api.js"></script>
-	<script src="js/main.js"></script>
+	<script src="js/index.js"></script>
 	<script>
 		// alert(window.screen.width);
 	</script>

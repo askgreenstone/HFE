@@ -35,6 +35,7 @@ define(['App'], function(app) {
             $('#step3Cropper').cropper({
                 aspectRatio: 1 / 1,
                 preview: '#img_preview',
+                // viewMode:1,
                 crop: function(e) {
                     // Output the result data for cropping image.
                     // console.log(e.x);
