@@ -7,9 +7,13 @@ var List1 = React.createClass({
   getInitialState: function(){
     return {articles:[],curSrc:[]};
   },
-  gotoDetail: function(nid){
-    var ownUri = this.getUrlParams('ownUri');
-    location.href = '#articleDetail?nid='+nid+'&ownUri='+ownUri;
+  gotoDetail: function(nid,url){
+    if(url){
+      location.href = url;
+    }else{
+      var ownUri = this.getUrlParams('ownUri');
+      location.href = '#articleDetail?nid='+nid+'&ownUri='+ownUri;
+    }
   },
   getServerInfo: function(){
   var ownUri = this.getUrlParams('ownUri');
@@ -74,7 +78,7 @@ var List1 = React.createClass({
     var articleNodes = this.state.articles.map(function(item,i){
      if(item.ns == '1'){
       return(
-            <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.nId)}>
+            <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.nId,item.refUrl)}>
               <b><img src={this.state.curSrc[i]} width="" height="100%"/></b>
               <span>{item.ntit.length>12?(item.ntit).substring(0,12)+'...':item.ntit}</span>
               <p>{item.na?(item.na.length>30?(item.na).substring(0,30)+'...':item.na):'暂无摘要'}</p>
