@@ -76,7 +76,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                   ntype:2
               }
           }
-          
+          Common.getLoading(true);
           console.dir(datas);
           $http({
               method: 'POST',
@@ -87,12 +87,14 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
               data: datas
           }).
           success(function(data, status, headers, config) {
+              Common.getLoading(false);
               console.log(data);
               if(data.c == 1000){
                 $window.history.back();
               }
           }).
           error(function(data, status, headers, config) {
+              Common.getLoading(false);
               // console.log(data);
               alert('网络连接错误或服务器异常！');
           });
