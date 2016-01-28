@@ -110,6 +110,7 @@ define(['App'], function(app) {
               alert('暂不支持gif！');
               return;
             }
+            Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -127,11 +128,13 @@ define(['App'], function(app) {
                     }
                 })
                 .success(function(data) {
+                  Common.getLoading(false);
                     console.log(data);
                     $('#themeCropper').cropper('destroy');
                     $window.location.href = '#/step3?session='+vm.sess;
                 })
                 .error(function() {
+                  Common.getLoading(false);
                     // console.log('error');
                     alert('网络连接错误或服务器异常！');
                 });
@@ -156,6 +159,7 @@ define(['App'], function(app) {
 
         //裁切素材
         vm.clipSourceImg = function(name){
+          Common.getLoading(true);
           console.log('name:'+name);
           $http({
                 method: 'POST',
@@ -173,12 +177,14 @@ define(['App'], function(app) {
                 }
             }).
             success(function(data, status, headers, config) {
+                Common.getLoading(false);
                 console.log(data);
                 if(data.c == 1000){
                   console.log('clipSourceImg success');
                 }
             }).
             error(function(data, status, headers, config) {
+                Common.getLoading(false);
                 // console.log(data);
                 alert('网络连接错误或服务器异常！');
             });

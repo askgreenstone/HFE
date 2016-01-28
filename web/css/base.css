@@ -1414,7 +1414,7 @@ footer {
   float: left;
   margin-right: 20px;
   margin-top: 22px;
-  height: 95px;
+  height: 100px;
   position: relative;
 }
 .step4_list li>img{
@@ -1428,9 +1428,9 @@ footer {
   /*border: 1px solid red;*/
   display: inline-block;
   width: 25%;
-  padding: 10px;
+  padding: 15px;
 }
-.step4_list .left>i,.step4_list .right>i{
+.step4_list .left>i,.step4_list .right>small{
   font-style: normal;
   font-size: 12px;
   color: #999;
@@ -1457,7 +1457,7 @@ footer {
 }
 .step4_list .right b{
   display: inline-block;
-  margin-top: -10px;
+  margin-top: -20px;
   color: #e30a20;
   font-weight: normal;
   font-size: 12px;
