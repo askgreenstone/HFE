@@ -233,7 +233,7 @@ p{
         height: 22px;
         display: block;
         background-image: url('../image/check.png');
-        background-position: left center;
+        background-position: left top;
         background-repeat: no-repeat;
         cursor: pointer;
         line-height: 22px;
@@ -241,7 +241,7 @@ p{
         -webkit-tap-highlight-color: transparent;
     }
     input:checked+label{
-        background-image:url('../image/checked.png');
+        background-position:left bottom;
     }
 }
 
@@ -359,10 +359,7 @@ p{
     box-sizing:border-box;
     -webkit-box-sizing:border-box;
 }
-.card_button {
-    width:50%;
-    margin-bottom:1rem;
-}
+
 .index_main div.card_box {
     height:6rem;
 }
@@ -370,9 +367,24 @@ p{
     width:6rem;
     height:6rem;
     display:block;    
-    background:url('../image/plus.png') no-repeat;
     background-size:cover;
     cursor:pointer;
+    border:1px solid #fff;
+    background:url('../image/plus.png') no-repeat;
+    background-size:cover;
+}
+.card_box button {
+    width: 6rem;
+    height: 60%;
+    background: skyblue;
+    text-align: center;
+    line-height: 100%;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-left:1rem;
+    outline:none;
+    font-size:@l-size;
 }
 .index_main div.card_area {
     height:6rem;
@@ -398,6 +410,8 @@ p{
     outline:none;
     resize:none;
 }
+
+
 
 
 /*主题背景*/

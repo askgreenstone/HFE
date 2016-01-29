@@ -113,43 +113,43 @@ var Card = React.createClass({
             <img className="ui_header" src={this.state.hI} width="65" height="65"/>
             <p>
               <span>{this.state.nm}</span><br/>
-              <span>{this.state.dp}</span><br/>
-              <span>{this.state.rk}</span>
+              <span style={{display:this.state.dp?'inline':'none'}}>{this.state.dp}</span><br/>
+              <span style={{display:this.state.rk?'inline':'none'}}>{this.state.rk}</span>
             </p>
             <img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
           </div>
           <div className="user_content">
-            <div className="uc_input">
+            <div className="uc_input" style={{display:this.state.Mob?'block':'none'}}>
               <a href={'tel://'+this.state.Mob}>
                 {this.state.Mob}
                 <img src="image/theme002/telphone1.png" width="25" height="25"/>
               </a>
             </div>
-            <div className="uc_input">
+            <div className="uc_input" style={{display:this.state.eml?'block':'none'}}>
               <a href={'mailto:'+this.state.eml}>
                 {this.state.eml}
                 <img src="image/theme002/email.png" width="25" height="25"/>
               </a>
             </div>
-            <div className="uc_input">
+            <div className="uc_input" style={{display:this.state.tel?'block':'none'}}>
               <a href={'tel://'+this.state.tel}>
                 {this.state.tel}
                 <img src="image/theme002/fax.png" width="25" height="25"/>
               </a>
             </div>
-            <div className="uc_input">
+            <div className="uc_input" style={{display:this.state.web?'block':'none'}}>
               <a href={this.state.web}>
                 {this.state.web}
                 <img src="image/theme002/web.png" width="25" height="25"/>
               </a>
             </div>
-            <div className="uc_input fixed">
+            <div className="uc_input fixed" style={{display:this.state.adr?'block':'none'}}>
               <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
                 {this.state.adr}
                 <img src="image/theme002/adress.png" width="25" height="25"/>
               </a>
             </div>
-            <div className="user_intro">
+            <div className="user_intro" style={{display:this.state.Abstract?'block':'none'}}>
               <i>简介</i>
               <p>{this.state.Abstract}
               </p>
