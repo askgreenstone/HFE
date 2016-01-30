@@ -17,13 +17,15 @@
 				<input type="text" id="title" placeholder="张X律师微网站">
 				<div>分享摘要</div>
 				<textarea id="desc" placeholder="分享摘要分享摘要分享摘要分享摘要"></textarea>
-				<div class="share_icon"><span>分享图标</span><label for="icon" class="index_button share_button"><span></span><span></span><span></span><span></span>选择图标</label><input id="icon" type="file" style="display:none"></div>
-				<div class="icon"></div>
+				<div class="share_icon"><span>分享图标</span>
+				<label for="icon" class="index_button share_button"><span></span><span></span><span></span><span></span>选择图标</label>
+				<input id="icon" type="file" style="display:none"></div>
+				<div class="icon"><img id="share_preview" width="80" height="80" src=""></div>
 			</div>
-			<div class="index_button"><span></span><span></span><span></span><span></span><a href="javascript:void(0)" onclick="setWxShare()">下一步</a></div>
+			<div class="index_button"><span></span><span></span><span></span><span></span><a href="javascript:void(0)" onclick="uploadShareImg()">下一步</a></div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../lib/zepto.min.js"></script>
+	<script type="text/javascript" src="../lib/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/common.js"></script>
 	<script type="text/javascript" src="../js/share.js"></script>
 </body>

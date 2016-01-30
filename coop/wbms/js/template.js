@@ -205,12 +205,4 @@ Zepto(function($) {
 			}
 
 			initAll();
-
-	    // for(count=1; count<=7; count++){
-	    //     $(".goto").append('<a href="#" class="goto'+count+'" pos="'+(count-1)+'"> '+count+' </a>');
-	    //     $(".goto"+count).click(function(){
-	    //         box.navigate.goTo($(this).attr("pos"));
-	    //         return false;
-	    //     });
-	    // }
 })
