@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>移动建站</title>
+  <title>选择主题背景</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
   <meta name="x5-orientation" content="portrait">
+  <link rel="stylesheet" href="../css/cropper.min.css">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -13,16 +14,17 @@
 		<div class="themeBg">
 			<div class="index_head themeBg_head">主题背景</div>
 			<div class="themeBg_main">
-				<img src="">
+				<img id="themeCropper" src="">
 			</div>
-			<div class="index_button"><span></span><span></span><span></span><span></span><a href="card.html">下一步</a></div>
+			<div id="themebg_next" class="index_button"><span></span><span></span><span></span><span></span><a href="javascript:void(0);">下一步</a></div>
 			<div class="index_button themeBg_button"><span></span><span></span><span></span><span></span>更换背景</div>
-			<input type="file" class="themeBg_input">
+			<input type="file" id="themebg_choose" class="themeBg_input">
 		</div>
 	</div>
-	<script type="text/javascript" src="../lib/zepto.min.js"></script>
+	<script type="text/javascript" src="../lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../lib/cropper.min.js"></script>
 	<script src="../js/common.js"></script>
 	<script type="text/javascript" src="../js/api.js"></script>
-	<script type="text/javascript" src="../js/template.js"></script>
+	<script type="text/javascript" src="../js/themebg.js"></script>
 </body>
 </html>
