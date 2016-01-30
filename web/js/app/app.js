@@ -41,6 +41,7 @@ define(['RouteResolver','Common'], function() {
                 .when('/chat', route.resolve('Chat', 'chat/','vm'))
                 .when('/circle', route.resolve('Circle', 'circle/','vm'))
                 //Manage
+                .when('/active', route.resolve('Active', 'manage/','vm'))
                 .when('/manage', route.resolve('Manage', 'manage/','vm'))
                 .when('/list', route.resolve('List', 'manage/','vm'))
                 .when('/editor', route.resolve('Editor', 'manage/','vm'))
