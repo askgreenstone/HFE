@@ -1,79 +1,95 @@
 var session = Common.getUrlParam('session'),
-    globalUrl = Common.globalDistUrl(),
     CardID = '',
     state = false;
 console.log(session);
-console.log(globalUrl);
 
 
 //从后台拿数据，拿到的话就回显，没有数据就为空
-//globalUrl  待处理
+//Common.globalDistUrl()  待处理
 //头像二维码 待处理
 jQuery(function($){
 
-    //初始化判断状态
-    $.ajax({
-      type : 'get',
-      url : globalUrl + 'exp/GetMicroCardEditStatus.do?session='+ session,
-      success : function(data) {
-        console.log(data);
-        if(data.s == 1){
-          state = true;
-          $.ajax({
-            type : 'get',
-            url : globalUrl + 'exp/QueryMicroCard.do?session='+ session,
-            success : function(data) {
-              console.log(data);
-              CardID = data.cId;
-              //头像判断
-              if(data.hI){
-                $('#card_box').hide();
-                $('#card_preview').show();
-                $('#card_preview').attr('src',Common.globalTransferUrl()+ data.hI);
-              }
-              
+    //初始化获取用户数据
 
-              $('#NAME').val(data.nm);
-              $('#Depart').val(data.dp);
-              $('#Rank').val(data.rk);
-              // QRCodeImg: data.QR;
-              $('#Mobile').val(data.Mob);
-              $('#Email').val(data.eml);
-              $('#TelNo').val(data.tel);
-              $('#WebSite').val(data.web);
-              $('#Address').val(data.adr);
-              $('#Region').val(data.rg);
-              $('#Abstract').val(data.abs);
-              $('#Introduction').val(data.itd)    
-            },
-            error : function(){
-              alert('网络连接错误或服务器异常！');
-            }
-          })
-        }else {
-          state = false;
-        }
-      },
-      error : function(){
-        alert('网络连接错误或服务器异常！');
-      }
-    });
+    function getUserData() {
+       $.ajax({
+         type : 'get',
+         url : Common.globalDistUrl() + 'exp/GetMicroCardEditStatus.do?session='+ session,
+         success : function(data) {
+           console.log(data);
+           if(data.s == 1){
+             state = true;
+             $.ajax({
+               type : 'get',
+               url : Common.globalDistUrl() + 'exp/QueryMicroCard.do?session='+ session,
+               success : function(data) {
+                 console.log(data);
+                 CardID = data.cId;
+                 //头像判断
+                 if(data.hI){
+                   $('#card_box').hide();
+                   $('#card_preview').show();
+                   $('#card_preview').attr('src',Common.globalTransferUrl()+ data.hI);
+                 }
+                 //二维码
+                 if(data.QR){
+                   $('#qrcode_box').hide();
+                   $('#qrcode_preview').show();
+                   $('#qrcode_preview').attr('src',Common.globalTransferUrl()+ data.QR);
+                 }
+
+                 $('#NAME').val(data.nm);
+                 $('#Depart').val(data.dp);
+                 $('#Rank').val(data.rk);
+                 // QRCodeImg: data.QR;
+                 $('#Mobile').val(data.Mob);
+                 $('#Email').val(data.eml);
+                 $('#TelNo').val(data.tel);
+                 $('#WebSite').val(data.web);
+                 $('#Address').val(data.adr);
+                 $('#Region').val(data.rg);
+                 $('#Abstract').val(data.abs);
+                 $('#Introduction').val(data.itd)    
+               },
+               error : function(){
+                 alert('网络连接错误或服务器异常！');
+               }
+             })
+           }else {
+             state = false;
+           }
+         },
+         error : function(){
+           alert('网络连接错误或服务器异常！');
+         }
+       });
+       
+    }
     
     //jartto:try to preview img
-    function readURL(input) {
+    function readURL(input,preview) {
       if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
-              $('#card_preview').attr('src', e.target.result);
+              $('#'+preview).attr('src', e.target.result);
           }
           reader.readAsDataURL(input.files[0]);
       }
     }
 
+
+
     $('#card_file').change(function(){
         $('#card_box').hide();
-        readURL(this);
+        readURL(this,'card_preview');
         $('#card_preview').show();
+        uploadHead();
+    });
+    $('#qrcode_file').change(function(){
+        $('#qrcode_box').hide();
+        readURL(this,'qrcode_preview');
+        $('#qrcode_preview').show();
+        uploadQrcode();
     });
 
     //头像（不需裁切处理）
@@ -110,7 +126,7 @@ jQuery(function($){
     //二维码（不需裁切处理）
 
     function uploadQrcode() {
-        var f = document.getElementById('head').files[0],
+        var f = document.getElementById('qrcode_file').files[0],
             r = new FileReader();
         // Common.getLoading(true);
         console.log(f);
@@ -123,8 +139,10 @@ jQuery(function($){
             // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6 微信分享图标
             $.ajax({
               type : 'post',
-              url : globalUrl + 'exp/ThirdUpload.do?session=' + session + '&type=1',
-              data : fd,
+              url : Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + session + '&type=1',
+              data: fd,
+              processData: false,
+              contentType: false,
               success : function(data) {
                 console.log(data);
                 // vm.user.QRCodeImg = data.on;
@@ -138,7 +156,9 @@ jQuery(function($){
               }
             })
         };
-        r.readAsDataURL(f);
+        if (f) {
+            r.readAsDataURL(f);
+        }
     }
 
     $('#card_next').click(function(){
@@ -280,7 +300,7 @@ jQuery(function($){
         };
         $.ajax({
           type : 'post',
-          url : globalUrl + 'exp/DataUpdate.do?session='+ session,
+          url : Common.globalDistUrl() + 'exp/DataUpdate.do?session='+ session,
           data : JSON.stringify(fd),
           dataType:'json',
           contentType:'application/json',
@@ -301,7 +321,7 @@ jQuery(function($){
         };
         $.ajax({
           type : 'post',
-          url : globalUrl + 'exp/DataInsert.do?session='+ session,
+          url : Common.globalDistUrl() + 'exp/DataInsert.do?session='+ session,
           data : JSON.stringify(fd),
           dataType:'json',
           contentType:'application/json',
@@ -322,6 +342,13 @@ jQuery(function($){
     $("#head").next().click(function(){
       uploadQrcode();
     })
+
+    //初始化数据
+    function initAll() {
+       getUserData();
+    }
+
+    initAll();
 })
 
 

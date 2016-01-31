@@ -13,16 +13,23 @@
 		<div class="card">
 			<div class="index_head reg_head">微名片基本信息</div>
 			<div class="index_main reg_main">
-				<div class="card_box" style="position:relative;"><span>头像</span>
-				<label id="card_box" style="border-radius: 50%;" for="head"></label>
+				<div class="card_box"><span>头像</span>
+				<label id="card_box"></label>
 				<!-- <input  type="file" id="head" style="display:none"> -->
-				<input id="card_file" style="position: absolute;left: 65px;opacity: 0;"  type="file">
-				<img id="card_preview" style="display:none;border: 1px solid #fff;border-radius: 50%;" src="" width="70" height="70">
+				<input id="card_file" type="file">
+				<img id="card_preview" src="" width="70" height="70">
 				</div>
 				<div><span>姓名</span><input type="text" id="NAME" placeholder="您的真实姓名"></div>
 				<div><span>律所</span><input type="text" id="Depart" placeholder="律所名称"></div>
 				<div><span>职务</span><input type="text" id="Rank" placeholder="您的职务"></div>
-				<div class="card_box"><span>二维码</span><label for="qrcode" onclick="selectQrcode()"></label><input type="file" id="qrcode" style="display:none"></div>
+
+				<!-- <div class="card_box"><span>二维码</span><label for="qrcode" onclick="selectQrcode()"></label><input type="file" id="qrcode" style="display:none"></div> -->
+				<div class="card_box qrcode_box"><span>二维码</span>
+				<label id="qrcode_box"></label>
+				<!-- <input  type="file" id="head" style="display:none"> -->
+				<input id="qrcode_file" type="file">
+				<img id="qrcode_preview" src="" width="70" height="70">
+				</div>
 				<div><span>电话</span><input type="text" id="Mobile" placeholder="您的电话"></div>
 				<div><span>邮箱</span><input type="text" id="Email" placeholder="您的邮箱"></div>
 				<div><span>座机</span><input type="text" id="TelNo" placeholder="您的座机"></div>
