@@ -112,6 +112,7 @@ jQuery(function($){
               fd.append('ThirdUpload', file);
               fd.append('filename', file.name);
               console.log(fd);
+              Common.getLoading(true);
               // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
               $.ajax({
                   type: 'POST',
@@ -121,8 +122,10 @@ jQuery(function($){
                   contentType: false,
                   success: function(data) {
                       console.log(data);
-                      $('#card_preview').attr('src',Common.globalTransferUrl() + data.on)
-                       // window.location.href = 'card.html?session='+sess;
+                      $('#card_preview').attr('src',Common.globalTransferUrl() + data.on);
+                      setTimeout(function(){
+                        Common.getLoading(false);
+                      }, 300);
                   },
                   error: function(error) {
                       alert('网络连接错误或服务器异常！');
@@ -140,7 +143,7 @@ jQuery(function($){
     function uploadQrcode() {
         var f = document.getElementById('qrcode_file').files[0],
             r = new FileReader();
-        // Common.getLoading(true);
+         Common.getLoading(true);
         console.log(f);
         console.log(r);
         r.onloadend = function(e) {
@@ -158,11 +161,9 @@ jQuery(function($){
               success : function(data) {
                 console.log(data);
                 $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.on)
-                // vm.user.QRCodeImg = data.on;
-                // vm.isQrcodeUpload = true;
-                // setTimeout(function(){
-                //   Common.getLoading(false);
-                // }, 300);
+                setTimeout(function(){
+                  Common.getLoading(false);
+                }, 300);
               },
               error : function(){
                 alert('网络连接错误或服务器异常！');
@@ -310,6 +311,7 @@ jQuery(function($){
             "cv": CardID
           }]
         };
+        Common.getLoading(true);
         $.ajax({
           type : 'post',
           url : Common.globalDistUrl() + 'exp/DataUpdate.do?session='+ session,
@@ -319,6 +321,9 @@ jQuery(function($){
           success : function(data) {
             console.log(data);
             if(data.c == 1000){
+              setTimeout(function(){
+                Common.getLoading();
+              },300);
               window.location.href = 'share.html?session='+session;
             }
           },

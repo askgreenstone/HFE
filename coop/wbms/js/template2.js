@@ -55,6 +55,7 @@ Zepto(function($) {
 		  		wmi:parseInt(modelInfo.split('@')[1]),
 		  		wmu:modelInfo.split('@')[0]
 		  	}
+		  	Common.getLoading(true);
 		  	$.ajax({
 			    type : 'POST',
 			    dataType:'json',
@@ -63,6 +64,9 @@ Zepto(function($) {
 			    data: JSON.stringify(obj),
 			    success : function(data) {
 			      console.log(data);
+			      setTimeout(function(){
+                    Common.getLoading();
+                  },300);
 			      window.location.href = 'themebg.html?session='+sess+'&ratio='+modelInfo.split('@')[2];
 			    },
 			    error : function(error){

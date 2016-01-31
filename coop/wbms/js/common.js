@@ -31,5 +31,22 @@ var Common = {
     // }else{
     //     return 'http://jlt.green-stone.cn/';
     // }
-  }
+  },
+  //全局加载loading,flag为true则显示，否者隐藏
+  getLoading : function(flag){
+      $('#globle_load_box').empty();
+      var htmlContent = '<div class="globle_load_shadow"><div class="spinner-bounce-circle"><div></div><div></div></div>';
+      $('#globle_load_box').append(htmlContent);
+
+      $('.globle_load_shadow').height($(window).height());
+      
+      console.log(flag);
+      if(flag){
+        $('.globle_load_shadow').show();
+        $('body').css('overflow','hidden');
+      }else{
+        $('.globle_load_shadow').hide();
+        $('body').css('overflow','auto');
+      }
+    }
 }

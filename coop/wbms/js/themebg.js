@@ -91,6 +91,7 @@ $('#themebg_next').click(function() {
           fd.append('x', imgx);
           fd.append('y', imgy);
           console.log(fd);
+          Common.getLoading(true);
           // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
           $.ajax({
               type: 'POST',
@@ -100,6 +101,9 @@ $('#themebg_next').click(function() {
 							contentType: false,
               success: function(data) {
                   console.log(data);
+                  setTimeout(function(){
+                    Common.getLoading();
+                  },300);
                   window.location.href = 'card.html?session='+sess;
               },
               error: function(error) {
@@ -121,7 +125,8 @@ $('#themebg_next').click(function() {
       h:imgh,
       x:imgx,
       y:imgy
-		}
+		};
+    Common.getLoading(true);
 		$.ajax({
         type: 'POST',
         url: Common.globalDistUrl() + 'exp/UpdateMicWebImgs.do?session=' + sess,
@@ -130,6 +135,9 @@ $('#themebg_next').click(function() {
 				contentType: false,
         success: function(data) {
             console.log(data);
+            setTimeout(function(){
+              Common.getLoading();
+            },300);
             window.location.href = 'card.html?session='+sess;
         },
         error: function(error) {

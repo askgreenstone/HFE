@@ -60,6 +60,7 @@ jQuery(function($) {
             var fd = new FormData();
             fd.append('ThirdUpload', file);
             fd.append('filename', file.name);
+            Common.getLoading(true);
             // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6分享
             $.ajax({
                 type: 'POST',
@@ -70,8 +71,9 @@ jQuery(function($) {
                 success: function(data) {
                     console.log(data); 
                     shareImg = data.on;
-                    // var shareImgSrc = data.on;
-                    // setWxShare(shareImgSrc);
+                    setTimeout(function(){
+                      Common.getLoading(false);
+                    }, 300);
                 },
                 error: function(error) {
                     alert('网络连接错误或服务器异常！');
@@ -106,6 +108,7 @@ jQuery(function($) {
             }
         }
         console.log(tempData);
+        Common.getLoading(true);
         $.ajax({
             type: 'POST',
             url: Common.globalDistUrl() + 'exp/ThirdSetShareInfo.do?session=' + session,
@@ -115,7 +118,10 @@ jQuery(function($) {
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
-                     window.location.href = 'custom.html?session=' + session;
+                  setTimeout(function(){
+                    Common.getLoading();
+                  },300);
+                   window.location.href = 'custom.html?session=' + session;
                 }
             },
             error: function() {
