@@ -9,7 +9,7 @@ Zepto(function($){
   	var userpwd = $('#index_pwd').val(),
   			userphone = $('#index_phone').val();
   	if(!userphone){
-  		alert('请输入电话！');
+  		alert('请输入账号！');
   		return;
   	}else if(!userpwd){
   		alert('请输入密码！');
