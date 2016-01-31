@@ -13,11 +13,50 @@
     <link rel="stylesheet" href="../css/swiper-3.3.0.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <style>
-    .template_list {
+
+    @media screen and (max-width: 360px) {
+		  html {
+		    font-size: 62.5%;
+		  }
+		  .template_list {
         width: 230px;
         /*border: 1px solid #fff;*/
         margin: -40px auto;
-    }
+    	}
+		  .swiper-slide img{
+		  	width: 230px;
+		  	height: 390px;
+		  }
+		}
+		@media screen and (min-width: 361px) and (max-width: 376px) {
+		  html {
+		    font-size: 66.5%;
+		  }
+		  .template_list {
+        width: 260px;
+        /*border: 1px solid #fff;*/
+        margin: -40px auto;
+    	}
+		  .swiper-slide img{
+		  	width: 260px;
+		  	height: 425px;
+		  }
+		}
+		@media screen and (min-width: 377px) {
+		  html {
+		    font-size: 75.5%;
+		  }
+		  .template_list {
+        width: 290px;
+        /*border: 1px solid #fff;*/
+        margin: -40px auto;
+    	}
+		  .swiper-slide img{
+		  	width: 290px;
+		  	height: 495px;
+		  }
+		}
+
     </style>
 </head>
 
@@ -26,17 +65,19 @@
         <div class="template">
             <div id="template_title" class="index_head template_head" style="text-align:center;text-indent:0;">选择模版</div>
             <div class="template_list">
-                <div class="swiper-container">
-                    <ul class="swiper-wrapper">
-                        <li class="swiper-slide"><img src="../image/themes/1.png" width="230" height="370" /></li>
-                        <li class="swiper-slide"><img src="../image/themes/2.png" width="230" height="370" /></li>
-                        <li class="swiper-slide"><img src="../image/themes/3.png" width="230" height="370" /></li>
-                        <li class="swiper-slide"><img src="../image/themes/4.png" width="230" height="370" /></li>
-                        <li class="swiper-slide"><img src="../image/themes/5.png" width="230" height="370" /></li>
-                        <li class="swiper-slide"><img src="../image/themes/6.png" width="230" height="370" /></li>
-                    </ul>
-                </div>
+              <div class="swiper-container">
+                  <ul class="swiper-wrapper">
+                    <li class="swiper-slide"><img src="../image/themes/1.png"/></li>
+                    <li class="swiper-slide"><img src="../image/themes/2.png"/></li>
+                    <li class="swiper-slide"><img src="../image/themes/3.png"/></li>
+                    <li class="swiper-slide"><img src="../image/themes/4.png"/></li>
+                    <li class="swiper-slide"><img src="../image/themes/5.png"/></li>
+                    <li class="swiper-slide"><img src="../image/themes/6.png"/></li>
+                  </ul>
+              </div>
                 <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev" style="visibility: hidden;"></div>
+                <div class="swiper-button-next" style="visibility: hidden;"></div>
                 <img class="swiper-button-prev" src="../image/arrow2.png">
                 <img class="swiper-button-next" src="../image/arrow1.png">
             </div>
