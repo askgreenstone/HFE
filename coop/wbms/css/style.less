@@ -361,31 +361,39 @@ p{
 }
 
 .index_main div.card_box {
-    height:6rem;
+    position:relative;
+    height:70px;
 }
 .card_box label{
-    width:6rem;
-    height:6rem;
+    width:70px;
+    height:70px;
     display:block;    
     background-size:cover;
     cursor:pointer;
     border:1px solid #fff;
-    background:url('../image/plus.png') no-repeat;
+    background-image:url('../image/plus.png');
     background-size:cover;
+    position:relative;
+    border-radius:50%;
 }
-.card_box button {
-    width: 6rem;
-    height: 60%;
-    background: skyblue;
-    text-align: center;
-    line-height: 100%;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    margin-left:1rem;
-    outline:none;
-    font-size:@l-size;
+.card_box input{
+    position: absolute;
+    width:70px;
+    left: 21%;
+    opacity: 0;
 }
+.card_box img{
+    display:none;
+    border: 1px solid #fff;
+    border-radius: 50%;
+}
+.qrcode_box label {
+    border-radius:0%;
+}
+.qrcode_box img {
+    border-radius:0%;
+}
+
 .index_main div.card_area {
     height:6rem;
 }
@@ -484,13 +492,6 @@ p{
     .reg_main div input[type='button']{
         width:50%;
     }
-    .index_main div.card_box {
-        height:7rem;
-    }
-    .card_box label{
-        width:7rem;
-        height:7rem;
-    }
 }
 
 @media screen and (min-width: 377px) {
@@ -512,12 +513,5 @@ p{
     }
     .reg_main div input[type='button']{
         width:50%;
-    }
-    .index_main div.card_box {
-        height:8rem;
-    }
-    .card_box label{
-        width:8rem;
-        height:8rem;
     }
 }

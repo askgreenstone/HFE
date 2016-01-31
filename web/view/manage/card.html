@@ -138,20 +138,12 @@
 						<div class="mb_input mc_input">
 							<i class="area">简介：</i>
 							<textarea ng-model="vm.user.Abstract"></textarea>
-							<div class="step5_validate">
-								<span ng-class="vm.user.Abstract.length>140?'red':''">
-								{{vm.user.Abstract.length}}</span><i> / 140</i>
-								<b ng-show="vm.user.Abstract.length>140">字数超过限制</b>
-							</div>
+							
 						</div>
 						<div class="mb_input mc_input">
 							<i class="area">专业领域：</i>
 							<textarea ng-model="vm.user.Introduction"></textarea>
-							<div class="step5_validate">
-								<span ng-class="vm.user.Introduction.length>100?'red':''">
-								{{vm.user.Introduction.length}}</span><i> / 100</i>
-								<b ng-show="vm.user.Introduction.length>100">字数超过限制</b>
-							</div>
+							
 						</div>
 					</form>
 					</div>

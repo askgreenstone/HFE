@@ -340,35 +340,35 @@ define(['App'], function(app) {
           if(!vm.user.NAME){
             alert("请填写您的姓名！");
             return false;
-          }else if(vm.user.NAME.length>9){
+          }else if(vm.user.NAME && vm.user.NAME.length>9){
             alert("姓名长度不能超过九位！"); 
             return false;
           }
 
-          if(vm.user.Depart.length>12){
+          if(vm.user.Depart && vm.user.Depart.length>12){
             alert("律所长度不能超过十二位！"); 
             return false;
           }
 
-          if(vm.user.Rank.length>12){
+          if(vm.user.Rank && vm.user.Rank.length>12){
             alert("职务长度不能超过十二位！"); 
             return false;
           }
 
-          if(vm.user.Address.length>30){
+          if(vm.user.Address && vm.user.Address.length>30){
             alert("地址长度不能超过三十位！"); 
             return false;
           }
 
-          if(vm.user.Abstract.length>140){
-            alert("简介长度不能超过一百四十位！"); 
-            return false;
-          }
+          // if(vm.user.Abstract.length>140){
+          //   alert("简介长度不能超过一百四十位！"); 
+          //   return false;
+          // }
 
-          if(vm.user.Depart.length>100){
-            alert("专业领域长度不能超过一百位！"); 
-            return false;
-          }
+          // if(vm.user.Depart.length>100){
+          //   alert("专业领域长度不能超过一百位！"); 
+          //   return false;
+          // }
 
           if(vm.state == "do"){
             var fd = {
@@ -393,7 +393,7 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   if(data.c == 1000){
-                    $window.location.href = '#/card2?session='+vm.sess;
+                    // $window.location.href = '#/card2?session='+vm.sess;
                   }else if(data.c == 1037){
                     console.log("该用户微名片信息已存在，走update接口")
                   }
@@ -421,7 +421,7 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   if(data.c == 1000){
-                    $window.location.href = '#/card2?session='+vm.sess;
+                    // $window.location.href = '#/card2?session='+vm.sess;
                   }
               }).
               error(function(data, status, headers, config) {
