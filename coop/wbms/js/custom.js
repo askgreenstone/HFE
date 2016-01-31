@@ -10,7 +10,7 @@ Zepto(function($){
   	window.location.href = 'template.html?session='+sess;
   });
   $('#custom_logout').click(function(event) {
-    window.location.href = 'template.html';
+    window.location.href = '../index.html';
   });
   $('#custom_preview').click(function(event) {
       $.ajax({
@@ -24,5 +24,8 @@ Zepto(function($){
           alert('网络连接错误或服务器异常！');
         }
       })
+  });
+  $('#custom_reset').click(function(event) {
+    window.location.href = 'template.html?session='+sess+'&ts='+new Date().getTime();
   });
 })
