@@ -29,13 +29,23 @@ jQuery(function($){
                  if(data.hI){
                    $('#card_box').hide();
                    $('#card_preview').show();
-                   $('#card_preview').attr('src',Common.globalTransferUrl()+ data.hI);
+                   if(data.hI.indexOf('transfer')>-1){
+                      $('#card_preview').attr('src',data.hI);
+                   }else {
+                      $('#card_preview').attr('src',Common.globalTransferUrl() + data.hI);
+                   }
+                   
                  }
                  //二维码
                  if(data.QR){
                    $('#qrcode_box').hide();
                    $('#qrcode_preview').show();
-                   $('#qrcode_preview').attr('src',Common.globalTransferUrl()+ data.QR);
+                   // $('#qrcode_preview').attr('src',data.QR);
+                   if(data.QR.indexOf('transfer')>-1){
+                      $('#qrcode_preview').attr('src',data.QR);
+                   }else {
+                      $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
+                   }
                  }
 
                  $('#NAME').val(data.nm);
@@ -71,6 +81,7 @@ jQuery(function($){
       if (input.files && input.files[0]) {
           var reader = new FileReader();
           reader.onload = function (e) {
+            console.log(e);
               $('#'+preview).attr('src', e.target.result);
           }
           reader.readAsDataURL(input.files[0]);
@@ -110,7 +121,8 @@ jQuery(function($){
                   contentType: false,
                   success: function(data) {
                       console.log(data);
-                      // window.location.href = 'card.html?session='+sess;
+                      $('#card_preview').attr('src',Common.globalTransferUrl() + data.on)
+                       // window.location.href = 'card.html?session='+sess;
                   },
                   error: function(error) {
                       alert('网络连接错误或服务器异常！');
@@ -145,6 +157,7 @@ jQuery(function($){
               contentType: false,
               success : function(data) {
                 console.log(data);
+                $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.on)
                 // vm.user.QRCodeImg = data.on;
                 // vm.isQrcodeUpload = true;
                 // setTimeout(function(){
@@ -162,26 +175,25 @@ jQuery(function($){
     }
 
     $('#card_next').click(function(){
-      uploadHead();
       setBasicInfo();
     })
 
     //设置微名片信息
     function setBasicInfo (){
-      // if(!vm.isHeadUpload){
-      //   alert("请上传头像！");
-      //   return false;
-      // }
+      if(!$('#card_preview').attr('src')){
+        alert("请上传头像！");
+        return false;
+      }
 
-      // if(!vm.isQrcodeUpload){
-      //   alert("请上传二维码！");
-      //   return false;
-      // }
+      if(!$('#qrcode_preview').attr('src')){
+        alert("请上传二维码！");
+        return false;
+      }
 
-      // if(!$('#NAME').val()){
-      //   alert("请填写您的姓名！");
-      //   return false;
-      // }
+      if(!$('#NAME').val()){
+        alert("请填写您的姓名！");
+        return false;
+      }
 
 
       // if(!$('#Depart').val()){
@@ -204,10 +216,10 @@ jQuery(function($){
       //   return false;
       // }
 
-      // if(!$('#WebSite').val()){
-      //   alert("请填写您的网址！");
-      //   return false;
-      // }
+      // // if(!$('#WebSite').val()){
+      // //   alert("请填写您的网址！");
+      // //   return false;
+      // // }
 
       // if(!$('#Region').val()){
       //   alert("请填写您的区域位置！");
@@ -232,7 +244,7 @@ jQuery(function($){
       var userData = [
           {
             "cn": "HeadImg",
-            "cv": "abc.png"
+            "cv": $('#card_preview').attr('src')
           },
           {
             "cn": "NAME",
@@ -248,7 +260,7 @@ jQuery(function($){
           },
           {
             "cn": "QRCodeImg",
-            "cv": "abc.png"
+            "cv": $('#qrcode_preview').attr('src')
           },
           {
             "cn": "Mobile",
@@ -337,12 +349,6 @@ jQuery(function($){
         })
       }
     }
-
-    //上传按钮
-    $("#head").next().click(function(){
-      uploadQrcode();
-    })
-
     //初始化数据
     function initAll() {
        getUserData();

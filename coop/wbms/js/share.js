@@ -28,8 +28,8 @@ jQuery(function($) {
             alert('分享摘要不能超过40个字！');
             return false;
         }
-
-        if (!$("#share_preview").attr('src')) {
+        console.log(shareImg);
+        if (!shareImg) {
             alert('分享摘要图标不能为空！');
             return false;
         } else {
@@ -88,7 +88,7 @@ jQuery(function($) {
     //设置分享
     var setWxShare = function(src) {
         if(!validateInput()) return;
-
+        console.log(src);
         if (shareId) { //更新
             tempData = {
                 si: shareId,
@@ -115,7 +115,7 @@ jQuery(function($) {
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
-                    // window.location.href = 'custom.html?session=' + session;
+                     window.location.href = 'custom.html?session=' + session;
                 }
             },
             error: function() {
@@ -125,6 +125,7 @@ jQuery(function($) {
 
     }
     $('#set_share').click(function(){
+      console.log(shareImg);
       setWxShare(shareImg);
     })
 
@@ -145,12 +146,14 @@ jQuery(function($) {
                         $("#desc").val(data.sil[0].sd);
                         $("#share_preview").attr('src',Common.globalTransferUrl() + data.sil[0].spu);
                         shareId = data.sil[0].si;
+                        shareImg = data.sil[0].spu;
                     }
                 } else {
                     $("#title").val('XX律师微网站');
                     $("#desc").val('XX律师专注于资本市场、基金、投融资、并购、公司法务等等');
                     $("#share_preview").attr('src','../image/placeholder.png');
                     shareId = data.sil[0].si;
+                    shareImg = '';
                 }
             },
             error: function() {

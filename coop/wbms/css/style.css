@@ -332,21 +332,24 @@ p {
   -webkit-box-sizing: border-box;
 }
 .index_main div.card_box {
-  height: 6rem;
+  position: relative;
+  height: 70px;
 }
 .card_box label {
-  width: 6rem;
-  height: 6rem;
+  width: 70px;
+  height: 70px;
   display: block;
   cursor: pointer;
   border: 1px solid #fff;
+  background-image: url('../image/plus.png');
   background-size: cover;
   position: relative;
   border-radius: 50%;
 }
 .card_box input {
   position: absolute;
-  left: 65px;
+  width: 70px;
+  left: 21%;
   opacity: 0;
 }
 .card_box img {
@@ -453,13 +456,6 @@ p {
   .reg_main div input[type='button'] {
     width: 50%;
   }
-  .index_main div.card_box {
-    height: 7rem;
-  }
-  .card_box label {
-    width: 7rem;
-    height: 7rem;
-  }
 }
 @media screen and (min-width: 377px) {
   html {
@@ -481,12 +477,5 @@ p {
   }
   .reg_main div input[type='button'] {
     width: 50%;
-  }
-  .index_main div.card_box {
-    height: 8rem;
-  }
-  .card_box label {
-    width: 8rem;
-    height: 8rem;
   }
 }
