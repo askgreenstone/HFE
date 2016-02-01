@@ -19,7 +19,7 @@ Zepto(function($){
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
-  				window.location.href = 'view/custom.html?session='+data.u.sid;
+  				window.location.href = 'view/active.html?session='+data.u.sid;
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');
   			}
