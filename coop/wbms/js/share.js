@@ -76,6 +76,7 @@ jQuery(function($) {
                     }, 300);
                 },
                 error: function(error) {
+                    Common.getLoading(false);
                     alert('网络连接错误或服务器异常！');
                 }
             })

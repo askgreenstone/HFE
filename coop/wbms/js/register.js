@@ -18,11 +18,12 @@ Zepto(function($){
         console.log(data);
         if(data.c == 1000){
           var count = 60;
+          $('#reg_vcode').val('重新获取'+count+'s');
           timer = setInterval(function(){
             count--;
             console.log(count);
             if(count > 0){
-              $('#reg_vcode').val(count+'s');
+              $('#reg_vcode').val('重新获取'+count+'s');
               $('#reg_vcode').unbind('click')
             }else{
               count = 60;
