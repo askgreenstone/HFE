@@ -38,7 +38,7 @@ var Common = {
       var htmlContent = '<div class="globle_load_shadow"><div class="spinner-bounce-circle"><div></div><div></div></div>';
       $('#globle_load_box').append(htmlContent);
 
-      $('.globle_load_shadow').height($(window).height());
+      $('.globle_load_shadow').height($(window).scrollTop() + $(window).height());
       
       console.log(flag);
       if(flag){

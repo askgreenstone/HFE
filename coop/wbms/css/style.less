@@ -210,12 +210,12 @@ p{
         border:1px solid #fff;
     }
     input[type='button'] {
-        width:55%;
+        width:35%;
         text-align:center;
         margin-left:10px;
         height:100%;
         padding-left:0;
-        font-size:@m-size;
+        font-size:@b-size;
         -webkit-appearance: none;
     }
 
@@ -242,6 +242,10 @@ p{
     }
     input:checked+label{
         background-position:left bottom;
+    }
+    a {
+        text-decoration:underline;
+        color:yellow;
     }
 }
 
@@ -552,9 +556,6 @@ p{
     .index_main div{
         height:4rem;
     }
-    .reg_main div input[type='button']{
-        width:50%;
-    }
 }
 
 @media screen and (min-width: 377px) {
@@ -573,8 +574,5 @@ p{
     }
     .index_main div{
         height:4.5rem;
-    }
-    .reg_main div input[type='button']{
-        width:50%;
     }
 }

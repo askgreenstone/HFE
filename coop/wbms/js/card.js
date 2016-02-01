@@ -323,8 +323,8 @@ jQuery(function($){
             if(data.c == 1000){
               setTimeout(function(){
                 Common.getLoading();
-              },300);
-              window.location.href = 'share.html?session='+session;
+              },3000);
+              // window.location.href = 'share.html?session='+session;
             }
           },
           error : function(){
@@ -357,6 +357,9 @@ jQuery(function($){
     //初始化数据
     function initAll() {
        getUserData();
+       $(window).scroll(function(){
+         console.log($(window).scrollTop());
+       })
     }
 
     initAll();
