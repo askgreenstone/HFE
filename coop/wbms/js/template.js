@@ -27,13 +27,13 @@ jQuery(function($) {
 				      var mySwiper = new Swiper('.swiper-container', {
 					        // direction: 'vertical',
 					        loop: true,
-
+					        effect : 'cube',
 					        // 如果需要前进后退按钮
 					        nextButton: '.swiper-button-next',
 					        prevButton: '.swiper-button-prev',
 					        onSlideChangeEnd:function(swiper){
 									   console.log(swiper.activeIndex);
-									   getActiveLi(swiper.activeIndex-1);
+									   getActiveLi();
 									}
 					    })
 				    },
@@ -45,12 +45,15 @@ jQuery(function($) {
     	}
 
     	
-    	function getActiveLi(x){
+    	function getActiveLi(){
     		var test = '';
     		$('#template_theme li').each(function(index, el) {
-    			if($(this).attr('data-swiper-slide-index')==x){
+    			// if($(this).attr('data-swiper-slide-index')==x){
+    			// 	test = $(this).attr('name');
+    			// };
+    			if($(this).attr('class').indexOf('swiper-slide-active')>0){
     				test = $(this).attr('name');
-    			};
+    			}
     		});
     		//存储模版信息index003@2@7-10
     		// console.log(test);
