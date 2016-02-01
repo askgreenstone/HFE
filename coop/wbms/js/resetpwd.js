@@ -39,19 +39,15 @@ Zepto(function($){
     )
   }
   $('#reg_vcode').bind('click',function(){regVcode()});
-  $('#reg_submit').bind('click',function(event) {
+  $('#reset_submit').bind('click',function(event) {
   	var userpwd1 = $('#reg_pwd1').val(),
         userpwd2 = $('#reg_pwd2').val(),
-        usrename = $('#reg_name').val(),
   			userphone = $('#reg_phone').val(),
         vcode = $('#reg_code').val();
   	if(!userphone){
   		alert('请输入电话！');
   		return;
-  	}else if(!usrename){
-      alert('请输入姓名！');
-      return;
-    }else if(!userpwd1){
+  	}else if(!userpwd1){
   		alert('请输入密码！');
   		return;
   	}else if(!userpwd2){
@@ -67,17 +63,14 @@ Zepto(function($){
       alert('请选择阅读并接受用户协议！');
       return;
     };
-  	api.register(userphone,usrename,userpwd1,vcode,
+  	api.forgetpassword(userphone,userpwd1,vcode,
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
-          alert('注册成功');
+          alert('重置成功');
   				window.location.href = 'view/custom.html?session='+data.u.sid;
   			}else if(data.c == 1001){
            alert('验证码错误！'); 
-        }else if(data.c == 1004){
-           alert('用户已存在，请登录'); 
-           window.location.href = '../index.html';
         }else{
   				alert('网络错误，请重试！');
           //window.location.href = 'register.html';

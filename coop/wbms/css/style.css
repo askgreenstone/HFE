@@ -193,12 +193,12 @@ p {
   border: 1px solid #fff;
 }
 .reg_main div input[type='button'] {
-  width: 55%;
+  width: 35%;
   text-align: center;
   margin-left: 10px;
   height: 100%;
   padding-left: 0;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   -webkit-appearance: none;
 }
 .reg_tip {
@@ -224,6 +224,10 @@ p {
 }
 .reg_tip input:checked + label {
   background-position: left bottom;
+}
+.reg_tip a {
+  text-decoration: underline;
+  color: yellow;
 }
 /*定制主页*/
 .custom {
@@ -508,9 +512,6 @@ p {
   .index_main div {
     height: 4rem;
   }
-  .reg_main div input[type='button'] {
-    width: 50%;
-  }
 }
 @media screen and (min-width: 377px) {
   html {
@@ -529,8 +530,5 @@ p {
   }
   .index_main div {
     height: 4.5rem;
-  }
-  .reg_main div input[type='button'] {
-    width: 50%;
   }
 }
