@@ -71,9 +71,7 @@ jQuery(function($) {
                 success: function(data) {
                     console.log(data); 
                     shareImg = data.on;
-                    setTimeout(function(){
-                      Common.getLoading(false);
-                    }, 300);
+                    Common.getLoading(false);
                 },
                 error: function(error) {
                     Common.getLoading(false);
@@ -119,9 +117,7 @@ jQuery(function($) {
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
-                  setTimeout(function(){
-                    Common.getLoading();
-                  },300);
+                   Common.getLoading();
                    window.location.href = 'custom.html?session=' + session;
                 }
             },

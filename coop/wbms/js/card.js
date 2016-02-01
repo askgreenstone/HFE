@@ -1,6 +1,8 @@
 var session = Common.getUrlParam('session'),
     CardID = '',
-    state = false;
+    state = false,
+    head = '',
+    qrcode = '';
 console.log(session);
 
 
@@ -29,23 +31,15 @@ jQuery(function($){
                  if(data.hI){
                    $('#card_box').hide();
                    $('#card_preview').show();
-                   if(data.hI.indexOf('transfer')>-1){
-                      $('#card_preview').attr('src',data.hI);
-                   }else {
-                      $('#card_preview').attr('src',Common.globalTransferUrl() + data.hI);
-                   }
-                   
+                   head = data.hI; 
+                   $('#card_preview').attr('src',Common.globalTransferUrl() + data.hI);
                  }
                  //二维码
                  if(data.QR){
                    $('#qrcode_box').hide();
                    $('#qrcode_preview').show();
-                   // $('#qrcode_preview').attr('src',data.QR);
-                   if(data.QR.indexOf('transfer')>-1){
-                      $('#qrcode_preview').attr('src',data.QR);
-                   }else {
-                      $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
-                   }
+                   qrcode = data.QR;
+                   $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
                  }
 
                  $('#NAME').val(data.nm);
@@ -122,10 +116,9 @@ jQuery(function($){
                   contentType: false,
                   success: function(data) {
                       console.log(data);
+                      head = data.on;
                       $('#card_preview').attr('src',Common.globalTransferUrl() + data.on);
-                      setTimeout(function(){
-                        Common.getLoading(false);
-                      }, 300);
+                      Common.getLoading(false);
                   },
                   error: function(error) {
                       Common.getLoading(false);
@@ -161,10 +154,9 @@ jQuery(function($){
               contentType: false,
               success : function(data) {
                 console.log(data);
+                qrcode = data.on;
                 $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.on)
-                setTimeout(function(){
                   Common.getLoading(false);
-                }, 300);
               },
               error : function(){
                 Common.getLoading(false);
@@ -183,12 +175,14 @@ jQuery(function($){
 
     //设置微名片信息
     function setBasicInfo (){
-      if(!$('#card_preview').attr('src')){
+      console.log(head);
+      console.log(qrcode);
+      if(!head){
         alert("请上传头像！");
         return false;
       }
 
-      if(!$('#qrcode_preview').attr('src')){
+      if(!qrcode){
         alert("请上传二维码！");
         return false;
       }
@@ -247,7 +241,7 @@ jQuery(function($){
       var userData = [
           {
             "cn": "HeadImg",
-            "cv": $('#card_preview').attr('src')
+            "cv": head
           },
           {
             "cn": "NAME",
@@ -263,7 +257,7 @@ jQuery(function($){
           },
           {
             "cn": "QRCodeImg",
-            "cv": $('#qrcode_preview').attr('src')
+            "cv": qrcode
           },
           {
             "cn": "Mobile",
@@ -323,9 +317,7 @@ jQuery(function($){
           success : function(data) {
             console.log(data);
             if(data.c == 1000){
-              setTimeout(function(){
-                Common.getLoading();
-              },300);
+               Common.getLoading();
                window.location.href = 'share.html?session='+session;
             }
           },
@@ -348,9 +340,7 @@ jQuery(function($){
           success : function(data) {
             console.log(data);
             if(data.c == 1000){
-              setTimeout(function(){
-                Common.getLoading();
-              },300);
+              Common.getLoading();
               window.location.href = 'share.html?session='+session;
             }
           },

@@ -153,7 +153,7 @@ var Card = React.createClass({
               <i>简介</i>
               <p>{this.state.Abstract}
               </p>
-              <div onClick={this.absToggle}>全文</div>
+              <div onClick={this.absToggle} style={{display:this.state.abs.length>60?'block':'none'}}>全文</div>
             </div>
             <div className="user_intro" style={{display:this.state.itd?'block':'none'}}>
               <i>专业领域</i>

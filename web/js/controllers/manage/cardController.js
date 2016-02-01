@@ -207,6 +207,7 @@ define(['App'], function(app) {
               }
               else{
                 vm.clipSourceImg(vm.choosePic);
+                alert('上传成功');
                 $('#themeCropper').cropper('destroy');
                 return;
               }
@@ -276,9 +277,7 @@ define(['App'], function(app) {
                     console.log(data);
                     vm.user.QRCodeImg = data.on;
                     vm.isQrcodeUpload = true;
-                    setTimeout(function(){
-                      Common.getLoading(false);
-                    }, 300);
+                    Common.getLoading(false);
                 })
                 .error(function() {
                     // console.log('error');
@@ -393,7 +392,7 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   if(data.c == 1000){
-                    // $window.location.href = '#/card2?session='+vm.sess;
+                     $window.location.href = '#/card2?session='+vm.sess;
                   }else if(data.c == 1037){
                     console.log("该用户微名片信息已存在，走update接口")
                   }
@@ -421,7 +420,7 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   if(data.c == 1000){
-                    // $window.location.href = '#/card2?session='+vm.sess;
+                     $window.location.href = '#/card2?session='+vm.sess;
                   }
               }).
               error(function(data, status, headers, config) {
