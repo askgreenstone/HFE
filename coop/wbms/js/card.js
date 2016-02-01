@@ -128,6 +128,7 @@ jQuery(function($){
                       }, 300);
                   },
                   error: function(error) {
+                      Common.getLoading(false);
                       alert('网络连接错误或服务器异常！');
                   }
               })
@@ -166,6 +167,7 @@ jQuery(function($){
                 }, 300);
               },
               error : function(){
+                Common.getLoading(false);
                 alert('网络连接错误或服务器异常！');
               }
             })
@@ -323,11 +325,12 @@ jQuery(function($){
             if(data.c == 1000){
               setTimeout(function(){
                 Common.getLoading();
-              },3000);
-              // window.location.href = 'share.html?session='+session;
+              },300);
+               window.location.href = 'share.html?session='+session;
             }
           },
           error : function(){
+            Common.getLoading();
             alert('网络连接错误或服务器异常！');
           }
         })
@@ -345,10 +348,14 @@ jQuery(function($){
           success : function(data) {
             console.log(data);
             if(data.c == 1000){
+              setTimeout(function(){
+                Common.getLoading();
+              },300);
               window.location.href = 'share.html?session='+session;
             }
           },
           error : function(){
+            Common.getLoading();
             alert('网络连接错误或服务器异常！');
           }
         })
@@ -357,9 +364,6 @@ jQuery(function($){
     //初始化数据
     function initAll() {
        getUserData();
-       $(window).scroll(function(){
-         console.log($(window).scrollTop());
-       })
     }
 
     initAll();

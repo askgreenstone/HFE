@@ -76,6 +76,7 @@ jQuery(function($) {
 			      window.location.href = 'themebg.html?session='+sess+'&ratio='+modelInfo.split('@')[2];
 			    },
 			    error : function(error){
+			      Common.getLoading();
 			      alert('网络连接错误或服务器异常！');
 			    }
 			  })

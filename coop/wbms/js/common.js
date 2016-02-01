@@ -37,12 +37,11 @@ var Common = {
       $('#globle_load_box').empty();
       var htmlContent = '<div class="globle_load_shadow"><div class="spinner-bounce-circle"><div></div><div></div></div>';
       $('#globle_load_box').append(htmlContent);
-
-      $('.globle_load_shadow').height($(window).scrollTop() + $(window).height());
+      $('.globle_load_shadow').height($(window).height());
       
       console.log(flag);
       if(flag){
-        $('.globle_load_shadow').show();
+        $('.globle_load_shadow').css({top:$(window).scrollTop()}).show();
         $('body').css('overflow','hidden');
       }else{
         $('.globle_load_shadow').hide();

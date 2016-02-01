@@ -107,6 +107,7 @@ $('#themebg_next').click(function() {
                   window.location.href = 'card.html?session='+sess;
               },
               error: function(error) {
+                  Common.getLoading();
                   alert('网络连接错误或服务器异常！');
               }
           })
@@ -141,6 +142,7 @@ $('#themebg_next').click(function() {
             window.location.href = 'card.html?session='+sess;
         },
         error: function(error) {
+            Common.getLoading();
             alert('网络连接错误或服务器异常！');
         }
     })
