@@ -9,10 +9,12 @@ jQuery(function($) {
     var sess = Common.getUrlParam('session');
 
     function getAllModel() {
+    	Common.getLoading(true);
     	$.ajax({
 			    type : 'POST',
 			    url : Common.globalDistUrl()+'exp/GetMicWebModel.do?session='+ sess,
 			    success : function(data) {
+			    	Common.getLoading(false);
 			      console.log(data);
 			      var tempArrs = [];
 			      // alert(JSON.stringify(data));
@@ -36,6 +38,7 @@ jQuery(function($) {
 					    })
 				    },
 			    error : function(error){
+			    	Common.getLoading(false);
 			      alert('网络连接错误或服务器异常！');
 			    }
 			  })
