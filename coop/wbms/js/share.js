@@ -139,7 +139,7 @@ jQuery(function($) {
                 console.log(data);
                 if (data.c == 1000) {
                    Common.getLoading();
-                   // window.location.href = 'custom.html?session=' + session;
+                   window.location.href = 'custom.html?session=' + session;
                 }
             },
             error: function() {
