@@ -14,7 +14,7 @@ Zepto(function($){
   });
   $('#custom_preview').click(function(event) {
       $.ajax({
-        type : 'get',
+        type : 'GET',
         url : Common.globalDistUrl() + 'exp/CreateMicWebQrCode.do?session='+ sess,
         success : function(data) {
           console.log(data);
@@ -28,4 +28,26 @@ Zepto(function($){
   $('#custom_reset').click(function(event) {
     window.location.href = 'template.html?session='+sess+'&ts='+new Date().getTime();
   });
+
+  function getMicroState(){
+    $.ajax({
+      type : 'GET',
+      url : Common.globalDistUrl() + 'exp/MicWebSetUpStatus.do?session='+ sess,
+      success : function(data) {
+        console.log(data);
+        //判断主题制定状态：0未设置，1已设置，2已完成
+        if(data.s == 0){
+          $('#custom_preview').hide();
+          $('#custom_reset').hide();
+        }else{
+          $('#custom_begin').hide();
+        }
+      },
+      error : function(){
+        alert('网络连接错误或服务器异常！');
+      }
+    })
+  }
+
+  getMicroState();
 })
