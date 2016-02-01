@@ -59,7 +59,8 @@ jQuery(function($) {
 		  	var modelInfo = localStorage.getItem('globalTemplateInfo');
 		  	var obj = {
 		  		wmi:parseInt(modelInfo.split('@')[1]),
-		  		wmu:modelInfo.split('@')[0]
+		  		wmu:modelInfo.split('@')[0],
+		  		fm:1 //移动需要清除模版信息
 		  	};
 		  	Common.getLoading(true);
 		  	$.ajax({
