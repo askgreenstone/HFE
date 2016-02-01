@@ -54,7 +54,7 @@ jQuery(function($) {
     });
     //jartto:upload
     function uploadShareImg() {
-        var file = document.getElementById('icon').files[0],
+        var file = document.getElementById('share_file').files[0],
             reader = new FileReader();
         reader.addEventListener('load', function() {
             var fd = new FormData();
@@ -85,6 +85,27 @@ jQuery(function($) {
         // 	alert('请上传分享图标');
         // }
     }
+
+
+    function readURL(input,preview) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            console.log(e);
+              $('#'+preview).attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+
+    $('#share_file').change(function(){
+        $('#share_box').hide();
+        readURL(this,'share_preview');
+        $('#share_preview').show();
+        uploadShareImg();
+    });
+
 
     //设置分享
     var setWxShare = function(src) {
@@ -118,10 +139,11 @@ jQuery(function($) {
                 console.log(data);
                 if (data.c == 1000) {
                    Common.getLoading();
-                   window.location.href = 'custom.html?session=' + session;
+                   // window.location.href = 'custom.html?session=' + session;
                 }
             },
             error: function() {
+                Common.getLoading();
                 alert('网络连接错误或服务器异常！');
             }
         })
@@ -145,6 +167,8 @@ jQuery(function($) {
                 console.log(data);
                 if (data.c == 1000) {
                     if (data.sil.length > 0) {
+                        $('#share_box').hide();
+                        $('#share_preview').show();
                         $("#title").val(data.sil[0].sti);
                         $("#desc").val(data.sil[0].sd);
                         $("#share_preview").attr('src',Common.globalTransferUrl() + data.sil[0].spu);

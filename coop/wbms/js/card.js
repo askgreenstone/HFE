@@ -117,7 +117,7 @@ jQuery(function($){
                   success: function(data) {
                       console.log(data);
                       head = data.on;
-                      $('#card_preview').attr('src',Common.globalTransferUrl() + data.on);
+                      // $('#card_preview').attr('src',Common.globalTransferUrl() + data.on);
                       Common.getLoading(false);
                   },
                   error: function(error) {
@@ -155,8 +155,7 @@ jQuery(function($){
               success : function(data) {
                 console.log(data);
                 qrcode = data.on;
-                $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.on)
-                  Common.getLoading(false);
+                Common.getLoading(false);
               },
               error : function(){
                 Common.getLoading(false);
@@ -208,10 +207,10 @@ jQuery(function($){
       //   return false; 
       // }
 
-      // if(!$('#TelNo').val()){
-      //   alert("请填写您的座机！");
-      //   return false;
-      // }
+      if(!$('#TelNo').val()){
+        alert("请填写您的座机！");
+        return false;
+      }
 
       // // if(!$('#WebSite').val()){
       // //   alert("请填写您的网址！");
