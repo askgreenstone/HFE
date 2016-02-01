@@ -82,6 +82,7 @@ $('#themebg_next').click(function() {
   		return;
   	}
   }
+  Common.getLoading(true);
   reader.addEventListener('load', function() {
           var fd = new FormData();
           fd.append('ThirdUpload', file);
@@ -91,7 +92,6 @@ $('#themebg_next').click(function() {
           fd.append('x', imgx);
           fd.append('y', imgy);
           console.log(fd);
-          Common.getLoading(true);
           // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
           $.ajax({
               type: 'POST',
@@ -100,14 +100,13 @@ $('#themebg_next').click(function() {
               processData: false,
 							contentType: false,
               success: function(data) {
-                  console.log(data);
-                  setTimeout(function(){
-                    Common.getLoading();
-                  },300);
-                  window.location.href = 'card.html?session='+sess;
+                Common.getLoading(false);
+                console.log(data);
+                window.location.href = 'card.html?session='+sess;
               },
               error: function(error) {
-                  alert('网络连接错误或服务器异常！');
+                Common.getLoading(false);
+                alert('网络连接错误或服务器异常！');
               }
           })
       })

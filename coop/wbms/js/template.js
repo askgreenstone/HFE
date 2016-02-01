@@ -56,13 +56,13 @@ jQuery(function($) {
 
     	$('#template_next').click(function(event) {
 		  	if(!localStorage.getItem('globalTemplateInfo')) return;
+		  	Common.getLoading(true);
 		  	var modelInfo = localStorage.getItem('globalTemplateInfo');
 		  	var obj = {
 		  		wmi:parseInt(modelInfo.split('@')[1]),
 		  		wmu:modelInfo.split('@')[0],
-		  		fm:1 //移动需要清除模版信息
+		  		fm:1 //移动端需要清除模版信息
 		  	};
-		  	Common.getLoading(true);
 		  	$.ajax({
 			    type : 'POST',
 			    dataType:'json',
@@ -70,13 +70,12 @@ jQuery(function($) {
 			    url : Common.globalDistUrl()+'exp/ChooseMicWebModel.do?session='+ sess,
 			    data: JSON.stringify(obj),
 			    success : function(data) {
+			    	Common.getLoading(false);
 			      console.log(data);
-			      setTimeout(function(){
-                    Common.getLoading();
-                  },300);
-			      window.location.href = 'themebg.html?session='+sess+'&ratio='+modelInfo.split('@')[2];
+         		window.location.href = 'themebg.html?session='+sess+'&ratio='+modelInfo.split('@')[2];
 			    },
 			    error : function(error){
+			    	Common.getLoading(false);
 			      alert('网络连接错误或服务器异常！');
 			    }
 			  })
