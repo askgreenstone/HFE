@@ -9,9 +9,12 @@ Zepto(function($){
   	var userpwd = $('#index_pwd').val(),
   			userphone = $('#index_phone').val();
   	if(!userphone){
-  		alert('请输入账号！');
+  		alert('请输入手机号码！');
   		return;
-  	}else if(!userpwd){
+  	}else if(!userphone.match(/^1[358]{1}[0-9]{9}$/)){
+      alert('手机号码格式不正确');
+      return;
+    }else if(!userpwd){
   		alert('请输入密码！');
   		return;
   	}

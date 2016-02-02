@@ -47,7 +47,10 @@ Zepto(function($){
   	if(!userphone){
   		alert('请输入电话！');
   		return;
-  	}else if(!userpwd1){
+  	}else if(!userphone.match(/^1[358]{1}[0-9]{9}$/)){
+      alert('电话号码格式不正确');
+      return;
+    }else if(!userpwd1){
   		alert('请输入密码！');
   		return;
   	}else if(!userpwd2){
