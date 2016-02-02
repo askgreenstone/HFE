@@ -62,7 +62,9 @@ Zepto(function($){
       alert('请输入验证码！');
       return;
     }
-  	api.forgetpassword(userphone,userpwd1,vcode,
+    var userpwd = CryptoJS.SHA1(userpwd1).toString(CryptoJS.enc.Hex).toUpperCase();
+    console.log(userpwd);
+  	api.forgetpassword(userphone,userpwd,vcode,
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
@@ -72,9 +74,12 @@ Zepto(function($){
            alert('验证码错误！'); 
         }else{
   				alert('网络错误，请重试！');
-          //window.location.href = 'register.html';
+          window.location.href = 'register.html';
   			}
   		}
   	)
   });
 })
+
+
+
