@@ -56,6 +56,7 @@ Api = (function() {
 		data.pn = phonenumber;
 		data.pwd = newpassword;
 		data.vc = vcode;
+		data.t = 1;
 		$.post(forget_pwd_url, JSON.stringify(data), function(json){
 			if (callback)
 				callback(json);

@@ -5,12 +5,14 @@
 
 Zepto(function($){
   var api =new Api(),vcode,timer;
-  $("#reg_check").prop("checked",true);
   //获取验证码
   function regVcode(){
     var userphone = $('#reg_phone').val();
     if(!userphone){
       alert('请输入电话！');
+      return;
+    }else if(!userphone.match(/^1[358]{1}[0-9]{9}$/)){
+      alert('电话号码格式不正确');
       return;
     };
     api.verify(userphone,
@@ -47,10 +49,7 @@ Zepto(function($){
   	if(!userphone){
   		alert('请输入电话！');
   		return;
-  	}else if(!userphone.match(/^1[358]{1}[0-9]{9}$/)){
-      alert('电话号码格式不正确');
-      return;
-    }else if(!userpwd1){
+  	}else if(!userpwd1){
   		alert('请输入密码！');
   		return;
   	}else if(!userpwd2){
@@ -62,16 +61,13 @@ Zepto(function($){
     }else if(!vcode){
       alert('请输入验证码！');
       return;
-    }else if(!$("#reg_check").prop("checked")){
-      alert('请选择阅读并接受用户协议！');
-      return;
-    };
+    }
   	api.forgetpassword(userphone,userpwd1,vcode,
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
           alert('重置成功');
-  				window.location.href = 'view/custom.html?session='+data.u.sid;
+  				window.location.href = '../index.html';
   			}else if(data.c == 1001){
            alert('验证码错误！'); 
         }else{

@@ -153,9 +153,9 @@ jQuery(function($){
               processData: false,
               contentType: false,
               success : function(data) {
+                Common.getLoading(false);
                 console.log(data);
                 qrcode = data.on;
-                Common.getLoading(false);
               },
               error : function(){
                 Common.getLoading(false);
