@@ -43,7 +43,7 @@ var Card = React.createClass({
             rg:data.rg,
             itd:data.itd,
             Abstract:data.abs.length>60?data.abs.substr(0,60)+'...':data.abs,
-            Introduction:data.itd.length>60?data.itd.substr(0,60)+'...':data.itd
+            Introduct:data.itd.length>60?data.itd.substr(0,60)+'...':data.itd
           });
           $('.qr_hidden').height(document.body.scrollHeight);
         }
@@ -97,12 +97,12 @@ var Card = React.createClass({
     if(e.target.innerText=='全文'){
       e.target.innerText='收起';
       this.setState({
-        Introduction:this.state.itd
+        Introduct:this.state.itd
       })
     }else{
       e.target.innerText='全文';
       this.setState({
-        Introduction:this.state.itd.substr(0,60)+'...'
+        Introduct:this.state.itd.substr(0,60)+'...'
       })
     };
   },
@@ -118,7 +118,7 @@ var Card = React.createClass({
     var ShareTitile = this.state.Title;
     var ShareDesc = this.state.Introduction;
     var ShareImg = this.state.Img;
-    if(this.state.hI){
+    
        return (
         <div>
           <div className="qr_hidden" onClick={this.hideDiv}>
@@ -164,15 +164,15 @@ var Card = React.createClass({
                 <img src="image/theme002/adress.png" width="25" height="25"/>
               </a>
             </div>
-            <div className="user_intro" style={{display:this.state.Abstract?'block':'none'}}>
+            <div className="user_intro" style={{display:this.state.abs?'block':'none'}}>
               <i>简介</i>
               <p>{this.state.Abstract}
               </p>
               <div onClick={this.absToggle} style={{display:this.state.abs.length>60?'block':'none'}}>全文</div>
             </div>
-            <div className="user_intro" style={{display:this.state.Introduction?'block':'none'}}>
+            <div className="user_intro" style={{display:this.state.itd?'block':'none'}}>
               <i>专业领域</i>
-              <p>{this.state.Introduction}
+              <p>{this.state.Introduct}
               </p>
               <div onClick={this.itdToggle} style={{display:this.state.itd.length>60?'block':'none'}}>全文</div>
             </div>
@@ -184,11 +184,6 @@ var Card = React.createClass({
           <Message/>
         </div>
       )
-    }else{
-       return(
-          <div className="card_unedit">微名片未编辑，请到后台管理页面编辑</div>
-        )
-    }
   }
 });
 
