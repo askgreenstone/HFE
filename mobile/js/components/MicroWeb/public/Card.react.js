@@ -135,7 +135,7 @@ var Card = React.createClass({
           </div>
           <div className="user_content">
             <div className="uc_input" style={{display:this.state.Mob?'block':'none'}}>
-              <a href={'tel://'+this.state.Mob.replace(/%20/g,'')}>
+              <a href={'tel://'+this.state.Mob.replace(/ /g,'')}>
                 {this.state.Mob}
                 <img src="image/theme002/telphone1.png" width="25" height="25"/>
               </a>
@@ -147,7 +147,7 @@ var Card = React.createClass({
               </a>
             </div>
             <div className="uc_input" style={{display:this.state.tel?'block':'none'}}>
-              <a href={'tel://'+this.state.tel.replace(/%20/g,'')}>
+              <a href={'tel://'+this.state.tel.replace(/ /g,'')}>
                 {this.state.tel}
                 <img src="image/theme002/fax.png" width="25" height="25"/>
               </a>
