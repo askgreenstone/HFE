@@ -107,7 +107,7 @@ var Index004=React.createClass({
   setIphoneHeight:function(){   
     if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
         var h = $(window).height();
-        console.log(h);
+        alert(h);
         $('.theme4_main').css({'height':h,'position':'relative'});
     }; 
   },
