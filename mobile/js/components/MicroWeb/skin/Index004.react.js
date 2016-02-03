@@ -108,7 +108,7 @@ var Index004=React.createClass({
     if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
         var h = $(window).height();
         console.log(h);
-        $('.theme4_main').css('height',h)
+        $('.theme4_main').css({'height':h,'position':'relative'});
     }; 
   },
   componentDidMount: function(){
