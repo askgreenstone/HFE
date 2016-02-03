@@ -20,6 +20,7 @@ Zepto(function($){
         console.log(data);
         if(data.c == 1000){
           var count = 60;
+          $('#reg_vcode').val('重新获取'+count+'s');
           timer = setInterval(function(){
             count--;
             console.log(count);
@@ -49,7 +50,10 @@ Zepto(function($){
   	if(!userphone){
   		alert('请输入电话！');
   		return;
-  	}else if(!userpwd1){
+  	}else if(!vcode){
+      alert('请输入验证码！');
+      return;
+    }else if(!userpwd1){
   		alert('请输入密码！');
   		return;
   	}else if(!userpwd2){
@@ -57,9 +61,6 @@ Zepto(function($){
       return;
     }else if (userpwd2 !== userpwd1) {
       alert('两次密码输入不一致！');
-      return;
-    }else if(!vcode){
-      alert('请输入验证码！');
       return;
     }
     var userpwd = CryptoJS.SHA1(userpwd1).toString(CryptoJS.enc.Hex).toUpperCase();

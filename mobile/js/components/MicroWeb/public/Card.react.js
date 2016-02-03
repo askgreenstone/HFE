@@ -42,7 +42,8 @@ var Card = React.createClass({
             abs:data.abs,
             rg:data.rg,
             itd:data.itd,
-            Abstract:data.abs.length>60?data.abs.substr(0,60)+'...':data.abs
+            Abstract:data.abs.length>60?data.abs.substr(0,60)+'...':data.abs,
+            Introduction:data.itd.length>60?data.itd.substr(0,60)+'...':data.itd
           });
           $('.qr_hidden').height(document.body.scrollHeight);
         }
@@ -91,6 +92,20 @@ var Card = React.createClass({
       })
     };
   },
+  itdToggle: function(e){
+    console.log(e.target.innerText);
+    if(e.target.innerText=='全文'){
+      e.target.innerText='收起';
+      this.setState({
+        Introduction:this.state.itd
+      })
+    }else{
+      e.target.innerText='全文';
+      this.setState({
+        Introduction:this.state.itd.substr(0,60)+'...'
+      })
+    };
+  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
@@ -120,7 +135,7 @@ var Card = React.createClass({
           </div>
           <div className="user_content">
             <div className="uc_input" style={{display:this.state.Mob?'block':'none'}}>
-              <a href={'tel://'+this.state.Mob}>
+              <a href={'tel://'+this.state.Mob.replace(/20%/g,'')}>
                 {this.state.Mob}
                 <img src="image/theme002/telphone1.png" width="25" height="25"/>
               </a>
@@ -132,7 +147,7 @@ var Card = React.createClass({
               </a>
             </div>
             <div className="uc_input" style={{display:this.state.tel?'block':'none'}}>
-              <a href={'tel://'+this.state.tel}>
+              <a href={'tel://'+this.state.tel.replace(/20%/g,'')}>
                 {this.state.tel}
                 <img src="image/theme002/fax.png" width="25" height="25"/>
               </a>
@@ -155,9 +170,11 @@ var Card = React.createClass({
               </p>
               <div onClick={this.absToggle} style={{display:this.state.abs.length>60?'block':'none'}}>全文</div>
             </div>
-            <div className="user_intro" style={{display:this.state.itd?'block':'none'}}>
-              <i>专业领域</i>
-              <p>{this.state.itd}</p>
+            <div className="user_intro" style={{display:this.state.Introduction?'block':'none'}}>
+              <i>简介</i>
+              <p>{this.state.Introduction}
+              </p>
+              <div onClick={this.itdToggle} style={{display:this.state.itd.length>60?'block':'none'}}>全文</div>
             </div>
             <div className="user_create">
                 <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>

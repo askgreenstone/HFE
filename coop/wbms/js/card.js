@@ -180,17 +180,14 @@ jQuery(function($){
         alert("请上传头像！");
         return false;
       }
-
-      if(!qrcode){
-        alert("请上传二维码！");
-        return false;
-      }
-
       if(!$('#NAME').val()){
         alert("请填写您的姓名！");
         return false;
       }
-
+      if(!qrcode){
+        alert("请上传二维码！");
+        return false;
+      }
 
       // if(!$('#Depart').val()){
       //   alert("请填写您的律所！");
