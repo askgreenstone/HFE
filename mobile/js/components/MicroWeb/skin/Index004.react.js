@@ -104,15 +104,24 @@ var Index004=React.createClass({
       }.bind(this)
     });
   },
+  setIphoneHeight:function(){   
+    if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
+        var h = $(window).height();
+        console.log(h);
+        $('.theme4_main').css('height',h)
+    }; 
+  },
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
     $('body').css({'background':'#ebebeb'});
+    this.setIphoneHeight();
   },
   componentWillMount: function(){
     this.getBgLogo();
     console.log('bg:'+this.state.bg);
     this.getWxShareInfo();
+    
   },
 	render:function(){
 		 var navNodes = this.state.navArrs.map(function(item,i){
