@@ -41,12 +41,11 @@
       var that = this;
       // if(that.props.title) return;
       var session = Common.getUrlParam('session'),
-        currentPath = Common.globalDistUrl()+'/coop/wbms/view/wxMiddle.html?session='+session+'&target=indenx',
+        currentPath = Common.globalDistUrl()+'coop/wbms/view/wxMiddle.html?session='+session+'&target=index',
         // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownuri=e442&wxsharetype=1',
         wxPath = window.location.href,
         uri = encodeURIComponent(wxPath.toString());
       // alert(currentPath);
-      // console.log(session)
       if(!session) return;
       // alert('currentPath:'+currentPath+',wxPath:'+wxPath);
       // alert('uri:' + uri);
