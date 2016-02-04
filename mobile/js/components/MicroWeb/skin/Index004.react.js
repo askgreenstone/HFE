@@ -107,7 +107,7 @@ var Index004=React.createClass({
   setIphoneHeight:function(){   
     if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
         var h = $(window).height();
-        alert(h);
+        // alert(h);
         $('.theme4_main').css({'height':h,'position':'relative'});
     }; 
   },
@@ -115,13 +115,13 @@ var Index004=React.createClass({
     this.staticWebPV(1);
     this.getUserList();
     $('body').css({'background':'#ebebeb'});
-    this.setIphoneHeight();
+    
   },
   componentWillMount: function(){
     this.getBgLogo();
     console.log('bg:'+this.state.bg);
     this.getWxShareInfo();
-    
+    this.setIphoneHeight();
   },
 	render:function(){
 		 var navNodes = this.state.navArrs.map(function(item,i){
