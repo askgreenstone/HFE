@@ -67,9 +67,8 @@
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             //此处增加分享逻辑1－首页，2-名片，3－相册
-            var wxShareTarget = getUrlParams('target'),
-                session = getUrlParams('session');
-            location.href = '../'+wxShareTarget+'.html?session='+session;
+            var wxShareTarget = getUrlParams('target');
+            location.href = '../'+wxShareTarget+'.html?';
         });
        function getUrlParams(p) {
           var url = location.href;

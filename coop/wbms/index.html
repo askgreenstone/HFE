@@ -13,7 +13,7 @@
 		<div class="index">
 			<div class="index_head">律师微应用管理入口</div>
 			<div class="index_main">
-				<div>（请使用律师注册手机号登陆）</div>
+				<div>（请使用绿石注册手机号登陆）</div>
 				<div class="border">
 					<span><img src="image/user.png" alt=""></span>
 					<input id="index_phone" type="text" placeholder="注册手机号">
@@ -40,20 +40,18 @@
 		function wxSignature() {
       var that = this;
       // if(that.props.title) return;
-      var session = Common.getUrlParam('session'),
-        currentPath = Common.globalDistUrl()+'coop/wbms/view/wxMiddle.html?session='+session+'&target=index',
+      var currentPath = Common.globalDistUrl()+'coop/wbms/view/wxMiddle.html?&target=index',
         // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownuri=e442&wxsharetype=1',
         wxPath = window.location.href,
         uri = encodeURIComponent(wxPath.toString());
       // alert(currentPath);
-      if(!session) return;
       // alert('currentPath:'+currentPath+',wxPath:'+wxPath);
       // alert('uri:' + uri);
       $.ajax({
         type: 'get',
-        url: Common.globalDistUrl()+'/usr/ThirdJSapiSignature.do?apath=' + uri+'&session='+session,
+        url: Common.globalDistUrl()+'/usr/ThirdJSapiSignature.do?apath=' + uri,
         success: function(data) {
-          // alert('wxscan:' + JSON.stringify(data));
+           alert('wxscan:' + JSON.stringify(data));
           if (data.c == 1000) {
             wx.config({
                 debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -74,7 +72,7 @@
 	            });
 	            //分享到朋友圈
 	            wx.onMenuShareTimeline({
-                title: '我是标题', // 分享标题
+                title: '私人订制微网站', // 分享标题
                 link: currentPath, // 分享链接
                 imgUrl: 'image/logo.png', // 分享图标
                 success: function () {
@@ -89,8 +87,8 @@
 	            });
 	            //分享给朋友
 	            wx.onMenuShareAppMessage({
-	              title: '我是分享标题', // 分享标题
-	              desc: '我是分享描述', // 分享描述
+	              title: '私人订制微网站', // 分享标题
+	              desc: '我正在给自己做私人订制微网站，你也来试试吧！', // 分享描述
 	              link: currentPath,// 分享链接
 	              imgUrl: 'image/logo.png', // 分享图标
 	              type: '', // 分享类型,music、video或link，不填默认为link
@@ -106,7 +104,7 @@
 	            });
 	            wx.error(function(res) {
 	               // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-	                // alert(res.errMsg);
+	                alert(res.errMsg);
 	                that.sendWxMsg(data.appId,res);
 	                window.location.reload();
 	             });
