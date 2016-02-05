@@ -20,6 +20,7 @@ var Card = React.createClass({
   },
   getServerInfo: function(){
     var ownUri = this.getUrlParams('ownUri');
+    var wid = $(window).width()/2;
     $.ajax({
       type:'get',
       url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
@@ -47,7 +48,8 @@ var Card = React.createClass({
             Mobile:data.Mob.replace(/ /g,''),
             TelNo:data.tel.replace(/ /g,''),
             abss:data.abs.length>60?true:false,
-            itdd:data.itd.length>60?true:false
+            itdd:data.itd.length>60?true:false,
+            width:wid
           });
           $('.qr_hidden').height(document.body.scrollHeight);
         }
@@ -130,7 +132,7 @@ var Card = React.createClass({
           </div>
           <div className="user_info">
             <img className="ui_header" src={this.state.hI} width="65" height="65"/>
-            <p>
+            <p style={{width:this.state.width}}>
               <span>{this.state.nm}</span><br/>
               <span style={{display:this.state.dp?'inline':'none'}}>{this.state.dp}</span><br/>
               <span style={{display:this.state.rk?'inline':'none'}}>{this.state.rk}</span>
