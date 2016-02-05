@@ -72,10 +72,20 @@
 						<div class="mb_input mc_input">
 							<i>律所：</i>
 							<input type="text" ng-model="vm.user.Depart">
+							<div class="step5_validate">
+								<span ng-class="vm.user.Depart.length>13?'red':''">
+								{{vm.user.Depart.length}}</span><i> / 13</i>
+								<b ng-show="vm.user.Depart.length>13">字数超过限制</b>
+							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i>职务：</i>
 							<input type="text" ng-model="vm.user.Rank">
+							<div class="step5_validate">
+								<span ng-class="vm.user.Rank.length>12?'red':''">
+								{{vm.user.Rank.length}}</span><i> / 12</i>
+								<b ng-show="vm.user.Rank.length>12">字数超过限制</b>
+							</div>
 						</div>
 						<div class="mb_input mc_input input_file_fix">
 							<i>二维码：</i>

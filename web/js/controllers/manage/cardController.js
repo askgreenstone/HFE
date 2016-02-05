@@ -344,6 +344,15 @@ define(['App'], function(app) {
             return false;
           }
 
+          if(vm.user.Depart && vm.user.Depart.length>13){
+            alert("律所长度不能超过十三位！"); 
+            return false;
+          }
+
+          if(vm.user.Rank && vm.user.Rank.length>12){
+            alert("职务长度不能超过十二位！"); 
+            return false;
+          }
 
           if(vm.user.Address && vm.user.Address.length>30){
             alert("地址长度不能超过三十位！"); 
