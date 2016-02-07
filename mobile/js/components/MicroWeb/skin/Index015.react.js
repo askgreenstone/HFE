@@ -8,7 +8,7 @@ var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
 require('../../../../css/theme/theme015.less');
-var Index012 = React.createClass({
+var Index015 = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
     return {
@@ -144,4 +144,4 @@ var Index012 = React.createClass({
 			)
 	}
 })
-module.exports = Index012;
+module.exports = Index015;
