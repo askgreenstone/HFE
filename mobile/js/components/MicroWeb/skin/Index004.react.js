@@ -8,6 +8,20 @@ var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
 require('../../../../css/theme/theme004.less');
+
+$(window).on(function(){
+  // alert($('body').scrollTop());
+  if($('body').scrollTop() > 0){
+    $('.theme4_main_list').animate({'bottom':'40px'});
+    $('#copybar').show();
+    $('#copybar').animate({'bottom':'0px'});
+  }else{
+    $('.theme4_main_list').animate({'bottom':'0px'});
+    // $('#copybar').hide();
+    $('#copybar').animate({'bottom':'-50px'});
+  }
+});
+
 var Index004=React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
@@ -111,11 +125,26 @@ var Index004=React.createClass({
         $('.theme4_main').css({'height':h,'position':'relative'});
     }; 
   },
+  checkIOSVersion: function(){
+    // alert(window.navigator.appVersion);
+  // 判断是否 iPhone 或者 iPod
+    if((navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i))) {
+      // 判断系统版本号是否大于 4
+      return Boolean(navigator.userAgent.match(/OS [9]_\d[_\d]* like Mac OS X/i));
+    } else {
+      return false;
+    }
+  },
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
     $('body').css({'background':'#ebebeb'});
-    
+    // $('#bottomBar').css('bottom','5px');
+    var temp = this.checkIOSVersion();
+    if(!temp){
+      $('#bottomBar').css('bottom','12px');
+      $('body').css('backgroundColor','#2D3132');
+    }
   },
   componentWillMount: function(){
     this.getBgLogo();
@@ -144,11 +173,14 @@ var Index004=React.createClass({
               </div>
 							
 						</div>
-						<ul className="theme4_main_list">
-							{navNodes}
-						</ul>
+            <div id="bottomBar" style={{'position':'absolute','bottom':'-55px','width':'100%','overflow':'hidden'}}>
+  						<ul className="theme4_main_list">
+              {navNodes}
+  						</ul>
+              <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
+            </div>
 					</div>
-          <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
+          
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index004"/>
         <Message/>
