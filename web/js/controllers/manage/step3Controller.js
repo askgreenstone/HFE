@@ -146,29 +146,29 @@ define(['App'], function(app) {
         }
 
         //素材库：1，背景图；2，logo
-        vm.getSourceImage = function(){
-          $http({
-                method: 'GET',
-                url: GlobalUrl+'/exp/QueryImgMaterial.do',
-                params: {
-                    session:vm.sess,
-                    it:2
-                },
-                data: {
+        // vm.getSourceImage = function(){
+        //   $http({
+        //         method: 'GET',
+        //         url: GlobalUrl+'/exp/QueryImgMaterial.do',
+        //         params: {
+        //             session:vm.sess,
+        //             it:2
+        //         },
+        //         data: {
                     
-                }
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  vm.sourceImage = data.il;
-                }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('网络连接错误或服务器异常！');
-            });
-        }
+        //         }
+        //     }).
+        //     success(function(data, status, headers, config) {
+        //         console.log(data);
+        //         if(data.c == 1000){
+        //           vm.sourceImage = data.il;
+        //         }
+        //     }).
+        //     error(function(data, status, headers, config) {
+        //         // console.log(data);
+        //         alert('网络连接错误或服务器异常！');
+        //     });
+        // }
 
         //查询用户上传背景图片
         vm.getServerBg = function(){
@@ -210,18 +210,18 @@ define(['App'], function(app) {
         }
 
         //it:1背景图，it:2logo
-        vm.chooseSourceBg = function(name){
-          vm.choosePic = name;
+        // vm.chooseSourceBg = function(name){
+        //   vm.choosePic = name;
           
-          vm.userBg = TransferUrl+name;
-          $('#step3Cropper').cropper('destroy');
-          console.log('userBg:'+vm.userBg);
-          //延迟初始化裁图插件
-          setTimeout(function() {
-            vm.initCropper();
-          }, 300);
-          vm.isServerData = true;
-        }
+        //   vm.userBg = TransferUrl+name;
+        //   $('#step3Cropper').cropper('destroy');
+        //   console.log('userBg:'+vm.userBg);
+        //   //延迟初始化裁图插件
+        //   setTimeout(function() {
+        //     vm.initCropper();
+        //   }, 300);
+        //   vm.isServerData = true;
+        // }
 
         //裁切素材
         vm.clipSourceImg = function(name){
@@ -259,7 +259,7 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.getServerBg();
-          vm.getSourceImage();
+          // vm.getSourceImage();
         }
 
         init();

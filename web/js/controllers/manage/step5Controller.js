@@ -24,6 +24,33 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
+
+        vm.getQrCode = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
+                  vm.inputUrl = data.url;
+                  $('#iframe_src').empty();
+                  $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="568"></iframe>');
+
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        };
+
+
         vm.uploadFile = function() {
             var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
@@ -169,6 +196,7 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.GetWxShare();
+          vm.getQrCode();
         }
 
         init();

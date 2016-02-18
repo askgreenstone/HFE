@@ -3,7 +3,11 @@
 	<div class="manage_content">
 		<div class="mc_left">
 			<ul class="mcl_list">
-				<li ng-click="vm.menuLink('micro')">
+				<li class="text-active">
+					<img src="image/manage/microapp.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">我的微应用</a></span>
+				</li>
+				<!-- <li ng-click="vm.menuLink('micro')">
 					<img src="image/manage/micro.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微网站首页设置</a></span>
 				</li>
@@ -22,7 +26,7 @@
 				<li class="text-active" ng-click="vm.menuLink('manage')">
 					<img src="image/manage/set.png"  width="18" height="18"/>
 					<span><a href="javascript:void(0)">内容维护</a></span>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 		<div class="mc_right">
@@ -37,8 +41,8 @@
 					<p>您已获得<span>7天</span>试用</p>
 					<p>点击“激活”以开启微应用体验之旅</p>
 				</div>
-				<div class="active_agreement"><span><span></span></span>我已阅读并同意<a href="#">绿石微应用协议</a></div>
-				<div class="active_btn">激活</div>
+				<div class="active_agreement"><input type="checkbox" id="active"><label for="active"></label>我已阅读并同意<a href="#">绿石微应用协议</a></div>
+				<div class="active_btn" ng-click="vm.setActiveState()">激活</div>
 			</div>
 		</div>
 		<div class="clean"></div>

@@ -1629,6 +1629,7 @@ footer {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 30px;
+  line-height: 30px;
 }
 .active_box .active_agreement a{
   font-family: '纤黑';
@@ -1636,22 +1637,23 @@ footer {
   color: #39D167;
   text-decoration: underline;
 }
-.active_box .active_agreement>span{
-  width: 20px;
-  height: 20px;
-  border: 1px solid #333;
+.active_box .active_agreement label{
+  width: 22px;
+  height: 22px;
+  background-image: url('../image/check.png');
+  background-repeat:  no-repeat;
   display: inline-block;
+  position: relative;
+  top: 10px;
+  right: 10px;
 }
-.active_box .active_agreement>span span{
- /* width: 18px;
-  height: 15px;
-  display: inline-block;
-  border: 1px solid #666;
-  border-bottom: 0;
-  border-left: 0;
-  transform: rotate(120deg) translate(-1px);
-  -webkit-transform: rotate(-241deg) translate(-1px);*/
+.active_agreement input{
+  display: none;
 }
+.active_agreement input:checked+label{
+  background-position: left bottom;
+}
+
 .active_btn{
   width: 130px;
   height: 50px;

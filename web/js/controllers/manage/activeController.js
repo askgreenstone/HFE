@@ -9,11 +9,38 @@ define(['App'], function(app) {
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
+        vm.globalUrl = GlobalUrl;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
         }
 
+
+        vm.setInputChecked = function(){
+          $('#active').prop('checked',true);
+        }
+
+
+        vm.setActiveState = function(){
+          $.ajax({
+            type : 'post',
+            url : vm.globalUrl + '/exp/ActivateMicWeb.do?session='+ vm.sess,
+            data : '',
+            dataType:'json',
+            contentType:'application/json',
+            success : function(data) {
+              console.log(data);
+              if(data.c == 1000){
+                 window.location.href = '#/manage?session='+vm.sess;
+              }
+            },
+            error : function(){
+              alert('网络连接错误或服务器异常！');
+            }
+          })
+        }
+
+      
 
         vm.gotoLink = function(path, title,ntid) {
             $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ntId='+ntid;
@@ -112,7 +139,7 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.getServerCatalogue();
+          vm.setInputChecked();
           vm.storeCurrentSession(vm.sess);
           vm.getMicroImg();
         }
