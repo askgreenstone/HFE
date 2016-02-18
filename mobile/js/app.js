@@ -46,6 +46,9 @@ var Index013 = require('./components/MicroWeb/skin/Index013.react');
 //皮肤十四（同皮肤六，青山律师最终定稿）
 var Index014 = require('./components/MicroWeb/skin/Index014.react');
 
+//皮肤十五
+var Index015 = require('./components/MicroWeb/skin/Index015.react');
+
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
 var Single = require('./components/MicroWeb/public/Single.react');
@@ -75,6 +78,7 @@ ReactDOM.render((
     <Route path="/index012" component={Index012}/>
     <Route path="/index013" component={Index013}/>
     <Route path="/index014" component={Index014}/>
+    <Route path="/index015" component={Index015}/>
 
 
 
