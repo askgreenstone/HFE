@@ -1667,6 +1667,19 @@ footer {
   font-size: 20px;
   cursor: pointer;
 }
+.active_expired p{
+  width: 100%;
+  font-family: '中黑';
+  font-size: 20px;
+  color: #333;
+}
+.active_expired p input{
+  border: none;
+  outline: none;
+  font-family: '纤黑';
+  font-size: 18px;
+  color: red;
+}
 
 
 

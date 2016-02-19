@@ -3,13 +3,14 @@
 define(['App'], function(app) {
 
     var injectParams = ['$location', '$window', '$http','GlobalUrl','TransferUrl','Common'];
-    var ActiveController = function($location, $window, $http,GlobalUrl,TransferUrl,Common) {
+    var ActexpiredController = function($location, $window, $http,GlobalUrl,TransferUrl,Common) {
 
         var vm = this;
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
         vm.globalUrl = GlobalUrl;
+        vm.endTime = '';
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -20,45 +21,34 @@ define(['App'], function(app) {
           $('#active').prop('checked',true);
         }
 
-        vm.getActiveState = function(){
-          $http({
-              method: 'post',
-              url: GlobalUrl+'/exp/QueryMicWebActivate.do',
-              params: {session:vm.sess},
-              data: {}
-          }).
-          success(function(data) {
-            console.log(data);
-            if(data.c == 1000){
-              if(data.as == 1){
-                window.location.href = '#/manage?session='+vm.sess;
-              }else if(data.as == 2 ){
-                localStorage.setItem('activeEndTime',data.at);
-                window.location.href = '#/actexpired?session='+vm.sess;
-              }
-            }
-          }).
-          error(function(){
-            alert('网络连接错误或服务器异常！');
-          })
+        vm.getEndTime = function(){
+          var now = localStorage.getItem('activeEndTime');
+          vm.endTime = vm.getLocalTime(now)
+          localStorage.removeItem('activeEndTime');
         }
-        vm.setActiveState = function(){
-          $http({
-              method: 'post',
-              url: GlobalUrl+'/exp/ActivateMicWeb.do',
-              params: {session:vm.sess},
-              data: {}
-          }).
-          success(function(data) {
-            console.log(data);
-            if(data.c == 1000){
-               window.location.href = '#/manage?session='+vm.sess;
-            }
-          }).
-          error(function(){
-            alert('网络连接错误或服务器异常！');
-          })
-        }
+
+        vm.getLocalTime = function(now) {     
+             
+          return new Date(parseInt(now)).toLocaleString().replace(/\//g, "-");      
+        } 
+        // vm.setActiveState = function(){
+        //   $.ajax({
+        //     type : 'post',
+        //     url : vm.globalUrl + '/exp/ActivateMicWeb.do?session='+ vm.sess,
+        //     data : '',
+        //     dataType:'json',
+        //     contentType:'application/json',
+        //     success : function(data) {
+        //       console.log(data);
+        //       if(data.c == 1000){
+        //          window.location.href = '#/manage?session='+vm.sess;
+        //       }
+        //     },
+        //     error : function(){
+        //       alert('网络连接错误或服务器异常！');
+        //     }
+        //   })
+        // }
 
       
 
@@ -162,15 +152,15 @@ define(['App'], function(app) {
           vm.setInputChecked();
           vm.storeCurrentSession(vm.sess);
           vm.getMicroImg();
-          vm.getActiveState();
+          vm.getEndTime();
         }
 
         init();
 
     };
 
-    ActiveController.$inject = injectParams;
+    ActexpiredController.$inject = injectParams;
 
-    app.register.controller('ActiveController', ActiveController);
+    app.register.controller('ActexpiredController', ActexpiredController);
 
 });

@@ -1,0 +1,104 @@
+/*字体大小*/
+@b-size: 1.2rem;
+@s-size: 1.3rem;
+@m-size: 1.4rem;
+@l-size: 1.5rem;
+@xl-size: 1.6rem;
+/*常用色值*/
+@black10:#000;
+@black07:rgba(0,0,0,0.7);
+@black06:rgba(0,0,0,0.6);
+
+#myapp>div{
+	width:100%;
+	height:100%;
+}
+.theme016_container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.theme016_container>img {
+  width: 100%;
+  display: block;
+}
+.theme016_menu_list{
+  width: 90%;
+  position: absolute;
+  left: 5%;
+  top: 27%;
+  margin: 0px;
+  padding: 0px;
+}
+.theme016_menu_list li{
+  float: left;
+  list-style: none;
+  width: 30%;
+  margin: 0 1.5% 1.5%;
+  -webkit-tap-highlight-color: transparent;
+}
+.theme016_menu_list li .theme016_circle {
+  width: 7rem;
+  height: 7rem;
+  background: rgba(55,63,112,0.5);
+  box-sizing: border-box;
+  margin: 3px auto 8px;
+  border-radius:10%;
+  padding-top:5px;
+}
+.theme016_menu_list li img{
+  width: 60%;
+  display: block;
+  margin: 0px auto 5px;
+}
+.theme016_menu_list li p {
+  width: 100%;
+  height: 1.6rem;
+  text-align: center;
+  color: #fff;
+  font-family: 'Microsoft Yahei';
+  font-size: @l-size;
+  line-height: 1.6rem;
+}
+.logo{
+  position: absolute;
+  left: 3%;
+  top: 0;
+  width: 130px;
+  height: 130px;
+}
+.logo img{
+  width:100%;
+  margin:auto;
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+}
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 62.5%;
+  }
+  .theme016_menu_list li .theme016_circle{
+   
+  }
+}
+@media screen and (min-width: 361px) and (max-width: 376px) {
+  html {
+    font-size: 66.5%;
+  }
+  .theme016_menu_list li .theme016_circle{
+    width: 8rem;
+    height: 8rem;
+  }
+}
+@media screen and (min-width: 377px) {
+  html {
+    font-size: 75.5%;
+  }
+  .theme016_menu_list li .theme016_circle{
+    width: 9rem;
+    height: 9rem;
+  }
+}
