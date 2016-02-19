@@ -28,6 +28,30 @@ define(['App'], function(app) {
             $window.location.href = '#/card?session='+vm.sess+'&state=do';
         }
 
+
+        vm.getCardUri = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+          }).
+          success(function(data, status, headers, config) {
+
+              console.log(data);
+              if(data.c == 1000){
+                vm.ownUri = data.uri;
+                vm.qrcode = vm.transferurl+data.QR;
+                vm.url = data.mwUrl;
+                console.log(vm.url);
+                var iframe = '<iframe src='+vm.url+' width="320" height="720"></iframe>';
+                $("#iframe_src").append(iframe);    
+              }
+              
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          }); 
+        }
         vm.uploadFile = function() {
             
             var f = document.getElementById('card2_upload').files[0],
@@ -173,6 +197,7 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.GetWxShare();
+          vm.getCardUri();
         }
 
         init();

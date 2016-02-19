@@ -49,6 +49,9 @@ var Index014 = require('./components/MicroWeb/skin/Index014.react');
 //皮肤十五
 var Index015 = require('./components/MicroWeb/skin/Index015.react');
 
+//皮肤十六（同皮肤十三，菜单外方内圆）
+var Index016 = require('./components/MicroWeb/skin/Index016.react');
+
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
 var Single = require('./components/MicroWeb/public/Single.react');
@@ -79,6 +82,7 @@ ReactDOM.render((
     <Route path="/index013" component={Index013}/>
     <Route path="/index014" component={Index014}/>
     <Route path="/index015" component={Index015}/>
+    <Route path="/index016" component={Index016}/>
 
 
 
