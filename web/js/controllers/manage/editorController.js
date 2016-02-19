@@ -27,7 +27,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 if(data.c == 1000){
                   vm.getServerEdit = data.nc;
                   vm.nId = data.nId;
-                  setContent();
+                  setContent(true,'');
                 }
             }).
             error(function(data, status, headers, config) {
@@ -37,7 +37,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         vm.submitContent = function(){
-          vm.userIntroduce = UE.getEditor('editor').getContent();
+          vm.userIntroduce = UM.getEditor('editor').getContent();
           if(!vm.userIntroduce){
             alert('请输入内容！');
             return;
@@ -97,13 +97,75 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           $window.location.href = '#/' + path + '?session='+vm.sess;
         }
 
-        function setContent(isAppendTo) {
-          var editor = UE.getEditor('editor');
+        vm.getUMThemeJson = function(){
+          $http({
+                method: 'GET',
+                url:'/web/js/umTheme.json',
+                params: {},
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                var comments = '';
+                for(var i=0;i<data.length;i++){
+                  var temp = "<div class='box' value='"+data[i].id+"'>" + data[i].code +"</div>";
+                  comments += temp;
+                }
+                $('#um_editor_box').append(comments);
+
+                $('#um_editor_box .box').bind('click',function(event) {
+                  vm.queryThemeCode($(this).attr('value'));
+                  setTimeout(function(){
+                    setContent(false,'');
+                  },300)
+                  
+                });
+            }).
+            error(function(data, status, headers, config) {
+                alert('网络连接错误或服务器异常！');
+            });
+        }
+
+        //通过id查询code
+        vm.queryThemeCode = function(id){
+          // vm.getServerEdit = '';
+          $http({
+                method: 'GET',
+                url:'/web/js/umTheme.json',
+                params: {},
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                for(var i=0;i<data.length;i++){
+                  if(data[i].id == id){
+                    // console.log(data[i].code);
+                    vm.getServerEdit = data[i].code;
+                  }
+                }
+            }).
+            error(function(data, status, headers, config) {
+                alert('网络连接错误或服务器异常！');
+            });
+        }
+
+        window.onscroll = function(){ 
+          $('.edui-toolbar').css('top','60px');
+        }
+
+        function setContent(flag,isAppendTo) {
+          // var editor = UM.getEditor('editor');
+          //选择模版时不需要摧毁实例，标记为false
+          if(flag){
+            //摧毁um实例
+            if(um) um.destroy();
+          }
+          
+          var editor = UM.getEditor('editor');
           //ueditor内部bug处理
           if(editor)
           {
             try{
-              editor.setContent(vm.getServerEdit, isAppendTo);
+              editor.setContent(vm.getServerEdit, true);
             }
             catch(error){
               setTimeout(function(){
@@ -117,18 +179,20 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
             },500);
           }
         }
-
+        
+        var um = null;
         function init(){
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = decodeURI(Common.getUrlParam('ntid'));
           vm.sess = Common.getUrlParam('session');
 
-          var editor = new UE.ui.Editor();
-          editor.render('editor');
+          um = UM.getEditor('editor');
 
           window['ZeroClipboard']=ZeroClipboard;
 
           vm.queryContentState();
+
+          vm.getUMThemeJson();
         }
 
         init();

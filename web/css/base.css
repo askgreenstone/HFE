@@ -481,6 +481,37 @@ footer {
 .editor_intro{
   margin: -25px 0px 0 0px;
   min-height: 300px;
+  display: flex;
+}
+.editor_intro .editor_theme{
+  flex:1;
+  border: 1px solid #e5e5e5;
+  margin-right: 15px;
+  height: 500px;
+  overflow: scroll;
+}
+.editor_theme .title{
+  background-color: #3bbffc;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 16px;
+}
+.editor_theme{
+  position: relative;
+}
+.editor_theme .box{
+  border: 1px solid #ccc;
+  width: 95%;
+  min-height: 50px;
+  margin: 10px auto;
+  box-shadow: 2px 2px 5px #ccc;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 10px;
+}
+.editor_intro .editor_textarea{
+  flex:1;
 }
 /*add.html*/
 .add_form{
