@@ -17,7 +17,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.showUeditorFlag = true;
 
         vm.getContent = function(){
-          vm.createInfo.content = UE.getEditor('editor').getContent();
+          vm.createInfo.content = UM.getEditor('editor').getContent();
           // console.log('nc:'+vm.createInfo.content);
         }
 
@@ -121,7 +121,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                   vm.ntid = data.ntId;
                   vm.createInfo.content = data.nc;
                   vm.createInfo.url = data.nl;
-                  setContent();
+                  setContent(true,'');
                   if(vm.createInfo.url){
                     // alert(vm.createInfo.url);
                     $('.ai_checkbox i').addClass('active');
@@ -151,12 +151,17 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           }
         }
 
-        function setContent(isAppendTo) {
-            var editor = UE.getEditor('editor');
+        function setContent(flag,isAppendTo) {
+            if(flag){
+              //摧毁um实例
+              if(um) um.destroy();
+            }
+            
+            var editor = UM.getEditor('editor');
             if(editor)
             {
               try{
-                editor.setContent(vm.createInfo.content, isAppendTo);
+                editor.setContent(vm.createInfo.content, true);
               }
               catch(error){
                 setTimeout(function(){
@@ -171,15 +176,70 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
             }
         }
 
+        vm.getUMThemeJson = function(){
+          $http({
+                method: 'GET',
+                url:'/web/js/umTheme.json',
+                params: {},
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                var comments = '';
+                for(var i=0;i<data.length;i++){
+                  var temp = "<div class='box' value='"+data[i].id+"'>" + data[i].code +"</div>";
+                  comments += temp;
+                }
+                $('#um_editor_box').append(comments);
 
+                $('#um_editor_box .box').bind('click',function(event) {
+                  vm.queryThemeCode($(this).attr('value'));
+                  setTimeout(function(){
+                    setContent(false,'');
+                  },300)
+                  
+                });
+            }).
+            error(function(data, status, headers, config) {
+                alert('网络连接错误或服务器异常！');
+            });
+        }
+
+        //通过id查询code
+        vm.queryThemeCode = function(id){
+          $http({
+                method: 'GET',
+                url:'/web/js/umTheme.json',
+                params: {},
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                for(var i=0;i<data.length;i++){
+                  if(data[i].id == id){
+                    // console.log(data[i].code);
+                    vm.createInfo.content = data[i].code;
+                  }
+                }
+            }).
+            error(function(data, status, headers, config) {
+                alert('网络连接错误或服务器异常！');
+            });
+        }
+
+        window.onscroll = function(){ 
+          $('.edui-toolbar').css('top','60px');
+        }
+
+        var um = null;
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = decodeURI(Common.getUrlParam('ntId'));
           vm.nid = Common.getUrlParam('nid');
 
-          var editor = new UE.ui.Editor();
-          editor.render('editor');
+          // var editor = new UE.ui.Editor();
+          // editor.render('editor');
+          um = UM.getEditor('editor');
 
           window['ZeroClipboard']=ZeroClipboard;
 
@@ -187,6 +247,8 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
             vm.titleFlag = '修改文章';
             vm.queryContentState(Common.getUrlParam('nid'));
           }
+
+          vm.getUMThemeJson();
         }
 
         init();

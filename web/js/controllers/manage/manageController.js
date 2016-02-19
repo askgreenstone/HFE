@@ -17,7 +17,7 @@ define(['App'], function(app) {
 
         vm.gotoLink = function(path, title,ntid) {
             $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ntId='+ntid;
-            UE.getEditor('editor').destroy();
+            // UE.getEditor('editor').destroy();
         };
 
         vm.getServerCatalogue = function() {
