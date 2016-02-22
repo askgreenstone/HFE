@@ -9,6 +9,10 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.title = '标题';
         vm.isEdit = false;
         vm.nId = '';
+        vm.showUeditorFlag = true;
+        vm.createInfo = {
+          url:''
+        }
 
         vm.queryContentState = function(){
           $http({
@@ -27,6 +31,12 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 if(data.c == 1000){
                   vm.getServerEdit = data.nc;
                   vm.nId = data.nId;
+                  vm.createInfo.url = data.nl;
+                  if(vm.createInfo.url){
+                    // alert(vm.createInfo.url);
+                    $('.ai_checkbox i').addClass('active');
+                    vm.showUeditorFlag = false;
+                  }
                   setContent(true,'');
                 }
             }).
@@ -36,10 +46,32 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
             });
         }
 
+        vm.checkUserChoose = function(){
+          var $chooseEle = $('.ai_checkbox i');
+          if($chooseEle.hasClass('active')){
+            $chooseEle.removeClass('active');
+            vm.showUeditorFlag = true;
+            vm.createInfo.url = '';
+          }else{
+            $chooseEle.addClass('active');
+            vm.showUeditorFlag = false;
+          }
+        }
+
+        //判断是否为超链接
+        vm.isURL = function(str){
+            return!!str.match(/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g);
+        }
+
         vm.submitContent = function(){
           vm.userIntroduce = UM.getEditor('editor').getContent();
           if(!vm.userIntroduce){
             alert('请输入内容！');
+            return;
+          }
+          //引用链接检测
+          if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
+            alert('引用链接格式不正确，请输入超链接！');
             return;
           }
           // 判断新增还是修改
@@ -49,6 +81,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
               ntId:vm.ntid,
               nc:vm.userIntroduce,
               ns:1,
+              nl:vm.createInfo.url,
               ntype:1
             }
           }else{
@@ -58,6 +91,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
               nc:vm.userIntroduce,
               nId:vm.nId,
               ns:1,
+              nl:vm.createInfo.url,
               ntype:1
             }
           }
@@ -150,6 +184,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
         window.onscroll = function(){ 
           $('.edui-toolbar').css('top','60px');
+          // $('.editor_intro .editor_textarea').css('width','52%');
         }
 
         function setContent(flag,isAppendTo) {
