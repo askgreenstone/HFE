@@ -21,6 +21,7 @@ var Index016 = React.createClass({
     };
   },
   getUserList: function(){
+    // alert($(window).width()+'x'+$(window).height());
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
