@@ -67,18 +67,18 @@
 						<i>分享标题</i>
 						<input style="width:220px;" type="text" ng-model="vm.user.title" placeholder="请输入标题"/>
 						<div class="step5_validate">
-							<span ng-class="vm.user.title.length>15?'red':''">
-							{{vm.user.title.length}}</span><i> / 15</i>
-							<b ng-show="vm.user.title.length>15">字数超过限制</b>
+							<span ng-class="vm.calLength(vm.user.title)>30?'red':''">
+							{{vm.calLength(vm.user.title)}}</span><i> / 30</i>
+							<b ng-show="vm.calLength(vm.user.title)>30">字数超过限制</b>
 						</div>
 					</div>
 					<div class="step5_textarea">
 						<i>分享摘要</i>
 						<textarea ng-model="vm.user.desc" placeholder="请输入描述信息"></textarea>
 						<div class="step5_validate">
-							<span ng-class="vm.user.desc.length>40?'red':''">
-							{{vm.user.desc.length}}</span><i> / 40</i>
-							<b ng-show="vm.user.desc.length>40">字数超过限制</b>
+							<span ng-class="vm.calLength(vm.user.desc)>80?'red':''">
+							{{vm.calLength(vm.user.desc)}}</span><i> / 80</i>
+							<b ng-show="vm.calLength(vm.user.desc)>80">字数超过限制</b>
 						</div>
 					</div>
 					<div class="mb_input input_file_fix">

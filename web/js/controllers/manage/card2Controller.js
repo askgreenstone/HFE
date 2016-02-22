@@ -28,6 +28,10 @@ define(['App'], function(app) {
             $window.location.href = '#/card?session='+vm.sess+'&state=do';
         }
 
+        vm.calLength = function(cur){
+          var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
+          return count;
+        }
 
         vm.getCardUri = function(){
           $http({
