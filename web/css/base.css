@@ -481,13 +481,15 @@ footer {
 .editor_intro{
   margin: -25px 0px 0 0px;
   min-height: 300px;
-  display: flex;
+  /*display: flex;*/
 }
 .editor_intro .editor_theme{
-  flex:1;
+  /*flex:1;*/
+  float: right;
+  width: 47%;
   border: 1px solid #e5e5e5;
-  margin-right: 15px;
-  height: 500px;
+  /*margin-right: 15px;*/
+  height: 430px;
   overflow: scroll;
 }
 .editor_theme .title{
@@ -511,7 +513,13 @@ footer {
   padding: 10px;
 }
 .editor_intro .editor_textarea{
-  flex:1;
+  /*flex:1;*/
+  float: left;
+  width: 52%;
+}
+.edui-body-container{
+  height: 350px;
+  /*width: 52%;*/
 }
 /*add.html*/
 .add_form{

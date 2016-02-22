@@ -53,17 +53,23 @@ var ArticleDetail = React.createClass({
   render: function() {
     var tempHeight = window.screen.height;
     var isShow = '';
+    var hidden = '';
     if(this.state.webUrl){
       isShow = 'block';
+      hidden = 'none';
     }else{
       isShow = 'none';
+      hidden = 'block';
     }
     return (
     	<div>
-    		<div className="article_detail">
-	    		<h3></h3>
-	    	</div>
-        <div className="ad_format"></div>
+        <div style={{'display':hidden}}>
+      		<div className="article_detail">
+  	    		<h3></h3>
+  	    	</div>
+          <div className="ad_format"></div>
+        </div>
+
         <div style={{'height':tempHeight,'display':isShow}}>
           <iframe style={{'border':'0'}} src={this.state.webUrl} width="100%" height="100%"></iframe>
         </div>
