@@ -64,27 +64,27 @@
 							<i>姓名：</i>
 							<input type="text" ng-model="vm.user.NAME">
 							<div class="step5_validate">
-								<span ng-class="vm.user.NAME.length>9?'red':''">
-								{{vm.user.NAME.length}}</span><i> / 9</i>
-								<b ng-show="vm.user.NAME.length>9">字数超过限制</b>
+								<span ng-class="vm.calLength(vm.user.NAME)>18?'red':''">
+								{{vm.calLength(vm.user.NAME)}}</span><i> / 18</i>
+								<b ng-show="vm.calLength(vm.user.NAME)>18">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i>律所：</i>
 							<input type="text" ng-model="vm.user.Depart">
 							<div class="step5_validate">
-								<span ng-class="vm.user.Depart.length>13?'red':''">
-								{{vm.user.Depart.length}}</span><i> / 13</i>
-								<b ng-show="vm.user.Depart.length>13">字数超过限制</b>
+								<span ng-class="vm.calLength(vm.user.Depart)>26?'red':''">
+								{{vm.calLength(vm.user.Depart)}}</span><i> / 26</i>
+								<b ng-show="vm.calLength(vm.user.Depart)>26">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i>职务：</i>
 							<input type="text" ng-model="vm.user.Rank">
 							<div class="step5_validate">
-								<span ng-class="vm.user.Rank.length>12?'red':''">
-								{{vm.user.Rank.length}}</span><i> / 12</i>
-								<b ng-show="vm.user.Rank.length>12">字数超过限制</b>
+								<span ng-class="vm.calLength(vm.user.Rank)>24?'red':''">
+								{{vm.calLength(vm.user.Rank)}}</span><i> / 24</i>
+								<b ng-show="vm.calLength(vm.user.Rank)>24">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input input_file_fix">
@@ -119,19 +119,14 @@
 						<div class="mb_input mc_input">
 							<i>区域：</i>
 							<input type="text" ng-model="vm.user.Region" placeholder="例如：北京市">
-							<div class="step5_validate">
-								<span ng-class="vm.user.Region.length>30?'red':''">
-								{{vm.user.Region.length}}</span><i> / 30</i>
-								<b ng-show="vm.user.Region.length>30">字数超过限制</b>
-							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i>地址：</i>
 							<input type="text" ng-model="vm.user.Address">
 							<div class="step5_validate">
-								<span ng-class="vm.user.Address.length>30?'red':''">
-								{{vm.user.Address.length}}</span><i> / 30</i>
-								<b ng-show="vm.user.Address.length>30">字数超过限制</b>
+								<span ng-class="vm.calLength(vm.user.Address)>60?'red':''">
+								{{vm.calLength(vm.user.Address)}}</span><i> / 60</i>
+								<b ng-show="vm.calLength(vm.user.Address)>60">字数超过限制</b>
 							</div>
 							<div class="mb_input_tip">（请正确填写区域和地址，用于地图导航）</div>
 						</div>
