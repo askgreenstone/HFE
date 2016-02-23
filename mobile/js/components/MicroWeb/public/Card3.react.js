@@ -10,6 +10,7 @@ var Card3 = React.createClass({
     return {datas:[],Abstract:'',Title:'',Introduction:'',Img:''};
   },
   qrCode: function(){
+    $('.qr_hidden').height(document.body.scrollHeight+'px');
     $('.qr_hidden').show(500);
   },
   hideDiv: function(){
@@ -125,7 +126,7 @@ var Card3 = React.createClass({
     
     
        return (
-        <div style={{height:"auto"}}>
+        <div>
           <div className="qr_hidden" onClick={this.hideDiv}>
             <img src="http://transfer.green-stone.cn/1A4ECA87533F602814717405E75F8696_W344_H344_S7.jpg" width="200" height="200"/>
           </div>
