@@ -119,13 +119,13 @@ var Card3 = React.createClass({
   componentWillMount:function(){
     // this.getServerInfo();
     // this.getShareInfo();
-    alert($(window).height());
+    // alert($(window).height());
   }, 
   render: function() {
     
     
        return (
-        <div>
+        <div style={{height:"auto"}}>
           <div className="qr_hidden" onClick={this.hideDiv}>
             <img src="http://transfer.green-stone.cn/EE1EB1A2C49D6030EA177D59964A04B5_W177_H70_S4.png" width="200" height="200"/>
           </div>
