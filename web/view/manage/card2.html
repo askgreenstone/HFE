@@ -46,10 +46,10 @@
 				<div class="card2_left">
 					<div class="card2_shadow">
 						<div class="ss_box">
-							<h3>{{vm.user.title?(vm.calLength(vm.user.title)>30?vm.user.title.substring(0,30):vm.user.title):'分享标题'}}</h3>
+							<h3>{{vm.user.title?(vm.calLength(vm.user.title)>30?vm.user.title.substring(0,30)+'...':vm.user.title):'分享标题'}}</h3>
 							<p>
 								<img ng-src={{vm.TransferUrl+vm.user.preview}} width="45" height="45">
-								<span>{{vm.calLength(vm.user.desc)>36?(vm.user.desc.substring(0,36)+'...'):vm.user.desc}}</span>
+								<span>{{vm.calLength(vm.user.desc)>80?(vm.user.desc.substring(0,80)+'...'):vm.user.desc}}</span>
 							</p>
 							<input type="text" disabled="disabled" placeholder="给朋友留言"/>
 							<ul>
