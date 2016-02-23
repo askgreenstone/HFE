@@ -134,7 +134,7 @@ var Card3 = React.createClass({
             <img className="ui_header" src="http://transfer.green-stone.cn/49D1541AFA6993C051CACF51436712B4_W1887_H1887_S701.jpg?timestamp=1456202757598" width="65" height="65"/>
             <p style={{width:this.state.width}}>
               <span>Yulong Li</span><br/>
-              <span>Dentons</span><br/>
+              <span>大成Dentons</span><br/>
               <span>Senior Partner</span>
             </p>
             <img onClick={this.qrCode} className="ui_qrcode" src="http://transfer.green-stone.cn/1A4ECA87533F602814717405E75F8696_W344_H344_S7.jpg" width="55" height="55"/>
