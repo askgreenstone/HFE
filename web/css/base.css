@@ -1337,6 +1337,7 @@ footer {
   margin: 10px;
   font-size: 14px;
   font-weight: bold;
+  word-break: break-all;
 }
 .ss_box span{
   display: inline-block;
