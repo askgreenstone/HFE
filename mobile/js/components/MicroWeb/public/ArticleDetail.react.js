@@ -1,5 +1,6 @@
 var React = require('react');
 var CommonMixin = require('../../Mixin');
+var Share = require('Share.react');
 var Message = require('../../common/Message.react');
 
 var ArticleDetail = React.createClass({
@@ -61,21 +62,42 @@ var ArticleDetail = React.createClass({
       isShow = 'none';
       hidden = 'block';
     }
-    return (
-    	<div>
-        <div style={{'display':hidden}}>
-      		<div className="article_detail">
-  	    		<h3></h3>
-  	    	</div>
-          <div className="ad_format"></div>
-        </div>
+    if(ownUri == 'e2166'){
+      return (
+        <div>
+          <div style={{'display':hidden}}>
+            <div className="article_detail">
+              <h3></h3>
+            </div>
+            <div className="ad_format"></div>
+          </div>
 
-        <div style={{'height':tempHeight,'display':isShow}}>
-          <iframe style={{'border':'0'}} src={this.state.webUrl} width="100%" height="100%"></iframe>
+          <div style={{'height':tempHeight,'display':isShow}}>
+            <iframe style={{'border':'0'}} src={this.state.webUrl} width="100%" height="100%"></iframe>
+          </div>
+          <Share title="Yulong LI Esq." desc="Yulong Li is specialized in angel investment, VC, private equity and corporate financing, has rich experiences in investment affairs and capital market.
+          " imgUrl="http://transfer.green-stone.cn/49D1541AFA6993C051CACF51436712B4_W1887_H1887_S701.jpg?timestamp=1456203759749" target="card3"/>
+          <Message/>
         </div>
-        <Message/>
-    	</div>
-    );
+      );
+    }else {
+      return (
+        <div>
+          <div style={{'display':hidden}}>
+            <div className="article_detail">
+              <h3></h3>
+            </div>
+            <div className="ad_format"></div>
+          </div>
+
+          <div style={{'height':tempHeight,'display':isShow}}>
+            <iframe style={{'border':'0'}} src={this.state.webUrl} width="100%" height="100%"></iframe>
+          </div>
+          <Message/>
+        </div>
+      );
+    }
+    
   }
 });
 
