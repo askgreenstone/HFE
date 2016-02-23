@@ -517,10 +517,11 @@ footer {
   float: left;
   width: 52%;
 }
+
 .edui-body-container{
   height: 350px;
-  width: 52%;
   /*width: auto;*/
+  width: 350px;
 }
 /*add.html*/
 .add_form{
