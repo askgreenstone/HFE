@@ -6,7 +6,7 @@ var Message = require('../../common/Message.react');
 var ArticleDetail = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
-    return {myDatas:[]};
+    return {myDatas:[],uri:''};
   },
 	getServerInfo: function(){
 		var newUrl = '',
@@ -16,6 +16,7 @@ var ArticleDetail = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    this.setState(uri,ownUri);
     if(nid){
     	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri;
     }else{
@@ -62,7 +63,7 @@ var ArticleDetail = React.createClass({
       isShow = 'none';
       hidden = 'block';
     }
-    if(ownUri == 'e2166'){
+    if(this.state.uri == 'e2166'){
       return (
         <div>
           <div style={{'display':hidden}}>
