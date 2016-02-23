@@ -10,7 +10,7 @@ var Card3 = React.createClass({
     return {datas:[],Abstract:'',Title:'',Introduction:'',Img:''};
   },
   qrCode: function(){
-    $('.qr_hidden').height(document.body.scrollHeight+'px');
+    $('.qr_hidden').height((document.body.scrollHeight+10)+'px');
     $('.qr_hidden').show(500);
   },
   hideDiv: function(){
