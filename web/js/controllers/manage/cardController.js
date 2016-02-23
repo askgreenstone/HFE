@@ -51,6 +51,11 @@ define(['App'], function(app) {
             $window.location.href = '#/card?session='+vm.sess+'&state=do';
         }
 
+        vm.calLength = function(cur){
+          var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
+          return count;
+        }
+
         //从后台拿数据，拿到的话就回显，没有数据就为空//
         vm.checkCardState = function(){
           if(vm.state == 'do'){
@@ -339,23 +344,23 @@ define(['App'], function(app) {
           if(!vm.user.NAME){
             alert("请填写您的姓名！");
             return false;
-          }else if(vm.user.NAME && vm.user.NAME.length>9){
-            alert("姓名长度不能超过九位！"); 
+          }else if(vm.user.NAME && vm.calLength(vm.user.NAME)>18){
+            alert("姓名长度不能超过十八位字符！"); 
             return false;
           }
 
-          if(vm.user.Depart && vm.user.Depart.length>13){
-            alert("律所长度不能超过十三位！"); 
+          if(vm.user.Depart && vm.calLength(vm.user.Depart)>26){
+            alert("律所长度不能超过二十六位字符！"); 
             return false;
           }
 
-          if(vm.user.Rank && vm.user.Rank.length>12){
-            alert("职务长度不能超过十二位！"); 
+          if(vm.user.Rank && vm.calLength(vm.user.Rank)>24){
+            alert("职务长度不能超过四十八位字符！"); 
             return false;
           }
 
-          if(vm.user.Address && vm.user.Address.length>30){
-            alert("地址长度不能超过三十位！"); 
+          if(vm.user.Address && vm.calLength(vm.user.Address)>60){
+            alert("地址长度不能超过六十位字符！"); 
             return false;
           }
 

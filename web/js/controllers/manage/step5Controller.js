@@ -24,6 +24,10 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
+        vm.calLength = function(cur){
+          var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
+          return count;
+        }
 
         vm.getQrCode = function(){
           $http({
@@ -100,8 +104,8 @@ define(['App'], function(app) {
           if(!vm.user.title){
             alert('分享标题不能为空！');
             return false;
-          }else if(vm.user.title.length>15){
-            alert('分享标题不能超过15个字！');
+          }else if(vm.calLength(vm.user.title)>30){
+            alert('分享标题不能超过30个字符！');
             return false;
           }
 
@@ -109,8 +113,8 @@ define(['App'], function(app) {
           if(!vm.user.desc){
             alert('分享摘要不能为空！');
             return false;
-          }else if(vm.user.desc.length>40){
-            alert('分享摘要不能超过40个字！');
+          }else if(vm.calLength(vm.user.desc)>80){
+            alert('分享摘要不能超过80个字符！');
             return false;
           }else{
             return true;

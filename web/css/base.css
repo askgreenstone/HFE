@@ -1326,7 +1326,7 @@ footer {
 
 .ss_box{
   width: 264px;
-  height: 163px;
+  height: 180px;
   background-color: rgb(245, 241, 241);
   border-radius: 4px;
   position: absolute;
@@ -1338,6 +1338,7 @@ footer {
   margin: 10px;
   font-size: 14px;
   font-weight: bold;
+  word-break: break-all;
 }
 .ss_box span{
   display: inline-block;
@@ -1345,10 +1346,11 @@ footer {
   text-align: justify;
   font-size: 13px;
   margin-top: 5px;
+  word-break: break-all;
 }
 .ss_box img{
   float: left;
-  margin-right: 10px;
+  margin:5px 10px 0 0; 
 }
 .ss_box input{
   width: 93%;
