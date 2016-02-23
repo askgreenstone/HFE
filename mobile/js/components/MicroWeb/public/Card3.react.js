@@ -127,7 +127,7 @@ var Card3 = React.createClass({
        return (
         <div style={{height:"auto"}}>
           <div className="qr_hidden" onClick={this.hideDiv}>
-            <img src="http://transfer.green-stone.cn/EE1EB1A2C49D6030EA177D59964A04B5_W177_H70_S4.png" width="200" height="200"/>
+            <img src="http://transfer.green-stone.cn/1A4ECA87533F602814717405E75F8696_W344_H344_S7.jpg" width="200" height="200"/>
           </div>
           <div className="user_info">
             <img className="ui_header" src="http://transfer.green-stone.cn/49D1541AFA6993C051CACF51436712B4_W1887_H1887_S701.jpg?timestamp=1456202757598" width="65" height="65"/>
@@ -136,7 +136,7 @@ var Card3 = React.createClass({
               <span>Dentons</span><br/>
               <span>Senior Partner</span>
             </p>
-            <img onClick={this.qrCode} className="ui_qrcode" src="http://transfer.green-stone.cn/EE1EB1A2C49D6030EA177D59964A04B5_W177_H70_S4.png" width="55" height="55"/>
+            <img onClick={this.qrCode} className="ui_qrcode" src="http://transfer.green-stone.cn/1A4ECA87533F602814717405E75F8696_W344_H344_S7.jpg" width="55" height="55"/>
           </div>
           <div className="user_content">
             <div className="uc_input">
