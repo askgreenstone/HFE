@@ -70,8 +70,12 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
             return;
           }
           //引用链接检测
-          if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
-            alert('引用链接格式不正确，请输入超链接！');
+          // if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
+          //   alert('引用链接格式不正确，请输入超链接！');
+          //   return;
+          // }
+          if($('.ai_checkbox i').hasClass('active')&&!vm.createInfo.url){
+            alert('请输入超链接！');
             return;
           }
           // 判断新增还是修改
@@ -204,13 +208,13 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
             }
             catch(error){
               setTimeout(function(){
-                setContent(isAppendTo)
+                editor.setContent(vm.getServerEdit, true);
               },500);
             }
           }
           else{
             setTimeout(function(){
-              setContent(isAppendTo)
+              editor.setContent(vm.getServerEdit, true);
             },500);
           }
         }

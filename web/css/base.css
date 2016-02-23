@@ -519,7 +519,8 @@ footer {
 }
 .edui-body-container{
   height: 350px;
-  /*width: 52%;*/
+  width: 52%;
+  /*width: auto;*/
 }
 /*add.html*/
 .add_form{
