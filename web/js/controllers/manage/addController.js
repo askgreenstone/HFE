@@ -17,8 +17,10 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.showUeditorFlag = true;
 
         vm.getContent = function(){
-          vm.createInfo.content = UM.getEditor('editor').getContent();
-          // console.log('nc:'+vm.createInfo.content);
+          // alert('aaaa');
+          // setContent(false,'');
+          vm.createInfo.content = um.getContent();
+          console.log('nc:'+vm.createInfo.content);
         }
 
         vm.gotoLink = function(){
@@ -30,6 +32,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         vm.goBack = function(){
+          // if(um) um.destroy();
           $window.history.back();
         };
 
@@ -47,8 +50,12 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           }
 
           //引用链接检测
-          if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
-            alert('引用链接格式不正确，请输入超链接！');
+          // if(vm.createInfo.url&&!vm.isURL(vm.createInfo.url)){
+          //   alert('引用链接格式不正确，请输入超链接！');
+          //   return;
+          // }
+          if($('.ai_checkbox i').hasClass('active')&&!vm.createInfo.url){
+            alert('请输入超链接！');
             return;
           }
 
@@ -145,6 +152,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           if($chooseEle.hasClass('active')){
             $chooseEle.removeClass('active');
             vm.showUeditorFlag = true;
+            vm.createInfo.url = '';
           }else{
             $chooseEle.addClass('active');
             vm.showUeditorFlag = false;
@@ -164,6 +172,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 editor.setContent(vm.createInfo.content, true);
               }
               catch(error){
+                console.log('errtor');
                 setTimeout(function(){
                   setContent(isAppendTo)
                 },500);
@@ -197,7 +206,6 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                   setTimeout(function(){
                     setContent(false,'');
                   },300)
-                  
                 });
             }).
             error(function(data, status, headers, config) {
@@ -232,6 +240,12 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
         var um = null;
         function init(){
+          try{
+            um = UM.getEditor('editor');
+          }catch(e){
+            alert(e);
+          }
+          
           vm.sess = Common.getUrlParam('session');
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = decodeURI(Common.getUrlParam('ntId'));
@@ -239,7 +253,6 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
           // var editor = new UE.ui.Editor();
           // editor.render('editor');
-          um = UM.getEditor('editor');
 
           window['ZeroClipboard']=ZeroClipboard;
 

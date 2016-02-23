@@ -12,7 +12,7 @@ define(['App'], function(app) {
         vm.gotoLink = function(path) {
           var title = Common.getUrlParam('title'),
               ntid = Common.getUrlParam('ntId');
-          location.href = '#/' + path + '?session='+vm.sess+'&title=' + title +'&ntId='+ntid;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + title +'&ntId='+ntid+'&ts='+new Date().getTime();
         };
 
         vm.menuLink = function(path){
