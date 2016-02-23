@@ -183,7 +183,7 @@ var Card = React.createClass({
               <div onClick={this.itdToggle} style={{display:this.state.itdd?'block':'none'}}>全文</div>
             </div>
             <div className="user_create">
-                <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微名片</a>
+                <a href="http://viewer.maka.im/pcviewer/FI09ICYA">创建我的微应用</a>
             </div>
           </div>
           <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
