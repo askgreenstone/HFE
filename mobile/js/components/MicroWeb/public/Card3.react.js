@@ -117,13 +117,12 @@ var Card3 = React.createClass({
     console.log(this.state.Abstract);
   },
   componentWillMount:function(){
-    this.getServerInfo();
-    this.getShareInfo();
+    // this.getServerInfo();
+    // this.getShareInfo();
+    alert($(window).height());
   }, 
   render: function() {
-    var ShareTitile = this.state.Title;
-    var ShareDesc = this.state.Introduction;
-    var ShareImg = this.state.Img;
+    
     
        return (
         <div>
@@ -135,13 +134,13 @@ var Card3 = React.createClass({
             <p style={{width:this.state.width}}>
               <span>Yulong Li</span><br/>
               <span>Dentons</span><br/>
-              <span>senior partner</span>
+              <span>Senior Partner</span>
             </p>
             <img onClick={this.qrCode} className="ui_qrcode" src="http://transfer.green-stone.cn/EE1EB1A2C49D6030EA177D59964A04B5_W177_H70_S4.png" width="55" height="55"/>
           </div>
           <div className="user_content">
             <div className="uc_input">
-              <a href='tel://86 13501072380'>
+              <a href='tel://86-13501072380'>
                 86 13501072380
                 <img src="image/theme002/telphone1.png" width="25" height="25"/>
               </a>
@@ -153,7 +152,7 @@ var Card3 = React.createClass({
               </a>
             </div>
             <div className="uc_input">
-              <a href='tel://86 10 58137589'>
+              <a href='tel://86-10-58137589'>
                 86 10 58137589
                 <img src="image/theme002/fax.png" width="25" height="25"/>
               </a>
