@@ -19,7 +19,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.getContent = function(){
           // alert('aaaa');
           // setContent(false,'');
-          vm.createInfo.content = um.getContent();
+          vm.createInfo.content = UM.getEditor('editor').getContent();
           console.log('nc:'+vm.createInfo.content);
         }
 

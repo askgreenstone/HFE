@@ -1,6 +1,3 @@
-
-//肖飒律师，与王忠德律师模板相同，待合并
-
 var React = require('react');
 
 var ArticleDetail = require('../public/ArticleDetail.react');
@@ -10,7 +7,7 @@ var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
-require('../../../../css/theme/theme003.less');
+require('../../../../css/theme/theme007.less');
 var Index007=React.createClass({
 	mixins:[CommonMixin],
 	getInitialState: function(){
@@ -52,32 +49,82 @@ var Index007=React.createClass({
   },
 	componentDidMount: function(){
     this.staticWebPV(1);
-    this.getUserList();
+    // this.getUserList();
   },
 	render:function(){
-		var navChi=['Professional Profile','Representative Cases','Micro Album'];
-    var navNodes = this.state.navArrs.map(function(item,i){
-      return(
-            <li key={new Date().getTime()+i} onClick={this.gotoLink.bind(this,this.state.path[i],item.ntId)}>
-              <a href="javascript:void(0)"><h2>{item.tn}</h2><p>{navChi[i]}</p><span></span></a>
-            </li>
-       );
-    }.bind(this));
 		return (
 				<div>
-					<div className="theme3_main">
+					<div className="theme7_main">
 						<div className="main">
-							<img src="image/theme007/photo.png" alt="" className="theme3_main_bg"/>
+							<img src="image/theme007/bg.png" alt="" className="theme3_main_bg"/>
               <div className="logo">
                 <img src="image/theme007/logo.png"/>
               </div>
-							
 						</div>
-						<ul className="theme3_main_list">
-              {navNodes}
-              <li onClick={this.gotoLink.bind(this,'card')}><a href="javascript:void(0)"><h2>微 名 片</h2><p>E-Card</p><span></span></a></li>
-						</ul>
-            <Share title={"王忠德律师微网站"} desc={"王忠德律师专注于律师事务所运营管理，律师机构战略规划，法律行业发展研究与实践"} 
+            <div className="theme7_ul">
+              <div className="container1">
+                <div className="test">
+                  <div className="icons">
+                    <img src="image/theme007/card.png" width="100%"/>
+                    <span>微名片</span>
+                  </div>
+                  <div className="one"></div>
+                  <div className="two"></div>
+                  <div className="three"></div>
+                </div>
+              </div>
+              <div className="container2">
+                <div className="test">
+                  <div className="icons">
+                    <img src="image/theme007/learning.png" width="100%"/>
+                    <span>微名片</span>
+                  </div>
+                  <div className="one"></div>
+                  <div className="two"></div>
+                  <div className="three"></div>
+                </div>
+                <div className="test">
+                  <div className="icons">
+                    <img src="image/theme007/lwrs.png" width="100%"/>
+                    <span>微名片</span>
+                  </div>
+                  <div className="one"></div>
+                  <div className="two"></div>
+                  <div className="three"></div>
+                </div>
+                <div className="test">
+                  <div className="icons">
+                    <img src="image/theme007/lycp.png" width="100%"/>
+                    <span>微名片</span>
+                  </div>
+                  <div className="one"></div>
+                  <div className="two"></div>
+                  <div className="three"></div>
+                </div>
+              </div>
+              <div className="container3">
+                <div className="test">
+                  <div className="icons">
+                    <img src="image/theme007/online.png" width="100%"/>
+                    <span>微名片</span>
+                  </div>
+                  <div className="one"></div>
+                  <div className="two"></div>
+                  <div className="three"></div>
+                </div>
+                <div className="test">
+                  <div className="icons">
+                    <img src="image/theme007/photo2.png" width="100%"/>
+                    <span>微名片</span>
+                  </div>
+                  <div className="one"></div>
+                  <div className="two"></div>
+                  <div className="three"></div>
+                </div>
+              </div>
+            </div>
+						<div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
+            <Share title={"律师微网站"} desc={"律师专注于律师事务所运营管理，律师机构战略规划，法律行业发展研究与实践"} 
             imgUrl={global.img+"wzd20151221145959.png"} target="index003"/>
 					</div>
           <Message/>

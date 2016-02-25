@@ -14,7 +14,6 @@ var deps = [
     'jquery/dist/jquery.min.js',
     'underscore/underscore-min.js'
 ];
-
 //重定向文件
 var alias= {
 
