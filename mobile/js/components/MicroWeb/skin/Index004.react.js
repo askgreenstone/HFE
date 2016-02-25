@@ -9,18 +9,18 @@ var Message = require('../../common/Message.react');
 
 require('../../../../css/theme/theme004.less');
 
-$(window).on(function(){
-  // alert($('body').scrollTop());
-  if($('body').scrollTop() > 0){
-    $('.theme4_main_list').animate({'bottom':'40px'});
-    $('#copybar').show();
-    $('#copybar').animate({'bottom':'0px'});
-  }else{
-    $('.theme4_main_list').animate({'bottom':'0px'});
-    // $('#copybar').hide();
-    $('#copybar').animate({'bottom':'-50px'});
-  }
-});
+// $(window).on(function(){
+//   // alert($('body').scrollTop());
+//   if($('body').scrollTop() > 0){
+//     $('.theme4_main_list').animate({'bottom':'40px'});
+//     $('#copybar').show();
+//     $('#copybar').animate({'bottom':'0px'});
+//   }else{
+//     $('.theme4_main_list').animate({'bottom':'0px'});
+//     // $('#copybar').hide();
+//     $('#copybar').animate({'bottom':'-50px'});
+//   }
+// });
 
 var Index004=React.createClass({
 	mixins:[CommonMixin],

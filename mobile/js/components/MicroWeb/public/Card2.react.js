@@ -1,4 +1,4 @@
-//主题六theme010临时添加，改动较多
+//大成金融在用，主题六theme010临时添加，改动较多
 var React = require('react');
 var CommonMixin = require('../../Mixin');
 var wx = require('weixin-js-sdk');

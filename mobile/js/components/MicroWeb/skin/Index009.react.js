@@ -1,3 +1,4 @@
+// 待删除
 var React = require('react');
 
 var ArticleDetail = require('../public/ArticleDetail.react');
