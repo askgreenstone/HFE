@@ -33,18 +33,34 @@
 	top:50%;
 	left: 50%;
 	margin: -150px 0 0 -150px;
-	display: flex;
+	// display: -webkit-flex;
+	display:-webkit-box;
+  display:box;
 }
 .container1{
-	flex:1;
+	// flex:1;
+	// -webkit-flex:1;
+	-webkit-box-flex:1;
+  box-flex:1;
 	margin-top: -20%;
 }
 .container2{
-	flex:1;
+	// flex:1;
+	// -webkit-flex:1;
+	-webkit-box-flex:1;
+  box-flex:1;
 }
 .container3{
-	flex:1;
+	// flex:1;
+	// -webkit-flex:1;
+	-webkit-box-flex:1;
+  box-flex:1;
 	margin-top: 20%;
+}
+
+.theme7_ul a{
+	cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .test{
@@ -53,8 +69,6 @@
     height: 90px;
     position: relative;
     margin-bottom: 27%;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
 }
 .test .icons{
 	text-align: center;
@@ -89,6 +103,7 @@
     margin: 0 0 0 -20px;
     border: 2px solid #fff;
     transform: rotate(-60deg);
+    -webkit-transform:rotate(-60deg);
     border-left:0;
     border-right:0;
 }
@@ -100,6 +115,7 @@
     margin: 0 0 0 -20px;
     border: 2px solid #fff;
     transform: rotate(60deg);
+    -webkit-transform:rotate(60deg);
     border-left:0;
     border-right:0;
 }
@@ -179,5 +195,33 @@
 	.test .icons {
 			left: 25%;
 	    width: 75px;
+	}
+}
+//魅族手机单独处理
+@media screen and (width: 384px) and (height: 519px) {
+	html {
+    font-size: 62.5%;
+  }
+  .theme7_ul {
+    margin: -80px 0 0 -140px;
+  }
+  .container1 {
+    margin-right: -12%;
+    margin-top: -20%;
+	}
+	.container3 {
+    margin-top: 17%;
+    margin-left: -11%;
+	}
+	.test {
+    margin-bottom: 11%;
+	}
+  .test .one,.test .two,.test .three{
+	    width: 50px;
+	    height: 83px;
+	}
+	.test .icons {
+			left: 23%;
+	    width: 60px;
 	}
 }
