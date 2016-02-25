@@ -127,12 +127,12 @@ var Index015 = React.createClass({
     }.bind(this));
 		return (
 				<div>
-					<div className="theme012_container">
+					<div className="theme015_container">
             <img src={global.img+this.state.bg} width="100%"/>
             <div className="logo" style={{display:this.state.logo?'block':'none'}}>
               <img src={global.img+this.state.logo}/>
             </div>
-            <ul className="theme012_menu_list">
+            <ul className="theme015_menu_list">
               {navNodes}
             </ul>
           </div>
