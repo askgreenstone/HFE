@@ -141,6 +141,9 @@ var Index008=React.createClass({
       }.bind(this)
     });
   },
+  test: function(){
+    alert('width:'+window.screen.width+','+'height:'+window.screen.height);
+  },
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
@@ -148,6 +151,7 @@ var Index008=React.createClass({
   componentWillMount: function(){
     this.getBgLogo();
     this.getWxShareInfo();
+    // this.test();
   },
   render:function(){
     var navNodes1 = this.state.container1.map(function(item,i){

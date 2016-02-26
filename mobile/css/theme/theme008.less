@@ -85,7 +85,7 @@
 
 .test .icons>span{
 	color: #fff;
-	font-size: @m-size;
+	font-size: @b-size;
 	display: inline-block;
 	margin-top: -5px;
 }
@@ -130,14 +130,15 @@
     font-size: 62.5%;
   }
   .theme7_ul {
-    margin: -105px 0 0 -130px;
+    margin: -115px 0 0 -130px;
+    // border: 1px solid red;
   }
   .container1 {
     margin-right: -15%;
-    margin-top: 16.3%;
+    margin-top: 16.8%;
 	}
 	.container3 {
-    margin-top: 16.3%;
+    margin-top: 16.8%;
     margin-left: -15%;
 	}
 	.test {
@@ -158,7 +159,7 @@
     font-size: 66.5%;
   }
   .theme7_ul {
-    margin: -130px 0 0 -135px;
+    margin: -140px 0 0 -135px;
   }
   .container1 {
     margin-left: -2%;
@@ -177,12 +178,12 @@
 	    width: 70px;
 	}
 }
-@media screen and (min-width: 377px) {
+@media screen and (min-width: 377px) and (max-width: 414px) {
   html {
     font-size: 75.5%;
   }
   .theme7_ul {
-    margin: -130px 0 0 -115px;
+    margin: -140px 0 0 -115px;
   }
   .container1 {
     margin-left: -10%;
@@ -201,9 +202,37 @@
 	}
 	.test .icons {
 			left: 12%;
-      top: 12%;
+      top: 8%;
 	    width: 75px;
 	}
+}
+@media screen and (min-width: 415px) {
+  html {
+    font-size: 75.5%;
+  }
+  .theme7_ul {
+    margin: -140px 0 0 -115px;
+  }
+  .container1 {
+    margin-left: -10%;
+    margin-top: 21%;
+  }
+  .container3 {
+    margin-top: 21%;
+    margin-left: 0%;
+  }
+  .test {
+    margin-bottom: 34%;
+  }
+  .test .one,.test .two,.test .three{
+      width: 65px;
+      height: 108px;
+  }
+  .test .icons {
+      left: 12%;
+      top: 8%;
+      width: 75px;
+  }
 }
 //魅族手机单独处理
 @media screen and (width: 384px) and (height: 519px) {
@@ -211,25 +240,26 @@
     font-size: 62.5%;
   }
   .theme7_ul {
-    margin: -80px 0 0 -140px;
+    margin: -115px 0 0 -102px;
   }
   .container1 {
-    margin-right: -12%;
-    margin-top: -20%;
+    margin-right: -25%;
+    margin-top: 16.5%;
 	}
 	.container3 {
-    margin-top: 17%;
-    margin-left: -11%;
+    margin-top: 16.5%;
+    margin-left: -25%;
 	}
 	.test {
-    margin-bottom: 11%;
+    margin-bottom: 5%;
 	}
   .test .one,.test .two,.test .three{
 	    width: 50px;
 	    height: 83px;
 	}
 	.test .icons {
-			left: 23%;
+			left: 12%;
+      top: 7%;
 	    width: 60px;
 	}
 }
