@@ -44,7 +44,7 @@ var Home = React.createClass({
         <div><Link to='/index005'><img src='image/index005.png'/><span>index005</span></Link></div>
         <div><Link to='/index006'><img src='image/index006.png'/><span>index006</span></Link></div>
         <div><Link to='/index007'><img src='image/index007.png'/><span>index007</span></Link></div>
-        <div><Link to='/index008'><img src='image/index002.png'/><span>山西008</span></Link></div>
+        <div><Link to='/index008'><img src='image/index008.png'/><span>index008</span></Link></div>
         <div><Link to='/index009'><img src='image/index002.png'/><span>测试009</span></Link></div>
         <div><Link to='/index010'><img src='image/index006.png'/><span>大成金融010</span></Link></div>
         <div><Link to='/index011'><img src='image/index006.png'/><span>青山律师011</span></Link></div>
@@ -65,7 +65,7 @@ var Home = React.createClass({
           <div><Link to='/index005'><img src='image/index005.png'/><span>index005</span></Link></div>
           <div><Link to='/index006'><img src='image/index006.png'/><span>index006</span></Link></div>
           <div><Link to='/index007?ownUri=e2102'><img src='image/index007.png'/><span>index007</span></Link></div>
-          <div><Link to='/index008'><img src='image/index002.png'/><span>山西008</span></Link></div>
+          <div><Link to='/index008'><img src='image/index008.png'/><span>index008</span></Link></div>
           <div><Link to='/index009?ownUri=e399'><img src='image/index002.png'/><span>测试009</span></Link></div>
           <div><Link to='/index010?ownUri=e487'><img src='image/index006.png'/><span>大成金融010</span></Link></div>
           <div><Link to='/index011'><img src='image/index006.png'/><span>青山律师011</span></Link></div>
