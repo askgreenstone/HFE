@@ -201,14 +201,14 @@ var Index008=React.createClass({
     }.bind(this));
     return (
         <div>
-          <div className="theme7_main">
+          <div className="theme8_main">
             <div className="main">
               <img src={global.img+this.state.bg} alt="" className="theme3_main_bg"/>
               <div className="logo">
                 <img src={global.img+this.state.logo}/>
               </div>
             </div>
-            <div className="theme7_ul">
+            <div className="theme8_ul">
               <div className="container1">
                 {navNodes1}
               </div>
@@ -222,7 +222,7 @@ var Index008=React.createClass({
           </div>
           <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={global.img+this.state.shareImg} target="index007"/>
+        imgUrl={global.img+this.state.shareImg} target="index008"/>
           <Message/>
         </div>
       )

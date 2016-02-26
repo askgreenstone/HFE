@@ -207,13 +207,13 @@ var Index007=React.createClass({
               </div>
 						</div>
             <div className="theme7_ul">
-              <div className="container1">
+              <div className="theme7_container1">
                 {navNodes1}
               </div>
-              <div className="container2">
+              <div className="theme7_container2">
                 {navNodes2}
               </div>
-              <div className="container3">
+              <div className="theme7_container3">
                 {navNodes3}
               </div>
             </div>
