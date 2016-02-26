@@ -53,7 +53,7 @@ var Index007=React.createClass({
             for(var i=0;i<1;i++){
               arr0.push(temp[i]);
             }
-            for(var i=1;i<4;i++){
+            for(var i=1;i<temp.length;i++){
               arr1.push(temp[i]);
             }
             this.setState({container1:arr0});
@@ -68,7 +68,7 @@ var Index007=React.createClass({
             for(var i=1;i<4;i++){
               arr2.push(temp[i]);
             }
-            for(var i=4;i<6;i++){
+            for(var i=4;i<temp.length;i++){
               arr3.push(temp[i]);
             }
             this.setState({container1:arr1});
