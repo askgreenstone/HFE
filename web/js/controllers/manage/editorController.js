@@ -254,7 +254,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
           // um = UM.getEditor('editor');
           // ue = UE.getEditor('editor');
-          var editor = new UE.ui.Editor({initialFrameHeight:350,scaleEnabled:true});
+          var editor = new UE.ui.Editor({initialFrameHeight:554,scaleEnabled:true});
           editor.render('editor');
           window['ZeroClipboard']=ZeroClipboard;
 
