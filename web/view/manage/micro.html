@@ -31,7 +31,7 @@
 		</div>
 		<div class="mc_right">
 			<div class="list_lenged">
-				<h3 class="red">微网站首页设置 &gt; 开始定制</h3>
+				<h3 class="red">微网站首页设置</h3>
 			<!-- <span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span> -->
 			</div>
 			<div class="mr_box">
@@ -47,9 +47,11 @@
 			     	<img ng-src={{vm.transferUrl+x.wmp}} width="320" height="100%"/>
 			     </li>
 			    </ul>
+			    <a href="javascript:void(0);" class="unslider-arrow04 prev"><img class="arrow" id="al" src="image/arrow1.png" alt="prev" width="20" height="35"></a>
+    			<a href="javascript:void(0);" class="unslider-arrow04 next"><img class="arrow" id="ar" src="image/arrow2.png" alt="next" width="20" height="37"></a>
 				</div>
 				<div class="mb_right">
-					<span ng-click="vm.menuLink('step1')">开始定制</span>
+					<span ng-click="vm.menuLink('step1')">{{vm.editState}}</span>
 					<!-- <span>重新定制</span>
 					<div class="mb_input">
 						<i>微网站地址</i>

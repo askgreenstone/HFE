@@ -870,6 +870,12 @@ footer {
 .mr_box iframe{
   border: 0;
 }
+.has-dots{
+  margin: 0px 30px;
+}
+.mr_box .arrow { position: absolute; top: 250px;}
+.mr_box #al { left: 0px;}
+.mr_box #ar { right: 355px;}
 .mb_left{
   width: 322px;
   min-height: 568px;
@@ -882,7 +888,7 @@ footer {
 .mb_left ul li { float: left; }
 .mb_left .dots{
   position: absolute;
-  left: 60px;
+  left: 0px;
   right: 0;
   bottom: -35px;
 }

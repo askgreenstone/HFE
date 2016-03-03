@@ -6,6 +6,7 @@ define(['App'], function(app) {
     var MicroController = function($location,$http,$window,TransferUrl,GlobalUrl,Common) {
         var vm = this;
         vm.transferUrl = TransferUrl;
+        vm.editState = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -35,16 +36,24 @@ define(['App'], function(app) {
                 if(data.c == 1000){
                   vm.showList = data.ml;
                   setTimeout(function(){
-                      $('.mb_left').unslider({
-                      speed: 500,               
-                      delay: 3000,              
-                      complete: function() {},  
-                      keys: true,               
-                      dots: true,               
-                      fluid: false  
-                    });
+                    //   $('.mb_left').unslider({
+                    //   speed: 500,               
+                    //   delay: 3000,              
+                    //   complete: function() {},  
+                    //   keys: true,               
+                    //   dots: true,               
+                    //   fluid: false  
+                    // });
+                    var unslider04 = $('.mb_left').unslider({
+                          dots: true
+                        }),
+                        data04 = unslider04.data('unslider');
+                        
+                        $('.unslider-arrow04').click(function() {
+                              var fn = this.className.split(' ')[1];
+                              data04[fn]();
+                          });
                   }, 300);
-                  
                 }
             }).
             error(function(data, status, headers, config) {
@@ -70,11 +79,14 @@ define(['App'], function(app) {
                 if(data.c == 1000){
                   if(data.s == 0){
                     vm.menuLink('micro');
+                    vm.editState = '开始定制'
                   }else if(data.s == 1){
-                    vm.menuLink('micro2');
+                    vm.menuLink('micro');
+                    vm.editState = '继续定制'
                   }else if(data.s == 2){
                     vm.menuLink('micro1');
                   }
+                  
                 }
             }).
             error(function(data, status, headers, config) {
