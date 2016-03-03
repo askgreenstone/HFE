@@ -37,7 +37,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                     $('.ai_checkbox i').addClass('active');
                     vm.showUeditorFlag = false;
                   }
-                  setContent(true,'');
+                  setContent(true);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -64,7 +64,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         vm.submitContent = function(){
-          vm.userIntroduce = UM.getEditor('editor').getContent();
+          vm.userIntroduce = UE.getEditor('editor').getContent();
           if(!vm.userIntroduce){
             alert('请输入内容！');
             return;
@@ -154,7 +154,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 $('#um_editor_box .box').bind('click',function(event) {
                   vm.queryThemeCode($(this).attr('value'));
                   setTimeout(function(){
-                    setContent(false,'');
+                    insertContent(true);
                   },300)
                   
                 });
@@ -186,31 +186,57 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
             });
         }
 
-        window.onscroll = function(){ 
-          $('.edui-toolbar').css('top','60px');
-          // $('.editor_intro .editor_textarea').css('width','52%');
-        }
-
-        function setContent(flag,isAppendTo) {
-          // var editor = UM.getEditor('editor');
-          //选择模版时不需要摧毁实例，标记为false
-          if(flag){
-            //摧毁um实例
-            if(um) um.destroy();
-          }
+        //富文本赋值调用方法
+        function setContent(isAppendTo) {
+          // 解决UE多一行的bug
+          UE.getEditor('editor').addOutputRule(function(root){
+            // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
+            var firstPNode = root.getNodesByTagName("p")[0];
+            firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
+          });
           
-          var editor = UM.getEditor('editor');
+          var editor = UE.getEditor('editor');
           //ueditor内部bug处理
+
           if(editor)
           {
+            // editor.focus();
+            // editor.setContent(vm.getServerEdit, isAppendTo);
             try{
+                editor.setContent(vm.getServerEdit, isAppendTo);
+                // editor.execCommand('inserthtml',vm.createInfo.content);
+                editor.focus();
+              }
+              catch(error){
+                console.log('errtor');
+                setTimeout(function(){
+                  setContent(isAppendTo);
+                },500);
+              }
+          }
+          else{
+            setTimeout(function(){
               editor.setContent(vm.getServerEdit, true);
-            }
-            catch(error){
-              setTimeout(function(){
-                editor.setContent(vm.getServerEdit, true);
-              },500);
-            }
+            },500);
+          }
+        }
+        // 富文本插入调用方法
+        function insertContent(isAppendTo) {
+          // 解决UE多一行的bug
+          UE.getEditor('editor').addOutputRule(function(root){
+            // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
+            var firstPNode = root.getNodesByTagName("p")[0];
+            firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
+          });
+          
+          var editor = UE.getEditor('editor');
+          //ueditor内部bug处理
+
+          if(editor)
+          {
+            editor.focus();
+            // editor.setContent(vm.getServerEdit, isAppendTo);
+            editor.execCommand('inserthtml',vm.getServerEdit);
           }
           else{
             setTimeout(function(){
@@ -219,14 +245,17 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           }
         }
         
-        var um = null;
+        // var um = null;
         function init(){
+          // $('#edui1_iframeholder').css({height:'300px'});
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = decodeURI(Common.getUrlParam('ntid'));
           vm.sess = Common.getUrlParam('session');
 
-          um = UM.getEditor('editor');
-
+          // um = UM.getEditor('editor');
+          // ue = UE.getEditor('editor');
+          var editor = new UE.ui.Editor({initialFrameHeight:350,scaleEnabled:true});
+          editor.render('editor');
           window['ZeroClipboard']=ZeroClipboard;
 
           vm.queryContentState();
