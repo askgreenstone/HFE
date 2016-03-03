@@ -9,6 +9,7 @@ define(['App'], function(app) {
         vm.id = '';
         vm.url = '';
         vm.ar = '';
+        vm.oid = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -43,6 +44,7 @@ define(['App'], function(app) {
                     vm.CurrentTheme = data.sid;
                     console.log(vm.CurrentTheme);
                     vm.setPageInfo(data.sid,data.stu,data.sar);
+                    vm.oid = data.sid;
                   }
                   
                   setTimeout(function(){
@@ -66,34 +68,46 @@ define(['App'], function(app) {
           vm.ar = ar;
         }
 
+        vm.saveMicroBg = function(){
+          $http({
+              method: 'POST',
+              url: GlobalUrl+'/exp/ChooseMicWebModel.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {
+                  wmi:vm.id,
+                  wmu:vm.url
+              }
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                localStorage.ar = vm.ar;
+                $window.location.href = '#/step2?session='+vm.sess+'&ar='+vm.ar;
+              }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          });
+        }
+
         vm.saveMicroImg = function(){
           if(!vm.id||!vm.url){
             alert('请选择模版！');
             return false;
           }
-          $http({
-                method: 'POST',
-                url: GlobalUrl+'/exp/ChooseMicWebModel.do',
-                params: {
-                    session:vm.sess
-                },
-                data: {
-                    wmi:vm.id,
-                    wmu:vm.url
-                }
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  localStorage.ar = vm.ar;
-                  $window.location.href = '#/step2?session='+vm.sess+'&ar='+vm.ar;
-                }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('网络连接错误或服务器异常！');
-            });
-        };
+          // if(vm.oid != vm.id){
+          //   var bool = window.confirm('切换主题模板后，您原先设定的logo、菜单都会被清空，您的文章列表、相册会保留');
+          //   if(bool){
+          //     vm.saveMicroBg();
+          //   }
+          // }else{
+          //   vm.saveMicroBg();
+          // }
+          vm.saveMicroBg();
+        } 
 
         function init(){
           vm.sess = Common.getUrlParam('session');
