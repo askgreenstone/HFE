@@ -485,11 +485,13 @@ footer {
 }
 .editor_intro .editor_theme{
   /*flex:1;*/
-  float: right;
-  width: 47%;
+  float: left;
+  width: 50%;
+  margin-right: 5px;
+  border-radius: 3px;
   border: 1px solid #e5e5e5;
   /*margin-right: 15px;*/
-  height: 430px;
+  height: 680px;
   overflow: scroll;
 }
 .editor_theme .title{
@@ -503,11 +505,11 @@ footer {
   position: relative;
 }
 .editor_theme .box{
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   width: 95%;
   min-height: 50px;
-  margin: 10px auto;
-  box-shadow: 2px 2px 5px #ccc;
+  margin: -35px auto 0;
+  /*box-shadow: 2px 2px 5px #ccc;*/
   cursor: pointer;
   border-radius: 2px;
   padding: 10px;
@@ -515,7 +517,7 @@ footer {
 .editor_intro .editor_textarea{
   /*flex:1;*/
   float: left;
-  width: 52%;
+  width: 49%;
 }
 
 .edui-body-container{
@@ -570,10 +572,10 @@ footer {
   padding: 5px;
   margin: 5px 0 20px;
 }
-.af_ueditor span{
+/*.af_ueditor span{
   display: inline-block;
   margin: 5px 0;
-}
+}*/
 .af_btn{
   text-align: right;
   margin: 15px 0 0 0;

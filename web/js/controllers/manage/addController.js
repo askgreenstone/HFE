@@ -19,7 +19,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.getContent = function(){
           // alert('aaaa');
           // setContent(false,'');
-          vm.createInfo.content = UM.getEditor('editor').getContent();
+          vm.createInfo.content = UE.getEditor('editor').getContent();
           console.log('nc:'+vm.createInfo.content);
         }
 
@@ -128,7 +128,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                   vm.ntid = data.ntId;
                   vm.createInfo.content = data.nc;
                   vm.createInfo.url = data.nl;
-                  setContent(true,'');
+                  setContent(true);
                   if(vm.createInfo.url){
                     // alert(vm.createInfo.url);
                     $('.ai_checkbox i').addClass('active');
@@ -159,28 +159,68 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           }
         }
 
-        function setContent(flag,isAppendTo) {
-            if(flag){
-              //摧毁um实例
-              if(um) um.destroy();
-            }
-            
-            var editor = UM.getEditor('editor');
-            if(editor)
-            {
-              try{
-                editor.setContent(vm.createInfo.content, true);
+        //富文本赋值调用方法
+        function setContent(isAppendTo) {
+          // 解决UE多一行的bug
+          UE.getEditor('editor').addOutputRule(function(root){
+            // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
+            var firstPNode = root.getNodesByTagName("p")[0];
+            firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
+          });
+          
+          var editor = UE.getEditor('editor');
+          //ueditor内部bug处理
+
+          if(editor)
+          {
+            // editor.focus();
+            // editor.setContent(vm.getServerEdit, isAppendTo);
+            try{
+                editor.setContent(vm.createInfo.content, isAppendTo);
+                // editor.execCommand('inserthtml',vm.createInfo.content);
+                editor.focus();
               }
               catch(error){
                 console.log('errtor');
                 setTimeout(function(){
-                  setContent(isAppendTo)
+                  setContent(isAppendTo);
+                },500);
+              }
+          }
+          else{
+            setTimeout(function(){
+              setContent(true);
+            },500);
+          }
+        }
+        // 富文本插入调用方法
+        function insertContent(isAppendTo) {
+            //解决UE多一行的bug
+            UE.getEditor('editor').addOutputRule(function(root){
+              // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
+              var firstPNode = root.getNodesByTagName("p")[0];
+              firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
+            });
+            
+            var editor = UE.getEditor('editor');
+            if(editor)
+            { 
+              try{
+                // editor.setContent(vm.createInfo.content, isAppendTo);
+                editor.execCommand('inserthtml',vm.createInfo.content);
+                editor.focus();
+              }
+              catch(error){
+                console.log('errtor');
+                setTimeout(function(){
+                  insertContent(isAppendTo);
                 },500);
               }
             }
             else{
+              alert('hh');
               setTimeout(function(){
-                setContent(isAppendTo)
+                insertContent(isAppendTo);
               },500);
             }
         }
@@ -204,7 +244,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 $('#um_editor_box .box').bind('click',function(event) {
                   vm.queryThemeCode($(this).attr('value'));
                   setTimeout(function(){
-                    setContent(false,'');
+                    insertContent(true);
                   },300)
                 });
             }).
@@ -238,14 +278,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           $('.edui-toolbar').css('top','60px');
         }
 
-        var um = null;
         function init(){
-          try{
-            um = UM.getEditor('editor');
-          }catch(e){
-            alert(e);
-          }
-          
           vm.sess = Common.getUrlParam('session');
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = decodeURI(Common.getUrlParam('ntId'));
@@ -253,6 +286,8 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
           // var editor = new UE.ui.Editor();
           // editor.render('editor');
+          var editor = new UE.ui.Editor({initialFrameHeight:554,scaleEnabled:true});
+          editor.render('editor');
 
           window['ZeroClipboard']=ZeroClipboard;
 
