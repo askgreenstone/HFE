@@ -98,15 +98,15 @@ define(['App'], function(app) {
             alert('请选择模版！');
             return false;
           }
-          // if(vm.oid != vm.id){
-          //   var bool = window.confirm('切换主题模板后，您原先设定的logo、菜单都会被清空，您的文章列表、相册会保留');
-          //   if(bool){
-          //     vm.saveMicroBg();
-          //   }
-          // }else{
-          //   vm.saveMicroBg();
-          // }
-          vm.saveMicroBg();
+          if(vm.oid != vm.id){
+            var bool = window.confirm('切换主题模板后，您原先设定的背景图、logo以及菜单项都会被清空，您的文章列表、相册会保留');
+            if(bool){
+              vm.saveMicroBg();
+            }
+          }else{
+            vm.saveMicroBg();
+          }
+          // vm.saveMicroBg();
         } 
 
         function init(){

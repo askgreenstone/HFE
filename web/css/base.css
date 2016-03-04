@@ -884,6 +884,9 @@ footer {
   /*position: relative; */
   overflow: auto;
 }
+.mb_left_list{
+  margin: 0 20px 0 30px;
+}
 .mb_left li { list-style: none; }
 .mb_left ul li { float: left; }
 .mb_left .dots{
@@ -1153,26 +1156,78 @@ footer {
 .fix_center{
   text-align: center;
 }
+.mateLib,.changeBg,.scanBg{
+  width: 100px;
+  height: 40px;
+  background: #3bbffc;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  margin: -25px 10px 10px 328px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+.changeBg{
+  left: -160px;
+  top: 20px;
+}
+.mateLib{
+  background: transparent;
+  left: -313px;
+  top: -10px;
+  color: #3bbffc;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: -5px;
+}
+.scanBg{
+  left: 210px;
+  top: -5px; 
+}
+.changeBg input{
+  position: absolute;
+  width:100px;
+  height: 40px;
+  display: block;
+  cursor: pointer;
+}
 .step2_box{
   margin:0;
   min-height: 575px;
+}
+.step2_wrap{
+  width: 100%;
   display: flex;
 }
 .step2_left{
   border: 1px dashed #ccc;
-  flex:3;
+  flex:1;
   overflow: hidden;
-  height: 600px;
+  height: 568px;
+}
+.step2_center{
+  width: 320px;
+  height: 568px;
+  overflow: hidden;
+  padding:0 16px;
+  position: relative;
+}
+.step2_center iframe{
+  width: 320px;
+  height: 568px;
+  border: 1px dashed #ccc;
 }
 .step2_right{
-  flex:2;
+  width: 100%;
   padding:0 10px;
   color: #3bbffc;
   margin: 0 auto;
 }
 .step2_bgs{
   border: 1px dashed;
-  height: 235px;
+  height: 135px;
   overflow: auto;
   margin: 0 0 15px 0;
   padding: 2%;
@@ -1184,7 +1239,7 @@ footer {
   overflow: hidden;
 }
 .step2_bgs li{
-  width: 23%;
+  width: 9%;
   float: left;
   margin: 0 2% 2% 0;
   border: 1px solid #fff;

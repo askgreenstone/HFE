@@ -11,6 +11,8 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
+        vm.indexNo = '';
+        vm.ownUri = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -84,15 +86,14 @@ define(['App'], function(app) {
                         }
                     }
                 });
-            } else {
-                
+            } else {    
             }
         }
-
         vm.uploadFile = function() {
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
+                console.log(f);
             // if (!f) return;
             if(!f){
               if(!vm.isServerData){
@@ -101,9 +102,13 @@ define(['App'], function(app) {
               }
               else{
                 vm.clipSourceImg(vm.choosePic);
-                $('#themeCropper').cropper('destroy');
-                $window.location.href = '#/step3?session='+vm.sess;
+                
+                vm.getQrCode();
+                // alert(0);                
+                // $('#themeCropper').cropper('destroy');
                 return;
+                
+                // $window.location.href = '#/step3?session='+vm.sess;
               }
             }
             //gif图片不被裁切
@@ -131,8 +136,9 @@ define(['App'], function(app) {
                 .success(function(data) {
                   Common.getLoading(false);
                     console.log(data);
-                    $('#themeCropper').cropper('destroy');
-                    $window.location.href = '#/step3?session='+vm.sess;
+                    // $('#themeCropper').cropper('destroy');
+                    vm.getQrCode();
+                    // $window.location.href = '#/step3?session='+vm.sess;
                 })
                 .error(function() {
                   Common.getLoading(false);
@@ -182,6 +188,7 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   console.log('clipSourceImg success');
+                  vm.chooseSourceBg(data.in);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -254,9 +261,36 @@ define(['App'], function(app) {
             });
         }
 
+
+        vm.getQrCode = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  // vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
+                  // vm.inputUrl = data.url;
+                  $('#iframe_src').empty();
+                  $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="568"></iframe>');
+
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        };
+
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.origin = Common.getUrlParam('from');
+          vm.getQrCode();
           //重新订制跳转后，通过该标识隐藏上一步按钮
           if(vm.origin){
             vm.originFlag = false;

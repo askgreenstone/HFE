@@ -33,10 +33,7 @@
 			<div class="list_lenged">
 				<h3 class="red">微网站背景设置</h3>
 				<span>
-					<a href="javascript:void(0);" ng-click="vm.gotoUpload('preview','上传照片')">
-						<img src="image/docs/add.png" width="20" height="20"/> 选择照片
-						<input type="file" id="choose_file" ng-model="vm.fileName"/>
-					</a>
+					
 					<a href="javascript:void(0);" ng-click="vm.goBack()">
 						<img src="image/return.png" width="20" height="20"/> 返回
 					</a>
@@ -53,24 +50,38 @@
 			</div>
 			<!-- <div class="step2_desc">注意：当前主题最佳宽高为730*1050px</div> -->
 			<div class="step2_box">
-				
-				<div class="step2_left">
-					<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.userBg}}>
-				</div>
 				<div class="step2_right">
-					<span>背景素材</span>
+					<!-- <span>背景素材</span> -->
 					<ul class="step2_bgs">
 						<li ng-repeat="x in vm.sourceImage" ng-click="vm.chooseSourceBg(x.in)">
 							<img ng-src={{vm.transferUrl+x.in}} width="100%" height="">
 						</li>
 					</ul>
-					<span id="test">背景预览(宽：0，高：0)</span>
-					<div class="step2_preview" id="img_preview"></div>
+					<!-- <span id="test">背景预览(宽：0，高：0)</span>
+					<div class="step2_preview" id="img_preview"></div> -->
 				</div>
+				<div class="changeBg" ng-click="vm.gotoUpload('preview','上传照片')">
+					更换背景
+					<input type="file" id="choose_file" ng-model="vm.fileName"/>
+				</div>
+				<div class="scanBg"  ng-click="vm.uploadFile()">
+					效果图预览
+				</div>
+				<div class="step2_wrap">
+					<div class="step2_left">
+						<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.userBg}}>
+					</div>
+					
+					<div class="step2_center">
+						<div class="mb_shadow"></div>
+						<div id="iframe_src"></div>
+					</div>
+				</div>
+				
 			</div>
 			<div class="af_btn fix_center">
 				<span ng-if="vm.originFlag" ng-click="vm.menuLink('step1')">上一步</span>
-				<span ng-click="vm.uploadFile()">下一步</span>
+				<span ng-click="vm.menuLink('step3')">下一步</span>
 			</div>
 		</div>
 		<div class="clean"></div>
