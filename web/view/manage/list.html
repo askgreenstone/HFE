@@ -43,6 +43,15 @@
 				<h3 class="red">{{vm.title}}</h3>
 				<!-- <span ng-click="vm.gotoLink()"><img src="image/docs/add.png" width="20" height="20"/>添加文章</span> -->
 				<span>
+					<a href="javascript:void(0);" id="list_moveTo">
+						移动到
+						<select ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.change(vm.abc.ntId)" >
+							<option ng-selected="vm.selectedState" value="">--请选择--</option>
+							<!-- <option ng-repeat="x in vm.contentList" value={{x.ntId}}>{{x.tn}}</option>	 -->
+							<!-- <option  value="{{x.ntId}}" ></option> -->
+
+						</select>
+					</a>
 					<a href="javascript:void(0);" ng-click="vm.gotoLink('add')">
 						<img src="image/docs/add.png" width="20" height="20"/> 添加文章
 					</a>
@@ -52,13 +61,15 @@
 				</span>
 				<table class="list_table">
 					<tr>
-						<th width="30%">文章标题</th>
+						<th width="10%"><input type="checkbox" ng-click="vm.selectAll()" name="all_check"></th>
+						<th width="20%">文章标题</th>
 						<th width="10%">状态</th>
 						<th width="25%">创建时间</th>
 						<th width="20%">创建人</th>
 						<th width="15%">操作</th>
 					</tr>
 					<tr ng-repeat="x in vm.articleList|filter:{'ntit':vm.keyword}">
+						<td><input type="checkbox" name="list_check" id={{x.nId}}></td>
 						<td>{{x.ntit.length>12?((x.ntit).substring(0,12)+'...'):x.ntit}}</td>
 						<td ng-class="x.ns==1?'publish':'stop'">{{x.ns==1?'发布':'暂存'}}</td>
 						<td>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</td>

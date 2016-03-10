@@ -103,7 +103,7 @@ define(['App'], function(app) {
               else{
                 vm.clipSourceImg(vm.choosePic);
                 
-                vm.getQrCode();
+                vm.getLocationUrl();
                 // alert(0);                
                 // $('#themeCropper').cropper('destroy');
                 return;
@@ -137,7 +137,7 @@ define(['App'], function(app) {
                   Common.getLoading(false);
                     console.log(data);
                     // $('#themeCropper').cropper('destroy');
-                    vm.getQrCode();
+                    vm.getLocationUrl();
                     // $window.location.href = '#/step3?session='+vm.sess;
                 })
                 .error(function() {
@@ -262,7 +262,7 @@ define(['App'], function(app) {
         }
 
 
-        vm.getQrCode = function(){
+        vm.getLocationUrl = function(){
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
@@ -286,11 +286,14 @@ define(['App'], function(app) {
                 alert('网络连接错误或服务器异常！');
             });
         };
-
+        vm.saveMicroBg = function(){
+          vm.uploadFile();
+          $window.location.href = '#/step3?session='+vm.sess;
+        }
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.origin = Common.getUrlParam('from');
-          vm.getQrCode();
+          vm.getLocationUrl();
           //重新订制跳转后，通过该标识隐藏上一步按钮
           if(vm.origin){
             vm.originFlag = false;

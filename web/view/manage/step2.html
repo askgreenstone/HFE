@@ -54,7 +54,7 @@
 					<!-- <span>背景素材</span> -->
 					<ul class="step2_bgs">
 						<li ng-repeat="x in vm.sourceImage" ng-click="vm.chooseSourceBg(x.in)">
-							<img ng-src={{vm.transferUrl+x.in}} width="100%" height="">
+							<img ng-src={{vm.transferUrl+x.in+'@60'}} width="100%" height="">
 						</li>
 					</ul>
 					<!-- <span id="test">背景预览(宽：0，高：0)</span>
@@ -81,7 +81,7 @@
 			</div>
 			<div class="af_btn fix_center">
 				<span ng-if="vm.originFlag" ng-click="vm.menuLink('step1')">上一步</span>
-				<span ng-click="vm.menuLink('step3')">下一步</span>
+				<span ng-click="vm.saveMicroBg()">下一步</span>
 			</div>
 		</div>
 		<div class="clean"></div>

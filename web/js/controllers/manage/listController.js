@@ -8,6 +8,7 @@ define(['App'], function(app) {
         var vm = this;
         vm.title = '标题';
         vm.sess = '';
+        vm.selectedState = false;
 
         vm.gotoLink = function(path) {
           var title = Common.getUrlParam('title'),
@@ -46,6 +47,35 @@ define(['App'], function(app) {
                 alert('网络连接错误或服务器异常！');
             });
         };
+
+        vm.getContentList = function(){
+            if(!vm.sess) return;
+            $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/QueryNewsTypes.do',
+                params: {session:vm.sess,wf:1},
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                    vm.contentList = data.ntl[1].td;
+                    console.log(vm.contentList);
+                  // vm.introduce = data.ntl[0].td;
+                  // vm.title1 = data.ntl[0].tn;
+
+                  // vm.content = data.ntl[1].td;
+                  // vm.title2 = data.ntl[1].tn;
+
+                  // vm.photos = data.ntl[2].td;
+                  // vm.title3 = data.ntl[2].tn;
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        }
 
         vm.deleteArticle = function(nid){
           if(confirm('确定要删除吗？')){
@@ -99,11 +129,72 @@ define(['App'], function(app) {
             });
         }
 
+
+        vm.selectAll = function(){
+            var inputs = $('input[name=list_check]');
+            var state = $('input[name=all_check]').prop('checked')
+            console.log();
+            if(state){
+                $('input[name=list_check]').prop('checked',true)
+            }else{
+                $('input[name=list_check]').prop('checked',false)
+            }
+        }
+
+        vm.change = function(contentId){
+            console.log(contentId)
+            var inputs = $('input[name=list_check]');
+            var contentId = contentId;
+            var articleArray = [];
+            // console.log(inputs);
+            $.each(inputs,function(){   
+                if($(this).is(":checked")){
+                    articleArray.push($(this).attr("id"));
+                }  
+                return articleArray;
+            })
+            var data = {
+                ntId:contentId,
+                nidl:articleArray
+            }
+            console.log(data);
+            console.log(articleArray);
+            if(articleArray.length>0 && contentId){
+               if(confirm('确定要进行移动吗？')){
+                $http({
+                    method: 'POST',
+                    url: GlobalUrl+'/exp/ResetNewTypeOfNews.do',
+                    params: {
+                        session:vm.sess
+                    },
+                    headers : {'Content-Type':undefined},
+                    data: data
+                }).
+                success(function(data, status, headers, config) {
+                    console.log(data);
+                    if(data.c == 1000){
+                        vm.getArticleList();
+                        vm.selectedState = true;
+                        $("#list_moveTo select").children().eq(0).attr("selected",true);
+                    }
+                }).
+                error(function(data, status, headers, config) {
+                    // console.log(data);
+                    alert('网络连接错误或服务器异常！');
+                });
+                } else{
+                    vm.selectedState = true;
+                }
+            }
+            
+        }
+
         function init(){
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = Common.getUrlParam('ntId');
           vm.sess = Common.getUrlParam('session');
           vm.getArticleList();
+          vm.getContentList();
         }
 
         init();
