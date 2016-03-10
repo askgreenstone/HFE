@@ -6,6 +6,7 @@ var CommonMixin = require('../../Mixin');
 var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
+var Shadow = require('../../common/Shadow.react');
 
 require('../../../../css/theme/theme007.less');
 var Index007=React.createClass({
@@ -222,6 +223,7 @@ var Index007=React.createClass({
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index007"/>
           <Message/>
+          
 				</div>
 			)
 	}

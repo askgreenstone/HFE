@@ -456,11 +456,40 @@ p{
     }
 }
 
+//透明遮罩
+.transparent_shadow{
+  background-color: transparent;
+  // display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 101; /* 此处的图层要大于页面 */
+  .tip{
+        display: none;
+        font-size: 1.4rem;
+        width: 190px;
+        height: 36px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        margin: -28px 0 0 -95px;
+        text-align: center;
+        line-height: 32px;
+        padding: 10px;
+        img{
+          vertical-align: middle;
+          margin-right: 2%;
+        }
+    }
+}
+
 
 
 /*logo*/
-
-
 .logo{
   position: absolute;
   left: 3%;
@@ -536,6 +565,11 @@ p{
     .logo img,.logo002 img{
       width:80%;
     }
+    .transparent_shadow{
+      .base_tip{
+        padding: 5px;
+        }
+    }
 }
 
 @media screen and (min-width: 361px) and (max-width: 376px) {
@@ -547,6 +581,13 @@ p{
     }
     .menu_list li {
         height: 115px;
+    }
+    .transparent_shadow{
+      .tip{
+        font-size: 1.5rem;
+        width: 216px;
+        margin: -28px 0 0 -108px;
+        }
     }
 }
 
@@ -565,5 +606,12 @@ p{
     }
     .menu_list li {
         height: 125px;
+    }
+    .transparent_shadow{
+      .tip{
+        font-size: 1.5rem;
+        width: 236px;
+        margin: -28px 0 0 -118px;
+        }
     }
 }
