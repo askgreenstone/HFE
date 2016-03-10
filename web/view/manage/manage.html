@@ -41,23 +41,93 @@
 					</li>
 				</ul>
 			</div>
+			<!-- 内容库 -->
 			<div class="mcr_lenged">
 				<h3 class="orange">{{vm.title2}}</h3>
 				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('list',x.tn,x.ntId)" ng-repeat="x in vm.content|filter:vm.keyword">
+					<li ng-repeat="x in vm.content|filter:vm.keyword">
 						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
 						<span>{{x.tn}}</span>
-						<i>进入</i>
+						<i ng-click="vm.gotoLink('list',x.tn,x.ntId)">进入</i>
+						<i style="color:#CB0C14" ng-if="x.vt==2" class="authority" ng-click="vm.visityAuthority($event,'private')">
+							<b ng-click="vm.test($event)">
+								<small></small>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios1'+x.ntId)" type="radio" name={{'optionsRadios1'+x.ntId}}  value="public">公开访问
+								</label>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios1'+x.ntId)" type="radio" name={{'optionsRadios1'+x.ntId}}  value="private" ng-checked="true">加密访问
+								</label>
+								<input ng-if="!vm.radioFlag"  class="author_psw" type="text" placeholder="设置四位字符或数字密码" ng-keyUp="vm.getInputValue($event)" ng-value="x.vp"/>
+								<div class="author fix_center">
+									<span ng-click="vm.submitAuthor(x.ntId,x.vp)">确 定</span>
+									<span ng-click="vm.cleanAuthorBox()">取 消</span>
+								</div>
+							</b>
+							加密访问
+						</i>
+						<i style="color:#5DC801" ng-if="x.vt==1" class="authority" ng-click="vm.visityAuthority($event,'public')">
+							<b ng-click="vm.test($event)">
+								<small></small>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios2'+x.ntId)" type="radio" name={{'optionsRadios2'+x.ntId}}  value="public" ng-checked="true">公开访问
+								</label>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios2'+x.ntId)" type="radio" name={{'optionsRadios2'+x.ntId}}  value="private" >加密访问
+								</label>
+								<input ng-if="!vm.radioFlag" class="author_psw" type="text" placeholder="设置四位字符或数字密码" ng-keyUp="vm.getInputValue($event)" ng-value="x.vp"/>
+								<div class="author fix_center">
+									<span ng-click="vm.submitAuthor(x.ntId,x.vp)">确 定</span>
+									<span ng-click="vm.cleanAuthorBox()">取 消</span>
+								</div>
+							</b>
+							公开访问
+						</i>
 					</li>
 				</ul>
 			</div>
+			<!-- 相册 -->
 			<div class="mcr_lenged">
 				<h3 class="green">{{vm.title3}}</h3>
 				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('photo',x.tn,x.ntId)" ng-repeat="x in vm.photos|filter:vm.keyword">
+					<li ng-repeat="x in vm.photos|filter:vm.keyword">
 						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
 						<span>{{x.tn}}</span>
-						<i>进入</i>
+						<i ng-click="vm.gotoLink('photo',x.tn,x.ntId)">进入</i>
+						<i style="color:#CB0C14" ng-if="x.vt==2" class="authority" ng-click="vm.visityAuthority($event,'private')">
+							<b ng-click="vm.test($event)">
+								<small></small>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios1'+x.ntId)" type="radio" name={{'optionsRadios1'+x.ntId}}  value="public">公开访问
+								</label>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios1'+x.ntId)" type="radio" name={{'optionsRadios1'+x.ntId}}  value="private" ng-checked="true">加密访问
+								</label>
+								<input ng-if="!vm.radioFlag"  class="author_psw" type="text" placeholder="设置四位字符或数字密码" ng-keyUp="vm.getInputValue($event)" ng-value="x.vp"/>
+								<div class="author fix_center">
+									<span ng-click="vm.submitAuthor(x.ntId,x.vp)">确 定</span>
+									<span ng-click="vm.cleanAuthorBox()">取 消</span>
+								</div>
+							</b>
+							加密访问
+						</i>
+						<i style="color:#5DC801" ng-if="x.vt==1" class="authority" ng-click="vm.visityAuthority($event,'public')">
+							<b ng-click="vm.test($event)">
+								<small></small>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios2'+x.ntId)" type="radio" name={{'optionsRadios2'+x.ntId}}  value="public" ng-checked="true">公开访问
+								</label>
+								<label>
+									<input ng-click="vm.setAuthorState($event,'optionsRadios2'+x.ntId)" type="radio" name={{'optionsRadios2'+x.ntId}}  value="private" >加密访问
+								</label>
+								<input ng-if="!vm.radioFlag" class="author_psw" type="text" placeholder="设置四位字符或数字密码" ng-keyUp="vm.getInputValue($event)" ng-value="x.vp"/>
+								<div class="author fix_center">
+									<span ng-click="vm.submitAuthor(x.ntId,x.vp)">确 定</span>
+									<span ng-click="vm.cleanAuthorBox()">取 消</span>
+								</div>
+							</b>
+							公开访问
+						</i>
 					</li>
 				</ul>
 			</div>

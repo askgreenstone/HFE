@@ -141,9 +141,12 @@ var Index004=React.createClass({
     $('body').css({'background':'#ebebeb'});
     // $('#bottomBar').css('bottom','5px');
     var temp = this.checkIOSVersion();
-    if(!temp){
+    // alert(this.isAndroid());
+    if(!temp&&this.isIOS()){
       $('#bottomBar').css('bottom','12px');
       $('body').css('backgroundColor','#2D3132');
+    }else if(this.isAndroid()){
+      $('#bottomBar').css('bottom','-40px');
     }
   },
   componentWillMount: function(){

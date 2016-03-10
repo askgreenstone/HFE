@@ -34,9 +34,9 @@
 			</ul>
 		</div>
 		<div class="mc_right">
-			<div class="mcr_search">
+			<!-- <div class="mcr_search">
 				<span>我的律师团队</span>
-			</div>
+			</div> -->
 			<div class="list_lenged">
 				<h3 class="red">{{vm.title}}</h3>
 				<span>
@@ -48,9 +48,10 @@
 					</a>
 				</span>
 			</div>
-			<ul class="photo_list">
-				<li ng-click="vm.gotoLink('single',x.pd,x.pId,x.pn)" ng-repeat="x in vm.photos|orderBy:'pId':true">
-					<img ng-src={{vm.transferUrl+x.pn}} width="100%" height="150"/>
+			<div class="step4_warn" style="margin: -30px 0 0 15px;">提示：拖动照片可调整照片排列顺序</div>
+			<ul class="photo_list" style="margin-top: 0px;">
+				<li id={{x.pId}} ng-click="vm.gotoLink('single',x.pd,x.pId,x.pn)" ng-repeat="x in vm.photos|orderBy:'sk':false">
+					<img  ng-src={{vm.transferUrl+x.pn}} width="100%" height="150"/>
 					<p>
 					{{x.pd?(x.pd.length>10?x.pd.substring(0,10):x.pd):'暂无描述'}}
 					</p>
