@@ -9,7 +9,9 @@ var Location = React.createClass({
         var that = this;
         // if(that.props.title) return;
         var ownUri = this.getUrlParams('ownUri'),
-            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target,
+            ntid = this.getUrlParams('ntid'),
+            nid = this.getUrlParams('nid'),
+            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target+'&ntid='+ntid+'&nid='+nid,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
             wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
@@ -75,7 +77,7 @@ var Location = React.createClass({
                         wx.error(function(res) {
                            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
                             // alert(res.errMsg);
-                            that.sendWxMsg(data.appId,res);
+                            // that.sendWxMsg(data.appId,res);
                             window.location.reload();
                          });
                     });

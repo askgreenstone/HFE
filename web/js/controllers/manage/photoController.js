@@ -1,6 +1,6 @@
 'use strict';
 
-define(['App'], function(app) {
+define(['App','Sortable'], function(app) {
 
     var injectParams = ['$location','$http','GlobalUrl','$window','TransferUrl','Common'];
     var PhotoController = function($location,$http,GlobalUrl,$window,TransferUrl,Common) {
@@ -35,14 +35,15 @@ define(['App'], function(app) {
                 params: {
                     session:vm.sess
                 },
-                data: {
-                    
-                }
+                data: {}
             }).
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.photos = data.pl;
+                  setTimeout(function(){
+                    vm.initSortable();
+                  }, 300);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -54,6 +55,40 @@ define(['App'], function(app) {
         vm.goBack = function(){
           $window.history.back();
         };
+
+        vm.initSortable = function(){
+            $('.photo_list').sortable().bind('sortupdate', function() {
+                vm.currentSortArray=[];
+                $('.photo_list li').each(function(i){
+                    // newArray.push($(this).val());
+                    vm.currentSortArray.push({pi:parseInt($(this).attr('id')),sk:i});
+                });
+                console.log(vm.currentSortArray);
+                vm.saveSortable();
+            });
+        }
+
+        vm.saveSortable = function(){
+          // var pl = vm.currentSortArray;
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/SortWXPhotoList.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {pl:vm.currentSortArray}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        }
 
         function init(){
           vm.sess = Common.getUrlParam('session');
