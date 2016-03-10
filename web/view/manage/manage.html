@@ -39,6 +39,11 @@
 						<span>{{x.tn}}</span>
 						<i>编辑</i>
 					</li>
+					<!-- <li ng-click="vm.gotoLink('editor',x.tn,x.ntId)" ng-repeat="x in vm.oldIntroduce|filter:vm.keyword">
+						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
+						<span>{{x.ntit}}</span>
+						<i>编辑</i>
+					</li> -->
 				</ul>
 			</div>
 			<!-- 内容库 -->
@@ -83,6 +88,11 @@
 							</b>
 							公开访问
 						</i>
+					</li>
+					<li ng-click="vm.gotoLink('list','素材库',0)" ng-show="vm.changeTheme">
+						<img ng-src="image/docs/other.png" width="30" height="30"/>
+						<span>素材库</span>
+						<i>进入</i>
 					</li>
 				</ul>
 			</div>

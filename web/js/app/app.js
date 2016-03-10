@@ -42,6 +42,7 @@ define(['RouteResolver','Common'], function() {
                 .when('/circle', route.resolve('Circle', 'circle/','vm'))
                 //Manage
                 .when('/active', route.resolve('Active', 'manage/','vm'))
+                .when('/actmode', route.resolve('Actmode', 'manage/','vm'))
                 .when('/actexpired', route.resolve('Actexpired', 'manage/','vm'))
                 .when('/manage', route.resolve('Manage', 'manage/','vm'))
                 .when('/list', route.resolve('List', 'manage/','vm'))

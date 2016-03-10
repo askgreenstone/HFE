@@ -9,6 +9,7 @@ define(['App'], function(app) {
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
+        vm.changeTheme = false;
         vm.radioFlag = false;
         vm.globalState = '';
         vm.user = {
@@ -26,6 +27,68 @@ define(['App'], function(app) {
             $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ntId='+ntid;
             // UE.getEditor('editor').destroy();
         };
+
+        // vm.getOldIntroduce = function() {
+        //     if(!vm.sess) return;
+        //     $http({
+        //         method: 'GET',
+        //         url: GlobalUrl+'/exp/QueryNewsList.do',
+        //         params: {session:vm.sess,nc:1},
+        //         data: {}
+        //     }).
+        //     success(function(data, status, headers, config) {
+        //         console.log(data);
+        //         if(data.c == 1000){
+        //             vm.oldIntroduce = data.nl;
+        //         }
+        //     }).
+        //     error(function(data, status, headers, config) {
+        //         // console.log(data);
+        //         alert('网络连接错误或服务器异常！');
+        //     });
+        // }
+
+        // vm.getOldContent = function() {
+        //     if(!vm.sess) return;
+        //     $http({
+        //         method: 'GET',
+        //         url: GlobalUrl+'/exp/QueryNewsList.do',
+        //         params: {session:vm.sess,nc:2},
+        //         data: {}
+        //     }).
+        //     success(function(data, status, headers, config) {
+        //         console.log(data);
+        //         if(data.c == 1000){
+        //             vm.oldContent = data.nl;
+        //         }
+        //     }).
+        //     error(function(data, status, headers, config) {
+        //         // console.log(data);
+        //         alert('网络连接错误或服务器异常！');
+        //     });
+        // }
+        vm.getAllArticle = function() {
+            if(!vm.sess) return;
+            $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/QueryNewsList.do',
+                params: {session:vm.sess},
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                    vm.allArticle = data.nl;
+                    if(data.nl.length>0){
+                      vm.changeTheme = true;
+                    }
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        }
 
         vm.getServerCatalogue = function() {
             if(!vm.sess) return;
@@ -207,6 +270,9 @@ define(['App'], function(app) {
           vm.getServerCatalogue();
           vm.storeCurrentSession(vm.sess);
           vm.getMicroImg();
+          // vm.getOldIntroduce();
+          // vm.getOldContent();
+          vm.getAllArticle();
         }
 
         init();
