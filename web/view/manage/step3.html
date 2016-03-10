@@ -33,10 +33,10 @@
 			<div class="list_lenged">
 				<h3 class="red">微网站logo设置</h3>
 			<span>
-				<a href="javascript:void(0);" ng-click="vm.gotoUpload('preview','上传照片')">
+				<!-- <a href="javascript:void(0);" ng-click="vm.gotoUpload('preview','上传照片')">
 					<img src="image/docs/add.png" width="20" height="20"/> 选择照片
 					<input type="file" id="choose_file" ng-model="vm.fileName"/>
-				</a>
+				</a> -->
 				<a href="javascript:void(0);" ng-click="vm.goBack()">
 					<img src="image/return.png" width="20" height="20"/> 返回
 				</a>
@@ -51,24 +51,41 @@
 					<li  class="line"><i></i>分享设置<b></b></li>
 				</ul>
 			</div>
-			<div class="step2_box">
-				<div class="step2_left">
+			<div class="changeBg changeLogo" ng-click="vm.gotoUpload()">
+				{{vm.selectChange}}
+				<input type="file" id="choose_file" ng-model="vm.userLogo"/>
+			</div>
+			<!-- <div class="scanBg"  ng-click="vm.getLocationUrl()">
+				效果图预览
+			</div> -->
+			<div class="step2_box step3_box">
+				<!-- <div class="step3_left">
+					<div class="step3_imgBox">
+						<img src={{vm.userLogo}} id="userLogo" width="130">
+					</div>
+					
 					<img ng-show="vm.hiddenInitImg" id="step3Cropper" src={{vm.userBg}}>
-				</div>
-				<div class="step2_right">
+				</div> -->
+				<!-- <div class="step3_right"> -->
+					<!-- <div class="step2_center"> -->
+						<div class="mb_shadow"></div>
+						<div id="iframe_src"></div>
+					<!-- </div> -->
 					<!-- <span>logo素材</span>
 					<ul class="step2_bgs">
 						<li ng-repeat="x in vm.sourceImage" ng-click="vm.chooseSourceBg(x.in)">
 							<img ng-src={{vm.transferUrl+x.in}} width="100%" height="">
 						</li>
 					</ul> -->
-					<span id="test">logo预览(宽：0，高：0)</span>
-					<div class="step2_preview" id="img_preview"></div>
-				</div>
+					<!-- <span id="test">logo预览(宽：0，高：0)</span>
+					<div class="step2_preview" id="img_preview"></div> -->
+				<!-- </div> -->
 			</div>
 			<div class="af_btn fix_center">
 				<span ng-click="vm.menuLink('step2')">上一步</span>
-				<span ng-click="vm.uploadFile()">下一步</span>
+				<span ng-show="vm.goToNext" ng-click="vm.menuLink('step4')">跳过</span>
+				<span ng-click="vm.menuLink('step4')">下一步</span>
+
 			</div>
 		</div>
 		<div class="clean"></div>

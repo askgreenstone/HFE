@@ -294,12 +294,12 @@ footer {
 }
 .mc_right_do{
   width: 100%;
-  height: 830px;
+  height: 675px;
   display: block;
 }
 .mc_right_undo{
   width: 100%;
-  height: 1280px;
+  height: 1170px;
 }
 .form_box{
   position: relative;
@@ -511,6 +511,9 @@ input[type=checkbox], input[type=radio] {
 .list_lenged a{
   color: #3bbffc;
   margin-left: 25px;
+}
+.list_lenged a#list_moveTo{
+  color: #333;
 }
 .list_table{
   margin: 10px 0px;
@@ -949,6 +952,9 @@ input[type=checkbox], input[type=radio] {
   /*position: relative; */
   overflow: auto;
 }
+.mb_left_list{
+  margin: 0 20px 0 30px;
+}
 .mb_left li { list-style: none; }
 .mb_left ul li { float: left; }
 .mb_left .dots{
@@ -989,7 +995,7 @@ input[type=checkbox], input[type=radio] {
 .mb_shadow{
   background-color: transparent;
   width: 322px;
-  height: 662px;
+  height: 570px;
   position: absolute;
   top: 0;
   left: 0;
@@ -1106,6 +1112,13 @@ input[type=checkbox], input[type=radio] {
 .me_input{
   line-height: 70px;
 }
+.micro1_tips{
+  margin: 200px 0 0  20px;
+}
+.micro1_tips i{
+  color: #10107F;
+  font-style: normal;
+}
 
 
 /*step1.html*/
@@ -1218,26 +1231,78 @@ input[type=checkbox], input[type=radio] {
 .fix_center{
   text-align: center;
 }
+.mateLib,.changeBg,.scanBg{
+  width: 100px;
+  height: 40px;
+  background: #3bbffc;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  margin: -25px 10px 10px 328px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+.changeBg{
+  left: -160px;
+  top: 20px;
+}
+.mateLib{
+  background: transparent;
+  left: -313px;
+  top: -10px;
+  color: #3bbffc;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: -5px;
+}
+.scanBg{
+  left: 210px;
+  top: -5px; 
+}
+.changeBg input{
+  position: absolute;
+  width:100px;
+  height: 40px;
+  display: block;
+  cursor: pointer;
+}
 .step2_box{
   margin:0;
   min-height: 575px;
+}
+.step2_wrap{
+  width: 100%;
   display: flex;
 }
 .step2_left{
   border: 1px dashed #ccc;
-  flex:3;
+  flex:1;
   overflow: hidden;
-  height: 600px;
+  height: 568px;
+}
+.step2_center{
+  width: 320px;
+  height: 568px;
+  overflow: hidden;
+  padding:0 16px;
+  position: relative;
+}
+.step2_center iframe{
+  width: 320px;
+  height: 568px;
+  border: 1px dashed #ccc;
 }
 .step2_right{
-  flex:2;
+  width: 100%;
   padding:0 10px;
   color: #3bbffc;
   margin: 0 auto;
 }
 .step2_bgs{
   border: 1px dashed;
-  height: 235px;
+  height: 135px;
   overflow: auto;
   margin: 0 0 15px 0;
   padding: 2%;
@@ -1249,7 +1314,7 @@ input[type=checkbox], input[type=radio] {
   overflow: hidden;
 }
 .step2_bgs li{
-  width: 23%;
+  width: 9%;
   float: left;
   margin: 0 2% 2% 0;
   border: 1px solid #fff;
@@ -1450,6 +1515,44 @@ input[type=checkbox], input[type=radio] {
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
   color:#5BAD3D;
+}
+.step3_box{
+  width: 322px;
+  margin: 0px auto;
+}
+.step3_box iframe{
+  width: 320px;
+  height: 568px;
+  border: 1px dashed #ccc;
+}
+.changeLogo{
+  left: -280px;
+  top: 50px;
+  margin-bottom: -20px;
+}
+.step3_left{
+  flex: 1;
+  padding-left:150px;
+}
+.step3_right{
+  width: 320px;
+  height: 568px;
+  position: relative;
+}
+.step3_right iframe{
+  width: 320px;
+  height: 568px;
+  border: 1px dashed #ccc;
+}
+.step3_imgBox{
+  width: 132px;
+  height: 132px;
+  border: 1px dashed #ccc;
+  display: table-cell;
+  vertical-align: middle;
+}
+.step3_imgBox img{
+  vertical-align: middle;
 }
 .step5_textarea,.step5_pic{
   margin: 0 0 20px 20px;
@@ -1710,7 +1813,7 @@ input[type=checkbox], input[type=radio] {
   line-height: 60px;
   color: #3BBFFC;
   font-family: '中黑';
-  font-size: 30px;
+  font-size:18px;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -1721,41 +1824,40 @@ input[type=checkbox], input[type=radio] {
   width: 100%;
 }
 .active_box .active_traval{
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .active_box .active_traval p{
   width: 100%;
   text-align: center;
   font-family: '中黑';
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
 }
 .active_box .active_traval p span{
   font-family: '纤黑';
-  font-size: 18px;
   color: #39D167;
 }
 .active_box .active_agreement{
   width: 100%;
   text-align: center;
   font-family: '纤黑';
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   margin-bottom: 30px;
   line-height: 30px;
 }
 .active_box .active_agreement a{
   font-family: '纤黑';
-  font-size: 18px;
   color: #39D167;
   text-decoration: underline;
 }
 .active_box .active_agreement label{
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   background-image: url('../image/check.png');
   background-repeat:  no-repeat;
+  background-size: cover;
   display: inline-block;
   position: relative;
   top: 10px;
@@ -1784,14 +1886,11 @@ input[type=checkbox], input[type=radio] {
 .active_expired p{
   width: 100%;
   font-family: '中黑';
-  font-size: 20px;
-  color: #333;
+  color: #666;
+  font-size: 14px;
 }
-.active_expired p input{
-  border: none;
-  outline: none;
+.active_expired p span{
   font-family: '纤黑';
-  font-size: 18px;
   color: red;
 }
 

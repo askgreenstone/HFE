@@ -45,7 +45,7 @@ define(['App'], function(app) {
                     //   fluid: false  
                     // });
                     var unslider04 = $('.mb_left').unslider({
-                          dots: true
+                          dots: false
                         }),
                         data04 = unslider04.data('unslider');
                         

@@ -7,10 +7,12 @@ define(['App'], function(app) {
         var vm = this;
         var curw = 0;
         var curh = 0;
-        vm.userBg = '';
+        vm.userLogo = '';
         vm.transferUrl = TransferUrl;
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
+        vm.selectChange = '';
+        vm.goToNext = true;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -84,46 +86,50 @@ define(['App'], function(app) {
             }
         }
 
-        vm.uploadFile = function() {
-          // if(vm.jumpFlag){
-          //   $window.location.href = '#/step4?session='+vm.sess;
-          //   return;
-          // }
-          console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
+
+        vm.gotoUpload = function(){
+            var $choose_file = $('#choose_file'),
+                URL = window.URL || window.webkitURL,
+                blobURL;
+            if (URL) {
+                $choose_file.change(function() {
+                    var files = this.files,
+                        file;
+
+                    if (files && files.length) {
+                        file = files[0];
+
+                        if (/^image\/\w+$/.test(file.type)) {
+                            console.log(file);
+                            vm.uploadLogo();
+                            vm.getLocationUrl();
+                            // $('#userLogo').attr('src',file);
+                        } else {
+                            alert('请选择图片文件！');
+                        }
+                    }
+                });
+            } else {
+                
+            }
+        }
+
+
+        vm.uploadLogo = function() {
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
-            if(!f){
-              if(!vm.isServerData){
-                alert('请先选择图片！');
-                return;
-              }
-              else{
-                // if(!vm.choosePic){
-                //   $window.location.href = '#/step4?session='+vm.sess;
-                //   return;
-                // }
-                vm.clipSourceImg(vm.choosePic);
-                $('#step3Cropper').cropper('destroy');
-                $window.location.href = '#/step4?session='+vm.sess;
-                return;
-              }
-            }
-            //gif图片不被裁切
-            if(f.type.toString().toLowerCase().indexOf('gif')>-1){
-              alert('暂不支持gif！');
+            if (!f){
+              alert('请先选择文件！');
               return;
-            }
+            } 
             Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
                 fd.append('ThirdUpload', f);
                 fd.append('filename', f.name);
-                fd.append('w', vm.imgw);
-                fd.append('h', vm.imgh);
-                fd.append('x', vm.imgx);
-                fd.append('y', vm.imgy);
-                // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
+                console.log(fd);
+                // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6 微信分享图标
                 $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=5', fd, {
                     transformRequest: angular.identity,
                     headers: {
@@ -131,19 +137,84 @@ define(['App'], function(app) {
                     }
                 })
                 .success(function(data) {
-                    Common.getLoading(false);
                     console.log(data);
-                    $('#step3Cropper').cropper('destroy');
-                    $window.location.href = '#/step4?session='+vm.sess;
+                    // vm.user.QRCodeImg = data.on;
+                    // vm.isQrcodeUpload = true;
+                    vm.userLogo = vm.transferUrl+data.on;
+                    Common.getLoading(false);
                 })
                 .error(function() {
-                    Common.getLoading(false);
                     // console.log('error');
                     alert('网络连接错误或服务器异常！');
                 });
             };
             r.readAsDataURL(f);
         }
+
+        vm.refreshUrl =function(){
+
+        }
+
+        // vm.uploadFile = function() {
+        //   // if(vm.jumpFlag){
+        //   //   $window.location.href = '#/step4?session='+vm.sess;
+        //   //   return;
+        //   // }
+        //   console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
+        //     var f = document.getElementById('choose_file').files[0],
+        //         r = new FileReader();
+        //     if(!f){
+        //       if(!vm.isServerData){
+        //         alert('请先选择图片！');
+        //         return;
+        //       }
+        //       else{
+        //         // if(!vm.choosePic){
+        //         //   $window.location.href = '#/step4?session='+vm.sess;
+        //         //   return;
+        //         // }
+        //         vm.clipSourceImg(vm.choosePic);
+        //         $('#step3Cropper').cropper('destroy');
+        //         $window.location.href = '#/step4?session='+vm.sess;
+        //         return;
+        //       }
+        //     }
+        //     //gif图片不被裁切
+        //     if(f.type.toString().toLowerCase().indexOf('gif')>-1){
+        //       alert('暂不支持gif！');
+        //       return;
+        //     }
+        //     Common.getLoading(true);
+        //     r.onloadend = function(e) {
+        //         var data = e.target.result;
+        //         var fd = new FormData();
+        //         fd.append('ThirdUpload', f);
+        //         fd.append('filename', f.name);
+        //         fd.append('w', vm.imgw);
+        //         fd.append('h', vm.imgh);
+        //         fd.append('x', vm.imgx);
+        //         fd.append('y', vm.imgy);
+        //         // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
+        //         $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=5', fd, {
+        //             transformRequest: angular.identity,
+        //             headers: {
+        //                 'Content-Type': undefined
+        //             }
+        //         })
+        //         .success(function(data) {
+        //             Common.getLoading(false);
+        //             console.log(data);
+        //             $('#step3Cropper').cropper('destroy');
+        //             // $window.location.href = '#/step4?session='+vm.sess;
+        //         })
+        //         .error(function() {
+        //             Common.getLoading(false);
+        //             // console.log('error');
+        //             alert('网络连接错误或服务器异常！');
+        //         });
+        //     };
+        //     r.readAsDataURL(f);
+        // }
 
         //素材库：1，背景图；2，logo
         // vm.getSourceImage = function(){
@@ -188,17 +259,20 @@ define(['App'], function(app) {
                   //后台数据标示
                   vm.isServerData = true;
                   if(data.l){
-                    vm.userBg = TransferUrl+data.l;
+                    vm.userLogo = TransferUrl+data.l;
                     vm.choosePic = data.l;
+                    vm.selectChange = '更换logo';
+                    vm.goToNext = false;
                   }else{
-                    vm.userBg = 'image/placeholder.png';
+                    vm.userLogo = 'image/placeholder.png';
                     vm.choosePic = '';
+                    vm.selectChange = '选择logo'
                   }
 
                   //延迟初始化裁图插件
-                  setTimeout(function() {
-                    vm.initCropper();
-                  }, 300);
+                  // setTimeout(function() {
+                  //   vm.initCropper();
+                  // }, 300);
                   
                   // console.log(vm.userBg);
                 }
@@ -208,6 +282,24 @@ define(['App'], function(app) {
                 alert('网络连接错误或服务器异常！');
             });
         }
+        // function readURL(input,preview) {
+        //   if (input.files && input.files[0]) {
+        //       var reader = new FileReader();
+        //       reader.onload = function (e) {
+        //         console.log(e);
+        //           $('#'+preview).attr('src', e.target.result);
+        //       }
+        //       reader.readAsDataURL(input.files[0]);
+        //   }
+        // }
+
+
+
+        // $('#choose_file').change(function(){
+        //     readURL(this,'card_preview');
+        //     $('#card_preview').show();
+        //     // uploadHead();
+        // });
 
         //it:1背景图，it:2logo
         // vm.chooseSourceBg = function(name){
@@ -256,9 +348,35 @@ define(['App'], function(app) {
             });
         }
 
+        vm.getLocationUrl = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  // vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
+                  // vm.inputUrl = data.url;
+                  $('#iframe_src').empty();
+                  $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="568"></iframe>');
+
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        };
+
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.getServerBg();
+          vm.getLocationUrl();
           // vm.getSourceImage();
         }
 

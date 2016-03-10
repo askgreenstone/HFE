@@ -75,10 +75,11 @@ define(['App'], function(app) {
               params: {
                   session:vm.sess
               },
+              headers : {'Content-Type':undefined},
               data: {
                   wmi:vm.id,
                   wmu:vm.url
-              }
+              } 
           }).
           success(function(data, status, headers, config) {
               console.log(data);
@@ -98,15 +99,15 @@ define(['App'], function(app) {
             alert('请选择模版！');
             return false;
           }
-          // if(vm.oid != vm.id){
-          //   var bool = window.confirm('切换主题模板后，您原先设定的logo、菜单都会被清空，您的文章列表、相册会保留');
-          //   if(bool){
-          //     vm.saveMicroBg();
-          //   }
-          // }else{
-          //   vm.saveMicroBg();
-          // }
-          vm.saveMicroBg();
+          if(vm.oid != vm.id){
+            var bool = window.confirm('请注意！切换主题模板后，您原先设定的背景图、logo以及菜单项都会被清空，您发布的文章、上传的相册会保留在素材库可选择新目录进行重新发布。');
+            if(bool){
+              vm.saveMicroBg();
+            }
+          }else{
+            vm.saveMicroBg();
+          }
+          // vm.saveMicroBg();
         } 
 
         function init(){
