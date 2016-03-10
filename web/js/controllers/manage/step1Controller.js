@@ -69,6 +69,8 @@ define(['App'], function(app) {
         }
 
         vm.saveMicroBg = function(){
+          console.log({wmi:vm.id,
+                  wmu:vm.url})
           $http({
               method: 'POST',
               url: GlobalUrl+'/exp/ChooseMicWebModel.do',

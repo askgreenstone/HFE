@@ -33,9 +33,28 @@
 			
 			<div class="active_box">
 				<div class="active_expired">
-					<p>绿石微应用过期</p>
-					<p>您的微应用已经于 <input type="text" ng-model="vm.endTime"><span>{{vm.endTime}}</span> 过期，请联系绿石客服付费后继续使用</p>
-					<p>客服电话：400-964-9288</p>
+					<div class="active_title">
+						欢迎使用绿石微应用!
+					</div>
+					<div class="actmode_box">
+						<p>您可以通过以下两种方式激活并体验微应用</p>
+						<ul class="actmode_list">
+							<li>方式一：<br/><input type="radio" name="actmode" ng-click="vm.changeModeState1()">成为认证律师</li>
+							<li>方式二：<br/><input type="radio" name="actmode" ng-click="vm.changeModeState2()">输入邀请体验吗</li>
+
+						</ul>
+						<div class="clean"></div>
+						<div class="actmode_method">
+							<div ng-show="vm.actmode1">通过app上传执业证，成为认证律师，绿石客服将在24小时内完成确认<br/>
+							如需帮助请联系客服电话010-58678723</div>
+							<div ng-show="vm.actmode2">
+								<input type="text" ng-model="vm.expCode">
+								<div class="active_agreement actmode_agree"><input type="checkbox" id="active"><label for="active"></label>我已阅读并同意<a href="#">绿石微应用协议</a></div>
+								<div class="active_btn actmode_btn" ng-click="vm.setActiveState()">激活</div>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 				
 			</div>

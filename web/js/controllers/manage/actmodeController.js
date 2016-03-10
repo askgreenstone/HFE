@@ -11,6 +11,8 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
         vm.globalUrl = GlobalUrl;
         vm.endTime = '';
+        vm.actmode1 = true;
+        vm.actmode2 = false;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -31,24 +33,30 @@ define(['App'], function(app) {
              
           return new Date(parseInt(now)).toLocaleString().replace(/\//g, "-");      
         } 
-        // vm.setActiveState = function(){
-        //   $.ajax({
-        //     type : 'post',
-        //     url : vm.globalUrl + '/exp/ActivateMicWeb.do?session='+ vm.sess,
-        //     data : '',
-        //     dataType:'json',
-        //     contentType:'application/json',
-        //     success : function(data) {
-        //       console.log(data);
-        //       if(data.c == 1000){
-        //          window.location.href = '#/manage?session='+vm.sess;
-        //       }
-        //     },
-        //     error : function(){
-        //       alert('网络连接错误或服务器异常！');
-        //     }
-        //   })
-        // }
+        vm.setActiveState = function(){
+          //状态1045，已经激活过，失去激活资格
+          $http({
+                method: 'post',
+                url: GlobalUrl+'/exp/ActivateMicWeb.do',
+                params: {session:vm.sess},
+                headers : {'Content-Type':undefined},
+                data: {ac:vm.expCode,ad:7}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+               
+                if(data.c == 1000){
+                  window.location.href = '#/step1?session='+vm.sess;
+                }else if(data.c == 1046){
+                  alert("激活码失效")
+                }
+               
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        }
 
       
 
@@ -57,33 +65,7 @@ define(['App'], function(app) {
             UE.getEditor('editor').destroy();
         };
 
-        vm.getServerCatalogue = function() {
-            if(!vm.sess) return;
-            $http({
-                method: 'GET',
-                url: GlobalUrl+'/exp/QueryNewsTypes.do',
-                params: {session:vm.sess,wf:1},
-                data: {}
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  vm.introduce = data.ntl[0].td;
-                  vm.title1 = data.ntl[0].tn;
-
-                  vm.content = data.ntl[1].td;
-                  vm.title2 = data.ntl[1].tn;
-
-                  vm.photos = data.ntl[2].td;
-                  vm.title3 = data.ntl[2].tn;
-                }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('网络连接错误或服务器异常！');
-            });
-        }
-
+        
         vm.storeCurrentSession = function(sess){
           var isSession = localStorage.getItem('globalSession');
           if(isSession){
@@ -147,12 +129,51 @@ define(['App'], function(app) {
             });
         };
 
+
+
+        vm.getAuthenState = function(){
+          $http({
+              method: 'post',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+          }).
+          success(function(data) {
+            console.log(data);
+            if(data.c == 1000){
+              // if(data.as == 1){
+              //   window.location.href = '#/manage?session='+vm.sess;
+              // }else if(data.as == 2 ){
+              //   localStorage.setItem('activeEndTime',data.at);
+              //   window.location.href = '#/actexpired?session='+vm.sess;
+              // }
+            }
+          }).
+          error(function(){
+            alert('网络连接错误或服务器异常！');
+          })
+        }
+
+
+        vm.changeModeState1 = function(){
+          vm.actmode1 = true;
+          vm.actmode2 = false;
+        }
+        vm.changeModeState2 = function(){
+          vm.actmode1 = false;
+          vm.actmode2 = true;
+        }
+
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.setInputChecked();
           vm.storeCurrentSession(vm.sess);
           vm.getMicroImg();
           vm.getEndTime();
+          vm.getAuthenState();
+          $('.actmode_list li').eq(0).find('input').attr('checked','checked');
         }
 
         init();
