@@ -20,9 +20,11 @@ define(['App'], function(app) {
           $('#active').prop('checked',true);
         }
 
+
+        //0未激活、1试用、2正常付费、3试用到期、4正常付费到期
         vm.getActiveState = function(){
           $http({
-              method: 'post',
+              method: 'get',
               url: GlobalUrl+'/exp/QueryMicWebActivate.do',
               params: {session:vm.sess},
               data: {}
@@ -30,11 +32,37 @@ define(['App'], function(app) {
           success(function(data) {
             console.log(data);
             if(data.c == 1000){
-              if(data.as == 1){
-                window.location.href = '#/manage?session='+vm.sess;
-              }else if(data.as == 2 ){
-                localStorage.setItem('activeEndTime',data.at);
+              if(data.as == 1 || data.as == 2){
+                 window.location.href = '#/step1?session='+vm.sess;
+              }else if(data.as == 3 || data.as == 4 ){
+                // localStorage.setItem('activeEndTime',data.at);
                 window.location.href = '#/actexpired?session='+vm.sess;
+              }else if(data.as == 0){
+                vm.getAuthenState();
+              }
+            }
+          }).
+          error(function(){
+            alert('网络连接错误或服务器异常！');
+          })
+        }
+
+        //获取用户认证状态
+        vm.getAuthenState = function(){
+          $http({
+              method: 'post',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params:{session:vm.sess},
+              
+              data: {}
+          }).
+          success(function(data) {
+            console.log(data);
+            if(data.c == 1000){
+              if(data.sts == 2){
+                window.location.href = '#/active?session='+vm.sess;
+              }else{
+                window.location.href = '#/actmode?session='+vm.sess;
               }
             }
           }).
@@ -47,7 +75,8 @@ define(['App'], function(app) {
               method: 'post',
               url: GlobalUrl+'/exp/ActivateMicWeb.do',
               params: {session:vm.sess},
-              data: {}
+              headers : {'Content-Type':undefined},
+              data: {ad:7}
           }).
           success(function(data) {
             console.log(data);
@@ -163,6 +192,7 @@ define(['App'], function(app) {
           vm.storeCurrentSession(vm.sess);
           vm.getMicroImg();
           vm.getActiveState();
+
         }
 
         init();

@@ -22,33 +22,54 @@ define(['App'], function(app) {
         }
 
         vm.getEndTime = function(){
-          var now = localStorage.getItem('activeEndTime');
-          vm.endTime = vm.getLocalTime(now)
-          localStorage.removeItem('activeEndTime');
+
+          $http({
+              method: 'get',
+              url: GlobalUrl+'/exp/QueryMicWebActivate.do',
+              params: {session:vm.sess},
+              data: {}
+          }).
+          success(function(data) {
+            console.log(data);
+            if(data.c == 1000){
+              if(data.as == 1 || data.as == 2){
+                 window.location.href = '#/step1?session='+vm.sess;
+              }else if(data.as == 3 || data.as == 4 ){
+                // localStorage.setItem('activeEndTime',data.at);
+                vm.endTime = vm.getLocalTime(data.at);
+                window.location.href = '#/actexpired?session='+vm.sess;
+              }else if(data.as == 0){
+                vm.getAuthenState();
+              }
+            }
+          }).
+          error(function(){
+            alert('网络连接错误或服务器异常！');
+          })
         }
 
         vm.getLocalTime = function(now) {     
              
           return new Date(parseInt(now)).toLocaleString().replace(/\//g, "-");      
         } 
-        // vm.setActiveState = function(){
-        //   $.ajax({
-        //     type : 'post',
-        //     url : vm.globalUrl + '/exp/ActivateMicWeb.do?session='+ vm.sess,
-        //     data : '',
-        //     dataType:'json',
-        //     contentType:'application/json',
-        //     success : function(data) {
-        //       console.log(data);
-        //       if(data.c == 1000){
-        //          window.location.href = '#/manage?session='+vm.sess;
-        //       }
-        //     },
-        //     error : function(){
-        //       alert('网络连接错误或服务器异常！');
-        //     }
-        //   })
-        // }
+        vm.setActiveState = function(){
+          $.ajax({
+            type : 'post',
+            url : vm.globalUrl + '/exp/ActivateMicWeb.do?session='+ vm.sess,
+            data : '',
+            dataType:'json',
+            contentType:'application/json',
+            success : function(data) {
+              console.log(data);
+              if(data.c == 1000){
+                 window.location.href = '#/manage?session='+vm.sess;
+              }
+            },
+            error : function(){
+              alert('网络连接错误或服务器异常！');
+            }
+          })
+        }
 
       
 
