@@ -412,6 +412,68 @@ footer {
   margin-right: 20px;
   color: #3bbffc;
   margin-top: 5px;
+  position: relative;
+}
+
+.authority b{
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  width: 200px;
+  /*height: 120px;*/
+  border-radius: 3px;
+  background: #fff;
+  z-index: 2;
+  display: none;
+  color: rgba(0, 0, 0, 0.7);
+  padding-bottom: 12px;
+}
+.authority em{
+  font-style: normal;
+}
+.authority b>small{
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 15px;
+  height: 15px;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 3px;
+  transform: rotate(45deg);
+  background-color: #fff;
+  left: 20px;
+  top: -8px;
+}
+.authority label{
+  margin: 10px 8px;
+}
+.authority .author_psw{
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 12px;
+  padding: 5px;
+  margin: 0 14px;
+  width: 170px;
+}
+.authority .author>span{
+  color: #fff;
+  background-color: #39d167;
+  display: inline-block;
+  width: 83px;
+  text-align: center;
+  border-radius: 3px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+.authority .author>span:last-child{
+  background-color: #3bbffc;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 5px 0;
 }
 
 /*list.html*/
@@ -612,7 +674,8 @@ footer {
   border-radius: 4px;
   width: 23%;
   margin: 1%;
-  cursor: pointer;
+  height: 188px;
+  cursor: move;
 }
 .photo_list p{
   text-align: center;

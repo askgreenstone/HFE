@@ -64,12 +64,15 @@
     <script src="js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-            //此处增加分享逻辑1－首页，2-名片，3－相册
+            //此处增加分享逻辑ntid = localStorage.getItem('tempNtid');
             var wxShareTarget = getUrlParams('target'),
                 ownUri = getUrlParams('ownUri'),
-                ntid = localStorage.getItem('tempNtid');
+                ntid = getUrlParams('ntid'),
+                nid = getUrlParams('nid');
             if(ntid){
               location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid;
+            }else if(nid){
+              location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid;
             }else{
               location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri;
             }

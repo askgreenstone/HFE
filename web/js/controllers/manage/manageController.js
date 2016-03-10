@@ -9,9 +9,14 @@ define(['App'], function(app) {
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
-        vm.oldIntroduce = '';
-        vm.oldContent = '';
         vm.changeTheme = false;
+        vm.radioFlag = false;
+        vm.globalState = '';
+        vm.user = {
+          checkedFlag:false,
+          checked:'',
+          password:''
+        }
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -23,45 +28,45 @@ define(['App'], function(app) {
             // UE.getEditor('editor').destroy();
         };
 
-        vm.getOldIntroduce = function() {
-            if(!vm.sess) return;
-            $http({
-                method: 'GET',
-                url: GlobalUrl+'/exp/QueryNewsList.do',
-                params: {session:vm.sess,nc:1},
-                data: {}
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                    vm.oldIntroduce = data.nl;
-                }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('网络连接错误或服务器异常！');
-            });
-        }
+        // vm.getOldIntroduce = function() {
+        //     if(!vm.sess) return;
+        //     $http({
+        //         method: 'GET',
+        //         url: GlobalUrl+'/exp/QueryNewsList.do',
+        //         params: {session:vm.sess,nc:1},
+        //         data: {}
+        //     }).
+        //     success(function(data, status, headers, config) {
+        //         console.log(data);
+        //         if(data.c == 1000){
+        //             vm.oldIntroduce = data.nl;
+        //         }
+        //     }).
+        //     error(function(data, status, headers, config) {
+        //         // console.log(data);
+        //         alert('网络连接错误或服务器异常！');
+        //     });
+        // }
 
-        vm.getOldContent = function() {
-            if(!vm.sess) return;
-            $http({
-                method: 'GET',
-                url: GlobalUrl+'/exp/QueryNewsList.do',
-                params: {session:vm.sess,nc:2},
-                data: {}
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                    vm.oldContent = data.nl;
-                }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('网络连接错误或服务器异常！');
-            });
-        }
+        // vm.getOldContent = function() {
+        //     if(!vm.sess) return;
+        //     $http({
+        //         method: 'GET',
+        //         url: GlobalUrl+'/exp/QueryNewsList.do',
+        //         params: {session:vm.sess,nc:2},
+        //         data: {}
+        //     }).
+        //     success(function(data, status, headers, config) {
+        //         console.log(data);
+        //         if(data.c == 1000){
+        //             vm.oldContent = data.nl;
+        //         }
+        //     }).
+        //     error(function(data, status, headers, config) {
+        //         // console.log(data);
+        //         alert('网络连接错误或服务器异常！');
+        //     });
+        // }
         vm.getAllArticle = function() {
             if(!vm.sess) return;
             $http({
@@ -174,6 +179,91 @@ define(['App'], function(app) {
                 alert('网络连接错误或服务器异常！');
             });
         };
+
+        vm.visityAuthority = function(e,type){
+          e.preventDefault();
+          $('.mcr_list .authority').find('b').hide();
+          $(e.target).find('b').show();
+          if(type == 'public'){
+            vm.radioFlag = true;
+          }else{
+            vm.radioFlag = false;
+          }
+        }
+
+        $(document).bind('click',function(e){
+          var target = $(e.target);
+          // console.log(target.closest('.authority').length);
+          if(target.closest('.authority').length == 0){
+            $('.mcr_list .authority').find('b').hide();
+          }
+        })
+
+        vm.cleanAuthorBox = function(){
+          $('.mcr_list .authority').find('b').hide();
+        }
+
+        vm.setAuthorState = function(e,name){
+          // e.stopPropagation();
+          // console.log($(e.target).parent().siblings('.author_psw').val());
+          // console.log($('input[name="'+name+'"]:checked').val());
+          
+          if($('input[name="'+name+'"]:checked').val() == 'public'){
+            vm.radioFlag = true;
+            vm.globalState = 'public';
+          }else{
+            vm.radioFlag = false;
+            vm.globalState = 'private';
+          }
+        }
+
+        vm.getInputValue = function(e){
+          console.log($(e.target).val());
+          vm.user.checked = $(e.target).val();
+        }
+
+        vm.test = function(e){
+          e.stopPropagation();
+        }
+
+        vm.submitAuthor = function(ntid,vp){
+          if(vm.globalState == 'public'){
+            vm.user.checked = '';
+          }
+          console.log('submit:'+vm.user.checked+',vm.globalState:'+vm.globalState);
+          var tempObj = {};
+          if(!vp){
+            tempObj={
+              'npwd':vm.user.checked,
+              'ntid':ntid
+            }
+          }else{
+            tempObj={
+              'npwd':vm.user.checked,
+              'ntid':ntid,
+              'opwd':vp
+            }
+          }
+          $http({
+              method: 'POST',
+              url: GlobalUrl+'/exp/SetMicWebNewsPwd.do',
+              params: {
+                  session:vm.sess
+              },
+              data: tempObj
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                vm.getServerCatalogue();
+                vm.cleanAuthorBox();
+              }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          });
+        }
 
         function init(){
           vm.sess = Common.getUrlParam('session');

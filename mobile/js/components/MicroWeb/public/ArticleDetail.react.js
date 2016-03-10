@@ -6,7 +6,13 @@ var Message = require('../../common/Message.react');
 var ArticleDetail = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
-    return {myDatas:[],uri:''};
+    return {
+      myDatas:[],
+      uri:'',
+      shareTitle:'',
+      shareDesc:'',
+      shareImg:''
+    };
   },
 	getServerInfo: function(){
 		var newUrl = '',
@@ -31,8 +37,9 @@ var ArticleDetail = React.createClass({
         if(data.c == 1000){
         	if(data.ntit){
         		$('.article_detail h3').text(data.ntit);
+            this.setState({shareTitle:data.ntit});
         	}else{
-        		$('.article_detail h3').text('未设置标题');
+        		$('.article_detail').hide();
         	}
           //如果含有nl，则优先显示
           if(data.nl){
@@ -40,6 +47,11 @@ var ArticleDetail = React.createClass({
           }else{
             $('.ad_format').append(data.nc);
           }
+          // alert(this.getCotentSrc(data.nc));
+          //设置分享信息
+          console.log(this.removeHTMLTag(data.nc));
+          this.setState({shareDesc:this.removeHTMLTag(data.nc)});
+          this.setState({shareImg:this.getCotentSrc(data.nc)});
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -48,10 +60,35 @@ var ArticleDetail = React.createClass({
       }.bind(this)
     });
 	},
+  getCotentSrc: function(str){
+    if(!str) return;
+    var urls = [];
+    var imgReg = /<img.*?(?:>|\/>)/gi;
+    //匹配src属性
+    var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    var arr = str.match(imgReg);
+    if(arr){
+      for (var i = 0; i < arr.length; i++) {
+        var src = arr[i].match(srcReg);
+        //获取图片地址
+        if(src[1]){
+           urls.push(src[1]);
+        }
+      }
+    }
+    // alert(urls);
+    if(urls.length>0){
+      return urls[0];
+    }else{
+      return 'image/default3.png'
+    }
+  },
 	componentDidMount: function(){
-      $('body').css({'background':'#fff'});
-	    this.getServerInfo();
+    $('body').css({'background':'#fff'}); 
 	},
+  componentWillMount: function(){
+    this.getServerInfo();
+  },
   render: function() {
     var tempHeight = window.screen.height;
     var isShow = '';
@@ -95,13 +132,13 @@ var ArticleDetail = React.createClass({
           <div style={{'height':tempHeight,'display':isShow}}>
             <iframe style={{'border':'0'}} src={this.state.webUrl} width="100%" height="100%"></iframe>
           </div>
+
+          <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+        imgUrl={this.state.shareImg} target="articleDetail"/>
           <Message/>
         </div>
         );
-    }
-      
-      
-    
+    }  
   }
 });
 
