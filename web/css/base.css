@@ -949,7 +949,7 @@ input[type=checkbox], input[type=radio] {
   min-height: 545px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  position: relative; 
+  /*position: relative; */
   overflow: auto;
 }
 .mb_left_list{
@@ -1014,7 +1014,7 @@ input[type=checkbox], input[type=radio] {
   cursor: pointer;
 }
 .mb_input{
-  margin: 5px 0 0 -8px;
+  margin: 20px;
 }
 .mc_input{
   width: 400px;
@@ -1113,10 +1113,7 @@ input[type=checkbox], input[type=radio] {
   line-height: 70px;
 }
 .micro1_tips{
-  margin: 0px 0 0  20px;
-}
-.micro1_tips h4{
-  font-size: 16px;
+  margin: 200px 0 0  20px;
 }
 .micro1_tips i{
   color: #10107F;
@@ -1522,6 +1519,7 @@ input[type=checkbox], input[type=radio] {
 .changeLogo{
   margin-left: 35px;
   margin-bottom: -40px;
+
 }
 .step3_left{
   flex: 1;
