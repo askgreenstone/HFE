@@ -68,7 +68,6 @@ define(['RouteResolver','Common'], function() {
                 .otherwise({
                     redirectTo: '/manage'
                 });
-
         }
     ]);
 
