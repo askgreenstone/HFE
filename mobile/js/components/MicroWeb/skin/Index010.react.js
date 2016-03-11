@@ -7,12 +7,14 @@ var CommonMixin = require('../../Mixin');
 var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
+var Shadow = require('../../common/Shadow.react');
 
 require('../../../../css/theme/theme006.less');
 var Index010 = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
     return {
+      activeState:false,
       navArrs:[],
       path:['articleList','articleList','photo']
     };
@@ -40,6 +42,32 @@ var Index010 = React.createClass({
         console.log(data);
         if(data.c == 1000){
           this.setState({navArrs:data.ntl});
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  //查询用户微网站是否过期
+  getUserWebState: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          //0未激活、1试用、2正常付费、3试用到期、4正常付费到期
+          if(data.as==3||data.as==4){
+            //activeState true则显示弹层
+            this.setState({activeState:true});
+          }
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -78,6 +106,7 @@ var Index010 = React.createClass({
 					  <Share title={"大成金融律师团队微网站"} desc={"大成金融律师团队专注于融资租赁、银行、保险、信托、家族办公室咨询服务、保理、互联网金融、金融衍生品"} 
         imgUrl={global.img+"dcjr20160108111315.jpg"} target="index010"/>
         <Message/>
+        <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
 				</div>
 			)
 	}
