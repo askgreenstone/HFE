@@ -9,6 +9,7 @@ define(['App'], function(app) {
         vm.title = '标题';
         vm.sess = '';
         vm.selectedState = false;
+        vm.addArticle = true;
 
         vm.gotoLink = function(path) {
           var title = Common.getUrlParam('title'),
@@ -93,6 +94,7 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.getArticleList();
+                  $('input[name=all_check]').prop('checked',false);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -175,6 +177,7 @@ define(['App'], function(app) {
                     if(data.c == 1000){
                         vm.getArticleList();
                         vm.selectedState = true;
+                        $('input[name=all_check]').prop('checked',false);
                         $("#list_moveTo select").children().eq(0).attr("selected",true);
                     }
                 }).
@@ -193,6 +196,7 @@ define(['App'], function(app) {
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = Common.getUrlParam('ntId');
           vm.sess = Common.getUrlParam('session');
+          vm.addArticle = vm.ntid!=0?true:false;
           vm.getArticleList();
           vm.getContentList();
         }

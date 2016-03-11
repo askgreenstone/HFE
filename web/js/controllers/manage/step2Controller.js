@@ -102,9 +102,7 @@ define(['App'], function(app) {
               }
               else{
                 vm.clipSourceImg(vm.choosePic);
-                
-                vm.getLocationUrl();
-                // alert(0);                
+                vm.getLocationUrl();          
                 // $('#themeCropper').cropper('destroy');
                 return;
                 
@@ -116,7 +114,7 @@ define(['App'], function(app) {
               alert('暂不支持gif！');
               return;
             }
-            Common.getLoading(true);
+            
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -134,14 +132,14 @@ define(['App'], function(app) {
                     }
                 })
                 .success(function(data) {
-                  Common.getLoading(false);
+                  
                     console.log(data);
                     // $('#themeCropper').cropper('destroy');
                     vm.getLocationUrl();
                     // $window.location.href = '#/step3?session='+vm.sess;
                 })
                 .error(function() {
-                  Common.getLoading(false);
+                  
                     // console.log('error');
                     alert('网络连接错误或服务器异常！');
                 });
@@ -166,7 +164,7 @@ define(['App'], function(app) {
 
         //裁切素材
         vm.clipSourceImg = function(name){
-          Common.getLoading(true);
+          
           console.log('name:'+name);
           $http({
                 method: 'POST',
@@ -184,7 +182,7 @@ define(['App'], function(app) {
                 }
             }).
             success(function(data, status, headers, config) {
-                Common.getLoading(false);
+                
                 console.log(data);
                 if(data.c == 1000){
                   console.log('clipSourceImg success');
@@ -192,7 +190,7 @@ define(['App'], function(app) {
                 }
             }).
             error(function(data, status, headers, config) {
-                Common.getLoading(false);
+                
                 // console.log(data);
                 alert('网络连接错误或服务器异常！');
             });
@@ -277,7 +275,7 @@ define(['App'], function(app) {
                   // vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
                   // vm.inputUrl = data.url;
                   $('#iframe_src').empty();
-                  $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="568"></iframe>');
+                  $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="550"></iframe>');
 
                 }
             }).

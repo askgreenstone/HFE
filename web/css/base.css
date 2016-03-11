@@ -946,7 +946,7 @@ input[type=checkbox], input[type=radio] {
 .mr_box #ar { right: 355px;}
 .mb_left{
   width: 322px;
-  min-height: 568px;
+  min-height: 545px;
   border: 1px solid #ccc;
   border-radius: 4px;
   /*position: relative; */
@@ -995,7 +995,7 @@ input[type=checkbox], input[type=radio] {
 .mb_shadow{
   background-color: transparent;
   width: 322px;
-  height: 570px;
+  height: 545px;
   position: absolute;
   top: 0;
   left: 0;
@@ -1238,28 +1238,17 @@ input[type=checkbox], input[type=radio] {
   color: #fff;
   line-height: 40px;
   text-align: center;
-  margin: -25px 10px 10px 328px;
   border-radius: 5px;
   cursor: pointer;
-  position: relative;
+  margin: 0px auto;
 }
 .changeBg{
-  left: -160px;
-  top: 20px;
-}
-.mateLib{
-  background: transparent;
-  left: -313px;
-  top: -10px;
-  color: #3bbffc;
-  text-align: left;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: -5px;
+  margin-left: 168px;
 }
 .scanBg{
-  left: 210px;
-  top: -5px; 
+  margin-right: 118px;
+  margin-top: -40px;
+  margin-bottom: 10px;
 }
 .changeBg input{
   position: absolute;
@@ -1270,7 +1259,7 @@ input[type=checkbox], input[type=radio] {
 }
 .step2_box{
   margin:0;
-  min-height: 575px;
+  min-height: 545px;
 }
 .step2_wrap{
   width: 100%;
@@ -1280,18 +1269,18 @@ input[type=checkbox], input[type=radio] {
   border: 1px dashed #ccc;
   flex:1;
   overflow: hidden;
-  height: 568px;
+  height: 545px;
 }
 .step2_center{
   width: 320px;
-  height: 568px;
+  height: 550px;
   overflow: hidden;
-  padding:0 16px;
+  margin:0 16px;
   position: relative;
 }
 .step2_center iframe{
   width: 320px;
-  height: 568px;
+  height: 545px;
   border: 1px dashed #ccc;
 }
 .step2_right{
@@ -1381,7 +1370,7 @@ input[type=checkbox], input[type=radio] {
 }
 .step5_left{
   width: 322px;
-  min-height: 575px;
+  min-height: 545px;
   border: 1px solid #ccc;
   border-radius: 4px;
   position: relative;
@@ -1395,7 +1384,7 @@ input[type=checkbox], input[type=radio] {
 .step5_shadow{
   background-color: rgba(0,0,0,0.7);
   width: 322px;
-  height: 575px;
+  height: 545px;
   position: absolute;
   top: 0;
   left: 0;
@@ -1519,16 +1508,17 @@ input[type=checkbox], input[type=radio] {
 .step3_box{
   width: 322px;
   margin: 0px auto;
+  position: relative;
+  min-height: 545px;
 }
 .step3_box iframe{
   width: 320px;
-  height: 568px;
+  height: 545px;
   border: 1px dashed #ccc;
 }
 .changeLogo{
-  left: -280px;
-  top: 50px;
-  margin-bottom: -20px;
+  margin-left: 35px;
+  margin-bottom: -40px;
 }
 .step3_left{
   flex: 1;
