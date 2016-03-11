@@ -1014,7 +1014,7 @@ input[type=checkbox], input[type=radio] {
   cursor: pointer;
 }
 .mb_input{
-  margin: 20px;
+  margin: 0px 0 0 -10px;
 }
 .mc_input{
   width: 400px;
@@ -1113,11 +1113,14 @@ input[type=checkbox], input[type=radio] {
   line-height: 70px;
 }
 .micro1_tips{
-  margin: 200px 0 0  20px;
+  margin: 0px 0 0  20px;
 }
 .micro1_tips i{
   color: #10107F;
   font-style: normal;
+}
+.micro1_tips h4{
+  font-size: 16px;
 }
 
 

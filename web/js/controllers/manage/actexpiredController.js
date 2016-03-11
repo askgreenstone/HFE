@@ -67,10 +67,12 @@ define(['App'], function(app) {
             return fmt;   
           }  
 
-        vm.getLocalTime = function(now) {     
-          var time1 = now.format("yyyy-MM-dd HH:mm:ss"); 
-          // return new Date(parseInt(now)).toLocaleString().replace(/\//g, "-");  
-          return time1;      
+        vm.getLocalTime = function(now) {  
+          console.log(now);
+          if(!now)  return;
+          // var time1 = now.format("yyyy-MM-dd HH:mm:ss"); 
+          return new Date(parseInt(now)).toLocaleString().replace(/\//g, "-");  
+          // return time1;      
         } 
         vm.setActiveState = function(){
           $.ajax({
