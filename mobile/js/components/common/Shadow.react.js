@@ -14,14 +14,20 @@ var Shadow = React.createClass({
     $('.transparent_shadow').height(document.body.scrollHeight);
   }, 
   render: function() {
-    return (
-      <div className="transparent_shadow" onClick={this.showMessage}>
-        <div className="tip">
-          <img src="image/warn.png" width="35" height="35"/>
-          <span>{this.props.context}</span>
+    if(this.props.display){
+      return (
+        <div className="transparent_shadow" onClick={this.showMessage}>
+          <div className="tip">
+            <img src="image/warn.png" width="35" height="35"/>
+            <span>{this.props.context}</span>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }else{
+      return (
+        <div></div>
+      )
+    }
   }     
 });
 

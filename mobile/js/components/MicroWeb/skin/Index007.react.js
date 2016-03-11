@@ -13,6 +13,7 @@ var Index007=React.createClass({
 	mixins:[CommonMixin],
 	getInitialState: function(){
     return {
+      activeState:false,
       navArrs:[],
       bg:'',
       logo:'',
@@ -144,6 +145,32 @@ var Index007=React.createClass({
       }.bind(this)
     });
   },
+  //查询用户微网站是否过期
+  getUserWebState: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          //0未激活、1试用、2正常付费、3试用到期、4正常付费到期
+          if(data.as==3||data.as==4){
+            //activeState true则显示弹层
+            this.setState({activeState:true});
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
 	componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
@@ -151,6 +178,7 @@ var Index007=React.createClass({
   componentWillMount: function(){
     this.getBgLogo();
     this.getWxShareInfo();
+    this.getUserWebState();
   },
 	render:function(){
     var navNodes1 = this.state.container1.map(function(item,i){
@@ -223,7 +251,7 @@ var Index007=React.createClass({
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index007"/>
           <Message/>
-          
+          <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
 				</div>
 			)
 	}
