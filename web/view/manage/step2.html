@@ -64,7 +64,7 @@
 					更换背景
 					<input type="file" id="choose_file" ng-model="vm.fileName"/>
 				</div>
-				<div class="scanBg"  ng-click="vm.uploadFile()">
+				<div class="scanBg"  ng-click="vm.uploadFile('scan')">
 					效果图预览
 				</div>
 				<div class="step2_wrap">
@@ -81,7 +81,7 @@
 			</div>
 			<div class="af_btn fix_center">
 				<span ng-if="vm.originFlag" ng-click="vm.menuLink('step1')">上一步</span>
-				<span ng-click="vm.saveMicroBg()">下一步</span>
+				<span ng-click="vm.uploadFile('next')">下一步</span>
 			</div>
 		</div>
 		<div class="clean"></div>

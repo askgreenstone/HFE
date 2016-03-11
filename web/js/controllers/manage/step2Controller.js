@@ -89,7 +89,7 @@ define(['App'], function(app) {
             } else {    
             }
         }
-        vm.uploadFile = function() {
+        vm.uploadFile = function(state) {
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
@@ -132,11 +132,14 @@ define(['App'], function(app) {
                     }
                 })
                 .success(function(data) {
-                  
+
                     console.log(data);
                     // $('#themeCropper').cropper('destroy');
                     vm.getLocationUrl();
-                    // $window.location.href = '#/step3?session='+vm.sess;
+                    if(state == 'next'){
+                      $window.location.href = '#/step3?session='+vm.sess;
+                    }
+                    
                 })
                 .error(function() {
                   
@@ -164,7 +167,7 @@ define(['App'], function(app) {
 
         //裁切素材
         vm.clipSourceImg = function(name){
-          
+
           console.log('name:'+name);
           $http({
                 method: 'POST',
@@ -284,10 +287,7 @@ define(['App'], function(app) {
                 alert('网络连接错误或服务器异常！');
             });
         };
-        vm.saveMicroBg = function(){
-          vm.uploadFile();
-          $window.location.href = '#/step3?session='+vm.sess;
-        }
+        
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.origin = Common.getUrlParam('from');
