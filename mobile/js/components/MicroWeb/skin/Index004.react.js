@@ -6,6 +6,7 @@ var CommonMixin = require('../../Mixin');
 var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
+var Shadow = require('../../common/Shadow.react');
 
 require('../../../../css/theme/theme004.less');
 
@@ -26,6 +27,7 @@ var Index004=React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
     return {
+      activeState:false,
       navArrs:[],
       bg:'',
       logo:'',
@@ -118,6 +120,32 @@ var Index004=React.createClass({
       }.bind(this)
     });
   },
+  //查询用户微网站是否过期
+  getUserWebState: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          //0未激活、1试用、2正常付费、3试用到期、4正常付费到期
+          if(data.as==3||data.as==4){
+            //activeState true则显示弹层
+            this.setState({activeState:true});
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   setIphoneHeight:function(){   
     if(!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)){
         var h = $(window).height();
@@ -187,6 +215,7 @@ var Index004=React.createClass({
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index004"/>
         <Message/>
+        <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
 				</div>
 			)
 	}
