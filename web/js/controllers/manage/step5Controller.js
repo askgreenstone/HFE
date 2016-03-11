@@ -44,7 +44,7 @@ define(['App'], function(app) {
                   vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
                   vm.inputUrl = data.url;
                   $('#iframe_src').empty();
-                  $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="568"></iframe>');
+                  $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="545"></iframe>');
 
                 }
             }).
