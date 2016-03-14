@@ -141,7 +141,8 @@ define(['App'], function(app) {
                     // vm.user.QRCodeImg = data.on;
                     // vm.isQrcodeUpload = true;
                     vm.userLogo = vm.transferUrl+data.on;
-                    
+                    vm.selectChange = '更换logo';
+                    vm.goToNext = false;
                 })
                 .error(function() {
                     // console.log('error');

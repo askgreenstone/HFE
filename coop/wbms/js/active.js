@@ -14,7 +14,7 @@ Zepto(function($){
               window.location.href = 'custom.html?session='+session;
           }else if(data.as == 3 || data.as == 4 ){
              // alert('已失效')
-            window.location.href = 'custom.html?session='+session;
+            window.location.href = 'actexpired.html?session='+session;
           }else if(data.as == 0){
             getAuthenState();
           }
@@ -35,11 +35,11 @@ Zepto(function($){
         console.log(data);
         if(data.c == 1000){
            if(data.sts == 2){
-             alert('已认证')
-            // window.location.href = '#/active?session='+vm.sess;
+             // alert('已认证')
+            window.location.href = 'active?session='+session;
           }else{
-             alert('未认证')
-            // window.location.href = '#/actmode?session='+vm.sess;
+             // alert('未认证')
+            window.location.href = 'actmode?session='+session;
           }
         }
       },
