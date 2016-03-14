@@ -1530,6 +1530,7 @@ input[type=checkbox], input[type=radio] {
   margin: 0px auto;
   position: relative;
   min-height: 545px;
+  overflow: hidden;
 }
 .step3_box iframe{
   width: 320px;
@@ -1579,6 +1580,7 @@ input[type=checkbox], input[type=radio] {
   width: 220px;
   height: 100px;
   vertical-align: middle;
+  resize:none;
 }
 .card2_file_fix{
   margin-left: 20px;
@@ -1596,7 +1598,7 @@ input[type=checkbox], input[type=radio] {
   margin-left: 90px;
   cursor: pointer;
   display: inline-block;
-  margin-top: -15px;
+  margin-top: 10px;
 }
 .step5_preview{
   margin-left: 90px;
@@ -1614,6 +1616,12 @@ input[type=checkbox], input[type=radio] {
 .step5_validate b{
   color: red;
   font-size: 12px;
+}
+.step5_input{
+  margin-left: 20px;
+}
+.step5_icon_share{
+  margin-left: 20px;
 }
 .step4_content{
   margin-top: -10px;
