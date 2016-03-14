@@ -43,10 +43,10 @@ define([], function() {
         console.log(flag);
         if(flag){
           $('.globle_load_shadow').show();
-          $('body').css('overflow','hidden');
+          $(document).css('overflow','hidden');
         }else{
           $('.globle_load_shadow').hide();
-          $('body').css('overflow','auto');
+          $(document).css('overflow','auto');
         }
       }
 
