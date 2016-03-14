@@ -64,7 +64,7 @@ Zepto(function($){
           }else if(data.as == 3 || data.as == 4 ){
              // alert('已失效')
              $("#actexpired_time").text(getLocalTime(data.at))
-            window.location.href = 'actexpired.html?session='+session;
+            // window.location.href = 'actexpired.html?session='+session;
           }else if(data.as == 0){
             getAuthenState();
           }
