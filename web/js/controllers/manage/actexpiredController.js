@@ -70,9 +70,8 @@ define(['App'], function(app) {
         vm.getLocalTime = function(now) {  
           console.log(now);
           if(!now)  return;
-          // var time1 = now.format("yyyy-MM-dd HH:mm:ss"); 
-          return new Date(parseInt(now)).toLocaleString().replace(/\//g, "-");  
-          // return time1;      
+          var time1 = new Date(now).Format("yyyy-MM-dd hh:mm:ss");  
+          return time1;      
         } 
         vm.setActiveState = function(){
           $.ajax({

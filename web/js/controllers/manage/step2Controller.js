@@ -93,7 +93,7 @@ define(['App'], function(app) {
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
-                console.log(f);
+                console.log('f:'+f);
             // if (!f) return;
             if(!f){
               if(!vm.isServerData){
@@ -101,12 +101,9 @@ define(['App'], function(app) {
                 return;
               }
               else{
-                vm.clipSourceImg(vm.choosePic);
-                vm.getLocationUrl();          
-                // $('#themeCropper').cropper('destroy');
+                vm.clipSourceImg(vm.choosePic,state);
+                vm.getLocationUrl();
                 return;
-                
-                // $window.location.href = '#/step3?session='+vm.sess;
               }
             }
             //gif图片不被裁切
@@ -132,17 +129,11 @@ define(['App'], function(app) {
                     }
                 })
                 .success(function(data) {
-
                     console.log(data);
                     // $('#themeCropper').cropper('destroy');
                     vm.getLocationUrl();
-                    if(state == 'next'){
-                      $window.location.href = '#/step3?session='+vm.sess;
-                    }
-                    
                 })
                 .error(function() {
-                  
                     // console.log('error');
                     alert('网络连接错误或服务器异常！');
                 });
@@ -151,23 +142,28 @@ define(['App'], function(app) {
         }
 
         //it:1背景图，it:2logo
-        vm.chooseSourceBg = function(name){
+        vm.chooseSourceBg = function(name,initCrorpFlag){
           console.log('name:'+name);
           vm.choosePic = name;
-          
           vm.userBg = TransferUrl+name;
-          $('#themeCropper').cropper('destroy');
-          console.log('userBg:'+vm.userBg);
           //延迟初始化裁图插件
-          setTimeout(function() {
-            vm.initCropper();
-          }, 300);
+          if(initCrorpFlag){
+            $('#themeCropper').cropper('destroy');
+            console.log('userBg:'+vm.userBg);
+            setTimeout(function() {
+              vm.initCropper();
+            }, 300);
+          }
+          
           vm.isServerData = true;
         }
 
         //裁切素材
-        vm.clipSourceImg = function(name){
-
+        vm.clipSourceImg = function(name,state){
+          if(state == 'next'){
+            $window.location.href = '#/step3?session='+vm.sess;
+            return;
+          }
           console.log('name:'+name);
           $http({
                 method: 'POST',
@@ -185,11 +181,10 @@ define(['App'], function(app) {
                 }
             }).
             success(function(data, status, headers, config) {
-                
                 console.log(data);
                 if(data.c == 1000){
                   console.log('clipSourceImg success');
-                  vm.chooseSourceBg(data.in);
+                  vm.chooseSourceBg(data.in,false);
                 }
             }).
             error(function(data, status, headers, config) {

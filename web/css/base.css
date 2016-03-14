@@ -1247,6 +1247,7 @@ input[type=checkbox], input[type=radio] {
 }
 .changeBg{
   margin-left: 168px;
+  position: relative;
 }
 .scanBg{
   margin-right: 118px;
