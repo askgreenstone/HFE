@@ -35,21 +35,24 @@
 			<!-- <span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span> -->
 			</div>
 			<div class="mr_box">
-				<div class="mb_left mb_left_list" style="height:620px;">
-			    <ul>
-			     <!-- <li><img src="image/manage/index001.png" width="320" height="100%"/></li> -->
-			     <!-- <li><img src="image/manage/index002.png" width="320" height="100%"/></li>
-			     <li><img src="image/manage/index003.png" width="320" height="100%"/></li>
-			     <li><img src="image/manage/index004.png" width="320" height="100%"/></li>
-			     <li><img src="image/manage/index005.png" width="320" height="100%"/></li>
-			     <li><img src="image/manage/index006.png" width="320" height="100%"/></li> -->
-			     <li ng-repeat="x in vm.showList">
-			     	<img ng-src={{vm.transferUrl+x.wmp}} width="320" height="100%"/>
-			     </li>
-			    </ul>
-			    <a href="javascript:void(0);" class="unslider-arrow04 prev"><img class="arrow" id="al" src="image/arrow1.png" alt="prev" width="20" height="35"></a>
-    			<a href="javascript:void(0);" class="unslider-arrow04 next"><img class="arrow" id="ar" src="image/arrow2.png" alt="next" width="20" height="37"></a>
+				<div class="micro_list_box">
+					<div class="mb_left mb_left_list" style="height:620px;">
+				    <ul>
+				     <!-- <li><img src="image/manage/index001.png" width="320" height="100%"/></li> -->
+				     <!-- <li><img src="image/manage/index002.png" width="320" height="100%"/></li>
+				     <li><img src="image/manage/index003.png" width="320" height="100%"/></li>
+				     <li><img src="image/manage/index004.png" width="320" height="100%"/></li>
+				     <li><img src="image/manage/index005.png" width="320" height="100%"/></li>
+				     <li><img src="image/manage/index006.png" width="320" height="100%"/></li> -->
+						<li ng-repeat="x in vm.showList">
+							<img ng-src={{vm.transferUrl+x.wmp}} width="320" height="100%"/>
+						</li>
+				    </ul>
+				    <a href="javascript:void(0);" class="unslider-arrow04 prev"><img class="arrow" id="al" src="image/arrow1.png" alt="prev" width="20" height="35"></a>
+	    			<a href="javascript:void(0);" class="unslider-arrow04 next"><img class="arrow" id="ar" src="image/arrow2.png" alt="next" width="20" height="37"></a>
+					</div>
 				</div>
+				
 				<div class="mb_right">
 					<span ng-click="vm.menuLink('step1')">{{vm.editState}}</span>
 					<!-- <span>重新定制</span>

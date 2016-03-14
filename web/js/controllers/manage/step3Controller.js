@@ -122,7 +122,7 @@ define(['App'], function(app) {
               alert('请先选择文件！');
               return;
             } 
-            Common.getLoading(true);
+           
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -141,7 +141,7 @@ define(['App'], function(app) {
                     // vm.user.QRCodeImg = data.on;
                     // vm.isQrcodeUpload = true;
                     vm.userLogo = vm.transferUrl+data.on;
-                    Common.getLoading(false);
+                    
                 })
                 .error(function() {
                     // console.log('error');
