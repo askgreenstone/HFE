@@ -53,7 +53,7 @@
 				<div class="step2_right">
 					<!-- <span>背景素材</span> -->
 					<ul class="step2_bgs">
-						<li ng-repeat="x in vm.sourceImage" ng-click="vm.chooseSourceBg(x.in)">
+						<li ng-repeat="x in vm.sourceImage" ng-click="vm.chooseSourceBg(x.in,true)">
 							<img ng-src={{vm.transferUrl+x.in+'@60'}} width="100%" height="">
 						</li>
 					</ul>
