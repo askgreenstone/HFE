@@ -90,6 +90,7 @@ define(['App'], function(app) {
             }
         }
         vm.uploadFile = function(state) {
+          Common.getLoading(true);
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
@@ -102,16 +103,14 @@ define(['App'], function(app) {
               }
               else{
                 vm.clipSourceImg(vm.choosePic,state);
-                vm.getLocationUrl();
                 return;
               }
             }
             //gif图片不被裁切
-            if(f.type.toString().toLowerCase().indexOf('gif')>-1){
+            if(f&&f.type.toString().toLowerCase().indexOf('gif')>-1){
               alert('暂不支持gif！');
               return;
             }
-            
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -129,11 +128,13 @@ define(['App'], function(app) {
                     }
                 })
                 .success(function(data) {
+                    Common.getLoading(false);
+                    alert('success');
                     console.log(data);
-                    // $('#themeCropper').cropper('destroy');
                     vm.getLocationUrl();
                 })
                 .error(function() {
+                    Common.getLoading(false);
                     // console.log('error');
                     alert('网络连接错误或服务器异常！');
                 });
@@ -153,6 +154,8 @@ define(['App'], function(app) {
             setTimeout(function() {
               vm.initCropper();
             }, 300);
+          }else{
+            vm.getLocationUrl();
           }
           
           vm.isServerData = true;
@@ -160,10 +163,6 @@ define(['App'], function(app) {
 
         //裁切素材
         vm.clipSourceImg = function(name,state){
-          if(state == 'next'){
-            $window.location.href = '#/step3?session='+vm.sess;
-            return;
-          }
           console.log('name:'+name);
           $http({
                 method: 'POST',
@@ -183,8 +182,12 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
+                  Common.getLoading(false);
                   console.log('clipSourceImg success');
                   vm.chooseSourceBg(data.in,false);
+                  if(state == 'next'){
+                    $window.location.href = '#/step3?session='+vm.sess;
+                  }
                 }
             }).
             error(function(data, status, headers, config) {
