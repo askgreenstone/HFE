@@ -154,8 +154,6 @@ define(['App'], function(app) {
             setTimeout(function() {
               vm.initCropper();
             }, 300);
-          }else{
-            vm.getLocationUrl();
           }
           
           vm.isServerData = true;
@@ -185,6 +183,7 @@ define(['App'], function(app) {
                   Common.getLoading(false);
                   console.log('clipSourceImg success');
                   vm.chooseSourceBg(data.in,false);
+                  vm.getLocationUrl();
                   if(state == 'next'){
                     $window.location.href = '#/step3?session='+vm.sess;
                   }
