@@ -36,10 +36,10 @@ Zepto(function($){
         if(data.c == 1000){
            if(data.sts == 2){
              // alert('已认证')
-            window.location.href = 'active?session='+session;
+            window.location.href = 'active.html?session='+session;
           }else{
              // alert('未认证')
-            window.location.href = 'actmode?session='+session;
+            window.location.href = 'actmode.html?session='+session;
           }
         }
       },
