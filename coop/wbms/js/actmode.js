@@ -2,7 +2,7 @@ Zepto(function($){
     var session = Common.getUrlParam('session');
   
   
-  $('#actmode_btn').click(function() {
+  $('.actmode_btn').click(function() {
     var data = {ad:7,ac:$(".actmode_inp".val())};
     $.ajax({
       type : 'post',

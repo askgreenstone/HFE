@@ -34,10 +34,7 @@ Zepto(function($){
       success : function(data) {
         console.log(data);
         if(data.c == 1000){
-           if(data.sts == 2){
-             // alert('已认证')
-            window.location.href = 'active.html?session='+session;
-          }else{
+           if(data.sts != 2){
              // alert('未认证')
             window.location.href = 'actmode.html?session='+session;
           }
