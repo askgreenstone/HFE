@@ -298,8 +298,9 @@ footer {
   display: block;
 }
 .mc_right_undo{
-  width: 100%;
+  width: 96%;
   height: 1170px;
+  padding-left: 3%;
 }
 .form_box{
   position: relative;
@@ -941,9 +942,9 @@ input[type=checkbox], input[type=radio] {
 .has-dots{
   margin: 0px 30px;
 }
-.mr_box .arrow { position: absolute; top: 250px;}
-.mr_box #al { left: 0px;}
-.mr_box #ar { right: 355px;}
+.micro_list_box .arrow { position: absolute; top: 250px;}
+.micro_list_box #al { left: 0px;}
+.micro_list_box #ar { right: -10px;}
 .mb_left{
   width: 322px;
   min-height: 545px;
@@ -951,6 +952,13 @@ input[type=checkbox], input[type=radio] {
   border-radius: 4px;
   /*position: relative; */
   overflow: auto;
+}
+.micro_list_box{
+  width: 360px;
+}
+.micro_list_box {
+    width: 372px;
+    position: relative;
 }
 .mb_left_list{
   margin: 0 20px 0 30px;
@@ -1025,6 +1033,7 @@ input[type=checkbox], input[type=radio] {
   width: 260px;
   height: 35px;
   text-indent: 10px;
+  margin-top: 10px;
 }
 .mb_input input[type='file']{
   display: inline-block;
@@ -1085,6 +1094,7 @@ input[type=checkbox], input[type=radio] {
   height: 70px;
   resize: none;
   text-indent: 10px;
+  margin-bottom: 15px;
 }
 .mb_input .mb_input_btn{
   color: #666;
@@ -1317,7 +1327,13 @@ input[type=checkbox], input[type=radio] {
   margin: 0 0 0 20px;
   color: #cb0c14;
 }
-
+.card_upload{
+  color: #3bbffc;
+  margin-left: 90px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+}
 .card1_box{
   margin:0;
   min-height: 575px;
@@ -1443,7 +1459,7 @@ input[type=checkbox], input[type=radio] {
   margin-left: 90px;
   cursor: pointer;
   display: inline-block;
-  margin-top: -15px;
+  margin-top: 10px;
 }
 .card2_preview{
   margin-left: 90px;
@@ -1563,6 +1579,9 @@ input[type=checkbox], input[type=radio] {
   width: 220px;
   height: 100px;
   vertical-align: middle;
+}
+.card2_file_fix{
+  margin-left: 20px;
 }
 .input_file_fix input{
   border:0;

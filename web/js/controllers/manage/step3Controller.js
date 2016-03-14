@@ -122,7 +122,7 @@ define(['App'], function(app) {
               alert('请先选择文件！');
               return;
             } 
-            
+
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
