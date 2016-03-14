@@ -40,7 +40,7 @@ define([], function() {
 
         $('.globle_load_shadow').height($(document).height());
         
-        console.log(flag);
+        console.log('shadow flag:'+flag);
         if(flag){
           $('.globle_load_shadow').show();
           $(document).css('overflow','hidden');

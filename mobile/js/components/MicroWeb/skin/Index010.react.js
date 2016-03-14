@@ -1,4 +1,4 @@
-// 待删除
+// 大成金融特殊定制，微名片为card2，菜单数据写死
 var React = require('react');
 
 var ArticleDetail = require('../public/ArticleDetail.react');
@@ -16,7 +16,7 @@ var Index010 = React.createClass({
     return {
       activeState:false,
       navArrs:[],
-      path:['articleList','articleList','photo']
+      path:['articleList','articleList','articleList']
     };
   },
   gotoLink: function(path,ntid){
