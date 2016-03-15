@@ -20,7 +20,7 @@ jQuery(function($) {
 			      // alert(JSON.stringify(data));
 			      var comment = '';
 			      for(var i=0;i<data.ml.length;i++){
-			      	comment+='<li name="'+data.ml[i].tu+'@'+data.ml[i].wmi+'@'+data.ml[i].ar+'" class="swiper-slide"><img src="'+Common.globalTransferUrl()+data.ml[i].wmp+'"/></li>';
+			      	comment+='<li name="'+data.ml[i].tu+'@'+data.ml[i].wmi+'@'+data.ml[i].ar+'" class="swiper-slide"><img src="'+Common.globalTransferUrl()+data.ml[i].wmp+'@230"/></li>';
 			      }
 			      $('#template_theme').append(comment);
 			      //初始化swiper
@@ -36,6 +36,14 @@ jQuery(function($) {
 									   getActiveLi();
 									}
 					    })
+
+					    //主题背景回显
+					    if(data.stu){
+					    	// queryThemeIndex(data.stu);
+					    	mySwiper.slideTo(queryThemeIndex(data.stu), 0, false);
+					    }
+					    
+					    
 				    },
 			    error : function(error){
 			    	Common.getLoading(false);
@@ -58,6 +66,25 @@ jQuery(function($) {
     		//存储模版信息index003@2@7-10
     		// console.log(test);
     		localStorage.setItem('globalTemplateInfo',test);
+    	}
+
+    	//根据主题确定索引
+    	function queryThemeIndex(theme){
+    		console.log(theme);
+    		var tempIndex = 0;
+    		$('#template_theme li').each(function(index, el) {
+    			// console.log($(this).attr('name'));
+    			// if($(this).attr('name').indexOf(theme)>0){
+    			// 	tempIndex = $(this).attr('data-swiper-slide-index');
+    			// }
+    			var temp = $(this).attr('name').split('@')[0];
+    			if(temp == theme){
+    				// console.log($(this));
+    				tempIndex = parseInt($(this).attr('data-swiper-slide-index'))+1;
+    			}
+    		});
+    		// console.log('tempIndex:'+tempIndex);
+    		return tempIndex;
     	}
 
     	$('#template_next').click(function(event) {
