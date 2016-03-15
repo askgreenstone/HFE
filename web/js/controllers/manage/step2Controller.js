@@ -129,9 +129,12 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     Common.getLoading(false);
-                    alert('success');
+                    // alert('success');
                     console.log(data);
                     vm.getLocationUrl();
+                    if(state == 'next'){
+                    $window.location.href = '#/step3?session='+vm.sess;
+                  }
                 })
                 .error(function() {
                     Common.getLoading(false);
