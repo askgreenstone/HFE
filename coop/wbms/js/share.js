@@ -30,7 +30,7 @@ jQuery(function($) {
         }
         console.log(shareImg);
         if (!shareImg) {
-            alert('分享摘要图标不能为空！');
+            alert('分享图标不能为空！');
             return false;
         } else {
             return true;
@@ -178,7 +178,6 @@ jQuery(function($) {
                         $("#title").val('我的律师微网站');
                         $("#desc").val('我正在绿石使用律师微网站，欢迎访问我的微网站！');
                         $("#share_preview").attr('src',Common.globalTransferUrl() + 'greenStoneicon300.jpg');
-                        shareId = data.sil[0].si;
                         shareImg = 'greenStoneicon300.jpg';
                     }
                 } 
