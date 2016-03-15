@@ -25,7 +25,9 @@ Zepto(function($){
   				window.location.href = 'view/active.html?session='+data.u.sid;
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');
-  			}
+  			}else if(data.c == 1002){
+          alert('密码输入错误次数过多，账号被锁定，请稍后重试！');
+        }
   		},
   		function(err){
   			alert('网络连接错误或服务器异常！');

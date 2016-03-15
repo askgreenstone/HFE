@@ -15,6 +15,8 @@ Zepto(function($){
         console.log(data);
         if(data.c == 1000){
            window.location.href = 'custom.html?session='+session;
+        }else if(data.c == 1046){
+          alert("无效的体验码！")
         }
       },
       error : function(){

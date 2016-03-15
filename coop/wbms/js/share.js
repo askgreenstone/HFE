@@ -166,29 +166,27 @@ jQuery(function($) {
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
+                    $('#share_box').hide();
+                    $('#share_preview').show();
                     if (data.sil.length > 0) {
-                        $('#share_box').hide();
-                        $('#share_preview').show();
                         $("#title").val(data.sil[0].sti);
                         $("#desc").val(data.sil[0].sd);
                         $("#share_preview").attr('src',Common.globalTransferUrl() + data.sil[0].spu);
                         shareId = data.sil[0].si;
                         shareImg = data.sil[0].spu;
+                    }else {
+                        $("#title").val('我的律师微网站');
+                        $("#desc").val('我正在绿石使用律师微网站，欢迎访问我的微网站！');
+                        $("#share_preview").attr('src',Common.globalTransferUrl() + 'greenStoneicon300.jpg');
+                        shareId = data.sil[0].si;
+                        shareImg = 'greenStoneicon300.jpg';
                     }
-                } else {
-                    $("#title").val('XX律师微网站');
-                    $("#desc").val('XX律师专注于资本市场、基金、投融资、并购、公司法务等等');
-                    $("#share_preview").attr('src','../image/placeholder.png');
-                    shareId = data.sil[0].si;
-                    shareImg = '';
-                }
+                } 
             },
             error: function() {
                 alert('网络连接错误或服务器异常！');
             }
         })
-
     }
-
     initAll();
 })

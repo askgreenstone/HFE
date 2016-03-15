@@ -22,6 +22,11 @@
 					<span><img src="image/pwd.png" alt=""></span>
 					<input id="index_pwd" type="password" placeholder="密码">
 				</div>
+				<div class="border imgCode">
+					<input type="text" id="img_code" placeholder="输入验证码">
+					<img src="" alt="">
+					<span>点击刷新</span>
+				</div>
 				<div><a href="view/resetpwd.html">忘记密码?</a><a href="view/register.html">注册</a></div>
 			</div>
 			<div id="index_submit" class="index_button"><span></span><span></span><span></span><span></span><a href="javascript:void(0);">登录</a></div>
@@ -49,7 +54,7 @@
       // alert('uri:' + uri);
       $.ajax({
         type: 'get',
-        url: Common.globalDistUrl()+'usr/ThirdJSapiSignature.do?apath=' + uri,
+        url: Common.globalDistUrl()+'/usr/ThirdJSapiSignature.do?apath=' + uri,
         success: function(data) {
            // alert('wxscan:' + JSON.stringify(data));
           if (data.c == 1000) {
@@ -117,7 +122,7 @@
         },
         error: function(xhr, status, err) {
           alert('网络连接错误或服务器异常！');
-          // console.error(this.props.url, status, err.toString());
+          console.error(this.props.url, status, err.toString());
         }
       });
   }
