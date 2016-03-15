@@ -61,6 +61,44 @@ jQuery(function($){
              })
            }else {
              state = false;
+             $.ajax({
+               type : 'get',
+               url : Common.globalDistUrl() + 'exp/QueryMicroCard.do?session='+ session,
+               success : function(data) {
+                 console.log(data);
+                 CardID = data.cId;
+                 //头像判断
+                 if(data.hI){
+                   $('#card_box').hide();
+                   $('#card_preview').show();
+                   head = data.hI; 
+                   $('#card_preview').attr('src',Common.globalTransferUrl() + data.hI);
+                 }
+                 //二维码
+                 if(data.QR){
+                   $('#qrcode_box').hide();
+                   $('#qrcode_preview').show();
+                   qrcode = data.QR;
+                   $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
+                 }
+
+                 // $('#NAME').val(data.nm);
+                 // $('#Depart').val(data.dp);
+                 // $('#Rank').val(data.rk);
+                 // // QRCodeImg: data.QR;
+                 // $('#Mobile').val(data.Mob);
+                 // $('#Email').val(data.eml);
+                 // $('#TelNo').val(data.tel);
+                 // $('#WebSite').val(data.web);
+                 // $('#Address').val(data.adr);
+                 // $('#Region').val(data.rg);
+                 // $('#Abstract').val(data.abs);
+                 // $('#Introduction').val(data.itd)    
+               },
+               error : function(){
+                 alert('网络连接错误或服务器异常！');
+               }
+             })
            }
          },
          error : function(){
