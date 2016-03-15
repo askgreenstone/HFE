@@ -6,15 +6,15 @@
 jQuery(function($) {
 var imgx, imgy, imgh, imgw;
 var sess = Common.getUrlParam('session');
-var ratio = Common.getUrlParam('ratio');
+// var ratio = Common.getUrlParam('ratio');
 var api = new Api();
 var global_bi = '';
 
 function initCropper() {
 	// console.log(ratio);
-  if (!ratio) return;
+  // if (!ratio) return;
   $('#themeCropper').cropper({
-      aspectRatio: ratio[0] / ratio[1],
+      aspectRatio: 1 / 1,
       viewMode: 1,
       crop: function(e) {
           imgx = Math.round(e.x);
@@ -48,15 +48,15 @@ function initCropper() {
   }
 }
 
-function getUserBg() {
+function getUserHeadBg() {
   $.ajax({
       type: 'POST',
-      url: Common.globalDistUrl() + 'exp/GetMicWebImgs.do?session=' + sess,
+      url: Common.globalDistUrl() + 'exp/QueryMicroCard.do?session=' + sess,
       success: function(data) {
           console.log(data);
-          if (data.bi) {
-          		global_bi = data.bi;
-              $('#themeCropper').attr('src', Common.globalTransferUrl() + data.bi);
+          if (data.hI) {
+          		global_bi = data.hI;
+              $('#themeCropper').attr('src', Common.globalTransferUrl() + data.hI);
           } else {
               $('#themeCropper').attr('src', Common.globalTransferUrl() + '../image/themes/1.png');
           }
@@ -95,7 +95,7 @@ $('#themebg_next').click(function() {
           // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
           $.ajax({
               type: 'POST',
-              url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + sess+'&type=3',
+              url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + sess+'&type=2',
               data: fd,
               processData: false,
 							contentType: false,
@@ -148,7 +148,7 @@ $('#themebg_next').click(function() {
 
   //初始化所有
   function initAll() {
-      getUserBg();
+      getUserHeadBg();
   }
 
   initAll();

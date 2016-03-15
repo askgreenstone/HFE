@@ -10,9 +10,7 @@ console.log(session);
 //Common.globalDistUrl()  待处理
 //头像二维码 待处理
 jQuery(function($){
-
     //初始化获取用户数据
-
     function getUserData() {
        $.ajax({
          type : 'get',
@@ -120,14 +118,17 @@ jQuery(function($){
       }
     }
 
-
-
-    $('#card_file').change(function(){
-        $('#card_box').hide();
-        readURL(this,'card_preview');
-        $('#card_preview').show();
-        uploadHead();
+    $('#card_file').click(function(event) {
+      window.location.href = 'headbg.html?session='+session;
     });
+
+
+    // $('#card_file').change(function(){
+    //     $('#card_box').hide();
+    //     readURL(this,'card_preview');
+    //     $('#card_preview').show();
+    //     uploadHead();
+    // });
     $('#qrcode_file').change(function(){
         $('#qrcode_box').hide();
         readURL(this,'qrcode_preview');
@@ -136,38 +137,38 @@ jQuery(function($){
     });
 
     //头像（不需裁切处理）
-    function uploadHead() {
-        var file = document.getElementById('card_file').files[0],
-          reader = new FileReader();
-        reader.addEventListener('load', function() {
-              var fd = new FormData();
-              fd.append('ThirdUpload', file);
-              fd.append('filename', file.name);
-              console.log(fd);
-              Common.getLoading(true);
-              // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
-              $.ajax({
-                  type: 'POST',
-                  url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + session+'&type=2',
-                  data: fd,
-                  processData: false,
-                  contentType: false,
-                  success: function(data) {
-                      console.log(data);
-                      head = data.on;
-                      // $('#card_preview').attr('src',Common.globalTransferUrl() + data.on);
-                      Common.getLoading(false);
-                  },
-                  error: function(error) {
-                      Common.getLoading(false);
-                      alert('网络连接错误或服务器异常！');
-                  }
-              })
-          })
-          if (file) {
-              reader.readAsDataURL(file);
-          }
-    }
+    // function uploadHead() {
+    //     var file = document.getElementById('card_file').files[0],
+    //       reader = new FileReader();
+    //     reader.addEventListener('load', function() {
+    //           var fd = new FormData();
+    //           fd.append('ThirdUpload', file);
+    //           fd.append('filename', file.name);
+    //           console.log(fd);
+    //           Common.getLoading(true);
+    //           // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
+    //           $.ajax({
+    //               type: 'POST',
+    //               url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + session+'&type=2',
+    //               data: fd,
+    //               processData: false,
+    //               contentType: false,
+    //               success: function(data) {
+    //                   console.log(data);
+    //                   head = data.on;
+    //                   // $('#card_preview').attr('src',Common.globalTransferUrl() + data.on);
+    //                   Common.getLoading(false);
+    //               },
+    //               error: function(error) {
+    //                   Common.getLoading(false);
+    //                   alert('网络连接错误或服务器异常！');
+    //               }
+    //           })
+    //       })
+    //       if (file) {
+    //           reader.readAsDataURL(file);
+    //       }
+    // }
 
 
     //二维码（不需裁切处理）
