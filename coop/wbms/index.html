@@ -49,7 +49,7 @@
       // alert('uri:' + uri);
       $.ajax({
         type: 'get',
-        url: Common.globalDistUrl()+'/usr/ThirdJSapiSignature.do?apath=' + uri,
+        url: Common.globalDistUrl()+'usr/ThirdJSapiSignature.do?apath=' + uri,
         success: function(data) {
            // alert('wxscan:' + JSON.stringify(data));
           if (data.c == 1000) {
@@ -117,7 +117,7 @@
         },
         error: function(xhr, status, err) {
           alert('网络连接错误或服务器异常！');
-          console.error(this.props.url, status, err.toString());
+          // console.error(this.props.url, status, err.toString());
         }
       });
   }

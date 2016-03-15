@@ -1,8 +1,10 @@
-var server = 'http://t-dist.green-stone.cn';
-var host = 't-dist.green-stone.cn'
-var verify_url = server + '/comm/Verify.do';
-var reg_url = server + '/exp/Reg.do';
-var forget_pwd_url =  server + '/exp/Pwd.do';
+var server = Common.globalDistUrl();
+// var host = 'dist.green-stone.cn';
+var tempHost = server.split('//')[1];
+var host = tempHost.replace('/','');
+var verify_url = server + 'comm/Verify.do';
+var reg_url = server + 'exp/Reg.do';
+var forget_pwd_url =  server + 'exp/Pwd.do';
 
 var Api;
 
@@ -22,7 +24,7 @@ Api = (function() {
     
       $.ajax({
         type:'GET',
-        url:server+'/exp/Login.do',
+        url:server+'exp/Login.do',
         beforeSend:function(req){
           var auth = "MAC id=\""+username+"\",ts=\""+ts+"\",nonce=\""+nonce+"\",mac=\""+result+"\"";
           req.setRequestHeader('Authorization',auth);

@@ -16,21 +16,21 @@ var Common = {
   },
   //获取transfer url
   globalTransferUrl : function(){
-    return 'http://t-transfer.green-stone.cn/';
-  	// if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
-  	//     return 'http://t-transfer.green-stone.cn/';
-  	// }else{
-  	//     return 'http://transfer.green-stone.cn/';
-  	// }
+    // return 'http://transfer.green-stone.cn/';
+  	if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+  	    return 'http://t-transfer.green-stone.cn/';
+  	}else{
+  	    return 'http://transfer.green-stone.cn/';
+  	}
   },
   //获取dist url
   globalDistUrl : function(){
-    return 'http://t-dist.green-stone.cn/';
-    // if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
-    //     return 'http://t-dist.green-stone.cn/';
-    // }else{
-    //     return 'http://jlt.green-stone.cn/';
-    // }
+    // return 'http://dist.green-stone.cn/';
+    if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+        return 'http://t-dist.green-stone.cn/';
+    }else{
+        return 'http://dist.green-stone.cn/';
+    }
   },
   //全局加载loading,flag为true则显示，否者隐藏
   getLoading : function(flag){

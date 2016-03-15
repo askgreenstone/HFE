@@ -145,7 +145,7 @@ define(['App'], function(app) {
 
         vm.change = function(contentId){
             console.log(contentId)
-            var inputs = $('input[name=list_check]');
+            var inputs = $('input[name="list_check"]');
             var contentId = contentId;
             var articleArray = [];
             // console.log(inputs);
@@ -177,8 +177,8 @@ define(['App'], function(app) {
                     if(data.c == 1000){
                         vm.getArticleList();
                         vm.selectedState = true;
-                        $('input[name=all_check]').prop('checked',false);
-                        $("#list_moveTo select").children().eq(0).attr("selected",true);
+                        $('input[name="all_check"]').prop('checked',false);
+                        $("#list_moveTo select").children().eq(0).attr('selected',true);
                     }
                 }).
                 error(function(data, status, headers, config) {

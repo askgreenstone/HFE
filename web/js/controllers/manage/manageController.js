@@ -180,24 +180,24 @@ define(['App'], function(app) {
             });
         };
 
-        vm.visityAuthority = function(e,type){
-          e.preventDefault();
-          $('.mcr_list .authority').find('b').hide();
-          $(e.target).find('b').show();
-          if(type == 'public'){
-            vm.radioFlag = true;
-          }else{
-            vm.radioFlag = false;
-          }
-        }
+        // vm.visityAuthority = function(e,type){
+        //   e.preventDefault();
+        //   $('.mcr_list .authority').find('b').hide();
+        //   $(e.target).find('b').show();
+        //   if(type == 'public'){
+        //     vm.radioFlag = true;
+        //   }else{
+        //     vm.radioFlag = false;
+        //   }
+        // }
 
-        $(document).bind('click',function(e){
-          var target = $(e.target);
-          // console.log(target.closest('.authority').length);
-          if(target.closest('.authority').length == 0){
-            $('.mcr_list .authority').find('b').hide();
-          }
-        })
+        // $(document).bind('click',function(e){
+        //   var target = $(e.target);
+        //   // console.log(target.closest('.authority').length);
+        //   if(target.closest('.authority').length == 0){
+        //     $('.mcr_list .authority').find('b').hide();
+        //   }
+        // })
 
         vm.cleanAuthorBox = function(){
           $('.mcr_list .authority').find('b').hide();
