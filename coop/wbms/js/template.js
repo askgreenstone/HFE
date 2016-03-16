@@ -36,13 +36,11 @@ jQuery(function($) {
 									   getActiveLi();
 									}
 					    })
-
-					    //主题背景回显
-					    if(data.stu){
-					    	// queryThemeIndex(data.stu);
-					    	mySwiper.slideTo(queryThemeIndex(data.stu), 0, false);
-					    }
-					    
+					    //主题背景回显，牵扯到其他回显，暂时不用管
+					    // if(data.stu){
+					    // 	// queryThemeIndex(data.stu);
+					    // 	mySwiper.slideTo(queryThemeIndex(data.stu), 0, false);
+					    // }
 					    
 				    },
 			    error : function(error){
