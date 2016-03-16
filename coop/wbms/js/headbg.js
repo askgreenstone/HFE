@@ -119,7 +119,7 @@ $('#themebg_next').click(function() {
 	function clipSourceImg(name){
 		var obj = {
 			in:name,
-      it:1,
+      it:3,
       w:imgw,
       h:imgh,
       x:imgx,
