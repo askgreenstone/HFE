@@ -17,7 +17,8 @@ define(['App','Sortable'], function(app) {
 
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
-          $('.step4_shadow').show();
+          console.log($('body').scrollTop());
+          $('.step4_shadow').css('marginTop',$('body').scrollTop()).show();
           
           vm.getServerMenuList();
           
