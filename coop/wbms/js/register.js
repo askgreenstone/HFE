@@ -71,12 +71,16 @@ Zepto(function($){
       alert('请选择阅读并接受用户协议！');
       return;
     };
-  	api.register(userphone,usrename,userpwd1,vcode,
+    // 密码加密处理
+    var userpwd = CryptoJS.SHA1(userpwd1).toString(CryptoJS.enc.Hex).toUpperCase();
+  	api.register(userphone,usrename,userpwd,vcode,
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
           alert('注册成功');
-  				window.location.href = 'view/custom.html?session='+data.u.sid;
+          // 返回数据只有c:1000;d:OK，所以跳转到登录页，需要重新登录
+          window.location.href = '../index.html';
+  				// window.location.href = 'view/custom.html?session='+data.u.sid;
   			}else if(data.c == 1001){
            alert('验证码错误！'); 
         }else if(data.c == 1004){
