@@ -299,7 +299,7 @@ footer {
 }
 .mc_right_undo{
   width: 96%;
-  height: 1170px;
+  height: 1025px;
   padding-left: 3%;
 }
 .form_box{
@@ -1028,7 +1028,7 @@ input[type=checkbox], input[type=radio] {
   margin: 0px 0 0 -10px;
 }
 .mc_input{
-  width: 400px;
+  width: 360px;
 }
 .mb_input input[type='text']{
   border: 1px solid #ccc;
