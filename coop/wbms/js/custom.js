@@ -29,6 +29,10 @@ Zepto(function($){
     window.location.href = 'template.html?session='+sess+'&ts='+new Date().getTime();
   });
 
+  $('#downloadApp').click(function(event) {
+    window.location.href = 'http://www.lvshikaimen.com/lvshiappdown.html?ts='+new Date().getTime();
+  });
+
   function getMicroState(){
     $.ajax({
       type : 'GET',
