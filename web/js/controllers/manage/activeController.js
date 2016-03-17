@@ -33,7 +33,7 @@ define(['App'], function(app) {
             console.log(data);
             if(data.c == 1000){
               if(data.as == 1 || data.as == 2){
-                 window.location.href = '#/step1?session='+vm.sess;
+                 window.location.href = '#/micro?session='+vm.sess;
               }else if(data.as == 3 || data.as == 4 ){
                 // localStorage.setItem('activeEndTime',data.at);
                 window.location.href = '#/actexpired?session='+vm.sess;
