@@ -71,7 +71,7 @@
 						</div>
 						<div class="mb_input mc_input">
 							<i>律所：</i>
-							<input type="text" ng-model="vm.user.Depart" placeholder="律所名称">
+							<input type="text" ng-model="vm.user.Depart" value="律师事务所" placeholder="律所名称">
 							<div class="step5_validate">
 								<span ng-class="vm.calLength(vm.user.Depart)>26?'red':''">
 								{{vm.calLength(vm.user.Depart)}}</span><i> / 26</i>
@@ -80,7 +80,7 @@
 						</div>
 						<div class="mb_input mc_input">
 							<i>职务：</i>
-							<input type="text" ng-model="vm.user.Rank" placeholder="您的职务">
+							<input type="text" ng-model="vm.user.Rank" value="律师" placeholder="您的职务">
 							<div class="step5_validate">
 								<span ng-class="vm.calLength(vm.user.Rank)>24?'red':''">
 								{{vm.calLength(vm.user.Rank)}}</span><i> / 24</i>
@@ -102,27 +102,27 @@
 						</div>
 						<div class="mb_input mc_input">
 							<i>电话：</i>
-							<input type="text" ng-model="vm.user.Mobile" placeholder="您的电话">
+							<input type="text" ng-model="vm.user.Mobile" value="86-10-12345678" placeholder="您的电话">
 						</div>
 						<div class="mb_input mc_input" >
 							<i>邮箱：</i>
-							<input type="text" ng-model="vm.user.Email" placeholder="您的邮箱">
+							<input type="text" ng-model="vm.user.Email" value="lawyer@askgreenstone.com" placeholder="您的邮箱">
 						</div>
 						<div class="mb_input mc_input">
 							<i>座机：</i>
-							<input type="text" ng-model="vm.user.TelNo" placeholder="您的座机">
+							<input type="text" ng-model="vm.user.TelNo" value="86-10-12345678" placeholder="您的座机">
 						</div>
 						<div class="mb_input mc_input">
 							<i>网址：</i>
-							<input type="text" ng-model="vm.user.WebSite" placeholder="您的网址">
+							<input type="text" ng-model="vm.user.WebSite" value="www.askgreenstone.com" placeholder="您的网址">
 						</div>
 						<div class="mb_input mc_input">
 							<i>城市：</i>
-							<input type="text" ng-model="vm.user.Region" placeholder="例如：北京市">
+							<input type="text" ng-model="vm.user.Region" value="北京" placeholder="例如：北京市">
 						</div>
 						<div class="mb_input mc_input">
 							<i>地址：</i>
-							<input type="text" ng-model="vm.user.Address" placeholder="您的地址">
+							<input type="text" ng-model="vm.user.Address" value="朝阳区三元桥时间国际4号楼" placeholder="您的地址">
 							<div class="step5_validate">
 								<span ng-class="vm.calLength(vm.user.Address)>60?'red':''">
 								{{vm.calLength(vm.user.Address)}}</span><i> / 60</i>
