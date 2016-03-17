@@ -7,8 +7,17 @@ console.log(session);
 
 
 //从后台拿数据，拿到的话就回显，没有数据就为空
-//Common.globalDistUrl()  待处理
-//头像二维码 待处理
+
+
+//微名片编辑状态：
+//0  完全没有编辑过微名片
+//1  已经编辑过微名片
+//2  未编辑，但已经生成微名片数据（上传过头像）
+//其中1和2两个状态需要走更新操作（DataUpdate），状态0走插入操作（DataInsert）
+
+
+
+
 jQuery(function($){
     //初始化获取用户数据
     function getUserData() {
@@ -57,46 +66,12 @@ jQuery(function($){
                  alert('网络连接错误或服务器异常！');
                }
              })
-           }else {
+           }else if(data.s == 2){
+             state = true;
+             setUserData();
+           }else{
              state = false;
-             $.ajax({
-               type : 'get',
-               url : Common.globalDistUrl() + 'exp/QueryMicroCard.do?session='+ session,
-               success : function(data) {
-                 console.log(data);
-                 CardID = data.cId;
-                 //头像判断
-                 if(data.hI){
-                   $('#card_box').hide();
-                   $('#card_preview').show();
-                   head = data.hI; 
-                   $('#card_preview').attr('src',Common.globalTransferUrl() + data.hI);
-                 }
-                 //二维码
-                 if(data.QR){
-                   $('#qrcode_box').hide();
-                   $('#qrcode_preview').show();
-                   qrcode = data.QR;
-                   $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
-                 }
-
-                 // $('#NAME').val(data.nm);
-                 // $('#Depart').val(data.dp);
-                 // $('#Rank').val(data.rk);
-                 // // QRCodeImg: data.QR;
-                 // $('#Mobile').val(data.Mob);
-                 // $('#Email').val(data.eml);
-                 // $('#TelNo').val(data.tel);
-                 // $('#WebSite').val(data.web);
-                 // $('#Address').val(data.adr);
-                 // $('#Region').val(data.rg);
-                 // $('#Abstract').val(data.abs);
-                 // $('#Introduction').val(data.itd)    
-               },
-               error : function(){
-                 alert('网络连接错误或服务器异常！');
-               }
-             })
+             setUserData();
            }
          },
          error : function(){
@@ -105,7 +80,46 @@ jQuery(function($){
        });
        
     }
-    
+    function setUserData(){
+      $.ajax({
+       type : 'get',
+       url : Common.globalDistUrl() + 'exp/QueryMicroCard.do?session='+ session,
+       success : function(data) {
+         console.log(data);
+         CardID = data.cId;
+         //头像判断
+         if(data.hI){
+           $('#card_box').hide();
+           $('#card_preview').show();
+           head = data.hI; 
+           $('#card_preview').attr('src',Common.globalTransferUrl() + data.hI);
+         }
+         //二维码
+         if(data.QR){
+           $('#qrcode_box').hide();
+           $('#qrcode_preview').show();
+           qrcode = data.QR;
+           $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
+         }
+
+         // $('#NAME').val(data.nm);
+         // $('#Depart').val(data.dp);
+         // $('#Rank').val(data.rk);
+         // // QRCodeImg: data.QR;
+         // $('#Mobile').val(data.Mob);
+         // $('#Email').val(data.eml);
+         // $('#TelNo').val(data.tel);
+         // $('#WebSite').val(data.web);
+         // $('#Address').val(data.adr);
+         // $('#Region').val(data.rg);
+         // $('#Abstract').val(data.abs);
+         // $('#Introduction').val(data.itd)    
+       },
+       error : function(){
+         alert('网络连接错误或服务器异常！');
+       }
+     })
+    }
     //jartto:try to preview img
     function readURL(input,preview) {
       if (input.files && input.files[0]) {
@@ -215,18 +229,18 @@ jQuery(function($){
     function setBasicInfo (){
       console.log(head);
       console.log(qrcode);
-      if(!head){
-        alert("请上传头像！");
-        return false;
-      }
+      // if(!head){
+      //   alert("请上传头像！");
+      //   return false;
+      // }
       if(!$('#NAME').val()){
         alert("请填写您的姓名！");
         return false;
       }
-      if(!qrcode){
-        alert("请上传二维码！");
-        return false;
-      }
+      // if(!qrcode){
+      //   alert("请上传二维码！");
+      //   return false;
+      // }
 
       // if(!$('#Depart').val()){
       //   alert("请填写您的律所！");
@@ -243,10 +257,10 @@ jQuery(function($){
       //   return false; 
       // }
 
-      if(!$('#TelNo').val()){
-        alert("请填写您的座机！");
-        return false;
-      }
+      // if(!$('#TelNo').val()){
+      //   alert("请填写您的座机！");
+      //   return false;
+      // }
 
       // // if(!$('#WebSite').val()){
       // //   alert("请填写您的网址！");

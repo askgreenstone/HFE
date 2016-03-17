@@ -119,19 +119,44 @@ var CommonMixin = {
     str=str.replace(/&nbsp;/ig,'');//去掉&nbsp;
     return str;
   },
+  getEcardTel: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var ecardTel = '';
+    $.ajax({
+      type:'get',
+      async:false,
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        // alert('ownUri:'+ownUri+'ntid:'+ntid);
+        if(data.c == 1000){
+          ecardTel = data.tel;
+        }
+      },
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+        // console.error(this.props.url, status, err.toString());
+      }
+    });
+    return ecardTel;
+  },
   //菜单分类预处理，返回处理后数组
   checkMenuType: function(jsons){
     var tempType = [];
+    var tel = this.getEcardTel();
+    // console.log(tel);
     for(var i=0;i<jsons.length;i++){
       //特定菜单mt:1-电话，2-线上咨询，3-地图导航，4-微名片，5-微相册，6-个人微博
       //介绍页或者列表mt:7
       if(jsons[i].mt==1){
+        // console.log("tel://"+(jsons[i].ac?jsons[i].ac:tel));
         tempType.push({
           title:jsons[i].tn,
           english:jsons[i].etn,
           ntid:jsons[i].ntId,
           src:jsons[i].lg,
-          ac:'tel://'+jsons[i].ac,
+          ac:'tel://'+(jsons[i].ac?jsons[i].ac:tel),
           type:'telphone',
           localtion:''
         });

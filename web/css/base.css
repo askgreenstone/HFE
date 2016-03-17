@@ -299,7 +299,7 @@ footer {
 }
 .mc_right_undo{
   width: 96%;
-  height: 1170px;
+  height: 1025px;
   padding-left: 3%;
 }
 .form_box{
@@ -1021,11 +1021,14 @@ input[type=checkbox], input[type=radio] {
   font-size: 16px;
   cursor: pointer;
 }
+.mb_right span.card3_reset_btn{
+  margin-left: 30px;
+}
 .mb_input{
   margin: 0px 0 0 -10px;
 }
 .mc_input{
-  width: 400px;
+  width: 360px;
 }
 .mb_input input[type='text']{
   border: 1px solid #ccc;
@@ -1123,7 +1126,7 @@ input[type=checkbox], input[type=radio] {
   line-height: 70px;
 }
 .micro1_tips{
-  margin: 0px 0 0  20px;
+  margin: 0px 0 0 30px;
 }
 .micro1_tips i{
   color: #10107F;
