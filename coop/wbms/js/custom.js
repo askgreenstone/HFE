@@ -30,7 +30,21 @@ Zepto(function($){
   });
 
   $('#downloadApp').click(function(event) {
-    window.location.href = 'http://www.lvshikaimen.com/lvshiappdown.html?ts='+new Date().getTime();
+    var ua = navigator.userAgent.toLowerCase();
+    //ios专家版:https://itunes.apple.com/us/app/lu-shi-zhuan-jia-ban/id976040724
+    //android专家版:http://cdn.askgreenstone.com/client/android.exp.apk
+    //微信版: http://a.app.qq.com/o/simple.jsp?pkgname=com.greenstone.exp
+    if(ua.indexOf('micromessenger') > -1){
+      window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.greenstone.exp";
+    }else{
+      if (u.indexOf('android') > -1 || u.indexOf('linux') > -1) { //安卓手机
+          window.location.href = "http://cdn.askgreenstone.com/client/android.exp.apk";
+      } else if (u.indexOf('iphone') > -1) { //苹果手机
+          window.location.href = "https://itunes.apple.com/us/app/lu-shi-zhuan-jia-ban/id976040724";
+      } else {
+          alert("暂不支持下载！");
+      }
+    }
   });
 
   function getMicroState(){
