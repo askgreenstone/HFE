@@ -46,7 +46,7 @@ define(['App'], function(app) {
                 console.log(data);
                
                 if(data.c == 1000){
-                  window.location.href = '#/step1?session='+vm.sess;
+                  window.location.href = '#/micro?session='+vm.sess;
                 }else if(data.c == 1046){
                   alert("激活码失效")
                 }
