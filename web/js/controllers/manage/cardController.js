@@ -185,7 +185,8 @@ define(['App'], function(app) {
               vm.isHeadUpload = true;
               vm.isQrcodeUpload = true;
             }, 300);
-            // alert(vm.CardID);
+            console.log(vm.CardID);
+             // alert(vm.CardID);
           }).
           error(function(data, status, headers, config) {
               // console.log(data);
@@ -260,6 +261,7 @@ define(['App'], function(app) {
               else{
                 vm.clipSourceImg(vm.choosePic);
                 alert('上传成功');
+                vm.state = 'do';
                 $('#themeCropper').cropper('destroy');
                 return;
               }
@@ -292,7 +294,9 @@ define(['App'], function(app) {
                     vm.head = vm.transferUrl+vm.user.HeadImg;
                     console.log(vm.head);
                     vm.isHeadUpload = true;
+                    vm.state = 'do';
                     alert('上传成功');
+                    console.log(vm.CardID);
                     // $('#themeCropper').cropper('destroy');
                 })
                 .error(function() {
@@ -373,79 +377,9 @@ define(['App'], function(app) {
         }
 
 
-
-         vm.setBasicInfo = function(){
-          //验证电话格式正确//验证邮箱格式正确//验证所有信息必须填写//提交到数据库保存
-          $http({
-                  method: 'GET',
-                  async: false,
-                  url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
-              }).
-              success(function(data, status, headers, config) {
-                  console.log(data);
-                  // 微名片编辑状态：
-                  // 0  完全没有编辑过微名片
-                  // 1  已经编辑过微名片
-                  // 2  未编辑，但已经生成微名片数据（上传过头像）
-                  // 其中1和2两个状态需要走更新操作（DataUpdate），状态0走插入操作（DataInsert）
-
-                  if(data.s == 0){
-                    // $window.location.href = '#/card?session='+vm.sess;
-                    vm.state = 'undo';
-                  }else if(data.s == 1){
-                    vm.state = 'do';
-                  }else if(data.s == 2){
-                    vm.state = 'do';
-                  }
-              }).
-              error(function(data, status, headers, config) {
-                  // console.log(data);
-                  alert('网络连接错误或服务器异常！');
-              }); 
-          vm.user.Address_srh = vm.user.Address;
-          if(!vm.isHeadUpload){
-            alert("请上传头像！");
-            return false;
-          }
-
-          if(!vm.isQrcodeUpload){
-            alert("请上传二维码！");
-            return false;
-          }
-
-          if(!vm.user.NAME){
-            alert("请填写您的姓名！");
-            return false;
-          }else if(vm.user.NAME && vm.calLength(vm.user.NAME)>18){
-            alert("姓名长度不能超过十八位字符！"); 
-            return false;
-          }
-
-          if(vm.user.Depart && vm.calLength(vm.user.Depart)>26){
-            alert("律所长度不能超过二十六位字符！"); 
-            return false;
-          }
-
-          if(vm.user.Rank && vm.calLength(vm.user.Rank)>24){
-            alert("职务长度不能超过四十八位字符！"); 
-            return false;
-          }
-
-          if(vm.user.Address && vm.calLength(vm.user.Address)>60){
-            alert("地址长度不能超过六十位字符！"); 
-            return false;
-          }
-
-          // if(vm.user.Abstract.length>140){
-          //   alert("简介长度不能超过一百四十位！"); 
-          //   return false;
-          // }
-
-          // if(vm.user.Depart.length>100){
-          //   alert("专业领域长度不能超过一百位！"); 
-          //   return false;
-          // }
-
+        vm.setEcardInfo = function(){
+          console.log(vm.state);
+          console.log(vm.CardID);
           if(vm.state == "do"){
             var fd = {
               "tn": "jlt_expmicrocard",
@@ -505,6 +439,101 @@ define(['App'], function(app) {
                   alert('网络连接错误或服务器异常！');
               });
           }
+        }
+
+
+         vm.setBasicInfo = function(){
+          //验证电话格式正确//验证邮箱格式正确//验证所有信息必须填写//提交到数据库保存
+          // $http({
+          //         method: 'GET',
+          //         async: false,
+          //         url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
+          //     }).
+          //     success(function(data, status, headers, config) {
+          //         console.log(data);
+          //         // 微名片编辑状态：
+          //         // 0  完全没有编辑过微名片
+          //         // 1  已经编辑过微名片
+          //         // 2  未编辑，但已经生成微名片数据（上传过头像）
+          //         // 其中1和2两个状态需要走更新操作（DataUpdate），状态0走插入操作（DataInsert）
+
+          //         if(data.s == 0){
+          //           // $window.location.href = '#/card?session='+vm.sess;
+          //           vm.state = 'undo';
+          //         }else if(data.s == 1){
+          //           vm.state = 'do';
+          //         }else if(data.s == 2){
+          //           vm.state = 'do';
+          //         }
+          //     }).
+          //     error(function(data, status, headers, config) {
+          //         // console.log(data);
+          //         alert('网络连接错误或服务器异常！');
+          //     }); 
+          $http({
+              method: 'GET',
+              async:false,
+              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+          }).
+          success(function(data, status, headers, config) {
+            console.log(data);
+            vm.CardID = data.cId; 
+             // alert(vm.CardID);
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          }); 
+          console.log(vm.state);
+          console.log(vm.CardID);
+          vm.user.Address_srh = vm.user.Address;
+          if(!vm.isHeadUpload){
+            alert("请上传头像！");
+            return false;
+          }
+
+          if(!vm.isQrcodeUpload){
+            alert("请上传二维码！");
+            return false;
+          }
+
+          if(!vm.user.NAME){
+            alert("请填写您的姓名！");
+            return false;
+          }else if(vm.user.NAME && vm.calLength(vm.user.NAME)>18){
+            alert("姓名长度不能超过十八位字符！"); 
+            return false;
+          }
+
+          if(vm.user.Depart && vm.calLength(vm.user.Depart)>26){
+            alert("律所长度不能超过二十六位字符！"); 
+            return false;
+          }
+
+          if(vm.user.Rank && vm.calLength(vm.user.Rank)>24){
+            alert("职务长度不能超过四十八位字符！"); 
+            return false;
+          }
+
+          if(vm.user.Address && vm.calLength(vm.user.Address)>60){
+            alert("地址长度不能超过六十位字符！"); 
+            return false;
+          }
+
+          // if(vm.user.Abstract.length>140){
+          //   alert("简介长度不能超过一百四十位！"); 
+          //   return false;
+          // }
+
+          // if(vm.user.Depart.length>100){
+          //   alert("专业领域长度不能超过一百位！"); 
+          //   return false;
+          // }
+
+          // alert(vm.state);
+          // alert(vm.CardID);
+          setTimeout(vm.setEcardInfo,300);
+          
         }
        
         function init(){
