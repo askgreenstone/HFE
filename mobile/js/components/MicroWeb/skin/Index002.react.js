@@ -137,7 +137,9 @@ var Index002 = React.createClass({
   componentDidMount: function(){
     this.staticWebPV(1);
     this.getUserList();
-    $('.leftBg').height(document.body.scrollHeight);
+    var documentHeight = document.body.scrollHeight;
+    $('.leftBg').height(documentHeight);
+    $('.verticalMenu').height(documentHeight);
     $('.leftBg>img').attr({'src':(global.img+this.state.bg)});
     $('body').css({'background':'#ebebeb'});
   },

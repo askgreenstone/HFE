@@ -199,71 +199,71 @@ define(['App'], function(app) {
         //   }
         // })
 
-        vm.cleanAuthorBox = function(){
-          $('.mcr_list .authority').find('b').hide();
-        }
+        // vm.cleanAuthorBox = function(){
+        //   $('.mcr_list .authority').find('b').hide();
+        // }
 
-        vm.setAuthorState = function(e,name){
-          // e.stopPropagation();
-          // console.log($(e.target).parent().siblings('.author_psw').val());
-          // console.log($('input[name="'+name+'"]:checked').val());
+        // vm.setAuthorState = function(e,name){
+        //   // e.stopPropagation();
+        //   // console.log($(e.target).parent().siblings('.author_psw').val());
+        //   // console.log($('input[name="'+name+'"]:checked').val());
           
-          if($('input[name="'+name+'"]:checked').val() == 'public'){
-            vm.radioFlag = true;
-            vm.globalState = 'public';
-          }else{
-            vm.radioFlag = false;
-            vm.globalState = 'private';
-          }
-        }
+        //   if($('input[name="'+name+'"]:checked').val() == 'public'){
+        //     vm.radioFlag = true;
+        //     vm.globalState = 'public';
+        //   }else{
+        //     vm.radioFlag = false;
+        //     vm.globalState = 'private';
+        //   }
+        // }
 
-        vm.getInputValue = function(e){
-          console.log($(e.target).val());
-          vm.user.checked = $(e.target).val();
-        }
+        // vm.getInputValue = function(e){
+        //   console.log($(e.target).val());
+        //   vm.user.checked = $(e.target).val();
+        // }
 
-        vm.test = function(e){
-          e.stopPropagation();
-        }
+        // vm.test = function(e){
+        //   e.stopPropagation();
+        // }
 
-        vm.submitAuthor = function(ntid,vp){
-          if(vm.globalState == 'public'){
-            vm.user.checked = '';
-          }
-          console.log('submit:'+vm.user.checked+',vm.globalState:'+vm.globalState);
-          var tempObj = {};
-          if(!vp){
-            tempObj={
-              'npwd':vm.user.checked,
-              'ntid':ntid
-            }
-          }else{
-            tempObj={
-              'npwd':vm.user.checked,
-              'ntid':ntid,
-              'opwd':vp
-            }
-          }
-          $http({
-              method: 'POST',
-              url: GlobalUrl+'/exp/SetMicWebNewsPwd.do',
-              params: {
-                  session:vm.sess
-              },
-              data: tempObj
-          }).
-          success(function(data, status, headers, config) {
-              console.log(data);
-              if(data.c == 1000){
-                vm.getServerCatalogue();
-                vm.cleanAuthorBox();
-              }
-          }).
-          error(function(data, status, headers, config) {
-              // console.log(data);
-              alert('网络连接错误或服务器异常！');
-          });
-        }
+        // vm.submitAuthor = function(ntid,vp){
+        //   if(vm.globalState == 'public'){
+        //     vm.user.checked = '';
+        //   }
+        //   console.log('submit:'+vm.user.checked+',vm.globalState:'+vm.globalState);
+        //   var tempObj = {};
+        //   if(!vp){
+        //     tempObj={
+        //       'npwd':vm.user.checked,
+        //       'ntid':ntid
+        //     }
+        //   }else{
+        //     tempObj={
+        //       'npwd':vm.user.checked,
+        //       'ntid':ntid,
+        //       'opwd':vp
+        //     }
+        //   }
+        //   $http({
+        //       method: 'POST',
+        //       url: GlobalUrl+'/exp/SetMicWebNewsPwd.do',
+        //       params: {
+        //           session:vm.sess
+        //       },
+        //       data: tempObj
+        //   }).
+        //   success(function(data, status, headers, config) {
+        //       console.log(data);
+        //       if(data.c == 1000){
+        //         vm.getServerCatalogue();
+        //         vm.cleanAuthorBox();
+        //       }
+        //   }).
+        //   error(function(data, status, headers, config) {
+        //       // console.log(data);
+        //       alert('网络连接错误或服务器异常！');
+        //   });
+        // }
 
         function init(){
           vm.sess = Common.getUrlParam('session');

@@ -552,6 +552,24 @@ p {
   margin: 1.5rem auto;
   display: block;
 }
+/*custom.html*/
+.custom_tips{
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 25px;
+  margin: 40% 5%;
+  text-align: justify;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.custom_tips i{
+  font-style: normal;
+  color: yellow;
+}
+.custom_tips b{
+  font-style: normal;
+  text-decoration: underline;
+}
 /*loading动画*/
 /*loading container*/
 .globle_load_shadow {
