@@ -178,7 +178,7 @@ var Index002 = React.createClass({
           <Message/>
 
         </div>
-        <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
+        <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
         <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
       </div>
     );
