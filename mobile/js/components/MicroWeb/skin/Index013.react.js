@@ -7,6 +7,7 @@ var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
+var Password = require('../../common/Password.react');
 
 require('../../../../css/theme/theme013.less');
 var Index013 = React.createClass({

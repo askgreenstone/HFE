@@ -467,27 +467,140 @@ p{
   height: 100%;
   z-index: 101; /* 此处的图层要大于页面 */
   .tip{
-        display: none;
-        font-size: 1.4rem;
-        width: 190px;
-        height: 36px;
-        background-color: #fff;
-        border-radius: 5px;
-        position: relative;
-        top: 50%;
-        left: 50%;
-        margin: -28px 0 0 -95px;
-        text-align: center;
-        line-height: 32px;
-        padding: 10px;
-        img{
-          vertical-align: middle;
-          margin-right: 2%;
-        }
+      display: none;
+      font-size: 1.4rem;
+      width: 190px;
+      height: 36px;
+      background-color: #fff;
+      border-radius: 5px;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      margin: -28px 0 0 -95px;
+      text-align: center;
+      line-height: 32px;
+      padding: 10px;
+      img{
+        vertical-align: middle;
+        margin-right: 2%;
+      }
+  }
+  //密码框
+  .password{
+    // display: none;
+    font-size: 1.4rem;
+    width: 250px;
+    height: 110px;
+    background-color: #fff;
+    border-radius: 5px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin: -55px 0 0 -125px;
+    text-align: center;
+    i{
+      font-size: 2.5rem;
+      color: #ccc;
+      position: absolute;
+      transform: rotate(-45deg);
+      top: 2%;
+      right: 2%;
+      cursor: pointer;
+      font-style:normal;
     }
+    h1{
+      font-style: normal;
+      font-size: 1.6rem;
+      color: rgba(0, 0, 0, 0.7);
+      padding: 3% 0;
+      border-bottom: 1px solid #ebebeb;
+      margin-bottom: 2%;
+    }
+    small{
+      color: rgba(0, 0, 0, 0.4);
+    }
+    .inputItems{
+      // border: 1px solid rgba(0, 0, 0, 0.3);
+      width: 85%;
+      margin: 2% auto;
+    }
+    .inputItems input{
+      display: inline-block;
+      width: 15%;
+      height: 30px;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-right: 0;
+    }
+    .inputItems input:last-child{
+      border-right: 1px solid rgba(0, 0, 0, 0.3);
+    }
+  }
 }
 
-
+//密码框
+.password_shadow{
+  background: rgba(0,0,0,0.4);
+  // background-color: transparent;
+  // display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 101; /* 此处的图层要大于页面 */
+  //密码框
+  .password{
+    // display: none;
+    font-size: 1.4rem;
+    width: 250px;
+    height: 110px;
+    background-color: #fff;
+    border-radius: 5px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin: -55px 0 0 -125px;
+    text-align: center;
+    i{
+      font-size: 2.5rem;
+      color: #ccc;
+      position: absolute;
+      transform: rotate(-45deg);
+      top: 2%;
+      right: 2%;
+      cursor: pointer;
+      font-style:normal;
+    }
+    h1{
+      font-style: normal;
+      font-size: 1.6rem;
+      color: rgba(0, 0, 0, 0.7);
+      padding: 3% 0;
+      border-bottom: 1px solid #ebebeb;
+      margin-bottom: 2%;
+    }
+    small{
+      color: rgba(0, 0, 0, 0.4);
+    }
+    .inputItems{
+      // border: 1px solid rgba(0, 0, 0, 0.3);
+      width: 85%;
+      margin: 2% auto;
+    }
+    .inputItems input{
+      display: inline-block;
+      width: 15%;
+      height: 30px;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-right: 0;
+    }
+    .inputItems input:last-child{
+      border-right: 1px solid rgba(0, 0, 0, 0.3);
+    }
+  }
+}
 
 /*logo*/
 .logo{
