@@ -7,6 +7,7 @@ var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
+var Password = require('../../common/Password.react');
 
 require('../../../../css/theme/theme002.less');
 
@@ -180,6 +181,9 @@ var Index002 = React.createClass({
         </div>
         <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
         <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
+        <div id="limit_password_box" title="" value="" name="" type="">
+          <Password display="true"/>
+        </div>
       </div>
     );
   },
