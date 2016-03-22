@@ -13,6 +13,7 @@
 
 * {
   -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
 }
 /*公共样式*/
 html {
@@ -558,7 +559,7 @@ p{
     background-color: #fff;
     border-radius: 5px;
     position: relative;
-    top: 50%;
+    top: 42%;
     left: 50%;
     margin: -55px 0 0 -125px;
     text-align: center;
@@ -567,6 +568,7 @@ p{
       color: #ccc;
       position: absolute;
       transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
       top: 2%;
       right: 2%;
       cursor: pointer;
@@ -583,22 +585,65 @@ p{
     small{
       color: rgba(0, 0, 0, 0.4);
     }
+    .error{
+      color: rgba(255,4,4,0.8);
+      display: none;
+    }
     .inputItems{
-      // border: 1px solid rgba(0, 0, 0, 0.3);
+      position: relative;
       width: 85%;
-      margin: 2% auto;
+      height: 35px;
+      // border: 1px solid red;
+      margin: 5% auto;
     }
     .inputItems input{
+      width: 100%;
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+      letter-spacing: 29px;
+      font-size: 2.2rem;
+      color: rgba(2, 2, 2, 0.6);
+      padding: 1% 7%;
+      border: 0;
+    }
+    .inputItems span{
       display: inline-block;
-      width: 15%;
+      width: 18.99%;
       height: 30px;
-      text-align: center;
       border: 1px solid rgba(0, 0, 0, 0.3);
       border-right: 0;
     }
-    .inputItems input:last-child{
+    .inputItems span:last-child{
       border-right: 1px solid rgba(0, 0, 0, 0.3);
     }
+    .spanItems{
+      position: absolute;
+      top: 0;
+      left: 0;
+      // border: 1px solid green;
+      width: 100%;
+    }
+    // .inputItems{
+    //   // border: 1px solid rgba(0, 0, 0, 0.3);
+    //   width: 85%;
+    //   margin: 2% auto;
+    // }
+    // .inputItems input{
+    //   display: inline-block;
+    //   -webkit-appearance: none;
+    //   width: 15%;
+    //   height: 30px;
+    //   text-align: center;
+    //   border: 1px solid rgba(0, 0, 0, 0.3);
+    //   border-right: 0;
+    //   border-radius: 0;
+    // }
+    // .inputItems input:last-child{
+    //   border-right: 1px solid rgba(0, 0, 0, 0.3);
+    // }
   }
 }
 
@@ -647,21 +692,20 @@ p{
 }
 .theme6_copyright a{
   color: rgb(106, 110, 111);
-    border-bottom: 1px solid;
-    padding-bottom: 2px;
-    display: inline-block;
-    margin:2% auto;
+  border-bottom: 1px solid;
+  padding-bottom: 2px;
+  display: inline-block;
+  margin:2% auto;
   font-size: @s-size;
   cursor: pointer;
   -webkit-tap-highlight-color:transparent;
 }
 
 
-//配合UM编辑器增加样式
-.umeditorPic img{
-    border-radius: 50%;
+//全局密码框样式
+#limit_password_box{
+  display: none;
 }
-
 
 
 /*适配手机*/
@@ -682,6 +726,24 @@ p{
       .base_tip{
         padding: 5px;
         }
+    }
+    .password_shadow{
+        .password{
+          width: 250px;
+          height: 136px;
+          margin: -68px 0 0 -125px;
+        }
+    }
+    .password_shadow .password .inputItems span {
+        height: 35px;
+    }
+    .password_shadow .password .inputItems input {
+        letter-spacing: 32px;
+        font-size: 2.2rem;
+        color: rgba(2, 2, 2, 0.6);
+        padding: 2% 10%;
+        border: 0;
+        font-size: 2rem;
     }
 }
 
@@ -726,5 +788,22 @@ p{
         width: 236px;
         margin: -28px 0 0 -118px;
         }
+    }
+    .password_shadow{
+        .password{
+          width: 300px;
+          height: 160px;
+          margin: -80px 0 0 -150px;
+        }
+    }
+    .password_shadow .password .inputItems span {
+        height: 45px;
+    }
+    .password_shadow .password .inputItems input {
+        letter-spacing: 33px;
+        font-size: 2.2rem;
+        color: rgba(2, 2, 2, 0.6);
+        padding: 1% 8%;
+        border: 0;
     }
 }

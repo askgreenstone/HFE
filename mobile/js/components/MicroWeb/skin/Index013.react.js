@@ -146,7 +146,7 @@ var Index013 = React.createClass({
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i}>
-              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
                 <div className="theme013_circle">
                   <img src={global.img+item.src}/>
                 </div>
@@ -171,6 +171,9 @@ var Index013 = React.createClass({
         imgUrl={global.img+this.state.shareImg} target="index013"/>
         <Message/>
         <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
+        <div id="limit_password_box" title="" value="" name="" type="">
+          <Password display="true"/>
+        </div>
 				</div>
 			)
 	}

@@ -158,7 +158,9 @@ var CommonMixin = {
           src:jsons[i].lg,
           ac:'tel://'+(jsons[i].ac?jsons[i].ac:tel),
           type:'telphone',
-          localtion:''
+          localtion:'',
+          limit:jsons[i].vt,//vt:1 未加密 vt:2 加密
+          psw:jsons[i].vp //vp为空字符串则无密码
         });
       }else if(jsons[i].mt==2){
         tempType.push({
@@ -168,7 +170,9 @@ var CommonMixin = {
           src:jsons[i].lg,
           ac:'',
           type:'consult',
-          localtion:''
+          localtion:'',
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
         });
       }else if(jsons[i].mt==3){
         tempType.push({
@@ -178,7 +182,9 @@ var CommonMixin = {
           src:jsons[i].lg,
           ac:'',
           type:'adress',
-          localtion:jsons[i].ac
+          localtion:jsons[i].ac,
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
         });
       }else if(jsons[i].mt==4){
         tempType.push({
@@ -188,7 +194,9 @@ var CommonMixin = {
           src:jsons[i].lg,
           ac:'',
           type:'card',
-          localtion:''
+          localtion:'',
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
         });
       }else if(jsons[i].mt==5){
         tempType.push({
@@ -198,7 +206,9 @@ var CommonMixin = {
           src:jsons[i].lg,
           ac:'',
           type:'photo',
-          localtion:''
+          localtion:'',
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
         });
       }else if(jsons[i].mt==6){
         tempType.push({
@@ -208,7 +218,9 @@ var CommonMixin = {
           src:jsons[i].lg,
           ac:jsons[i].ac,
           type:'',
-          localtion:''
+          localtion:'',
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
         });
       }else if(jsons[i].mt==7){
         if(jsons[i].nc == 1){
@@ -219,7 +231,9 @@ var CommonMixin = {
             src:jsons[i].lg,
             ac:'',
             type:'articleDetail',
-            localtion:''
+            localtion:'',
+            limit:jsons[i].vt,
+            psw:jsons[i].vp
           });
         }else if(jsons[i].nc == 2){
           tempType.push({
@@ -229,7 +243,9 @@ var CommonMixin = {
             src:jsons[i].lg,
             ac:'',
             type:'articleList',
-            localtion:''
+            localtion:'',
+            limit:jsons[i].vt,
+            psw:jsons[i].vp
           });
         }
       }
@@ -238,22 +254,31 @@ var CommonMixin = {
     return tempType;
   },
   //菜单跳转公用方法
-  menuLink: function(type,ntid){
+  menuLink: function(type,ntid,limit,psw,title){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      // console.log(ownUri);
+    }
     if(!type) return;
     if(type=='telphone'){
       this.staticWebPV(2);
     }else if(type == 'consult'){
       WeixinJSBridge.call('closeWindow'); 
+    }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
+      // limit:1 未加密 limit:2 加密
+      if(limit == 2){
+        $('#limit_password_box').show();
+        $('#limit_password_box').attr('title',title);
+        $('#limit_password_box').attr('value',psw);
+        $('#limit_password_box').attr('name',ntid);
+        $('#limit_password_box').attr('type',type);
+      }else{
+        location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+      }
+    }else{
+      location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
     }
-    else{
-      var ownUri = this.getUrlParams('ownUri');
-      //测试环境和正式环境用户切换
-      if(!ownUri){
-        ownUri = this.checkDevOrPro();
-        console.log(ownUri);
-    }
-    location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
-  }
   }
 };
 
