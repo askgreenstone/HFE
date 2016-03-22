@@ -28,45 +28,6 @@ define(['App'], function(app) {
             // UE.getEditor('editor').destroy();
         };
 
-        // vm.getOldIntroduce = function() {
-        //     if(!vm.sess) return;
-        //     $http({
-        //         method: 'GET',
-        //         url: GlobalUrl+'/exp/QueryNewsList.do',
-        //         params: {session:vm.sess,nc:1},
-        //         data: {}
-        //     }).
-        //     success(function(data, status, headers, config) {
-        //         console.log(data);
-        //         if(data.c == 1000){
-        //             vm.oldIntroduce = data.nl;
-        //         }
-        //     }).
-        //     error(function(data, status, headers, config) {
-        //         // console.log(data);
-        //         alert('网络连接错误或服务器异常！');
-        //     });
-        // }
-
-        // vm.getOldContent = function() {
-        //     if(!vm.sess) return;
-        //     $http({
-        //         method: 'GET',
-        //         url: GlobalUrl+'/exp/QueryNewsList.do',
-        //         params: {session:vm.sess,nc:2},
-        //         data: {}
-        //     }).
-        //     success(function(data, status, headers, config) {
-        //         console.log(data);
-        //         if(data.c == 1000){
-        //             vm.oldContent = data.nl;
-        //         }
-        //     }).
-        //     error(function(data, status, headers, config) {
-        //         // console.log(data);
-        //         alert('网络连接错误或服务器异常！');
-        //     });
-        // }
         vm.getAllArticle = function() {
             if(!vm.sess) return;
             $http({
@@ -227,6 +188,16 @@ define(['App'], function(app) {
         }
 
         vm.submitAuthor = function(ntid,vp){
+          // 密码格式校验
+          var reg = /^[0-9a-zA-Z]*$/g;
+          if(vm.user.checked.length>5 || vm.user.checked.length>0 && vm.user.checked.length < 5){
+            alert('请设置5位密码！');
+            return;
+          }else if(!reg.test(vm.user.checked)){
+            alert('密码格式不正确！');
+            return;
+          }
+
           if(vm.globalState == 'public'){
             vm.user.checked = '';
           }
