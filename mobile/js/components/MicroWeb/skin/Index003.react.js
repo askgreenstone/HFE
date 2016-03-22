@@ -165,7 +165,7 @@ var Index003=React.createClass({
 						<ul className="theme3_main_list">
               {navNodes}
 						</ul>
-            <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
+            <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index003"/>
 					</div>

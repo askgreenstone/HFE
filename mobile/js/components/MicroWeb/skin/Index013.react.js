@@ -7,6 +7,7 @@ var Single = require('../public/Single.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
+var Password = require('../../common/Password.react');
 
 require('../../../../css/theme/theme013.less');
 var Index013 = React.createClass({
@@ -165,7 +166,7 @@ var Index013 = React.createClass({
                {navNodes}
             </ul>
           </div>
-          <div className="theme6_copyright"><a href="tel:010-58678723">绿石科技研发</a></div>
+          <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index013"/>
         <Message/>
