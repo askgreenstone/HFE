@@ -134,12 +134,11 @@ define(['App'], function(app) {
 
         vm.selectAll = function(){
             var inputs = $('input[name=list_check]');
-            var state = $('input[name=all_check]').prop('checked')
-            console.log();
+            var state = $('input[name=all_check]').prop('checked')  
             if(state){
-                $('input[name=list_check]').prop('checked',true)
+                $('input[type=checkbox]').prop('checked',true)
             }else{
-                $('input[name=list_check]').prop('checked',false)
+                $('input[type=checkbox]').prop('checked',false);
             }
         }
 

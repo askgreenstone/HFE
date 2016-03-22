@@ -73,7 +73,7 @@ define(['App'], function(app) {
             alert('请选择模版！');
             return false;
           }
-          if(vm.id && vm.oid != vm.id){
+          if(vm.oid && vm.oid != vm.id){
             var bool = confirm('请注意！切换主题模板后，您原先设定的背景图、logo以及菜单项都会被清空，您发布的文章、上传的相册会保留在素材库可选择新目录进行重新发布。');
             if(bool){
               vm.saveMicroBg();
