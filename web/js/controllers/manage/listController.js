@@ -94,7 +94,7 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.getArticleList();
-                  $('input[name=all_check]').prop('checked',false);
+                  $('#all_check').prop('checked',false);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -133,7 +133,7 @@ define(['App'], function(app) {
 
 
         vm.selectAll = function(){
-            var inputs = $('input[name=list_check]');
+            var inputs = $('#all_check');
             var state = $('input[name=all_check]').prop('checked')  
             if(state){
                 $('input[type=checkbox]').prop('checked',true)
@@ -176,8 +176,8 @@ define(['App'], function(app) {
                     if(data.c == 1000){
                         vm.getArticleList();
                         vm.selectedState = true;
-                        $('input[name="all_check"]').prop('checked',false);
-                        $("#list_moveTo select").children().eq(0).attr('selected',true);
+                        // $('input[type=checkbox]').prop('checked',false);
+                        // $("#list_moveTo select").children().eq(0).attr('selected',true);
                     }
                 }).
                 error(function(data, status, headers, config) {
