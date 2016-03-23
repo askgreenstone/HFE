@@ -147,7 +147,7 @@ var Index016 = React.createClass({
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i}>
-              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
                 <div className="theme016_circle">
                   <img src={global.img+item.src}/>
                   <p>{item.title}</p>

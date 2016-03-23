@@ -166,7 +166,7 @@ var Index009=React.createClass({
   render:function(){
     var navNodes1 = this.state.container1.map(function(item,i){
       return(
-          <a key={new Date().getTime()+i} href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+          <a key={new Date().getTime()+i} href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
             <div className="test">
               <div className="icons">
                 <img src={global.img+item.src} width="100%"/>
@@ -181,7 +181,7 @@ var Index009=React.createClass({
     }.bind(this));
     var navNodes2 = this.state.container2.map(function(item,i){
       return(
-          <a key={new Date().getTime()+i} href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid)}>
+          <a key={new Date().getTime()+i} href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
             <div className="test">
               <div className="icons">
                 <img src={global.img+item.src} width="100%"/>

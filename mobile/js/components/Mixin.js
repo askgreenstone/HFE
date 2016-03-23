@@ -266,8 +266,10 @@ var CommonMixin = {
     }else if(type == 'consult'){
       WeixinJSBridge.call('closeWindow'); 
     }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
+      console.log(limit);
       // limit:1 未加密 limit:2 加密
       if(limit == 2){
+        console.log(2222);
         $('#limit_password_box').show();
         $('#limit_password_box').attr('title',title);
         $('#limit_password_box').attr('value',psw);
