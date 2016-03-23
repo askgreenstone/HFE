@@ -738,10 +738,10 @@ p{
         height: 35px;
     }
     .password_shadow .password .inputItems input {
-        letter-spacing: 32px;
+        letter-spacing: 34px;
         font-size: 2.2rem;
         color: rgba(2, 2, 2, 0.6);
-        padding: 2% 10%;
+        padding: 3.5% 10%;
         border: 0;
         font-size: 2rem;
     }
@@ -807,3 +807,50 @@ p{
         border: 0;
     }
 }
+@media screen and (width: 480px) {
+  .password_shadow{
+    .password{
+      width: 300px;
+      height: 160px;
+      margin: -110px 0 0 -150px;
+    }
+  }
+ .password_shadow .password .inputItems input {
+    letter-spacing: 41px;
+    font-size: 2.2rem;
+    color: rgba(2, 2, 2, 0.6);
+    padding: 3% 8%;
+    border: 0;
+  }
+}
+ 
+//魅族手机单独处理
+@media screen and (width: 384px) and (height: 519px) {
+  html {
+    font-size: 62.5%;
+  }
+  .password_shadow .password .inputItems input {
+    letter-spacing: 41px;
+    font-size: 2.2rem;
+    color: rgba(2, 2, 2, 0.6);
+    padding: 4% 10%;
+    border: 0;
+  }
+  
+}
+//安卓手机调起键盘高度重新计算（然并卵）
+@media screen and (max-height: 300px) {
+  html {
+    font-size: 62.5%;
+  }
+  .password_shadow .password .inputItems input {
+    letter-spacing: 33px;
+    font-size: 2.2rem;
+    color: rgba(2, 2, 2, 0.6);
+    padding: 3.5% 10%;
+    border: 0;
+    font-size: 2rem;
+  }
+  
+}
+
