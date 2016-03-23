@@ -44,6 +44,8 @@ var Password = React.createClass({
     }
   },
   componentDidMount:function(){
+    // alert($('body').width());
+    // alert($('body').height());
     $('body').css({'overflow':'hidden'});
   }, 
 	componentWillMount:function(){

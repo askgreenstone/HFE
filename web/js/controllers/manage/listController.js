@@ -94,7 +94,7 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.getArticleList();
-                  $('#all_check').prop('checked',false);
+                  $('input[type=checkbox]').prop('checked',false);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -133,13 +133,13 @@ define(['App'], function(app) {
 
 
         vm.selectAll = function(){
-            var inputs = $('#all_check');
-            var state = $('input[name=all_check]').prop('checked')  
-            if(state){
-                $('input[type=checkbox]').prop('checked',true)
-            }else{
-                $('input[type=checkbox]').prop('checked',false);
-            }
+            // var inputs = $('#all_check');
+            // var state = $('input[name=all_check]').prop('checked')  
+            // if(state){
+            //     $('input[type=checkbox]').prop('checked',true)
+            // }else{
+            //     $('input[type=checkbox]').prop('checked',false);
+            // }
         }
 
         vm.change = function(contentId){
@@ -176,7 +176,7 @@ define(['App'], function(app) {
                     if(data.c == 1000){
                         vm.getArticleList();
                         vm.selectedState = true;
-                        // $('input[type=checkbox]').prop('checked',false);
+                        $('input[type=checkbox]').prop('checked',false);
                         // $("#list_moveTo select").children().eq(0).attr('selected',true);
                     }
                 }).
