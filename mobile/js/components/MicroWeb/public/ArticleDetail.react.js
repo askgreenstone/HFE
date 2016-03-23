@@ -145,16 +145,16 @@ var ArticleDetail = React.createClass({
   },
 	componentDidMount: function(){
     $('body').css({'background':'#fff'}); 
-
-    var ntid = this.getUrlParams('ntid');
-    if(!ntid) return;
-    if(!sessionStorage.getItem('user_token_'+ntid)){
-      // console.log('aa user_token_'+ntid);
-      this.checkUserLimit();
-      $('.password_shadow').parent('#limit_password_box').show();
-    }else{
-      this.getServerInfo();
-    }
+    this.getServerInfo();
+    // var nid = this.getUrlParams('nid');
+    // if(!nid) return;
+    // if(!sessionStorage.getItem('user_token_'+nid)){
+    //   // console.log('aa user_token_'+ntid);
+    //   this.checkUserLimit();
+    //   $('.password_shadow').parent('#limit_password_box').show();
+    // }else{
+    //   this.getServerInfo();
+    // }
 	},
   componentWillMount: function(){
     // this.getServerInfo();
