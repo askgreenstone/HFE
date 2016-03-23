@@ -182,7 +182,7 @@ var Index002 = React.createClass({
         <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
         <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
         <div id="limit_password_box" title="" value="" name="" type="">
-          <Password display="true"/>
+          <Password display="true" ntid="5104"/>
         </div>
       </div>
     );

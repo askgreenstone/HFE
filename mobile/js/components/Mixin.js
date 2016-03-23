@@ -269,15 +269,22 @@ var CommonMixin = {
       console.log(limit);
       // limit:1 未加密 limit:2 加密
       if(limit == 2){
-        console.log(2222);
+        // console.log(2222);
         $('#limit_password_box').show();
-        $('#limit_password_box').attr('title',title);
-        $('#limit_password_box').attr('value',psw);
-        $('#limit_password_box').attr('name',ntid);
-        $('#limit_password_box').attr('type',type);
+        $('#limit_password_box').attr({
+          'title':title,
+          'value':psw,
+          'name':ntid,
+          'type':type
+        });
+        // $('#limit_password_box').attr('title',title);
+        // $('#limit_password_box').attr('value',psw);
+        // $('#limit_password_box').attr('name',ntid);
+        // $('#limit_password_box').attr('type',type);
       }else{
         location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
       }
+      sessionStorage.setItem('user_token_'+ntid,ntid);
     }else{
       location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
     }

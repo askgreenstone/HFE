@@ -2,6 +2,7 @@ var React = require('react');
 var CommonMixin = require('../../Mixin');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
+var Password = require('../../common/Password.react');
 
 var ArticleDetail = React.createClass({
 	mixins:[CommonMixin],
@@ -11,7 +12,11 @@ var ArticleDetail = React.createClass({
       uri:'',
       shareTitle:'',
       shareDesc:'',
-      shareImg:''
+      shareImg:'',
+      uname:'',
+      utitle:'',
+      uvalue:'',
+      uid:''
     };
   },
 	getServerInfo: function(){
@@ -83,11 +88,76 @@ var ArticleDetail = React.createClass({
       return 'image/default3.png'
     }
   },
+  checkUserLimit: function(){
+    var newUrl = '',
+        nid = this.getUrlParams('nid'),
+        ntid = this.getUrlParams('ntid'),
+        ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    this.setState({uri:ownUri});
+    if(nid){
+      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri;
+    }else{
+      newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
+    }
+    $.ajax({
+      type:'get',
+      url: newUrl,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        // alert('ownUri:'+ownUri+'ntid:'+ntid);
+        if(data.c == 1000){
+          //查询用户密码权限接口
+          if(data.vt == 2){
+            this.setState({
+              uname:data.ntId,
+              utitle:data.ntit,
+              uvalue:data.vp,
+              uid:data.nId
+            })
+          // console.log(this.state.utitle);
+            this.showLimitBox(true);
+          }else{
+            this.getServerInfo();
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+      }.bind(this)
+    });
+  },
+  showLimitBox: function(flag){
+    console.log(this.state.utitle);
+    $('#limit_password_box').attr({
+      'title':this.state.utitle,
+      'value':this.state.uvalue,
+      'name':this.state.uname,
+      'alt':this.state.uid
+    });
+
+    if(flag){
+      $('#limit_password_box').show();
+    }
+  },
 	componentDidMount: function(){
     $('body').css({'background':'#fff'}); 
+
+    var ntid = this.getUrlParams('ntid');
+    if(!ntid) return;
+    if(!sessionStorage.getItem('user_token_'+ntid)){
+      // console.log('aa user_token_'+ntid);
+      this.checkUserLimit();
+      $('.password_shadow').parent('#limit_password_box').show();
+    }else{
+      this.getServerInfo();
+    }
 	},
   componentWillMount: function(){
-    this.getServerInfo();
+    // this.getServerInfo();
   },
   render: function() {
     var tempHeight = window.screen.height;
@@ -136,6 +206,9 @@ var ArticleDetail = React.createClass({
           <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={this.state.shareImg} target="articleDetail"/>
           <Message/>
+          <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} alt={this.state.uid} type="articleDetail">
+            <Password display="true"/>
+          </div>
         </div>
         );
     }  
