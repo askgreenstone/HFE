@@ -44,6 +44,10 @@ a:active {
     color: #595757;
     text-decoration: none;
 }
+input:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
 
 ul{
     list-style-type: none;
@@ -608,6 +612,8 @@ p{
       color: rgba(2, 2, 2, 0.6);
       padding: 1% 7%;
       border: 0;
+      -webkit-tap-highlight-color:rgba(0,0,0,0);
+      -webkit-user-modify:read-write-plaintext-only;
     }
     .inputItems span{
       display: inline-block;
@@ -727,6 +733,7 @@ p{
       padding: 2.8% 8%;
       border: 0;
       font-size: 2rem;
+      -webkit-tap-highlight-color:rgba(255,0,0,0);
   }
 }
 @media screen and (min-width: 321px) and (max-width: 360px) {
