@@ -44,10 +44,12 @@ var Password = React.createClass({
           // window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+uid;
           // alert(uuid+'-'+uid);
           if(uuid){
-            window.location.href = global.url +'/mobile/#/'+ utype+'?ownUri='+ownUri+'&ntid='+uid+'&nid='+uuid+'&t='+new Date().getTime();
+            window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+uid+'&nid='+uuid+'&t='+new Date().getTime();
+            // window.location.href = global.url +'/mobile/#/'+ utype+'?ownUri='+ownUri+'&ntid='+uid+'&nid='+uuid+'&t='+new Date().getTime();
+            window.location.reload();
           }else{
-            // window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+uid;
-            window.location.href = global.url +'/mobile/#/'+ utype+'?ownUri='+ownUri+'&ntid='+uid;
+            window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+uid;
+            // window.location.href = global.url +'/mobile/#/'+ utype+'?ownUri='+ownUri+'&ntid='+uid;
             window.location.reload();
           }
         }

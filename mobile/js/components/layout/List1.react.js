@@ -15,6 +15,7 @@ var List1 = React.createClass({
       location.href = url;
     }else{
       var ownUri = this.getUrlParams('ownUri');
+      sessionStorage.setItem('user_token_'+ntid,ntid);
       location.href = '#articleDetail?nid='+nid+'&ownUri='+ownUri+'&ntid='+ntid;
     }
   },
