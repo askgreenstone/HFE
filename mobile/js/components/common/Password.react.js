@@ -87,7 +87,7 @@ var Password = React.createClass({
           <div className="password">
             <i onClick={this.hideMessage}>+</i>
             <h1>{boxTitle}</h1>
-            <small>-----您正在访问加密文档，请输入密码-----</small>
+            <small>-----请输入密码，<span style={{'color':'red'}}>该页面分享无效！</span>-----</small>
             <div className="inputItems"> 
               <input type="password" onChange={this.submitStr} maxLength="5"/>
               <div className="spanItems">
