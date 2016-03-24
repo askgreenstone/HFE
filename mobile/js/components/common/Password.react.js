@@ -42,11 +42,13 @@ var Password = React.createClass({
           // console.log(1);
           this.hideMessage();
           // window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+uid;
-          // alert(uuid);
+          // alert(uuid+'-'+uid);
           if(uuid){
             window.location.href = global.url +'/mobile/#/'+ utype+'?ownUri='+ownUri+'&ntid='+uid+'&nid='+uuid+'&t='+new Date().getTime();
           }else{
+            // window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+uid;
             window.location.href = global.url +'/mobile/#/'+ utype+'?ownUri='+ownUri+'&ntid='+uid;
+            window.location.reload();
           }
         }
       }else{

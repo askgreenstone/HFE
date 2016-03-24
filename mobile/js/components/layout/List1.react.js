@@ -104,6 +104,7 @@ var List1 = React.createClass({
     });
   },
   showLimitBox: function(flag){
+    // $('.password_shadow').parent('#limit_password_box').show();
     // console.log(this.state.utitle);
     $('#limit_password_box').attr({
       'title':this.state.utitle,
@@ -123,7 +124,6 @@ var List1 = React.createClass({
     if(!sessionStorage.getItem('user_token_'+ntid)){
       // console.log('aa user_token_'+ntid);
       this.checkUserLimit();
-      $('.password_shadow').parent('#limit_password_box').show();
     }else{
       this.getServerInfo();
     }
