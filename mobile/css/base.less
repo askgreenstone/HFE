@@ -709,7 +709,27 @@ p{
 
 
 /*适配手机*/
-@media screen and (max-width: 360px) {
+@media screen and (width: 320px) {
+  .password_shadow{
+      .password{
+        width: 250px;
+        height: 136px;
+        margin: -68px 0 0 -125px;
+      }
+  }
+  .password_shadow .password .inputItems span {
+      height: 35px;
+  }
+  .password_shadow .password .inputItems input {
+      letter-spacing: 30px;
+      font-size: 2.2rem;
+      color: rgba(2, 2, 2, 0.6);
+      padding: 2.8% 8%;
+      border: 0;
+      font-size: 2rem;
+  }
+}
+@media screen and (min-width: 321px) and (max-width: 360px) {
     html {
         font-size: 62.5%;
     }
@@ -838,19 +858,21 @@ p{
   }
   
 }
+
+
 //安卓手机调起键盘高度重新计算（然并卵）
-@media screen and (max-height: 300px) {
-  html {
-    font-size: 62.5%;
-  }
-  .password_shadow .password .inputItems input {
-    letter-spacing: 33px;
-    font-size: 2.2rem;
-    color: rgba(2, 2, 2, 0.6);
-    padding: 3.5% 10%;
-    border: 0;
-    font-size: 2rem;
-  }
-  
-}
+//@media screen and (max-height: 300px) {
+//  html {
+//    font-size: 62.5%;
+//  }
+//  .password_shadow .password .inputItems input {
+//    letter-spacing: 33px;
+//    font-size: 2.2rem;
+//    color: rgba(2, 2, 2, 0.6);
+//    padding: 3.5% 10%;
+//    border: 0;
+//    font-size: 2rem;
+//  }
+//  
+//}
 
