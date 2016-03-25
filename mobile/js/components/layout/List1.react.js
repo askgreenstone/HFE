@@ -50,10 +50,22 @@ var List1 = React.createClass({
                tempObj.push(this.getCotentSrc(data.nl[i].nc));
              }
              this.setState({articles:data.nl,curSrc:tempObj});
-             console.log(data.nl[0].ntit+',,,'+this.removeHTMLTag(data.nl[0].nc)+',,,'+this.getCotentSrc(data.nl[0].nc));
-             this.setState({shareTitle:data.nl[0].ntit});
-             this.setState({shareDesc:this.removeHTMLTag(data.nl[0].nc)});
-             this.setState({shareImg:this.getCotentSrc(data.nl[0].nc)});
+             
+             if(data.nl[0]){
+                this.setState({
+                  shareTitle:data.nl[0].ntit,
+                  shareDesc:this.removeHTMLTag(data.nl[0].nc),
+                  shareImg:this.getCotentSrc(data.nl[0].nc)
+                });
+             }else{
+                this.setState({
+                  shareTitle:'微网站首页',
+                  shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
+                  shareImg:'http://transfer.green-stone.cn/greenStoneicon300.png'
+                })
+             }
+             // console.log(data.nl[0].ntit+',,,'+this.removeHTMLTag(data.nl[0].nc)+',,,'+this.getCotentSrc(data.nl[0].nc));
+             
            }
         }.bind(this),
         error: function(xhr, status, err) {
@@ -166,7 +178,7 @@ var List1 = React.createClass({
           {articleNodes}
         </ul>
         <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={this.state.shareImg} target="articleDetail"/>
+        imgUrl={this.state.shareImg} target="articleList"/>
         <Message/>
         <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} type="articleList">
           <Password display="true"/>
