@@ -26,28 +26,39 @@ var Index002 = React.createClass({
       shareImg:''
     };
   },
-  getUserList: function(){
+  getUserList: function(flag){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    $.ajax({
-      type:'get',
-      url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        if(data.c == 1000){
-          var temp = this.checkMenuType(data.ntl);
-          this.setState({navArrs:temp});
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+    console.log(flag);
+    //flag=true，需要重新请求数据，否则直接读取缓存
+    if(flag){
+      $.ajax({
+        type:'get',
+        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
+        success: function(data) {
+          // alert(JSON.stringify(data));
+          console.log(data);
+          if(data.c == 1000){
+            var temp = this.checkMenuType(data.ntl);
+            this.setState({navArrs:temp});
+            //缓存菜单数据
+            localStorage.setItem('menu_info',JSON.stringify(data.ntl));
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          this.showAlert('网络连接错误或服务器异常！');
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    }else{
+      // console.log(localStorage.getItem('menu_info'));
+      var localJsons = this.checkMenuType(JSON.parse(localStorage.getItem('menu_info')));
+      // console.log(JSON.parse(localStorage.getItem('menu_info')));
+      this.setState({navArrs:localJsons});
+    }
   },
   getBgLogo: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -66,7 +77,17 @@ var Index002 = React.createClass({
           // this.setState({navArrs:data.ntl});
           //alert(0);
           this.setState({bg:data.bi,logo:data.l});
-
+          //依据菜单版本号判断，版本号不一致，需要重新请求服务端数据
+          if(localStorage.getItem('menu_version')){
+            if(localStorage.getItem('menu_version') != data.mv){
+              this.getUserList(true);
+            }else{
+              this.getUserList(false);
+            }
+          }else{
+            this.getUserList(true);
+          }
+          localStorage.setItem('menu_version',data.mv);
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -137,7 +158,7 @@ var Index002 = React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
-    this.getUserList();
+    // this.getUserList(true);
     var documentHeight = document.body.scrollHeight;
     $('.leftBg').height(documentHeight);
     $('.verticalMenu').height(documentHeight);
@@ -146,7 +167,6 @@ var Index002 = React.createClass({
   },
   componentWillMount: function(){
     this.getBgLogo();
-    console.log('bg:'+this.state.bg);
     this.getWxShareInfo();
   },
   render: function() {
