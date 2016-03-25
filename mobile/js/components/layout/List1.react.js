@@ -51,7 +51,7 @@ var List1 = React.createClass({
              }
              this.setState({articles:data.nl,curSrc:tempObj});
              
-             if(data.nl[0]){
+             if(data.nl.length > 0){
                 this.setState({
                   shareTitle:data.nl[0].ntit,
                   shareDesc:this.removeHTMLTag(data.nl[0].nc),
@@ -64,8 +64,6 @@ var List1 = React.createClass({
                   shareImg:'http://transfer.green-stone.cn/greenStoneicon300.png'
                 })
              }
-             // console.log(data.nl[0].ntit+',,,'+this.removeHTMLTag(data.nl[0].nc)+',,,'+this.getCotentSrc(data.nl[0].nc));
-             
            }
         }.bind(this),
         error: function(xhr, status, err) {
