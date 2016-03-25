@@ -131,17 +131,19 @@ define(['App'], function(app) {
             });
         }
 
-
+        //全选按钮的点击与取消
         vm.selectAll = function(){
-            // var inputs = $('#all_check');
-            // var state = $('input[name=all_check]').prop('checked')  
-            // if(state){
-            //     $('input[type=checkbox]').prop('checked',true)
-            // }else{
-            //     $('input[type=checkbox]').prop('checked',false);
-            // }
+            var inputs = $('#all_check');
+            var state = $('input[name=all_check]').prop('checked')  
+            if(state){
+                $('input[type=checkbox]').prop('checked',true)
+            }else{
+                $('input[type=checkbox]').prop('checked',false);
+            }
         }
 
+
+        //监听select下拉菜单选项发生改变时调起事件
         vm.change = function(contentId){
             console.log(contentId)
             var inputs = $('input[name="list_check"]');

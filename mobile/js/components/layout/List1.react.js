@@ -2,11 +2,21 @@ var React = require('react');
 var CommonMixin = require('../Mixin');
 var Message = require('../common/Message.react');
 var Password = require('../common/Password.react');
+var Share = require('../common/Share.react');
 
 var List1 = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
-    return {articles:[],curSrc:[],uname:'',utitle:'',uvalue:''};
+    return {
+      articles:[],
+      curSrc:[],
+      uname:'',
+      utitle:'',
+      uvalue:'',
+      shareTitle:'',
+      shareDesc:'',
+      shareImg:''
+    };
   },
   gotoDetail: function(ntid,nid,url){
     // var ntid = this.getUrlParams('ntid');
@@ -20,33 +30,47 @@ var List1 = React.createClass({
     }
   },
   getServerInfo: function(){
-  var ownUri = this.getUrlParams('ownUri');
-  var ntid = this.getUrlParams('ntid');
-  if(!ownUri){
-    ownUri = this.checkDevOrPro();
-  }
-  if(!ntid) return;
-  $.ajax({
-      type:'get',
-      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        // alert('ownUri:'+ownUri+'ntid:'+ntid);
-        if(data.c == 1000){
-           var tempObj = [];
-           //从内容中抓取图片，作为默认显示
-           for(var i=0;i<data.nl.length;i++){
-             tempObj.push(this.getCotentSrc(data.nl[i].nc));
+    var ownUri = this.getUrlParams('ownUri');
+    var ntid = this.getUrlParams('ntid');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    if(!ntid) return;
+    $.ajax({
+        type:'get',
+        url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
+        success: function(data) {
+          // alert(JSON.stringify(data));
+          console.log(data);
+          // alert('ownUri:'+ownUri+'ntid:'+ntid);
+          if(data.c == 1000){
+             var tempObj = [];
+             //从内容中抓取图片，作为默认显示
+             for(var i=0;i<data.nl.length;i++){
+               tempObj.push(this.getCotentSrc(data.nl[i].nc));
+             }
+             this.setState({articles:data.nl,curSrc:tempObj});
+             
+             if(data.nl.length > 0){
+                this.setState({
+                  shareTitle:data.nl[0].ntit,
+                  shareDesc:this.removeHTMLTag(data.nl[0].nc),
+                  shareImg:this.getCotentSrc(data.nl[0].nc)
+                });
+             }else{
+                this.setState({
+                  shareTitle:'微网站首页',
+                  shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
+                  shareImg:'http://transfer.green-stone.cn/greenStoneicon300.png'
+                })
+             }
            }
-           this.setState({articles:data.nl,curSrc:tempObj});
-         }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          this.showAlert('网络连接错误或服务器异常！');
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
   },
   getCotentSrc: function(str){
     var urls = [];
@@ -151,6 +175,8 @@ var List1 = React.createClass({
           {legend}
           {articleNodes}
         </ul>
+        <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+        imgUrl={this.state.shareImg} target="articleList"/>
         <Message/>
         <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} type="articleList">
           <Password display="true"/>
