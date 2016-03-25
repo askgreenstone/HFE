@@ -149,7 +149,7 @@ var List1 = React.createClass({
       this.checkUserLimit();
     }else{
       this.getServerInfo();
-      console.log(this.state.shareTitle+'000'+this.state.shareDesc+'000'+this.state.shareImg)
+      
     }
   },
   componentDidMount: function(){
@@ -158,6 +158,7 @@ var List1 = React.createClass({
   },
   render: function() {
     var legend;
+    console.log(this.state.shareTitle+'000'+this.state.shareDesc+'000'+this.state.shareImg);
     if(this.props.legend){
       legend = <h3>最新文章</h3>;
     }
