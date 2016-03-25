@@ -45,7 +45,7 @@ var Index002 = React.createClass({
             var temp = this.checkMenuType(data.ntl);
             this.setState({navArrs:temp});
             //缓存菜单数据
-            localStorage.setItem('menu_info',JSON.stringify(data.ntl));
+            sessionStorage.setItem('menu_info',JSON.stringify(data.ntl));
           }
         }.bind(this),
         error: function(xhr, status, err) {
@@ -55,7 +55,7 @@ var Index002 = React.createClass({
       });
     }else{
       // console.log(localStorage.getItem('menu_info'));
-      var localJsons = this.checkMenuType(JSON.parse(localStorage.getItem('menu_info')));
+      var localJsons = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info')));
       // console.log(JSON.parse(localStorage.getItem('menu_info')));
       this.setState({navArrs:localJsons});
     }
@@ -78,8 +78,8 @@ var Index002 = React.createClass({
           //alert(0);
           this.setState({bg:data.bi,logo:data.l});
           //依据菜单版本号判断，版本号不一致，需要重新请求服务端数据
-          if(localStorage.getItem('menu_version')){
-            if(localStorage.getItem('menu_version') != data.mv){
+          if(sessionStorage.getItem('menu_version')){
+            if(sessionStorage.getItem('menu_version') != data.mv){
               this.getUserList(true);
             }else{
               this.getUserList(false);
@@ -87,7 +87,7 @@ var Index002 = React.createClass({
           }else{
             this.getUserList(true);
           }
-          localStorage.setItem('menu_version',data.mv);
+          sessionStorage.setItem('menu_version',data.mv);
         }
       }.bind(this),
       error: function(xhr, status, err) {
