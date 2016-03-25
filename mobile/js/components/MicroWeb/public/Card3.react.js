@@ -187,7 +187,7 @@ var Card3 = React.createClass({
               </p>
             </div>
             <div className="user_create" style={{width:"140px"}}>
-                <a href="http://viewer.maka.im/pcviewer/FI09ICYA">Set Up My Site</a>
+                <a href={global.url+"/mobile/#/index005?ownUri=e2202"}>Set Up My Site</a>
             </div>
           </div>
           <Share title="Yulong LI Esq." desc="Yulong Li is specialized in angel investment, VC, private equity and corporate financing, has rich experiences in investment affairs and capital market.
