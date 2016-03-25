@@ -26,63 +26,103 @@ var Index008=React.createClass({
       container3:[]
     };
   },
-  getUserList: function(){
+  getUserList: function(flag){
     // alert($(window).width()+'x'+$(window).height());
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    $.ajax({
-      type:'get',
-      url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        if(data.c == 1000){
-          var temp = this.checkMenuType(data.ntl);
+    if(flag){
+      $.ajax({
+          type:'get',
+          url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
+          success: function(data) {
+            // alert(JSON.stringify(data));
+            console.log(data);
+            if(data.c == 1000){
+              var temp = this.checkMenuType(data.ntl);
 
-          if(temp.length > 0 && temp.length < 3){
-            var arr0 = [];
-            for(var i=0;i<2;i++){
-              arr0.push(temp[i]);
+              if(temp.length > 0 && temp.length < 3){
+                var arr0 = [];
+                for(var i=0;i<2;i++){
+                  arr0.push(temp[i]);
+                }
+                this.setState({container1:arr0});
+              }else if(temp.length > 3 && temp.length < 5 || temp.length == 3){
+                var  arr0 = [],
+                     arr1 = [];
+                for(var i=0;i<2;i++){
+                  arr0.push(temp[i]);
+                }
+                for(var i=2;i<temp.length;i++){
+                  arr1.push(temp[i]);
+                }
+                this.setState({container1:arr0});
+                this.setState({container2:arr1});
+              }else if(temp.length > 5 || temp.length == 5){
+                var arr1 = [],
+                    arr2 = [],
+                    arr3 = [];
+                for(var i=0;i<2;i++){
+                  arr1.push(temp[i]);
+                }
+                for(var i=2;i<5;i++){
+                  arr2.push(temp[i]);
+                }
+                for(var i=5;i<temp.length;i++){
+                  arr3.push(temp[i]);
+                }
+                this.setState({container1:arr1});
+                this.setState({container2:arr2});
+                this.setState({container3:arr3});
+              }
             }
-            this.setState({container1:arr0});
-          }else if(temp.length > 3 && temp.length < 5 || temp.length == 3){
-            var  arr0 = [],
-                 arr1 = [];
-            for(var i=0;i<2;i++){
-              arr0.push(temp[i]);
-            }
-            for(var i=2;i<temp.length;i++){
-              arr1.push(temp[i]);
-            }
-            this.setState({container1:arr0});
-            this.setState({container2:arr1});
-          }else if(temp.length > 5 || temp.length == 5){
-            var arr1 = [],
-                arr2 = [],
-                arr3 = [];
-            for(var i=0;i<2;i++){
-              arr1.push(temp[i]);
-            }
-            for(var i=2;i<5;i++){
-              arr2.push(temp[i]);
-            }
-            for(var i=5;i<temp.length;i++){
-              arr3.push(temp[i]);
-            }
-            this.setState({container1:arr1});
-            this.setState({container2:arr2});
-            this.setState({container3:arr3});
+            //缓存菜单数据
+            sessionStorage.setItem('menu_info',JSON.stringify(data.ntl));
+        }.bind(this),
+        error: function(xhr, status, err) {
+          this.showAlert('网络连接错误或服务器异常！');
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    }else{
+      var temp = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info')));
+      if(temp.length > 0 && temp.length < 3){
+          var arr0 = [];
+          for(var i=0;i<2;i++){
+            arr0.push(temp[i]);
           }
+          this.setState({container1:arr0});
+        }else if(temp.length > 3 && temp.length < 5 || temp.length == 3){
+          var  arr0 = [],
+               arr1 = [];
+          for(var i=0;i<2;i++){
+            arr0.push(temp[i]);
+          }
+          for(var i=2;i<temp.length;i++){
+            arr1.push(temp[i]);
+          }
+          this.setState({container1:arr0});
+          this.setState({container2:arr1});
+        }else if(temp.length > 5 || temp.length == 5){
+          var arr1 = [],
+              arr2 = [],
+              arr3 = [];
+          for(var i=0;i<2;i++){
+            arr1.push(temp[i]);
+          }
+          for(var i=2;i<5;i++){
+            arr2.push(temp[i]);
+          }
+          for(var i=5;i<temp.length;i++){
+            arr3.push(temp[i]);
+          }
+          this.setState({container1:arr1});
+          this.setState({container2:arr2});
+          this.setState({container3:arr3});
         }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+    }
   },
   getBgLogo: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -101,7 +141,16 @@ var Index008=React.createClass({
           // this.setState({navArrs:data.ntl});
           //alert(0);
           this.setState({bg:data.bi,logo:data.l});
-
+          if(sessionStorage.getItem('menu_version')){
+            if(sessionStorage.getItem('menu_version') != data.mv){
+              this.getUserList(true);
+            }else{
+              this.getUserList(false);
+            }
+          }else{
+            this.getUserList(true);
+          }
+          sessionStorage.setItem('menu_version',data.mv);
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -175,7 +224,6 @@ var Index008=React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
-    this.getUserList();
   },
   componentWillMount: function(){
     this.getBgLogo();
