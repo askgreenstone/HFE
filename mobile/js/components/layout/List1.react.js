@@ -141,9 +141,7 @@ var List1 = React.createClass({
       $('#limit_password_box').show();
     }
   },
-  componentDidMount: function(){
-    $('body').css({'background':'#ebebeb'});
-
+  componentWillMount: function(){
     var ntid = this.getUrlParams('ntid');
     if(!ntid) return;
     if(!sessionStorage.getItem('user_token_'+ntid)){
@@ -151,10 +149,16 @@ var List1 = React.createClass({
       this.checkUserLimit();
     }else{
       this.getServerInfo();
+      
     }
+  },
+  componentDidMount: function(){
+    $('body').css({'background':'#ebebeb'});
+
   },
   render: function() {
     var legend;
+    console.log(this.state.shareTitle+'000'+this.state.shareDesc+'000'+this.state.shareImg);
     if(this.props.legend){
       legend = <h3>最新文章</h3>;
     }
