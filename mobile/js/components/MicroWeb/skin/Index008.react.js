@@ -79,7 +79,7 @@ var Index008=React.createClass({
               }
             }
             //缓存菜单数据
-            sessionStorage.setItem('menu_info',JSON.stringify(data.ntl));
+            sessionStorage.setItem('menu_info_index008',JSON.stringify(data.ntl));
         }.bind(this),
         error: function(xhr, status, err) {
           this.showAlert('网络连接错误或服务器异常！');
@@ -87,7 +87,7 @@ var Index008=React.createClass({
         }.bind(this)
       });
     }else{
-      var temp = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info')));
+      var temp = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info_index008')));
       if(temp.length > 0 && temp.length < 3){
           var arr0 = [];
           for(var i=0;i<2;i++){
@@ -141,8 +141,8 @@ var Index008=React.createClass({
           // this.setState({navArrs:data.ntl});
           //alert(0);
           this.setState({bg:data.bi,logo:data.l});
-          if(sessionStorage.getItem('menu_version')){
-            if(sessionStorage.getItem('menu_version') != data.mv){
+          if(sessionStorage.getItem('menu_version_index008')){
+            if(sessionStorage.getItem('menu_version_index008') != data.mv){
               this.getUserList(true);
             }else{
               this.getUserList(false);
@@ -150,7 +150,7 @@ var Index008=React.createClass({
           }else{
             this.getUserList(true);
           }
-          sessionStorage.setItem('menu_version',data.mv);
+          sessionStorage.setItem('menu_version_index008',data.mv);
         }
       }.bind(this),
       error: function(xhr, status, err) {
