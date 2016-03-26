@@ -57,13 +57,23 @@
   line-height: 1.6rem;
   margin-top: 0;
 }
-
-@media screen and (min-width: 320px) and (max-width: 360px) {
+@media screen and (width: 320px) {
   html {
     font-size: 62.5%;
   }
   .theme015_menu_list li{
-    height: 6.5rem;
+    height: 7rem;
+  }
+  .theme015_menu_list li div {
+    margin-top: -0.5rem;
+  }
+}
+@media screen and (min-width: 321px) and (max-width: 360px) {
+  html {
+    font-size: 62.5%;
+  }
+  .theme015_menu_list li{
+    height: 8rem;
   }
   .theme015_menu_list li div {
     margin-top: -0.5rem;
@@ -86,6 +96,7 @@
     height: 8.5rem;
   }
 }
+
 //魅族手机单独处理
 @media screen and (width: 384px) and (height: 519px) {
   html {
