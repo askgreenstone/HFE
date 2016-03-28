@@ -160,10 +160,16 @@ var Index002 = React.createClass({
     this.staticWebPV(1);
     // this.getUserList(true);
     var documentHeight = document.body.scrollHeight;
-    $('.leftBg').height(documentHeight);
-    $('.verticalMenu').height(documentHeight);
+    //处理二次加载滚动问题
+    if(!sessionStorage.getItem('current_height')){
+      sessionStorage.setItem('current_height',documentHeight);
+    }else{
+      documentHeight = sessionStorage.getItem('current_height');
+    }
+    $('.leftBg,.verticalMenu').css({'height':documentHeight});
     $('.leftBg>img').attr({'src':(global.img+this.state.bg)});
     $('body').css({'background':'#ebebeb'});
+    $('.container').height(documentHeight);
   },
   componentWillMount: function(){
     this.getBgLogo();
