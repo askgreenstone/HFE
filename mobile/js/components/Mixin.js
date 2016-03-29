@@ -267,24 +267,24 @@ var CommonMixin = {
       WeixinJSBridge.call('closeWindow'); 
     }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
-      // limit:1 未加密 limit:2 加密
-      if(limit == 2){
-        // console.log(2222);
-        $('#limit_password_box').show();
-        $('#limit_password_box').attr({
-          'title':title,
-          'value':psw,
-          'name':ntid,
-          'type':type
-        });
-        // $('#limit_password_box').attr('title',title);
-        // $('#limit_password_box').attr('value',psw);
-        // $('#limit_password_box').attr('name',ntid);
-        // $('#limit_password_box').attr('type',type);
-      }else{
+      //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
+      if(sessionStorage.getItem('user_token_'+ntid)){
         location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+      }else{
+        // limit:1 未加密 limit:2 加密
+        if(limit == 2){
+          $('#limit_password_box').show();
+          $('#limit_password_box').attr({
+            'title':title,
+            'value':psw,
+            'name':ntid,
+            'type':type
+          });
+        }else{
+          location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+        }
+        sessionStorage.setItem('user_token_'+ntid,ntid);
       }
-      sessionStorage.setItem('user_token_'+ntid,ntid);
     }else{
       location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
     }

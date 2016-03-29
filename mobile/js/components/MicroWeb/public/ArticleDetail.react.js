@@ -19,6 +19,42 @@ var ArticleDetail = React.createClass({
       uid:''
     };
   },
+  onlyToSetShareInfo: function(){
+    var newUrl = '',
+        nid = this.getUrlParams('nid'),
+        ntid = this.getUrlParams('ntid'),
+        ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    this.setState({uri:ownUri});
+    if(nid){
+      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri;
+    }else{
+      newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
+    }
+    $.ajax({
+      type:'get',
+      url: newUrl,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          // alert(this.getCotentSrc(data.nc));
+          //设置分享信息
+          console.log(this.removeHTMLTag(data.nc));
+          this.setState({
+            shareTitle:data.ntit,
+            shareDesc:this.removeHTMLTag(data.nc),
+            shareImg:this.getCotentSrc(data.nc)
+          });
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+      }.bind(this)
+    });
+  },
 	getServerInfo: function(){
 		var newUrl = '',
 				nid = this.getUrlParams('nid'),
@@ -52,11 +88,6 @@ var ArticleDetail = React.createClass({
           }else{
             $('.ad_format').append(data.nc);
           }
-          // alert(this.getCotentSrc(data.nc));
-          //设置分享信息
-          console.log(this.removeHTMLTag(data.nc));
-          this.setState({shareDesc:this.removeHTMLTag(data.nc)});
-          this.setState({shareImg:this.getCotentSrc(data.nc)});
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -131,14 +162,13 @@ var ArticleDetail = React.createClass({
     });
   },
   showLimitBox: function(flag){
-    console.log(this.state.utitle);
+    console.log('wangjt test:'+this.state.utitle);
     $('#limit_password_box').attr({
       'title':this.state.utitle,
       'value':this.state.uvalue,
       'name':this.state.uname,
       'alt':this.state.uid
     });
-
     if(flag){
       $('#limit_password_box').show();
     }
@@ -156,7 +186,7 @@ var ArticleDetail = React.createClass({
     }
 	},
   componentWillMount: function(){
-    // this.getServerInfo();
+    this.onlyToSetShareInfo();
   },
   render: function() {
     var tempHeight = window.screen.height;

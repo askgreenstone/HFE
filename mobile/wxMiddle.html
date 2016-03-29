@@ -63,34 +63,34 @@
     </div>
     <script src="js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            //此处增加分享逻辑ntid = localStorage.getItem('tempNtid');
-            var wxShareTarget = getUrlParams('target'),
-                ownUri = getUrlParams('ownUri'),
-                ntid = getUrlParams('ntid'),
-                nid = getUrlParams('nid');
-            if(ntid){
-              location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid;
-            }else if(nid){
-              location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid;
-            }else{
-              location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri;
-            }
-        });
-       function getUrlParams(p) {
-          var url = location.href;
-          var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
-          var paraObj = {};
-          for (var i = 0, j = 0; j = paraString[i]; i++) {
-              paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
+      jQuery(document).ready(function($) {
+          //此处增加分享逻辑ntid = localStorage.getItem('tempNtid');
+          var wxShareTarget = getUrlParams('target'),
+              ownUri = getUrlParams('ownUri'),
+              ntid = getUrlParams('ntid'),
+              nid = getUrlParams('nid');
+          if(nid){
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid;
+          }else if(ntid){
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid;
+          }else{
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri;
           }
-          var returnValue = paraObj[p.toLowerCase()];
-          if (typeof(returnValue) == "undefined") {
-              return "";
-          } else {
-              return returnValue;
-          }
-      }
+      });
+     function getUrlParams(p) {
+        var url = location.href;
+        var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+        var paraObj = {};
+        for (var i = 0, j = 0; j = paraString[i]; i++) {
+            paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
+        }
+        var returnValue = paraObj[p.toLowerCase()];
+        if (typeof(returnValue) == "undefined") {
+            return "";
+        } else {
+            return returnValue;
+        }
+    }
     </script>
 </body>
 
