@@ -59,29 +59,32 @@
 						<img src="image/return.png" width="20" height="20"/> 返回
 					</a>
 				</span>
+				<div class="step4_warn" style="margin: 10px 0 0 5px;">提示：拖动列表可调整文章排列顺序</div>
 				<table class="list_table">
 					<tr>
-						<th width="10%"><input type="checkbox" ng-click="vm.selectAll()" id="all_check" name="all_check"></th>
-						<th width="20%">文章标题</th>
+						<th width="5%"><input type="checkbox" ng-click="vm.selectAll()" id="all_check" name="all_check"></th>
+						<th width="25%">文章标题</th>
 						<th width="10%">状态</th>
 						<th width="25%">创建时间</th>
 						<th width="20%">创建人</th>
 						<th width="15%">操作</th>
 					</tr>
-					<tr ng-repeat="x in vm.articleList|filter:{'ntit':vm.keyword}">
-						<td><input type="checkbox" name="list_check" id={{x.nId}}></td>
-						<td>{{x.ntit.length>12?((x.ntit).substring(0,12)+'...'):x.ntit}}</td>
-						<td ng-class="x.ns==1?'publish':'stop'">{{x.ns==1?'发布':'暂存'}}</td>
-						<td>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</td>
-						<td>{{x.ncu}}</td>
-						<td>
+				</table>
+			</div>
+			<ul class="list_ul">
+					<li id={{x.nId}} ng-repeat="x in vm.articleList|filter:{'ntit':vm.keyword}">
+						<span><input type="checkbox" name="list_check" id="x.nId"></span>
+						<span>{{x.ntit.length>12?((x.ntit).substring(0,12)+'...'):x.ntit}}</span>
+						<span ng-class="x.ns==1?'publish':'stop'">{{x.ns==1?'发布':'暂存'}}</span>
+						<span>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</span>
+						<span>{{x.ncu}}</span>
+						<span>
 							<img ng-click="vm.updateArticle(x.nId)" src="image/manage/edit.png" width="20" height="20">
 							<img ng-click="vm.deleteArticle(x.nId)" src="image/manage/delete.png" width="20" height="20">
 							<img ng-click="vm.publishArticle(x.nId)" ng-if="x.ns=='0'" src="image/manage/publish.png" width="20" height="20">
-						</td>
-					</tr>
-				</table>
-			</div>
+						</span>
+					</li>
+				</ul>
 		</div>
 		<div class="clean"></div>
 	</div>

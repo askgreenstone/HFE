@@ -41,6 +41,9 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.articleList = data.nl;
+                  setTimeout(function(){
+                    vm.initSortable();
+                  }, 300);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -48,6 +51,41 @@ define(['App'], function(app) {
                 alert('网络连接错误或服务器异常！');
             });
         };
+
+        vm.initSortable = function(){
+            // $('#list_title').sortable('disable');
+            $('.list_ul').sortable().bind('sortupdate', function() {
+                vm.currentSortArray=[];
+                $('.list_ul li').each(function(i){
+                    // newArray.push($(this).val());
+                    vm.currentSortArray.push({ni:parseInt($(this).attr('id')),sk:i});
+                });
+                console.log(vm.currentSortArray);
+                vm.saveSortable();
+            });
+        }
+
+        vm.saveSortable = function(){
+          // var pl = vm.currentSortArray;
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/SortWXNewsList.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {nl:vm.currentSortArray}
+            }).
+            success(function(data, status, headers, config) {
+                // console.log(data);
+                if(data.c == 1000){
+                  console.log('in order!');
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        }
 
         vm.getContentList = function(){
             if(!vm.sess) return;
