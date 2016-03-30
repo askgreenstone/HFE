@@ -73,7 +73,7 @@
 			</div>
 			<ul class="list_ul">
 					<li id={{x.nId}} ng-repeat="x in vm.articleList|filter:{'ntit':vm.keyword}">
-						<span><input type="checkbox" name="list_check" id="x.nId"></span>
+						<span><input type="checkbox" name="list_check" id={{x.nId}}></span>
 						<span>{{x.ntit.length>12?((x.ntit).substring(0,12)+'...'):x.ntit}}</span>
 						<span ng-class="x.ns==1?'publish':'stop'">{{x.ns==1?'发布':'暂存'}}</span>
 						<span>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</span>

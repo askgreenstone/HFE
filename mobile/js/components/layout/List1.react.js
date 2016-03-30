@@ -2,7 +2,6 @@ var React = require('react');
 var CommonMixin = require('../Mixin');
 var Message = require('../common/Message.react');
 var Password = require('../common/Password.react');
-var Share = require('../common/Share.react');
 
 var List1 = React.createClass({
   mixins:[CommonMixin],
@@ -17,42 +16,6 @@ var List1 = React.createClass({
       shareDesc:'',
       shareImg:''
     };
-  },
-  onlyToSetShareInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    var ntid = this.getUrlParams('ntid');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
-    if(!ntid) return;
-    $.ajax({
-        type:'get',
-        url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
-        success: function(data) {
-          // alert(JSON.stringify(data));
-          console.log(data);
-          // alert('ownUri:'+ownUri+'ntid:'+ntid);
-          if(data.c == 1000){
-             if(data.nl.length > 0){
-                this.setState({
-                  shareTitle:data.nl[0].ntit,
-                  shareDesc:this.removeHTMLTag(data.nl[0].nc),
-                  shareImg:this.getCotentSrc(data.nl[0].nc)
-                });
-             }else{
-                this.setState({
-                  shareTitle:'微网站',
-                  shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
-                  shareImg:global.url+'greenStoneicon300.png'
-                })
-             }
-             // alert(this.state.shareTitle);
-           }
-        }.bind(this),
-        error: function(xhr, status, err) {
-          this.showAlert('网络连接错误或服务器异常！');
-        }.bind(this)
-      });
   },
   gotoDetail: function(ntid,nid,url){
     // var ntid = this.getUrlParams('ntid');
@@ -174,9 +137,6 @@ var List1 = React.createClass({
       this.getServerInfo();
     }
   },
-  componentWillMount: function(){
-    this.onlyToSetShareInfo();
-  },
   render: function() {
     var legend;
     if(this.props.legend){
@@ -199,8 +159,6 @@ var List1 = React.createClass({
           {legend}
           {articleNodes}
         </ul>
-        <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={this.state.shareImg} target="articleList"/>
         <Message/>
         <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} type="articleList">
           <Password display="true"/>
