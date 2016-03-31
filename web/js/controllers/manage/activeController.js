@@ -82,7 +82,7 @@ define(['App'], function(app) {
           success(function(data) {
             console.log(data);
             if(data.c == 1000){
-               window.location.href = '#/manage?session='+vm.sess;
+               window.location.href = '#/micro?session='+vm.sess;
             }
           }).
           error(function(){
