@@ -16,6 +16,7 @@ body {
   background-color: #ebebeb;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 #wrap {
   width: 100%;
@@ -57,7 +58,7 @@ p {
   width: 680px;
   position: absolute;
   left: 50%;
-  margin: 8% 0 0 -340px;
+  margin: 12% 0 0 -340px;
 }
 .index_container .left{
   float: left; 
