@@ -59,11 +59,12 @@ define(['App'], function(app) {
           success(function(data) {
             console.log(data);
             if(data.c == 1000){
-              if(data.sts == 2){
-                window.location.href = '#/active?session='+vm.sess;
-              }else{
-                window.location.href = '#/actmode?session='+vm.sess;
-              }
+              window.location.href = '#/active?session='+vm.sess;
+              // if(data.sts == 2){
+              //   window.location.href = '#/active?session='+vm.sess;
+              // }else{
+              //   window.location.href = '#/actmode?session='+vm.sess;
+              // }
             }
           }).
           error(function(){
