@@ -12,8 +12,8 @@ Zepto(function($){
     if(!userphone){
       alert('请输入电话！');
       return;
-    }else if(!userphone.match(/^1[358]{1}[0-9]{9}$/)){
-      alert('电话号码格式不正确');
+    }else if(userphone.length != 11){
+      alert('电话号码位数不正确');
       return;
     };
     api.verify(userphone,
@@ -49,8 +49,8 @@ Zepto(function($){
         usrename = $('#reg_name').val(),
   			userphone = $('#reg_phone').val(),
         vcode = $('#reg_code').val();
-  	if(!userphone){
-  		alert('请输入电话！');
+  	if(!userphone || userphone.length != 11){
+  		alert('电话号码格式不正确！');
   		return;
   	}else if(!usrename){
       alert('请输入姓名！');
