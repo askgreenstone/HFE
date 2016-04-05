@@ -978,6 +978,7 @@ input[type=checkbox], input[type=radio] {
   left: 0;
   width: 125px;
   opacity: 0;
+  cursor: pointer;
 }
 /*micro.html*/
 .mr_box{
@@ -1877,9 +1878,207 @@ input[type=checkbox], input[type=radio] {
   margin: -20px 0 0 -20px;
 }
 .author_btn span{
-  width: 200px;
+  width: 130px;
 }
 
+.wx_auto_reply{
+  width: 100%;
+  height: 150px;
+  background: #eee;
+  margin: 20px;
+  padding-top: 30px; 
+}
+.wx_auto_reply h3{
+  font-size: 16px;
+  color: #666;
+  margin: 0 30px 30px 20px; 
+}
+.wx_auto_reply h3 i{
+  color: #999;
+  margin-left: 20px;
+  font-style: normal;
+  font-size: 14px;
+}
+.wx_auto_reply span.delete{
+  background: #f24c4c;
+}
+.wx_auto_reply span:last-child{
+  background-color: transparent;
+  border: 1px solid #2ab6ff;
+  color: #2ab6ff;
+}
+/*reply1.html*/
+.auto_reply{
+  width: 100%;
+  height: 300px;
+  margin-top: -20px;
+}
+.wx_input_box{
+  width: 100%;
+  height: 70px;
+  margin-top: 20px;
+  padding: 20px 10px;
+  background: #eee;
+}
+.wx_input_box input{
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  outline: none;
+  overflow: hidden;
+}
+.wx_input_box div{
+  display: inline-block;
+}
+.auto_reply_template{
+  padding: 5px 15px;
+  text-align: center;
+  color: #999;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+.auto_reply textarea{
+  width: 100%;
+  height: 200px;
+  resize: none;
+  text-indent: 20px;
+  outline: none;
+}
+.auto_reply_confirm{
+  width: 85%;
+  height: 40px;
+  margin: 10px auto;
+}
+.auto_reply_confirm span{
+  width: 100px;
+  height: 40px;
+  background: #39d176;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  display: inline-block;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.auto_reply_confirm span:last-child{
+  background: #e5e5e5;
+  color: #999;
+}
+/*reply2.html*/
+.imgTitle_reply{
+  margin-top: -20px;
+}
+.imgTitle_reply_box{
+  width: 100%;
+  display: flex;
+  padding: 5px 0; 
+}
+.imgTitle_reply_box div.imgTitle_img{
+  width: 100px;
+  height: 32px;
+  background: #576477;
+  border-radius: 3px;
+  line-height: 32px;
+  text-align: center;
+  color: #fff;
+  margin: 0px 75px;
+  cursor: pointer;
+}
+.imgTitle_reply_box div.imgTitle_text{
+  width: 100px;
+  height: 32px;
+  background: #576477;
+  border-radius: 3px;
+  line-height: 32px;
+  text-align: center;
+  color: #fff;
+  margin: 0px 75px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #999;
+}
+.imgTitle_reply_box>span{
+  width: 50px;
+  height: 32px;
+  text-align: left;
+  display: block;
+  line-height: 32px;
+}
+.imgTitle_reply_box input{
+  width: 450px;
+  height: 32px;
+  outline: none;
+}
+.imgTitle_reply_box textarea{
+  width: 450px;
+  height: 64px;
+  outline: none;
+  resize: none;
+}
+.imgTitle_reply_box textarea.text_reply_textarea{
+  width: 450px;
+  height: 320px;
+  outline: none;
+  resize: none;
+}
+.imgTitle_reply_box .reply2_box_crop{
+  width: 400px;
+  height: 500px;
+  background: red;
+}
+.reply2_box_crop div{
+  width: 100px;
+  height: 40px;
+  background: #39d176;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  margin: 10px 24px;
+  position: relative;
+};
+.reply2_box_crop input{
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  top: 0px;
+  height: 40px;
+  opacity: 0;
+}
+.reply2_box{
+  width: 400px;
+  position: relative;
+}
+.reply2_box_sel{
+  width: 125px;
+  height: 40px;
+  background: #3bbffc;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.reply2_box_upload{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.reply2_left{
+  border: 1px dashed #ccc;
+  flex:1;
+  overflow: hidden;
+  width: 450px;
+  height: 250px;
+}
 /*active.html*/
 .active_title{
   width: 100%;

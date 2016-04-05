@@ -9,9 +9,17 @@ define(['App'], function(app) {
         vm.str = 'manage!!!';
         vm.sess = '';
         vm.transferUrl = TransferUrl;
+        vm.imgTextReply = '';
+        vm.imgTextFlag = true;
+        vm.enable = '';
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
+        }
+
+        vm.menuLinkReply = function(){
+          console.log(vm.enable);
+          $window.location.href = '#/reply2?session='+vm.sess+'&enable='+vm.enable;
         }
 
         vm.wxAuthor = function(){
@@ -44,17 +52,82 @@ define(['App'], function(app) {
               params: {
                   session:vm.sess
               },
-              data: {}
+              data: {},
+              headers : {'Content-Type':undefined}
           }).
           success(function(data, status, headers, config) {
               console.log(data);
               if(data.c == 1000){
-                vm.authorReault = '授权成功！';
+                vm.authorReault = '授权成功';
                 vm.authorFlag = false;
               }else if(data.c == 1014){
-                vm.authorReault = '授权失败！';
+                vm.authorReault = '授权失败';
                 vm.authorFlag = true;
               }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          });
+        }
+
+
+        // 获取用户设置被关注图文消息回复
+        vm.getImgTextReply = function(){
+          $http({
+              method: 'get',
+              url: GlobalUrl+'/exp/ThirdGetsubReplay.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {},
+              headers : {'Content-Type':undefined}
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                if(data.enable == 1){
+                  vm.imgTextFlag = false;
+                  vm.imgTextReply = '关闭欢迎图文';
+                }else{
+                  vm.imgTextReply = '开启欢迎图文';
+                  vm.imgTextFlag = true;
+                }
+              }
+              vm.enable = data.enable;
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          });
+        }
+
+        // 点击判断用户启用/关闭被关注图文消息回复
+        vm.changeImgTextReply = function(){
+          console.log(vm.imgTextReply);
+          if(vm.imgTextFlag){
+            vm.enable = 1;
+            vm.imgTextFlag = false;
+            vm.imgTextReply = '关闭欢迎图文';
+          }else{
+            vm.enable = 0;
+            vm.imgTextFlag = true;
+            vm.imgTextReply = '开启欢迎图文';
+          }
+
+          // 设置启用/关闭状态
+          $http({
+              method: 'post',
+              url: GlobalUrl+'/exp/ThirdSetSubReplay.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {
+                enable:vm.enable
+              }
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
           }).
           error(function(data, status, headers, config) {
               // console.log(data);
@@ -73,11 +146,13 @@ define(['App'], function(app) {
             return;
           }
         }
+        
 
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.getWxAuthorResult();
           vm.checkAuthorParam();
+          vm.getImgTextReply();
         }
 
         init();

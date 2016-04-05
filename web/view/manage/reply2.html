@@ -1,0 +1,93 @@
+<div class="view">
+	<div class="view_title">微网站管理</div>
+	<div class="manage_content">
+		<div class="mc_left">
+			<ul class="mcl_list">
+				<li ng-click="vm.menuLink('micro')">
+					<img src="image/manage/micro.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">微网站首页设置</a></span>
+				</li>
+				<li ng-click="vm.menuLink('card')">
+					<img src="image/manage/card.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">微名片信息</a></span>
+				</li>
+				<li class="text-active" ng-click="vm.menuLink('wx')">
+					<img src="image/manage/wx.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">公众号设置</a></span>
+				</li>
+				<li ng-click="vm.menuLink('data')">
+					<img src="image/manage/data.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">用户数据</a></span>
+				</li>
+				<li ng-click="vm.menuLink('manage')">
+					<img src="image/manage/set.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">内容维护</a></span>
+				</li>
+			</ul>
+		</div>
+		<div class="mc_right">
+			<div class="list_lenged">
+				<h3 class="red">公众号授权&nbsp;&nbsp;>&nbsp;&nbsp;欢迎图文设置</h3>
+			</div>
+			<div class="imgTitle_reply">
+				<div class="imgTitle_reply_box">
+					<div ng-class="vm.imgTextFlag ? 'imgTitle_img' : 'imgTitle_text'" ng-click="vm.changeImgTextFlag('img')">图文消息</div><div ng-class="vm.imgTextFlag ? 'imgTitle_text' : 'imgTitle_img'" ng-click="vm.changeImgTextFlag('text')">纯文本</div>
+				</div>
+				<div class="img_reply" ng-if="vm.imgTextFlag">
+					<div class="imgTitle_reply_box">
+						<span>标题：</span><input type="text" placeholder="64字以内" ng-model="vm.title">
+					</div>
+					<div class="step5_validate">
+						<span ng-class="vm.title.length>60?'red':''">
+						{{vm.title.length}}</span><i> / 60</i>
+						<b ng-show="vm.title.length>60">字数超过限制</b>
+					</div>
+					<div class="imgTitle_reply_box">
+						<span>摘要：</span><textarea name="" id="" placeholder="120字以内" ng-model="vm.desc">{{vm.desc}}</textarea>
+					</div>
+					<div class="step5_validate">
+						<span ng-class="vm.desc.length>120?'red':''">
+						{{vm.desc.length}}</span><i> / 120</i>
+						<b ng-show="vm.desc.length>120">字数超过限制</b>
+					</div>
+					<div class="imgTitle_reply_box">
+						<span>链接：</span><input type="text" placeholder="请将您的微网站地址链接于此" ng-model="vm.url">
+					</div>
+					<div class="imgTitle_reply_box">
+						<span>封面：</span>
+						<div class="reply2_box">
+							<div class="reply2_box_sel">
+								选择图片
+								<input type="file" id="choose_file" ng-model="vm.fileName"/>
+							</div>
+							<div class="reply2_box_sel reply2_box_upload" ng-click="vm.uploadFile()">
+								上传图片
+							</div>
+							<div class="reply2_left">
+								<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.imgUrl}}>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="auto_reply_confirm">
+						<span>确认</span><span ng-click="vm.menuLink('wx')">取消</span>
+					</div> -->
+				</div>
+				<div class="text_reply" ng-if="!vm.imgTextFlag">
+					<div class="imgTitle_reply_box">
+						<span>内容：</span>
+						<textarea class="text_reply_textarea" name="" id="" ng-model="vm.msgCont" placeholder="600字以内" >{{vm.msgCont}}</textarea>	
+					</div>
+					<div class="step5_validate">
+						<span ng-class="vm.msgCont.length>600?'red':''">
+						{{vm.msgCont.length}}</span><i> / 600</i>
+						<b ng-show="vm.msgCont.length>600">字数超过限制</b>
+					</div>
+				</div>
+				<div class="auto_reply_confirm">
+						<span ng-click="vm.setImgTextReply()">确认</span><span ng-click="vm.menuLink('wx')">取消</span>
+					</div> 
+			</div>
+		</div>
+		<div class="clean"></div>
+	</div>
+</div>

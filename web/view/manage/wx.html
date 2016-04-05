@@ -33,29 +33,17 @@
 				</div>
 			</div>
 			<div class="af_btn author_btn" ng-if="!vm.authorFlag">
-					<span ng-click="vm.getWxAuthorResult()">查看授权结果</span>
-					<i>{{vm.authorReault}}</i>
+				<span>{{vm.authorReault}}</span>
+				<!-- 设置时间段自动回复暂时不做 -->
+				<!-- <div class="wx_auto_reply">
+					<h3>自动回复<i>不方便线上回复用户时，可以设置微信公众号的自动回复</i></h3>
+					<div><span>启用自动回复</span><span ng-click="vm.menuLink('reply1')">设置自动回复</span></div>
+				</div> -->
+				<div class="wx_auto_reply">
+					<h3>被关注欢迎图文<i>设置公众号新关注用户的欢迎图文消息</i></h3>
+					<div><span ng-class="vm.imgTextFlag ? '' : 'delete'" ng-click="vm.changeImgTextReply()" ng-model="vm.imgTextReply">{{vm.imgTextReply}}</span><span ng-click="vm.menuLinkReply()">设置欢迎图文</span></div>
 				</div>
-			<!-- <div class="mcr_lenged">
-				<h3 class="orange">网站内容库</h3>
-				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('list',x.tn,x.ntId)" ng-repeat="x in vm.content|filter:vm.keyword">
-						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
-						<span>{{x.tn}}</span>
-						<i>进入</i>
-					</li>
-				</ul>
 			</div>
-			<div class="mcr_lenged">
-				<h3 class="green">微相册</h3>
-				<ul class="mcr_list">
-					<li ng-click="vm.gotoLink('photo',x.tn,x.ntId)" ng-repeat="x in vm.photos|filter:vm.keyword">
-						<img ng-src={{vm.transferUrl+x.lg}} width="30" height="30"/>
-						<span>{{x.tn}}</span>
-						<i>进入</i>
-					</li>
-				</ul>
-			</div> -->
 		</div>
 		<div class="clean"></div>
 	</div>
