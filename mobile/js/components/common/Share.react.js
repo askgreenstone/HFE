@@ -3,7 +3,7 @@ var wx = require('weixin-js-sdk');
 var CommonMixin = require('../Mixin');
 var Message = require('./Message.react');
 
-var Location = React.createClass({
+var Share = React.createClass({
     mixins:[CommonMixin],
     wxSignature: function() {
         var that = this;
@@ -109,4 +109,4 @@ var Location = React.createClass({
     },
 });
 
-module.exports = Location;
+module.exports = Share;

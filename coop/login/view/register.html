@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>绿石开门</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+	<div id="wrap">
+		<div class="register">
+			<div class="register_box">
+				<div class="index_head reg_head">注 册</div>
+				<div class="index_main reg_main">
+					<div><span>手机</span><input type="text" id="reg_phone" placeholder="请输入手机号"></div>
+					<div><span>姓名</span><input type="text" id="reg_name" placeholder="您的真实姓名"></div>
+					<div><span>密码</span><input type="password" id="reg_pwd1" placeholder="6-16位数字、字母或下划线组合"></div>
+					<div><span>确认密码</span><input type="password" id="reg_pwd2" placeholder="重复您的密码"></div>
+					<div><span>验证码</span><input type="text" id="reg_code" placeholder="请输入短信验证码"><input type="button" id="reg_vcode" value="短信验证码"></div>
+					
+				</div>
+				<div class="reg_tip"><input type="checkbox" id="reg_check" style="display:none"><label for="reg_check">阅读并接受<a href="agreement2.html">用户协议</a></label></div>
+				<div id="reg_submit" class="index_button register_fix">注册</div>
+				</div>
+		</div>
+		
+	</div>
+	<script src="../lib/zepto.min.js"></script>
+	<script src="../lib/hmac-md5.js"></script>
+	<script src="http://t-csc.green-stone.cn/lib/sha1.js"></script>
+	<script src="http://t-csc.green-stone.cn/lib/enc-base64-min.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../js/api.js"></script>
+	<script src="../js/register.js"></script>
+	<script type="text/javascript">
+		var winHeight = window.screen.height;
+		// alert(winHeight);
+		$('.register').height(winHeight);
+	</script>
+</body>
+</html>

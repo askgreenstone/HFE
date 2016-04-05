@@ -2,7 +2,6 @@ var React = require('react');
 var CommonMixin = require('../Mixin');
 var Message = require('../common/Message.react');
 var Password = require('../common/Password.react');
-var Share = require('../common/Share.react');
 
 var List1 = React.createClass({
   mixins:[CommonMixin],
@@ -50,20 +49,6 @@ var List1 = React.createClass({
                tempObj.push(this.getCotentSrc(data.nl[i].nc));
              }
              this.setState({articles:data.nl,curSrc:tempObj});
-             
-             if(data.nl.length > 0){
-                this.setState({
-                  shareTitle:data.nl[0].ntit,
-                  shareDesc:this.removeHTMLTag(data.nl[0].nc),
-                  shareImg:this.getCotentSrc(data.nl[0].nc)
-                });
-             }else{
-                this.setState({
-                  shareTitle:'微网站首页',
-                  shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
-                  shareImg:'greenStoneicon300.png'
-                })
-             }
            }
         }.bind(this),
         error: function(xhr, status, err) {
@@ -141,7 +126,8 @@ var List1 = React.createClass({
       $('#limit_password_box').show();
     }
   },
-  componentWillMount: function(){
+  componentDidMount: function(){
+    $('body').css({'background':'#ebebeb'});
     var ntid = this.getUrlParams('ntid');
     if(!ntid) return;
     if(!sessionStorage.getItem('user_token_'+ntid)){
@@ -149,16 +135,10 @@ var List1 = React.createClass({
       this.checkUserLimit();
     }else{
       this.getServerInfo();
-      
     }
-  },
-  componentDidMount: function(){
-    $('body').css({'background':'#ebebeb'});
-
   },
   render: function() {
     var legend;
-    console.log(this.state.shareTitle+'000'+this.state.shareDesc+'000'+this.state.shareImg);
     if(this.props.legend){
       legend = <h3>最新文章</h3>;
     }
@@ -179,8 +159,6 @@ var List1 = React.createClass({
           {legend}
           {articleNodes}
         </ul>
-        <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={this.state.shareImg} target="articleList"/>
         <Message/>
         <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} type="articleList">
           <Password display="true"/>

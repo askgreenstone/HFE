@@ -63,7 +63,7 @@ var Index009=React.createClass({
               this.setState({container2:arr2});
             }
             //缓存菜单数据
-            sessionStorage.setItem('menu_info',JSON.stringify(data.ntl));
+            sessionStorage.setItem('menu_info_index009',JSON.stringify(data.ntl));
           }
         }.bind(this),
         error: function(xhr, status, err) {
@@ -72,7 +72,7 @@ var Index009=React.createClass({
         }.bind(this)
       });
     }else{
-     var temp = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info')));
+     var temp = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info_index009')));
      if(temp.length > 1 && temp.length < 4){
         var  arr0 = []
         for(var i=0;i<3;i++){
@@ -110,8 +110,8 @@ var Index009=React.createClass({
           // this.setState({navArrs:data.ntl});
           //alert(0);
           this.setState({bg:data.bi,logo:data.l});
-          if(sessionStorage.getItem('menu_version')){
-            if(sessionStorage.getItem('menu_version') != data.mv){
+          if(sessionStorage.getItem('menu_version_index009')){
+            if(sessionStorage.getItem('menu_version_index009') != data.mv){
               this.getUserList(true);
             }else{
               this.getUserList(false);
@@ -119,7 +119,7 @@ var Index009=React.createClass({
           }else{
             this.getUserList(true);
           }
-          sessionStorage.setItem('menu_version',data.mv);
+          sessionStorage.setItem('menu_version_index009',data.mv);
         }
       }.bind(this),
       error: function(xhr, status, err) {

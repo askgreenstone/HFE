@@ -11,10 +11,11 @@ var api = new Api();
 var global_bi = '';
 
 function initCropper() {
-	// console.log(ratio);
   if (!ratio) return;
+  var tempRatio = ratio.split('-')[0]/ratio.split('-')[1];
+  // alert(tempRatio);
   $('#themeCropper').cropper({
-      aspectRatio: ratio[0] / ratio[1],
+      aspectRatio: tempRatio,
       viewMode: 1,
       crop: function(e) {
           imgx = Math.round(e.x);

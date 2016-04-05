@@ -520,9 +520,12 @@ input[type=checkbox], input[type=radio] {
   margin: 10px 0px;
   width: 100%;
   font-size: 14px;
+  border-top: 1px solid #e5e5e5;
 }
 .list_table tr{
   border-bottom: 1px solid #e5e5e5;
+  /*height: 40px;*/
+  /*border:1px solid #e5e5e5;*/
 }
 .list_table tr:hover{
   background-color: rgba(247, 244, 244, 0.35);
@@ -531,7 +534,7 @@ input[type=checkbox], input[type=radio] {
   padding: 10px 5px 10px 0;
 }
 .list_table th{
-  padding: 5px 5px 15px 0;
+  padding: 15px 5px 15px 0;
 }
 .list_table img{
   margin-right: 5px;
@@ -542,6 +545,52 @@ input[type=checkbox], input[type=radio] {
 }
 .list_table .stop{
   color: #e74751;
+}
+.list_ul{
+  margin-top: -40px;
+}
+.list_ul li{
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 2% 0;
+  cursor: move;
+}
+.list_ul li>span{
+  display: inline-block;
+}
+.list_ul li>span>img{
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.list_ul li>span:nth-child(1){
+  width: 4.9%;
+}
+.list_ul li>span:nth-child(2){
+  width: 24%;
+}
+.list_ul li>span:nth-child(3){
+  width: 9%;
+}
+.list_ul li>span:nth-child(4){
+  width: 25%;
+}
+.list_ul li>span:nth-child(5){
+  width: 19%;
+}
+.list_ul li>span:nth-child(6){
+  width: 15%;
+}
+.list_ul .sortable-dragging{
+  border:1px solid #ccc;
+  width: 100%;
+  background-color: #fff;
+}
+.list_ul .sortable-placeholder{
+  border: 1px dashed red;
+  height: 45px;
+  width: 100%;
+  display: block;
 }
 /*editor.html*/
 .editor_intro{
