@@ -81,7 +81,7 @@ define(['App'], function(app) {
         }
         // 上传图片
         vm.uploadFile = function() {
-          Common.getLoading(true);
+          
           console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
@@ -101,6 +101,7 @@ define(['App'], function(app) {
               alert('暂不支持gif！');
               return;
             }
+            Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -196,22 +197,26 @@ define(['App'], function(app) {
                 if(data.msgCont){
                   vm.imgTextFlag = false;
                   vm.msgCont = data.msgCont;
+                  vm.isServerData = false;
+                  vm.imgUrl = 'image/placeholder.png';
                 }else{
                   vm.imgTextFlag = true;
                   vm.title = data.title;
                   vm.desc = data.desc;
                   vm.picurl = data.picurl;
                   vm.url = data.url;
+                  vm.isServerData = true;
+                  vm.imgUrl = vm.transferUrl+vm.picurl;
+                  //延迟初始化裁图插件
+                  setTimeout(function() {
+                    vm.initCropper();
+                    vm.isImgUpload = true;
+                  }, 300);
                 }
-                vm.imgUrl = vm.picurl?(vm.transferUrl+vm.picurl):'image/placeholder.png';
+                console.log(vm.picurl);
                 console.log(vm.imgUrl);
-                vm.isServerData = true;
                 console.log(vm.imgTextFlag);
-                //延迟初始化裁图插件
-                setTimeout(function() {
-                  vm.initCropper();
-                  vm.isImgUpload = true;
-                }, 300);
+                
               }
           }).
           error(function(data, status, headers, config) {
@@ -243,6 +248,10 @@ define(['App'], function(app) {
             if(!vm.url){
               alert('链接不能为空！');
               return false;
+            }
+
+            if(!vm.isImgUpload){
+              alert('请先上传图片！')
             }else{
               return true;
             }
