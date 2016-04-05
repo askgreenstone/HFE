@@ -3,6 +3,7 @@ var CommonMixin = require('../Mixin');
 var Message = require('../common/Message.react');
 var Password = require('../common/Password.react');
 
+var number = 1;
 var List1 = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
@@ -14,7 +15,10 @@ var List1 = React.createClass({
       uvalue:'',
       shareTitle:'',
       shareDesc:'',
-      shareImg:''
+      shareImg:'',
+      count:10,
+      page:0,
+      hasMore:true
     };
   },
   gotoDetail: function(ntid,nid,url){
@@ -47,8 +51,51 @@ var List1 = React.createClass({
              //从内容中抓取图片，作为默认显示
              for(var i=0;i<data.nl.length;i++){
                tempObj.push(this.getCotentSrc(data.nl[i].nc));
-             }
+             }           
              this.setState({articles:data.nl,curSrc:tempObj});
+           }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          this.showAlert('网络连接错误或服务器异常！');
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+  },
+  getPageInfo: function(){
+    console.log('number:'+number);
+    var ownUri = this.getUrlParams('ownUri');
+    var ntid = this.getUrlParams('ntid');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    if(!ntid) return;
+    // console.log('number:'+number);
+    $.ajax({
+        type:'get',
+        url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri+'&pn='+number+'&ps='+this.state.count,
+        success: function(data) {
+          // alert(JSON.stringify(data));
+          console.log(data);
+          // alert('ownUri:'+ownUri+'ntid:'+ntid);
+          if(data.c == 1000){
+            console.log(number);
+            if(number > Math.ceil(data.tc/this.state.count)-1|| Math.ceil(data.tc/this.state.count) == 1){
+              this.setState({
+                hasMore:false
+              });
+              // return;
+            }
+           //从内容中抓取图片，作为默认显示
+           // var tempObj = [];
+           for(var i=0;i<data.nl.length;i++){
+             // tempObj.push(this.getCotentSrc(data.nl[i].nc));
+             this.state.curSrc.push(this.getCotentSrc(data.nl[i].nc));
+           }
+           this.setState({
+              articles: this.state.articles.concat(data.nl),
+              curSrc: this.state.curSrc
+           });
+           number++;
            }
         }.bind(this),
         error: function(xhr, status, err) {
@@ -104,7 +151,8 @@ var List1 = React.createClass({
           // console.log(this.state.utitle);
             this.showLimitBox(true);
           }else{
-            this.getServerInfo();
+            // this.getServerInfo();
+            this.getPageInfo();
           }
         }
       }.bind(this),
@@ -127,6 +175,8 @@ var List1 = React.createClass({
     }
   },
   componentDidMount: function(){
+    // 清空分页信息记录
+    number = 1;
     $('body').css({'background':'#ebebeb'});
     var ntid = this.getUrlParams('ntid');
     if(!ntid) return;
@@ -134,7 +184,8 @@ var List1 = React.createClass({
       // console.log('aa user_token_'+ntid);
       this.checkUserLimit();
     }else{
-      this.getServerInfo();
+      // this.getServerInfo();
+      this.getPageInfo();
     }
   },
   render: function() {
@@ -159,6 +210,9 @@ var List1 = React.createClass({
           {legend}
           {articleNodes}
         </ul>
+        <p>&nbsp;</p>
+        <div style={{'display':this.state.hasMore?'block':'none'}} className="myListLoader" onClick={this.getPageInfo}>查看更多</div>
+        <p>&nbsp;</p>
         <Message/>
         <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} type="articleList">
           <Password display="true"/>

@@ -72,7 +72,7 @@ var ArticleList = React.createClass({
       });
   },
   componentDidMount: function(){
-    this.onlyToSetShareInfo();
+    // this.onlyToSetShareInfo();
   },
    componentWillMount: function(){
     this.onlyToSetShareInfo();
