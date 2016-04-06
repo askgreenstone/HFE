@@ -356,6 +356,13 @@ p {
   left: 36%;
   bottom: 3.5rem;
 }
+.template_head{
+  text-align: left;
+  text-indent: 0;
+  width: 60%;
+  font-size: 1.6rem;
+  line-height: 2rem;
+}
 /*微名片*/
 .card {
   width: 100%;
@@ -467,6 +474,16 @@ p {
   cursor: pointer;
   opacity: 0;
 }
+.themeBg_btn_box{
+  width: 80%;
+  display: box;
+  display: -webkit-box;
+}
+.themeBg_btn{
+  margin: 2rem 5% 2rem 12.5%;
+  width: 40%;
+}
+
 /*激活页*/
 .active {
   width: 100%;

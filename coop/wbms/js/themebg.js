@@ -71,17 +71,29 @@ function getUserBg() {
       }
   })
 }
-
-$('#themebg_next').click(function() {
+function getLocationUrl(){
+  $.ajax({
+    type : 'GET',
+    url : Common.globalDistUrl() + 'exp/CreateMicWebQrCode.do?session='+ sess,
+    success : function(data) {
+      console.log(data);
+      window.location.href = data.url;
+    },
+    error : function(){
+      alert('网络连接错误或服务器异常！');
+    }
+  })
+}
+function uploadFile(state){
   var file = document.getElementById('themebg_choose').files[0],
       reader = new FileReader();
   if(!file){
-  	if(global_bi){
-  		clipSourceImg(global_bi);
-  		return;
-  	}else{
-  		return;
-  	}
+    if(global_bi){
+      clipSourceImg(global_bi,state);
+      return;
+    }else{
+      return;
+    }
   }
   Common.getLoading(true);
   reader.addEventListener('load', function() {
@@ -99,11 +111,16 @@ $('#themebg_next').click(function() {
               url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + sess+'&type=3',
               data: fd,
               processData: false,
-							contentType: false,
+              contentType: false,
               success: function(data) {
                 Common.getLoading(false);
                 console.log(data);
-                window.location.href = 'card.html?session='+sess;
+                if(state == 'scan'){
+                  getLocationUrl();
+                }else if(state == 'next'){
+                  window.location.href = 'card.html?session='+sess;
+                }
+                
               },
               error: function(error) {
                 Common.getLoading(false);
@@ -114,10 +131,60 @@ $('#themebg_next').click(function() {
       if (file) {
           reader.readAsDataURL(file);
       }
-  });
+}
+
+$('#themebg_next').click(function() {
+  uploadFile('next');
+})
+$('#themebg_scan').click(function() {
+  uploadFile('scan');
+})
+// $('#themebg_next').click(function() {
+//   var file = document.getElementById('themebg_choose').files[0],
+//       reader = new FileReader();
+//   if(!file){
+//   	if(global_bi){
+//   		clipSourceImg(global_bi);
+//   		return;
+//   	}else{
+//   		return;
+//   	}
+//   }
+//   Common.getLoading(true);
+//   reader.addEventListener('load', function() {
+//           var fd = new FormData();
+//           fd.append('ThirdUpload', file);
+//           fd.append('filename', file.name);
+//           fd.append('w', imgw);
+//           fd.append('h', imgh);
+//           fd.append('x', imgx);
+//           fd.append('y', imgy);
+//           console.log(fd);
+//           // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
+//           $.ajax({
+//               type: 'POST',
+//               url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + sess+'&type=3',
+//               data: fd,
+//               processData: false,
+// 							contentType: false,
+//               success: function(data) {
+//                 Common.getLoading(false);
+//                 console.log(data);
+//                 window.location.href = 'card.html?session='+sess;
+//               },
+//               error: function(error) {
+//                 Common.getLoading(false);
+//                 alert('网络连接错误或服务器异常！');
+//               }
+//           })
+//       })
+//       if (file) {
+//           reader.readAsDataURL(file);
+//       }
+//   });
 
 	//无图片流直接裁切
-	function clipSourceImg(name){
+	function clipSourceImg(name,state){
 		var obj = {
 			in:name,
       it:1,
@@ -138,7 +205,11 @@ $('#themebg_next').click(function() {
             setTimeout(function(){
               Common.getLoading();
             },300);
-            window.location.href = 'card.html?session='+sess;
+            if(state == 'scan'){
+              getLocationUrl();
+            }else if(state == 'next'){
+              window.location.href = 'card.html?session='+sess;
+            }
         },
         error: function(error) {
             Common.getLoading();

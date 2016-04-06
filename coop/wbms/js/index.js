@@ -4,6 +4,10 @@
 // });
 
 Zepto(function($){
+  var userSession = window.sessionStorage.getItem('userSession');
+  if(userSession){
+    window.location.href = 'view/active.html?session='+userSession;
+  }        
   var api =new Api();
   $('#index_submit').click(function(event) {
   	var userpwd = $('#index_pwd').val(),
@@ -22,6 +26,7 @@ Zepto(function($){
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
+          window.sessionStorage.setItem('userSession',data.u.sid);
   				window.location.href = 'view/active.html?session='+data.u.sid;
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');

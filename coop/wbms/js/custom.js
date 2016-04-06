@@ -10,6 +10,7 @@ Zepto(function($){
   	window.location.href = 'template.html?session='+sess;
   });
   $('#custom_logout').click(function(event) {
+    window.sessionStorage.removeItem('userSession');
     window.location.href = '../index.html';
   });
   $('#custom_preview').click(function(event) {
