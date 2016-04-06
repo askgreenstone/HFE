@@ -203,10 +203,10 @@ define(['App'], function(app) {
                   vm.imgTextFlag = true;
                   vm.title = data.title;
                   vm.desc = data.desc;
-                  vm.picurl = data.picurl;
+                  vm.picurl = data.picurl?data.picurl:'image/placeholder.png';
                   vm.url = data.url;
                   vm.isServerData = true;
-                  vm.imgUrl = vm.transferUrl+vm.picurl;
+                  vm.imgUrl = data.picurl?(vm.transferUrl+data.picurl):'image/placeholder.png';
                   //延迟初始化裁图插件
                   setTimeout(function() {
                     vm.initCropper();
