@@ -701,7 +701,7 @@ p{
     bottom:0px;
 }
 
-//版权信息
+// 版权信息
 .theme6_copyright{
     text-align: center;
     width: 100%;
@@ -723,6 +723,41 @@ p{
 //全局密码框样式
 #limit_password_box{
   display: none;
+}
+
+// 移动建站底部导航条
+.toolbar_shadow{
+  background: rgba(0,0,0,0.6);
+  // background-color: transparent;
+  // display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 1001; /* 此处的图层要大于页面 */
+  ul{
+    text-align: center;
+    width: 100%;
+    background-color: #2d2d2d;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #484747;
+    li{
+      width: 25%;
+      float: left;
+      box-sizing: border-box;
+      padding: 3% 0;
+      cursor: pointer;
+      div{
+        color: #fff;
+        margin-top: 10%;
+      }
+    }
+    :hover{
+      background-color: #666;
+    }
+  }
 }
 
 

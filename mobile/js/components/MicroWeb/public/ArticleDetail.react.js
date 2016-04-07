@@ -173,16 +173,47 @@ var ArticleDetail = React.createClass({
       $('#limit_password_box').show();
     }
   },
+  //查询后台用户密码
+  getServerPsw:function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var ntid = this.getUrlParams('ntid');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    if(!ntid) return;
+    var tempPsw = '';
+    $.ajax({
+      type:'get',
+      async: false,
+      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          if(data.nl.length>0){
+            tempPsw = data.nl[0].vp;
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('网络连接错误或服务器异常！');
+      }.bind(this)
+    });
+    return tempPsw;
+  },
 	componentDidMount: function(){
     $('body').css({'background':'#fff'}); 
     // this.getServerInfo();
     var ntid = this.getUrlParams('ntid');
     if(!ntid) return;
-    if(!sessionStorage.getItem('user_token_'+ntid)){
+    if(!localStorage.getItem('user_token_'+ntid)){
       // console.log('aa user_token_'+ntid);
       this.checkUserLimit();
     }else{
-      this.getServerInfo();
+      if(localStorage.getItem('user_psw_'+ntid) == this.getServerPsw()){
+        this.getServerInfo();
+      }else{
+        this.checkUserLimit();
+      }
     }
 	},
   componentWillMount: function(){

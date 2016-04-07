@@ -268,7 +268,7 @@ var CommonMixin = {
     }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
-      if(sessionStorage.getItem('user_token_'+ntid)){
+      if(localStorage.getItem('user_token_'+ntid) && localStorage.getItem('user_psw_'+ntid) == psw){
         location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
       }else{
         // limit:1 未加密 limit:2 加密
@@ -283,7 +283,8 @@ var CommonMixin = {
         }else{
           location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
         }
-        sessionStorage.setItem('user_token_'+ntid,ntid);
+        localStorage.setItem('user_token_'+ntid,ntid);
+        localStorage.setItem('user_psw_'+ntid,psw);
       }
     }else{
       location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;

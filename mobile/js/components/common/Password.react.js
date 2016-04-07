@@ -14,8 +14,9 @@ var Password = React.createClass({
         ntid = $(target).attr('name');
     console.log('ntid:'+ntid);
     $('.password_shadow').parent('#limit_password_box').hide();
-    sessionStorage.removeItem('user_token_'+ntid);
+    localStorage.removeItem('user_token_'+ntid);
     $('.inputItems input').val('');
+    // $('body').css({'overflow':'auto'});
   },
   hideMessage: function(){
     $('.password_shadow').parent('#limit_password_box').hide();
@@ -41,12 +42,14 @@ var Password = React.createClass({
       // window.location.href = 'https://www.baidu.com';
       if(userInput == uvalue){
         // console.log('aa');
-        sessionStorage.setItem('user_token_'+ntid,ntid);
-        sessionStorage.setItem('user_token_'+nid,nid);
+        localStorage.setItem('user_token_'+ntid,ntid);
+        localStorage.setItem('user_psw_'+ntid,uvalue);
+        localStorage.setItem('user_token_'+nid,nid);
+        localStorage.setItem('user_psw_'+nid,uvalue);
         $('.password .error').hide();
         // window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+ntid;
-        console.log(sessionStorage.getItem('user_token_'+ntid));
-        if(sessionStorage.getItem('user_token_'+ntid)||sessionStorage.getItem('user_token_'+nid)){
+        console.log(localStorage.getItem('user_token_'+ntid));
+        if(localStorage.getItem('user_token_'+ntid)||localStorage.getItem('user_token_'+nid)){
           // console.log(1);
           this.hideMessage();
           // window.location.href = '#'+utype+'?ownUri='+ownUri+'&ntid='+ntid;
@@ -75,8 +78,8 @@ var Password = React.createClass({
         ntid = $(target).attr('name');
         // console.log('user_token_'+ntid);
         console.log('user_token_'+ntid);
-        // console.log(sessionStorage.getItem('user_token_'+ntid));
-    if(sessionStorage.getItem('user_token_'+ntid)){
+        // console.log(localStorage.getItem('user_token_'+ntid));
+    if(localStorage.getItem('user_token_'+ntid)){
       $('.password_shadow').parent('#limit_password_box').show();
     }
   },
