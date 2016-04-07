@@ -114,14 +114,14 @@ jQuery(function($) {
         if (shareId) { //更新
             tempData = {
                 si: shareId,
-                st: 2,
+                st: 1,
                 sti: $("#title").val(),
                 sd: $("#desc").val(),
                 spu:src
             }
         } else { //插入
             tempData = {
-                st: 2,
+                st: 1,
                 sti: $("#title").val(),
                 sd: $("#desc").val(),
                 spu:src
@@ -139,7 +139,7 @@ jQuery(function($) {
                 console.log(data);
                 if (data.c == 1000) {
                    Common.getLoading();
-                   window.location.href = 'custom.html?session=' + session;
+                   getIndexUrl();
                 }
             },
             error: function() {
@@ -149,6 +149,26 @@ jQuery(function($) {
         })
 
     }
+
+
+    // 获取首页二维码，链接
+    function getIndexUrl(){
+      $.ajax({
+        method: 'GET',
+        url: Common.globalDistUrl()+'exp/CreateMicWebQrCode.do?session='+session,
+        data: {},
+        success: function(data) {
+                  console.log(data);
+                  if(data.c == 1000){
+                    window.location.href = data.url + '&session=' + session + 'origin=wbms';
+                  }
+                },
+        error: function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            }
+      })
+    };
     $('#set_share').click(function(){
       console.log(shareImg);
       setWxShare(shareImg);

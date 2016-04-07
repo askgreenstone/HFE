@@ -211,7 +211,7 @@ p {
   border: 1px solid #fff;
 }
 .reg_main div input[type='button'] {
-  width: 35%;
+  width: 70%;
   text-align: center;
   margin-left: 10px;
   height: 100%;
@@ -340,6 +340,12 @@ p {
   width: 80px;
   height: 80px;
   border: 1px solid #fff;
+}
+#share_file{
+  width: 70%;
+}
+.share_box .share_box_span{
+  margin-left: 30px;
 }
 /*选择模板页*/
 .template {
@@ -529,6 +535,24 @@ p {
 }
 .active_tip label {
   width: 70%;
+}
+/*主题背景选择完毕预览页*/
+.iframe_box{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.iframe_box iframe{
+  width: 100%;
+  height: 100%;
+}
+.iframe_box .themeScan_Iframe{
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  left: 0px;
+  top:0px;
 }
 /*激活失效页*/
 .actexpired_head {

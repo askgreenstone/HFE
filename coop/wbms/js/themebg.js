@@ -116,7 +116,7 @@ function uploadFile(state){
                 Common.getLoading(false);
                 console.log(data);
                 if(state == 'scan'){
-                  getLocationUrl();
+                  window.location.href = 'themescan.html?session='+sess;
                 }else if(state == 'next'){
                   window.location.href = 'card.html?session='+sess;
                 }
@@ -206,7 +206,7 @@ $('#themebg_scan').click(function() {
               Common.getLoading();
             },300);
             if(state == 'scan'){
-              getLocationUrl();
+              window.location.href = 'themescan.html?session='+sess;
             }else if(state == 'next'){
               window.location.href = 'card.html?session='+sess;
             }

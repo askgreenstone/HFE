@@ -2,7 +2,8 @@ var session = Common.getUrlParam('session'),
     CardID = '',
     state = false,
     head = '',
-    qrcode = '';
+    qrcode = '',
+    qrindex = '';
 console.log(session);
 
 
@@ -45,8 +46,12 @@ jQuery(function($){
                  if(data.QR){
                    $('#qrcode_box').hide();
                    $('#qrcode_preview').show();
-                   qrcode = data.QR;
                    $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
+                   if(data.QR == "onlinelaw20160314185742.jpg"){
+                    qrcode = qrindex;
+                   }else{
+                    qrcode = data.QR;
+                   }
                  }
 
                  $('#NAME').val(data.nm);
@@ -98,22 +103,13 @@ jQuery(function($){
          if(data.QR){
            $('#qrcode_box').hide();
            $('#qrcode_preview').show();
-           qrcode = data.QR;
+           if(data.QR == "onlinelaw20160314185742.jpg"){
+            qrcode = qrindex;
+           }else{
+            qrcode = data.QR;
+           }
            $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
          }
-
-         // $('#NAME').val(data.nm);
-         // $('#Depart').val(data.dp);
-         // $('#Rank').val(data.rk);
-         // // QRCodeImg: data.QR;
-         // $('#Mobile').val(data.Mob);
-         // $('#Email').val(data.eml);
-         // $('#TelNo').val(data.tel);
-         // $('#WebSite').val(data.web);
-         // $('#Address').val(data.adr);
-         // $('#Region').val(data.rg);
-         // $('#Abstract').val(data.abs);
-         // $('#Introduction').val(data.itd)    
        },
        error : function(){
          alert('网络连接错误或服务器异常！');
@@ -137,156 +133,84 @@ jQuery(function($){
     });
 
 
-    // $('#card_file').change(function(){
-    //     $('#card_box').hide();
-    //     readURL(this,'card_preview');
-    //     $('#card_preview').show();
-    //     uploadHead();
+    // 上传二维码，放掉这一部分
+    // $('#qrcode_file').change(function(){
+    //     $('#qrcode_box').hide();
+    //     readURL(this,'qrcode_preview');
+    //     $('#qrcode_preview').show();
+    //     uploadQrcode();
     // });
-    $('#qrcode_file').change(function(){
-        $('#qrcode_box').hide();
-        readURL(this,'qrcode_preview');
-        $('#qrcode_preview').show();
-        uploadQrcode();
-    });
-
-    //头像（不需裁切处理）
-    // function uploadHead() {
-    //     var file = document.getElementById('card_file').files[0],
-    //       reader = new FileReader();
-    //     reader.addEventListener('load', function() {
-    //           var fd = new FormData();
-    //           fd.append('ThirdUpload', file);
-    //           fd.append('filename', file.name);
-    //           console.log(fd);
-    //           Common.getLoading(true);
-    //           // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
-    //           $.ajax({
-    //               type: 'POST',
-    //               url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + session+'&type=2',
-    //               data: fd,
-    //               processData: false,
-    //               contentType: false,
-    //               success: function(data) {
-    //                   console.log(data);
-    //                   head = data.on;
-    //                   // $('#card_preview').attr('src',Common.globalTransferUrl() + data.on);
-    //                   Common.getLoading(false);
-    //               },
-    //               error: function(error) {
-    //                   Common.getLoading(false);
-    //                   alert('网络连接错误或服务器异常！');
-    //               }
-    //           })
-    //       })
-    //       if (file) {
-    //           reader.readAsDataURL(file);
-    //       }
+    // function uploadQrcode() {
+    //     var f = document.getElementById('qrcode_file').files[0],
+    //         r = new FileReader();
+    //      Common.getLoading(true);
+    //     console.log(f);
+    //     console.log(r);
+    //     r.onloadend = function(e) {
+    //         var data = e.target.result;
+    //         var fd = new FormData();
+    //         fd.append('ThirdUpload', f);
+    //         fd.append('filename', f.name);
+    //         // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6 微信分享图标
+    //         $.ajax({
+    //           type : 'post',
+    //           url : Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + session + '&type=1',
+    //           data: fd,
+    //           processData: false,
+    //           contentType: false,
+    //           success : function(data) {
+    //             Common.getLoading(false);
+    //             console.log(data);
+    //             qrcode = data.on;
+    //           },
+    //           error : function(){
+    //             Common.getLoading(false);
+    //             alert('网络连接错误或服务器异常！');
+    //           }
+    //         })
+    //     };
+    //     if (f) {
+    //         r.readAsDataURL(f);
+    //     }
     // }
-
-
-    //二维码（不需裁切处理）
-
-    function uploadQrcode() {
-        var f = document.getElementById('qrcode_file').files[0],
-            r = new FileReader();
-         Common.getLoading(true);
-        console.log(f);
-        console.log(r);
-        r.onloadend = function(e) {
-            var data = e.target.result;
-            var fd = new FormData();
-            fd.append('ThirdUpload', f);
-            fd.append('filename', f.name);
-            // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6 微信分享图标
-            $.ajax({
-              type : 'post',
-              url : Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + session + '&type=1',
-              data: fd,
-              processData: false,
-              contentType: false,
-              success : function(data) {
-                Common.getLoading(false);
-                console.log(data);
-                qrcode = data.on;
-              },
-              error : function(){
-                Common.getLoading(false);
-                alert('网络连接错误或服务器异常！');
-              }
-            })
-        };
-        if (f) {
-            r.readAsDataURL(f);
-        }
-    }
 
     $('#card_next').click(function(){
       setBasicInfo();
     })
 
+
+
+
+    // 获取首页二维码，链接
+    function getQrCode(){
+      $.ajax({
+        method: 'GET',
+        url: Common.globalDistUrl()+'exp/CreateMicWebQrCode.do?session='+session,
+        data: {},
+        success: function(data) {
+                  console.log(data);
+                  if(data.c == 1000){
+                    qrindex = data.qrn;
+                    // vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
+                  }
+                },
+        error: function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            }
+      })
+    };
+    console.log(session);
+
     //设置微名片信息
     function setBasicInfo (){
       console.log(head);
       console.log(qrcode);
-      // if(!head){
-      //   alert("请上传头像！");
-      //   return false;
-      // }
       if(!$('#NAME').val()){
         alert("请填写您的姓名！");
         return false;
       }
-      // if(!qrcode){
-      //   alert("请上传二维码！");
-      //   return false;
-      // }
-
-      // if(!$('#Depart').val()){
-      //   alert("请填写您的律所！");
-      //   return false;
-      // }
-
-      // if(!$('#Mobile').val()){
-      //   alert("请填写您的电话！");  
-      //   return false;
-      // }
-
-      // if(!$('#Email').val()){
-      //   alert("请填写您的邮箱！");
-      //   return false; 
-      // }
-
-      // if(!$('#TelNo').val()){
-      //   alert("请填写您的座机！");
-      //   return false;
-      // }
-
-      // // if(!$('#WebSite').val()){
-      // //   alert("请填写您的网址！");
-      // //   return false;
-      // // }
-
-      // if(!$('#Region').val()){
-      //   alert("请填写您的区域位置！");
-      //   return false;
-      // }
-
-      // if(!$('#Address').val()){
-      //   alert("请填写您的地址！");
-      //   return false;
-      // }
-
-      // if(!$('#Abstract').val()){
-      //   alert("请填写您的简介！");
-      //   return false;
-      // }
-
-      // if(!$('#Introduction').val()){
-      //   alert("请填写您的专业领域！");
-      //   return false;
-      // }
-
+      
       var userData = [
           {
             "cn": "HeadImg",
@@ -402,7 +326,9 @@ jQuery(function($){
     }
     //初始化数据
     function initAll() {
-       getUserData();
+      getQrCode();
+      getUserData();
+       
     }
 
     initAll();
