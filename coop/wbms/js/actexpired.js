@@ -63,7 +63,8 @@ Zepto(function($){
               window.location.href = 'custom.html?session='+session;
           }else if(data.as == 3 || data.as == 4 ){
              // alert('已失效')
-             $("#actexpired_time").text(getLocalTime(data.at))
+             $("#actexpired_time").text(getLocalTime(data.at));
+             window.sessionStorage.removeItem('userSession');
             // window.location.href = 'actexpired.html?session='+session;
           }else if(data.as == 0){
             getAuthenState();

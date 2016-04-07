@@ -40,7 +40,6 @@ define(['App'], function(app) {
                   vm.inputUrl = data.url;
                   $('#iframe_src').empty();
                   $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="545"></iframe>');
-
                 }
             }).
             error(function(data, status, headers, config) {
