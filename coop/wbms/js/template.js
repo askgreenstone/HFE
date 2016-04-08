@@ -103,7 +103,7 @@ jQuery(function($) {
 			    success : function(data) {
 			    	Common.getLoading(false);
 			      console.log(data);
-         		window.location.href = 'themebg.html?session='+sess+'&ratio='+modelInfo.split('@')[2];
+         		window.location.href = 'themebg.html?session='+sess;
 			    },
 			    error : function(error){
 			    	Common.getLoading(false);

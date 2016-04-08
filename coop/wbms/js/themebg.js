@@ -6,11 +6,13 @@
 jQuery(function($) {
 var imgx, imgy, imgh, imgw;
 var sess = Common.getUrlParam('session');
-var ratio = Common.getUrlParam('ratio');
+var localRatio = localStorage.getItem('globalTemplateInfo');
+var ratio = localRatio.split('@')[2];
 var api = new Api();
 var global_bi = '';
 
 function initCropper() {
+  alert(ratio);
   if (!ratio) return;
   var tempRatio = ratio.split('-')[0]/ratio.split('-')[1];
   // alert(tempRatio);
