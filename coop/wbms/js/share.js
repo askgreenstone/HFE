@@ -181,7 +181,7 @@ jQuery(function($) {
             url: Common.globalDistUrl() + 'exp/GetMicWebShareInfo.do',
             data: {
                 session: session,
-                st: 2
+                st: 1
             },
             success: function(data) {
                 console.log(data);
@@ -195,8 +195,8 @@ jQuery(function($) {
                         shareId = data.sil[0].si;
                         shareImg = data.sil[0].spu;
                     }else {
-                        $("#title").val('我的律师微网站');
-                        $("#desc").val('我正在绿石使用律师微网站，欢迎访问我的微网站！');
+                        $("#title").val('我的微网站');
+                        $("#desc").val('我正在绿石使用微网站，欢迎访问我的微网站！');
                         $("#share_preview").attr('src',Common.globalTransferUrl() + 'greenStoneicon300.jpg');
                         shareImg = 'greenStoneicon300.jpg';
                     }
