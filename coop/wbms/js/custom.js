@@ -47,7 +47,24 @@ Zepto(function($){
       }
     }
   });
-
+  // 获取首页二维码，链接
+  function getIndexUrl(){
+    $.ajax({
+      method: 'GET',
+      url: Common.globalDistUrl()+'exp/CreateMicWebQrCode.do?session='+sess,
+      data: {},
+      success: function(data) {
+                console.log(data);
+                if(data.c == 1000){
+                  window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
+                }
+              },
+      error: function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          }
+    })
+  };
   function getMicroState(){
     $.ajax({
       type : 'GET',
@@ -60,6 +77,7 @@ Zepto(function($){
           $('#custom_reset').hide();
         }else{
           $('#custom_begin').hide();
+          getIndexUrl();
         }
       },
       error : function(){

@@ -107,7 +107,7 @@ jQuery(function($) {
     });
 
 
-    //设置分享
+    //分享首页st：1，微名片st：2
     var setWxShare = function(src) {
         if(!validateInput()) return;
         console.log(src);
@@ -160,7 +160,7 @@ jQuery(function($) {
         success: function(data) {
                   console.log(data);
                   if(data.c == 1000){
-                    window.location.href = data.url + '&session=' + session + 'origin=wbms';
+                    window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
                   }
                 },
         error: function(data, status, headers, config) {

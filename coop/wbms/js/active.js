@@ -34,10 +34,10 @@ Zepto(function($){
       success : function(data) {
         console.log(data);
         if(data.c == 1000){
-           if(data.sts != 2){
-             // alert('未认证')
-            window.location.href = 'actmode.html?session='+session;
-          }
+          // if(data.sts != 2){
+          //    // console.log('未认证');
+          //   window.location.href = 'actmode.html?session='+session;
+          // }
         }
       },
       error : function(){
