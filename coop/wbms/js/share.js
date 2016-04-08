@@ -174,38 +174,42 @@ jQuery(function($) {
       setWxShare(shareImg);
     })
 
+    function getShareInfo(){
+      $.ajax({
+          type: 'get',
+          url: Common.globalDistUrl() + 'exp/GetMicWebShareInfo.do',
+          data: {
+              session: session,
+              st: 1
+          },
+          success: function(data) {
+              console.log(data);
+              if (data.c == 1000) {
+                  $('#share_box').hide();
+                  $('#share_preview').show();
+                  if (data.sil.length > 0) {
+                      $("#title").val(data.sil[0].sti);
+                      $("#desc").val(data.sil[0].sd);
+                      $("#share_preview").attr('src',Common.globalTransferUrl() + data.sil[0].spu);
+                      shareId = data.sil[0].si;
+                      shareImg = data.sil[0].spu;
+                  }else {
+                      $("#title").val('我的微网站');
+                      $("#desc").val('我正在绿石使用微网站，欢迎访问我的微网站！');
+                      $("#share_preview").attr('src',Common.globalTransferUrl() + 'greenStoneicon300.jpg');
+                      shareImg = 'greenStoneicon300.jpg';
+                  }
+              } 
+          },
+          error: function() {
+              alert('网络连接错误或服务器异常！');
+          }
+      })
+    }
+
     //初始化数据
     function initAll(){
-        $.ajax({
-            type: 'get',
-            url: Common.globalDistUrl() + 'exp/GetMicWebShareInfo.do',
-            data: {
-                session: session,
-                st: 1
-            },
-            success: function(data) {
-                console.log(data);
-                if (data.c == 1000) {
-                    $('#share_box').hide();
-                    $('#share_preview').show();
-                    if (data.sil.length > 0) {
-                        $("#title").val(data.sil[0].sti);
-                        $("#desc").val(data.sil[0].sd);
-                        $("#share_preview").attr('src',Common.globalTransferUrl() + data.sil[0].spu);
-                        shareId = data.sil[0].si;
-                        shareImg = data.sil[0].spu;
-                    }else {
-                        $("#title").val('我的微网站');
-                        $("#desc").val('我正在绿石使用微网站，欢迎访问我的微网站！');
-                        $("#share_preview").attr('src',Common.globalTransferUrl() + 'greenStoneicon300.jpg');
-                        shareImg = 'greenStoneicon300.jpg';
-                    }
-                } 
-            },
-            error: function() {
-                alert('网络连接错误或服务器异常！');
-            }
-        })
+      getShareInfo();
     }
     initAll();
 })
