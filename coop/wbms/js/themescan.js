@@ -18,7 +18,7 @@ jQuery(function($) {
     var confirm = window.confirm('结束预览？');
     var ratio = window.localStorage.getItem('ar');
     if(confirm){
-      window.location.href = 'themebg.html?session='+sess+'&ratio='+ratio;
+      window.location.href = 'themebg.html?session='+sess+'&ratio='+ratio+'&_ts='+new Date().getTime();
     }
   })
 })
