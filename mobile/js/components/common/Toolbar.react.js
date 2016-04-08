@@ -31,13 +31,15 @@ var Toolbar = React.createClass({
     var sess = this.getUrlParams('sess');
     if(!sess) return;
     if(which == 'logout'){
+      sessionStorage.removeItem('userSession');
       window.location.href = global.url+'/coop/wbms/index.html';
     }else if(which == 'reset'){
       window.location.href = global.url+'/coop/wbms/view/template.html?session='+sess;
     }
   },
   componentDidMount: function(){
-    $('.container').click(function(event) {
+    $('.container,.theme3_main,.theme4_main,.theme5_main,.theme6_main,.theme7_main,.theme8_main,.theme9_main,.theme012_container,.theme013_container,.theme015_container,.theme016_container')
+    .click(function(event) {
       $(this).siblings('.toolbar_shadow').show();
       $('.toolbar_shadow ul').animate({
         bottom: 0},

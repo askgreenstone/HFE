@@ -8,6 +8,7 @@ var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
+var Toolbar = require('../../common/Toolbar.react');
 
 require('../../../../css/theme/theme007.less');
 var Index007=React.createClass({
@@ -308,6 +309,7 @@ var Index007=React.createClass({
           <div id="limit_password_box" title="" value="" name="" type="">
             <Password display="true"/>
           </div>
+          <Toolbar/>
 				</div>
 			)
 	}
