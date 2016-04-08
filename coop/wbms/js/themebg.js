@@ -116,9 +116,9 @@ function uploadFile(state){
                 Common.getLoading(false);
                 console.log(data);
                 if(state == 'scan'){
-                  window.location.href = 'themescan.html?session='+sess;
+                  // window.location.href = 'themescan.html?session='+sess;
                 }else if(state == 'next'){
-                  window.location.href = 'card.html?session='+sess;
+                  // window.location.href = 'card.html?session='+sess;
                 }
                 
               },
@@ -133,55 +133,12 @@ function uploadFile(state){
       }
 }
 
-$('#themebg_next').click(function() {
-  uploadFile('next');
-})
-$('#themebg_scan').click(function() {
-  uploadFile('scan');
-})
-// $('#themebg_next').click(function() {
-//   var file = document.getElementById('themebg_choose').files[0],
-//       reader = new FileReader();
-//   if(!file){
-//   	if(global_bi){
-//   		clipSourceImg(global_bi);
-//   		return;
-//   	}else{
-//   		return;
-//   	}
-//   }
-//   Common.getLoading(true);
-//   reader.addEventListener('load', function() {
-//           var fd = new FormData();
-//           fd.append('ThirdUpload', file);
-//           fd.append('filename', file.name);
-//           fd.append('w', imgw);
-//           fd.append('h', imgh);
-//           fd.append('x', imgx);
-//           fd.append('y', imgy);
-//           console.log(fd);
-//           // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
-//           $.ajax({
-//               type: 'POST',
-//               url: Common.globalDistUrl() + 'exp/ThirdUpload.do?session=' + sess+'&type=3',
-//               data: fd,
-//               processData: false,
-// 							contentType: false,
-//               success: function(data) {
-//                 Common.getLoading(false);
-//                 console.log(data);
-//                 window.location.href = 'card.html?session='+sess;
-//               },
-//               error: function(error) {
-//                 Common.getLoading(false);
-//                 alert('网络连接错误或服务器异常！');
-//               }
-//           })
-//       })
-//       if (file) {
-//           reader.readAsDataURL(file);
-//       }
-//   });
+  $('#themebg_next').click(function() {
+    uploadFile('next');
+  })
+  $('#themebg_scan').click(function() {
+    uploadFile('scan');
+  })
 
 	//无图片流直接裁切
 	function clipSourceImg(name,state){
@@ -202,9 +159,7 @@ $('#themebg_scan').click(function() {
 				contentType: false,
         success: function(data) {
             console.log(data);
-            setTimeout(function(){
-              Common.getLoading();
-            },300);
+            Common.getLoading(false);
             if(state == 'scan'){
               window.location.href = 'themescan.html?session='+sess;
             }else if(state == 'next'){
@@ -212,7 +167,7 @@ $('#themebg_scan').click(function() {
             }
         },
         error: function(error) {
-            Common.getLoading();
+            Common.getLoading(false);
             alert('网络连接错误或服务器异常！');
         }
     })

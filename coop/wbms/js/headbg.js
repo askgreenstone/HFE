@@ -133,15 +133,13 @@ $('#themebg_next').click(function() {
         processData: false,
 				contentType: false,
         success: function(data) {
-            console.log(data);
-            setTimeout(function(){
-              Common.getLoading();
-            },300);
+          console.log(data);
+          Common.getLoading(false);
             window.location.href = 'card.html?session='+sess;
         },
         error: function(error) {
-            Common.getLoading();
-            alert('网络连接错误或服务器异常！');
+          Common.getLoading(false);
+          alert('网络连接错误或服务器异常！');
         }
     })
 	}
