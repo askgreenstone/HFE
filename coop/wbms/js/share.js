@@ -107,7 +107,7 @@ jQuery(function($) {
     });
 
 
-    //设置分享
+    //分享首页st：1，微名片st：2
     var setWxShare = function(src) {
         if(!validateInput()) return;
         console.log(src);
