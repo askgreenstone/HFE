@@ -9,6 +9,7 @@ var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
+var Toolbar = require('../../common/Toolbar.react');
 
 require('../../../../css/theme/theme006.less');
 var Index010 = React.createClass({
@@ -109,8 +110,9 @@ var Index010 = React.createClass({
         <Message/>
         <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
         <div id="limit_password_box" title="" value="" name="" type="">
-            <Password display="true"/>
-          </div>
+          <Password display="true"/>
+        </div>
+        <Toolbar/>
 				</div>
 			)
 	}

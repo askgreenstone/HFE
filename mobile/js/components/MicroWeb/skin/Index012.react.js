@@ -8,6 +8,7 @@ var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
+var Toolbar = require('../../common/Toolbar.react');
 
 require('../../../../css/theme/theme012.less');
 var Index012 = React.createClass({
@@ -179,15 +180,16 @@ var Index012 = React.createClass({
             <ul className="theme012_menu_list">
               {navNodes}
             </ul>
-          </div>
-          <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
-					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+         </div>
+         <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
+				 <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index012"/>
-        <Message/>
+         <Message/>
          <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
          <div id="limit_password_box" title="" value="" name="" type="">
             <Password display="true"/>
-          </div>
+         </div>
+         <Toolbar/>
 				</div>
 			)
 	}
