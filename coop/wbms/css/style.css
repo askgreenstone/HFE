@@ -210,6 +210,9 @@ p {
 .reg_main div input {
   border: 1px solid #fff;
 }
+.reg_main div input#reg_vcode{
+  width: 35%;
+}
 .reg_main div input[type='button'] {
   width: 70%;
   text-align: center;
