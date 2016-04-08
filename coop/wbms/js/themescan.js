@@ -15,8 +15,10 @@ jQuery(function($) {
   }
   getLocationUrl();
   $(".iframe_box .themeScan_Iframe").click(function(){
-    var confirm = window.confirm('结束预览？');
+    var confirm = window.confirm('保存并继续？');
     if(confirm){
+      window.location.href = 'card.html?session='+sess;
+    }else{
       window.location.href = 'themebg.html?session='+sess;
     }
   })
