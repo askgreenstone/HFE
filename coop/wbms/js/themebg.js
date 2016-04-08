@@ -12,7 +12,7 @@ var api = new Api();
 var global_bi = '';
 
 function initCropper() {
-  alert(ratio);
+  // alert(ratio);
   if (!ratio) return;
   var tempRatio = ratio.split('-')[0]/ratio.split('-')[1];
   // alert(tempRatio);
