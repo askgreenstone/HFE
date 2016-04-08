@@ -255,6 +255,8 @@ var CommonMixin = {
   },
   //菜单跳转公用方法
   menuLink: function(type,ntid,limit,psw,title){
+    // console.log(event);
+    event.stopPropagation();
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();

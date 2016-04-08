@@ -15,7 +15,7 @@ jQuery(function($) {
   }
   getLocationUrl();
   $(".iframe_box .themeScan_Iframe").click(function(){
-    var confirm = window.confirm('保存并继续？');
+    var confirm = window.confirm('保存并继续？点“取消”返回修改！');
     if(confirm){
       window.location.href = 'card.html?session='+sess;
     }else{
