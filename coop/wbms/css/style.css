@@ -75,6 +75,9 @@ p {
   font-family: '纤黑';
   font-size: 1.5rem;
 }
+.index_main div.index_main_space{
+  height: 2rem;
+}
 .index_main div span {
   height: 100%;
   display: block;
@@ -693,6 +696,9 @@ p {
   .index_main div {
     height: 4rem;
   }
+  .index_main div.index_main_space{
+    height: 2.2rem;
+  }
 }
 @media screen and (min-width: 377px) {
   html {
@@ -711,5 +717,8 @@ p {
   }
   .index_main div {
     height: 4.5rem;
+  }
+  .index_main div.index_main_space{
+    height: 2.5rem;
   }
 }
