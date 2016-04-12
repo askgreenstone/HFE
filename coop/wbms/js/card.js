@@ -52,6 +52,8 @@ jQuery(function($){
                    }else{
                     qrcode = data.QR;
                    }
+                 }else{
+                    qrcode = qrindex;
                  }
 
                  $('#NAME').val(data.nm);
@@ -108,7 +110,9 @@ jQuery(function($){
            }else{
             qrcode = data.QR;
            }
-           $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
+           // $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
+         }else{
+            qrcode = qrindex;
          }
        },
        error : function(){

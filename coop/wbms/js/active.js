@@ -47,7 +47,7 @@ Zepto(function($){
   }
   $('#reg_check').prop('checked',true);
   $('#active_btn').click(function() {
-    var data = {ad:7};
+    var data = {ad:30};
     $.ajax({
       type : 'post',
       url : Common.globalDistUrl() + 'exp/ActivateMicWeb.do?session='+ session,

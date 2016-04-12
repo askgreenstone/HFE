@@ -40,7 +40,7 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/ActivateMicWeb.do',
                 params: {session:vm.sess},
                 headers : {'Content-Type':undefined},
-                data: {ac:vm.expCode,ad:7}
+                data: {ac:vm.expCode,ad:30}
             }).
             success(function(data, status, headers, config) {
                 console.log(data);

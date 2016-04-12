@@ -4,7 +4,7 @@ Zepto(function($){
   
   $('.actmode_btn').click(function() {
     var ac = $(".actmode_inp").val();
-    var data = {ad:7,ac:ac};
+    var data = {ad:30,ac:ac};
     $.ajax({
       type : 'post',
       url : Common.globalDistUrl() + 'exp/ActivateMicWeb.do?session='+ session,
