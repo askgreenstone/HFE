@@ -15,6 +15,7 @@ define(['App'], function(app) {
         vm.isHeadUpload = false;
         vm.isQrcodeUpload = false;
         vm.head = '';
+        vm.qrIndex = '';
         vm.user = {
           HeadImg: '',
           NAME: '',
@@ -34,6 +35,7 @@ define(['App'], function(app) {
         vm.CardID = '';
         vm.tempImageUrl = '';
         vm.tempImageQr = '';
+        vm.state = 'undo';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -47,38 +49,75 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
-        vm.resetCard = function(){
-            $window.location.href = '#/card?session='+vm.sess+'&state=do';
-        }
 
         vm.calLength = function(cur){
           var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
           return count;
         }
 
-        //从后台拿数据，拿到的话就回显，没有数据就为空//
+
+        // 获取微名片编辑状态：
+        // 0  完全没有编辑过微名片
+        // 1  已经编辑过微名片
+        // 2  未编辑，但已经生成微名片数据（上传过头像）
         vm.checkCardState = function(){
-          if(vm.state == 'do'){
-            $http({
-                method: 'GET',
-                url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              // 微名片编辑状态：
+              // 0  完全没有编辑过微名片
+              // 1  已经编辑过微名片
+              // 2  未编辑，但已经生成微名片数据（上传过头像）
+              if(data.s == 0){
+                vm.state = 'undo';
+              }else{
+                vm.state = 'do';  
+              }
+              vm.getCardInfo();
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          });  
+        }
+
+
+        // 获取首页二维码，链接
+        vm.getIndexQrcode = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/CreateMicWebQrCode.do?session='+vm.sess
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              vm.qrIndex = data.qrn?data.qrn:'onlinelaw20160314185742';
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          });  
+        }
+
+        //从后台拿数据，拿到的话就回显，没有数据设置默认数据
+        // 判断依据：姓名项为必填，判断有无姓名
+        vm.getCardInfo = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
             }).
             success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.nm == ''){
-                  vm.CardID = data.cId;
-                  // alert(vm.CardID);
-                  $window.location.href = '#/card?session='+vm.sess+'&state=undo';
-                }else{
-                  vm.CardID = data.cId;
-                  // alert(vm.CardID);
-                  // $window.location.href = '#/card?session='+vm.sess+'&state=do';
-                  vm.user = {
+              console.log(data);
+              vm.CardID = data.cId;
+              if(data.nm){
+                vm.user = {
                     HeadImg: data.hI,
                     NAME: data.nm,
                     Depart: data.dp,
                     Rank: data.rk,
-                    QRCodeImg: data.QR,
+                    QRCodeImg: data.QR?data.QR:vm.qrIndex,
                     Mobile: data.Mob,
                     Email: data.eml,
                     TelNo: data.tel,
@@ -89,110 +128,176 @@ define(['App'], function(app) {
                     Abstract: data.abs,
                     Introduction: data.itd
                   }
-                  vm.choosePic = data.hI;
-                  vm.isServerData = true;
-                  vm.head = vm.transferUrl+vm.user.HeadImg;
-                  console.log(vm.head);
-                  setTimeout(function() {
-                    vm.initCropper();
-                    vm.isHeadUpload = true;
-                    vm.isQrcodeUpload = true;
-                  }, 300);
-                  // console.log(vm.user);
-                  // vm.uploadFile();
-                  // vm.uploadQrcode();
-                }
+              }else{
+                vm.user = {
+                    HeadImg: data.hI,
+                    NAME: '',
+                    Depart: '您的单位名称',
+                    Rank: '律师',
+                    QRCodeImg: vm.qrIndex?vm.qrIndex:'onlinelaw20160314185742.jpg',
+                    Mobile: '86-10-12345678',
+                    Email: 'sample@email.com',
+                    TelNo: '86-10-12345678',
+                    WebSite: 'www.askgreenstone.com',
+                    Address: '北京市朝阳区世贸中心',
+                    Region: '北京',
+                    Address_srh: '北京市朝阳区世贸中心',
+                    Abstract: '律师执业多年以来，长期担任企业法律常年法律顾问，服务客户包含XX等五百强企业。',
+                    Introduction: '投融资及资本市场、公司法、知识产权'
+                  }
+              }
+              vm.choosePic = data.hI;
+              vm.isServerData = true;
+              vm.head = vm.transferUrl+vm.user.HeadImg;
+              console.log(vm.head);
+              vm.isHeadUpload = true;
+              vm.isQrcodeUpload = true;
+              setTimeout(function() {
+                vm.initCropper();
+              }, 300);
             }).
             error(function(data, status, headers, config) {
                 // console.log(data);
                 alert('网络连接错误或服务器异常！');
             }); 
-          } else{
-            // $http({
-            //     method: 'GET',
-            //     url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
-            // }).
-            // success(function(data, status, headers, config) {
-            //   console.log(data);
-            //   vm.CardID = data.cId; 
-            //   // alert(vm.CardID);
-            // }).
-            // error(function(data, status, headers, config) {
-            //     // console.log(data);
-            //     alert('网络连接错误或服务器异常！');
-            // }); 
-            $http({
-                  method: 'GET',
-                  url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
-              }).
-              success(function(data, status, headers, config) {
-                  console.log(data);
-                  // 微名片编辑状态：
-                  // 0  完全没有编辑过微名片
-                  // 1  已经编辑过微名片
-                  // 2  未编辑，但已经生成微名片数据（上传过头像）
-                  // 其中1和2两个状态需要走更新操作（DataUpdate），状态0走插入操作（DataInsert）
-
-                  if(data.s == 0){
-                    // $window.location.href = '#/card?session='+vm.sess;
-                    vm.getUserData();
-                  }else if(data.s == 1){
-                    $window.location.href = '#/card3?session='+vm.sess;
-                  }else if(data.s == 2){
-                    vm.state = 'do';
-                    vm.getUserData();
-                  }
-              }).
-              error(function(data, status, headers, config) {
-                  // console.log(data);
-                  alert('网络连接错误或服务器异常！');
-              }); 
-          }
         }
+       
+        // vm.checkCardState = function(){
+        //   if(vm.state == 'do'){
+        //     $http({
+        //         method: 'GET',
+        //         url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+        //     }).
+        //     success(function(data, status, headers, config) {
+        //         console.log(data);
+        //         if(data.nm == ''){
+        //           vm.CardID = data.cId;
+        //           // alert(vm.CardID);
+        //           $window.location.href = '#/card?session='+vm.sess+'&state=undo';
+        //         }else{
+        //           vm.CardID = data.cId;
+        //           // alert(vm.CardID);
+        //           // $window.location.href = '#/card?session='+vm.sess+'&state=do';
+        //           vm.user = {
+        //             HeadImg: data.hI,
+        //             NAME: data.nm,
+        //             Depart: data.dp,
+        //             Rank: data.rk,
+        //             QRCodeImg: data.QR,
+        //             Mobile: data.Mob,
+        //             Email: data.eml,
+        //             TelNo: data.tel,
+        //             WebSite: data.web,
+        //             Address: data.adr,
+        //             Region: data.rg,
+        //             Address_srh: data.adr,
+        //             Abstract: data.abs,
+        //             Introduction: data.itd
+        //           }
+        //           vm.choosePic = data.hI;
+        //           vm.isServerData = true;
+        //           vm.head = vm.transferUrl+vm.user.HeadImg;
+        //           console.log(vm.head);
+        //           setTimeout(function() {
+        //             vm.initCropper();
+        //             vm.isHeadUpload = true;
+        //             vm.isQrcodeUpload = true;
+        //           }, 300);
+        //           // console.log(vm.user);
+        //           // vm.uploadFile();
+        //           // vm.uploadQrcode();
+        //         }
+        //     }).
+        //     error(function(data, status, headers, config) {
+        //         // console.log(data);
+        //         alert('网络连接错误或服务器异常！');
+        //     }); 
+        //   } else{
+        //     // $http({
+        //     //     method: 'GET',
+        //     //     url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+        //     // }).
+        //     // success(function(data, status, headers, config) {
+        //     //   console.log(data);
+        //     //   vm.CardID = data.cId; 
+        //     //   // alert(vm.CardID);
+        //     // }).
+        //     // error(function(data, status, headers, config) {
+        //     //     // console.log(data);
+        //     //     alert('网络连接错误或服务器异常！');
+        //     // }); 
+        //     $http({
+        //           method: 'GET',
+        //           url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
+        //       }).
+        //       success(function(data, status, headers, config) {
+        //           console.log(data);
+        //           // 微名片编辑状态：
+        //           // 0  完全没有编辑过微名片
+        //           // 1  已经编辑过微名片
+        //           // 2  未编辑，但已经生成微名片数据（上传过头像）
+        //           // 其中1和2两个状态需要走更新操作（DataUpdate），状态0走插入操作（DataInsert）
+
+        //           if(data.s == 0){
+        //             // $window.location.href = '#/card?session='+vm.sess;
+        //             vm.getUserData();
+        //           }else if(data.s == 1){
+        //             $window.location.href = '#/card3?session='+vm.sess;
+        //           }else if(data.s == 2){
+        //             vm.state = 'do';
+        //             vm.getUserData();
+        //           }
+        //       }).
+        //       error(function(data, status, headers, config) {
+        //           // console.log(data);
+        //           alert('网络连接错误或服务器异常！');
+        //       }); 
+        //   }
+        // }
        
 
 
-       vm.getUserData = function(){
-        $http({
-              method: 'GET',
-              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
-          }).
-          success(function(data, status, headers, config) {
-            console.log(data);
-            vm.CardID = data.cId; 
-            vm.user = {
-                    HeadImg: data.hI,
-                    NAME: '',
-                    Depart: '律师事务所',
-                    Rank: '律师',
-                    QRCodeImg: data.QR,
-                    Mobile: '86-10-12345678',
-                    Email: 'lawyer@askgreenstone.com',
-                    TelNo: '86-10-12345678',
-                    WebSite: 'www.askgreenstone.com',
-                    Address: '朝阳区三元桥时间国际4号楼',
-                    Region: '北京',
-                    Address_srh: '朝阳区三元桥时间国际4号楼',
-                    Abstract: '律师执业多年以来，长期担任企业法律常年法律顾问，服务客户包含XX等五百强企业。',
-                    Introduction: '投融资及资本市场、公司法、知识产权'
-                  }
-            vm.choosePic = data.hI;
-            vm.isServerData = true;
-            vm.head = vm.transferUrl+vm.user.HeadImg;
-            console.log(vm.head);
-            setTimeout(function() {
-              vm.initCropper();
-              vm.isHeadUpload = true;
-              vm.isQrcodeUpload = true;
-            }, 300);
-            console.log(vm.CardID);
-             // alert(vm.CardID);
-          }).
-          error(function(data, status, headers, config) {
-              // console.log(data);
-              alert('网络连接错误或服务器异常！');
-          }); 
-       }
+       // vm.getUserData = function(){
+       //  $http({
+       //        method: 'GET',
+       //        url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+       //    }).
+       //    success(function(data, status, headers, config) {
+       //      console.log(data);
+       //      vm.CardID = data.cId; 
+       //      vm.user = {
+       //              HeadImg: data.hI,
+       //              NAME: '',
+       //              Depart: '律师事务所',
+       //              Rank: '律师',
+       //              QRCodeImg: data.QR,
+       //              Mobile: '86-10-12345678',
+       //              Email: 'lawyer@askgreenstone.com',
+       //              TelNo: '86-10-12345678',
+       //              WebSite: 'www.askgreenstone.com',
+       //              Address: '朝阳区三元桥时间国际4号楼',
+       //              Region: '北京',
+       //              Address_srh: '朝阳区三元桥时间国际4号楼',
+       //              Abstract: '律师执业多年以来，长期担任企业法律常年法律顾问，服务客户包含XX等五百强企业。',
+       //              Introduction: '投融资及资本市场、公司法、知识产权'
+       //            }
+       //      vm.choosePic = data.hI;
+       //      vm.isServerData = true;
+       //      vm.head = vm.transferUrl+vm.user.HeadImg;
+       //      console.log(vm.head);
+       //      setTimeout(function() {
+       //        vm.initCropper();
+       //        vm.isHeadUpload = true;
+       //        vm.isQrcodeUpload = true;
+       //      }, 300);
+       //      console.log(vm.CardID);
+       //       // alert(vm.CardID);
+       //    }).
+       //    error(function(data, status, headers, config) {
+       //        // console.log(data);
+       //        alert('网络连接错误或服务器异常！');
+       //    }); 
+       // }
         // 图片裁切
         vm.initCropper = function() {
           vm.hiddenInitImg = true;
@@ -380,17 +485,22 @@ define(['App'], function(app) {
         vm.setEcardInfo = function(){
           console.log(vm.state);
           console.log(vm.CardID);
+          var data = [];
+          // if(vm.user.QRCodeImg == 'onlinelaw20160314185742'){
+          //   vm.user.QRCodeImg = ''
+          // }
+          for (var k in vm.user){
+            data.push({"cn":k,"cv":vm.user[k]})
+          };
+          console.log(data);
           if(vm.state == "do"){
             var fd = {
               "tn": "jlt_expmicrocard",
-              "cols": [],
+              "cols": data,
               "cds":[{
                 "cn": "CardID",
                 "cv": vm.CardID
               }]
-            };
-            for (var k in vm.user){
-              fd.cols.push({"cn":k,"cv":vm.user[k]})
             };
             console.log(fd);
             $http({
@@ -415,10 +525,7 @@ define(['App'], function(app) {
           }else{
             var fd = {
               "tn": "jlt_expmicrocard",
-              "cols": []
-            };
-            for (var k in vm.user){
-              fd.cols.push({"cn":k,"cv":vm.user[k]})
+              "cols": data
             };
             console.log(fd);
             $http({
@@ -442,34 +549,7 @@ define(['App'], function(app) {
         }
 
 
-         vm.setBasicInfo = function(){
-          //验证电话格式正确//验证邮箱格式正确//验证所有信息必须填写//提交到数据库保存
-          // $http({
-          //         method: 'GET',
-          //         async: false,
-          //         url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
-          //     }).
-          //     success(function(data, status, headers, config) {
-          //         console.log(data);
-          //         // 微名片编辑状态：
-          //         // 0  完全没有编辑过微名片
-          //         // 1  已经编辑过微名片
-          //         // 2  未编辑，但已经生成微名片数据（上传过头像）
-          //         // 其中1和2两个状态需要走更新操作（DataUpdate），状态0走插入操作（DataInsert）
-
-          //         if(data.s == 0){
-          //           // $window.location.href = '#/card?session='+vm.sess;
-          //           vm.state = 'undo';
-          //         }else if(data.s == 1){
-          //           vm.state = 'do';
-          //         }else if(data.s == 2){
-          //           vm.state = 'do';
-          //         }
-          //     }).
-          //     error(function(data, status, headers, config) {
-          //         // console.log(data);
-          //         alert('网络连接错误或服务器异常！');
-          //     }); 
+        vm.setBasicInfo = function(){
           $http({
               method: 'GET',
               async:false,
@@ -487,15 +567,15 @@ define(['App'], function(app) {
           console.log(vm.state);
           console.log(vm.CardID);
           vm.user.Address_srh = vm.user.Address;
-          if(!vm.isHeadUpload){
-            alert("请上传头像！");
-            return false;
-          }
+          // if(!vm.isHeadUpload){
+          //   alert("请上传头像！");
+          //   return false;
+          // }
 
-          if(!vm.isQrcodeUpload){
-            alert("请上传二维码！");
-            return false;
-          }
+          // if(!vm.isQrcodeUpload){
+          //   alert("请上传二维码！");
+          //   return false;
+          // }
 
           if(!vm.user.NAME){
             alert("请填写您的姓名！");
@@ -519,26 +599,12 @@ define(['App'], function(app) {
             alert("地址长度不能超过六十位字符！"); 
             return false;
           }
-
-          // if(vm.user.Abstract.length>140){
-          //   alert("简介长度不能超过一百四十位！"); 
-          //   return false;
-          // }
-
-          // if(vm.user.Depart.length>100){
-          //   alert("专业领域长度不能超过一百位！"); 
-          //   return false;
-          // }
-
-          // alert(vm.state);
-          // alert(vm.CardID);
           setTimeout(vm.setEcardInfo,300);
-          
         }
        
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.state = Common.getUrlParam('state');
+          vm.getIndexQrcode();
           vm.checkCardState();
         }
         init();

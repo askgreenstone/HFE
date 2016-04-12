@@ -27,6 +27,36 @@ define(['App'], function(app) {
             $window.location.href = '#/card?session='+vm.sess+'&state=do';
         }
         
+
+
+        // 获取微名片编辑状态：
+        // 0  完全没有编辑过微名片
+        // 1  已经编辑过微名片
+        // 2  未编辑，但已经生成微名片数据（上传过头像）
+        vm.checkCardState = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              // 微名片编辑状态：
+              // 0  完全没有编辑过微名片
+              // 1  已经编辑过微名片
+              // 2  未编辑，但已经生成微名片数据（上传过头像）
+              if(data.s == 1){
+                vm.getOwnUri();
+              }else{
+                $window.location.href = '#/card?session='+vm.sess;
+              }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('网络连接错误或服务器异常！');
+          });  
+        }
+        
+        // 获取微名片链接以及二维码
         vm.getOwnUri = function(){
             $http({
               method: 'GET',
@@ -76,7 +106,7 @@ define(['App'], function(app) {
         
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.getOwnUri();
+          vm.checkCardState();
         }
 
         init();

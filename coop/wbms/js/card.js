@@ -47,7 +47,7 @@ jQuery(function($){
                    $('#qrcode_box').hide();
                    $('#qrcode_preview').show();
                    $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
-                   if(data.QR == "onlinelaw20160314185742.jpg"){
+                   if(data.QR == "onlinelaw20160314185742.jpg" || data.QR.indexOf('MicWebQRCode')>-1){
                     qrcode = qrindex;
                    }else{
                     qrcode = data.QR;
@@ -103,7 +103,7 @@ jQuery(function($){
          if(data.QR){
            $('#qrcode_box').hide();
            $('#qrcode_preview').show();
-           if(data.QR == "onlinelaw20160314185742.jpg"){
+           if(data.QR == "onlinelaw20160314185742.jpg" || data.QR.indexOf('MicWebQRCode')>-1){
             qrcode = qrindex;
            }else{
             qrcode = data.QR;
