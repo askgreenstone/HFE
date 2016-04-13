@@ -358,6 +358,8 @@ define(['App'], function(app) {
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
             // console.log('f,r:'+f,r);
+            // console.log(f);
+            // return;
             if(!f){
               if(!vm.isServerData){
                 alert('请先选择图片！');
@@ -376,6 +378,7 @@ define(['App'], function(app) {
               alert('暂不支持gif！');
               return;
             }
+            Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -394,6 +397,7 @@ define(['App'], function(app) {
                     }
                 })
                 .success(function(data) {
+                    Common.getLoading(false);
                     console.log(data);
                     vm.user.HeadImg = data.on;
                     vm.head = vm.transferUrl+vm.user.HeadImg;
@@ -402,10 +406,15 @@ define(['App'], function(app) {
                     vm.state = 'do';
                     alert('上传成功');
                     console.log(vm.CardID);
-                    // $('#themeCropper').cropper('destroy');
+                    // document.getElementById("choose_file").innerHTML='<input type="file" id="choose_file" ng-model="vm.fileName"/>';   
+                    $('#themeCropper').cropper('destroy');
+                    setTimeout(function() {
+                      vm.initCropper();
+                    }, 300);
                 })
                 .error(function() {
                     // console.log('error');
+                    Common.getLoading(false);
                     alert('网络连接错误或服务器异常！');
                 });
             };
@@ -442,6 +451,7 @@ define(['App'], function(app) {
                 })
                 .error(function() {
                     // console.log('error');
+                    Common.getLoading(false); 
                     alert('网络连接错误或服务器异常！');
                 });
             };
@@ -450,6 +460,7 @@ define(['App'], function(app) {
         //裁切素材
         vm.clipSourceImg = function(name){
           console.log('name:'+name);
+          Common.getLoading(true);
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
@@ -466,6 +477,7 @@ define(['App'], function(app) {
                 }
             }).
             success(function(data, status, headers, config) {
+                Common.getLoading(false);
                 console.log(data);
                 if(data.c == 1000){
                   console.log('clipSourceImg success');
@@ -477,7 +489,9 @@ define(['App'], function(app) {
                 }
             }).
             error(function(data, status, headers, config) {
+                Common.getLoading(false);
                 console.log(data);
+                alert('网络连接错误或服务器异常！');
             });
         }
 

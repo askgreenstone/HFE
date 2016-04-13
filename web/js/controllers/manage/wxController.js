@@ -65,6 +65,7 @@ define(['App'], function(app) {
                 }else if(data.authStatus == 1){
                   vm.authorReault = '授权成功';
                   vm.authorFlag = false;
+                  vm.getImgTextReply();
                 }
               }
           }).
@@ -153,7 +154,6 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.getImgTextReply();
           vm.checkAuthorParam();
           vm.getWxAuthorResult();
         }
