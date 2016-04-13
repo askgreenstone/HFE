@@ -153,9 +153,9 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.getWxAuthorResult();
-          vm.checkAuthorParam();
           vm.getImgTextReply();
+          vm.checkAuthorParam();
+          vm.getWxAuthorResult();
         }
 
         init();
