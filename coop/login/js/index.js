@@ -11,8 +11,8 @@ Zepto(function($){
   	if(!userphone){
   		alert('请输入手机号码！');
   		return;
-  	}else if(!userphone.match(/^1[358]{1}[0-9]{9}$/)){
-      alert('手机号码格式不正确');
+  	}else if(userphone.length != 11){
+      alert('电话号码位数不正确');
       return;
     }else if(!userpwd){
   		alert('请输入密码！');
