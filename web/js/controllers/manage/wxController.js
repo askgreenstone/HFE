@@ -60,10 +60,9 @@ define(['App'], function(app) {
               // 授权状态  authStatus ：0 授权失败1 授权成功
               if(data.c == 1000){
                 if(data.authStatus == 0){
-                  vm.authorReault = '授权失败';
                   vm.authorFlag = true;
                 }else if(data.authStatus == 1){
-                  vm.authorReault = '授权成功';
+                  vm.authorReault = data.nickName;
                   vm.authorFlag = false;
                   vm.getImgTextReply();
                 }

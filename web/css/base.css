@@ -708,6 +708,13 @@ input[type=checkbox], input[type=radio] {
     font-size: 16px;
     cursor: pointer;
 }
+.af_btn .authorReault{
+  margin: 20px;
+}
+.af_btn .authorReault i{
+  color: red;
+  font-style: normal;
+}
 .af_btn span:last-child{
    background-color: #2ab6ff;
 }
