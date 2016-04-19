@@ -79,7 +79,7 @@
 						<span>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</span>
 						<span>{{x.ncu}}</span>
 						<span>
-							<img ng-click="vm.updateArticle(x.nId)" src="image/manage/edit.png" width="20" height="20">
+							<img ng-show="vm.editState" ng-click="vm.updateArticle(x.nId)" src="image/manage/edit.png" width="20" height="20">
 							<img ng-click="vm.deleteArticle(x.nId)" src="image/manage/delete.png" width="20" height="20">
 							<img ng-click="vm.publishArticle(x.nId)" ng-if="x.ns=='0'" src="image/manage/publish.png" width="20" height="20">
 						</span>

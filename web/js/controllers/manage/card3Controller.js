@@ -58,49 +58,26 @@ define(['App'], function(app) {
         
         // 获取微名片链接以及二维码
         vm.getOwnUri = function(){
-            $http({
-              method: 'GET',
-              url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
-            }).
-            success(function(data, status, headers, config) {
-              console.log(data);
-              // 状态码  0  未完成  1  已完成
-              if(data.c == 1000){
-                if(data.s == 0){
-                    $window.location.href = '#/card?session='+vm.sess;
-                    vm.head = 'image/placeholder.png';
-                    setTimeout(function(){
-                        vm.initCropper();
-                    },300)
-                }else if(data.s == 1){
-                   $http({
-                       method: 'GET',
-                       url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
-                   }).
-                   success(function(data, status, headers, config) {
-
-                       console.log(data);
-                       if(data.c == 1000){
-                         vm.ownUri = data.uri;
-                         vm.qrcode = vm.transferurl+data.QR;
-                         vm.url = data.mwUrl;
-                         console.log(vm.url);
-                         var iframe = '<iframe src='+vm.url+' width="320" height="568"></iframe>';
-                         $("div.mb_left").append(iframe);    
-                       }
-                       
-                   }).
-                   error(function(data, status, headers, config) {
-                       // console.log(data);
-                       alert('网络连接错误或服务器异常！');
-                   }); 
-                }
-              } 
-            }).
-            error(function(data, status, headers, config) {
-              // console.log(data);
-              alert('网络连接错误或服务器异常！');
-            });
+          $http({
+               method: 'GET',
+               url: GlobalUrl+'/exp/CreateMicCardQrCode.do?session='+vm.sess
+           }).
+           success(function(data, status, headers, config) {
+               console.log(data);
+               if(data.c == 1000){
+                 vm.ownUri = data.ownUri;
+                 vm.qrcode = vm.transferurl+data.qrn;
+                 vm.url = data.url;
+                 console.log(vm.url);
+                 var iframe = '<iframe src='+vm.url+' width="320" height="568"></iframe>';
+                 $("div.mb_left").append(iframe);    
+               }
+               
+           }).
+           error(function(data, status, headers, config) {
+               // console.log(data);
+               alert('网络连接错误或服务器异常！');
+           }); 
         }
 
         

@@ -29,7 +29,7 @@ var ArticleDetail = React.createClass({
     }
     this.setState({uri:ownUri});
     if(nid){
-      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri;
+      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid;
     }else{
       newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
     }
@@ -65,7 +65,7 @@ var ArticleDetail = React.createClass({
     }
     this.setState({uri:ownUri});
     if(nid){
-    	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri;
+    	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid;
     }else{
     	newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
     }
@@ -129,7 +129,7 @@ var ArticleDetail = React.createClass({
     }
     this.setState({uri:ownUri});
     if(nid){
-      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri;
+      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid;
     }else{
       newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
     }

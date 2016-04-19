@@ -107,15 +107,17 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           });
         };
 
-        vm.queryContentState = function(nid){
+        vm.queryContentState = function(nid,ntid){
           // alert(nid);
+          var newUrl = '';
+          if(ntid){
+            newUrl = GlobalUrl+'/exp/QueryNewsContent.do?nId='+nid+'&session='+vm.sess+'&ntId='+ntid;
+          }else{
+            newUrl = GlobalUrl+'/exp/QueryNewsContent.do?nId='+nid+'&session='+vm.sess;
+          }
           $http({
                 method: 'GET',
-                url: GlobalUrl+'/exp/QueryNewsContent.do',
-                params: {
-                    nId:nid,
-                    session:vm.sess
-                },
+                url: newUrl,
                 data: {
                     
                 }
@@ -293,7 +295,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
           if(vm.nid){
             vm.titleFlag = '修改文章';
-            vm.queryContentState(Common.getUrlParam('nid'));
+            vm.queryContentState(Common.getUrlParam('nid'),decodeURI(Common.getUrlParam('ntId')));
           }
 
           vm.getUMThemeJson();

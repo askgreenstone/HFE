@@ -47,11 +47,12 @@ jQuery(function($){
                    $('#qrcode_box').hide();
                    $('#qrcode_preview').show();
                    $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
-                   if(data.QR == "onlinelaw20160314185742.jpg" || data.QR.indexOf('MicWebQRCode')>-1){
-                    qrcode = qrindex;
-                   }else{
-                    qrcode = data.QR;
-                   }
+                   // if(data.QR == "onlinelaw20160314185742.jpg" || data.QR.indexOf('MicWebQRCode')>-1){
+                   //  qrcode = qrindex;
+                   // }else{
+                   //  qrcode = data.QR;
+                   // }
+                   qrcode = data.QR;
                  }else{
                     qrcode = qrindex;
                  }
@@ -105,11 +106,12 @@ jQuery(function($){
          if(data.QR){
            $('#qrcode_box').hide();
            $('#qrcode_preview').show();
-           if(data.QR == "onlinelaw20160314185742.jpg" || data.QR.indexOf('MicWebQRCode')>-1){
-            qrcode = qrindex;
-           }else{
-            qrcode = data.QR;
-           }
+           // if(data.QR == "onlinelaw20160314185742.jpg" || data.QR.indexOf('MicWebQRCode')>-1){
+           //  qrcode = qrindex;
+           // }else{
+           //  qrcode = data.QR;
+           // }
+           qrcode = data.QR;
            // $('#qrcode_preview').attr('src',Common.globalTransferUrl() + data.QR);
          }else{
             qrcode = qrindex;
