@@ -11,7 +11,7 @@
 					<img src="image/manage/micro.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微网站首页设置</a></span>
 				</li>
-				<li ng-click="vm.menuLink('card')">
+				<li ng-click="vm.menuLink('card3')">
 					<img src="image/manage/card.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微名片信息</a></span>
 				</li>
@@ -55,9 +55,9 @@
 				{{vm.selectChange}}
 				<input type="file" id="choose_file" ng-model="vm.userLogo"/>
 			</div>
-			<!-- <div class="scanBg"  ng-click="vm.getLocationUrl()">
-				效果图预览
-			</div> -->
+			<div class="clearLogo" ng-show="vm.logoState" ng-click="vm.clearLogo()">
+				清除logo
+			</div>
 			<div class="step2_box step3_box">
 				<!-- <div class="step3_left">
 					<div class="step3_imgBox">

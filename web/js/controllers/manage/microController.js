@@ -100,7 +100,6 @@ define(['App'], function(app) {
           vm.getMicroStatus();
           vm.getMicroImg();
         }
-
         init();
     };
 

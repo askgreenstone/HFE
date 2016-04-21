@@ -7,7 +7,7 @@
 					<img src="image/manage/micro.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微网站首页设置</a></span>
 				</li>
-				<li ng-click="vm.menuLink('card')">
+				<li ng-click="vm.menuLink('card3')">
 					<img src="image/manage/card.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微名片信息</a></span>
 				</li>
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="af_btn author_btn" ng-if="!vm.authorFlag">
-				<span>{{vm.authorReault}}</span>
+				<div class="authorReault">已授权公众号：<i>{{vm.authorReault}}</i></div>
 				<!-- 设置时间段自动回复暂时不做 -->
 				<!-- <div class="wx_auto_reply">
 					<h3>自动回复<i>不方便线上回复用户时，可以设置微信公众号的自动回复</i></h3>

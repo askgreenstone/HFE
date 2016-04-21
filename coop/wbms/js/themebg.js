@@ -118,9 +118,9 @@ function uploadFile(state){
                 Common.getLoading(false);
                 console.log(data);
                 if(state == 'scan'){
-                  // window.location.href = 'themescan.html?session='+sess;
+                  window.location.href = 'themescan.html?session='+sess;
                 }else if(state == 'next'){
-                  // window.location.href = 'card.html?session='+sess;
+                  window.location.href = 'card.html?session='+sess;
                 }
                 
               },

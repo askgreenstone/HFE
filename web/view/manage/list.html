@@ -15,7 +15,7 @@
 					<img src="image/manage/micro.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微网站首页设置</a></span>
 				</li>
-				<li ng-click="vm.menuLink('card')">
+				<li ng-click="vm.menuLink('card3')">
 					<img src="image/manage/card.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">微名片信息</a></span>
 				</li>
@@ -79,7 +79,7 @@
 						<span>{{x.nct|date:"yyyy-MM-dd HH:mm:ss"}}</span>
 						<span>{{x.ncu}}</span>
 						<span>
-							<img ng-click="vm.updateArticle(x.nId)" src="image/manage/edit.png" width="20" height="20">
+							<img ng-show="vm.editState" ng-click="vm.updateArticle(x.nId)" src="image/manage/edit.png" width="20" height="20">
 							<img ng-click="vm.deleteArticle(x.nId)" src="image/manage/delete.png" width="20" height="20">
 							<img ng-click="vm.publishArticle(x.nId)" ng-if="x.ns=='0'" src="image/manage/publish.png" width="20" height="20">
 						</span>

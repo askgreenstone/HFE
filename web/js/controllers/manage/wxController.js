@@ -57,12 +57,15 @@ define(['App'], function(app) {
           }).
           success(function(data, status, headers, config) {
               console.log(data);
+              // 授权状态  authStatus ：0 授权失败1 授权成功
               if(data.c == 1000){
-                vm.authorReault = '授权成功';
-                vm.authorFlag = false;
-              }else if(data.c == 1014){
-                vm.authorReault = '授权失败';
-                vm.authorFlag = true;
+                if(data.authStatus == 0){
+                  vm.authorFlag = true;
+                }else if(data.authStatus == 1){
+                  vm.authorReault = data.nickName;
+                  vm.authorFlag = false;
+                  vm.getImgTextReply();
+                }
               }
           }).
           error(function(data, status, headers, config) {
@@ -150,9 +153,8 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.getWxAuthorResult();
           vm.checkAuthorParam();
-          vm.getImgTextReply();
+          vm.getWxAuthorResult();
         }
 
         init();

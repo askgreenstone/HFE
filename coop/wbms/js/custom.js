@@ -56,7 +56,7 @@ Zepto(function($){
       success: function(data) {
                 console.log(data);
                 if(data.c == 1000){
-                  window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
+                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
                 }
               },
       error: function(data, status, headers, config) {
