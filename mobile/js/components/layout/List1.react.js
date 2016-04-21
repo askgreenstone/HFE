@@ -231,6 +231,7 @@ var List1 = React.createClass({
               <b><img src={this.state.curSrc[i]} width="" height="100%"/></b>
               <span>{item.ntit.length>12?(item.ntit).substring(0,12)+'...':item.ntit}</span>
               <p>{item.na?(item.na.length>30?(item.na).substring(0,30)+'...':item.na):'暂无摘要'}</p>
+              <em className={item.refUrl?'vip':''}><img src="image/vip.png"/></em>
             </li>
        );
       }

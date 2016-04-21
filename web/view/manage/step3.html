@@ -55,9 +55,9 @@
 				{{vm.selectChange}}
 				<input type="file" id="choose_file" ng-model="vm.userLogo"/>
 			</div>
-			<!-- <div class="scanBg"  ng-click="vm.getLocationUrl()">
-				效果图预览
-			</div> -->
+			<div class="clearLogo" ng-show="vm.logoState" ng-click="vm.clearLogo()">
+				清除logo
+			</div>
 			<div class="step2_box step3_box">
 				<!-- <div class="step3_left">
 					<div class="step3_imgBox">

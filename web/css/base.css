@@ -1304,7 +1304,7 @@ input[type=checkbox], input[type=radio] {
 .fix_center{
   text-align: center;
 }
-.mateLib,.changeBg,.scanBg{
+.mateLib,.changeBg,.scanBg,.clearLogo{
   width: 100px;
   height: 40px;
   background: #3bbffc;
@@ -1323,6 +1323,12 @@ input[type=checkbox], input[type=radio] {
   margin-right: 118px;
   margin-top: -40px;
   margin-bottom: 10px;
+}
+.clearLogo{
+  margin-left: 35px;
+  margin-top: 60px;
+  position: absolute;
+  background: #F23333;
 }
 .changeBg input{
   position: absolute;

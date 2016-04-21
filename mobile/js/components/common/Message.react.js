@@ -3,6 +3,7 @@ var React = require('react');
 var Message = React.createClass({
 	hideShadow: function(){
   	$('.base_shadow').hide();
+    window.location.reload();
 	},
 	componentWillMount:function(){
     $('.base_shadow').height(document.body.scrollHeight);

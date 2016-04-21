@@ -14,6 +14,20 @@
     float: left;
     background-color: #fff;
     width: 100%;
+    position: relative;
+}
+.article_list li em{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 10%;
+    display:none;
+}
+.article_list li em.vip{
+    display: block;
+}
+.article_list li em img{
+    width: 100%;
 }
 .article_list h3{
     font-size: @xl-size;
@@ -46,14 +60,14 @@
     // margin: 4%;
 }
 .article_list span{
-    font-size: @m-size;
+    font-size: @xl-size;
     color: @black10;
     margin: 4% 0 4% 0;
     display: inline-block;
 }
 .article_list p{
     color: @black06;
-    // font-size: @s-size;
+    font-size: @m-size;
     line-height: 20px;
     padding-right: 5px;
 }

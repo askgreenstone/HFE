@@ -13,6 +13,8 @@ define(['App'], function(app) {
         vm.hiddenInitImg = false;//裁图初始化之后置为true
         vm.selectChange = '';
         vm.goToNext = true;
+        vm.OwnerUri = '';
+        vm.logoState = false;   //logo存在为true，不存在为false 
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -141,6 +143,7 @@ define(['App'], function(app) {
                     // vm.user.QRCodeImg = data.on;
                     // vm.isQrcodeUpload = true;
                     vm.userLogo = vm.transferUrl+data.on;
+                    vm.logoState = true;
                     vm.selectChange = '更换logo';
                     vm.goToNext = false;
                 })
@@ -152,98 +155,46 @@ define(['App'], function(app) {
             r.readAsDataURL(f);
         }
 
-        vm.refreshUrl =function(){
 
+
+        // 清除logo
+        vm.clearLogo = function(){
+          var fd = {
+                "tn": "jlt_micwebinfo",
+                "cds": [{
+                  "cn": "OwnerUri",
+                  "cv": vm.OwnerUri
+                }],
+                "cols": [{
+                  "cn": "MicLogo",
+                  "cv": ""
+                }]
+              }
+          console.log(fd);
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/DataUpdate.do?session='+vm.sess,
+                params: {},
+                data: fd
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.getServerLogo();
+                  vm.getLocationUrl();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log('error:'+data);
+                alert('网络连接错误或服务器异常！');
+            });
         }
 
-        // vm.uploadFile = function() {
-        //   // if(vm.jumpFlag){
-        //   //   $window.location.href = '#/step4?session='+vm.sess;
-        //   //   return;
-        //   // }
-        //   console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
-        //     var f = document.getElementById('choose_file').files[0],
-        //         r = new FileReader();
-        //     if(!f){
-        //       if(!vm.isServerData){
-        //         alert('请先选择图片！');
-        //         return;
-        //       }
-        //       else{
-        //         // if(!vm.choosePic){
-        //         //   $window.location.href = '#/step4?session='+vm.sess;
-        //         //   return;
-        //         // }
-        //         vm.clipSourceImg(vm.choosePic);
-        //         $('#step3Cropper').cropper('destroy');
-        //         $window.location.href = '#/step4?session='+vm.sess;
-        //         return;
-        //       }
-        //     }
-        //     //gif图片不被裁切
-        //     if(f.type.toString().toLowerCase().indexOf('gif')>-1){
-        //       alert('暂不支持gif！');
-        //       return;
-        //     }
-        //     Common.getLoading(true);
-        //     r.onloadend = function(e) {
-        //         var data = e.target.result;
-        //         var fd = new FormData();
-        //         fd.append('ThirdUpload', f);
-        //         fd.append('filename', f.name);
-        //         fd.append('w', vm.imgw);
-        //         fd.append('h', vm.imgh);
-        //         fd.append('x', vm.imgx);
-        //         fd.append('y', vm.imgy);
-        //         // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
-        //         $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=5', fd, {
-        //             transformRequest: angular.identity,
-        //             headers: {
-        //                 'Content-Type': undefined
-        //             }
-        //         })
-        //         .success(function(data) {
-        //             Common.getLoading(false);
-        //             console.log(data);
-        //             $('#step3Cropper').cropper('destroy');
-        //             // $window.location.href = '#/step4?session='+vm.sess;
-        //         })
-        //         .error(function() {
-        //             Common.getLoading(false);
-        //             // console.log('error');
-        //             alert('网络连接错误或服务器异常！');
-        //         });
-        //     };
-        //     r.readAsDataURL(f);
-        // }
+          
 
-        //素材库：1，背景图；2，logo
-        // vm.getSourceImage = function(){
-        //   $http({
-        //         method: 'GET',
-        //         url: GlobalUrl+'/exp/QueryImgMaterial.do',
-        //         params: {
-        //             session:vm.sess,
-        //             it:2
-        //         },
-        //         data: {
-                    
-        //         }
-        //     }).
-        //     success(function(data, status, headers, config) {
-        //         console.log(data);
-        //         if(data.c == 1000){
-        //           vm.sourceImage = data.il;
-        //         }
-        //     }).
-        //     error(function(data, status, headers, config) {
-        //         // console.log(data);
-        //         alert('网络连接错误或服务器异常！');
-        //     });
-        // }
-
-        //查询用户上传背景图片
-        vm.getServerBg = function(){
+        
+        //查询用户上传logo
+        vm.getServerLogo = function(){
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebImgs.do',
@@ -264,10 +215,12 @@ define(['App'], function(app) {
                     vm.choosePic = data.l;
                     vm.selectChange = '更换logo';
                     vm.goToNext = false;
+                    vm.logoState = true;
                   }else{
                     vm.userLogo = 'image/placeholder.png';
                     vm.choosePic = '';
-                    vm.selectChange = '选择logo'
+                    vm.selectChange = '选择logo';
+                    vm.logoState = false;
                   }
 
                   //延迟初始化裁图插件
@@ -363,6 +316,7 @@ define(['App'], function(app) {
                 if(data.c == 1000){
                   // vm.qrSrc = vm.transferUrl+data.qrn+'?'+Date.parse(new Date());
                   // vm.inputUrl = data.url;
+                  vm.OwnerUri = data.ownUri;
                   $('#iframe_src').empty();
                   $('#iframe_src').append('<iframe  src="'+data.url+'" width="320" height="545"></iframe>');
 
@@ -376,7 +330,7 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          vm.getServerBg();
+          vm.getServerLogo();
           vm.getLocationUrl();
           // vm.getSourceImage();
         }
