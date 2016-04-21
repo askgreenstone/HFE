@@ -28,7 +28,7 @@
                 <li><a name="docs" href="javascript:void(0);" onclick="gotoWebsite('','file')">个人文档</a></li>
                 <li><a name="home" href="javascript:void(0);" onclick="gotoWebsite('','wkstation')">个人工作室</a></li>
                 <li><a name="circle" href="javascript:void(0);" onclick="gotoWebsite('','circle')">绿 石 圈</a></li>
-                <li><a name="active-actmode-actexpired-manage-add-card-data-editor-list-micro-micro1-micro2-photo-preview-single-step1-step2-step3-step4-step5-wx" href="javascript:void(0);" onclick="gotoWebsite('true','active')">微网站管理</a></li>
+                <li id="micro_manage"><a name="active-actmode-actexpired-manage-add-card-data-editor-list-micro-micro1-micro2-photo-preview-single-step1-step2-step3-step4-step5-wx" href="javascript:void(0);" onclick="gotoWebsite('true','active')">微网站管理</a></li>
             </ul>
             <div class="logout" onclick="logout()">注销登录</div>
         </div>
@@ -86,7 +86,16 @@ jQuery(document).ready(function($) {
             src: 'image/logo.png'
         });
     });
+
+    //pc 账号密码登录，则隐藏其余菜单，仅保留微网站管理
+    // checkLinkOrigin();
 });
+
+function checkLinkOrigin(){
+  if(localStorage.getItem('URLOrigin')){
+    $('#micro_manage').siblings().hide();
+  }
+}
 
 function gotoWebsite(news, which) {
     var sess = getSession();
@@ -137,7 +146,9 @@ function logout() {
 }
 
 function checkUrl(){
-    if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+    if(window.location.href.indexOf('localhost')>-1){
+        return 'http://localhost:8080/';
+    }else if(window.location.href.indexOf('t-dist')>-1){
         return 'http://t-dist.green-stone.cn/';
     }else{
         return 'http://dist.green-stone.cn/';
