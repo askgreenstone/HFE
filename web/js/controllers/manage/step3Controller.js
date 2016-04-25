@@ -104,7 +104,7 @@ define(['App'], function(app) {
                         if (/^image\/\w+$/.test(file.type)) {
                             console.log(file);
                             vm.uploadLogo();
-                            vm.getLocationUrl();
+                            // vm.getLocationUrl();
                             // $('#userLogo').attr('src',file);
                         } else {
                             alert('请选择图片文件！');
@@ -147,6 +147,7 @@ define(['App'], function(app) {
                     vm.logoState = true;
                     vm.selectChange = '更换logo';
                     vm.goToNext = false;
+                    vm.getLocationUrl();
                 })
                 .error(function() {
                     // console.log('error');
@@ -183,7 +184,7 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.getServerLogo();
-                  vm.getLocationUrl();
+                  // vm.getLocationUrl();
                 }
             }).
             error(function(data, status, headers, config) {
@@ -218,11 +219,13 @@ define(['App'], function(app) {
                     vm.selectChange = '更换logo';
                     vm.goToNext = false;
                     vm.logoState = true;
+                    vm.getLocationUrl();
                   }else{
                     vm.userLogo = 'image/placeholder.png';
                     vm.choosePic = '';
                     vm.selectChange = '选择logo';
                     vm.logoState = false;
+                    vm.getLocationUrl();
                   }
 
                   //延迟初始化裁图插件
@@ -333,7 +336,7 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.getServerLogo();
-          vm.getLocationUrl();
+          // vm.getLocationUrl();
           // vm.getSourceImage();
         }
 
