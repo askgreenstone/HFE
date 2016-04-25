@@ -3,15 +3,18 @@ var React = require('react');
 var Message = React.createClass({
 	hideShadow: function(){
   	$('.base_shadow').hide();
-    window.location.reload();
 	},
+  windowReload: function(){
+    $('.base_shadow').hide();
+    window.location.reload();
+  },
 	componentWillMount:function(){
     $('.base_shadow').height(document.body.scrollHeight);
   }, 
   render: function() {
     return (
       <div className="base_shadow" onClick={this.hideShadow}>
-      	<div className="base_alert">
+      	<div className="base_alert" onClick={this.windowReload}>
       		<img src="image/warn.png" width="35" height="35"/>
       		<span></span>
       	</div>

@@ -187,10 +187,11 @@ var Index003=React.createClass({
 						<ul className="theme3_main_list">
               {navNodes}
 						</ul>
-            <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
+            
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index003"/>
 					</div>
+          <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
           <Message/>
           <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
           <div id="limit_password_box" title="" value="" name="" type="">
