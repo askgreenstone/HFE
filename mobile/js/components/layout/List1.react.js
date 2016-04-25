@@ -245,7 +245,6 @@ var List1 = React.createClass({
         <p>&nbsp;</p>
         <div style={{'display':this.state.hasMore?'block':'none'}} className="myListLoader" onClick={this.getPageInfo}>
         <img src="image/loading.png" width="18" height="18"/>点击加载更多</div>
-        <div style={{'display':this.state.hasMore?'none':'block'}} className="myListLoader">没有更多数据了</div>
         <p>&nbsp;</p>
         <Message/>
         <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} type="articleList">
