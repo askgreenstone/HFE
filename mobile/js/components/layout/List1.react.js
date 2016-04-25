@@ -3,6 +3,7 @@ var CommonMixin = require('../Mixin');
 var Message = require('../common/Message.react');
 var Password = require('../common/Password.react');
 
+
 var number = 1;
 var List1 = React.createClass({
   mixins:[CommonMixin],
