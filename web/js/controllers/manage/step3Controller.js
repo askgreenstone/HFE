@@ -124,7 +124,7 @@ define(['App'], function(app) {
               alert('请先选择文件！');
               return;
             } 
-
+            Common.getLoading(true);
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
@@ -140,6 +140,7 @@ define(['App'], function(app) {
                 })
                 .success(function(data) {
                     console.log(data);
+                    Common.getLoading(false);
                     // vm.user.QRCodeImg = data.on;
                     // vm.isQrcodeUpload = true;
                     vm.userLogo = vm.transferUrl+data.on;
@@ -149,6 +150,7 @@ define(['App'], function(app) {
                 })
                 .error(function() {
                     // console.log('error');
+                    Common.getLoading(false);
                     alert('网络连接错误或服务器异常！');
                 });
             };
