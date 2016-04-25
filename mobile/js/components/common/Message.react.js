@@ -10,8 +10,8 @@ var Message = React.createClass({
   }, 
   render: function() {
     return (
-      <div className="base_shadow" onClick={this.hideShadow}>
-      	<div className="base_alert">
+      <div className="base_shadow">
+      	<div className="base_alert" onClick={this.hideShadow}>
       		<img src="image/warn.png" width="35" height="35"/>
       		<span></span>
       	</div>
