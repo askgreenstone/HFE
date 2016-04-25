@@ -222,7 +222,7 @@ var List1 = React.createClass({
   render: function() {
     var legend;
     if(this.props.legend){
-      legend = <h3>最新文章</h3>;
+      legend = '<h3>最新文章</h3>';
     }
     var articleNodes = this.state.articles.map(function(item,i){
      if(item.ns == '1'){
@@ -243,7 +243,9 @@ var List1 = React.createClass({
           {articleNodes}
         </ul>
         <p>&nbsp;</p>
-        <div style={{'display':this.state.hasMore?'block':'none'}} className="myListLoader" onClick={this.getPageInfo}>查看更多</div>
+        <div style={{'display':this.state.hasMore?'block':'none'}} className="myListLoader" onClick={this.getPageInfo}>
+        <img src="image/loading.png" width="18" height="18"/>点击加载更多</div>
+        <div style={{'display':this.state.hasMore?'none':'block'}} className="myListLoader">没有更多数据了</div>
         <p>&nbsp;</p>
         <Message/>
         <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} type="articleList">

@@ -5,8 +5,8 @@ var Loader = require('./Loader.react');
 var ListItem = React.createClass({
     render: function() {
         return <div className="infinite-list-item">
-        List Item {this.props.num}
-        </div>;
+                List Item {this.props.num}
+               </div>;
     }
 });
 
