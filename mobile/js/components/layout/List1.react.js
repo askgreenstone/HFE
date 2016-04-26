@@ -226,7 +226,7 @@ var List1 = React.createClass({
       legend = '<h3>最新文章</h3>';
     }
     var articleNodes = this.state.articles.map(function(item,i){
-     if(item.refUrl && item.refUrl.indexOf('dist')>-1){
+     if(item.refUrl && item.refUrl.indexOf('dist')>-1 && item.refUrl.indexOf('index')>-1){
        if(item.ns == '1'){
         return(
               <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.ntId,item.nId,item.refUrl)}>
