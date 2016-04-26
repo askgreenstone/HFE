@@ -9,9 +9,10 @@ var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
+var MobileBlocks = require('../../common/Mobilyblocks.react');
 
 require('../../../../css/theme/theme017.less');
-var Index016 = React.createClass({
+var Index017 = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
     return {
@@ -155,11 +156,18 @@ var Index016 = React.createClass({
     this.staticWebPV(1);
     // this.getUserList();
     $('body').css({'background':'#ebebeb'});
+    $('.nature').mobilyblocks({
+      trigger: 'click', //触发的方式
+      direction: 'counter', //动画方向
+      duration:500,  //动画持续时间
+      zIndex:50,  //z-inde值
+      widthMultiplier:1.15  //宽度的倍数
+    });
   },
   componentWillMount: function(){
-    this.getBgLogo();
+    // this.getBgLogo();
     console.log('bg:'+this.state.bg);
-    this.getWxShareInfo();
+    // this.getWxShareInfo();
   },
 	render:function(){
     var navNodes = this.state.navArrs.map(function(item,i){
@@ -176,26 +184,22 @@ var Index016 = React.createClass({
     }.bind(this));
 		return (
 				<div>
-					<div className="theme016_container">
-            <img src={global.img+this.state.bg} width="100%"/>
-            <div className="logo" style={{display:this.state.logo?'block':'none'}}>
-              <img src={global.img+this.state.logo}/>
+					<div id="content">
+            <div className="nature">
+              <h1>主菜单</h1>
+              <ul className="reset">
+                <li><a href="http://www.jqcool.net">jQ酷</a></li>
+                <li><a href="http://www.jqcool.net/jquery-download">jqeury下载</a></li>
+                <li><a href="http://www.jqcool.net/plug">jquery插件</a></li>
+                <li><a href="http://www.jqcool.net/jquery-course">jquery教程</a></li>
+                <li><a href="http://www.jqcool.net/adminnote">站长随记</a></li>
+                <li><a href="http://www.jqcool.net/guestbook">留言</a></li>
+                <li><a href="http://www.jqcool.net">jQ大神</a></li>
+              </ul>
             </div>
-            <ul className="theme016_menu_list">
-               {navNodes}
-            </ul>
           </div>
-          <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
-					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={global.img+this.state.shareImg} target="index016"/>
-        <Message/>
-        <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
-        <div id="limit_password_box" title="" value="" name="" type="">
-          <Password display="true"/>
-        </div>
-        <Toolbar/>
 				</div>
 			)
 	}
 })
-module.exports = Index016;
+module.exports = Index017;

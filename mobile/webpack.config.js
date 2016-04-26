@@ -12,7 +12,8 @@ console.log(__dirname);
 var deps = [
     'react/dist/react.min.js',
     'jquery/dist/jquery.min.js',
-    'underscore/underscore-min.js'
+    'underscore/underscore-min.js',
+    'underscore/mobilyblocks.js'
 ];
 //重定向文件
 var alias= {
