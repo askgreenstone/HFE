@@ -53,6 +53,7 @@ var Index015 = require('./components/MicroWeb/skin/Index015.react');
 var Index016 = require('./components/MicroWeb/skin/Index016.react');
 
 //皮肤十七（圆心旋转）
+var Index017 = require('./components/MicroWeb/skin/Index017.react');
 
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
@@ -86,6 +87,7 @@ ReactDOM.render((
     <Route path="/index014" component={Index014}/>
     <Route path="/index015" component={Index015}/>
     <Route path="/index016" component={Index016}/>
+    <Route path="/index017" component={Index017}/>
 
 
 

@@ -1,4 +1,5 @@
 //特殊需求，添加了英文版本微名片
+// 李玉龙英文微名片
 var React = require('react');
 var CommonMixin = require('../../Mixin');
 var wx = require('weixin-js-sdk');

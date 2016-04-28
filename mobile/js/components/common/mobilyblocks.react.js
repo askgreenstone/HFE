@@ -44,6 +44,8 @@
 								break;
 								case"hover":socials.hover();
 								break;
+								case"load":socials.load();
+								break;
 								default:socials.click()
 							}
 						},
@@ -61,6 +63,10 @@
 								}
 								return false
 							})
+						},
+						load:function(){
+							parent.fadeTo(sets.duration,1);
+							socials.animation.open();
 						},
 						hover:function(){
 							var trigger=$t.find("a.trigger");
