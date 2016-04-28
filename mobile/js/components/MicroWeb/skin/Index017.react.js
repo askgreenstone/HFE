@@ -12,15 +12,6 @@ var Toolbar = require('../../common/Toolbar.react');
 var MobileBlocks = require('../../common/Mobilyblocks.react');
 
 require('../../../../css/theme/theme017.less');
-window.onload = function(){
-  $('.index017_nature').mobilyblocks({
-    trigger: 'load', //触发的方式
-    direction: 'counter', //动画方向
-    duration:500,  //动画持续时间
-    zIndex:50,  //z-inde值
-    widthMultiplier:0.9 //宽度的倍数
-  });
-}
 var Index017 = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
@@ -198,6 +189,15 @@ var Index017 = React.createClass({
     });
   },
   componentDidMount: function(){
+    setTimeout(function(){
+      $('.index017_nature').mobilyblocks({
+        trigger: 'load', //触发的方式
+        direction: 'counter', //动画方向
+        duration:500,  //动画持续时间
+        zIndex:50,  //z-inde值
+        widthMultiplier:0.9 //宽度的倍数
+      });
+    },100);
     this.staticWebPV(1);
     // this.getUserList();
     $('body').css({'background':'#ebebeb'});
@@ -206,7 +206,6 @@ var Index017 = React.createClass({
     this.getBgLogo();
     console.log('bg:'+this.state.bg);
     this.getWxShareInfo();
-    
   },
 	render:function(){
     var navNodes1 = this.state.container1.map(function(item,i){

@@ -14,17 +14,23 @@ require('../../../../css/theme/theme018.less');
 var step = 100;
 var temp = 0;
 window.onscroll = function(){ 
-  var t1 = document.documentElement.scrollTop || document.body.scrollTop;  
+  var t1 = document.documentElement.scrollTop || document.body.scrollTop; 
+  var hh = '';
   if(t1-temp>0){//向上
-    step+=5;
-    if(step>200) step = 200;
+    // step+=5;
+    // if(step>200) step = 200;
+    hh = 'scalebig 1.5s linear 0s infinite alternate';
   }else{//向下
-    step-=5;
-    if(step<100) step = 100;
+    // step-=5;
+    // if(step<100) step = 100;
+    hh = 'scalesmall 1.5s linear 0s infinite alternate';
   }
   $('.theme018_container>img').css({
-    transform:'scale('+step/100+')'
+    animation:hh
   })
+  // $('.theme018_container>img').css({
+  //   transform:'scale('+step/100+')'
+  // })
   temp = t1;
 } 
 var Index018 = React.createClass({
