@@ -380,7 +380,6 @@ define(['App'], function(app) {
               }]
             };
             console.log(fd);
-            return;
             $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/DataUpdate.do?session='+vm.sess,

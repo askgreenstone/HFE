@@ -226,16 +226,30 @@ var List1 = React.createClass({
       legend = '<h3>最新文章</h3>';
     }
     var articleNodes = this.state.articles.map(function(item,i){
-     if(item.ns == '1'){
-      return(
-            <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.ntId,item.nId,item.refUrl)}>
-              <b><img src={this.state.curSrc[i]} width="" height="100%"/></b>
-              <span>{item.ntit.length>12?(item.ntit).substring(0,12)+'...':item.ntit}</span>
-              <p>{item.na?(item.na.length>30?(item.na).substring(0,30)+'...':item.na):'暂无摘要'}</p>
-              <em className={item.refUrl?'vip':''}><img src="image/vip.png"/></em>
-            </li>
-       );
-      }
+     if(item.refUrl && item.refUrl.indexOf('dist')>-1 && item.refUrl.indexOf('index')>-1){
+       if(item.ns == '1'){
+        return(
+              <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.ntId,item.nId,item.refUrl)}>
+                <b><img src={this.state.curSrc[i]} width="" height="100%"/></b>
+                <span>{item.ntit.length>12?(item.ntit).substring(0,12)+'...':item.ntit}</span>
+                <p>{item.na?(item.na.length>30?(item.na).substring(0,30)+'...':item.na):'暂无摘要'}</p>
+                <em className='vip'><img src="image/vip.png"/></em>
+              </li>
+         );
+        }
+     }else{
+        if(item.ns == '1'){
+          return(
+                <li key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.ntId,item.nId,item.refUrl)}>
+                  <b><img src={this.state.curSrc[i]} width="" height="100%"/></b>
+                  <span>{item.ntit.length>12?(item.ntit).substring(0,12)+'...':item.ntit}</span>
+                  <p>{item.na?(item.na.length>30?(item.na).substring(0,30)+'...':item.na):'暂无摘要'}</p>
+                  <em><img src="image/vip.png"/></em>
+                </li>
+           );
+        }
+     }
+     
      }.bind(this));
     return (
       <div>

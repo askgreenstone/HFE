@@ -53,8 +53,7 @@ var Index015 = require('./components/MicroWeb/skin/Index015.react');
 var Index016 = require('./components/MicroWeb/skin/Index016.react');
 
 //皮肤十七（圆心旋转）
-var Index017 = require('./components/MicroWeb/skin/Index017.react');
-
+// var Index017 = require('./components/MicroWeb/skin/Index017.react');
 //皮肤十八（滚动变大）
 var Index018 = require('./components/MicroWeb/skin/Index018.react');
 
@@ -90,7 +89,6 @@ ReactDOM.render((
     <Route path="/index014" component={Index014}/>
     <Route path="/index015" component={Index015}/>
     <Route path="/index016" component={Index016}/>
-    <Route path="/index017" component={Index017}/>
     <Route path="/index018" component={Index018}/>
 
 
