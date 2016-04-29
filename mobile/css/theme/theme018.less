@@ -83,29 +83,32 @@
   right:0px;
   bottom:0px;
 }
+.theme018_container>img{
+  -webkit-backface-visibility: hidden;
+}
 // 图片放大动画
 @keyframes scalebig
 {
-from   {transform: scale(1.1);}
+from   {transform: scale(1.0);}
 to  {transform: scale(1.3);}
 }
 
 @-webkit-keyframes myscale /* Safari 和 Chrome */
 {
-from   {transform: scale(1.1);}
+from   {transform: scale(1.0);}
 to  {transform: scale(1.3);}
 }
 // 图片缩小动画
 @keyframes scalesmall
 {
-from   {transform: scale(1.5);}
-to  {transform: scale(1.3);}
+from   {transform: scale(1.3);}
+to  {transform: scale(1.0);}
 }
 
 @-webkit-keyframes myscale /* Safari 和 Chrome */
 {
-from   {transform: scale(1.5);}
-to  {transform: scale(1.3);}
+from   {transform: scale(1.3);}
+to  {transform: scale(1.0);}
 }
 
 @media screen and (max-width: 360px) {
