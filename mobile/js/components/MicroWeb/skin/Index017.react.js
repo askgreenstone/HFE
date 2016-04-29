@@ -239,7 +239,9 @@ var Index017 = React.createClass({
             <div className="index017_main">
               <div className="index017_list">
                 <div className="index017_nature">
-                  <img style={{display:this.state.logo?'block':'none'}} src={global.img+this.state.logo} width="100%"/>
+                  <div className="index017_logo" style={{display:this.state.logo?'block':'none'}}>
+                    <img src={global.img+this.state.logo} width="100%"/>
+                  </div>
                   <ul className="index017_reset">
                     {navNodes2}
                   </ul>
