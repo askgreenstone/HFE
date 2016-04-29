@@ -9,7 +9,7 @@ var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
-var MobileBlocks = require('../../common/Mobilyblocks.react');
+var MobileBlocks = require('../../common/Mobilyblocks');
 
 require('../../../../css/theme/theme017.less');
 var Index017 = React.createClass({
