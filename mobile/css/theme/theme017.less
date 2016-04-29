@@ -31,7 +31,7 @@
   padding-bottom:90%;
   border-radius:50%;
   background:rgba(255,255,255,0.3);
-  margin:30% auto;
+  margin:25% auto;
   position:relative;
 }
 .index017_nature {
@@ -57,9 +57,6 @@
   right: 0;
   bottom: 0;
 }
-.index017_nature h1{
-  font-size:1.8rem;
-}
 
 .index017_reset li {
   position:absolute;
@@ -79,7 +76,7 @@
   height:100%;
 }
 .index017_reset li div img{
-  width: 60%;
+  width: 55%;
   position: relative;
   top: 0;
   left: 0;
@@ -89,7 +86,7 @@
   width:100%;
   text-align:center;
   font-size:@s-size;
-  margin-top:-5%;
+  margin-top:-8%;
   color:#fff;
 }
 .index017_leftbot{
@@ -98,18 +95,18 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
   position: absolute;
-  left: -50%;
-  bottom: -28%;;
+  left: -55%;
+  bottom: -35%;;
 }
 .index017_leftbot .index017_left{
   width:40%;
   position:absolute;
-  left:52%;
-  top:12%;
+  left:55%;
+  top:7%;
   cursor:pointer;
 }
 .index017_leftbot .index017_left img{
-  width:60%;
+  width:55%;
   display:block;
   margin:0 auto;
 }
@@ -119,6 +116,39 @@
   font-size:@s-size;
   margin-top:-8%;
 }
-
+//安卓大屏手机
+@media screen and (width: 360px) and (min-height: 530px) {
+  html {
+    font-size: 62.5%;
+  }
+  .index017_leftbot .index017_left {
+    top: 12%;
+  }
+}
+//魅族手机单独处理
+@media screen and (width: 384px) and (height: 519px) {
+  html {
+    font-size: 62.5%;
+  }
+  .index017_list{
+    margin:10% auto;
+  }
+  .index017_leftbot {
+    width: 80%;
+    padding-bottom: 80%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    left: -165px;
+    bottom: -175px;
+  }
+  .index017_leftbot .index017_left {
+    width: 40%;
+    position: absolute;
+    left: 52%;
+    top: 12%;
+    cursor: pointer;
+  }
+}
 
 
