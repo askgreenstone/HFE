@@ -17,20 +17,13 @@ window.onscroll = function(){
   var t1 = document.documentElement.scrollTop || document.body.scrollTop; 
   var hh = '';
   if(t1-temp>0){//向上
-    // step+=5;
-    // if(step>200) step = 200;
-    hh = 'scalebig 1.5s linear 0s infinite alternate';
+    hh = 'scalebig 800ms linear 0s 1 forwards';
   }else{//向下
-    // step-=5;
-    // if(step<100) step = 100;
-    hh = 'scalesmall 1.5s linear 0s infinite alternate';
+    hh = 'scalesmall 800ms linear 0s 1 forwards';
   }
   $('.theme018_container>img').css({
     animation:hh
   })
-  // $('.theme018_container>img').css({
-  //   transform:'scale('+step/100+')'
-  // })
   temp = t1;
 } 
 var Index018 = React.createClass({
@@ -73,7 +66,7 @@ var Index018 = React.createClass({
         }.bind(this)
       });
     }else{
-      var localJsons = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info_index016')));
+      var localJsons = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info_index018')));
       this.setState({navArrs:localJsons});
     }
   },
