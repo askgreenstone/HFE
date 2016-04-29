@@ -204,6 +204,7 @@ var Index004=React.createClass({
     console.log('bg:'+this.state.bg);
     this.getWxShareInfo();
     this.setIphoneHeight();
+    this.getUserWebState();
   },
 	render:function(){
 		 var navNodes = this.state.navArrs.map(function(item,i){

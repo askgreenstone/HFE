@@ -229,6 +229,7 @@ var Index008=React.createClass({
   componentWillMount: function(){
     this.getBgLogo();
     this.getWxShareInfo();
+    this.getUserWebState();
     // this.test();
   },
   render:function(){
