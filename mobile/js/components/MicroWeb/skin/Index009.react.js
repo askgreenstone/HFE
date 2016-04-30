@@ -195,6 +195,7 @@ var Index009=React.createClass({
   componentWillMount: function(){
     this.getBgLogo();
     this.getWxShareInfo();
+    this.getUserWebState();
   },
   render:function(){
     var navNodes1 = this.state.container1.map(function(item,i){
