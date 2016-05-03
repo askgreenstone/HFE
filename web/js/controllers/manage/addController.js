@@ -127,7 +127,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 if(data.c == 1000){
                   vm.createInfo.title = data.ntit;
                   vm.createInfo.describe = data.na;
-                  vm.ntid = data.ntId;
+                  vm.ntid = data.ntId?data.ntId:0;
                   vm.createInfo.content = data.nc;
                   vm.createInfo.url = data.nl;
                   setContent(true);

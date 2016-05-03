@@ -65,7 +65,12 @@ var Adress = require('./components/MicroWeb/public/Adress.react');
 var ArticleDetail = require('./components/MicroWeb/public/ArticleDetail.react');
 var Card = require('./components/MicroWeb/public/Card.react');
 var Card2 = require('./components/MicroWeb/public/Card2.react');
+//特殊需求，添加了英文版本微名片
+// 李玉龙英文微名片
 var Card3 = require('./components/MicroWeb/public/Card3.react');
+//特殊需求，添加了英文版本微名片
+// 于洪彬英文微名片
+var Card4 = require('./components/MicroWeb/public/Card4.react');
 var Share = require('./components/MicroWeb/public/Share.react');
 
 //定义路由：https://github.com/rackt/react-router
@@ -102,6 +107,7 @@ ReactDOM.render((
     <Route path="/card" component={Card}/>
     <Route path="/card2" component={Card2}/>
     <Route path="/card3" component={Card3}/>
+    <Route path="/card4" component={Card4}/>
     <Route path="/share" component={Share}/>
   </Router>
 ), document.getElementById('myapp'))

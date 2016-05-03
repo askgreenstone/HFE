@@ -1,5 +1,5 @@
 //特殊需求，添加了英文版本微名片
-// 李玉龙英文微名片
+// 李玉龙英文微名片，分享信息写死，掉数据接口关闭
 var React = require('react');
 var CommonMixin = require('../../Mixin');
 var wx = require('weixin-js-sdk');
@@ -21,112 +21,13 @@ var Card3 = React.createClass({
   gotoLink: function(path){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
   },
-  getServerInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    var wid = $(window).width()/2;
-    $.ajax({
-      type:'get',
-      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        // alert('ownUri:'+ownUri+'ntid:'+ntid);
-        if(data.c == 1000){
-           this.setState({
-            QR:global.img+data.QR,
-            hI:global.img+data.hI,
-            nm:data.nm,
-            dp:data.dp,
-            rk:data.rk,
-            Mob:data.Mob,
-            eml:data.eml,
-            tel:data.tel,
-            web:data.web,
-            adr:data.adr,
-            abs:data.abs,
-            rg:data.rg,
-            itd:data.itd,
-            Abstract:data.abs.length>60?data.abs.substr(0,60)+'...':data.abs,
-            Introduct:data.itd.length>60?data.itd.substr(0,60)+'...':data.itd,
-            Mobile:data.Mob.replace(/ /g,''),
-            TelNo:data.tel.replace(/ /g,''),
-            abss:data.abs.length>60?true:false,
-            itdd:data.itd.length>60?true:false,
-            width:wid
-          });
-          $('.qr_hidden').height(document.body.scrollHeight);
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-  getShareInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    $.ajax({
-      type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=2',
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        // alert('ownUri:'+ownUri+'ntid:'+ntid);
-        if(data.c == 1000){
-          console.log(data.sil[0].spu)
-          this.setState({
-            Title:data.sil[0].sti,
-            Introduction:data.sil[0].sd,
-            Img:global.img+data.sil[0].spu
-          });
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-  absToggle: function(e){
-    console.log(e.target.innerText);
-    if(e.target.innerText=='全文'){
-      e.target.innerText='收起';
-      this.setState({
-        Abstract:this.state.abs
-      })
-    }else{
-      e.target.innerText='全文';
-      this.setState({
-        Abstract:this.state.abs.substr(0,60)+'...'
-      })
-    };
-  },
-  itdToggle: function(e){
-    console.log(e.target.innerText);
-    if(e.target.innerText=='全文'){
-      e.target.innerText='收起';
-      this.setState({
-        Introduct:this.state.itd
-      })
-    }else{
-      e.target.innerText='全文';
-      this.setState({
-        Introduct:this.state.itd.substr(0,60)+'...'
-      })
-    };
-  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
   },
   componentWillMount:function(){
-    // this.getServerInfo();
-    // this.getShareInfo();
-    // alert($(window).height());
   }, 
   render: function() {
-    
-    
        return (
         <div>
           <div className="qr_hidden" onClick={this.hideDiv}>

@@ -10,7 +10,6 @@ define(['App'], function(app) {
         vm.sess = '';
         vm.selectedState = false;
         vm.addArticle = true;
-        vm.editState = true;
 
         vm.gotoLink = function(path) {
           var title = Common.getUrlParam('title'),
@@ -26,11 +25,6 @@ define(['App'], function(app) {
           $window.history.back();
         };
 
-        vm.setEditState = function(){
-            if(vm.ntid == 0){
-                vm.editState = false;
-            }
-        }
 
         vm.getArticleList = function(){
           $http({
@@ -245,7 +239,6 @@ define(['App'], function(app) {
           vm.addArticle = vm.ntid!=0?true:false;
           vm.getArticleList();
           vm.getContentList();
-          vm.setEditState();
         }
 
         init();
