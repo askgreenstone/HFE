@@ -57,7 +57,7 @@ var Card4 = React.createClass({
             </div>
             <div className="uc_input">
               <a href='tel://010-8289-4539'>
-                010 8289 4539
+                86 10 8289 4539
                 <img src="image/theme002/fax.png" width="25" height="25"/>
               </a>
             </div>
