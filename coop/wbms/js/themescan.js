@@ -50,9 +50,11 @@ jQuery(function($) {
     var temp = checkIOSVersion();
     // alert(this.isAndroid());
     if(!temp&&isIOS()){
+      alert('ios');
       $('#bottomBar').css('bottom','12px');
       $('body').css('backgroundColor','#2D3132');
     }else if(isAndroid()){
+      alert('Android');
       $('#bottomBar').css('bottom','-40px');
       $('body').css('backgroundColor','#2D3123');
     }
