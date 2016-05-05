@@ -21,7 +21,7 @@ var Toolbar = React.createClass({
 	},
   join: function(e){
     e.stopPropagation();
-    alert('需要加入到您的机构网络？\n请告知绿石 +86 10 5867 8723');
+    alert('个人微网站可以连接到您所在的组织机构或合作单位网站，产生实力和集群效应。请拨打+86 10 8567 8723');
   },
   wxpublic: function(e){
     e.stopPropagation();
@@ -38,7 +38,7 @@ var Toolbar = React.createClass({
     }
   },
   componentDidMount: function(){
-    $('.container,.theme3_main,.theme4_main,.theme5_main,.theme6_main,.theme7_main,.theme8_main,.theme9_main,.theme012_container,.theme013_container,.theme015_container,.theme016_container')
+    $('.container,.theme3_main,.theme4_main,.theme5_main,.theme6_main,.theme7_main,.theme8_main,.theme9_main,.theme012_container,.theme013_container,.theme015_container,.theme016_container,.index017_content,.theme018_container')
     .click(function(event) {
       $(this).siblings('.toolbar_shadow').show();
       $('.toolbar_shadow ul').animate({
@@ -63,11 +63,11 @@ var Toolbar = React.createClass({
           <ul>
             <li className="active" onClick={this.join}>
               <img src="image/toolbar/join.png" width="30" height="28"/>
-              <div>加入网络</div>
+              <div>加入组织</div>
             </li>
             <li onClick={this.wxpublic}>
               <img src="image/toolbar/wxpublic.png" width="30" height="28"/>
-              <div>公 众 号</div>
+              <div>微信公众号</div>
             </li>
             <li onClick={this.gotoWbms.bind(this,'reset')}>
               <img src="image/toolbar/reset.png" width="30" height="28"/>
