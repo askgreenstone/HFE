@@ -9,7 +9,9 @@ var Message = require('../../common/Message.react');
 var Card4 = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
-    return {datas:[],Abstract:'',Title:'',Introduction:'',Img:''};
+    return {datas:[],Abstract:'No. 037 sponsor of the JRCoffee;The founder and the CEO of Ruoshui Crowdfunding;'+
+                  'The chairman of the board of Beijing Jindianpai IT Co.Ltd;'
+                  +'...',Title:'',Introduction:'',Img:''};
   },
   qrCode: function(){
     $('.qr_hidden').height((window.screen.height+10)+'px');
@@ -20,6 +22,43 @@ var Card4 = React.createClass({
   },
   gotoLink: function(path){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
+  },
+  absToggle: function(e){
+    console.log(e.target.innerText);
+    if(e.target.innerText=='unfold'){
+      e.target.innerText='fold';
+      this.setState({
+        Abstract:"No. 037 sponsor of the JRCoffee;"+
+                 "The founder and the CEO of Ruoshui Crowdfunding;"+
+                 "The chairman of the board of Beijing Jindianpai IT Co.Ltd;"+
+                 "Graduate degree of Peking University;"+
+                 "Yu Hongbin owned his business after working in Huawei company for many years ."+
+                 "He and his company provides information services for more than 70% assets "+
+                 "and equity exchange platform for more than 10 years.He has accumulated deep "+
+                 "resources and experience in exchange industry;"+
+                 "Yu Hongbin does well in the field of the property exchange,"+ 
+                 "the commodity exchange, trading center architecture design,"+ 
+                 "business system planning, design and development of trading systems,"+
+                 "operation and maintenance of electronic trading platform;"+
+                 "He is a Chinese-style crowdfunding practitioner,"+
+                 "who creates commodities trading and equity exchange network platform "+
+                 "after study and practice deeply in the industrial chain of financial"+ 
+                 "innovation based on the exchanges;"+
+                 "Yu is the co-founder of “Jinmajia ”——the first electronic business platform in China"+
+                 "Equity Exchange Industry. He has invested to build the Guangzhou Commodity Exchange"+ 
+                 "Jewelry Trading Center , Guangzhou Coins&Stamps trading center, Beijing Redwood"+ 
+                 "Trading Center, Shenyang Rural Property Rights Trading Center.He paid more attention"+ 
+                 "to the investment and cooperation in the field of commodities electronic trading "+
+                 "platform."
+      })
+    }else{
+      e.target.innerText='unfold';
+      this.setState({
+        Abstract:"No. 037 sponsor of the JRCoffee;The founder and the CEO of Ruoshui Crowdfunding;"+
+                  "The chairman of the board of Beijing Jindianpai IT Co.Ltd;"
+                  +'...'
+      })
+    };
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
@@ -75,29 +114,9 @@ var Card4 = React.createClass({
             </div>
             <div className="user_intro">
               <i>Profile</i>
-              <p>No. 037 sponsor of the JRCoffee;
-                 The founder and the CEO of Ruoshui Crowdfunding;
-                 The chairman of the board of Beijing Jindianpai IT Co.Ltd;
-                 Graduate degree of Peking University;
-                 Yu Hongbin owned his business after working in Huawei company for many years .
-                 He and his company provides information services for more than 70% assets 
-                 and equity exchange platform for more than 10 years.He has accumulated deep 
-                 resources and experience in exchange industry;
-                 Yu Hongbin does well in the field of the property exchange, 
-                 the commodity exchange, trading center architecture design, 
-                 business system planning, design and development of trading systems,
-                 operation and maintenance of electronic trading platform;
-                 He is a Chinese-style crowdfunding practitioner,
-                 who creates commodities trading and equity exchange network platform 
-                 after study and practice deeply in the industrial chain of financial 
-                 innovation based on the exchanges;
-                 Yu is the co-founder of “Jinmajia ”——the first electronic business platform in China 
-                 Equity Exchange Industry. He has invested to build the Guangzhou Commodity Exchange 
-                 Jewelry Trading Center , Guangzhou Coins&Stamps trading center, Beijing Redwood 
-                 Trading Center, Shenyang Rural Property Rights Trading Center.He paid more attention 
-                 to the investment and cooperation in the field of commodities electronic trading 
-                 platform.
+              <p>{this.state.Abstract}
               </p>
+              <div onClick={this.absToggle}>unfold</div>
             </div>
             <div className="user_intro">
               <i>Fields</i>

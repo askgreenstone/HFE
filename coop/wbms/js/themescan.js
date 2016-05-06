@@ -24,12 +24,7 @@ jQuery(function($) {
   })
 //初始化所有
   function initAll() {
-      getLocationUrl();
-      var iframe = document.getElementById('iframe');
-      iframe.onload = function(){
-        console.log('fewvwegfewj');
-        $('iframe #bottomBar').css('background','red');
-      }
+    getLocationUrl();
   }
 
   initAll();
