@@ -12,7 +12,7 @@ var Card4 = React.createClass({
     return {datas:[],Abstract:'',Title:'',Introduction:'',Img:''};
   },
   qrCode: function(){
-    $('.qr_hidden').height((document.body.scrollHeight+10)+'px');
+    $('.qr_hidden').height((window.screen.height+10)+'px');
     $('.qr_hidden').show(500);
   },
   hideDiv: function(){
@@ -105,7 +105,7 @@ var Card4 = React.createClass({
               </p>
             </div>
             <div className="user_create" style={{width:"140px"}}>
-                <a href={global.url+"/mobile/#/index005?ownUri=e2202"}>Set Up My Site</a>
+                <a href="http://dist.green-stone.cn/coop/wbms/">Set Up My Site</a>
             </div>
           </div>
           <Share title="Bingo Yu" desc="Industrial Chain Finance Innovation Platform Based on the exchange mode&China crowdfunding" 
