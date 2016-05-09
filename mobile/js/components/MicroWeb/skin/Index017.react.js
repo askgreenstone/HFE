@@ -253,7 +253,7 @@ var Index017 = React.createClass({
           </div>
           <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
           <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-          imgUrl={global.img+this.state.shareImg} target="index016"/>
+          imgUrl={global.img+this.state.shareImg} target="index017"/>
           <Message/>
           <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
           <div id="limit_password_box" title="" value="" name="" type="">
