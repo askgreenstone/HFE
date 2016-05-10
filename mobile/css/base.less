@@ -780,6 +780,17 @@ p{
 }
 
 
+// 移动建站透明遮罩层
+.themeScan_Iframe{
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  left: 0px;
+  top:0px;
+  z-index: 1001; /* 此处的图层要大于页面 */
+}
+
 /*适配手机*/
 @media screen and (width: 320px) {
   .password_shadow{

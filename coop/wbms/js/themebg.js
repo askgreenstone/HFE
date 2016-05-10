@@ -79,7 +79,9 @@ function getLocationUrl(){
     url : Common.globalDistUrl() + 'exp/CreateMicWebQrCode.do?session='+ sess,
     success : function(data) {
       console.log(data);
-      window.location.href = data.url;
+      if(data.c == 1000){
+        window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=scan';
+      }
     },
     error : function(){
       alert('网络连接错误或服务器异常！');
@@ -118,7 +120,7 @@ function uploadFile(state){
                 Common.getLoading(false);
                 console.log(data);
                 if(state == 'scan'){
-                  window.location.href = 'themescan.html?session='+sess;
+                  getLocationUrl();
                 }else if(state == 'next'){
                   window.location.href = 'card.html?session='+sess;
                 }
@@ -163,7 +165,7 @@ function uploadFile(state){
             console.log(data);
             Common.getLoading(false);
             if(state == 'scan'){
-              window.location.href = 'themescan.html?session='+sess;
+              getLocationUrl();
             }else if(state == 'next'){
               window.location.href = 'card.html?session='+sess;
             }

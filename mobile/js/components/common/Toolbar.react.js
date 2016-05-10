@@ -5,7 +5,7 @@ var Toolbar = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
     return {
-      display:false
+      display:''
     };
   },
 	hideToolbar: function(e){
@@ -47,17 +47,29 @@ var Toolbar = React.createClass({
           $('body').css({'overflow':'hidden'});
       });
     });
+    $(".themeScan_Iframe").click(function(){
+      var confirm = window.confirm('保存并继续？点“取消”返回修改！');
+      if(confirm){
+        window.location.href =  global.url+'/coop/wbms/view/card.html?session='+sess;
+      }else{
+        window.location.href =  global.url+'/coop/wbms/view/themebg.html?session='+sess;
+      }
+    })
   },
 	componentWillMount:function(){
     var origin = this.getUrlParams('origin');
     if(origin && origin == 'wbms') {
       this.setState({
-        display:true
+        display:'wbms'
+      })
+    }else if(origin && origin == 'scan'){
+      this.setState({
+        display:'scan'
       })
     }
   }, 
   render: function() {
-    if(this.state.display){
+    if(this.state.display == 'wbms'){
       return (
         <div className="toolbar_shadow" onClick={this.hideToolbar}>
           <ul>
@@ -78,6 +90,12 @@ var Toolbar = React.createClass({
               <div>退出登录</div>
             </li>
           </ul>
+        </div>
+      );
+    }else if(this.state.display == 'scan'){
+      return (
+        <div className="themeScan_Iframe">
+          
         </div>
       );
     }else{
