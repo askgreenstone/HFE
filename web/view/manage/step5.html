@@ -83,11 +83,14 @@
 					</div>
 					<div class="mb_input input_file_fix step5_icon_share">
 						<i>分享图标</i>
-						<input id="step5_upload" type="file"/>
+						<div class="changeBg" ng-click="vm.gotoUpload()">
+							更换图标
+							<input type="file" id="step5_upload" ng-model="vm.fileName"/>
+						</div>
 					</div>
-					<span class="step5_upload" ng-click="vm.uploadFile()">
+					<!-- <span class="step5_upload" ng-click="vm.uploadFile()">
 							<img src="image/docs/add.png" width="20" height="20"/> 上传
-					</span>
+					</span> -->
 					<div class="step5_preview">
 						<img ng-src={{vm.TransferUrl+vm.user.preview}} width="100" height="100">
 					</div>

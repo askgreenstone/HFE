@@ -306,7 +306,8 @@ footer {
   position: relative;
 }
 .form_box .step5_preview{
-  margin-left: 105px;
+  margin-left: 200px;
+  margin-top: -80px;
 }
 .form_box .form_box_crop{
   position: absolute;
@@ -1528,8 +1529,8 @@ input[type=checkbox], input[type=radio] {
   margin-top: 10px;
 }
 .card2_preview{
-  margin-left: 90px;
-  margin-top: 15px;
+  margin-left: 195px;
+  margin-top: -80px;
   width: 112px;
   padding: 5px;
   border:1px dashed #ccc;
@@ -1648,8 +1649,16 @@ input[type=checkbox], input[type=radio] {
   vertical-align: middle;
   resize:none;
 }
+.step5_box .step5_icon_share .changeBg{
+  margin-left: 70px;
+  width: 80px;
+}
 .card2_file_fix{
   margin-left: 20px;
+}
+.card2_right .card2_file_fix .changeBg{
+  margin: 20px 0 0 70px;
+  width: 80px;
 }
 .input_file_fix input{
   border:0;
@@ -1657,7 +1666,12 @@ input[type=checkbox], input[type=radio] {
   color: red;
   font-size: 12px;
   cursor: pointer;
-  width: 220px;
+  left: 0;
+  top: 0;
+  opacity: 0
+}
+.input_file_fix .changeBg{
+  margin: 30px 0 0 85px;
 }
 .step5_upload{
   color: #3bbffc;
@@ -1667,8 +1681,8 @@ input[type=checkbox], input[type=radio] {
   margin-top: 10px;
 }
 .step5_preview{
-  margin-left: 90px;
-  margin-top: 15px;
+  margin-left: 195px;
+  margin-top: -80px;
   width: 112px;
   padding: 5px;
   border:1px dashed #ccc;

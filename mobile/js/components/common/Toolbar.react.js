@@ -21,7 +21,7 @@ var Toolbar = React.createClass({
 	},
   join: function(e){
     e.stopPropagation();
-    alert('个人微网站可以连接到您所在的组织机构或合作单位网站，产生实力和集群效应。请拨打+86 10 8567 8723');
+    alert('个人微网站可以连接到您所在的组织机构或合作单位网站，彰显实力和集群效应。请拨打+86 10 8567 8723');
   },
   wxpublic: function(e){
     e.stopPropagation();

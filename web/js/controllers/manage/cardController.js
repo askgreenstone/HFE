@@ -284,6 +284,33 @@ define(['App'], function(app) {
             r.readAsDataURL(f);
         }
 
+
+        vm.gotoUpload = function(){
+            var $choose_file = $('#step5_upload'),
+                URL = window.URL || window.webkitURL,
+                blobURL;
+            if (URL) {
+                $choose_file.change(function() {
+                    var files = this.files,
+                        file;
+
+                    if (files && files.length) {
+                        file = files[0];
+
+                        if (/^image\/\w+$/.test(file.type)) {
+                            console.log(file);
+                            vm.uploadQrcode();
+                            // vm.getLocationUrl();
+                            // $('#userLogo').attr('src',file);
+                        } else {
+                            alert('请选择图片文件！');
+                        }
+                    }
+                });
+            } else {
+                
+            }
+        }
         //二维码（不需裁切处理）
         vm.uploadQrcode = function() {
             var f = document.getElementById('step5_upload').files[0],
