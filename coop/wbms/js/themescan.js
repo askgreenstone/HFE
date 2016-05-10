@@ -1,3 +1,6 @@
+
+ // 已废弃，预览页在mobile中toolbar部分
+
 jQuery(function($) {
   var sess = Common.getUrlParam('session');
   function getLocationUrl(){

@@ -38,6 +38,7 @@ var Toolbar = React.createClass({
     }
   },
   componentDidMount: function(){
+    var sess = this.getUrlParams('sess');
     $('.container,.theme3_main,.theme4_main,.theme5_main,.theme6_main,.theme7_main,.theme8_main,.theme9_main,.theme012_container,.theme013_container,.theme015_container,.theme016_container,.index017_content,.theme018_container')
     .click(function(event) {
       $(this).siblings('.toolbar_shadow').show();
