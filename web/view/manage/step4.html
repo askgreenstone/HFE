@@ -55,7 +55,11 @@
 					<span>命名您的微网站</span>
 					<input type="text" ng-model="vm.microName" placeholder="如：XX律师微网站"/>
 				</div>
-				<div class="step4_warn">注意：点击右上角“添加菜单”，当前选择模版支持的最佳菜单数为 <span>{{vm.menuCount}}</span> 个</div>
+				<div class="step4_warn">注意：<br/>
+				1.点击右上角“添加菜单”，当前选择模版支持的最佳菜单数为 <span>{{vm.menuCount}}</span> 个；<br/>
+				2.点击菜单名称（及其英文），可以重命名菜单项；<br/>
+				3.如果菜单点击后显示一页文章，请选择“介绍页”；如果菜单项下有好几项内容需要点击再打开，请选择“内容列表”；<br/>
+				4.长按拖动菜单区块，可调整菜单顺序。</div>
 				<ul class="step4_list">
 					<li value={{x.mo==-1?$index:x.mo}} id={{x.ntId}} ng-repeat="x in vm.serverChooseList">
 						<input type="hidden" value={{x}}>

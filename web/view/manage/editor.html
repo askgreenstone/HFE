@@ -39,8 +39,9 @@
 				<span ng-click="vm.gotoLink('manage','')"><img src="image/return.png" width="20" height="20"/> 返回</span>
 			</div>
 			<div class="af_input" style="margin-top: -30px;">
-				<span class="ai_checkbox">引用链接：<i ng-click="vm.checkUserChoose()" class="">√</i></span>
+				<span class="ai_checkbox">引用链接：<i ng-click="vm.checkUserChoose()" class="">√</i><em>您可以复制粘贴相关网址，让读者点击后直接跳转相关网页浏览</em></span>
 				<input ng-show="!vm.showUeditorFlag" ng-model="vm.createInfo.url" type="text" placeholder="请输入链接地址"/>
+
 			</div>
 			<p>&nbsp;</p>
 			<div ng-show="vm.showUeditorFlag" style="height: 430px;">

@@ -223,7 +223,7 @@ define(['App'], function(app) {
                   }else{
                     vm.userLogo = 'image/placeholder.png';
                     vm.choosePic = '';
-                    vm.selectChange = '选择logo';
+                    vm.selectChange = '上传logo';
                     vm.logoState = false;
                     vm.getLocationUrl();
                   }

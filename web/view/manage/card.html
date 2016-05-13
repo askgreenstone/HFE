@@ -71,7 +71,7 @@
 						</div>
 						<div class="mb_input mc_input">
 							<i>单位：</i>
-							<input type="text" ng-model="vm.user.Depart" value="律师事务所" placeholder="律所名称">
+							<input type="text" ng-model="vm.user.Depart" value="律师事务所" placeholder="单位名称">
 							<div class="step5_validate">
 								<span ng-class="vm.calLength(vm.user.Depart)>26?'red':''">
 								{{vm.calLength(vm.user.Depart)}}</span><i> / 26</i>
@@ -102,7 +102,7 @@
 							<img src={{vm.transferUrl+vm.user.QRCodeImg}} width="100" height="100">
 						</div>
 						<div class="mb_input">
-							<div class="mb_input_tip">（建议选择上传个人微信公众号的二维码）</div>
+							<div class="mb_input_tip">系统默认为您的微网站二维码，长按识别可跳转您的微网站。<br/>您可以重新上传个人微信或组织机构公众号、微网站的二维码。</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i>电话：</i>
