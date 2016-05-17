@@ -195,7 +195,7 @@ jQuery(function($) {
                       shareImg = data.sil[0].spu;
                   }else {
                       $("#title").val('我的微网站');
-                      $("#desc").val('我正在绿石使用微网站，欢迎访问我的微网站！');
+                      $("#desc").val('欢迎访问我的微网站！这里有我的职业介绍和成就');
                       $("#share_preview").attr('src',Common.globalTransferUrl() + 'greenStoneicon300.jpg');
                       shareImg = 'greenStoneicon300.jpg';
                   }

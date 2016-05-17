@@ -21,11 +21,11 @@ var Toolbar = React.createClass({
 	},
   join: function(e){
     e.stopPropagation();
-    alert('个人微网站可以连接到您所在的组织机构或合作单位网站，彰显实力和集群效应。请拨打+86 10 8567 8723');
+    alert('个人微网站可以连接到您所在的组织机构或合作单位网络，彰显实力和集群效应。详询 +86 10 5867 8723');
   },
   wxpublic: function(e){
     e.stopPropagation();
-    alert('微网站可以嵌入微信公众号，让您运营自己的品牌，与客户实时互动、在线收费和提供服务。这需要您提供或申请微信公众号，详询绿石 +86 10 5867 8723');
+    alert('微网站可以嵌入微信公众号，让您运营自己的品牌，与客户实时互动、在线收费和提供服务。这需要您提供或申请微信公众号，详询 +86 10 5867 8723');
   },
   gotoWbms: function(which){
     var sess = this.getUrlParams('sess');

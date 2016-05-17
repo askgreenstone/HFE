@@ -1318,9 +1318,12 @@ input[type=checkbox], input[type=radio] {
 }
 .fix_center_tip{
   width: 90%;
-  margin: 0 auto;
-  line-height: 24px;
+  margin: 5px auto 0;
+  line-height: 20px;
   color: #F44336;
+  font-weight: normal;
+  text-align: left;
+  font-size: 12px;
 }
 .mateLib,.changeBg,.scanBg,.clearLogo{
   width: 100px;
