@@ -41,11 +41,12 @@ define(['App'], function(app) {
             var f = document.getElementById('choose_file').files[0],
                 r = new FileReader();
             console.log(f);
-            if(f.size > 2097152){
+            if (!f) {
+              return;
+            }else if(f.size > 2097152){
               alert('文件大小不能超过2MB！');
               return;
             }
-            if (!f) return;
             r.onloadend = function(e) {
                 var data = e.target.result;
                 var fd = new FormData();
