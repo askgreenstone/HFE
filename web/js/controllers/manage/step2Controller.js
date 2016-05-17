@@ -105,6 +105,10 @@ define(['App'], function(app) {
                 vm.clipSourceImg(vm.choosePic,state);
                 return;
               }
+            }else if(f.size > 2097152){
+              Common.getLoading(false);
+              alert('文件大小不能超过2MB！');
+              return;
             }
             //gif图片不被裁切
             if(f&&f.type.toString().toLowerCase().indexOf('gif')>-1){
