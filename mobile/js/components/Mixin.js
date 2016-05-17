@@ -88,11 +88,11 @@ var CommonMixin = {
     },800);
   },
   showNotice: function(content){
-    $('.notice_tip').show();
-    $('.notice_tip span').text(content);
+    $('.notice_box').show();
+    $('.notice_box span').text(content);
   },
   hideNotice: function(){
-    $('.notice_tip').hide();
+    $('.notice_box').hide();
   },
   //统计接口
   staticWebPV: function(vt){
