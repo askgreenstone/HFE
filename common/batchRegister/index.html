@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <title>用户批量注册</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <link rel="stylesheet" href="../addPromoCode/css/bootstrap.min.css">
+    <script src="../addPromoCode/scripts/angular.js"></script>
+    <script src="../addPromoCode/scripts/jquery.min.js"></script>
+    <script src="scripts/main.js"></script>
+    <style>
+        .panel-info .panel-heading{
+            color: #333;
+            font-size: 16px; 
+            font-weight: bolder;   
+        }
+        .panel-body table{
+            width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div class="panel panel-info">
+        <div class="panel-heading">用户批量注册</div>
+        <div class="panel-body">
+            <!-- <form class="form-inline">
+                <textarea class="form-control" style="width:100%;margin-bottom:10px;" rows="6" placeholder="多个值用英文=隔开，如李白=130-0000-0000=专家=3月" ng-model="user"></textarea>
+                <br/>
+                <button type="submit" ng-click="getServerData()" class="btn btn-info btn-lg btn-block">添 加</button>
+            </form>
+            <br/><br/><br/> -->
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <td>姓名</td>
+                    <td>电话</td>
+                    <td>注册类型</td>
+                    <td>开通时长</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" ng-model="user.en"></td>
+                    <td><input type="text" ng-model="user.pn"></td>
+                    <td>
+                        <select name="" id="" ng-model="user.t">
+                            <option value="4">非律师</option>
+                            <option value="1">律师</option>
+                        </select>
+                    </td>
+                    <td><input type="number" value="12" min="1" ng-model="user.p">月</td>
+                  </tr>
+                </tbody>
+                
+
+            </table>
+            <button type="submit" ng-click="addServerData()" class="btn btn-info btn-lg btn-block">添加</button>
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <td>姓名</td>
+                    <td>电话</td>
+                    <td>注册类型</td>
+                    <td>开通时长</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in codeList track by $index">
+                      <td>{{item.en}}</td>
+                      <td>{{item.pn}}</td>
+                      <td>{{item.t == 4?'非律师':'律师'}}</td>
+                      <td>{{item.p}}</td>
+                  </tr>
+                </tbody>
+            </table>
+            <button type="submit" ng-click="postServerData()" class="btn btn-info btn-lg btn-block">提交</button>
+        </div>
+    </div>
+</body>
+
+</html>

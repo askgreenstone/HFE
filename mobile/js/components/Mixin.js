@@ -87,6 +87,13 @@ var CommonMixin = {
       $('.base_shadow').hide();
     },800);
   },
+  showNotice: function(content){
+    $('.notice_tip').show();
+    $('.notice_tip span').text(content);
+  },
+  hideNotice: function(){
+    $('.notice_tip').hide();
+  },
   //统计接口
   staticWebPV: function(vt){
     //vt:1,网站 ｜ vt:2,电话呼入
