@@ -37,13 +37,28 @@
 				<img src="image/active.png" alt="">
 			</div>
 			<div class="active_box">
-				<div class="active_traval">
-					<p>您已获得<span>30天</span>试用</p>
-					<p>点击“激活”以开启微应用体验之旅</p>
-				</div>
 				<div class="active_agreement"><input type="checkbox" id="active"><label for="active"></label>我已阅读并同意<a href="../../../../coop/wbms/view/agreement2.html">绿石微应用协议</a></div>
-				<div class="active_btn" ng-click="vm.setActiveState()">激活</div>
 			</div>
+			<div class="active_main">
+				<div class="active_left">
+					<h3>我有邀请码</h3>
+					<div class="active_traval">
+						<p>输入邀请码以开启微应用体验之旅</p>
+					</div>
+					<input type="text" ng-model="vm.expCode">
+					<div class="active_btn" ng-click="vm.codeSetActive()">激活</div>
+				</div>
+				<div class="active_right">
+					<h3>免费激活</h3>
+					<div class="active_traval">
+						<p>您已获得<span>30天</span>试用</p>
+						<p>点击“激活”以开启微应用体验之旅</p>
+					</div>
+					
+					<div class="active_btn" ng-click="vm.setActiveState()">激活</div>
+				</div>
+			</div>
+			
 		</div>
 		<div class="clean"></div>
 	</div>

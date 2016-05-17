@@ -2167,11 +2167,32 @@ input[type=checkbox], input[type=radio] {
   margin:0 0 10px 10px;
 }
 .active_img{
-  margin-bottom: 80px;
+  margin-bottom: 30px;
 }
 .active_box{
   width: 100%;
 }
+.active_main{
+  width: 100%;
+}
+.active_main .active_left{
+  float: left;
+  width: 50%;
+  border-right: 1px dashed #999;
+}
+.active_main h3,.active_main p{
+  text-align: center;
+}
+.active_main input{
+  width: 60%;
+  display: block;
+  margin: 10px auto;
+}
+.active_main .active_right{
+  float: left;
+  width: 50%; 
+}
+
 .active_box .active_traval{
   margin-bottom: 20px;
 }
@@ -2220,14 +2241,14 @@ input[type=checkbox], input[type=radio] {
 }
 
 .active_btn{
-  width: 130px;
-  height: 50px;
+  width: 90px;
+  height: 40px;
   margin: 0px auto;
   background: #39D167;
   color: #fff;
   border-radius: 5px;
   text-align: center;
-  line-height: 50px;
+  line-height: 40px;
   font-family: '中黑';
   font-size: 20px;
   cursor: pointer;
