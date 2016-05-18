@@ -226,16 +226,16 @@ p {
   -webkit-appearance: none;
 }
 .reg_tip {
-  width: 100%;
+  width: 90%;
   height: 3.6rem;
-  text-align: center;
+  text-align: left;
   font-family: '中黑';
   font-size: 1.4rem;
   color: #fff;
   position: relative;
+  padding-left: 7%;
 }
 .reg_tip label {
-  width: 60%;
   height: 22px;
   display: block;
   background-image: url('../image/check.png');
@@ -243,8 +243,11 @@ p {
   background-repeat: no-repeat;
   cursor: pointer;
   line-height: 22px;
-  margin: 0 auto;
+  padding-left: 8%;
   -webkit-tap-highlight-color: transparent;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 .reg_tip input:checked + label {
   background-position: left bottom;
@@ -524,6 +527,10 @@ p {
   -webkit-box-sizing: border-box;
   color: #fff;
   font-family: '纤黑';
+  line-height: 2.4rem;
+}
+.active_top{
+  margin-top: 5rem;
 }
 .active_main span {
   color: #11AA37;
@@ -534,6 +541,13 @@ p {
   bottom: 1rem;
   margin-left: -16%;
 }
+.active_code{
+  width: 90%;
+  height: 3rem;
+  display: block;
+  line-height: 3rem;
+  text-indent: 10px;
+}
 .active_tip {
   position: absolute;
   left: 0;
@@ -541,6 +555,16 @@ p {
 }
 .active_tip label {
   width: 70%;
+}
+.active_code_box{
+  width: 100%;
+  padding: 0 7%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  display: box;
+}
+.active_code_box .index_button{
+
 }
 /*主题背景选择完毕预览页*/
 .iframe_box{

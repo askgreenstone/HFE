@@ -23,7 +23,11 @@ angular.module('myApp', [])
             }).
             success(function(data, status) {
                console.log(data);
-               $('.qrcode').text(data.QrCodeUrl)
+               $('.qrcode').text(data.QrCodeUrl);
+               setTimeout(function(){
+                $('#imgSrc').attr('src',data.QrCodeUrl)
+               },300)
+               
             }).
             error(function(data, status) {
                 alert('网络错误或服务器异常');    
