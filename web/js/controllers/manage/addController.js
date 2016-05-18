@@ -220,7 +220,6 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
               }
             }
             else{
-              alert('hh');
               setTimeout(function(){
                 insertContent(isAppendTo);
               },500);
@@ -230,7 +229,7 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         vm.getUMThemeJson = function(){
           $http({
                 method: 'GET',
-                url:'/web/js/umTheme.json',
+                url:GlobalUrl+'/web/js/umTheme.json',
                 params: {},
                 data: {}
             }).
