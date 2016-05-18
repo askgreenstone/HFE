@@ -89,7 +89,7 @@ var CommonMixin = {
   },
   showNotice: function(content){
     $('.notice_box').show();
-    $('.notice_box span').text(content);
+    $('.notice_box span')[0].innerHTML=content;
   },
   hideNotice: function(){
     $('.notice_box').hide();
