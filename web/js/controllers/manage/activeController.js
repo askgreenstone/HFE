@@ -71,6 +71,8 @@ define(['App'], function(app) {
             alert('网络连接错误或服务器异常！');
           })
         }
+
+        // 直接激活
         vm.setActiveState = function(){
           $http({
               method: 'post',
@@ -88,6 +90,31 @@ define(['App'], function(app) {
           error(function(){
             alert('网络连接错误或服务器异常！');
           })
+        }
+
+        // 邀请码激活
+        vm.codeSetActive = function(){
+          //状态1045，已经激活过，失去激活资格
+          $http({
+                method: 'post',
+                url: GlobalUrl+'/exp/ActivateMicWeb.do',
+                params: {session:vm.sess},
+                headers : {'Content-Type':undefined},
+                data: {ac:vm.expCode,ad:30}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);               
+                if(data.c == 1000){
+                  window.location.href = '#/micro?session='+vm.sess;
+                }else if(data.c == 1046){
+                  alert("激活码失效")
+                }
+               
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
         }
 
       

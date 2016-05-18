@@ -4,6 +4,12 @@ angular.module('myApp', [])
         $scope.user.t = 4;
         $scope.user.p = 12;
         $scope.codeList = [];
+        url = '';
+        if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t-dist')>-1){
+				  url = 'http://t-dist.green-stone.cn';
+				}else{
+					url = 'http://dist.green-stone.cn';
+				}
 
         $scope.addServerData = function() {	
         	if(!$scope.user.en){
@@ -25,7 +31,7 @@ angular.module('myApp', [])
         	console.log($scope.codeList);
             $http({
                 method: 'POST',
-                url: 'http://t-dist.green-stone.cn/exp/BatchRegister.do',
+                url: url + '/exp/BatchRegister.do',
                 data:{'al':$scope.codeList},
                 headers : {'Content-Type':undefined}
             }).
@@ -33,7 +39,7 @@ angular.module('myApp', [])
                console.log(data);
                if(data.c == 1000){
                	alert('注册成功！');
-               	$scope.codeList = [];
+               	// $scope.codeList = [];
                }else{
                	alert('注册失败');
                }

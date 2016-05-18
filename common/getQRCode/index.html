@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <title>链接转二维码</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <link rel="stylesheet" href="../addPromoCode/css/bootstrap.min.css">
+    <script src="../addPromoCode/scripts/angular.js"></script>
+    <script src="../addPromoCode/scripts/jquery.min.js"></script>
+    <script src="scripts/main.js"></script>
+    <style>
+        .form-inline input{
+            width: 300px;
+            height: 30px;
+            margin: 10px 0 10px;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div class="panel panel-info">
+        <div class="panel-heading">链接转二维码</div>
+        <div class="panel-body">
+          <form class="form-inline">
+            <input type="text" ng-model="website" placeholder="请输入网址链接如https://www.baidu.com">
+            <br/>
+            <button type="submit" ng-click="getQRcodeAddress()" class="btn btn-info btn-lg">确定</button>
+          </form> 
+        </div>
+        <div class="panel-body">
+          <span>二维码地址：</span><span class="qrcode"></span>
+        </div>
+    </div>
+</body>
+
+</html>
