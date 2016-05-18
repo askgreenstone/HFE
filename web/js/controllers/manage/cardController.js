@@ -93,7 +93,7 @@ define(['App'], function(app) {
           }).
           success(function(data, status, headers, config) {
               console.log(data);
-              vm.qrIndex = data.qrn?data.qrn:'onlinelaw20160314185742';
+              vm.qrIndex = data.qrn?data.qrn:'onlinelaw20160314185742.jpg';
           }).
           error(function(data, status, headers, config) {
               // console.log(data);
@@ -417,9 +417,7 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   if(data.c == 1000){
-                     $window.location.href = '#/card2?session='+vm.sess;
-                  }else if(data.c == 1037){
-                    console.log("该用户微名片信息已存在，走update接口")
+                     $window.location.href = '#/card3?session='+vm.sess;
                   }
               }).
               error(function(data, status, headers, config) {
@@ -443,6 +441,8 @@ define(['App'], function(app) {
                   console.log(data);
                   if(data.c == 1000){
                      $window.location.href = '#/card2?session='+vm.sess;
+                  }else if(data.c == 1037){
+                    console.log("该用户微名片信息已存在，走update接口")
                   }
               }).
               error(function(data, status, headers, config) {
