@@ -7,13 +7,6 @@
     <link rel="stylesheet" href="lib/bootstrap.min.css">
     <link rel="stylesheet" href="css/lib/cropper.min.css">
     <link rel="stylesheet" href="css/base.css">
-    <style>
-    /*UM编辑器配合样式*/
-    .umeditorPic img{
-        border-radius: 50%;
-        width: 100%;
-    }
-    </style>
 </head>
 
 <body>
@@ -88,11 +81,11 @@ jQuery(document).ready(function($) {
     });
 
     //pc 账号密码登录，则隐藏其余菜单，仅保留微网站管理
-    // checkLinkOrigin();
+    checkLinkOrigin();
 });
 
 function checkLinkOrigin(){
-  if(localStorage.getItem('URLOrigin')){
+  if(sessionStorage.getItem('URLOrigin')){
     $('#micro_manage').siblings().hide();
   }
 }
@@ -141,8 +134,16 @@ function getSession() {
 }
 
 function logout() {
-    // window.location.href = 'http://web.green-stone.cn/';
-    window.location.href = checkUrl()+'coop/login/';
+    if(sessionStorage.getItem('URLOrigin')){
+      window.location.href = checkUrl()+'coop/login/';
+      sessionStorage.removeItem('URLOrigin');
+    }else{
+      if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t-dist')>-1){
+        window.location.href = 'http://t-web.green-stone.cn/';
+      }else{
+        window.location.href = 'http://web.green-stone.cn/';
+      }
+    }
 }
 
 function checkUrl(){
