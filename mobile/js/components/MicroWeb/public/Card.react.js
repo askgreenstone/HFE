@@ -70,12 +70,20 @@ var Card = React.createClass({
         console.log(data);
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
-          console.log(data.sil[0].spu)
-          this.setState({
-            Title:data.sil[0].sti,
-            Introduction:data.sil[0].sd,
-            Img:global.img+data.sil[0].spu
-          });
+          // console.log(data.sil[0].spu)
+          if(data.sil.length>0){
+            this.setState({
+              shareTitle:data.sil[0].sti,
+              shareDesc:data.sil[0].sd,
+              shareImg:data.sil[0].spu
+            });
+          }else{
+            this.setState({
+              shareTitle:'我的微网站',
+              shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
+              shareImg:'greenStoneicon300.png'
+            });
+          }
         }
       }.bind(this),
       error: function(xhr, status, err) {

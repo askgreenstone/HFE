@@ -181,8 +181,8 @@ var Index008=React.createClass({
             });
           }else{
             this.setState({
-              shareTitle:'绿石微网站',
-              shareDesc:'绿石微网站，由绿石开发提供技术支持！',
+              shareTitle:'我的微网站',
+              shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
               shareImg:'greenStoneicon300.png'
             });
           }
