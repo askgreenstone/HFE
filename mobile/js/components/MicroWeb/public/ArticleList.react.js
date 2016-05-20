@@ -89,7 +89,7 @@ var ArticleList = React.createClass({
     return (
     <div>
       <List1/>
-      <Share ref="myShareTest" title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={this.state.shareImg} target="articleList"/>
+      <Share ref="myShareTest" title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={global.img+this.state.shareImg} target="articleList"/>
     </div>
     );
   },

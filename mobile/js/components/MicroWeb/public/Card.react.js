@@ -194,7 +194,7 @@ var Card = React.createClass({
                 <a href="http://dist.green-stone.cn/coop/wbms/">创建我的微应用</a>
             </div>
           </div>
-          <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
+          <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="card"/>
           <Message/>
         </div>
       )
