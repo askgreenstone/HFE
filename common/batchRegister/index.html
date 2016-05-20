@@ -18,6 +18,14 @@
             width: 80%;
             margin: 20px auto;
         }
+        .panel-body table td.red{
+          color: red;
+          font-weight: bolder;
+        }
+        .panel-body table td.green{
+          color: green;
+          font-weight: bolder;
+        }
     </style>
 </head>
 
@@ -53,8 +61,6 @@
                     <td><input type="number" value="12" min="1" ng-model="user.p">月</td>
                   </tr>
                 </tbody>
-                
-
             </table>
             <button type="submit" ng-click="addServerData()" class="btn btn-info btn-lg btn-block">添加</button>
             <table class="table table-striped table-bordered table-condensed">
@@ -76,6 +82,20 @@
                 </tbody>
             </table>
             <button type="submit" ng-click="postServerData()" class="btn btn-info btn-lg btn-block">提交</button>
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <td>电话</td>
+                    <td>注册状态</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in registerStatus track by $index">
+                      <td>{{item.pn}}</td>
+                      <td ng-class="item.s == 1?'green':'red'">{{item.s == 3?'已注册':(item.s == 1?'注册成功':'注册失败')}}</td>
+                  </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
