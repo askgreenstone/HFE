@@ -1,4 +1,5 @@
 var React = require('react');
+var wx = require('weixin-js-sdk');
 
 var ArticleDetail = require('../public/ArticleDetail.react');
 var Card = require('../public/Card.react');
@@ -10,6 +11,7 @@ var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 
+var Global_share_arr = [];
 require('../../../../css/theme/theme008.less');
 var Index008=React.createClass({
   mixins:[CommonMixin],
@@ -133,7 +135,6 @@ var Index008=React.createClass({
     }
     $.ajax({
       type:'get',
-      async:false,
       url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
       success: function(data) {
         // alert(JSON.stringify(data));
@@ -173,19 +174,7 @@ var Index008=React.createClass({
         // alert(JSON.stringify(data));
         console.log(data);
         if(data.c == 1000){
-          if(data.sil.length>0){
-            this.setState({
-              shareTitle:data.sil[0].sti,
-              shareDesc:data.sil[0].sd,
-              shareImg:data.sil[0].spu
-            });
-          }else{
-            this.setState({
-              shareTitle:'绿石微网站',
-              shareDesc:'绿石微网站，由绿石开发提供技术支持！',
-              shareImg:'greenStoneicon300.png'
-            });
-          }
+          Global_share_arr = data.sil;
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -193,9 +182,6 @@ var Index008=React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-  },
-  test: function(){
-    alert('width:'+window.screen.width+','+'height:'+window.screen.height);
   },
   //查询用户微网站是否过期
   getUserWebState: function(){
@@ -225,12 +211,24 @@ var Index008=React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
+    if(Global_share_arr.length>0){
+      this.setState({
+          shareTitle:Global_share_arr[0].sti,
+          shareDesc:Global_share_arr[0].sd,
+          shareImg:Global_share_arr[0].spu
+      });
+    }else{
+      this.setState({
+        shareTitle:'绿石微网站',
+        shareDesc:'绿石微网站，由绿石开发提供技术支持！',
+        shareImg:'greenStoneicon300.png'
+      });
+    }
   },
   componentWillMount: function(){
     this.getBgLogo();
     this.getWxShareInfo();
     this.getUserWebState();
-    // this.test();
   },
   render:function(){
     var navNodes1 = this.state.container1.map(function(item,i){
@@ -299,9 +297,9 @@ var Index008=React.createClass({
               </div>
             </div>
           </div>
-          <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
-            <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
+          <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index008"/>
+          <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
           <Message/>
           <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
           <div id="limit_password_box" title="" value="" name="" type="">

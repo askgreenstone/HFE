@@ -3,6 +3,7 @@ var CommonMixin = require('../../Mixin');
 var List1 = require('../../layout/List1.react');
 var Share = require('../../common/Share.react');
 
+var Global_share_arr = [];
 var ArticleList = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
@@ -49,20 +50,7 @@ var ArticleList = React.createClass({
           console.log(data);
           // alert('ownUri:'+ownUri+'ntid:'+ntid);
           if(data.c == 1000){
-             if(data.nl.length > 0){
-             		// console.log(1);
-                this.setState({
-                  shareTitle:data.nl[0].ntit,
-                  shareDesc:this.removeHTMLTag(data.nl[0].nc),
-                  shareImg:this.getCotentSrc(data.nl[0].nc)
-                });
-             }else{
-                this.setState({
-                  shareTitle:'微网站',
-                  shareDesc:'这是一个律师微网站，由绿石开发提供技术支持！',
-                  shareImg:global.url+'greenStoneicon300.png'
-                })
-             }
+            Global_share_arr = data.nl;
              // alert(this.state.shareTitle);
            }
         }.bind(this),
@@ -73,6 +61,19 @@ var ArticleList = React.createClass({
   },
   componentDidMount: function(){
     // this.onlyToSetShareInfo();
+    if(Global_share_arr.length>0){
+      this.setState({
+          shareTitle:Global_share_arr[0].ntit,
+          shareDesc:this.removeHTMLTag(Global_share_arr[0].nc),
+          shareImg:this.getCotentSrc(Global_share_arr[0].nc)
+      });
+    }else{
+      this.setState({
+        shareTitle:'绿石微网站',
+        shareDesc:'绿石微网站，由绿石开发提供技术支持！',
+        shareImg:'greenStoneicon300.png'
+      });
+    }
   },
    componentWillMount: function(){
     this.onlyToSetShareInfo();
