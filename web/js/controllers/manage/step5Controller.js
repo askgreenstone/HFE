@@ -210,8 +210,8 @@ define(['App'], function(app) {
                     vm.shareId = data.sil[0].si;
                   }else{
                     vm.user = {
-                      title:'我的律师微网站',
-                      desc:'我正在绿石使用律师微网站，欢迎访问我的微网站！',
+                      title:'我的微网站',
+                      desc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
                       preview:'greenStoneicon300.png'
                     }
                   }

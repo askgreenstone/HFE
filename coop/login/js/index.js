@@ -5,9 +5,11 @@
 
 Zepto(function($){
   var api =new Api();
+  $('#lawyer').prop('checked',true);
   $('#index_submit').click(function(event) {
   	var userpwd = $('#index_pwd').val(),
-  			userphone = $('#index_phone').val();
+  			userphone = $('#index_phone').val(),
+        at = 1;
   	if(!userphone){
   		alert('请输入手机号码！');
   		return;
@@ -18,7 +20,13 @@ Zepto(function($){
   		alert('请输入密码！');
   		return;
   	}
-  	api.login(userphone,userpwd,
+    if($('#lawyer').prop('checked')){
+      at = 1
+    }else{
+      at = 4
+    }
+    console.log(typeof at);
+  	api.login(userphone,userpwd,at,
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
