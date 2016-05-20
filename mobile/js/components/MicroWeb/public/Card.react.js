@@ -73,15 +73,15 @@ var Card = React.createClass({
           // console.log(data.sil[0].spu)
           if(data.sil.length>0){
             this.setState({
-              shareTitle:data.sil[0].sti,
-              shareDesc:data.sil[0].sd,
-              shareImg:data.sil[0].spu
+              Title:data.sil[0].sti,
+              Introduction:data.sil[0].sd,
+              Img:data.sil[0].spu
             });
           }else{
             this.setState({
-              shareTitle:'我的微网站',
-              shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
-              shareImg:'greenStoneicon300.png'
+              Title:'我的微网站',
+              Introduction:'欢迎访问我的微网站！这里有我的职业介绍和成就',
+              Img:'greenStoneicon300.png'
             });
           }
         }
@@ -194,7 +194,7 @@ var Card = React.createClass({
                 <a href="http://dist.green-stone.cn/coop/wbms/">创建我的微应用</a>
             </div>
           </div>
-          <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card"/>
+          <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="card"/>
           <Message/>
         </div>
       )

@@ -264,7 +264,7 @@ var ArticleDetail = React.createClass({
           </div>
 
           <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={this.state.shareImg} target="articleDetail"/>
+        imgUrl={global.img+this.state.shareImg} target="articleDetail"/>
           <Message/>
           <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} alt={this.state.uid} type="articleDetail">
             <Password display="true"/>
