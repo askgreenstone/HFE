@@ -3,7 +3,6 @@ var CommonMixin = require('../../Mixin');
 var List1 = require('../../layout/List1.react');
 var Share = require('../../common/Share.react');
 
-var Global_share_arr = [];
 var ArticleList = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
@@ -50,7 +49,19 @@ var ArticleList = React.createClass({
           console.log(data);
           // alert('ownUri:'+ownUri+'ntid:'+ntid);
           if(data.c == 1000){
-            Global_share_arr = data.nl;
+            if(data.nl.length>0){
+              this.setState({
+                  shareTitle:data.nl[0].ntit,
+                  shareDesc:this.removeHTMLTag(data.nl[0].nc),
+                  shareImg:this.getCotentSrc(data.nl[0].nc)
+              });
+            }else{
+              this.setState({
+                shareTitle:'我的微网站',
+                shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就!',
+                shareImg:'greenStoneicon300.png'
+              });
+            }
              // alert(this.state.shareTitle);
            }
         }.bind(this),
@@ -61,21 +72,8 @@ var ArticleList = React.createClass({
   },
   componentDidMount: function(){
     // this.onlyToSetShareInfo();
-    if(Global_share_arr.length>0){
-      this.setState({
-          shareTitle:Global_share_arr[0].ntit,
-          shareDesc:this.removeHTMLTag(Global_share_arr[0].nc),
-          shareImg:this.getCotentSrc(Global_share_arr[0].nc)
-      });
-    }else{
-      this.setState({
-        shareTitle:'我的微网站',
-        shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就!',
-        shareImg:'greenStoneicon300.png'
-      });
-    }
   },
-   componentWillMount: function(){
+  componentWillMount: function(){
     this.onlyToSetShareInfo();
   },
   render: function() {
