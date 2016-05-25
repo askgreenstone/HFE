@@ -273,7 +273,8 @@ var CommonMixin = {
     if(type=='telphone'){
       this.staticWebPV(2);
     }else if(type == 'consult'){
-      WeixinJSBridge.call('closeWindow'); 
+      // WeixinJSBridge.call('closeWindow'); 
+      location.href = '#board';
     }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
