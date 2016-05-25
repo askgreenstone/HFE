@@ -72,6 +72,8 @@ var Card3 = require('./components/MicroWeb/public/Card3.react');
 // 于洪彬英文微名片
 var Card4 = require('./components/MicroWeb/public/Card4.react');
 var Share = require('./components/MicroWeb/public/Share.react');
+// 留言板
+var Board = require('./components/MicroWeb/public/Board.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -109,6 +111,7 @@ ReactDOM.render((
     <Route path="/card3" component={Card3}/>
     <Route path="/card4" component={Card4}/>
     <Route path="/share" component={Share}/>
+    <Route path="/board" component={Board}/>
   </Router>
 ), document.getElementById('myapp'))
 

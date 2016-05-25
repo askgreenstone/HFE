@@ -728,6 +728,125 @@ p{
   -webkit-tap-highlight-color:transparent;
 }
 
+//留言板样式
+.board_box{
+  background: url('../image/board.png') no-repeat fixed top transparent;
+  position: fixed;
+  width: 100%;
+  background-size: contain;
+  overflow: auto;
+}
+.board_box .board_content{
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+.board_box h3{
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fff;
+  width: 85%;
+  margin: 5% auto;
+  font-size: 1.8rem;
+  color: #fff;
+}
+.board_content textarea{
+  margin: 0 auto;
+  width: 82%;
+  display: block;
+  border-radius: 5px;
+  border: none;
+  height: 150px;
+  font-size: 1.5rem;
+  padding: 2%;
+}
+.board_btn{
+  background-color: #39d167;
+  width: 86%;
+  border-radius: 3px;
+  display: block;
+  height: 45px;
+  margin: 5% auto 20%;
+  text-align: center;
+  line-height: 45px;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.board_box a{
+  color: #fff;
+}
+.board_list{
+  width: 85%;
+  margin: 0 auto;
+}
+.board_list li{
+  margin: 5% 0;
+}
+.board_list img{
+  border-radius: 50%;
+  border: 0;
+}
+.board_list_right{
+  float: right;
+  background-color: #D2E4FF;
+  width: 68%;
+  padding: 2%;
+  border-radius: 4px;
+  position: relative;
+  margin-top: 2%;
+}
+.board_list_right span{
+  color: #797878;
+  font-size: 1.4rem;
+}
+.board_list_right p{
+  margin: 4% 0 0;
+  color: #424141;
+  font-size: 1.4rem;
+  line-height: 22px;
+}
+.board_list_right i{
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  position: absolute;
+  top: 18%;
+  left: -3%;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  background-color: #D2E4FF;
+}
+.board_list_left{
+  float: left;
+  background-color: #F9F7F7;
+  width: 68%;
+  padding: 2%;
+  border-radius: 4px;
+  position: relative;
+  margin-top: 2%;
+  margin-right: 6%;
+}
+.board_list_left span{
+  color: #797878;
+  font-size: 1.4rem;
+}
+.board_list_left p{
+  margin: 4% 0 0;
+  color: #424141;
+  font-size: 1.4rem;
+  line-height: 22px;
+}
+.board_list_left i{
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  position: absolute;
+  top: 18%;
+  right: -3%;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  background-color: #F9F7F7;
+}
 //loading全局样式
 .infinite-list-item{
   height: 54px;
