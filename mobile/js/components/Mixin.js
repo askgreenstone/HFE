@@ -260,6 +260,24 @@ var CommonMixin = {
     console.log(tempType);
     return tempType;
   },
+  //微信授权
+  getWXMsg:function(){
+        var wxPath = window.location.href,
+            uri = encodeURIComponent(wxPath.toString());
+        $.ajax({
+            type: 'get',
+            url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
+            success: function(data) {
+                alert('wxscan:' + JSON.stringify(data));
+                if (data.c == 1000) {
+                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2fweb.green-stone.cn%2fusr%2fWebOauthDispatch.do&response_type=code&scope=snsapi_userinfo&state=moonfstw@oG-wst2EB-PqjyAoOEmvOQQEReiE@165&from=timeline&isappinstalled=0#wechat_redirect';//location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx73c8b5057bb41735&redirect_uri=http%3a%2f%2fweb.green-stone.cn%2fusr%2fWebOauthDispatch.do&response_type=code&scope=snsapi_userinfo&state=moonfstw@oG-wst2EB-PqjyAoOEmvOQQEReiE@165&from=timeline&isappinstalled=0#wechat_redirect';
+                }
+            },
+            error: function(xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+  },
   //菜单跳转公用方法
   menuLink: function(type,ntid,limit,psw,title){
     // console.log(event);
@@ -274,8 +292,8 @@ var CommonMixin = {
       this.staticWebPV(2);
     }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
-      location.href = '#board';
-    }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
+      this.getWXMsg();
+     }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
       if(localStorage.getItem('user_token_'+ntid) && localStorage.getItem('user_psw_'+ntid) == psw){

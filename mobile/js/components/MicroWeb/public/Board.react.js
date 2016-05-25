@@ -54,6 +54,7 @@ var Board = React.createClass({
                   <p>请问有人在吗,放大防守打法。</p>
                 </div>
               </li>
+              <div className="clean"></div>
             </ul>
           </div>
         </div>
