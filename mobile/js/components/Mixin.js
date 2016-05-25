@@ -260,7 +260,7 @@ var CommonMixin = {
     console.log(tempType);
     return tempType;
   },
-  //微信授权
+  //微信授权，获取appid
   getWXMsg:function(){
         var wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
@@ -268,7 +268,7 @@ var CommonMixin = {
             type: 'get',
             url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
             success: function(data) {
-                alert('wxscan:' + JSON.stringify(data));
+                // alert('wx:' + JSON.stringify(data));
                 if (data.c == 1000) {
                   location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2fweb.green-stone.cn%2fusr%2fWebOauthDispatch.do&response_type=code&scope=snsapi_userinfo&state=moonfstw@oG-wst2EB-PqjyAoOEmvOQQEReiE@165&from=timeline&isappinstalled=0#wechat_redirect';//location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx73c8b5057bb41735&redirect_uri=http%3a%2f%2fweb.green-stone.cn%2fusr%2fWebOauthDispatch.do&response_type=code&scope=snsapi_userinfo&state=moonfstw@oG-wst2EB-PqjyAoOEmvOQQEReiE@165&from=timeline&isappinstalled=0#wechat_redirect';
                 }
