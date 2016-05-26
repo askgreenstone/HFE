@@ -126,6 +126,19 @@ var CommonMixin = {
     str=str.replace(/&nbsp;/ig,'');//去掉&nbsp;
     return str;
   },
+  createUUID: function(){
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("").toUpperCase();
+    return uuid;
+  },
   getEcardTel: function(){
     var ownUri = this.getUrlParams('ownUri');
     var ecardTel = '';
@@ -261,7 +274,7 @@ var CommonMixin = {
     return tempType;
   },
   //微信授权，获取appid
-  getWXMsg:function(){
+  getWXMsg:function(ownUri){
         var wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
         $.ajax({
@@ -270,7 +283,7 @@ var CommonMixin = {
             success: function(data) {
                 // alert('wx:' + JSON.stringify(data));
                 if (data.c == 1000) {
-                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2fweb.green-stone.cn%2fusr%2fWebOauthDispatch.do&response_type=code&scope=snsapi_userinfo&state=moonfstw@oG-wst2EB-PqjyAoOEmvOQQEReiE@165&from=timeline&isappinstalled=0#wechat_redirect';//location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx73c8b5057bb41735&redirect_uri=http%3a%2f%2fweb.green-stone.cn%2fusr%2fWebOauthDispatch.do&response_type=code&scope=snsapi_userinfo&state=moonfstw@oG-wst2EB-PqjyAoOEmvOQQEReiE@165&from=timeline&isappinstalled=0#wechat_redirect';
+                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2ft-web.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'#wechat_redirect';
                 }
             },
             error: function(xhr, status, err) {
@@ -292,7 +305,7 @@ var CommonMixin = {
       this.staticWebPV(2);
     }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
-      this.getWXMsg();
+      this.getWXMsg(ownUri);
      }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
