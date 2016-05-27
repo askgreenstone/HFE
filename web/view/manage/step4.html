@@ -79,7 +79,7 @@
 								<span ng-click="vm.checkThis($event)" value="2" ng-class="x.nc==2?'active':''">内容列表</span>
 							</b>
 						</span>
-						<img ng-click="vm.deleteMenu(x.ntId,x.mt)" src="image/delete.png" width="30" height="30">
+						<img ng-click="vm.deleteMenu(x.ntId,x.mt)" ng-hide="x.mt==2||x.mt==4" src="image/delete.png" width="30" height="30">
 					</li>
 					<div class="clean"></div>
 				</ul>
