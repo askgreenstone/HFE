@@ -150,6 +150,7 @@ var Board = React.createClass({
     var documentHeight = document.body.scrollHeight;
     $('.board_content').css({'height':documentHeight});
     this.getGroupInfo();
+    // IScroll
   },
   render: function() {
     var navNodes = this.state.msgList.map(function(item,i){
@@ -168,16 +169,18 @@ var Board = React.createClass({
     return (
         <div className="board_box">
             <div className="board_content">
-                <h3>留言板</h3>
-                <textarea ref="boardMsgInput" cols="" rows="" placeholder="请输入您的问题，我会第一时间给您反馈。"/>
-                <a className="board_btn" href="javascript:void(0)" onClick={this.sendBoardMsg}>提 交</a>
-                <p>&nbsp;</p>
-                <h3>咨询会话（<b id="msgCount">0</b>）</h3>
-                <a className="board_reload" href="javascript:void(0)" onClick={this.reloadMsg}>刷新会话</a>
-                <ul className="board_list">
-                  {navNodes}
-                  <div className="clean"></div>
-                </ul>
+                <div>
+                  <h3>留言板</h3>
+                  <textarea ref="boardMsgInput" cols="" rows="" placeholder="请输入您的问题，我会第一时间给您反馈。"/>
+                  <a className="board_btn" href="javascript:void(0)" onClick={this.sendBoardMsg}>提 交</a>
+                  <p>&nbsp;</p>
+                  <h3>咨询会话（<b id="msgCount">0</b>）</h3>
+                  <a className="board_reload" href="javascript:void(0)" onClick={this.reloadMsg}>刷新会话</a>
+                  <ul className="board_list">
+                    {navNodes}
+                    <div className="clean"></div>
+                  </ul>
+                </div>
             </div>
           <Message/>
         </div>

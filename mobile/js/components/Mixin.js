@@ -283,7 +283,7 @@ var CommonMixin = {
             success: function(data) {
                 // alert('wx:' + JSON.stringify(data));
                 if (data.c == 1000) {
-                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2ft-web.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'#wechat_redirect';
+                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2fweb.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'#wechat_redirect';
                 }
             },
             error: function(xhr, status, err) {
