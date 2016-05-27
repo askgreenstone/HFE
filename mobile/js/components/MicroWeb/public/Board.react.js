@@ -3,7 +3,6 @@ var React = require('react');
 // import IScroll from 'iscroll';
 var CommonMixin = require('../../Mixin');
 var Message = require('../../common/Message.react');
-
 //初始化iscroll配置
 // setDefaultIScrollOptions({
 //         scrollbars: false,
@@ -150,7 +149,6 @@ var Board = React.createClass({
     var documentHeight = document.body.scrollHeight;
     $('.board_content').css({'height':documentHeight});
     this.getGroupInfo();
-    // IScroll
   },
   render: function() {
     var navNodes = this.state.msgList.map(function(item,i){

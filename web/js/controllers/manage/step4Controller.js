@@ -286,8 +286,13 @@ define(['App','Sortable'], function(app) {
         }
 
         //删除菜单
-        vm.deleteMenu = function(id){
+        vm.deleteMenu = function(id,mt){
           // vm.submitAllInfo(false);
+          //微名片和线上咨询菜单不允许删除
+          if(mt==2 || mt==4){
+            alert('主题默认菜单，不可删除！');
+            return;
+          }
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/DeleteUriMenu.do',
