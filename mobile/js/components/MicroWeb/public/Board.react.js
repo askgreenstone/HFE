@@ -155,7 +155,7 @@ var Board = React.createClass({
       return(
              <li key={new Date().getTime()+i}>
                 <img src={item.img} width="65" height="65"/>
-                <div className={item.type?'board_list_right':'board_list_left'}>
+                <div className={item.type?'board_list_left':'board_list_right'}>
                   <i></i>
                   <span>{item.name+'  '+item.time}</span>
                   <p>{item.content}</p>

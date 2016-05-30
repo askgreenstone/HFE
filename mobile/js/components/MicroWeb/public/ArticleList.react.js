@@ -59,7 +59,7 @@ var ArticleList = React.createClass({
               this.setState({
                 shareTitle:'我的微网站',
                 shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就!',
-                shareImg:'greenStoneicon300.png'
+                shareImg:global.img+'greenStoneicon300.png'
               });
             }
              // alert(this.state.shareTitle);
@@ -87,7 +87,7 @@ var ArticleList = React.createClass({
     return (
     <div>
       <List1/>
-      <Share ref="myShareTest" title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={global.img+this.state.shareImg} target="articleList"/>
+      <Share ref="myShareTest" title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={this.state.shareImg} target="articleList"/>
     </div>
     );
   },

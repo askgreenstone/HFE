@@ -286,9 +286,9 @@ var CommonMixin = {
                   var temp = '';
                   var str = window.location.href;
                   if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
-                    temp = 't-web'
+                    temp = 't-web';
                   }else{
-                    temp = 'web'
+                    temp = 'web';
                   }
                   location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'#wechat_redirect';
                 }
