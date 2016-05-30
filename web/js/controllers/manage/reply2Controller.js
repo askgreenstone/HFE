@@ -18,6 +18,7 @@ define(['App'], function(app) {
         vm.imgUrl = '';
         vm.isImgUpload = false;// 初始化为false，上传图片后为true
         vm.authenState = 22;// 获取用户是否为认证状态  21为已认证 22未认证
+        vm.ownUri = ''; //获取用户ownUri 
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;
@@ -199,12 +200,13 @@ define(['App'], function(app) {
                   vm.msgCont = data.msgCont;
                   vm.isServerData = false;
                   vm.imgUrl = 'image/placeholder.png';
+                  vm.url = data.url?data.url:'http://dist.green-stone.cn/usr/ThirdHomePage.do?ownUri='+vm.ownUri;
                 }else{
                   vm.imgTextFlag = true;
                   vm.title = data.title;
                   vm.desc = data.desc;
                   vm.picurl = data.picurl?data.picurl:'image/placeholder.png';
-                  vm.url = data.url;
+                  vm.url = data.url?data.url:'http://dist.green-stone.cn/usr/ThirdHomePage.do?ownUri='+vm.ownUri;
                   vm.isServerData = true;
                   vm.imgUrl = data.picurl?(vm.transferUrl+data.picurl):'image/placeholder.png';
                   //延迟初始化裁图插件
@@ -224,6 +226,31 @@ define(['App'], function(app) {
               alert('网络连接错误或服务器异常！');
           });
         }
+
+
+        // 获取用户ownUri
+        vm.getOwnUri = function(){
+          $http({
+                method: 'GET',
+                url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
+                params: {
+                    session:vm.sess
+                },
+                data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.ownUri = data.ownUri;
+                  vm.getImgTextReply();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('网络连接错误或服务器异常！');
+            });
+        };
+
 
         // 验证各项数据格式、字数是否合格
         vm.validateInput = function(){
@@ -343,7 +370,8 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.enable = Common.getUrlParam('enable');
-          vm.getImgTextReply();
+          vm.getOwnUri();
+          // vm.getImgTextReply();
           vm.getAuthenState();
         }
 
