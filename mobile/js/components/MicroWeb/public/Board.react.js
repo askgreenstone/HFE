@@ -1,6 +1,7 @@
 // import IScrollReact ,{setDefaultIScrollOptions}from 'iscroll-react';
 var React = require('react');
 // import IScroll from 'iscroll';
+var wx = require('weixin-js-sdk');
 var CommonMixin = require('../../Mixin');
 var Message = require('../../common/Message.react');
 //初始化iscroll配置
@@ -56,7 +57,10 @@ var Board = React.createClass({
                   name:data.s[i].p.ext.nm,
                   time:new Date(data.s[i].ts).Format("yyyy-MM-dd hh:mm:ss"),
                   ts:data.s[i].ts,
-                  content:data.s[i].p.msg.msg
+                  content:data.s[i].p.msg.msg,
+                  pic:data.s[i].p.ext.file?(global.img+data.s[i].p.ext.on):'',
+                  doc:!data.s[i].p.ext.file&&data.s[i].p.ext.on?that.fixSrc(data.s[i].p.ext.on):'',
+                  fn:data.s[i].p.ext.fn
                 });
               }
               newArrs.sort(function(obj1,obj2){
@@ -70,6 +74,11 @@ var Board = React.createClass({
             // console.error(this.props.url, status, err.toString());
         }
     });
+  },
+  fixSrc:function(src){
+    console.log(src);
+    var temp = src.split('.')[0];
+    return temp;
   },
   getGroupInfo: function(){
     var that = this;
@@ -145,15 +154,86 @@ var Board = React.createClass({
       this.showTip('刷新成功！');   
     }
   },
+  viewDoc: function(name){
+    window.location.href = '#empty?name='+name;
+  },
+  gotoSingle: function(src){
+    wx.ready(function() {
+        wx.checkJsApi({
+            jsApiList: ['previewImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+            success: function(res) {
+              alert(JSON.stringify(res));
+                // 以键值对的形式返回，可用的api值true，不可用为false
+                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+            }
+        });
+        wx.previewImage({
+            current: src// 当前显示图片的http链接
+        });
+    });
+  },
+  wxSignature: function(one,all) {
+    // alert('wxSignature');
+      var temp = window.location.href+'',
+          currentUrl = this.fixWxUrl(temp),
+          uri = encodeURIComponent(currentUrl);
+
+      var that = this;
+      $.ajax({
+          type: 'get',
+          url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
+          success: function(data) {
+              // alert('location:' + JSON.stringify(data));
+              if (data.c == 1000) {
+                  wx.config({
+                      debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                      appId: data.appId, // 必填，公众号的唯一标识
+                      timestamp: data.timestamp, // 必填，生成签名的时间戳
+                      nonceStr: data.noncestr, // 必填，生成签名的随机串
+                      signature: data.signature, // 必填，签名，见附录1
+                      jsApiList: ['checkJsApi','previewImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                  });
+
+                  wx.error(function(res) {
+                      // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                      // alert(res.errMsg);
+                      that.sendWxMsg(data.appId,res);
+                  });
+
+              } else if(data.c == 1040){
+                  console.log("避开微信认证");
+              }  else {
+                  alert('wx preview code:' + data.c + ',error:' + data.d);
+              }
+          },
+          error: function(xhr, status, err) {
+              this.showAlert('网络连接错误或服务器异常！');
+              console.error(this.props.url, status, err.toString());
+          }
+      });
+  },
   componentDidMount: function(){
     var documentHeight = document.body.scrollHeight;
     $('.board_content').css({'height':documentHeight});
+    this.wxSignature();
     this.getGroupInfo();
   },
   render: function() {
     var navNodes = this.state.msgList.map(function(item,i){
+      if(item.pic || item.doc){
       return(
-             <li key={new Date().getTime()+i}>
+              <li key={new Date().getTime()+i}>
+                <img src={item.img} width="65" height="65"/>
+                <div className={item.type?'board_list_left':'board_list_right'}>
+                  <i></i>
+                  <span>{item.name+'  '+item.time}</span>
+                  <img style={{'display':item.pic?'block':'none'}} src={item.pic+'@300w'} onClick={this.gotoSingle.bind(this,item.pic)} width="100%"/>
+                  <a style={{'display':item.doc?'block':'none'}} onClick={this.viewDoc.bind(this,item.doc)} href="javascript:void(0);">{'文件：'+item.fn}</a>
+                </div>
+                <div className="clean"></div>
+              </li>
+      )}else{
+        return(<li key={new Date().getTime()+i}>
                 <img src={item.img} width="65" height="65"/>
                 <div className={item.type?'board_list_left':'board_list_right'}>
                   <i></i>
@@ -162,7 +242,7 @@ var Board = React.createClass({
                 </div>
                 <div className="clean"></div>
               </li>
-       );
+      )}
     }.bind(this));
     return (
         <div className="board_box">
@@ -182,7 +262,6 @@ var Board = React.createClass({
             </div>
           <Message/>
         </div>
-        
     );
   },
 });

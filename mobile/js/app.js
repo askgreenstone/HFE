@@ -74,6 +74,8 @@ var Card4 = require('./components/MicroWeb/public/Card4.react');
 var Share = require('./components/MicroWeb/public/Share.react');
 // 留言板
 var Board = require('./components/MicroWeb/public/Board.react');
+// 空页面，嵌套iframe
+var Empty = require('./components/layout/Empty.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -112,6 +114,7 @@ ReactDOM.render((
     <Route path="/card4" component={Card4}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
+    <Route path="/empty" component={Empty}/>
   </Router>
 ), document.getElementById('myapp'))
 
