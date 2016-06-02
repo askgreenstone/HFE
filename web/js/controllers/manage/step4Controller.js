@@ -359,7 +359,7 @@ define(['App','Sortable'], function(app) {
             success(function(data, status, headers, config) {
                 // console.log('排序：'+JSON.stringify(data));
                 if(data.c == 1000){
-                  // vm.getServerMenuList();
+                  vm.getServerMenuList();
                 }
             }).
             error(function(data, status, headers, config) {
