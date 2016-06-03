@@ -37,7 +37,7 @@ var pageImg = [];
 var Board = React.createClass({
   mixins:[CommonMixin],
 	getInitialState:function(){
-		return {flag:false,msgList:[]}
+		return {flag:false,msgList:[],mi:'',sess:'',expt:''}
 	},
   getMsgList: function(gi,sess,mb){
     var ts = new Date().getTime();
@@ -60,13 +60,15 @@ var Board = React.createClass({
                   content:data.s[i].p.msg.msg,
                   pic:data.s[i].p.ext.file?(global.img+data.s[i].p.ext.on):'',
                   doc:!data.s[i].p.ext.file&&data.s[i].p.ext.on?that.fixSrc(data.s[i].p.ext.on):'',
-                  fn:data.s[i].p.ext.fn
+                  fn:data.s[i].p.ext.fn,
+                  pay:data.s[i].p.ext.p?data.s[i].p.ext.p:'',
+                  mi:data.s[i].p.ext.mi?data.s[i].p.ext.mi:''
                 });
               }
               newArrs.sort(function(obj1,obj2){
                 return obj1['ts']>obj2['ts']?-1:1;
               });
-              that.setState({msgList:newArrs});
+              that.setState({msgList:newArrs}); 
             }
         },
         error: function(xhr, status, err) {
@@ -93,6 +95,12 @@ var Board = React.createClass({
             if (data.c == 1000) {
               that.getMsgList(gi,sess,data.mb);
               pageImg = data.mb;
+              for(var i=0;i<data.mb.length;i++){
+                if( data.mb[i].i.indexOf('e')>-1 ){
+                  that.setState({expt:data.mb[i].f});
+                }
+              }
+              
             }
         },
         error: function(xhr, status, err) {
@@ -156,6 +164,17 @@ var Board = React.createClass({
   },
   viewDoc: function(name){
     window.location.href = '#empty?name='+name;
+  },
+  weixinpay: function(mi){
+    var sess = this.getUrlParams('session');
+    var url = '';
+    var str = window.location.href;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+      url = 'http://t-mshare.green-stone.cn'
+    }else{
+      url = 'http://mshare.green-stone.cn'
+    }
+    window.location.href = url + '/htm/react/card.html?session='+sess+'&mi='+mi+'&expType='+this.state.expt;
   },
   gotoSingle: function(src){
     // alert(src);
@@ -232,7 +251,7 @@ var Board = React.createClass({
   },
   render: function() {
     var navNodes = this.state.msgList.map(function(item,i){
-      if(item.pic || item.doc){
+      if(item.pic || item.doc || item.pay){
       return(
               <li key={new Date().getTime()+i}>
                 <img src={item.img} width="65" height="65"/>
@@ -241,6 +260,12 @@ var Board = React.createClass({
                   <span>{item.name+'  '+item.time}</span>
                   <img style={{'display':item.pic?'block':'none'}} src={item.pic+'@300w'} onClick={this.gotoSingle.bind(this,item.pic)} width="100%"/>
                   <a style={{'display':item.doc?'block':'none'}} onClick={this.viewDoc.bind(this,item.doc)} href="javascript:void(0);">{'文件：'+item.fn}</a>
+                  <div style={{'display':item.pay?'block':'none'}}>
+                    收费名片<br/>
+                    {'收款方：'+item.name}<br/>
+                    {'收费金额：'+item.pay+'.00 元'}<br/>
+                    <a onClick={this.weixinpay.bind(this,item.mi)} href="javascript:void(0);">点击此处，立即支付</a>
+                  </div>
                 </div>
                 <div className="clean"></div>
               </li>
