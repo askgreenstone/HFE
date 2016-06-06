@@ -84,6 +84,25 @@ var Board = React.createClass({
     var temp = src.split('.')[0];
     return temp;
   },
+  //小数点后保留两位数
+  formartDecimal:function(x){
+    var f_x = parseFloat(x);
+    if (isNaN(f_x)) {
+        //alert('function:changeTwoDecimal->parameter error');
+        return false;
+    }
+    var f_x = Math.round(x * 100) / 100;
+    var s_x = f_x.toString();
+    var pos_decimal = s_x.indexOf('.');
+    if (pos_decimal < 0) {
+        pos_decimal = s_x.length;
+        s_x += '.';
+    }
+    while (s_x.length <= pos_decimal + 2) {
+        s_x += '0';
+    }
+    return s_x;
+  },
   getGroupInfo: function(){
     var that = this;
     var sess = this.getUrlParams('session'),
@@ -266,7 +285,7 @@ var Board = React.createClass({
                     收费名片<br/>
                     {'收款方：'+item.name}<br/>
                     {'收费项目：'+item.sn}<br/>
-                    {'收费金额：'+item.pay+'.00 元'}<br/>
+                    {'收费金额：'+this.formartDecimal(item.pay)+' 元'}<br/>
                     {'备注信息：'+item.extra}<br/>
                     <a onClick={this.weixinpay.bind(this,item.mi)} href="javascript:void(0);">点击此处，立即支付</a>
                   </div>
