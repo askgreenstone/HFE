@@ -22,7 +22,7 @@ var Toolbar = React.createClass({
 	},
   join: function(e){
     e.stopPropagation();
-    this.showNotice('个人微网站可以连接到您所在的组织机构或合作单位网络，彰显实力和集群效应。详询 <a style="text-decoration:underline;font-weight:bold;color:#53B920" href="tel://861058678723">+86 10 5867 8723</a>');
+    this.showNotice('微网站可以连接到您所在的组织机构或合作单位网络，彰显实力和集群效应。详询 <a style="text-decoration:underline;font-weight:bold;color:#53B920" href="tel://861058678723">+86 10 5867 8723</a>');
   },
   wxpublic: function(e){
     e.stopPropagation();

@@ -62,7 +62,9 @@ var Board = React.createClass({
                   doc:!data.s[i].p.ext.file&&data.s[i].p.ext.on?that.fixSrc(data.s[i].p.ext.on):'',
                   fn:data.s[i].p.ext.fn,
                   pay:data.s[i].p.ext.p?data.s[i].p.ext.p:'',
-                  mi:data.s[i].p.ext.mi?data.s[i].p.ext.mi:''
+                  mi:data.s[i].p.ext.mi?data.s[i].p.ext.mi:'',
+                  sn:data.s[i].p.ext.sn?data.s[i].p.ext.sn:'',
+                  extra:data.s[i].p.ext.extra?data.s[i].p.ext.extra:''
                 });
               }
               newArrs.sort(function(obj1,obj2){
@@ -255,7 +257,9 @@ var Board = React.createClass({
                   <div style={{'display':item.pay?'block':'none'}}>
                     收费名片<br/>
                     {'收款方：'+item.name}<br/>
+                    {'收费项目：'+item.sn}<br/>
                     {'收费金额：'+item.pay+'.00 元'}<br/>
+                    {'备注信息：'+item.extra}<br/>
                     <a onClick={this.weixinpay.bind(this,item.mi)} href="javascript:void(0);">点击此处，立即支付</a>
                   </div>
                 </div>
