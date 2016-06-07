@@ -307,7 +307,7 @@ var Board = React.createClass({
     return (
         <div className="board_box">
             <div className="board_content">
-             
+             <IScrollReact iScroll={IScroll} ref="iscroll" alwaysScroll>
                 <div id="iscroll_wrap">
                   <h3>留言板</h3>
                   <textarea ref="boardMsgInput" cols="" rows="" placeholder="请输入您的问题，我会第一时间给您反馈。"/>
@@ -320,7 +320,7 @@ var Board = React.createClass({
                     <div className="clean"></div>
                   </ul>
                 </div>
-                
+                </IScrollReact>
             </div>
           <Message/>
         </div>
