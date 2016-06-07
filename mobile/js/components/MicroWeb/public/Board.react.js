@@ -70,7 +70,9 @@ var Board = React.createClass({
                   doc:!data.s[i].p.ext.file&&data.s[i].p.ext.on?that.fixSrc(data.s[i].p.ext.on):'',
                   fn:data.s[i].p.ext.fn,
                   pay:data.s[i].p.ext.p?data.s[i].p.ext.p:'',
-                  mi:data.s[i].p.ext.mi?data.s[i].p.ext.mi:''
+                  mi:data.s[i].p.ext.mi?data.s[i].p.ext.mi:'',
+                  sn:data.s[i].p.ext.sn?data.s[i].p.ext.sn:'',
+                  extra:data.s[i].p.ext.extra?data.s[i].p.ext.extra:''
                 });
               }
               newArrs.sort(function(obj1,obj2){
@@ -89,6 +91,25 @@ var Board = React.createClass({
     console.log(src);
     var temp = src.split('.')[0];
     return temp;
+  },
+  //小数点后保留两位数
+  formartDecimal:function(x){
+    var f_x = parseFloat(x);
+    if (isNaN(f_x)) {
+        //alert('function:changeTwoDecimal->parameter error');
+        return false;
+    }
+    var f_x = Math.round(x * 100) / 100;
+    var s_x = f_x.toString();
+    var pos_decimal = s_x.indexOf('.');
+    if (pos_decimal < 0) {
+        pos_decimal = s_x.length;
+        s_x += '.';
+    }
+    while (s_x.length <= pos_decimal + 2) {
+        s_x += '0';
+    }
+    return s_x;
   },
   getGroupInfo: function(){
     var that = this;
@@ -265,7 +286,9 @@ var Board = React.createClass({
                   <div style={{'display':item.pay?'block':'none'}}>
                     收费名片<br/>
                     {'收款方：'+item.name}<br/>
-                    {'收费金额：'+item.pay+'.00 元'}<br/>
+                    {'收费项目：'+item.sn}<br/>
+                    {'收费金额：'+this.formartDecimal(item.pay)+' 元'}<br/>
+                    {'备注信息：'+item.extra}<br/>
                     <a onClick={this.weixinpay.bind(this,item.mi)} href="javascript:void(0);">点击此处，立即支付</a>
                   </div>
                 </div>
