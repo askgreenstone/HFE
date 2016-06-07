@@ -1,18 +1,26 @@
-import IScrollReact ,{setDefaultIScrollOptions}from 'iscroll-react';
 var React = require('react');
-import IScroll from 'iscroll';
+// import IScrollReact ,{setDefaultIScrollOptions}from 'iscroll-react';
+// import IScroll from 'iscroll';
 var wx = require('weixin-js-sdk');
 var CommonMixin = require('../../Mixin');
 var Message = require('../../common/Message.react');
 //初始化iscroll配置
-setDefaultIScrollOptions({
-    scrollbars: false,
-    mouseWheel: true,
-    shrinkScrollbars: "scale",
-    fadeScrollbars: true,
-    click: true,
-})
+// setDefaultIScrollOptions({
+//     scrollbars: false,
+//     mouseWheel: true,
+//     shrinkScrollbars: "scale",
+//     fadeScrollbars: true,
+//     click: true,
+// })
 
+// <IScrollReact iScroll={IScroll} ref="iscroll" alwaysScroll>
+// </IScrollReact>
+
+// componentDidUpdate: function(){
+//   if (this.refs.iscroll) {
+//       this.refs.iscroll.updateIScroll();
+//   }
+// }
 //时间格式化
 Date.prototype.Format = function(fmt)   
 { //author: meizz   
@@ -243,12 +251,6 @@ var Board = React.createClass({
     this.wxSignature();
     this.getGroupInfo();
   },
-  componentDidUpdate: function(){
-    // $('#iscroll_wrap').height($('#iscroll_wrap').height());
-    if (this.refs.iscroll) {
-        this.refs.iscroll.updateIScroll();
-    }
-  },
   render: function() {
     var navNodes = this.state.msgList.map(function(item,i){
       if(item.pic || item.doc || item.pay){
@@ -284,7 +286,6 @@ var Board = React.createClass({
     return (
         <div className="board_box">
             <div className="board_content">
-             <IScrollReact iScroll={IScroll} ref="iscroll" alwaysScroll>
                 <div id="iscroll_wrap">
                   <h3>留言板</h3>
                   <textarea ref="boardMsgInput" cols="" rows="" placeholder="请输入您的问题，我会第一时间给您反馈。"/>
@@ -297,7 +298,6 @@ var Board = React.createClass({
                     <div className="clean"></div>
                   </ul>
                 </div>
-                </IScrollReact>
             </div>
           <Message/>
         </div>
