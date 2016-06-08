@@ -36,7 +36,7 @@ define(['App'], function(app) {
                  window.location.href = '#/step1?session='+vm.sess;
               }else if(data.as == 3 || data.as == 4 ){
                 // localStorage.setItem('activeEndTime',data.at);
-                vm.endTime = vm.getLocalTime(data.at);
+                vm.endTime = vm.getLocalTime(data.ed);
                 window.location.href = '#/actexpired?session='+vm.sess;
               }else if(data.as == 0){
                 vm.getAuthenState();

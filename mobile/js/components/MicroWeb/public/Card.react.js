@@ -49,7 +49,8 @@ var Card = React.createClass({
             TelNo:data.tel.replace(/ /g,''),
             abss:data.abs.length>60?true:false,
             itdd:data.itd.length>60?true:false,
-            width:wid
+            width:wid,
+            vcard:data.vcard
           });
           $('.qr_hidden').height(document.body.scrollHeight);
         }
@@ -177,6 +178,11 @@ var Card = React.createClass({
                 {this.state.adr}
                 <img src="image/theme002/adress.png" width="25" height="25"/>
               </a>
+            </div>
+            <div className="vcard_box">
+              <img src={global.img+this.state.vcard} width="100" height="100"/>
+              <i>长按识别二维码<br/>一键保存通讯录</i>
+              <div className="clear"></div>
             </div>
             <div className="user_intro" style={{display:this.state.abs?'block':'none'}}>
               <i>简介</i>
