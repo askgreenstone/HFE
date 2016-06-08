@@ -120,6 +120,14 @@ var Card = React.createClass({
       })
     };
   },
+  goHome: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    console.log(global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri)
+    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
@@ -196,6 +204,9 @@ var Card = React.createClass({
           </div>
           <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="card"/>
           <Message/>
+          <div className="ad_goHome" onClick={this.goHome}>
+            <img src="image/home.png"/>
+          </div>
         </div>
       )
   }

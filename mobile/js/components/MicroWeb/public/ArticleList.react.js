@@ -70,6 +70,14 @@ var ArticleList = React.createClass({
         }.bind(this)
       });
   },
+  goHome: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    console.log(global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri)
+    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+  },
   componentDidMount: function(){
     // this.onlyToSetShareInfo();
   },
@@ -88,6 +96,9 @@ var ArticleList = React.createClass({
     <div>
       <List1/>
       <Share ref="myShareTest" title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={this.state.shareImg} target="articleList"/>
+      <div className="ad_goHome" onClick={this.goHome}>
+        <img src="image/home.png"/>
+      </div>
     </div>
     );
   },

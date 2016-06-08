@@ -200,6 +200,14 @@ var ArticleDetail = React.createClass({
     });
     return tempPsw;
   },
+  goHome: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    console.log(global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri)
+    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+  },
 	componentDidMount: function(){
     $('body').css({'background':'#fff'}); 
     // this.getServerInfo();
@@ -268,7 +276,11 @@ var ArticleDetail = React.createClass({
           <Message/>
           <div id="limit_password_box" title={this.state.utitle} value={this.state.uvalue} name={this.state.uname} alt={this.state.uid} type="articleDetail">
             <Password display="true"/>
+            
           </div>
+          <div className="ad_goHome" onClick={this.goHome}>
+              <img src="image/home.png"/>
+            </div>
         </div>
         );
     }  

@@ -64,6 +64,14 @@ var Photo = React.createClass({
       }.bind(this)
     });
   },
+  goHome: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    console.log(global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri)
+    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     this.getPhotos();
@@ -80,6 +88,9 @@ var Photo = React.createClass({
           <Waterfall item={this.state.photos} />
           <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareUrl}  target="photo"/>
           <Message/>
+          <div className="ad_goHome" onClick={this.goHome}>
+            <img src="image/home.png"/>
+          </div>
         </div>
     );
   },
