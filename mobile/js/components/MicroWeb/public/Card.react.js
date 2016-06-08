@@ -146,9 +146,11 @@ var Card = React.createClass({
         <div>
           <div id="qr_hidden" className="qr_hidden" onClick={this.hideBox.bind(this,'qr_hidden')}>
             <img src={this.state.QR} width="200" height="200"/>
+            <div className="tap_text">长按识别二维码</div>
           </div>
           <div id="vcard_hidden" className="qr_hidden" onClick={this.hideBox.bind(this,'vcard_hidden')}>
             <img src={global.img+this.state.vcard} width="200" height="200"/>
+            <div className="tap_text">长按识别二维码</div>
           </div>
           <div className="user_info">
             <img className="ui_header" src={this.state.hI} width="65" height="65"/>
