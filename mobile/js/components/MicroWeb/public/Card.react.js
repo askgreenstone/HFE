@@ -9,11 +9,11 @@ var Card = React.createClass({
   getInitialState: function(){
     return {datas:[],Abstract:'',Title:'',Introduction:'',Img:''};
   },
-  qrCode: function(){
-    $('.qr_hidden').show(500);
+  showBox:function(ele){
+    $('#'+ele).show(500);
   },
-  hideDiv: function(){
-    $('.qr_hidden').hide(500);
+  hideBox:function(ele){
+    $('#'+ele).hide(500);
   },
   gotoLink: function(path){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
@@ -144,8 +144,11 @@ var Card = React.createClass({
     
        return (
         <div>
-          <div className="qr_hidden" onClick={this.hideDiv}>
+          <div id="qr_hidden" className="qr_hidden" onClick={this.hideBox.bind(this,'qr_hidden')}>
             <img src={this.state.QR} width="200" height="200"/>
+          </div>
+          <div id="vcard_hidden" className="qr_hidden" onClick={this.hideBox.bind(this,'vcard_hidden')}>
+            <img src={global.img+this.state.vcard} width="200" height="200"/>
           </div>
           <div className="user_info">
             <img className="ui_header" src={this.state.hI} width="65" height="65"/>
@@ -154,7 +157,7 @@ var Card = React.createClass({
               <span style={{display:this.state.dp?'inline':'none'}}>{this.state.dp}</span><br/>
               <span style={{display:this.state.rk?'inline':'none'}}>{this.state.rk}</span>
             </p>
-            <img onClick={this.qrCode} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
+            <img onClick={this.showBox.bind(this,'qr_hidden')} className="ui_qrcode" src={this.state.QR} width="55" height="55"/>
           </div>
           <div className="user_content">
             <div className="uc_input" style={{display:this.state.Mob?'block':'none'}}>
@@ -187,9 +190,9 @@ var Card = React.createClass({
                 <img src="image/theme002/adress.png" width="25" height="25"/>
               </a>
             </div>
-            <div className="vcard_box">
+            <div className="vcard_box" onClick={this.showBox.bind(this,'vcard_hidden')}>
               <img src={global.img+this.state.vcard} width="100" height="100"/>
-              <i>长按识别二维码<br/>一键保存通讯录</i>
+              <i>点击长按二维码<br/>一键保存通讯录</i>
               <div className="clear"></div>
             </div>
             <div className="user_intro" style={{display:this.state.abs?'block':'none'}}>
