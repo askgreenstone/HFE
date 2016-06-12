@@ -5,7 +5,7 @@ define(['RouteResolver','Common'], function() {
     var app = angular.module('webApp', ['ngRoute','routeResolverServices','CommonServices']);
     
     //后台调用接口兼容
-    if(window.location.href.indexOf('localhost')>-1){
+    if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
         app.constant('GlobalUrl', 'http://t-dist.green-stone.cn');
     }else{
         app.constant('GlobalUrl', '');
