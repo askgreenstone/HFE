@@ -201,11 +201,13 @@ define(['App'], function(app) {
           }).
           success(function(data, status, headers, config) {
               console.log(data);
+              console.log(GlobalUrl);
+              console.log(vm.ownUri);
               if(data.c == 1000){
                   vm.title = data.title;
                   vm.desc = data.desc;
                   vm.picurl = data.picurl?data.picurl:'image/placeholder.png';
-                  vm.url = GlobalUrl + '/usr/ThirdHomePage.do?ownUri=' + vm.ownUri;
+                  vm.url =data.url?data.url:GlobalUrl + '/usr/ThirdHomePage.do?ownUri=' + vm.ownUri;
                   vm.isServerData = true;
                   vm.imgUrl = data.picurl?(vm.transferUrl+data.picurl):'image/placeholder.png';
                   //延迟初始化裁图插件
@@ -344,11 +346,6 @@ define(['App'], function(app) {
               return false;
             }else if(vm.desc.length>120){
               alert('摘要不能超过120个字符！');
-              return false;
-            }
-
-            if(!vm.url){
-              alert('链接不能为空！');
               return false;
             }
 
