@@ -27,8 +27,9 @@
 		</div>
 		<div class="mc_right">
 			<div class="list_lenged">
-				<h3 class="red">公众号授权</h3>
+				<h3 class="red" ng-model="vm.authState">{{vm.authState}}</h3>
 				<div class="wx_author_btn" ng-if="vm.authorFlag">
+					
 					<img ng-click="vm.wxAuthor()" src="image/manage/wxauthor.png"/>
 					<div class="wx_pub_tip">
 						<ul class="wx_pub_left">
@@ -50,10 +51,50 @@
 					<h3>自动回复<i>不方便线上回复用户时，可以设置微信公众号的自动回复</i></h3>
 					<div><span>启用自动回复</span><span ng-click="vm.menuLink('reply1')">设置自动回复</span></div>
 				</div> -->
-				<div class="wx_auto_reply">
+				<!-- <div class="wx_auto_reply">
 					<h3>被关注欢迎图文<i>设置公众号新关注用户的欢迎图文消息</i></h3>
 					<div><span ng-class="vm.imgTextFlag ? '' : 'delete'" ng-click="vm.changeImgTextReply()" ng-model="vm.imgTextReply">{{vm.imgTextReply}}</span><span ng-click="vm.menuLinkReply()">设置欢迎图文</span></div>
+				</div> -->
+				<div class="imgTitle_reply">
+					<div class="img_reply">
+						<div class="imgTitle_reply_box">
+							<span>标题：</span><i>*</i><input type="text" placeholder="60字以内" ng-model="vm.title">
+						</div>
+						<div class="step5_validate">
+							<span ng-class="vm.title.length>60?'red':''">
+							{{vm.title.length}}</span><i> / 60</i>
+							<b ng-show="vm.title.length>60">字数超过限制</b>
+						</div>
+						<div class="imgTitle_reply_box">
+							<span>摘要：</span><i>*</i><textarea name="" id="" placeholder="120字以内" ng-model="vm.desc">{{vm.desc}}</textarea>
+						</div>
+						<div class="step5_validate">
+							<span ng-class="vm.desc.length>120?'red':''">
+							{{vm.desc.length}}</span><i> / 120</i>
+							<b ng-show="vm.desc.length>120">字数超过限制</b>
+						</div>
+						
+						<div class="imgTitle_reply_box">
+							<span>封面：</span>
+							<div class="reply2_box">
+								<div class="reply2_box_sel">
+									选择图片
+									<input type="file" id="choose_file" ng-model="vm.fileName"/>
+								</div>
+								<div class="reply2_box_sel reply2_box_upload" ng-click="vm.uploadFile()">
+									确认上传
+								</div>
+								<div class="reply2_left">
+									<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.imgUrl}}>
+								</div>
+							</div>
+						</div>
+					<div class="auto_reply_confirm">
+						<span ng-click="vm.setImgTextReply()">确认</span>
+					</div> 
+					</div>	
 				</div>
+				
 			</div>
 		</div>
 		<div class="clean"></div>
