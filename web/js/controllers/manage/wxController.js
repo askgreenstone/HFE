@@ -44,7 +44,7 @@ define(['App'], function(app) {
               if(data.c == 1000){
                 // $window.location.href=data.url;
                 $window.open(data.url,'_blank');
-                vm.authorFlag = false;
+                // vm.authorFlag = false;
               }
           }).
           error(function(data, status, headers, config) {
