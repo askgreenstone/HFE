@@ -319,6 +319,7 @@ var Board = React.createClass({
   componentWillMount: function(){
     this.wxSignature();
     this.getGroupInfo();
+    this.getIndexTheme();
   },
   render: function() {
     var navNodes = this.state.msgList.map(function(item,i){

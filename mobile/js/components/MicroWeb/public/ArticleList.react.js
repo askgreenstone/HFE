@@ -76,6 +76,7 @@ var ArticleList = React.createClass({
       ownUri = this.checkDevOrPro();
     }
     console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
+    // alert(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
     window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
   },
   getIndexTheme: function(){
@@ -102,6 +103,7 @@ var ArticleList = React.createClass({
   },
   componentWillMount: function(){
     this.onlyToSetShareInfo();
+    this.getIndexTheme();
   },
   render: function() {
   	// var tempNode = '';

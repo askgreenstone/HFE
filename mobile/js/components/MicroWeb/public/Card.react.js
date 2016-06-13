@@ -155,6 +155,7 @@ var Card = React.createClass({
   componentWillMount:function(){
     this.getServerInfo();
     this.getShareInfo();
+    this.getIndexTheme();
   }, 
   render: function() {
     var ShareTitile = this.state.Title;

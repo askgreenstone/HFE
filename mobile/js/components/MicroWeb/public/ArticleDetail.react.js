@@ -245,6 +245,7 @@ var ArticleDetail = React.createClass({
 	},
   componentWillMount: function(){
     this.onlyToSetShareInfo();
+    this.getIndexTheme();
   },
   render: function() {
     var tempHeight = window.screen.height;
