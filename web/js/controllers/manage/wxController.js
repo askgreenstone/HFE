@@ -202,7 +202,7 @@ define(['App'], function(app) {
           }).
           success(function(data, status, headers, config) {
               console.log(data);
-              console.log('gghhvm'+GlobalUrl);
+              console.log(GlobalUrl);
               console.log(vm.ownUri);
               if(data.c == 1000){
                   vm.title = data.title;
