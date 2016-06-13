@@ -1,5 +1,5 @@
 ﻿<div class="view">
-	<div class="view_title">微网站管理</div>
+	<div class="view_title">工作室管理</div>
 	<div class="manage_content">
 		<div class="mc_left">
 			<ul class="mcl_list">
@@ -9,7 +9,7 @@
 				</li> -->
 				<li class="text-active" ng-click="vm.menuLink('micro')">
 					<img src="image/manage/micro.png" width="18" height="18"/>
-					<span><a href="javascript:void(0)">微网站首页设置</a></span>
+					<span><a href="javascript:void(0)">工作室首页设置</a></span>
 				</li>
 				<li ng-click="vm.menuLink('card3')">
 					<img src="image/manage/card.png" width="18" height="18"/>
@@ -31,7 +31,7 @@
 		</div>
 		<div class="mc_right">
 			<div class="list_lenged">
-				<h3 class="red">微网站菜单设置</h3>
+				<h3 class="red">工作室菜单设置</h3>
 				<span>
 					<a href="javascript:void(0);" ng-click="vm.showShadow()">
 						<img src="image/docs/add.png" width="20" height="20"/> 添加菜单
@@ -52,8 +52,8 @@
 			</div>
 			<div class="step4_content">
 				<div class="step4_input">
-					<span>命名您的微网站</span>
-					<input type="text" ng-model="vm.microName" placeholder="如：XX律师微网站"/>
+					<span>命名您的工作室</span>
+					<input type="text" ng-model="vm.microName" placeholder="如：XX律师工作室"/>
 				</div>
 				<div class="step4_warn">注意：<br/>
 				1.点击右上角“添加菜单”，当前选择模版支持的最佳菜单数为 <span>{{vm.menuCount}}</span> 个；<br/>
@@ -96,7 +96,7 @@
       		<span class="step4_close" ng-click="vm.hiddenShadow()">
       			<img src="image/delete.png" width="30" height="30">
       		</span>
-      		<i>添加微网站菜单<br/><span>可选菜单总数 
+      		<i>添加工作室菜单<br/><span>可选菜单总数 
       		<big class="step4_count">{{vm.menuCount}}</big> 个， 
       		<big class="step4_count" id="userTotalCount"></big> 个</span></i>
           <ul>
