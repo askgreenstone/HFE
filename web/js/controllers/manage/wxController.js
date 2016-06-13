@@ -202,13 +202,19 @@ define(['App'], function(app) {
           }).
           success(function(data, status, headers, config) {
               console.log(data);
-              console.log(GlobalUrl);
               console.log(vm.ownUri);
+              var url = '';
+              if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+                url = 'http://t-dist.green-stone.cn'
+              }else{
+                url = 'http://dist.green-stone.cn'
+              }
+              console.log(url);
               if(data.c == 1000){
                   vm.title = data.title;
                   vm.desc = data.desc;
                   vm.picurl = data.picurl?data.picurl:'image/placeholder.png';
-                  vm.url =GlobalUrl + '/usr/ThirdHomePage.do?ownUri=' + vm.ownUri;
+                  vm.url =url + '/usr/ThirdHomePage.do?ownUri=' + vm.ownUri;
                   vm.isServerData = true;
                   vm.imgUrl = data.picurl?(vm.transferUrl+data.picurl):'image/placeholder.png';
                   //延迟初始化裁图插件

@@ -183,6 +183,14 @@ var Board = React.createClass({
         }
     });
   },
+  goHome: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    console.log(global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri)
+    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+  },
   reloadMsg: function(){
     var sess = this.getUrlParams('session'),
         gi = this.getUrlParams('groupId');
@@ -323,6 +331,9 @@ var Board = React.createClass({
                 </div>
             </div>
           <Message/>
+          <div className="ad_goHome" onClick={this.goHome}>
+            <img src="image/home.png"/>
+          </div>
         </div>
     );
   },

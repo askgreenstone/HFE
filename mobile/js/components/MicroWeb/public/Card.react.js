@@ -194,7 +194,7 @@ var Card = React.createClass({
             </div>
             <div className="vcard_box" onClick={this.showBox.bind(this,'vcard_hidden')}>
               <img src={global.img+this.state.vcard} width="100" height="100"/>
-              <i>点击长按二维码<br/>一键保存通讯录</i>
+              <i>点击二维码<br/>保存通讯录</i>
               <div className="clear"></div>
             </div>
             <div className="user_intro" style={{display:this.state.abs?'block':'none'}}>
