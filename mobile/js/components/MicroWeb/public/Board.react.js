@@ -68,6 +68,7 @@ var Board = React.createClass({
                   content:data.s[i].p.msg.msg,
                   pic:data.s[i].p.ext.mm&&data.s[i].p.ext.mm.indexOf('image')>-1?(global.img+data.s[i].p.ext.on):'',
                   doc:data.s[i].p.ext.mm&&data.s[i].p.ext.mm.indexOf('application')>-1?that.fixSrc(data.s[i].p.ext.on):'',
+                  docName:data.s[i].p.ext.on,
                   fn:data.s[i].p.ext.fn,
                   pay:data.s[i].p.ext.p?data.s[i].p.ext.p:'',
                   mi:data.s[i].p.ext.mi?data.s[i].p.ext.mi:'',
@@ -218,8 +219,28 @@ var Board = React.createClass({
       this.showTip('刷新成功！');   
     }
   },
-  viewDoc: function(name){
-    window.location.href = '#empty?name='+name;
+  viewDoc: function(name,docname){
+    var sess = this.getUrlParams('session');
+    console.log('name:'+docname);
+    var tempObj = {
+      ossFN:docname,
+      newFN:name+'.html'
+    }
+
+    $.ajax({
+        type: 'post',
+        url: global.url+'/data/CommConvert.do?session='+sess,
+        data: JSON.stringify(tempObj),
+        success: function(data) {
+            console.log(data);
+            if (data.c == 1000) {
+              window.location.href = '#empty?name='+name;
+            }
+        },
+        error: function(xhr, status, err) {
+            that.showAlert('网络连接错误或服务器异常！');
+        }
+    });
   },
   weixinpay: function(mi){
     var sess = this.getUrlParams('session');
@@ -309,7 +330,7 @@ var Board = React.createClass({
                   <i></i>
                   <span>{item.name+'  '+item.time}</span>
                   <img style={{'display':item.pic?'block':'none'}} src={item.pic+'@300w'} onClick={this.gotoSingle.bind(this,item.pic)} width="100%"/>
-                  <a style={{'display':item.doc?'block':'none'}} onClick={this.viewDoc.bind(this,item.doc)} href="javascript:void(0);">{'文件：'+item.fn}</a>
+                  <a style={{'display':item.doc?'block':'none'}} onClick={this.viewDoc.bind(this,item.doc,item.docName)} href="javascript:void(0);">{'文件：'+item.fn}</a>
                   <div style={{'display':item.pay?'block':'none'}}>
                     收费名片<br/>
                     {'收款方：'+item.name}<br/>
