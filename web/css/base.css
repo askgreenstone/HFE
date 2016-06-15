@@ -1723,6 +1723,46 @@ input[type=checkbox], input[type=radio] {
 .step5_icon_share{
   margin-left: 20px;
 }
+.step5_shareImg{
+  margin: -20px 0 20px 20px;
+  position: relative;
+}
+.step5_shareImg i{
+  font-style: normal;
+  display: inline-block;
+  margin-right: 10px;
+}
+.step5_shareImg a{
+  width: 80px;
+  height: 30px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.step5_shareImg a input{
+  top: 0px;
+}
+.step5_box_crop{
+  width: 300px;
+  height: 200px;
+}
+.step5_box_crop>span{
+  color: #fff;
+    background-color: #2ab6ff;
+    display: block;
+    width: 100px;
+    text-align: center;
+    border-radius: 3px;
+    margin-left: 20px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px auto;
+}
+.step5_box_crop .card1_left{
+  height: 200px;
+}
 .step4_content{
   margin-top: -10px;
 }
