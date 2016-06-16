@@ -57,8 +57,8 @@ var ArticleList = React.createClass({
               });
             }else{
               this.setState({
-                shareTitle:'我的微网站',
-                shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就!',
+                shareTitle:'我的工作室',
+                shareDesc:'欢迎访问我的工作室！这里有我的职业介绍和成就!',
                 shareImg:global.img+'greenStoneicon300.png'
               });
             }
@@ -75,21 +75,42 @@ var ArticleList = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
-    console.log(global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri)
-    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+    console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
+    // alert(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
+    window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
+  },
+  getIndexTheme: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri,
+      success: function(data) {
+          console.log(data);
+          if(data.c == 1000){
+            this.setState({
+              indexTheme: data.url
+            })
+          }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+          alert('网络连接错误或服务器异常！');
+      }.bind(this)
+    })
   },
   componentDidMount: function(){
     // this.onlyToSetShareInfo();
   },
   componentWillMount: function(){
     this.onlyToSetShareInfo();
+    this.getIndexTheme();
   },
   render: function() {
   	// var tempNode = '';
   	// if(this.state.shareTitle){
   	// 	tempNode = <Share title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={this.state.shareImg} target="articleList"/>;
   	// }else{
-  	// 	// tempNode = <Share title="微网站" desc="这是一个律师微网站，由绿石开发提供技术支持！" imgUrl={global.url+'greenStoneicon300.png'} target="articleList"/>;
+  	// 	// tempNode = <Share title="工作室" desc="这是一个律师工作室，由绿石开发提供技术支持！" imgUrl={global.url+'greenStoneicon300.png'} target="articleList"/>;
   	// }  
   	// console.log(this.state.shareTitle+'@'+this.state.shareDesc+'@'+this.state.shareImg);
     return (

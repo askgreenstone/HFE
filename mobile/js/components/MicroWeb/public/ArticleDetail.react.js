@@ -205,8 +205,27 @@ var ArticleDetail = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
-    console.log(global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri)
-    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+    console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
+    window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
+  },
+  getIndexTheme: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri,
+      success: function(data) {
+          console.log(data);
+          if(data.c == 1000){
+            this.setState({
+              indexTheme: data.url
+            })
+          }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+          alert('网络连接错误或服务器异常！');
+      }.bind(this)
+    })
   },
 	componentDidMount: function(){
     $('body').css({'background':'#fff'}); 
@@ -226,6 +245,7 @@ var ArticleDetail = React.createClass({
 	},
   componentWillMount: function(){
     this.onlyToSetShareInfo();
+    this.getIndexTheme();
   },
   render: function() {
     var tempHeight = window.screen.height;

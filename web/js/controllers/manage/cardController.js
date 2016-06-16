@@ -373,6 +373,7 @@ define(['App'], function(app) {
                   console.log('clipSourceImg success');
                   vm.user.HeadImg = data.in;
                   vm.head = vm.transferUrl+vm.user.HeadImg;
+                  vm.choosePic = data.in;
                   setTimeout(function() {
                     vm.initCropper();
                   }, 100);
