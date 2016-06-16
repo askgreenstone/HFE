@@ -95,7 +95,7 @@ var Share = React.createClass({
                 }
             },
             error: function(xhr, status, err) {
-                that.showAlert('网络连接错误或服务器异常！');
+                that.showAlert('系统开了小差，请刷新页面');
                 console.error(this.props.url, status, err.toString());
             }
         });

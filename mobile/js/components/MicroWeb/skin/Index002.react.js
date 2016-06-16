@@ -50,7 +50,7 @@ var Index002 = React.createClass({
           }
         }.bind(this),
         error: function(xhr, status, err) {
-          this.showAlert('网络连接错误或服务器异常！');
+          this.showAlert('系统开了小差，请刷新页面');
           console.error(this.props.url, status, err.toString());
         }.bind(this)
       });
@@ -92,7 +92,7 @@ var Index002 = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
+        this.showAlert('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -126,7 +126,7 @@ var Index002 = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
+        this.showAlert('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -152,7 +152,7 @@ var Index002 = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
+        this.showAlert('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });

@@ -30,7 +30,7 @@ angular.module('myApp', [])
                
             }).
             error(function(data, status) {
-                alert('网络错误或服务器异常');    
+                alert('系统开了小差，请刷新页面');    
                 console.log('error:'+data);
             });
         	

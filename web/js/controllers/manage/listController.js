@@ -49,7 +49,7 @@ define(['App'], function(app) {
             }).
             error(function(data, status, headers, config) {
                 // console.log(data);
-                alert('网络连接错误或服务器异常！');
+                alert('系统开了小差，请刷新页面');
             });
         };
 
@@ -84,7 +84,7 @@ define(['App'], function(app) {
             }).
             error(function(data, status, headers, config) {
                 // console.log(data);
-                alert('网络连接错误或服务器异常！');
+                alert('系统开了小差，请刷新页面');
             });
         }
 
@@ -113,7 +113,7 @@ define(['App'], function(app) {
             }).
             error(function(data, status, headers, config) {
                 // console.log(data);
-                alert('网络连接错误或服务器异常！');
+                alert('系统开了小差，请刷新页面');
             });
         }
 
@@ -138,7 +138,7 @@ define(['App'], function(app) {
             }).
             error(function(data, status, headers, config) {
                 // console.log(data);
-                alert('网络连接错误或服务器异常！');
+                alert('系统开了小差，请刷新页面');
             });
           }
         }
@@ -166,7 +166,7 @@ define(['App'], function(app) {
             }).
             error(function(data, status, headers, config) {
                 // console.log(data);
-                alert('网络连接错误或服务器异常！');
+                alert('系统开了小差，请刷新页面');
             });
         }
 
@@ -223,7 +223,7 @@ define(['App'], function(app) {
                 }).
                 error(function(data, status, headers, config) {
                     // console.log(data);
-                    alert('网络连接错误或服务器异常！');
+                    alert('系统开了小差，请刷新页面');
                 });
                 } else{
                     vm.selectedState = true;
