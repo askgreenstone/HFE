@@ -26,7 +26,7 @@ var CommonMixin = {
             }
         },
         error: function(xhr, status, err) {
-            this.showAlert('网络连接错误或服务器异常！');
+            this.showAlert('系统开了小差，请刷新页面');
             console.error(this.props.url, status, err.toString());
         }
     });
@@ -73,7 +73,7 @@ var CommonMixin = {
     return isiOS;
   },
   showAlert: function(content){
-    //调用：this.showAlert('网络连接错误或服务器异常！');
+    //调用：this.showAlert('系统开了小差，请刷新页面');
     $('.base_shadow').show();
     $('.base_alert').show().siblings().hide();
     $('.base_alert span').text(content);
@@ -112,7 +112,7 @@ var CommonMixin = {
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
+        this.showAlert('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -155,7 +155,7 @@ var CommonMixin = {
         }
       },
       error: function(xhr, status, err) {
-        this.showAlert('网络连接错误或服务器异常！');
+        this.showAlert('系统开了小差，请刷新页面');
         // console.error(this.props.url, status, err.toString());
       }
     });

@@ -68,7 +68,7 @@ define(['App'], function(app) {
                     })
                     .error(function() {
                         // console.log('error');
-                        alert('网络连接错误或服务器异常！');
+                        alert('系统开了小差，请刷新页面');
                     });
             };
             r.readAsDataURL(f);
