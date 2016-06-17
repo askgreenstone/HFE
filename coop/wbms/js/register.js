@@ -73,7 +73,8 @@ Zepto(function($){
     };
     // 密码加密处理
     var userpwd = CryptoJS.SHA1(userpwd1).toString(CryptoJS.enc.Hex).toUpperCase();
-  	api.register(userphone,usrename,userpwd,vcode,
+    var openid = Common.getUrlParam('openId');
+  	api.register(userphone,usrename,userpwd,vcode,openid,
   		function(data){
   			console.log(data);
   			if(data.c == 1000){

@@ -47,12 +47,15 @@ Api = (function() {
 		});
  	};
 
- 	Api.prototype.register = function(phonenumber, username, password, vcode, callback) {
+ 	Api.prototype.register = function(phonenumber, username, password, vcode, openid,callback) {
  		var data = {};
 		data.pn = phonenumber;
 		data.n = username;
 		data.pwd = password;
 		data.vc = vcode;
+		if(openid){
+			reg_url = reg_url+'?openId='+openid;
+		}
 		$.post(reg_url, JSON.stringify(data), function(json){
 			if (callback)
 				callback(json);
