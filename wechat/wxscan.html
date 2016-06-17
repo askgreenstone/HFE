@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <title>转网页版</title>
+    <style>
+    html {
+        font-size: 62.5%;
+    }
+    
+    @media screen and (max-width: 360px) {
+        html {
+            font-size: 62.5%;
+        }
+    }
+    
+    @media screen and (min-width: 361px) and (max-width: 376px) {
+        html {
+            font-size: 66.5%;
+        }
+    }
+    
+    @media screen and (min-width: 377px) {
+        html {
+            font-size: 75.5%;
+        }
+    }
+    
+    body {
+        margin: 0 auto;
+        padding: 0;
+        /*background-color: #f4efec;*/
+    }
+    
+    .title {
+        color: #2ab6ff;
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 40px auto 20px;
+    }
+    
+    p {
+        color: #525151;
+        font-size: 1.3rem;
+        margin: 10px 15px;
+        line-height: 25px;
+    }
+    
+    .remeber {
+        height: 20px;
+        line-height: 20px;
+    }
+    
+    .remeber .check {
+        border: 1px solid #999;
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        float: left;
+        margin: 3px 0px 0 15px;
+    }
+    
+    .remeber span {
+        color: #666;
+        font-size: 1.2rem;
+        margin-left: 5px;
+    }
+    
+    .check img {
+        position: relative;
+        top: -5px;
+        left: 1px;
+        display: none;
+    }
+    
+    .close {
+        background-color: #39d167;
+        color: #fff;
+        width: 92%;
+        border-radius: 5px;
+        text-align: center;
+        margin: 100px auto 10px;
+        padding: 15px 0;
+        font-size: 1.56rem;
+        cursor: pointer;
+        /*-webkit-tap-highlight-color:transparent;*/
+    }
+    </style>
+</head>
+
+<body>
+    <div class="title">PC端网页版编辑／查看文档更方便</div>
+    <p>使用步骤:
+      <br/> 1)PC端打开http://web.askgreenstone.com/
+      <br/> 2)点击下方“扫一扫”扫描PC屏幕上的二维码，可转绿石开门网页版
+      <div class="close" onclick="getServerTicket()">扫一扫</div>
+      <div class="remeber">
+          <div class="check"><img src="image/check.png" width="10" height="10"></div>
+          <span>我已记住上述步骤，无需再提醒，直接去扫码</span>
+      </div>
+      <script type="text/javascript" src="lib/jquery.min.js"></script>
+      <script type="text/javascript" src="lib/weixin-1.0.0.min.js"></script>
+      <script type="text/javascript">
+      $(document).ready(function() {
+          //getServerTicket();
+          if (localStorage.getItem('userChoose') == 'true') {
+              $('.check img').css({
+                  'display': 'inline-block'
+              });
+              getServerTicket();
+          }
+      });
+
+      $('.remeber').bind('click', function() {
+          var tempFlag = $(this).find('img').css('display');
+          //alert(tempFlag);
+          if (tempFlag == 'none') {
+              $(this).find('img').css({
+                  'display': 'inline-block'
+              });
+              localStorage.setItem('userChoose', 'true');
+          } else {
+              $(this).find('img').css({
+                  'display': 'none'
+              });
+              localStorage.setItem('userChoose', 'false');
+          }
+      });
+
+      function getServerTicket() {
+          var currentPath = window.location.href,
+              uri = encodeURIComponent(currentPath.toString());
+          // alert('uri:' + uri);
+          $.ajax({
+              type: 'get',
+              url: '/usr/WeiXinJSapiSignature.do?apath=' + uri,
+              success: function(data) {
+                  //alert('wxscan:' + JSON.stringify(data));
+                  if (data.c == 1000) {
+                      wx.config({
+                          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                          appId: data.appId, // 必填，公众号的唯一标识
+                          timestamp: data.timestamp, // 必填，生成签名的时间戳
+                          nonceStr: data.noncestr, // 必填，生成签名的随机串
+                          signature: data.signature, // 必填，签名，见附录1
+                          jsApiList: ['scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                      });
+
+                      wx.ready(function() {
+                          wx.checkJsApi({
+                              jsApiList: ['scanQRCode'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                              success: function(res) {
+                                  // 以键值对的形式返回，可用的api值true，不可用为false
+                                  // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                              }
+                          });
+                          wx.scanQRCode({
+                              needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                              scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                              desc: '扫一扫', //然而并没有什么用
+                              success: function(res) {
+                                  var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                                  // alert(result);
+
+                                  sendScanResult(result);
+                              }
+                          });
+                      });
+
+                  } else {
+                      alert('code:' + data.c + ',error:' + data.d);
+                  }
+              },
+              error: function(xhr, status, err) {
+                  alert('error:' + JSON.stringify(err));
+                  console.error(this.props.url, status, err.toString());
+              }
+          });
+      }
+
+      function getUrlParams(p) {
+          var url = location.href;
+          var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+          var paraObj = {};
+          for (i = 0; j = paraString[i]; i++) {
+              paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
+          }
+          var returnValue = paraObj[p.toLowerCase()];
+          if (typeof(returnValue) == "undefined") {
+              return "";
+          } else {
+              return returnValue;
+          }
+      }
+
+
+
+
+      wx.error(function(res) {
+          // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+          alert(res.errMsg);
+      });
+
+      //校验二维码
+      function sendScanResult(si) {
+          var sess = getUrlParams('session');
+          // alert('si:' + si+',sess:'+sess);
+          $.ajax({
+              type: 'post',
+              url: '/usr/Scan.do?session=' + sess,
+              data: JSON.stringify({
+                  'si': si
+              }),
+              success: function(data) {
+                  // alert('sendScanResult:' + JSON.stringify(data));
+                  if (data.c == 1000) {
+                      // return true;
+                      // alert('扫描成功！');
+                      if (!si || !sess) return;
+                      
+                      setTimeout(function(){
+                          window.location.href = './wxconfirm.html?si=' + si + '&session=' + sess;
+                      },800);
+                      
+                      
+                  } else {
+                      alert('code:' + data.c + ',error:' + data.d);
+                  }
+              },
+              error: function(xhr, status, err) {
+                  alert('error:' + JSON.stringify(xhr));
+                  console.error(this.props.url, status, err.toString());
+              }
+          });
+      }
+
+
+
+
+      //213行接口调整
+      </script>
+</body>
+
+</html>

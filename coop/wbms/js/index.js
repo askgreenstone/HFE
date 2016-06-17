@@ -27,9 +27,14 @@ Zepto(function($){
   	api.login(userphone,userpwd,openid,
   		function(data){
   			console.log(data);
+        var dt = Common.getUrlParam('dt');
   			if(data.c == 1000){
-          window.sessionStorage.setItem('userSession',data.u.sid);
-  				window.location.href = 'view/active.html?session='+data.u.sid;
+          if(dt == 'weblog'){
+            window.location.href = '../../wechat/wxscan.html?session=' + data.u.sid;
+          }else{
+            window.sessionStorage.setItem('userSession',data.u.sid);
+            window.location.href = 'view/active.html?session=' + data.u.sid;
+          }
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');
   			}else if(data.c == 1002){
