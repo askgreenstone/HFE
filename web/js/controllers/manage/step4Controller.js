@@ -143,12 +143,10 @@ define(['App','Sortable'], function(app) {
             return;
           }
 
-          if(flag){
-            //列表重新排序
-            vm.createSortable();
-            //优先提交排序信息
-            vm.saveSortable();
-          }
+          //列表重新排序
+          vm.createSortable();
+          //优先提交排序信息
+          vm.saveSortable();
 
           console.log(vm.currentSortArray);
           //组织提交数据

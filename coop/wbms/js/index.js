@@ -11,7 +11,8 @@ Zepto(function($){
   var api =new Api();
   $('#index_submit').click(function(event) {
   	var userpwd = $('#index_pwd').val(),
-  			userphone = $('#index_phone').val();
+  			userphone = $('#index_phone').val(),
+        openid = Common.getUrlParam('openId');
   	if(!userphone){
   		alert('请输入手机号码！');
   		return;
@@ -22,7 +23,8 @@ Zepto(function($){
   		alert('请输入密码！');
   		return;
   	}
-  	api.login(userphone,userpwd,
+    console.log(openid);
+  	api.login(userphone,userpwd,openid,
   		function(data){
   			console.log(data);
   			if(data.c == 1000){
