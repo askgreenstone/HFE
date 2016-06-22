@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <title>app下载</title>
+    <style>
+    html {
+        font-size: 62.5%;
+    }
+    html,body{
+      width: 100%;
+      height: 100%;
+    }
+    
+    
+    
+    body {
+        margin: 0 auto;
+        padding: 0;
+        /*background-color: #f4efec;*/
+    }
+    #wrap{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #wrap .main{
+      width: 100%;
+      height: 100%;
+      background: url(image/appDownload.png) no-repeat;
+      background-size: cover;
+    }
+    #wrap .main img{
+      width: 100%;
+    }
+    #wrap .btn{
+      width: 60%;
+      position: absolute;
+      left: 20%;
+      bottom: 5%;
+    }
+    #wrap .btn img{
+      width: 100%;
+    }
+    @media screen and (width: 320px){
+      #wrap .btn{
+        width: 60%;
+        position: absolute;
+        left: 20%;
+        bottom: 5%;
+      }
+    }
+    @media screen and (min-width: 321px) and (max-width: 360px) {
+        html {
+            font-size: 62.5%;
+        }
+        #wrap .btn{
+          width: 60%;
+          position: absolute;
+          left: 20%;
+          bottom: 2%;
+        }
+    }
+    
+    @media screen and (min-width: 361px) and (max-width: 376px) {
+        html {
+            font-size: 66.5%;
+        }
+    }
+    
+    @media screen and (min-width: 377px) {
+        html {
+            font-size: 75.5%;
+        }
+    }
+    @media screen and (width: 384px) and (height: 519px) {
+        html {
+            font-size: 66.5%;
+        }
+        #wrap .main{
+           background-position:0 -3rem;
+        }
+    }
+    
+    </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="main">
+      <!-- <img src="image/appDownload.png"> -->
+    </div>
+    <div class="btn">
+      <img src="image/appDownload2.png">
+    </div>
+  </div>
+  <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript">
+    
+
+
+    //检测android客户端
+  function isAndroid(){
+    var u = navigator.userAgent, 
+        app = navigator.appVersion;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+    return isAndroid;
+  }
+  //检测ios客户端
+  function isIOS(){
+    var u = navigator.userAgent, 
+        app = navigator.appVersion;
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    return isiOS;
+  }
+  // 检测wechat客户端
+  function isWechat() {  
+    var ua = navigator.userAgent.toLowerCase();
+    return /micromessenger/i.test(ua) || typeof navigator.wxuserAgent !== 'undefined';
+  }
+
+  
+  if(isWechat()) {
+    $('.btn').click(function(){
+      window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.greenstone.exp';
+    })
+  } else if(isAndroid){
+    $('.btn').click(function(){
+      window.location.href = 'http://cdn.askgreenstone.com/client/android.exp.apk';
+    })
+  } else if(isIOS){
+    $('.btn').click(function(){
+      window.location.href = 'https://itunes.apple.com/us/app/lu-shi-zhuan-jia-ban/id976040724';
+    })
+  }
+  
+  </script>
+</body>
+
+</html>
