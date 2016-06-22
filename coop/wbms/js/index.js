@@ -5,14 +5,24 @@
 
 Zepto(function($){
   var userSession = window.sessionStorage.getItem('userSession');
+  var openid = Common.getUrlParam('openId');
   if(userSession){
     window.location.href = 'view/active.html?session='+userSession;
   }        
   var api =new Api();
+
+  $('#index_register').click(function(event) {
+    if(openid){
+      window.location.href = 'view/register.html?openId='+openid;
+    }else{
+      window.location.href = 'view/register.html';
+    }
+  });
+
   $('#index_submit').click(function(event) {
   	var userpwd = $('#index_pwd').val(),
-  			userphone = $('#index_phone').val(),
-        openid = Common.getUrlParam('openId');
+  			userphone = $('#index_phone').val();
+        
   	if(!userphone){
   		alert('请输入手机号码！');
   		return;

@@ -5,6 +5,8 @@
 
 Zepto(function($){
   var api =new Api(),vcode,timer;
+  var openid = Common.getUrlParam('openId');
+  console.log(openid);
   $("#reg_check").prop("checked",true);
   //获取验证码
   function regVcode(){
@@ -73,7 +75,6 @@ Zepto(function($){
     };
     // 密码加密处理
     var userpwd = CryptoJS.SHA1(userpwd1).toString(CryptoJS.enc.Hex).toUpperCase();
-    var openid = Common.getUrlParam('openId');
   	api.register(userphone,usrename,userpwd,vcode,openid,
   		function(data){
   			console.log(data);
