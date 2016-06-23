@@ -190,7 +190,11 @@ var Board = React.createClass({
       ownUri = this.checkDevOrPro();
     }
     console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
-    window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
+    if(!this.state.indexTheme){
+      alert('该专家尚未开通个人工作室业务')
+    }else{
+      window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
+    }
   },
   getIndexTheme: function(){
     var ownUri = this.getUrlParams('ownUri');
