@@ -4,6 +4,7 @@ var React = require('react');
 var wx = require('weixin-js-sdk');
 var CommonMixin = require('../../Mixin');
 var Message = require('../../common/Message.react');
+var Popnotice = require('../../common/Popnotice.react');
 //初始化iscroll配置
 // setDefaultIScrollOptions({
 //     scrollbars: false,
@@ -191,7 +192,7 @@ var Board = React.createClass({
     }
     console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
     if(!this.state.indexTheme){
-      alert('该专家尚未开通个人工作室业务')
+      this.showNotice('该专家尚未开通个人工作室业务');
     }else{
       window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
     }
@@ -379,6 +380,7 @@ var Board = React.createClass({
           <div className="ad_goHome" onClick={this.goHome}>
             <img src="image/home.png"/>
           </div>
+          <Popnotice/>
         </div>
     );
   },
