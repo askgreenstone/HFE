@@ -30,10 +30,15 @@ var Toolbar = React.createClass({
   },
   gotoWbms: function(which){
     var sess = this.getUrlParams('sess');
+    var openId = this.getUrlParams('openid');
     if(!sess) return;
     if(which == 'logout'){
       sessionStorage.removeItem('userSession');
-      window.location.href = global.url+'/coop/wbms/index.html';
+      if(openId){
+        window.location.href = global.url+'/coop/wbms/index.html?openId='+openId;
+      }else{
+        window.location.href = global.url+'/coop/wbms/index.html'; 
+      }
     }else if(which == 'reset'){
       window.location.href = global.url+'/coop/wbms/view/template.html?session='+sess;
     }
