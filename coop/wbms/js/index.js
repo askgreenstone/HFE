@@ -27,9 +27,9 @@ Zepto(function($){
         //判断主题制定状态：0未设置，1已设置，2已完成
         if(data.s == 0){
           if(openid){
-            window.location.href = 'view/custom.html?session='+data.u.sid+'&openId='+openid;
+            window.location.href = 'view/custom.html?session='+sess+'&openId='+openid;
           }else{
-            window.location.href = 'view/custom.html?session='+data.u.sid;
+            window.location.href = 'view/custom.html?session='+sess;
           }
         }else{
           getIndexUrl(sess);
@@ -129,7 +129,7 @@ Zepto(function($){
             }else if(!isActive){//未激活
               window.location.href = 'view/active.html?session='+data.u.sid;
             }else{//失效
-              window.location.href = 'actexpired.html?session='+data.u.sid;
+              window.location.href = 'view/actexpired.html?session='+data.u.sid;
             }
           }
   			}else if(data.c == 1005){
