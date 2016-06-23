@@ -4,12 +4,10 @@
 // });
 
 Zepto(function($){
-  var userSession = window.sessionStorage.getItem('userSession');
-  var openid = Common.getUrlParam('openId');
-  if(userSession){
-    window.location.href = 'view/active.html?session='+userSession;
-  }        
+  var openid = Common.getUrlParam('openId');     
   var api =new Api();
+  var isActive = false,
+      isExpired = false;
 
   $('#index_register').click(function(event) {
     if(openid){
@@ -19,6 +17,86 @@ Zepto(function($){
     }
   });
 
+  //判断新老用户
+  function getMicroState(sess){
+    $.ajax({
+      type : 'GET',
+      url : Common.globalDistUrl() + 'exp/MicWebSetUpStatus.do?session='+ sess,
+      success : function(data) {
+        console.log(data);
+        //判断主题制定状态：0未设置，1已设置，2已完成
+        if(data.s == 0){
+          if(openid){
+            window.location.href = 'view/custom.html?session='+data.u.sid+'&openId='+openid;
+          }else{
+            window.location.href = 'view/custom.html?session='+data.u.sid;
+          }
+        }else{
+          getIndexUrl(sess);
+        }
+      },
+      error : function(){
+        alert('网络连接错误或服务器异常！');
+      }
+    })
+  }
+
+  //判断用户激活状态
+  function getUserActiveState(sess){
+    $.ajax({
+        type : 'post',
+        url : Common.globalDistUrl() + 'exp/QueryMicWebActivate.do?session='+ sess,
+        data: {},
+        async: false,
+        dataType:'json',
+        contentType:'application/json',
+        success : function(data) {
+          console.log(data);
+          if(data.c == 1000){
+             if(data.as == 1 || data.as == 2){
+              // alert('已激活')
+              isActive = true;
+                // window.location.href = 'custom.html?session='+session;
+            }else if(data.as == 3 || data.as == 4 ){
+               // alert('已失效')
+               isExpired = true;
+              // window.location.href = 'actexpired.html?session='+session;
+            }else if(data.as == 0){
+              isActive = false;
+            }
+          }
+        },
+        error : function(){
+          alert('网络连接错误或服务器异常！');
+        }
+    })
+  }
+
+  // 获取微网站地址
+  function getIndexUrl(sess){
+    $.ajax({
+      method: 'GET',
+      url: Common.globalDistUrl()+'exp/CreateMicWebQrCode.do?session='+sess,
+      data: {},
+      success: function(data) {
+                console.log(data);
+                if(data.c == 1000){
+                  if(openid){
+                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms?openId='+openid;
+                  }else{
+                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
+                  }
+                }
+              },
+      error: function(data, status, headers, config) {
+          // console.log(data);
+          alert('网络连接错误或服务器异常！');
+      }
+    })
+  };
+
+
+  //提交登陆
   $('#index_submit').click(function(event) {
   	var userpwd = $('#index_pwd').val(),
   			userphone = $('#index_phone').val();
@@ -42,8 +120,17 @@ Zepto(function($){
           if(dt == 'weblog'){
             window.location.href = '../../wechat/wxscan.html?session=' + data.u.sid;
           }else{
-            window.sessionStorage.setItem('userSession',data.u.sid);
-            window.location.href = 'view/active.html?session=' + data.u.sid;
+            // window.sessionStorage.setItem('userSession',data.u.sid);
+            // window.location.href = 'view/active.html?session=' + data.u.sid;
+            getUserActiveState(data.u.sid);
+
+            if(isActive){//已激活
+              getMicroState(data.u.sid);
+            }else if(!isActive){//未激活
+              window.location.href = 'view/active.html?session='+data.u.sid;
+            }else{//失效
+              window.location.href = 'actexpired.html?session='+data.u.sid;
+            }
           }
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');

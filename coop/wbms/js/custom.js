@@ -5,13 +5,17 @@
 
 Zepto(function($){
 	var sess = Common.getUrlParam('session');
+  var openid = Common.getUrlParam('openId');   
   var api =new Api();
   $('#custom_begin').click(function(event) {
   	window.location.href = 'template.html?session='+sess;
   });
   $('#custom_logout').click(function(event) {
-    window.sessionStorage.removeItem('userSession');
-    window.location.href = '../index.html';
+    if(openid){
+      window.location.href = '../index.html?openId='+openid;
+    }else{
+      window.location.href = '../index.html';
+    }
   });
   $('#custom_preview').click(function(event) {
       $.ajax({
@@ -47,44 +51,6 @@ Zepto(function($){
       }
     }
   });
-  // 获取首页二维码，链接
-  function getIndexUrl(){
-    $.ajax({
-      method: 'GET',
-      url: Common.globalDistUrl()+'exp/CreateMicWebQrCode.do?session='+sess,
-      data: {},
-      success: function(data) {
-                console.log(data);
-                if(data.c == 1000){
-                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
-                }
-              },
-      error: function(data, status, headers, config) {
-              // console.log(data);
-              alert('网络连接错误或服务器异常！');
-          }
-    })
-  };
-  function getMicroState(){
-    $.ajax({
-      type : 'GET',
-      url : Common.globalDistUrl() + 'exp/MicWebSetUpStatus.do?session='+ sess,
-      success : function(data) {
-        console.log(data);
-        //判断主题制定状态：0未设置，1已设置，2已完成
-        if(data.s == 0){
-          $('#custom_preview').hide();
-          $('#custom_reset').hide();
-        }else{
-          $('#custom_begin').hide();
-          getIndexUrl();
-        }
-      },
-      error : function(){
-        alert('网络连接错误或服务器异常！');
-      }
-    })
-  }
 
   getMicroState();
 })
