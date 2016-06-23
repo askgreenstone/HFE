@@ -1,50 +1,6 @@
 Zepto(function($){
-    var session = Common.getUrlParam('session');
-  $.ajax({
-      type : 'post',
-      url : Common.globalDistUrl() + 'exp/QueryMicWebActivate.do?session='+ session,
-      data: {},
-      dataType:'json',
-      contentType:'application/json',
-      success : function(data) {
-        console.log(data);
-        if(data.c == 1000){
-           if(data.as == 1 || data.as == 2){
-            // alert('已激活')
-              window.location.href = 'custom.html?session='+session;
-          }else if(data.as == 3 || data.as == 4 ){
-             // alert('已失效')
-            window.location.href = 'actexpired.html?session='+session;
-          }else if(data.as == 0){
-            getAuthenState();
-          }
-        }
-      },
-      error : function(){
-        alert('网络连接错误或服务器异常！');
-      }
-  })
-  var getAuthenState = function(){
-    $.ajax({
-      type : 'post',
-      url : Common.globalDistUrl() + 'exp/ExpertInfo.do?session='+ session,
-      data: {},
-      dataType:'json',
-      contentType:'application/json',
-      success : function(data) {
-        console.log(data);
-        if(data.c == 1000){
-          // if(data.sts != 2){
-          //    // console.log('未认证');
-          //   window.location.href = 'actmode.html?session='+session;
-          // }
-        }
-      },
-      error : function(){
-        alert('网络连接错误或服务器异常！');
-      }
-  })
-  }
+  var session = Common.getUrlParam('session');
+
   $('#reg_check').prop('checked',true);
 
   // 无需邀请码，激活30天试用期
@@ -67,6 +23,7 @@ Zepto(function($){
       }
     })
   });
+  
   // 邀请码激活
   $('#code_btn').click(function() {
     var ac = $(".active_code").val();
