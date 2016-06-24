@@ -82,7 +82,7 @@ Zepto(function($){
                 console.log(data);
                 if(data.c == 1000){
                   if(openid){
-                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms?openId='+openid;
+                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms&openId='+openid;
                   }else{
                    window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
                   }
