@@ -12,6 +12,7 @@ define(['App'], function(app) {
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
         vm.preview = '';
+        vm.qrIndex = '';
         // vm.isHeadUpload = false;
         // vm.isQrcodeUpload = false;
         vm.head = '';
@@ -94,6 +95,7 @@ define(['App'], function(app) {
           success(function(data, status, headers, config) {
               console.log(data);
               vm.qrIndex = data.qrn?data.qrn:'onlinelaw20160314185742.jpg';
+              vm.checkCardState();
           }).
           error(function(data, status, headers, config) {
               // console.log(data);
@@ -510,7 +512,6 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.getIndexQrcode();
-          vm.checkCardState();
         }
         init();
     };
