@@ -127,9 +127,11 @@ Zepto(function($){
             if(isActive){//已激活
               getMicroState(data.u.sid);
             }else if(!isActive){//未激活
-              window.location.href = 'view/active.html?session='+data.u.sid;
-            }else{//失效
-              window.location.href = 'view/actexpired.html?session='+data.u.sid;
+              if(isExpired){//失效
+                window.location.href = 'view/actexpired.html?session='+data.u.sid;
+              }else{
+                window.location.href = 'view/active.html?session='+data.u.sid;
+              }
             }
           }
   			}else if(data.c == 1005){
