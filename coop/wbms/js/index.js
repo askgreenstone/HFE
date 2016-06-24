@@ -82,7 +82,7 @@ Zepto(function($){
                 console.log(data);
                 if(data.c == 1000){
                   if(openid){
-                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms?openId='+openid;
+                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms&openId='+openid;
                   }else{
                    window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
                   }
@@ -127,9 +127,11 @@ Zepto(function($){
             if(isActive){//已激活
               getMicroState(data.u.sid);
             }else if(!isActive){//未激活
-              window.location.href = 'view/active.html?session='+data.u.sid;
-            }else{//失效
-              window.location.href = 'view/actexpired.html?session='+data.u.sid;
+              if(isExpired){//失效
+                window.location.href = 'view/actexpired.html?session='+data.u.sid;
+              }else{
+                window.location.href = 'view/active.html?session='+data.u.sid;
+              }
             }
           }
   			}else if(data.c == 1005){
