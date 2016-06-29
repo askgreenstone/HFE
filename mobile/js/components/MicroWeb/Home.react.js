@@ -34,7 +34,6 @@ window.addEventListener('orientationchange', function(event){
 
 var Home = React.createClass({
   render: function() {
-    if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t-dist')>-1){
     return (
       <div className='temp'>
         <div><Link to='/index001'><img src='image/index001.png'/><span>程颖001e1</span></Link></div>
@@ -55,33 +54,9 @@ var Home = React.createClass({
         <div><Link to='/index016'><img src='image/index013.png'/><span>index016</span></Link></div>
         <div><Link to='/index017'><img src='image/index017.png'/><span>index017</span></Link></div>
         <div><Link to='/index018'><img src='image/index018.png'/><span>index018</span></Link></div>
+        <div><Link to='/index019'><img src='image/index019.png'/><span>index019</span></Link></div>
       </div>
       );
-    } else{
-      return (
-        <div className='temp'>
-          <div><Link to='/index001?ownUri=e1'><img src='image/index001.png'/><span>程颖001e1</span></Link></div>
-          <div><Link to='/index002?ownUri=e442'><img src='http://t-transfer.green-stone.cn/index002_samplepicture_20160127193313.png'/><span>index002</span></Link></div>
-          <div><Link to='/index003?ownUri=e611'><img src='http://t-transfer.green-stone.cn/index003_samplepicture_20160127180001.png'/><span>index003</span></Link></div>
-          <div><Link to='/index004?ownUri=e394'><img src='http://t-transfer.green-stone.cn/index004_samplepicture_20160127180311.png'/><span>index004</span></Link></div>
-          <div><Link to='/index005'><img src='http://t-transfer.green-stone.cn/index005_samplepicture_20160127193411.png'/><span>index005</span></Link></div>
-          <div><Link to='/index006'><img src='image/index006.png'/><span>index006</span></Link></div>
-          <div><Link to='/index007?ownUri=e2102'><img src='image/index007.png'/><span>index007</span></Link></div>
-          <div><Link to='/index008'><img src='image/index008.png'/><span>index008</span></Link></div>
-          <div><Link to='/index009?ownUri=e399'><img src='image/index009.png'/><span>index009</span></Link></div>
-          <div><Link to='/index010?ownUri=e487'><img src='image/index006.png'/><span>010</span></Link></div>
-          <div><Link to='/index011'><img src='image/index006.png'/><span>011</span></Link></div>
-          <div><Link to='/index012?ownUri=e2103'><img src='image/index012.png'/><span>006e2103</span></Link></div>
-          <div><Link to='/index013'><img src='image/index013.png'/><span>index013</span></Link></div>
-          <div><Link to='/index014?ownUri=e2109'><img src='image/index006.png'/><span>014e2109</span></Link></div>
-          <div><Link to='/index015?ownUri=e2147'><img src='image/index015.png'/><span>015e2147</span></Link></div>
-          <div><Link to='/index016'><img src='image/index013.png'/><span>index016</span></Link></div>
-          <div><Link to='/index017'><img src='image/index017.png'/><span>index017</span></Link></div>
-          <div><Link to='/index018'><img src='image/index018.png'/><span>index018</span></Link></div>
-        </div>
-        );
-    } 
-    
   },
 });
 
