@@ -9,6 +9,7 @@ var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
+var Shade = require('../../common/Shade.react');
 
 
 require('../../../../css/theme/theme006.less');
@@ -116,8 +117,8 @@ var Index006 = React.createClass({
             });
           }else{
             this.setState({
-              shareTitle:'我的微网站',
-              shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
+              shareTitle:'我的工作室',
+              shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
               shareImg:'greenStoneicon300.png'
             });
           }
@@ -198,6 +199,7 @@ var Index006 = React.createClass({
           <Password display="true"/>
         </div>
         <Toolbar/>
+        <Shade/>
 				</div>
 			)
 	}

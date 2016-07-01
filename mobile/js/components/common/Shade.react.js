@@ -34,17 +34,29 @@ var Shade = React.createClass({
     });
   },
 	componentWillMount:function(){
-    
+    var origin = this.getUrlParams('origin');
+    if(origin && origin == 'shade') {
+      this.setState({
+        display:true
+      })
+    }
   }, 
   render: function() {
+    if(this.state.display){
       return (
         <div className="shade_box" onClick={this.hideShadebox}>
             <div className="shade_btn" onClick={this.gotoDownloadApp}>
-              <img src="../image/shadebtn.png"/>
+              <img src="image/shadebtn.png"/>
             </div>
         </div> 
         
       );
+    }else{
+      return (
+        <div></div>
+        )
+      
+    }
   } 
 });
 

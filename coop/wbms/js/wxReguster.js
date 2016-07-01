@@ -71,11 +71,16 @@ jQuery(function($){
 
   // 选中专业领域li，判断是否选中
   $('.profession_list li').click(function(){
-    if($(this).hasClass('selected')){
-      $(this).removeClass('selected');
-    }else{
-      $(this).addClass('selected');
-    }
+    var count = $('.profession_list li.selected').length;
+      if($(this).hasClass('selected')){
+        $(this).removeClass('selected');
+      }else{
+        if(count>=3){
+          alert('最多选取三个！')
+        }else{
+          $(this).addClass('selected');
+        }
+      }
   })
 
   
@@ -187,7 +192,7 @@ jQuery(function($){
         }else if(data.c == 1045){
           alert('此用户已试用过工作室！')
         }else if(data.c == 1000){
-          window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + data.ownUri;
+          window.location.href = Common.globalDistUrl()+'/mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&origin=shade';
         }
         
       },
