@@ -1,8 +1,5 @@
-var session = Common.getUrlParam('session');
-console.log(session);
-
-
-
+var openId = Common.getUrlParam('openId');
+console.log(openId);
 
 
 
@@ -54,9 +51,9 @@ jQuery(function($){
     var mwID = Common.getUrlParam('mwID');
     var on = Common.getUrlParam('on');
     if(on){
-      window.location.href = 'wxheadbg.html?mwID='+mwID+'&on='+on;
+      window.location.href = 'wxheadbg.html?mwID='+mwID+'&on='+on+'&openId=' + openId;
     }else{
-      window.location.href = 'wxheadbg.html?mwID='+mwID;
+      window.location.href = 'wxheadbg.html?mwID='+mwID+'&openId=' + openId;
     }
   });
 
@@ -176,6 +173,8 @@ jQuery(function($){
           alert('注册失败，请重试！')
         }else if(data.c == 1001){
           alert('验证码不合法，请重试！');
+        }else if(data.c == 1045){
+          alert('此用户已试用过工作室！')
         }else if(data.c == 1000){
           window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + data.ownUri;
         }

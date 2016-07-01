@@ -86,6 +86,7 @@ jQuery(function($) {
 
     	$('#template_next').click(function(event) {
 		  	if(!localStorage.getItem('globalTemplateInfo')) return;
+		  	var openId = Common.getUrlParam('openId');
 		  	Common.getLoading(true);
 		  	var modelInfo = localStorage.getItem('globalTemplateInfo');
 		  	var obj = {
@@ -103,7 +104,7 @@ jQuery(function($) {
 			    success : function(data) {
 			    	Common.getLoading(false);
 			      console.log(data);
-         		window.location.href = 'wxregister.html?mwID='+ data.mwID;
+         		window.location.href = 'wxregister.html?mwID='+ data.mwID + '&openId=' +openId ;
 			    },
 			    error : function(error){
 			    	Common.getLoading(false);
