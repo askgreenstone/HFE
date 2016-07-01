@@ -22,8 +22,58 @@ var Index019 = React.createClass({
       logo:'',
       shareTitle:'',
       shareDesc:'',
-      shareImg:''
+      shareImg:'',
+      expspecial:[]
     };
+  },
+  transferArr: function(str){
+    var arr =[]; 
+    var descArr = [];
+    // arr = str.replace(/"/g,"").replace(/\[/,"").replace(/\]/g,"").split(",");
+    arr = JSON.parse(str);
+    // console.log(arr);
+    var eilArr = ['','公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
+    for(var i = 0; i<arr.length; i++){
+      if(arr[i] == 99){
+        descArr.push('其他')
+      }else{
+        descArr.push(eilArr[arr[i]])
+      }
+    }
+    // console.log(descArr);
+    return descArr;
+  },
+  getServerInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        // alert('ownUri:'+ownUri+'ntid:'+ntid);
+        if(data.c == 1000){
+           this.setState({
+            hI:data.hI,
+            nm:data.nm,
+            dp:data.dp,
+            expspecial:this.transferArr(data.es),
+            shareImg:global.img+data.hI,
+            shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
+            shareTitle:data.nm+'的工作室'
+          });
+          $('.qr_hidden').height(document.body.scrollHeight);
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('系统开了小差，请刷新页面');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   getUserList: function(flag){
     // alert($(window).width()+'x'+$(window).height());
@@ -92,40 +142,6 @@ var Index019 = React.createClass({
       }.bind(this)
     });
   },
-  getWxShareInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    $.ajax({
-      type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        if(data.c == 1000){
-          if(data.sil.length>0){
-            this.setState({
-              shareTitle:data.sil[0].sti,
-              shareDesc:data.sil[0].sd,
-              shareImg:data.sil[0].spu
-            });
-          }else{
-            this.setState({
-              shareTitle:'我的微网站',
-              shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
-              shareImg:'greenStoneicon300.png'
-            });
-          }
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
   //查询用户微网站是否过期
   getUserWebState: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -158,12 +174,17 @@ var Index019 = React.createClass({
     $('body').css({'background':'#ebebeb'});
   },
   componentWillMount: function(){
+    this.getServerInfo();
     this.getBgLogo();
     console.log('bg:'+this.state.bg);
-    this.getWxShareInfo();
     this.getUserWebState();
   },
 	render:function(){
+    var expSpecial = this.state.expspecial.map(function(item,i){
+      return(
+            <span key={new Date().getTime()+i}>{item}</span>
+        );
+    }.bind(this));
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
             <li key={new Date().getTime()+i}>
@@ -180,19 +201,18 @@ var Index019 = React.createClass({
 				<div>
 					<div className="theme019_container">
             <img src={global.img+this.state.bg} width="100%"/>
-            <ul className="theme019_menu_list">
+            
+          </div>
+          <ul className="theme019_menu_list">
                {navNodes}
             </ul>
-          </div>
           <div className="theme019_user">
-            <img src="image/wj.png" width="100" height="100"/>
-            <p>乔凡凡<i>高级合伙人</i></p>
-            <strong>北京大成律师事务所</strong>
+            <img src={global.img+this.state.hI} width="100" height="100"/>
+            <p>{this.state.nm}</p>
+            <strong>{this.state.dp}</strong>
           </div>
           <div className="theme019_areas">
-            <span>婚姻</span>
-            <span>继承</span>
-            <span>刑事</span>
+            {expSpecial}
           </div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index019"/>
@@ -201,7 +221,7 @@ var Index019 = React.createClass({
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true"/>
         </div>
-         <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
+         <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>我要创建</a></div>
         <Toolbar/>
 				</div>
 			)

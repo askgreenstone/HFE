@@ -166,6 +166,7 @@ var CommonMixin = {
     var tempType = [];
     var tel = this.getEcardTel();
     // console.log(tel);
+    console.log(jsons);
     for(var i=0;i<jsons.length;i++){
       //特定菜单mt:1-电话，2-线上咨询，3-地图导航，4-微名片，5-微相册，6-个人微博
       //介绍页或者列表mt:7
