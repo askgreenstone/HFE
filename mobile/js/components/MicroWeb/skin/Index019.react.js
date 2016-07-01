@@ -221,7 +221,7 @@ var Index019 = React.createClass({
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true"/>
         </div>
-         <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>我要创建</a></div>
+         <div className="theme6_copyright"><a href={global.url+"coop/wbms/view/wxtemplate.html"}>我要创建</a></div>
         <Toolbar/>
 				</div>
 			)
