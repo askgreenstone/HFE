@@ -9,6 +9,7 @@ var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
+var Shade = require('../../common/Shade.react');
 
 require('../../../../css/theme/theme019.less');
 
@@ -223,6 +224,7 @@ var Index019 = React.createClass({
         </div>
          <div className="theme6_copyright"><a href={global.url+"/coop/wbms/view/wxtemplate.html"}>我要创建</a></div>
         <Toolbar/>
+        <Shade/>
 				</div>
 			)
 	}

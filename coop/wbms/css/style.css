@@ -763,9 +763,7 @@ p {
   width: 100%;
   height: 4rem;
   background: #fff;
-  position: absolute;
-  left: 0px;
-  bottom: 0px;  
+  margin: 1rem auto;
 }
 .wxRg_button{
   width: 95%;
@@ -775,7 +773,6 @@ p {
   background: #5595E3;
   color: #fff;
   border-radius: 5px;
-  margin: 0.4rem auto;
   font-size: 1.4rem;
 }
 .wxRg_shadow{
