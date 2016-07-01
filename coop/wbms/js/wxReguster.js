@@ -192,7 +192,7 @@ jQuery(function($){
         }else if(data.c == 1045){
           alert('此用户已试用过工作室！')
         }else if(data.c == 1000){
-          window.location.href = Common.globalDistUrl()+'/mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&origin=shade';
+          window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&origin=shade';
         }
         
       },
