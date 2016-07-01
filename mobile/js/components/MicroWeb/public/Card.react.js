@@ -43,12 +43,12 @@ var Card = React.createClass({
             abs:data.abs,
             rg:data.rg,
             itd:data.itd,
-            Abstract:data.abs.length>60?data.abs.substr(0,60)+'...':data.abs,
-            Introduct:data.itd.length>60?data.itd.substr(0,60)+'...':data.itd,
-            Mobile:data.Mob.replace(/ /g,''),
-            TelNo:data.tel.replace(/ /g,''),
-            abss:data.abs.length>60?true:false,
-            itdd:data.itd.length>60?true:false,
+            Abstract:data.abs?(data.abs.length>60?data.abs.substr(0,60)+'...':data.abs):'',
+            Introduct:data.itd?(data.itd.length>60?data.itd.substr(0,60)+'...':data.itd):'',
+            Mobile:data.Mob?(data.Mob.replace(/ /g,'')):'',
+            TelNo:data.tel?(data.tel.replace(/ /g,'')):'',
+            abss:data.abs?(data.abs.length>60?true:false):false,
+            itdd:data.itd?(data.itd.length>60?true:false):false,
             width:wid,
             vcard:data.vcard
           });
