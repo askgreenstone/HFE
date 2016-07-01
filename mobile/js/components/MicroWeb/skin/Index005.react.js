@@ -188,7 +188,7 @@ var Index005 = React.createClass({
 								{navNodes}
 							</ul>
 						</div>
-            <div className="theme6_copyright"><a href={global.url+"coop/wbms/view/wxtemplate.html"}>我要创建</a></div>
+            <div className="theme6_copyright"><a href={global.url+"/coop/wbms/view/wxtemplate.html"}>我要创建</a></div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index005"/>
         <Message/>
