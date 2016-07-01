@@ -111,6 +111,17 @@ jQuery(function($){
     $('#wxRg_preview').attr('src',headImg);
   }
 
+
+  //表单点击掉起键盘
+  $('input').bind('click',function(){
+    var dom = '<div class="addForKeyboard"></div>';
+    $('body').append(dom);
+  })
+  //表单失去焦点清除多余dom
+   $('input').bind('blur',function(){
+    $('.addForKeyboard').remove();
+  })
+
   // 表单数据提交
   $('#wxRg_next').bind('click',function(event) {
     var name = $('#name').val(),
