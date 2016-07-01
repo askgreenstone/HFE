@@ -67,8 +67,9 @@ var Board = React.createClass({
                   time:new Date(data.s[i].ts).Format('yyyy-MM-dd hh:mm:ss'),
                   ts:data.s[i].ts,
                   content:data.s[i].p.msg.msg,
-                  pic:data.s[i].p.ext.mm&&data.s[i].p.ext.mm.indexOf('image')>-1?(global.img+data.s[i].p.ext.on):'',
-                  doc:data.s[i].p.ext.mm&&data.s[i].p.ext.mm.indexOf('application')>-1?that.fixSrc(data.s[i].p.ext.on):'',
+                  pic:that.judgeType(data.s[i].p.ext.mt,data.s[i].p.ext.on)=='img'?(global.img+data.s[i].p.ext.on):'',
+                  doc:that.judgeType(data.s[i].p.ext.mt,data.s[i].p.ext.on)=='txt'?that.fixSrc(data.s[i].p.ext.on):'',
+                  unknown:that.judgeType(data.s[i].p.ext.mt,data.s[i].p.ext.on)=='unknown'?'您收到的消息格式暂不支持，无法显示':'',
                   docName:data.s[i].p.ext.on,
                   fn:data.s[i].p.ext.fn,
                   pay:data.s[i].p.ext.p?data.s[i].p.ext.p:'',
@@ -88,6 +89,20 @@ var Board = React.createClass({
             // console.error(this.props.url, status, err.toString());
         }
     });
+  },
+  // 判断类型
+  judgeType:function(msgtype,ossname){
+    if(msgtype == 1 || msgtype == 12){
+      if(ossname){
+        if(ossname.indexOf('.jpg')>-1 || ossname.indexOf('.jpeg')>-1 || ossname.indexOf('.png')>-1){
+          return 'img'
+        }else if(ossname.indexOf('.doc')>-1 || ossname.indexOf('.docx')>-1 || ossname.indexOf('.xls')>-1 || ossname.indexOf('.xlsx')>-1 || ossname.indexOf('.ppt')>-1 || ossname.indexOf('.ppt')>-1 || ossname.indexOf('.pptx')>-1 || ossname.indexOf('.pdf')>-1){
+          return 'txt'
+        }else{
+          return 'unknown'
+        }
+      }
+    }
   },
   fixSrc:function(src){
     console.log(src);
@@ -328,7 +343,7 @@ var Board = React.createClass({
   },
   render: function() {
     var navNodes = this.state.msgList.map(function(item,i){
-      if(item.pic || item.doc || item.pay){
+      if(item.pic || item.doc || item.pay || item.unknown){
       return(
               <li key={new Date().getTime()+i}>
                 <img src={item.img} width="65" height="65"/>
@@ -344,6 +359,9 @@ var Board = React.createClass({
                     {'收费金额：'+this.formartDecimal(item.pay)+' 元'}<br/>
                     {'备注信息：'+item.extra}<br/>
                     <a onClick={this.weixinpay.bind(this,item.mi)} href="javascript:void(0);">点击此处，立即支付</a>
+                  </div>
+                  <div style={{'display':item.unknown?'block':'none'}}>
+                    {item.unknown}
                   </div>
                 </div>
                 <div className="clean"></div>

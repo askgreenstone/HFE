@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>选择用户头像</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../css/cropper.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+	<div class="wxHeadBg">
+		<div class="wxHeadBg_top">
+			<div class="wxHeadBg_top_head">设置头像</div>
+			<div class="wxHeadBg_top_change">
+				<div class="wxHeadBg_top_set">
+					更换头像
+				</div>
+				<input type="file" id="themebg_choose" name="">
+			</div>
+		</div>
+		<div class="wxHeadBg_main">
+			<img id="themeCropper" src="" width="1" height="1">
+		</div>
+		<div class="wxHeadBg_bot" id="themebg_next">确定</div>
+		</div>
+	</div>
+	<div id="globle_load_box"></div>
+	<script type="text/javascript" src="../lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../lib/cropper.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/api.js"></script>
+	<script type="text/javascript" src="../js/wxheadbg.js"></script>
+</body>
+</html>

@@ -149,7 +149,7 @@ define(['App'], function(app) {
             r.readAsDataURL(f);
         }
 
-        //it:1背景图，it:2logo
+        //it:1背景图，it:2logo，it:3头像
         vm.chooseSourceBg = function(name,initCrorpFlag){
           console.log('name:'+name);
           vm.choosePic = name;
