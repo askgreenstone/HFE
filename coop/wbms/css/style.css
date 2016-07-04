@@ -893,7 +893,8 @@ p {
   position: absolute;
   left: 50%;
   top: 50%;
-  margin: -1.6rem 0 0 -20%;
+  margin-top: -1.6rem;
+  margin-top: -25%;
 }
 .wxHeadBg_main{
   width: 80%;
