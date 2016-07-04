@@ -10,6 +10,7 @@ var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Shade = require('../../common/Shade.react');
+var Establish = require('../public/Establish.react');
 
 require('../../../../css/theme/theme005.less');
 var Index005 = React.createClass({
@@ -189,7 +190,7 @@ var Index005 = React.createClass({
 								{navNodes}
 							</ul>
 						</div>
-            <div className="theme6_copyright"><a href={global.url+"/coop/wbms/view/wxtemplate.html"}>我要创建</a></div>
+            <Establish/>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index005"/>
         <Message/>

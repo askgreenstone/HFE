@@ -129,7 +129,8 @@ jQuery(function($){
 
   // 表单数据提交
   $('#wxRg_next').bind('click',function(event) {
-    var name = $('#name').val(),
+    var hi = $('#wxRg_preview').attr('src'),
+        name = $('#name').val(),
         depart = $('#depart').val(),
         tel = $('#tel').val(),
         msgNo = $('#msgNo').val(),
@@ -139,7 +140,10 @@ jQuery(function($){
         mwID = Common.getUrlParam('mwID'),
         openId = Common.getUrlParam('openId'),
         data = {};
-    if(!name){
+    if(hi == '../image/head.png'){
+      alert('请上传头像！');
+      return;
+    }else if(!name){
       alert('请输入姓名！');
       return;
     }else if(!depart){
@@ -151,8 +155,9 @@ jQuery(function($){
     }else if(!msgNo){
       alert('请输入验证码！');
       return;
-    }else if(professionArr<1){
-      alert('请选择专业领域！')
+    }else if(professionArr.length<1){
+      alert('请选择专业领域！');
+      return;
     }else if(!region){
       alert('请输入城市！');
       return;

@@ -10,6 +10,7 @@ var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Shade = require('../../common/Shade.react');
+var Establish = require('../public/Establish.react');
 
 require('../../../../css/theme/theme003.less');
 var Index003=React.createClass({
@@ -193,7 +194,7 @@ var Index003=React.createClass({
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index003"/>
 					</div>
-          <div className="theme6_copyright"><a href={global.url+"/coop/wbms/view/wxtemplate.html"}>我要创建</a></div>
+          <Establish/>
           <Message/>
           <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
           <div id="limit_password_box" title="" value="" name="" type="">

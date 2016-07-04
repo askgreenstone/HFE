@@ -9,6 +9,7 @@ var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
+var Establish = require('../public/Establish.react');
 
 require('../../../../css/theme/theme002.less');
 
@@ -207,7 +208,7 @@ var Index002 = React.createClass({
           <Message/>
 
         </div>
-        <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
+        <Establish/>
         <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true" ntid="5104"/>

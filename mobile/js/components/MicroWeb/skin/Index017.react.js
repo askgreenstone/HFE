@@ -10,6 +10,7 @@ var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var MobileBlocks = require('../../common/mobilyblocks.react');
+var Establish = require('../public/Establish.react');
 
 require('../../../../css/theme/theme017.less');
 var Index017 = React.createClass({
@@ -251,7 +252,7 @@ var Index017 = React.createClass({
               {navNodes1}
             </div>
           </div>
-          <div className="theme6_copyright"><a href={global.url+"/mobile/#/index005?ownUri=e2202"}>绿石科技研发</a></div>
+          <Establish/>
           <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
           imgUrl={global.img+this.state.shareImg} target="index017"/>
           <Message/>
