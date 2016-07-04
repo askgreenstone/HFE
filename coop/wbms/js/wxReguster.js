@@ -60,17 +60,18 @@ jQuery(function($){
   // 选中专业领域，选取框出现，遮罩层出现
   $('.wxRegister_select').click(function(){
     $('.wxRg_shadow').show();
-    $('.profession').css({'webkitTransform':'translateY(-18rem)','position':'absolute','zIndex':'2'});
+    // $('.profession').css({'webkitTransform':'translateY(-18rem)','zIndex':'2'});
   })
 
   // 点击遮罩层，选取框消失
   $('.wxRg_shadow').click(function(){
     $(this).hide();
-    $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0','position':'relative'});
+    // $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0'});
   })
 
   // 选中专业领域li，判断是否选中
-  $('.profession_list li').click(function(){
+  $('.profession_list li').click(function(e){
+    e.stopPropagation();
     var count = $('.profession_list li.selected').length;
       if($(this).hasClass('selected')){
         $(this).removeClass('selected');
@@ -99,7 +100,7 @@ jQuery(function($){
       }
     }
     $('.wxRg_shadow').hide();
-    $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0','position':'relative'});
+    // $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0'});
     console.log(professionArr);
     console.log(specialArr);
     var text = professionArr.join(',');

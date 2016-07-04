@@ -761,9 +761,10 @@ p {
 }
 .wxRg_bottom{
   width: 100%;
-  height: 4rem;
+  height: 3.6rem;
   background: #fff;
   margin: 1rem auto;
+  padding-top: 0.4rem;
 }
 .wxRg_button{
   width: 95%;
@@ -774,6 +775,7 @@ p {
   color: #fff;
   border-radius: 5px;
   font-size: 1.4rem;
+  margin: 0 auto;
 }
 .wxRg_shadow{
   width: 100%;
@@ -788,7 +790,9 @@ p {
   width: 100%;
   height: 18rem;
   background: #fff;
-  -webkit-transform:translateY(21rem);
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
 }
 .profession_box{
   width: 100%;
