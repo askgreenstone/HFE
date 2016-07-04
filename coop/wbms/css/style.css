@@ -662,7 +662,7 @@ p {
 /*wxRegister.html*/
 .wxRegister{
   width: 100%;
-  height: 100%;
+  height: 60rem;
   background: #F2F2F2;
   overflow: hidden;
 }

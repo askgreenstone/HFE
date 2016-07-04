@@ -190,13 +190,15 @@ jQuery(function($){
       success : function(data) {
         console.log(data);
         if(data.c == 1050){
-          alert('工作室已存在，请登录')
+          alert('工作室已存在，请登录');
+          window.close();
         }else if(data.c == 1051){
           alert('注册失败，请重试！')
         }else if(data.c == 1001){
           alert('验证码不合法，请重试！');
         }else if(data.c == 1045){
-          alert('此用户已试用过工作室！')
+          alert('此用户已试用过工作室！');
+          window.close();
         }else if(data.c == 1000){
           window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&origin=shade';
         }
