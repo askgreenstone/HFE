@@ -894,7 +894,7 @@ p {
   left: 50%;
   top: 50%;
   margin-top: -1.6rem;
-  margin-top: -25%;
+  margin-left: -25%;
 }
 .wxHeadBg_main{
   width: 80%;
