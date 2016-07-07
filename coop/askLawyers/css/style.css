@@ -1,0 +1,334 @@
+/*css基础类，存放全局样式，公共组件，以及网页适配*/
+/*字体大小*/
+/*常用色值*/
+* {
+  -webkit-overflow-scrolling: touch;
+}
+/*公共样式*/
+html {
+  font-size: 62.5%;
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0 auto;
+  color: #595757;
+  background-color: #ebebeb;
+  width: 100%;
+  height: 100%;
+}
+#wrap {
+  width: 100%;
+  height: 100%;
+}
+a:link,
+a:visited {
+  color: #595757;
+  text-decoration: none;
+}
+a:hover,
+a:active {
+  color: #595757;
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+
+/*提问页*/
+.publish{
+  width: 100%;
+  height: 100%;
+}
+.pub_area{
+  width: 100%;
+  height: 10rem;
+  margin: 0.5rem auto;
+  display: block;
+  resize: none;
+  outline: none;
+  line-height: 2rem;
+  text-indent: 10px;
+  box-sizing: border-box;
+}
+.pub_money{
+  width: 100%;
+  height: 8rem;
+  margin: 1rem auto;
+  background: #fff;
+}
+.pub_money p{
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  padding-left: 10px;
+  box-sizing: border-box;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.pub_money_box{
+  width: 95%;
+  padding-left: 5%;
+  height: 4rem;
+  display: box;
+  display: -webkit-box;
+}
+.pub_money_box li{
+  width: 20%;
+  margin-right: 4%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  background: #fff;
+  border-radius: 3px;
+  color: #666;
+  font-size: 1.4rem;
+  border: 1px solid #ccc; 
+}
+.pub_money_box li.active{
+  background: #5595E3;
+  color: #fff;
+  border-color: transparent;
+}
+.pub_tip{
+  width: 100%;
+  padding-left: 10px;
+  box-sizing: border-box;
+  line-height: 1.6rem;
+}
+.pub_btn{
+  width: 100%;
+  height: 4rem;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+.pub_btn a{
+  width: 95%;
+  height: 3.2rem;
+  line-height: 3.2rem;
+  text-align: center;
+  display: block;
+  background: #5595E3;
+  margin: 0.4rem auto;
+  border-radius: 3px;
+  color: #fff;
+}
+/*问题列表页*/
+.questionList{
+  width: 100%;
+  height: 100%;
+  background: #F2F2F2;
+}
+.que_list{
+  width: 100%;
+}
+.que_list li{
+  width: 100%;
+  line-height: 1.6rem;
+  padding:5px 10px 10px;
+  background: #fff;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.que_list_money{
+  color: #E88076;
+  margin-right: 5px;
+}
+.que_list_time{
+  margin-left: 50%;
+  width: 24%;
+  height: 2.6rem;
+  line-height: 2.6rem;
+  display: inline-block;
+  text-align: center;
+}
+.que_list_close{
+  display: inline-block;
+  width: 24%;
+  height: 2.6rem;
+  line-height: 2.6rem;
+  background: #DCDCDC;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+}
+.que_list_unsolved{
+  background: #FC5759;
+  display: inline-block;
+  width: 24%;
+  height: 2.6rem;
+  line-height: 2.6rem;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+}
+
+
+/*聊天列表页*/
+.chatList{
+  width: 100%;
+  height: 100%;
+}
+.chat_list{
+  width: 100%;
+}
+.chat_list li{
+  width: 100%;
+  line-height: 1.6rem;
+  padding:5px;
+  box-sizing: border-box;
+  display: box;
+  display: -webkit-box;
+}
+.chat_list_head{
+  width: 20%;
+}
+.chat_list_head img{
+  width: 70%;
+  margin: 1rem auto 0.5rem;
+  display: block;
+}
+.chat_list_head span{
+  width: 100%;
+  display: block;
+  text-align: center;
+  line-height: 1.6rem;
+}
+.chat_list_content{
+  width: 80%;
+  box-sizing: border-box;
+  padding:2px 3px;
+  word-break: break-all;
+}
+.chat_list_content span{
+  border: 15px solid transparent;
+  border-image: url('../image/borderImage.png') 15 30 stretch;
+  display: inline-block;
+  color: #fff;
+  margin: 1.3rem 0 0.5rem;
+}
+.chat_box{
+  width: 100%;
+  height: 5rem;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #F2F2F2;
+  border-top: 1px solid #ccc;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.chat_inp{
+  width: 70%;
+  height: 3rem;
+  line-height: 3rem;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  margin-right: 5%; 
+}
+.chat_btn{
+  width: 24%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  display: inline-block;
+  background: #5595E3;
+  color: #fff;
+}
+/*评价页*/
+.eva_box{
+  width: 100%;
+  height: 4rem;
+  background: #fff;
+  line-height: 4rem;
+  padding-left: 10px;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+.eva_nice{
+  width: 30%;
+  height: 3rem;
+  line-height: 3rem;
+  display: inline-block;
+  background-image: url('../image/nice.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 30%;
+  margin-right: 30%;
+}
+.eva_nice_light{
+  background-image: url('../image/nice_light.png');
+}
+.eva_btn{
+  width: 35%;
+  height: 3rem;
+  background: #5595E3;
+  display: inline-block;
+  line-height: 3rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 3px;
+}
+/*问题详情页*/
+.detail_list li{
+  margin-bottom: 0;
+}   
+.detail_list{
+  margin-bottom: 10px;
+}     
+.detail_box{
+  width: 100%;
+  height: 5rem;
+  background: #fff;
+  padding: 1rem 10px;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.detail_close,.detail_goon{
+  width: 40%;
+  height: 3rem;
+  line-height: 3rem;
+  display: inline-block;
+  text-align: center;
+  background: #5595E3;
+  color: #fff;
+  margin-right: 19%;
+  border-radius: 3px;
+}
+.detail_goon{
+  margin-right: 0;
+}
+/*适配手机*/
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 62.5%;
+  }
+}
+@media screen and (min-width: 361px) and (max-width: 376px) {
+  html {
+    font-size: 66.5%;
+  }
+}
+@media screen and (min-width: 377px) {
+  html {
+    font-size: 75.5%;
+  }
+}
+/*安卓手机唤起键盘定位触发问题*/
+@media (max-height: 400px) { 
+  .footer,.detail_box,.eva_box{
+    display: none;
+  }
+}

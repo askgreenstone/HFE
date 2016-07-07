@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>我的工作室</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+	<div class="wxRegister">
+		<div class="wxRg_main">
+			<div class="wxRg_box">
+				<input id="wxRg_file" type="button">
+				<img id="wxRg_preview" src="../image/head.png" width="70" height="70">
+				<span class="wxRg_edit">头像上传</span>
+			</div>
+			<div class="wxRegister_box"><span>姓名</span><input type="text" id="name" placeholder="请填写您的真实姓名"></div>
+			<div class="wxRegister_box"><span>单位</span><input type="text" id="depart" placeholder="请填写所在单位名称"></div>
+			<div class="wxRegister_box"><span>+86</span><input type="text" id="tel" placeholder="请输入您的手机号码"></div>
+			<div class="wxRegister_box wxRegister_box_top"><input type="text" id="msgNo" placeholder="请输入短信验证码"><span id="regNo">验证码</span></div>
+			<div class="wxRegister_box"><span>领域</span>
+				<span class="wxRegister_select">请选择专业领域</span>
+			</div>
+			<div class="wxRegister_box"><span>城市</span><input type="text" id="region" placeholder="请填写所在城市，用于具体导航"></div>
+			<div class="wxRegister_box"><span>地址</span><input type="text" id="address" placeholder="请填写详细地址，用于具体导航"></div>
+			<div class="wxRg_bottom">
+				<div class="wxRg_button" id="wxRg_next">下一步</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="wxRg_shadow">
+		<div class="profession">
+			<div class="profession_area">选择擅长的领域<span id="wxReg_btn">确定</span></div>
+			<div class="profession_box">
+				<ul class="profession_list">
+					<li data-id="1"><span>公司企业</span></li>
+					<li data-id="2"><span>资本市场</span></li>
+					<li data-id="3"><span>证券期货</span></li>
+					<li data-id="4"><span>知识产权</span></li>
+					<li data-id="5"><span>金融保险</span></li>
+					<li data-id="6"><span>合同债务</span></li>
+					<li data-id="7"><span>劳动人事</span></li>
+					<li data-id="8"><span>矿业能源</span></li>
+					<li data-id="9"><span>房地产</span></li>
+					<li data-id="10"><span>贸易</span></li>
+					<li data-id="11"><span>海事海商</span></li>
+					<li data-id="12"><span>涉外</span></li>
+					<li data-id="13"><span>财税</span></li>
+					<li data-id="14"><span>物权</span></li>
+					<li data-id="15"><span>婚姻家庭</span></li>
+					<li data-id="16"><span>侵权</span></li>
+					<li data-id="17"><span>诉讼仲裁</span></li>
+					<li data-id="18"><span>刑事</span></li>
+					<li data-id="19"><span>破产</span></li>
+					<li data-id="20"><span>新三板</span></li>
+					<li data-id="21"><span>反垄断</span></li>
+					<li data-id="22"><span>家族财富</span></li>
+					<li data-id="23"><span>交通事故</span></li>
+					<li data-id="24"><span>医疗</span></li>
+					<li data-id="25"><span>人格权</span></li>
+					<li data-id="99"><span>其他</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/api.js"></script>
+	<script type="text/javascript" src="../js/wxReguster.js"></script>
+	<div id="globle_load_box"></div>
+</body>
+</html>

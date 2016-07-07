@@ -112,7 +112,7 @@ jQuery(function($){
   // 获取头像
   function getHeadImg(){
     var on = Common.getUrlParam('on');
-    var headImg = on?'http://t-transfer.green-stone.cn/'+on:'../image/head.png';
+    var headImg = on?Common.globalTransferUrl()+on:'../image/head.png';
     console.log(headImg);
     $('#wxRg_preview').attr('src',headImg);
   }
