@@ -9,10 +9,6 @@ function init(){
   console.log(session);
 }
 
-$('.detail_close').bind('click',function(){
-  window.location.href = 'evaluate.html?session=' + session;
-})
-
 
 
 

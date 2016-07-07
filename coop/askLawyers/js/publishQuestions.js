@@ -1,4 +1,5 @@
 var session;
+var payParams;
 $(document).ready(function() {
   init();
 });
@@ -12,7 +13,7 @@ function init(){
 
 
 // 选中金额
-$('.pub_money_box').bind('click', function(){
+$('.pub_money_box li').bind('click', function(){
   $(this).addClass('active').siblings().removeClass('active');
 })
 //调起支付
@@ -89,12 +90,7 @@ function onBridgeReady() {
             //alert(res.err_code+res.err_desc+res.err_msg);
             if (res.err_msg.indexOf('ok') > -1) {
               // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
-                var tempTit = ic?icObj.it:curPayInfo.it,
-                    tempMon = ic?icObj.lt:curPayInfo.lt;
-                //清除脏数据
-                localStorage.setItem('discountItem', '');
-                  // alert('tit:'+tempTit+',month:'+tempMon);
-                location.href = '/htm/react/success.html?payTitle='+encodeURI(tempTit)+'&payMonth='+encodeURI(tempMon);
+                alert('支付成功！')
                 // location.href = '/htm/react/success.html';
             } else if (res.err_msg.indexOf('cancel') > -1) {
                 //alert('取消支付！');
