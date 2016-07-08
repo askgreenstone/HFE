@@ -20,7 +20,8 @@ var alias= {
 
 };
 var config = {
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: false,
     entry: [
         'webpack-dev-server/client?http://127.0.0.1:4000',
         'webpack/hot/only-dev-server',
