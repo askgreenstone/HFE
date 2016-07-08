@@ -60,22 +60,28 @@ jQuery(function($){
   // 选中专业领域，选取框出现，遮罩层出现
   $('.wxRegister_select').click(function(){
     $('.wxRg_shadow').show();
-    $('.profession').css({'webkitTransform':'translateY(-18rem)','position':'absolute','zIndex':'2'});
+    // $('.profession').css({'webkitTransform':'translateY(-18rem)','zIndex':'2'});
   })
 
   // 点击遮罩层，选取框消失
   $('.wxRg_shadow').click(function(){
     $(this).hide();
-    $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0','position':'relative'});
+    // $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0'});
   })
 
   // 选中专业领域li，判断是否选中
-  $('.profession_list li').click(function(){
-    if($(this).hasClass('selected')){
-      $(this).removeClass('selected');
-    }else{
-      $(this).addClass('selected');
-    }
+  $('.profession_list li').click(function(e){
+    e.stopPropagation();
+    var count = $('.profession_list li.selected').length;
+      if($(this).hasClass('selected')){
+        $(this).removeClass('selected');
+      }else{
+        if(count>=3){
+          alert('最多选取三个！')
+        }else{
+          $(this).addClass('selected');
+        }
+      }
   })
 
   
@@ -94,7 +100,7 @@ jQuery(function($){
       }
     }
     $('.wxRg_shadow').hide();
-    $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0','position':'relative'});
+    // $('.profession').css({'webkitTransform':'translateY(21rem)','zIndex':'0'});
     console.log(professionArr);
     console.log(specialArr);
     var text = professionArr.join(',');
@@ -106,14 +112,26 @@ jQuery(function($){
   // 获取头像
   function getHeadImg(){
     var on = Common.getUrlParam('on');
-    var headImg = on?'http://t-transfer.green-stone.cn/'+on:'../image/head.png';
+    var headImg = on?Common.globalTransferUrl()+on:'../image/head.png';
     console.log(headImg);
     $('#wxRg_preview').attr('src',headImg);
   }
 
+
+  //表单点击掉起键盘
+  $('input').bind('click',function(){
+    var dom = '<div class="addForKeyboard"></div>';
+    $('body').append(dom);
+  })
+  //表单失去焦点清除多余dom
+   $('input').bind('blur',function(){
+    $('.addForKeyboard').remove();
+  })
+
   // 表单数据提交
   $('#wxRg_next').bind('click',function(event) {
-    var name = $('#name').val(),
+    var hi = $('#wxRg_preview').attr('src'),
+        name = $('#name').val(),
         depart = $('#depart').val(),
         tel = $('#tel').val(),
         msgNo = $('#msgNo').val(),
@@ -123,7 +141,10 @@ jQuery(function($){
         mwID = Common.getUrlParam('mwID'),
         openId = Common.getUrlParam('openId'),
         data = {};
-    if(!name){
+    if(hi == '../image/head.png'){
+      alert('请上传头像！');
+      return;
+    }else if(!name){
       alert('请输入姓名！');
       return;
     }else if(!depart){
@@ -135,8 +156,9 @@ jQuery(function($){
     }else if(!msgNo){
       alert('请输入验证码！');
       return;
-    }else if(professionArr<1){
-      alert('请选择专业领域！')
+    }else if(professionArr.length<1){
+      alert('请选择专业领域！');
+      return;
     }else if(!region){
       alert('请输入城市！');
       return;
@@ -168,15 +190,17 @@ jQuery(function($){
       success : function(data) {
         console.log(data);
         if(data.c == 1050){
-          alert('工作室已存在，请登录')
+          alert('工作室已存在，请登录');
+          window.close();
         }else if(data.c == 1051){
           alert('注册失败，请重试！')
         }else if(data.c == 1001){
           alert('验证码不合法，请重试！');
         }else if(data.c == 1045){
-          alert('此用户已试用过工作室！')
+          alert('此用户已试用过工作室！');
+          window.close();
         }else if(data.c == 1000){
-          window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + data.ownUri;
+          window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&origin=shade';
         }
         
       },

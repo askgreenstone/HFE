@@ -9,6 +9,8 @@ var Message = require('../../common/Message.react');
 var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
+var Shade = require('../../common/Shade.react');
+var Establish = require('../public/Establish.react');
 
 require('../../../../css/theme/theme019.less');
 
@@ -61,7 +63,7 @@ var Index019 = React.createClass({
             hI:data.hI,
             nm:data.nm,
             dp:data.dp,
-            expspecial:this.transferArr(data.es),
+            expspecial:data.es?(this.transferArr(data.es)):(this.transferArr("[1,2,3]")),
             shareImg:global.img+data.hI,
             shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
             shareTitle:data.nm+'的工作室'
@@ -180,6 +182,7 @@ var Index019 = React.createClass({
     this.getUserWebState();
   },
 	render:function(){
+    console.log(this.state.expspecial);
     var expSpecial = this.state.expspecial.map(function(item,i){
       return(
             <span key={new Date().getTime()+i}>{item}</span>
@@ -215,14 +218,15 @@ var Index019 = React.createClass({
             {expSpecial}
           </div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-        imgUrl={global.img+this.state.shareImg} target="index019"/>
+        imgUrl={this.state.shareImg} target="index019"/>
         <Message/>
         <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true"/>
         </div>
-         <div className="theme6_copyright"><a href={global.url+"/coop/wbms/view/wxtemplate.html"}>我要创建</a></div>
+        <Establish/>
         <Toolbar/>
+        <Shade/>
 				</div>
 			)
 	}

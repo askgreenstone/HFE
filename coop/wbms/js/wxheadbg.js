@@ -117,7 +117,7 @@ $('#themebg_next').click(function() {
         success: function(data) {
           console.log(data);
           Common.getLoading(false);
-            window.location.href = 'wxregister.html?mwID='+mwID+'&on='+data.in;
+          window.location.href = 'wxregister.html?mwID='+mwID+'&on='+data.in+'&openId='+openId;
         },
         error: function(error) {
           Common.getLoading(false);
