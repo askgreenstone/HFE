@@ -37,7 +37,7 @@ $('#pub_btn').bind('click', function() {
           console.log(data);
           // window.location.href = '.html?session=' + session
         },
-        error:function(){questionList
+        error:function(){
           alert('网络连接错误或服务器异常！')
         }
       })
@@ -52,7 +52,7 @@ $('#pub_btn').bind('click', function() {
           }
       $.ajax({
         type: 'POST',
-        url: Common.globalDistUrl + '/usr/Trade.do?session=' + session,
+        url: Common.globalDistUrl() + 'usr/Trade.do?session=' + session,
         data: JSON.stringify(payInfo),
         dataType: 'json',
         success: function(data) {
