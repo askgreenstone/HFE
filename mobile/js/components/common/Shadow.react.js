@@ -1,3 +1,20 @@
+// 暂时取消过期状态（乔凡2016年7月11日）
+// 检查用户过期代码如下：
+// if(this.props.display){
+//   return (
+//     <div className="transparent_shadow" onClick={this.showMessage}>
+//       <div className="tip">
+//         <img src="image/warn.png" width="35" height="35"/>
+//         <span>{this.props.context}</span>
+//       </div>
+//     </div>
+//   );
+// }else{
+//   return (
+//     <div></div>
+//   )
+// }
+
 var React = require('react');
 var Shadow = React.createClass({
 	showMessage: function(){
@@ -14,20 +31,9 @@ var Shadow = React.createClass({
     $('.transparent_shadow').height(document.body.scrollHeight);
   }, 
   render: function() {
-    if(this.props.display){
-      return (
-        <div className="transparent_shadow" onClick={this.showMessage}>
-          <div className="tip">
-            <img src="image/warn.png" width="35" height="35"/>
-            <span>{this.props.context}</span>
-          </div>
-        </div>
-      );
-    }else{
-      return (
-        <div></div>
-      )
-    }
+    return (
+      <div></div>
+    )
   }     
 });
 

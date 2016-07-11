@@ -93,7 +93,7 @@ var Card2 = React.createClass({
 	    		</div>
 	    		
 	    		<div className="user_create">
-                    <a href="http://dist.green-stone.cn/coop/wbms/">创建我的微名片</a>
+                    <a href="http://dist.green-stone.cn/coop/wbms/view/wxtemplate.html">创建我的微名片</a>
                 </div>
 	    	</div>
         <Share title={ShareTitile} desc={ShareDesc} imgUrl={ShareImg} target="card2"/>
