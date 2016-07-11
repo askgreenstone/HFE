@@ -124,7 +124,7 @@ var Card4 = React.createClass({
               </p>
             </div>
             <div className="user_create" style={{width:"140px"}}>
-                <a href="http://dist.green-stone.cn/coop/wbms/">Set Up My Site</a>
+                <a href="http://dist.green-stone.cn/coop/wbms/view/wxtemplate.html">Set Up My Site</a>
             </div>
           </div>
           <Share title="Bingo Yu" desc="Industrial Chain Finance Innovation Platform Based on the exchange mode&China crowdfunding" 

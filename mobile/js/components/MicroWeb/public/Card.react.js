@@ -230,7 +230,7 @@ var Card = React.createClass({
               <div onClick={this.itdToggle} style={{display:this.state.itdd?'block':'none'}}>全文</div>
             </div>
             <div className="user_create">
-                <a href="http://dist.green-stone.cn/coop/wbms/wxtemplate.html">创建我的工作室</a>
+                <a href="http://dist.green-stone.cn/coop/wbms/view/wxtemplate.html">创建我的工作室</a>
             </div>
           </div>
           <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="card"/>

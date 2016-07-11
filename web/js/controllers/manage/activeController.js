@@ -32,13 +32,21 @@ define(['App'], function(app) {
           success(function(data) {
             console.log(data);
             if(data.c == 1000){
-              if(data.as == 1 || data.as == 2){
-                 window.location.href = '#/micro?session='+vm.sess;
-              }else if(data.as == 3 || data.as == 4 ){
-                // localStorage.setItem('activeEndTime',data.at);
-                window.location.href = '#/actexpired?session='+vm.sess;
-              }else if(data.as == 0){
+              // 暂时取消过期状态（乔凡2016年7月11日）
+              // if(data.as == 1 || data.as == 2){
+              //    window.location.href = '#/micro?session='+vm.sess;
+              // }else if(data.as == 3 || data.as == 4 ){
+              //   // localStorage.setItem('activeEndTime',data.at);
+              //   window.location.href = '#/actexpired?session='+vm.sess;
+              // }else if(data.as == 0){
+              //   vm.getAuthenState();
+              // }
+
+              // 改逻辑为  未激活与激活两个状态（乔凡2016年7月11日）
+              if(data.as == 0){
                 vm.getAuthenState();
+              }else{
+                window.location.href = '#/micro?session='+vm.sess;
               }
             }
           }).
@@ -79,7 +87,7 @@ define(['App'], function(app) {
               url: GlobalUrl+'/exp/ActivateMicWeb.do',
               params: {session:vm.sess},
               headers : {'Content-Type':undefined},
-              data: {ad:30}
+              data: {ad:180}
           }).
           success(function(data) {
             console.log(data);
@@ -100,7 +108,7 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/ActivateMicWeb.do',
                 params: {session:vm.sess},
                 headers : {'Content-Type':undefined},
-                data: {ac:vm.expCode,ad:30}
+                data: {ac:vm.expCode,ad:180}
             }).
             success(function(data, status, headers, config) {
                 console.log(data);               
