@@ -106,8 +106,12 @@ p {
 }
 .pub_btn{
   width: 100%;
-  height: 6rem;
+  height: 5rem;
   background: #fff;
+  padding-top: 1rem;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
 }
 .pub_btn a{
   width: 95%;
@@ -116,7 +120,7 @@ p {
   text-align: center;
   display: block;
   background: #5595E3;
-  margin: 1rem auto;
+  margin: 0rem auto;
   border-radius: 3px;
   color: #fff;
 }
@@ -143,6 +147,7 @@ p {
   background: #fff;
   margin-bottom: 10px;
   box-sizing: border-box;
+  word-break: break-all;
 }
 .que_list_money{
   color: #E88076;
@@ -185,9 +190,14 @@ p {
   width: 100%;
   height: 100%;
   background: #eee;
+  display: box;
+  display: -webkit-box;
+  -webkit-box-orient:vertical;
 }
 .chat_list{
   width: 100%;
+  -webkit-box-flex:1;
+  overflow-y: auto;
 }
 .chat_list li{
   width: 100%;
@@ -236,33 +246,33 @@ p {
 .chat_box{
   width: 100%;
   height: 6rem;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   background: #F2F2F2;
   border-top: 1px solid #ccc;
-  padding: 1.5rem;
+  padding: 1.5rem 0.5rem;
   box-sizing: border-box;
+  display: box;
+  display: -webkit-box;
 }
 .chat_inp{
-  width: 70%;
+  -webkit-box-flex: 1;
   height: 3rem;
   line-height: 3rem;
   padding-left: 10px;
   box-sizing: border-box;
   border: none;
   outline: none;
-  margin-right: 4%; 
+  display: block;
 }
 .chat_btn{
-  width: 24%;
+  width: 22%;
   height: 3rem;
   line-height: 3rem;
   text-align: center;
-  display: inline-block;
+  display: block;
   background: #5595E3;
   color: #fff;
   border-radius: 3px;
+  margin: 0 2%;
 }
 /*评价页*/
 .eva_box{
@@ -278,17 +288,17 @@ p {
 }
 .eva_nice{
   width: 35%;
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  line-height: 30px;
   display: inline-block;
   background-image: url('../image/nice.png');
   background-repeat: no-repeat;
-  background-position: right -1px;
-  background-size: 25%;
+  background-position: right 0px;
+  background-size: 30px;
   margin-right: 25%;
 }
 .eva_nice_light{
-  background-position: right -28px;
+  background-position: right -30px;
 }
 .eva_btn{
   width: 35%;
@@ -354,7 +364,7 @@ p {
 }
 /*安卓手机唤起键盘定位触发问题*/
 @media (max-height: 400px) { 
-  .footer,.detail_box,.eva_box{
+  .footer,.detail_box,.eva_box,.pub_btn{
     display: none;
   }
 }
