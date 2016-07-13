@@ -58,6 +58,11 @@ $('.que_list').on('click','li',function(){
 
 
 
+// 点击咨询新问题跳转发布问题页
+$('#pub_btn').click(function(){
+	window.location.href = 'publishQuestions.html?session='+session;
+})
+
 
 function getDate(time){
 	var now = new Date().getTime();
