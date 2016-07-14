@@ -4,6 +4,7 @@ var pageImg = [];
 var username = '';
 var userpass = '';
 var appKey = '';
+var scroll_offset = 0;
 
 $(function() {
     var conn = null;
@@ -31,11 +32,12 @@ $(function() {
             // async: false,
             url: Common.globalDistUrl() + 'usr/EasemobUserInfo.do?session=' + session,
             success: function(data) {
-                console.log(data);
+                console.log('test:' + data);
                 if (data.c == 1000) {
                     username = data.un;
                     userpass = data.up;
                     appKey = data.appKey;
+
                     conn.open({
                         user: username,
                         pwd: userpass,
@@ -44,7 +46,7 @@ $(function() {
                 }
             },
             error: function(xhr, status, err) {
-                alert('系统开了小差，请刷新页面');
+                // alert('系统开了小差，请刷新页面');
             }
         });
     }
@@ -79,11 +81,15 @@ $(function() {
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
-                    $('.chat_inp').val('');
+                    $('.chat_inp').val('');  
+                    // console.log($('.chat_list')[0].scrollHeight);
                     if (pageImg) {
                         setTimeout(function() {
                             getMsgList(gi, session, pageImg);
                         }, 300);
+                        $('.chat_list').animate({
+                          scrollTop:$('.chat_list')[0].scrollHeight
+                        },800);
                     }
                 }
             },
@@ -160,6 +166,10 @@ $(function() {
                     }
 
                     $('.chat_list').append(comments);
+                    
+                    $('.chat_list').animate({
+                      scrollTop:$('.chat_list')[0].scrollHeight
+                    },800);
                 }
             },
             error: function(xhr, status, err) {
@@ -184,7 +194,7 @@ $(function() {
     }
 
     function fixSrc(src) {
-        console.log(src);
+        // console.log(src);
         var temp = src.split('.')[0];
         return temp;
     }
@@ -219,9 +229,9 @@ $(function() {
 
     function init() {
         session = Common.getUrlParam('session');
-        console.log(session);
-        getGroupInfo();
+        // console.log(session);
         getUserToken();
+        getGroupInfo();
     }
 
     init();
