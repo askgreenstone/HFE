@@ -113,7 +113,13 @@ p {
   left: 0px;
   bottom: 0px;
 }
-.pub_btn a{
+.que_btn{
+  width: 100%;
+  height: 5rem;
+  background: #fff;
+  padding-top: 1rem;
+}
+.pub_btn a,.que_btn a{
   width: 95%;
   height: 4rem;
   line-height: 4rem;
@@ -204,16 +210,29 @@ p {
   line-height: 1.6rem;
   padding: 0px 5px;
   box-sizing: border-box;
-  display: box;
-  display: -webkit-box;
 }
 .chat_list_head{
   width: 20%;
 }
+.chat_list_usr .chat_list_head{
+  float: right;
+}
+.chat_list_exp .chat_list_head{
+  float: left;
+}
+.chat_list li:after{
+  content: "."; 
+  display: block;
+  height: 0; 
+  clear: both; 
+  visibility: hidden;
+}
 .chat_list_head img{
-  width: 70%;
+  width: 60px;
+  height: 60px;
   margin: 1rem auto 0.5rem;
   display: block;
+  border-radius: 50%;
 }
 .chat_list_head i{
   width: 100%;

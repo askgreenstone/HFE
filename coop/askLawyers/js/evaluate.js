@@ -81,12 +81,51 @@ $('.eva_nice').bind('click',function(){
 // 提交评价
 $('.eva_btn').bind('click',function(){
   var text = $('.pub_area').val();
-  if(!text){
-    alert('请输入评价！');
+  var qi = Common.getUrlParam('qid');
+  var tu = Common.getUrlParam('tu')?Common.getUrlParam('tu'):'e399';
+  if(!text && !flag){
+    alert('请输入评价内容或为律师点赞');
     return;
   }else{
-    console.log(text);
-    console.log(flag);
+    var data = {};
+    if(text){
+      if(flag){
+        data = {
+          qi: qi,
+          tu: tu,
+          co: text,
+          rf: 1
+        }
+      }else{
+        data = {
+          qi: qi,
+          tu: tu,
+          co: text
+        }
+      } 
+    }else{
+      data = {
+        qi: qi,
+        tu: tu,
+        rf: 1
+      }
+    }
+    console.log(data);
+    $.ajax({
+      type: 'POST',
+      url: Common.globalDistUrl() + 'usr/CloseQuestion.do?session=' + session,
+      data: JSON.stringify(data),
+      success: function(data){
+        console.log(data);
+        if(data.c == 1000){
+          alert('提交成功！');
+          window.location.href = 'questionList.html?session=' + session;
+        }
+      },
+      error: function(){
+        alert('网络连接错误或服务器异常！')
+      }
+    })
   }
 })
 
