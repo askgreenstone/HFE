@@ -130,23 +130,6 @@ jQuery(function($) {
 	   	window.location.href = '../index.html'
 	   })
 
-		  //横屏检测
-			window.addEventListener('orientationchange', function(event){
-			    if ( window.orientation == 180 || window.orientation==0 ) {
-			        window.location.reload();
-			        // $('.box').css('display','block');
-			        initPic();
-			    }
-			    if( window.orientation == 90 || window.orientation == -90 ) {
-			        $('canvas').css('display','none');
-			        setTimeout(function(){
-			          alert('横屏体验较差，请竖屏查看');
-			        },500);
-			    }
-			}); 
-
-
-			
 
 			function initAll(){
 				getAllModel();
