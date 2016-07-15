@@ -5,6 +5,8 @@ var username = '';
 var userpass = '';
 var appKey = '';
 var scroll_offset = 0;
+var qid;
+var targetUri='';
 
 $(function() {
     var conn = null;
@@ -32,7 +34,7 @@ $(function() {
             // async: false,
             url: Common.globalDistUrl() + 'usr/EasemobUserInfo.do?session=' + session,
             success: function(data) {
-                console.log('test:' + data);
+                // console.log(data);
                 if (data.c == 1000) {
                     username = data.un;
                     userpass = data.up;
@@ -54,13 +56,14 @@ $(function() {
     $("#chat_btn").on('click', function() {
         // sendText();
         var userInput = $('.chat_inp').val(),
-            gi = Common.getUrlParam('groupId');
+            gi = Common.getUrlParam('groupId'),
+            userUri = Common.getUrlParam('groupId');
         // console.log(userInput);
         if (!userInput) {
             alert('发送消息不能为空！');
             return;
         }
-        if (!session || !gi) return;
+        if (!session || !gi ||!userUri) return;
         var tempObj = {
                 target: [gi],
                 msg: {
@@ -70,7 +73,8 @@ $(function() {
                 ext: {
                     mi: uuidCompact(),
                     nm: pageImg[1].n,
-                    isFromServer: 1
+                    isFromServer: 1,
+                    f:userUri
                 }
             }
             // console.log(tempObj);
@@ -113,7 +117,8 @@ $(function() {
                     pageImg = data.mb;
                     for (var i = 0; i < data.mb.length; i++) {
                         if (data.mb[i].i.indexOf('e') > -1) {
-                            // that.setState({expt:data.mb[i].f});
+                            targetUri = data.mb[i].i;
+                            // console.log(targetUri);
                         }
                     }
                 }
@@ -179,6 +184,11 @@ $(function() {
         });
     }
 
+    $('#close_question').on('click',function(){
+        if(!session || !qid || !targetUri) return;
+        window.location.href = 'evaluate.html?session='+session+'&qid='+qid+'&tu='+targetUri;
+    })
+
     function judgeType(msgtype, ossname) {
         if (msgtype == 1 || msgtype == 12) {
             if (ossname) {
@@ -229,6 +239,7 @@ $(function() {
 
     function init() {
         session = Common.getUrlParam('session');
+        qid = Common.getUrlParam('qid');
         // console.log(session);
         getUserToken();
         getGroupInfo();
