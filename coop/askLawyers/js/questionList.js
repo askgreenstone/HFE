@@ -29,7 +29,7 @@ function getQuestionList(){
           	}else{
           		str = '<span class="que_list_close">已关闭</span>';
           	}
-          	html+='<li id="'+data.ql[i].qi+'" >'
+          	html+='<li id="'+data.ql[i].qi+'" data-gi="'+data.ql[i].gi+'" >'
 								+'<span class="que_list_money">￥'+data.ql[i].b+'元</span>'
 								+'<span>'+data.ql[i].co+'</span>'
 								+'<br/>'
@@ -52,8 +52,9 @@ function getQuestionList(){
 $('.que_list').on('click','li',function(){
 	console.log($(this).attr('id'));
 	var qid = $(this).attr('id');
+	var groupId = $(this).attr('data-gi');
 	var userUri = Common.getUrlParam('userUri')
-	window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri;
+	window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId;
 })
 
 
