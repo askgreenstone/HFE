@@ -82,7 +82,7 @@ $('.eva_nice').bind('click',function(){
 $('.eva_btn').bind('click',function(){
   var text = $('.pub_area').val();
   var qi = Common.getUrlParam('qid');
-  var tu = Common.getUrlParam('tu')?Common.getUrlParam('tu'):'e399';
+  var tu = Common.getUrlParam('tu');
   if(!text && !flag){
     alert('请输入评价内容或为律师点赞');
     return;
