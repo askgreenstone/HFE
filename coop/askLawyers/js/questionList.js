@@ -62,7 +62,8 @@ $('.que_list').on('click','li',function(){
 
 // 点击咨询新问题跳转发布问题页
 $('#pub_btn').click(function(){
-	window.location.href = 'publishQuestions.html?session='+session;
+	var userUri = Common.getUrlParam('userUri');
+	window.location.href = 'publishQuestions.html?session='+session+'&userUri='+userUri;
 })
 
 

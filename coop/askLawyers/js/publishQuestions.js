@@ -1,5 +1,6 @@
 var session;
 var payParams;
+var userUri;
 $(document).ready(function() {
   init();
 });
@@ -7,6 +8,7 @@ $(document).ready(function() {
 
 function init(){
   session = Common.getUrlParam('session');
+  userUri = Common.getUrlParam('userUri');
   console.log(session);
 }
 
@@ -37,7 +39,7 @@ $('#pub_btn').bind('click', function() {
         console.log(data);
         if(data.c == 1000){
           if(bound == 0){
-            window.location.href = 'questionList.html?session=' + session;
+            window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri;
           }else{
             onTrade(data.qi,bound);
           }  
@@ -101,7 +103,7 @@ function onBridgeReady() {
             if (res.err_msg.indexOf('ok') > -1) {
               // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
                 // alert('支付成功！')
-                window.location.href = 'questionList.html?session=' + session;
+                window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri;
                 // location.href = '/htm/react/success.html';
             } else if (res.err_msg.indexOf('cancel') > -1) {
                 //alert('取消支付！');
