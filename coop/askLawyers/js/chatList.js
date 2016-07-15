@@ -22,6 +22,8 @@ $(function() {
             var tempClass = message.ext.f.indexOf('e')>-1?'chat_list_exp':'chat_list_usr';
             var tempHeader = message.ext.up?(Common.globalTransferUrl()+message.ext.up):pageImg[1].wxpor;
             var theOne = '<li class="'+tempClass+'"><div class="chat_list_head"><img src="'+tempHeader+'"><i>'+message.ext.nm+'</i></div><div class="chat_list_content"><span>'+message.data+'</span></div></li>';
+            // var timeStep = (new Date().getTime() - message.ext.ts < 30000)?'block':'none';
+            // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
             $('.chat_list').append('<li class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
 
             $('.chat_list').animate({
@@ -180,7 +182,7 @@ $(function() {
                     for (var i = 0; i < newArrs.length; i++) {
                         // lastTime = newArrs[newArrs.length-1].ts;
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
-                        comments += '<li class="js_chat_ts"><i>'+new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span>' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li style="display:none;" class="js_chat_ts"><i>'+new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span>' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
