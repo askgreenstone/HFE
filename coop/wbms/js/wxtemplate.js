@@ -19,7 +19,7 @@ jQuery(function($) {
 			      // alert(JSON.stringify(data));
 			      var comment = '';
 			      for(var i=0;i<data.ml.length;i++){
-			      	comment+='<li name="'+data.ml[i].tu+'@'+data.ml[i].wmi+'@'+data.ml[i].ar+'" class="swiper-slide"><img src="'+Common.globalTransferUrl()+data.ml[i].wmp+'@230"/></li>';
+			      	comment+='<li name="'+data.ml[i].tu+'@'+data.ml[i].wmi+'@'+data.ml[i].ar+'" class="swiper-slide"><img src="'+Common.globalTransferUrl()+data.ml[i].wmp+'@230w"/></li>';
 			      }
 			      $('#template_theme').append(comment);
 			      //初始化swiper

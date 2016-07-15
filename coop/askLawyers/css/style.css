@@ -246,6 +246,7 @@ p {
   box-sizing: border-box;
   padding:2px 3px;
   word-break: break-all;
+  float: left;
 }
 .chat_list_content span{
   border: 10px solid transparent;
@@ -281,6 +282,7 @@ p {
   border: none;
   outline: none;
   display: block;
+  font-size: 1.4rem;
 }
 .chat_btn{
   width: 22%;
