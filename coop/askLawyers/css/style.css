@@ -293,6 +293,17 @@ p {
   border-radius: 3px;
   margin: 0 2%;
 }
+.js_chat_ts{
+  text-align: center;
+}
+.js_chat_ts i{
+  font-style: normal;
+  background: #b5b2b2;
+  color: #fff;
+  border-radius: 2px;
+  padding: 3px;
+  font-size: 12px;
+}
 /*评价页*/
 .eva_box{
   width: 100%;

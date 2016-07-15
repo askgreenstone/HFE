@@ -12,19 +12,30 @@ $(function() {
     var conn = null;
     conn = new Easemob.im.Connection();
 
-    conn.init({
+    conn.listen({
         onOpened: function() {
-            console.log("成功连接！");
+            console.log("打开连接！");
             conn.setPresence();
         },
         onTextMessage: function(message) {
             console.log(message);
-            console.log("发送消息成功");
+            var tempClass = message.ext.f.indexOf('e')>-1?'chat_list_exp':'chat_list_usr';
+            var tempHeader = message.ext.up?(Common.globalTransferUrl()+message.ext.up):pageImg[1].wxpor;
+            var theOne = '<li class="'+tempClass+'"><div class="chat_list_head"><img src="'+tempHeader+'"><i>'+message.ext.nm+'</i></div><div class="chat_list_content"><span>'+message.data+'</span></div></li>';
+            $('.chat_list').append('<li class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
+
+            $('.chat_list').animate({
+              scrollTop:$('.chat_list')[0].scrollHeight
+            },800);
+            console.log("收到文本消息！");
         },
         //当连接关闭时的回调方法
         onClosed: function() {
             conn.clear();
             conn.onClosed();
+        },
+        onError: function(message) {
+          console.log(message);
         }
     })
 
@@ -34,7 +45,7 @@ $(function() {
             // async: false,
             url: Common.globalDistUrl() + 'usr/EasemobUserInfo.do?session=' + session,
             success: function(data) {
-                // console.log(data);
+                console.log(data);
                 if (data.c == 1000) {
                     username = data.un;
                     userpass = data.up;
@@ -88,9 +99,9 @@ $(function() {
                     $('.chat_inp').val('');  
                     // console.log($('.chat_list')[0].scrollHeight);
                     if (pageImg) {
-                        setTimeout(function() {
-                            getMsgList(gi, session, pageImg);
-                        }, 300);
+                        // setTimeout(function() {
+                        //     getMsgList(gi, session, pageImg);
+                        // }, 300);
                         $('.chat_list').animate({
                           scrollTop:$('.chat_list')[0].scrollHeight
                         },800);
@@ -164,10 +175,12 @@ $(function() {
 
                     // console.log(newArrs);
                     var comments = '';
+                    // var lastTime = '';
                     $('.chat_list').empty();
                     for (var i = 0; i < newArrs.length; i++) {
+                        // lastTime = newArrs[newArrs.length-1].ts;
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
-                        comments += '<li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span>' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li class="js_chat_ts"><i>'+new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span>' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
