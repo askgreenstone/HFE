@@ -53,7 +53,8 @@ $('.que_list').on('click','li',function(){
 	console.log($(this).attr('id'));
 	var qid = $(this).attr('id');
 	var groupId = $(this).attr('data-gi');
-	var userUri = Common.getUrlParam('userUri')
+	var userUri = Common.getUrlParam('userUri');
+	if(!session || !qid || !userUri || !groupId) return;
 	window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId;
 })
 
