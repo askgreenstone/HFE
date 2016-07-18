@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<div class="chatList">
+		<div class="chatList" id="wrapper">
 			<ul class="chat_list">
 				<!-- <li class="chat_list_usr">
 					<div class="chat_list_head">
@@ -46,7 +46,13 @@
 	<script src="../lib/strophe.js"></script>
 	<script src="../lib/easemob.im-1.1.1.js"></script>
 	<script src="../lib/easemob.im.shim.js"></script>
+	<script src="../lib/iscroll.js"></script>
 	<script src="../js/common.js"></script>
 	<script src="../js/chatList.js"></script>
+	<script type="text/javascript">
+	window.onload = function(){
+		var myScroll = new IScroll('#wrapper');
+	}
+	</script>
 </body>
 </html>
