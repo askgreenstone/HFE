@@ -202,9 +202,9 @@ $(function() {
                     for (var i = 0; i < newArrs.length; i++) {
                         // lastTime = newArrs[newArrs.length-1].ts;
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
-                        var isPic = newArrs[i].pic ? 'block' : 'none';
-                        var isDoc = newArrs[i].doc ? 'block' : 'none';
-                        var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'block';
+                        var isPic = newArrs[i].pic ? 'inline-block' : 'none';
+                        var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
+                        var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
                         comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img width="95%" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\''+newArrs[i].fn+'\',\''+newArrs[i].docName+'\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
