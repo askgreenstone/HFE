@@ -5,8 +5,8 @@ var username = '';
 var userpass = '';
 var appKey = '';
 var scroll_offset = 0;
-var qid;
-var targetUri='';
+var qid, gi;
+var targetUri = '';
 
 $(function() {
     var conn = null;
@@ -19,16 +19,26 @@ $(function() {
         },
         onTextMessage: function(message) {
             console.log(message);
-            var tempClass = message.ext.f.indexOf('e')>-1?'chat_list_exp':'chat_list_usr';
-            var tempHeader = message.ext.up?(Common.globalTransferUrl()+message.ext.up):pageImg[1].wxpor;
-            var theOne = '<li class="'+tempClass+'"><div class="chat_list_head"><img src="'+tempHeader+'"><i>'+message.ext.nm+'</i></div><div class="chat_list_content"><span>'+message.data+'</span></div></li>';
+            if (message.to !== gi) {
+                return;
+            }
+            var tempClass = message.ext.f.indexOf('e') > -1 ? 'chat_list_exp' : 'chat_list_usr';
+            var tempHeader = message.ext.up ? (Common.globalTransferUrl() + message.ext.up) : pageImg[1].wxpor;
+            var theOne = '';
             // var timeStep = (new Date().getTime() - message.ext.ts < 30000)?'block':'none';
             // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
-            $('.chat_list').append('<li class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
+            if (message.ext.on) {
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;"><img width="95%" src="' + Common.globalTransferUrl() + message.ext.on + '@350w"/></span></div></li>';
+            } else {
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
+            }
+
+            $('.chat_list').append('<li class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
 
             $('.chat_list').animate({
-              scrollTop:$('.chat_list')[0].scrollHeight
-            },800);
+                scrollTop: $('.chat_list')[0].scrollHeight
+            }, 800);
+
             console.log("收到文本消息！");
         },
         //当连接关闭时的回调方法
@@ -37,7 +47,11 @@ $(function() {
             conn.onClosed();
         },
         onError: function(message) {
-          console.log(message);
+            console.log(message);
+            conn.clear();
+            conn.onClosed();
+            getUserToken();
+            console.log('重新连接！');
         }
     })
 
@@ -76,7 +90,7 @@ $(function() {
             alert('发送消息不能为空！');
             return;
         }
-        if (!session || !gi ||!userUri) return;
+        if (!session || !gi || !userUri) return;
         var tempObj = {
                 target: [gi],
                 msg: {
@@ -87,7 +101,7 @@ $(function() {
                     mi: uuidCompact(),
                     nm: pageImg[1].n,
                     isFromServer: 1,
-                    f:userUri
+                    f: userUri
                 }
             }
             // console.log(tempObj);
@@ -98,15 +112,19 @@ $(function() {
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
-                    $('.chat_inp').val('');  
+                    $('.chat_inp').val('');
                     // console.log($('.chat_list')[0].scrollHeight);
                     if (pageImg) {
                         // setTimeout(function() {
                         //     getMsgList(gi, session, pageImg);
                         // }, 300);
                         $('.chat_list').animate({
-                          scrollTop:$('.chat_list')[0].scrollHeight
-                        },800);
+                            scrollTop: $('.chat_list')[0].scrollHeight
+                        }, 800);
+
+                        // var myScroll = new IScroll('#wrapper',{
+                        //   click:true
+                        // });
                     }
                 }
             },
@@ -117,16 +135,14 @@ $(function() {
     })
 
     function getGroupInfo() {
-        var sess = Common.getUrlParam('session'),
-            gi = Common.getUrlParam('groupId');
-        if (!sess || !gi) return;
+        if (!session || !gi) return;
         $.ajax({
             type: 'get',
-            url: Common.globalDistUrl() + 'usr/GroupInfo.do?session=' + sess + '&gi=' + gi,
+            url: Common.globalDistUrl() + 'usr/GroupInfo.do?session=' + session + '&gi=' + gi,
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
-                    getMsgList(gi, sess, data.mb);
+                    getMsgList(gi, session, data.mb);
                     pageImg = data.mb;
                     for (var i = 0; i < data.mb.length; i++) {
                         if (data.mb[i].i.indexOf('e') > -1) {
@@ -138,6 +154,7 @@ $(function() {
             },
             error: function(xhr, status, err) {
                 alert('系统开了小差，请刷新页面');
+                console.log('get GroupInfo error!');
             }
         });
     }
@@ -146,9 +163,9 @@ $(function() {
         var ts = new Date().getTime();
         $.ajax({
             type: 'get',
-            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&o=0&t=0&c=1000&ts=' + ts,
+            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&t=0&c=15&ts=' + ts,
             success: function(data) {
-                // console.log(data);
+                console.log(data);
                 if (data.c == 1000) {
                     var newArrs = [];
                     $('#msgCount').text(data.s.length);
@@ -171,37 +188,51 @@ $(function() {
                             extra: data.s[i].p.ext.extra ? data.s[i].p.ext.extra : ''
                         });
                     }
-                    // newArrs.sort(function(obj1, obj2) {
-                    //     return obj1['ts'] > obj2['ts'] ? -1 : 1;
-                    // });
+
+                    newArrs.sort(function(obj1, obj2) {
+                        return obj1['ts'] > obj2['ts'] ? 1 : -1;
+                    });
 
                     // console.log(newArrs);
                     var comments = '';
+                    var commentsPic = '';
+                    var commentsDoc = '';
                     // var lastTime = '';
                     $('.chat_list').empty();
                     for (var i = 0; i < newArrs.length; i++) {
                         // lastTime = newArrs[newArrs.length-1].ts;
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
-                        comments += '<li style="display:none;" class="js_chat_ts"><i>'+new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span>' + newArrs[i].content + '</span></div></li>';
+                        var isPic = newArrs[i].pic ? 'block' : 'none';
+                        var isDoc = newArrs[i].doc ? 'block' : 'none';
+                        var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'block';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img width="95%" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\''+newArrs[i].fn+'\',\''+newArrs[i].docName+'\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
-                    
+
                     $('.chat_list').animate({
-                      scrollTop:$('.chat_list')[0].scrollHeight
-                    },800);
+                        scrollTop: $('.chat_list')[0].scrollHeight
+                    }, 800);
+
+                    // var myScroll = new IScroll('#wrapper',{
+                    //   click:true
+                    // });
+
+                    // setTimeout(function(){
+                    //   var myScroll = new IScroll('#wrapper');
+                    // },300);
                 }
             },
             error: function(xhr, status, err) {
                 alert('系统开了小差，请刷新页面');
-                // console.error(this.props.url, status, err.toString());
+                console.log('get GroupInfo error!');
             }
         });
     }
 
-    $('#close_question').on('click',function(){
-        if(!session || !qid || !targetUri) return;
-        window.location.href = 'evaluate.html?session='+session+'&qid='+qid+'&tu='+targetUri;
+    $('#close_question').on('click', function() {
+        if (!session || !qid || !targetUri) return;
+        window.location.href = 'evaluate.html?session=' + session + '&qid=' + qid + '&tu=' + targetUri;
     })
 
     function judgeType(msgtype, ossname) {
@@ -216,12 +247,6 @@ $(function() {
                 }
             }
         }
-    }
-
-    function fixSrc(src) {
-        // console.log(src);
-        var temp = src.split('.')[0];
-        return temp;
     }
 
     function uuidCompact() {
@@ -255,6 +280,7 @@ $(function() {
     function init() {
         session = Common.getUrlParam('session');
         qid = Common.getUrlParam('qid');
+        gi = Common.getUrlParam('groupId');
         // console.log(session);
         getUserToken();
         getGroupInfo();
@@ -264,7 +290,35 @@ $(function() {
 
 });
 
+function fixSrc(src) {
+    // console.log(src);
+    var temp = src.split('.')[0];
+    return temp;
+}
 
+function viewDoc(name,docname) {
+    console.log('name:' + docname);
+    var tempObj = {
+        ossFN: docname,
+        newFN: name + '.html'
+    }
+
+    $.ajax({
+        type: 'post',
+        url: Common.globalDistUrl() + '/data/CommConvert.do?session=' + session,
+        data: JSON.stringify(tempObj),
+        success: function(data) {
+            console.log(data);
+            if (data.c == 1000) {
+              // console.log(Common.globalTransferUrl()+fixSrc(docname)+'.html');
+              window.location.href = 'empty.html?name='+fixSrc(docname);
+            }
+        },
+        error: function(xhr, status, err) {
+            that.showAlert('系统开了小差，请刷新页面');
+        }
+    });
+}
 
 // conn.init({
 //     //收到文本消息时的回调方法
