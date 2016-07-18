@@ -70,7 +70,7 @@ $(function() {
         // sendText();
         var userInput = $('.chat_inp').val(),
             gi = Common.getUrlParam('groupId'),
-            userUri = Common.getUrlParam('groupId');
+            userUri = Common.getUrlParam('userUri');
         // console.log(userInput);
         if (!userInput) {
             alert('发送消息不能为空！');
