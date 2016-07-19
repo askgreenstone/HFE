@@ -7,6 +7,7 @@ var appKey = '';
 var scroll_offset = 0;
 var qid, gi;
 var targetUri = '';
+var globalTs = '';
 
 $(function() {
     var conn = null;
@@ -55,23 +56,77 @@ $(function() {
         }
     })
 
+    //下拉刷新
     refresher.init({
         id: "wrapper",
-        pullDownAction: Refresh
+        pullDownAction: refresh
     });
     var generatedCount = 0;
-    function Refresh() {
-        setTimeout(function () {  
-            var el, li, i;
-            el = document.querySelector("#wrapper ul");
-            el.innerHTML = '';
-            for (i = 0; i < 11; i++) {
-                li = document.createElement('li');
-                li.appendChild(document.createTextNode('async row ' + (++generatedCount)));
-                el.insertBefore(li, el.childNodes[0]);
+    function refresh() {
+        // var ts = new Date().getTime();
+        // globalTs = data.s[data.s.length-1].ts;
+        $.ajax({
+            type: 'get',
+            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + session + '&gi=' + gi + '&t=0&c=15&ts=' + globalTs,
+            success: function(data) {
+                console.log(data);
+                if(data.s.length == 0) {
+                  wrapper.refresh();
+                  return;
+                }
+                globalTs = data.s[data.s.length-1].ts;
+                if (data.c == 1000) {
+                    var newArrs = [];
+                    $('#msgCount').text(data.s.length);
+                    for (var i = 0; i < data.s.length; i++) {
+                        newArrs.push({
+                            type: data.s[i].f.indexOf('u') > -1 ? true : false, //类型：专家或者用户
+                            img: data.s[i].f.indexOf('u') > -1 ? (pageImg[1].wxpor ? pageImg[1].wxpor : 'image/header.jpg') : Common.globalTransferUrl() + pageImg[0].p,
+                            name: data.s[i].p.ext.nm,
+                            time: new Date(data.s[i].ts).Format('yyyy-MM-dd hh:mm:ss'),
+                            ts: data.s[i].ts,
+                            content: data.s[i].p.msg.msg,
+                            pic: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'img' ? (Common.globalTransferUrl() + data.s[i].p.ext.on) : '',
+                            doc: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'txt' ? fixSrc(data.s[i].p.ext.on) : '',
+                            unknown: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'unknown' ? '您收到的消息格式暂不支持，无法显示' : '',
+                            docName: data.s[i].p.ext.on,
+                            fn: data.s[i].p.ext.fn,
+                            pay: data.s[i].p.ext.p ? data.s[i].p.ext.p : '',
+                            mi: data.s[i].p.ext.mi ? data.s[i].p.ext.mi : '',
+                            sn: data.s[i].p.ext.sn ? data.s[i].p.ext.sn : '',
+                            extra: data.s[i].p.ext.extra ? data.s[i].p.ext.extra : ''
+                        });
+                    }
+
+                    newArrs.sort(function(obj1, obj2) {
+                        return obj1['ts'] > obj2['ts'] ? 1 : -1;
+                    });
+
+                    // console.log(newArrs);
+                    var comments = '';
+                    var commentsPic = '';
+                    var commentsDoc = '';
+                    // var lastTime = '';
+                    // $('.chat_list').empty();
+                    for (var i = 0; i < newArrs.length; i++) {
+                        // lastTime = newArrs[newArrs.length-1].ts;
+                        var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
+                        var isPic = newArrs[i].pic ? 'inline-block' : 'none';
+                        var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
+                        var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img width="95%" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                    }
+
+                    $(comments).insertBefore('.chat_list li:eq(0)');
+
+                    wrapper.refresh();
+                }
+            },
+            error: function(xhr, status, err) {
+                alert('系统开了小差，请刷新页面');
+                console.log('get GroupInfo error!');
             }
-            wrapper.refresh();
-        }, 1000);
+        });
 
     }
 
@@ -182,6 +237,7 @@ $(function() {
             url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&t=0&c=15&ts=' + ts,
             success: function(data) {
                 console.log(data);
+                globalTs = data.s[data.s.length-1].ts;
                 if (data.c == 1000) {
                     var newArrs = [];
                     $('#msgCount').text(data.s.length);
