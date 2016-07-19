@@ -204,7 +204,7 @@ p {
 }
 .chat_list{
   width: 100%;
-  -webkit-box-flex:1;
+  // -webkit-box-flex:1;
   overflow-y: auto;
 }
 .chat_list li{
