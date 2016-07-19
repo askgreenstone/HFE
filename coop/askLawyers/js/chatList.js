@@ -35,8 +35,10 @@ $(function() {
 
             $('.chat_list').append('<li class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
 
-            $('.chat_list').animate({
-                scrollTop: $('.chat_list')[0].scrollHeight
+            wrapper.refresh();
+
+            $('#wrapper').animate({
+                scrollTop: $('#wrapper')[0].scrollHeight
             }, 800);
 
             console.log("收到文本消息！");
@@ -54,6 +56,26 @@ $(function() {
             console.log('重新连接！');
         }
     })
+
+    refresher.init({
+        id: "wrapper",
+        pullDownAction: Refresh
+    });
+    var generatedCount = 0;
+    function Refresh() {
+        setTimeout(function () {  
+            var el, li, i;
+            el = document.querySelector("#wrapper ul");
+            el.innerHTML = '';
+            for (i = 0; i < 11; i++) {
+                li = document.createElement('li');
+                li.appendChild(document.createTextNode('async row ' + (++generatedCount)));
+                el.insertBefore(li, el.childNodes[0]);
+            }
+            wrapper.refresh();
+        }, 1000);
+
+    }
 
     function getUserToken() {
         $.ajax({
@@ -121,7 +143,7 @@ $(function() {
                         $('.chat_list').animate({
                             scrollTop: $('.chat_list')[0].scrollHeight
                         }, 800);
-
+                        
                         // var myScroll = new IScroll('#wrapper',{
                         //   click:true
                         // });
@@ -163,7 +185,7 @@ $(function() {
         var ts = new Date().getTime();
         $.ajax({
             type: 'get',
-            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&t=0&c=15&ts=' + ts,
+            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&t=0&c=5&ts=' + ts,
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
@@ -205,19 +227,24 @@ $(function() {
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
                         var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img width="95%" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\''+newArrs[i].fn+'\',\''+newArrs[i].docName+'\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img width="95%" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
 
-                    $('.chat_list').animate({
-                        scrollTop: $('.chat_list')[0].scrollHeight
+                    wrapper.refresh();
+
+                    console.log(wrapper);
+
+                    // wrapper.scrollTo(0,wrapper.scrollerH);
+
+                    $('#wrapper').animate({
+                        scrollTop: $('#wrapper')[0].scrollHeight
                     }, 800);
 
-                    // var myScroll = new IScroll('#wrapper',{
+                    // var myScroll = new iScroll('#wrapper',{
                     //   click:true
                     // });
-
                     // setTimeout(function(){
                     //   var myScroll = new IScroll('#wrapper');
                     // },300);
@@ -276,7 +303,6 @@ $(function() {
         return fmt;
     }
 
-
     function init() {
         session = Common.getUrlParam('session');
         qid = Common.getUrlParam('qid');
@@ -296,7 +322,7 @@ function fixSrc(src) {
     return temp;
 }
 
-function viewDoc(name,docname) {
+function viewDoc(name, docname) {
     console.log('name:' + docname);
     var tempObj = {
         ossFN: docname,
@@ -310,8 +336,8 @@ function viewDoc(name,docname) {
         success: function(data) {
             console.log(data);
             if (data.c == 1000) {
-              // console.log(Common.globalTransferUrl()+fixSrc(docname)+'.html');
-              window.location.href = 'empty.html?name='+fixSrc(docname);
+                // console.log(Common.globalTransferUrl()+fixSrc(docname)+'.html');
+                window.location.href = 'empty.html?name=' + fixSrc(docname);
             }
         },
         error: function(xhr, status, err) {
@@ -319,19 +345,3 @@ function viewDoc(name,docname) {
         }
     });
 }
-
-// conn.init({
-//     //收到文本消息时的回调方法
-//     onTextMessage: function(message) {
-//         //console.log(message);
-//         //alert("发送消息成功");    
-//         var from = message.from; //消息的发送者
-//         var mestype = message.type; //消息发送的类型是群组消息还是个人消息
-//         var messageContent = message.data; //文本消息体
-//         if (mestype == 'groupchat') {
-//             //进行群组消息页面处理  
-//         } else {
-//             //进行个人消息页面处理  
-//         }
-//     }
-// });
