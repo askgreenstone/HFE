@@ -37,9 +37,7 @@ $(function() {
 
             wrapper.refresh();
 
-            $('#wrapper').animate({
-                scrollTop: $('#wrapper')[0].scrollHeight
-            }, 800);
+            wrapper.scrollToElement('.chat_list li:last-child',100);
 
             console.log("收到文本消息！");
         },
@@ -140,13 +138,9 @@ $(function() {
                         // setTimeout(function() {
                         //     getMsgList(gi, session, pageImg);
                         // }, 300);
-                        $('.chat_list').animate({
-                            scrollTop: $('.chat_list')[0].scrollHeight
-                        }, 800);
-                        
-                        // var myScroll = new IScroll('#wrapper',{
-                        //   click:true
-                        // });
+                        // $('.chat_list').animate({
+                        //     scrollTop: $('.chat_list')[0].scrollHeight
+                        // }, 800);
                     }
                 }
             },
@@ -185,7 +179,7 @@ $(function() {
         var ts = new Date().getTime();
         $.ajax({
             type: 'get',
-            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&t=0&c=5&ts=' + ts,
+            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&t=0&c=15&ts=' + ts,
             success: function(data) {
                 console.log(data);
                 if (data.c == 1000) {
@@ -234,20 +228,9 @@ $(function() {
 
                     wrapper.refresh();
 
+                    wrapper.scrollToElement('.chat_list li:last-child',100);
+
                     console.log(wrapper);
-
-                    // wrapper.scrollTo(0,wrapper.scrollerH);
-
-                    $('#wrapper').animate({
-                        scrollTop: $('#wrapper')[0].scrollHeight
-                    }, 800);
-
-                    // var myScroll = new iScroll('#wrapper',{
-                    //   click:true
-                    // });
-                    // setTimeout(function(){
-                    //   var myScroll = new IScroll('#wrapper');
-                    // },300);
                 }
             },
             error: function(xhr, status, err) {

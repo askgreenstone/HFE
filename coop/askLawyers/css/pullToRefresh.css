@@ -19,19 +19,19 @@
 	width: 100%;
 	padding: 0;
 }
-.scroller ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	text-align: left;
-	padding-top: 5%;
-}
-.scroller li {
-	min-height:70px;
-	font-size: 14px;
-	padding:5px;
-}
+// .scroller ul {
+// 	list-style: none;
+// 	padding: 0;
+// 	margin: 0;
+// 	width: 100%;
+// 	text-align: left;
+// 	padding-top: 5%;
+// }
+// .scroller li {
+// 	// min-height:70px;
+// 	font-size: 14px;
+// 	padding:5px;
+// }
 .pullDown, .pullUp {
 	text-align: center;
 	height: 40px;
