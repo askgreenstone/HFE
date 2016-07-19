@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>点赞评论</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style type="text/css">
+  	html,body{
+  		width: 100%;
+  		height: 100%;
+  	}
+  	*{
+  		margin: 0;
+  		padding: 0;
+  	}
+  	.wrap{
+  		width: 100%;
+  		height: 100%;
+  		background: #eee;
+  	}
+  	.lawyer{
+  		width: 100%;
+  		height: 8rem;
+  		background: #D3ECE2;
+  		padding: 1rem;
+  		box-sizing: border-box;
+  		margin-bottom: 1rem;
+  		font-size: 1.4rem;
+  		color: #333;
+  	}
+  	.lawyer_box{
+  		width: 100%;
+  		display: box;
+  		display: -webkit-box;
+  		margin-bottom: 2rem;
+  	}
+  	.lawyer_left{
+  		width: 50%;
+  		display: block;
+  	}
+  	.lawyer_right{
+  		width: 50%;
+  		display: block;
+  		text-align: right;
+  	}
+  	.lawyer_box span div{
+  		border: 1px solid;
+	    padding: 2px;
+	    display: inline-block;
+	    border-radius: 3px;
+  	}
+  	.lawyer p{
+  		border-top: 1px solid #333;
+  		height: 3rem;
+  		line-height: 3rem;
+  	}
+  	.praise{
+  		width: 100%;
+  		display: box;
+  		display: -webkit-box;
+  		margin-bottom: 1rem;
+  	}
+  	.praise_left{
+  		width: 10%;
+  	}
+  	.praise_left img{
+  		width: 70%;
+  		display: block;
+  		margin: 1rem auto;
+  	}
+  	.praise_right{
+  		width: 90%;
+  	}
+  	.praise_right img{
+  		width: 14%;
+  		margin: 0.5%;
+  	}
+  	.comment{
+  		width: 100%;
+  		display: box;
+  		display: -webkit-box;
+  		background: #eee;
+  	}
+  	.comment_left{
+  		width: 10%;
+  	}
+  	.comment_left img{
+  		width: 70%;
+  		display: block;
+  		margin: 1rem auto;
+  	}
+  	.comment_right{
+  		width: 90%;
+  	}
+  	.comment_list{
+  		width: 100%;
+  	}
+  	.comment_list li{
+  		width: 100%;
+  		display: box;
+  		display: -webkit-box;
+  		margin-bottom: 0.5rem;
+  	}
+  	.list_left{
+  		width: 15%;
+  	}
+  	.list_left img{
+  		width: 100%;
+  		margin: 1rem auto;
+  		display: block;
+  	}
+  	.list_right{
+  		width: 82%;
+  		margin-left: 3%;
+  		padding-top: 1rem;
+  	}
+  	.nameDate{
+  		width: 100%;
+  		display: box;
+  		display: -webkit-box;
+  		line-height: 1.4rem;
+  		color: #666;
+  		font-size: 1.4rem;
+  	}
+  	.list_right_name{
+  		width: 50%;
+  		display: block;
+  	}
+  	.list_right_date{
+  		width: 45%;
+  		display: block;
+  		text-align: right;
+  	}
+  	.list_right_con{
+  		width: 95%;
+  		display: inline-block;
+  		color: #999;
+  		font-size: 1.3rem;
+  	}
+
+
+  	/*适配手机*/
+		@media screen and (max-width: 360px) {
+		  html {
+		    font-size: 62.5%;
+		  }
+		}
+		@media screen and (min-width: 361px) and (max-width: 376px) {
+		  html {
+		    font-size: 66.5%;
+		  }
+		}
+		@media screen and (min-width: 377px) {
+		  html {
+		    font-size: 75.5%;
+		  }
+		}
+
+  </style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="lawyer">
+			<div class="lawyer_box">
+				<span class="lawyer_left"><div id="register">我也要注册</div></span>
+				<span class="lawyer_right"><div id="gotoMicroweb">进入TA的工作室</div></span>
+			</div>
+			<p>通过【在线法律】平台程颖律师收到的赞</p>
+		</div>
+		<div class="praise">
+			<div class="praise_left">
+				<img src="image/nice.png">
+			</div>
+			<div class="praise_right">
+				<!-- <img src="image/1.png">
+				<img src="image/2.png">
+				<img src="image/3.png">
+				<img src="image/4.png">
+				<img src="image/1.png">
+				<img src="image/2.png">
+				<img src="image/3.png">
+				<img src="image/4.png">
+				<img src="image/1.png">
+				<img src="image/2.png">
+				<img src="image/3.png">
+				<img src="image/4.png">
+				<img src="image/1.png">
+				<img src="image/2.png">
+				<img src="image/3.png">
+				<img src="image/4.png">
+				<img src="image/1.png">
+				<img src="image/3.png">
+				<img src="image/2.png"> -->
+			</div>
+		</div>
+		<div class="comment">
+			<div class="comment_left">
+				<img src="image/tip.png">
+			</div>
+			<div class="comment_right">
+				<ul class="comment_list">
+					<!-- <li>
+						<div class="list_left">
+							<img src="image/1.png">
+						</div>
+						<div class="list_right">
+							<div class="nameDate">
+								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
+							</div>
+							<span class="list_right_con">我废物和分别为扣积分我减肥微积分拷贝文件</span>	
+						</div>
+					</li>
+					<li>
+						<div class="list_left">
+							<img src="image/2.png">
+						</div>
+						<div class="list_right">
+							<div class="nameDate">
+								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
+							</div>
+							<span class="list_right_con">我废物和分别为扣积发布威锋网及部分金额为妇女而王菲王菲分泌物非文峰让我废物二分法发每年为分为妇女问分我减肥微积分拷贝文件</span>	
+						</div>
+					</li>
+					<li>
+						<div class="list_left">
+							<img src="image/3.png">
+						</div>
+						<div class="list_right">
+							<div class="nameDate">
+								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
+							</div>
+							<span class="list_right_con">我废物和分别为分为方便金额为符合基本文化发布违法被问我范文芳让我扣积分我减肥微积分拷贝文件</span>	
+						</div>
+					</li>
+					<li>
+						<div class="list_left">
+							<img src="image/4.png">
+						</div>
+						<div class="list_right">
+							<div class="nameDate">
+								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
+							</div>
+							<span class="list_right_con">我废物和分别风味咖啡即可我不服本本无法非逼我发被我看见为扣积分我减肥微积分拷贝文件</span>	
+						</div>
+					</li>
+					<li>
+						<div class="list_left">
+							<img src="image/1.png">
+						</div>
+						<div class="list_right">
+							<div class="nameDate">
+								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
+							</div>
+							<span class="list_right_con">我废物分为可积分即可为部分金额为方便可见和分别为扣积分我减肥微积分拷贝文件</span>	
+						</div>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		var ownUri;
+		var status;
+		$(document).ready(function() {
+		  init();
+		});
+
+
+		function init(){
+		  ownUri = Common.getUrlParam('ownUri');
+		  status = Common.getUrlParam('status');
+		  console.log(status);
+		  // 状态码  1显示律师信息  0隐藏
+		  if(status == 0){
+		  	$('.lawyer').hide();
+		  }else{
+		  	$('.lawyer').show();
+		  }
+		  getUsrComment();
+		  $('#register').bind('click',function(){
+		  	window.location.href = Common.globalDistUrl() + 'coop/wbms/view/wxtemplate.html'
+		  })
+		  $('#gotoMicroweb').bind('click',function(){
+		  	window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri='+ownUri;
+		  })
+		}
+
+
+		// 获取用户点赞头像和评论
+		function getUsrComment(){
+			$.ajax({
+		    type: 'GET',
+		    url: Common.globalDistUrl() + 'usr/ExpertRaiseAndEvaluate.do?ou='+ownUri,
+		    success: function(data) {
+		        //alert( 'success:' + JSON.stringify(data) );
+		        console.log(data);
+		        if(data.c ==1000){
+		        	var html = ''
+		        	var str = ''
+		        	if(data.res.rl.length>0){
+		        		for(var i=0;i<data.res.rl.length;i++){
+			        		html += '<img src="'+Common.globalTransferUrl() + data.res.rl.p+'">'
+			        	}
+		        	}else{
+		        		$('.praise').hide();
+		        	}
+		        	if(data.res.el.length>0){
+		        		for(var k=0;k<data.res.el.length;k++){
+			        		var img = data.res.el[k].p?Common.globalTransferUrl()+data.res.el[k].p:'image/head.png'
+			        		str += '<li>'
+											+ '<div class="list_left">'
+											+ '<img src="'+img+'"/></div>'
+											+ '<div class="list_right"><div class="nameDate">'
+											+ '<span class="list_right_name">'+data.res.el[k].nm+'</span>'
+											+ '<span class="list_right_date">'+formatDate(data.res.el[k].ts)+'</span></div>'
+											+ '<span class="list_right_con">'+data.res.el[k].c+'</span></div></li>'
+			        	}
+		        	}else{
+		        		$('.comment').hide();
+		        	}
+		        	
+		        	console.log(html);
+		        	console.log(str);
+		        	$('.praise_right').html(html);
+		        	$('.comment_list').html(str);
+		        }
+		    },
+		    error: function(err) {
+		      alert('网络连接错误或服务器异常！');
+		    }
+		  });
+		}
+
+
+		// 显示时间格式
+		function formatDate(now)   {     
+      var month = new Date(now).getMonth()+1;     
+      var date =new Date(now).getDate();     
+      return month+"月"+date+"日";     
+    }     
+
+    var d=new Date();     
+    console.log(formatDate(d)); 
+
+		
+	</script>
+</body>
+</html>

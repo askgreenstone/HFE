@@ -25,6 +25,9 @@ $('#pub_btn').bind('click', function() {
     if(!text){
       alert('请填写您要咨询的问题！');
       return; 
+    }else if(callength(text)>60){
+      alert('咨询问题不能超过六十个字！');
+      return;
     }
     var data = {
        'c': text, //问题描述
@@ -142,4 +145,14 @@ function getUrlParams(p) {
     } else {
         return returnValue;
     }
+}
+
+
+// 计算字符串长度
+function callength(str){
+  var byteLen = 0, len = str.length;
+  if( !str ) return 0;
+  for( var i=0; i<len; i++ )
+  byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
+  return byteLen/2;
 }

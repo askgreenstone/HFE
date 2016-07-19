@@ -1,4 +1,5 @@
 var session;
+var userUri;
 var flag = false;
 $(document).ready(function() {
   init();
@@ -7,6 +8,7 @@ $(document).ready(function() {
 
 function init(){
   session = Common.getUrlParam('session');
+  userUri = Common.getUrlParam('userUri');
   console.log(session);
   getQuestionList();
 }
@@ -83,9 +85,12 @@ $('.eva_btn').bind('click',function(){
   var text = $('.pub_area').val();
   var qi = Common.getUrlParam('qid');
   var tu = Common.getUrlParam('tu');
+  console.log(callength(text));
   if(!text && !flag){
     alert('请输入评价内容或为律师点赞');
     return;
+  }else if(callength(text)>60){
+    alert('评价内容不能超过六十个字！')
   }else{
     var data = {};
     if(text){
@@ -119,7 +124,7 @@ $('.eva_btn').bind('click',function(){
         console.log(data);
         if(data.c == 1000){
           alert('提交成功！');
-          window.location.href = 'questionList.html?session=' + session;
+          window.location.href = 'questionList.html?session='+session+'&userUri='+userUri;
         }
       },
       error: function(){
@@ -129,3 +134,11 @@ $('.eva_btn').bind('click',function(){
   }
 })
 
+// 计算字符串长度
+function callength(str){
+  var byteLen = 0, len = str.length;
+  if( !str ) return 0;
+  for( var i=0; i<len; i++ )
+  byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
+  return byteLen/2;
+}
