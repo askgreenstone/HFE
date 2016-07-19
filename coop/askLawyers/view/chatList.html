@@ -9,11 +9,14 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../css/pullToRefresh.css">
   <link rel="stylesheet" href="../css/style.css">
+  
 </head>
 <body>
 	<div id="wrap">
-		<div class="chatList" id="wrapper">
+		<div class="chatList">
+		<div id="wrapper">
 			<ul class="chat_list">
 				<!-- <li class="chat_list_usr">
 					<div class="chat_list_head">
@@ -34,6 +37,7 @@
 					</div>
 				</li> -->
 			</ul>
+		</div>
 			<div class="chat_box">
 				<span class="chat_btn" id="close_question">问题关闭</span>
 				<input type="text" name="" class="chat_inp">
@@ -42,11 +46,12 @@
 		</div>
 		
 	</div>
-	<script src="../lib/jquery-1.11.1.js"></script>
+	<script src="../lib/jquery.min.js"></script>
+	<script src="../lib/iscroll.js"></script>
+	<script src="../lib/pullToRefresh.js"></script> 
 	<script src="../lib/strophe.js"></script>
 	<script src="../lib/easemob.im-1.1.1.js"></script>
 	<script src="../lib/easemob.im.shim.js"></script>
-	<script src="../lib/iscroll.js"></script>
 	<script src="../js/common.js"></script>
 	<script src="../js/chatList.js"></script>
 </body>
