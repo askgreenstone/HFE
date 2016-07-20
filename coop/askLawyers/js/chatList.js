@@ -24,14 +24,14 @@ $(function() {
                 return;
             }
             var tempClass = message.ext.f.indexOf('e') > -1 ? 'chat_list_exp' : 'chat_list_usr';
-            var tempHeader = message.ext.up ? (Common.globalTransferUrl() + message.ext.up) : pageImg[1].wxpor;
+            var tempHeader = message.ext.up ? (Common.globalTransferUrl() + message.ext.up) : (pageImg[1].wxpor?pageImg[1].wxpor:Common.globalTransferUrl()+'header.jpg');
             var theOne = '';
             // var timeStep = (new Date().getTime() - message.ext.ts < 30000)?'block':'none';
             // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
             if (message.ext.on) {
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;"><img width="95%" src="' + Common.globalTransferUrl() + message.ext.on + '@350w"/></span></div></li>';
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;"><img height="250" src="' + Common.globalTransferUrl() + message.ext.on + '"/></span></div></li>';
             } else {
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
             }
 
             $('.chat_list').append('<li class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
@@ -81,7 +81,7 @@ $(function() {
                     for (var i = 0; i < data.s.length; i++) {
                         newArrs.push({
                             type: data.s[i].f.indexOf('u') > -1 ? true : false, //类型：专家或者用户
-                            img: data.s[i].f.indexOf('u') > -1 ? (pageImg[1].wxpor ? pageImg[1].wxpor : 'image/header.jpg') : Common.globalTransferUrl() + pageImg[0].p,
+                            img: data.s[i].f.indexOf('u') > -1 ? (pageImg[1].wxpor ? pageImg[1].wxpor : Common.globalTransferUrl()+'header.jpg') : Common.globalTransferUrl() + pageImg[0].p,
                             name: data.s[i].p.ext.nm,
                             time: new Date(data.s[i].ts).Format('yyyy-MM-dd hh:mm:ss'),
                             ts: data.s[i].ts,
@@ -114,7 +114,7 @@ $(function() {
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
                         var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img width="95%" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img height="250" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $(comments).insertBefore('.chat_list li:eq(0)');
@@ -244,7 +244,7 @@ $(function() {
                     for (var i = 0; i < data.s.length; i++) {
                         newArrs.push({
                             type: data.s[i].f.indexOf('u') > -1 ? true : false, //类型：专家或者用户
-                            img: data.s[i].f.indexOf('u') > -1 ? (mb[1].wxpor ? mb[1].wxpor : 'image/header.jpg') : Common.globalTransferUrl() + mb[0].p,
+                            img: data.s[i].f.indexOf('u') > -1 ? (mb[1].wxpor ? mb[1].wxpor : Common.globalTransferUrl()+'header.jpg') : Common.globalTransferUrl() + mb[0].p,
                             name: data.s[i].p.ext.nm,
                             time: new Date(data.s[i].ts).Format('yyyy-MM-dd hh:mm:ss'),
                             ts: data.s[i].ts,
@@ -277,13 +277,12 @@ $(function() {
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
                         var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img width="95%" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')" src="' + newArrs[i].pic + '"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
 
                     wrapper.refresh();
-
                     wrapper.scrollToElement('.chat_list li:last-child',100);
 
                     console.log(wrapper);
@@ -347,6 +346,7 @@ $(function() {
         qid = Common.getUrlParam('qid');
         gi = Common.getUrlParam('groupId');
         // console.log(session);
+        wxSignature();
         getUserToken();
         getGroupInfo();
     }
@@ -354,6 +354,61 @@ $(function() {
     init();
 
 });
+
+function gotoSingle(src){
+      console.log(src);
+      var photoLists = [];
+      photoLists.push(src);
+      wx.ready(function() {
+          wx.checkJsApi({
+              jsApiList: ['previewImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+              success: function(res) {
+                // alert(JSON.stringify(res));
+                  // 以键值对的形式返回，可用的api值true，不可用为false
+                  // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+              }
+          });
+          wx.previewImage({
+              current: src,// 当前显示图片的http链接
+              urls: photoLists
+          });
+      });
+    }
+
+  function wxSignature() {
+      console.log('wxSignature');
+      var uri = encodeURIComponent(window.location.href);
+      $.ajax({
+          type: 'get',
+          url: Common.globalDistUrl()+'usr/ThirdJSapiSignature.do?apath=' + uri,
+          success: function(data) {
+              // alert('location:' + JSON.stringify(data));
+              if (data.c == 1000) {
+                  wx.config({
+                      debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                      appId: data.appId, // 必填，公众号的唯一标识
+                      timestamp: data.timestamp, // 必填，生成签名的时间戳
+                      nonceStr: data.noncestr, // 必填，生成签名的随机串
+                      signature: data.signature, // 必填，签名，见附录1
+                      jsApiList: ['checkJsApi','previewImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                  });
+
+                  wx.error(function(res) {
+                      // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+                      console.log(res.errMsg);
+                  });
+
+              } else if(data.c == 1040){
+                  console.log("避开微信认证");
+              }  else {
+                  alert('wx preview code:' + data.c + ',error:' + data.d);
+              }
+          },
+          error: function(xhr, status, err) {
+              alert('系统开了小差，请刷新页面');
+          }
+      });
+    }
 
 function fixSrc(src) {
     // console.log(src);
