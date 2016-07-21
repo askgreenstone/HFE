@@ -353,12 +353,37 @@ $(function() {
         wxSignature();
         getUserToken();
         getGroupInfo();
+        var status = Common.getUrlParam('status');
+        if(status == 'chat'){
+          $('.chat_box').show();
+          $('.evaluate_box').hide();
+        }else if(status == 'close'){
+          $('.chat_box').hide();
+          $('.evaluate_box').show();
+        }
     }
 
     init();
 
 });
 
+<<<<<<< HEAD
+
+function getUserContent(){
+  var userUri = Common.getUrlParam('userUri');
+  $.ajax({
+    type: 'GET',
+    url: Common.globalDistUrl() + 'usr/GetLastEvaluate.do?session='+sess+'&qi='+qid+'&uri='+userUri,
+    success: function(data){
+      console.log(data);
+      $('.evaluate_box .evaluate_con').html(data.co);
+    },
+    error: function(){
+      alert('网络连接错误或服务器异常！')
+    }
+  })
+}
+=======
 function gotoSingle(src){
       console.log(src);
       var photoLists = [];
@@ -414,6 +439,7 @@ function gotoSingle(src){
       });
     }
 
+>>>>>>> 6dd0834c9634cf6c1d37b5a7bba9703de2c961df
 function fixSrc(src) {
     // console.log(src);
     var temp = src.split('.')[0];

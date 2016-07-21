@@ -313,7 +313,7 @@
 		        	}
 		        	if(data.res.el.length>0){
 		        		for(var k=0;k<data.res.el.length;k++){
-			        		var img = data.res.el[k].p?Common.globalTransferUrl()+data.res.el[k].p:'image/head.png'
+			        		var img = data.res.el[k].p?Common.globalTransferUrl()+data.res.el[k].p:Common.globalTransferUrl()+'header.jpg';
 			        		str += '<li>'
 											+ '<div class="list_left">'
 											+ '<img src="'+img+'"/></div>'
