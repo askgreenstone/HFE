@@ -1044,6 +1044,70 @@ p{
   z-index: 1001; /* 此处的图层要大于页面 */
 }
 
+// 添加微网站顶部最新消息栏
+.LatestNews{
+  width: 100%;
+  height: 4rem;
+  background: rgba(255, 255, 255, 0.6);
+  position:absolute;
+  left:0;
+  top:0;
+}
+.LatestNews .newsBox{
+  width: 95%;
+  height: 3.2rem;
+  margin: 0.4rem auto;
+  padding-left: 1.5rem;
+  background: url('../image/LatestNews/horn.png') no-repeat left center;
+  background-size: auto 60%;
+  box-sizing:border-box;
+}
+.latestNewsBox{
+  width:100%;
+  display: box;
+  display: -webkit-box;
+  animation:scrollText2 6s infinite  ;
+  -webkit-animation:scrollText2 6s infinite  ;
+}
+.LatestNews .newsTitle{
+  display: block;
+  border-right: 1px solid #fff;
+  line-height: 3.2rem;
+  padding: 0 1rem;
+  font-size: 1.4rem;
+  color: #666;
+  margin-right: 1rem;
+}
+.LatestNews .newsContent{
+  display: block;
+  font-size: 1.3rem;
+  line-height: 3.2rem;
+  color: #999;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@-webkit-keyframes scrollText2 {
+   0%{
+       -webkit-transform: translateX(0px);
+   }
+   100%{
+       -webkit-transform: translateX(-200%);
+   }
+ }
+
+
+/*时间轴页面*/
+
+.timeline_container{
+  width: 90%;
+  margin: 2rem auto;
+}
+
+
+
+
 /*适配手机*/
 @media screen and (width: 320px) {
   .password_shadow{

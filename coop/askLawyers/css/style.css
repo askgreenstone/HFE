@@ -313,7 +313,6 @@ p {
   height: 10rem;
   border-top: 1px solid #ccc;
   padding: 0.5rem;
-  position: relative;
   background: url('../image/close.png') no-repeat right top #fff;
   background-size: auto 80%;
   box-sizing: border-box;
