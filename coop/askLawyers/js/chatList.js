@@ -360,6 +360,7 @@ $(function() {
         }else if(status == 'close'){
           $('.chat_box').hide();
           $('.evaluate_box').show();
+          getUserContent();
         }
     }
 
@@ -367,7 +368,6 @@ $(function() {
 
 });
 
-<<<<<<< HEAD
 
 function getUserContent(){
   var userUri = Common.getUrlParam('userUri');
@@ -383,7 +383,6 @@ function getUserContent(){
     }
   })
 }
-=======
 function gotoSingle(src){
       console.log(src);
       var photoLists = [];
@@ -439,7 +438,6 @@ function gotoSingle(src){
       });
     }
 
->>>>>>> 6dd0834c9634cf6c1d37b5a7bba9703de2c961df
 function fixSrc(src) {
     // console.log(src);
     var temp = src.split('.')[0];
