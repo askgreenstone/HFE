@@ -8,6 +8,7 @@ var scroll_offset = 0;
 var qid, gi;
 var targetUri = '';
 var globalTs = '';
+var sendMsgTs = new Date().getTime();
 
 $(function() {
     var conn = null;
@@ -26,7 +27,8 @@ $(function() {
             var tempClass = message.ext.f.indexOf('e') > -1 ? 'chat_list_exp' : 'chat_list_usr';
             var tempHeader = message.ext.up ? (Common.globalTransferUrl() + message.ext.up) : (pageImg[1].wxpor?pageImg[1].wxpor:Common.globalTransferUrl()+'header.jpg');
             var theOne = '';
-            // var timeStep = (new Date().getTime() - message.ext.ts < 30000)?'block':'none';
+            var timeStep = (message.ext.ts - sendMsgTs> 15000)?'block':'none';
+            console.log(message.ext.ts - sendMsgTs> 15000);
             // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
             if (message.ext.on) {
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;"><img height="250" src="' + Common.globalTransferUrl() + message.ext.on + '"/></span></div></li>';
@@ -34,13 +36,15 @@ $(function() {
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
             }
 
-            $('.chat_list').append('<li class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
+            $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
 
             wrapper.refresh();
 
             wrapper.scrollToElement('.chat_list li:last-child',100);
 
             console.log("收到文本消息！");
+
+            sendMsgTs = message.ext.ts;
         },
         //当连接关闭时的回调方法
         onClosed: function() {
@@ -114,7 +118,7 @@ $(function() {
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
                         var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img height="250" src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')"  src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $(comments).insertBefore('.chat_list li:eq(0)');
