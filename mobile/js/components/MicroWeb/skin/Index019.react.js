@@ -11,6 +11,7 @@ var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Shade = require('../../common/Shade.react');
 var Establish = require('../public/Establish.react');
+var LatestNews = require('../public/LatestNews.react');
 
 require('../../../../css/theme/theme019.less');
 
@@ -27,6 +28,37 @@ var Index019 = React.createClass({
       shareImg:'',
       expspecial:[]
     };
+  },
+  getLatestNews:function(){
+    var that = this;
+    // if(that.props.title) return;
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    // $.ajax({
+    //   type: 'GET',
+    //   url: global.url+'/usr/ThirdJSapiSignature.do?ownUri='+ownUri,
+    //   success:function(data){
+    //     console.log(data);
+    //   },
+    //   error:function(){
+    //     alert('网络连接错误或服务器异常！')
+    //   }
+    // })
+    this.setState({
+      newsTitle:'中华人民共和国',
+      newsContent:'成立了成立了'
+    })
+  },
+  gotoTimeAxis: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    location.href = '#TimeAxis?ownUri='+ownUri;
   },
   transferArr: function(str){
     var arr =[]; 
@@ -172,6 +204,7 @@ var Index019 = React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
+    this.getLatestNews();
     // this.getUserList();
     $('body').css({'background':'#ebebeb'});
   },
@@ -224,6 +257,7 @@ var Index019 = React.createClass({
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true"/>
         </div>
+        <LatestNews newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} onClick={this.gotoTimeAxis()}/>
         <Establish/>
         <Toolbar/>
         <Shade/>

@@ -1,6 +1,7 @@
 var session;
 var payParams;
 var userUri;
+var doubleClickFlag = true;
 $(document).ready(function() {
   init();
 });
@@ -13,13 +14,24 @@ function init(){
 }
 
 
-
+//多次点击控制
+function controlTimes(){
+  if(doubleClickFlag){
+      gotoPay();
+      doubleClickFlag = false;
+  }
+  setTimeout(function(){
+      doubleClickFlag = true;
+  },1000);
+}
 // 选中金额
 $('.pub_money_box li').bind('click', function(){
   $(this).addClass('active').siblings().removeClass('active');
 })
 //调起支付
-$('#pub_btn').bind('click', function() {
+$('#pub_btn').bind('click', controlTimes);
+
+function gotoPay() {
     var text = $('.pub_area').val();
     var bound = $('.pub_money_box li.active').text();
     if(!text){
@@ -52,7 +64,7 @@ $('#pub_btn').bind('click', function() {
         alert('网络连接错误或服务器异常！')
       }
     })
-})
+}
 
 
 function onTrade(questionId,bound){

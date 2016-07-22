@@ -373,12 +373,36 @@ $(function() {
         wxSignature();
         getUserToken();
         getGroupInfo();
+        var status = Common.getUrlParam('status');
+        if(status == 'chat'){
+          $('.chat_box').show();
+          $('.evaluate_box').hide();
+        }else if(status == 'close'){
+          $('.chat_box').hide();
+          $('.evaluate_box').show();
+          getUserContent();
+        }
     }
 
     init();
 
 });
 
+
+function getUserContent(){
+  var userUri = Common.getUrlParam('userUri');
+  $.ajax({
+    type: 'GET',
+    url: Common.globalDistUrl() + 'usr/GetLastEvaluate.do?session='+sess+'&qi='+qid+'&uri='+userUri,
+    success: function(data){
+      console.log(data);
+      $('.evaluate_box .evaluate_con').html(data.co);
+    },
+    error: function(){
+      alert('网络连接错误或服务器异常！')
+    }
+  })
+}
 function gotoSingle(src){
       console.log(src);
       var photoLists = [];
