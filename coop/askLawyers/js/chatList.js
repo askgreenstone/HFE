@@ -9,6 +9,8 @@ var qid, gi;
 var targetUri = '';
 var globalTs = '';
 var sendMsgTs = new Date().getTime();
+var globalMsgList = [];
+
 
 $(function() {
     var conn = null;
@@ -28,7 +30,7 @@ $(function() {
             var tempHeader = message.ext.up ? (Common.globalTransferUrl() + message.ext.up) : (pageImg[1].wxpor?pageImg[1].wxpor:Common.globalTransferUrl()+'header.jpg');
             var theOne = '';
             var timeStep = (message.ext.ts - sendMsgTs> 15000)?'block':'none';
-            console.log(message.ext.ts - sendMsgTs> 15000);
+            console.log(message.ext.ts - sendMsgTs);
             // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
             if (message.ext.on) {
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;"><img height="250" src="' + Common.globalTransferUrl() + message.ext.on + '"/></span></div></li>';
@@ -36,7 +38,15 @@ $(function() {
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
             }
 
-            $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
+            // console.log(isRepeat(message.ext.mi,globalMsgList));
+            //过滤重复消息
+            if(!isRepeat(message.ext.mi,globalMsgList)){
+              $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
+            }else{
+              console.log('消息重复！');
+            }
+
+            
 
             wrapper.refresh();
 
@@ -67,8 +77,6 @@ $(function() {
     });
     var generatedCount = 0;
     function refresh() {
-        // var ts = new Date().getTime();
-        // globalTs = data.s[data.s.length-1].ts;
         $.ajax({
             type: 'get',
             url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + session + '&gi=' + gi + '&t=0&c=15&ts=' + globalTs,
@@ -169,7 +177,7 @@ $(function() {
             alert('发送消息不能为空！');
             return;
         }
-        if (!session || !gi || !userUri) return;
+        if (!session || !gi || !userUri|| !pageImg) return;
         var tempObj = {
                 target: [gi],
                 msg: {
@@ -269,6 +277,9 @@ $(function() {
                         return obj1['ts'] > obj2['ts'] ? 1 : -1;
                     });
 
+                    // 存储msglist，用于去重
+                    globalMsgList = newArrs;
+
                     // console.log(newArrs);
                     var comments = '';
                     var commentsPic = '';
@@ -343,6 +354,15 @@ $(function() {
             if (new RegExp("(" + k + ")").test(fmt))
                 fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
+    }
+
+    function isRepeat(theone,all){
+      for(var i=0;i<all.length;i++){
+        if(all[i].mi == theone){
+          return true;
+        }
+      }
+      return false;
     }
 
     function init() {
