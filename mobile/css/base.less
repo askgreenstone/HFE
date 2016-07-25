@@ -1099,15 +1099,146 @@ p{
 
 
 /*时间轴页面*/
-
+.htmleaf_container{
+  background: #f6f6f6;
+  padding-top: 1.5rem;
+}
 .timeline_container{
-  width: 90%;
-  margin: 2rem auto;
+  width: 100%;
+  margin: 0 auto;
+}
+.timeline{
+  width: 100%;
+  height: 9rem;
+  display: box;
+  display: -webkit-box;
+}
+.timeline_time{
+  width: 30%;
+  height: 100%;
+  text-align: right;
+  box-sizing: border-box;
+  background-size: 10%;
+  line-height: 2rem;
+  position: relative;
+  border-right: 1px solid #3abde9;
+}
+.timeline_time p{
+  width: 100%;
+  text-align: right; 
+}
+
+.timeline_time img{
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  right: -0.5rem;
+  top: -0.5rem;
+}
+.timeline_time_first img{
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  right: -1rem;
+  top: -1rem;
+}
+.timeline_content{
+  width: 65%;
+  display: box;
+  display: -webkit-box;
+  padding-left: 1rem;
+  box-sizing: border-box;
+}
+.timeline_img{
+  width: 70px;
+  height: 70px;
+  margin-right: 1rem;
+}
+.timeline_img img{
+  width: 100%;
+  height: 100%;
+}
+.timeline_con{
+  -webkit-box-flex: 1;
+}
+.timeline_con h2{
+  line-height: 0;
+}
+.timeline_con{
+  line-height: 1.5rem;
 }
 
 
+/*最新动态详情页*/
+.dynamic_contaniner{
+  padding-top: 1rem; 
+}
+.dynamic_exp{
+  width: 95%;
+  margin: 0 auto;
+}
+.dynamic_exp_top{
+  width: 100%;
+  display: box;
+  display: -webkit-box;
+}
+.dynamic_exp_img{
+  margin-right: 1rem;
+  border-radius: 50%;
+}
+.dynamic_exp_name{
+  width: 40%;
+  padding: 1rem 0rem;
+  box-sizing: border-box;
+}
+.dynamic_exp_name span{
+  line-height: 2rem;
+  font-size: @m-size;
+}
+.dynamic_exp_name span.dynamic_exp_date{
+  font-size: @b-size;
+  color: #999;
+}
+.dynamic_exp_nice{
+  width: 40%;
+  padding-top: 35px;
+  box-sizing: border-box;
+  text-align: right;
+}
+.dynamic_exp_nice span{
+  width: 20%;
+  height: 20px;
+  background: url('../image/LatestNews/nice.png') no-repeat left center;
+  padding-left: 1rem;
+  margin-right: 1rem;
+  display: inline-block;
+  background-size: contain;
+  line-height: 2rem;
+}
 
+.dynamic_exp_nice span.dynamic_exp_com{
+  background: url('../image/LatestNews/tip.png') no-repeat left center;
+  background-size: contain;
+}
 
+.dynamic_exp_title{
+  color: #42946a;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  font-size: 1.6rem;
+}
+.dynamic_exp_word{
+  width: 100%;
+  color: #999;
+  line-height: 2rem;
+  font-size: 1.3rem;
+}
+.dynamic_exp_img img{
+  width: 30%;
+  margin-right: 3%;
+  margin-bottom: 3%;
+}
 /*适配手机*/
 @media screen and (width: 320px) {
   .password_shadow{
@@ -1136,6 +1267,9 @@ p{
   }
   .notice_tip span{
     line-height:20px;
+  }
+  .timeline_time{
+    padding-right: 1.5rem;
   }
 }
 @media screen and (min-width: 321px) and (max-width: 360px) {
@@ -1197,6 +1331,13 @@ p{
     .password_shadow .password {
       height: 140px;
     }
+    .timeline_time p{
+      width: 80%;
+      text-align: right; 
+    }
+    .timeline_content{
+      padding-left: 1.5rem;
+    }
 }
 
 @media screen and (min-width: 377px) {
@@ -1238,6 +1379,13 @@ p{
         color: rgba(2, 2, 2, 0.6);
         padding: 1% 8%;
         border: 0;
+    }
+    .timeline_time p{
+      width: 80%;
+      text-align: right; 
+    }
+    .timeline_content{
+      padding-left: 1.5rem;
     }
 }
 @media screen and (width: 480px) {

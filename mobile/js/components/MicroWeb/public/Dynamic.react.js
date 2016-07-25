@@ -3,7 +3,7 @@ var CommonMixin = require('../../Mixin');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
-var TimeAxis = React.createClass({
+var Dynamic = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
     return {datas:[],Abstract:'',Title:'',Introduction:'',Img:''};
@@ -84,72 +84,38 @@ var TimeAxis = React.createClass({
     var ShareImg = this.state.Img;
     
       return (
-        <div className="htmleaf_container">
-          <ul className="timeline_container">
-            <li className="timeline" onClick={this.gotoLink.bind(this,'Dynamic')}>
-              <div className="timeline_time timeline_time_first">
-                <p>今天 18：20</p>
-                <img src="../image/LatestNews/bor.png"/>
+        <div className="dynamic_contaniner">
+          <div className="dynamic_exp">
+            <div className="dynamic_exp_top">
+              <img className="dynamic_exp_img" src="image/LatestNews/u77.jpg" width="65" height="65"/>
+              <p className="dynamic_exp_name">
+                <span>张丹峰</span><br/>
+                <span className="dynamic_exp_date">06-07</span>
+              </p>
+              <p className="dynamic_exp_nice">
+                <span className="dynamic_exp_goog">15</span>
+                <span className="dynamic_exp_com">10</span>
+              </p>            
+            </div>
+            <div className="dynamic_exp_content">
+              <div className="dynamic_exp_title">荣获年度最佳律师</div>
+              <div className="dynamic_exp_word">非本人本尔康给比尔卡各个接口人供热接口二个可根据人</div>
+              <div className="dynamic_exp_img">
+                <img src="image/LatestNews/u16.jpg"/>
+                <img src="image/LatestNews/u28.jpg"/>
+                <img src="image/LatestNews/u77.jpg"/>
+                <img src="image/LatestNews/u79.jpg"/>
+                <img src="image/LatestNews/u81.jpg"/>
+                <img src="image/LatestNews/u85.jpg"/>
+                <img src="image/LatestNews/u16.jpg"/>
+                <img src="image/LatestNews/u28.jpg"/>
+                <img src="image/LatestNews/u81.jpg"/>
               </div>
-              <div className="timeline_content">
-                <div className="timeline_img">
-                  <img src="image/LatestNews/u16.jpg"/>
-                </div>
-                <div className="timeline_con">
-                  <h2>我是标题</h2>
-                  <p>我是内容我是内容我是内容我是内容我是内容</p>
-                </div>
-              </div>
-            </li>
-            <li className="timeline">
-              <div className="timeline_time">
-                <p>今天 18：20</p>
-                <img src="../image/LatestNews/ellipse.png"/>
-              </div>
-              <div className="timeline_content">
-                <div className="timeline_img">
-                  <img src="image/LatestNews/u28.jpg"/>
-                </div>
-                <div className="timeline_con">
-                  <h2>我也是标题分...</h2>
-                  <p>我是内容我是内容我是内容我是内容我...</p>
-                </div>
-              </div>
-            </li>
-            <li className="timeline">
-              <div className="timeline_time">
-                <p>今天 18：20</p>
-                <img src="../image/LatestNews/ellipse.png"/>
-              </div>
-              <div className="timeline_content">
-                <div className="timeline_img">
-                  <img src="image/LatestNews/u28.jpg"/>
-                </div>
-                <div className="timeline_con">
-                  <h2>我也是标题分...</h2>
-                  <p>我是内容我是内容我是内容我是内容我...</p>
-                </div>
-              </div>
-            </li>
-            <li className="timeline">
-              <div className="timeline_time">
-                <p>今天 18：20</p>
-                <img src="../image/LatestNews/ellipse.png"/>
-              </div>
-              <div className="timeline_content">
-                <div className="timeline_img">
-                  <img src="image/LatestNews/u28.jpg"/>
-                </div>
-                <div className="timeline_con">
-                  <h2>我也是标题分...</h2>
-                  <p>我是内容我是内容我是内容我是内容我...</p>
-                </div>
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       )
   }
 });
 
-module.exports = TimeAxis;
+module.exports = Dynamic;

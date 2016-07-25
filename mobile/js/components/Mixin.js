@@ -141,6 +141,10 @@ var CommonMixin = {
   },
   getEcardTel: function(){
     var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
     var ecardTel = '';
     $.ajax({
       type:'get',

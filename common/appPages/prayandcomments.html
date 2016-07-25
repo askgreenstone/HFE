@@ -306,7 +306,8 @@
 		        	var str = ''
 		        	if(data.res.rl.length>0){
 		        		for(var i=0;i<data.res.rl.length;i++){
-			        		html += '<img src="'+Common.globalTransferUrl() + data.res.rl.p+'">'
+		        			var img = data.res.rl[i].p?Common.globalTransferUrl()+data.res.rl[i].p:Common.globalTransferUrl()+'header.jpg';
+			        		html += '<img src="'+img+'">'
 			        	}
 		        	}else{
 		        		$('.praise').hide();
