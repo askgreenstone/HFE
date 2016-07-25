@@ -52,14 +52,6 @@ var Index019 = React.createClass({
       newsContent:'成立了成立了'
     })
   },
-  gotoTimeAxis: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    location.href = '#TimeAxis?ownUri='+ownUri;
-  },
   transferArr: function(str){
     var arr =[]; 
     var descArr = [];
@@ -257,7 +249,7 @@ var Index019 = React.createClass({
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true"/>
         </div>
-        <LatestNews newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} onClick={this.gotoTimeAxis()}/>
+        <LatestNews newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} />
         <Establish/>
         <Toolbar/>
         <Shade/>

@@ -67,7 +67,10 @@ var Adress = require('./components/MicroWeb/public/Adress.react');
 var ArticleDetail = require('./components/MicroWeb/public/ArticleDetail.react');
 var Card = require('./components/MicroWeb/public/Card.react');
 var Card2 = require('./components/MicroWeb/public/Card2.react');
+// 时间轴
 var TimeAxis = require('./components/MicroWeb/public/TimeAxis.react');
+// 时间轴具体动态页
+var Dynamic = require('./components/MicroWeb/public/Dynamic.react');
 //特殊需求，添加了英文版本微名片
 // 李玉龙英文微名片
 var Card3 = require('./components/MicroWeb/public/Card3.react');
@@ -117,6 +120,7 @@ ReactDOM.render((
     <Route path="/card3" component={Card3}/>
     <Route path="/card4" component={Card4}/>
     <Route path="/TimeAxis" component={TimeAxis}/>
+    <Route path="/Dynamic" component={Dynamic}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
     <Route path="/empty" component={Empty}/>

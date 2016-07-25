@@ -3,9 +3,17 @@ var CommonMixin = require('../../Mixin');
 
 var LatestNews = React.createClass({
 	mixins:[CommonMixin],
+  gotoLink: function(path){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    location.href = '#'+path+'?ownUri='+ownUri;
+  },
   render: function() {
     return (
-    	<div className="LatestNews">
+    	<div className="LatestNews" onClick={this.gotoLink.bind(this,'TimeAxis')}>
     		<div className="newsBox">
     			<div className="latestNewsBox">
     				<span className="newsTitle">{this.props.newsTitle}</span>
