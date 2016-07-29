@@ -30,7 +30,7 @@ var TimeAxis = React.createClass({
   getInitialState: function(){
     return {datas:[],Abstract:'',Title:'',Introduction:'',Img:'',TimeAxis:[],getMore:false};
   },
-  gotoLink: function(path,fid,session){
+  gotoLink: function(path,fid,session,usrUri){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri;
   },
   getMoreData: function(){
