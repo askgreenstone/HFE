@@ -26,7 +26,10 @@ var Index019 = React.createClass({
       shareTitle:'',
       shareDesc:'',
       shareImg:'',
-      expspecial:[]
+      expspecial:[],
+      newsTitle:'',
+      newsContent:'',
+      newsShow:false
     };
   },
   getLatestNews:function(){
@@ -37,28 +40,24 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    // $.ajax({
-    //   type: 'GET',
-    //   url: global.url+'/usr/ThirdJSapiSignature.do?ownUri='+ownUri,
-    //   success:function(data){
-    //     console.log(data);
-    //   },
-    //   error:function(){
-    //     alert('网络连接错误或服务器异常！')
-    //   }
-    // })
-    this.setState({
-      newsTitle:'中华人民共和国',
-      newsContent:'成立了成立了'
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1',
+      success:function(data){
+        console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            newsTitle: data.r.fl.length>0?data.r.fl[0].title:'',
+            newsContent: data.r.fl.length>0?data.r.fl[0].content:'',
+            newsShow: data.r.fl.length>0?true:false
+          });
+        }
+      }.bind(this),
+      error:function(){
+        alert('网络连接错误或服务器异常！')
+      }.bind(this)
     })
-  },
-  gotoTimeAxis: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-      console.log(ownUri);
-    }
-    location.href = '#TimeAxis?ownUri='+ownUri;
+    
   },
   transferArr: function(str){
     var arr =[]; 
@@ -216,6 +215,7 @@ var Index019 = React.createClass({
   },
 	render:function(){
     console.log(this.state.expspecial);
+    console.log(this.state.newsShow);
     var expSpecial = this.state.expspecial.map(function(item,i){
       return(
             <span key={new Date().getTime()+i}>{item}</span>
@@ -257,7 +257,7 @@ var Index019 = React.createClass({
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true"/>
         </div>
-        <LatestNews newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} onClick={this.gotoTimeAxis()}/>
+        <LatestNews newsShow={this.state.newsShow} newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} />
         <Establish/>
         <Toolbar/>
         <Shade/>

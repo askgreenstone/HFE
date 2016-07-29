@@ -246,7 +246,7 @@ $(function() {
         var ts = new Date().getTime();
         $.ajax({
             type: 'get',
-            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + sess + '&gi=' + gi + '&t=0&c=15&ts=' + ts,
+            url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + session + '&gi=' + gi + '&t=0&c=15&ts=' + ts,
             success: function(data) {
                 console.log(data);
                 globalTs = data.s[data.s.length-1].ts;
@@ -312,7 +312,7 @@ $(function() {
 
     $('#close_question').on('click', function() {
         if (!session || !qid || !targetUri) return;
-        window.location.href = 'evaluate.html?session=' + session + '&qid=' + qid + '&tu=' + targetUri;
+        window.location.href = 'evaluate.html?session=' + session + '&qid=' + qid + '&tu=' + targetUri+'&userUri=' + userUri;
     })
 
     function judgeType(msgtype, ossname) {
@@ -369,6 +369,7 @@ $(function() {
         session = Common.getUrlParam('session');
         qid = Common.getUrlParam('qid');
         gi = Common.getUrlParam('groupId');
+        userUri = Common.getUrlParam('userUri');
         // console.log(session);
         wxSignature();
         getUserToken();
@@ -393,7 +394,7 @@ function getUserContent(){
   var userUri = Common.getUrlParam('userUri');
   $.ajax({
     type: 'GET',
-    url: Common.globalDistUrl() + 'usr/GetLastEvaluate.do?session='+sess+'&qi='+qid+'&uri='+userUri,
+    url: Common.globalDistUrl() + 'usr/GetLastEvaluate.do?session='+session+'&qi='+qid+'&uri='+userUri,
     success: function(data){
       console.log(data);
       $('.evaluate_box .evaluate_con').html(data.co);
