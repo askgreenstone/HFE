@@ -38,7 +38,7 @@ $(function() {
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
             }
 
-            // console.log(isRepeat(message.ext.mi,globalMsgList));
+            //console.log(isRepeat(message.ext.mi,globalMsgList));
             //过滤重复消息
             if(!isRepeat(message.ext.mi,globalMsgList)){
               $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>' + new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li>' + theOne);
