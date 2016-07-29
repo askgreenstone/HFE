@@ -137,7 +137,7 @@ var Dynamic = React.createClass({
             expTitle: data.r.fl[0].title,
             expContent: data.r.fl[0].content,
             imgLists: data.r.fl[0].il,
-            usrContents: data.r.fl[0].cl,
+            usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
             esl: data.r.fl[0].esl
           })
         }
