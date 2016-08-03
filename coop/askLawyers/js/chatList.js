@@ -249,7 +249,7 @@ $(function() {
             url: Common.globalDistUrl() + 'usr/GroupMsgList.do?session=' + session + '&gi=' + gi + '&t=0&c=15&ts=' + ts,
             success: function(data) {
                 console.log(data);
-                globalTs = data.s[data.s.length-1].ts;
+                globalTs = data.s.length>0?data.s[data.s.length-1].ts:'';
                 if (data.c == 1000) {
                     var newArrs = [];
                     $('#msgCount').text(data.s.length);
