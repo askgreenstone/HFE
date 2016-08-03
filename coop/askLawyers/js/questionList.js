@@ -70,7 +70,7 @@ $('.que_list').on('click','li',function(){
   var bound = $(this).attr('data-b');
 	if(!session || !qid || !userUri || !groupId) return;
   if(ip == 0){
-    onTrade(qid,bound);
+    onTrade(groupId,bound);
   }else if(status == 0){
 		alert('该问题尚未被专家抢答！');
 		getQuestionList();
