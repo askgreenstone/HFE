@@ -334,6 +334,16 @@ p {
   line-height: 1.8rem;
   color: #999
 }
+.chat_goHome{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 10px;
+  bottom: 6.5rem;
+}
+.chat_goHome img{
+  width: 100%;
+}
 /*评价页*/
 .eva_box{
   width: 100%;
