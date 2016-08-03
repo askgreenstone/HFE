@@ -129,7 +129,7 @@ var Dynamic = React.createClass({
         console.log(data);
         if(data.c == 1000){
           this.setState({
-            head: data.r.fl[0].p,
+            head: data.r.fl[0].p?data.r.fl[0].p:'header.jpg',
             nm: data.r.fl[0].nm,
             time: data.r.fl[0].ts,
             niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
@@ -165,10 +165,6 @@ var Dynamic = React.createClass({
               if(usrUri == arr[i].uri){
                 this.setState({
                   praiseFlag: true
-                })
-              }else{
-                this.setState({
-                  praiseFlag: false
                 })
               }
             }
@@ -318,7 +314,7 @@ var Dynamic = React.createClass({
       return(
         <div key={new Date().getTime()+i}>
           <div className="dynamic_exp_top">
-            <img className="dynamic_exp_img" src={global.img+item.p} width="65" height="65"/>
+            <img className="dynamic_exp_img" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="65" height="65"/>
             <p className="dynamic_exp_name">
               <span>{item.nm}</span><br/>
               <span className="dynamic_exp_date">{this.getDate(item.ts)}</span>

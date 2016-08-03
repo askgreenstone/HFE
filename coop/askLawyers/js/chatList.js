@@ -86,7 +86,7 @@ $(function() {
                   wrapper.refresh();
                   return;
                 }
-                globalTs = data.s[data.s.length-1].ts;
+                globalTs = data.s.length>0?data.s[data.s.length-1].ts:'';
                 if (data.c == 1000) {
                     var newArrs = [];
                     $('#msgCount').text(data.s.length);
@@ -378,10 +378,17 @@ $(function() {
         if(status == 'chat'){
           $('.chat_box').show();
           $('.evaluate_box').hide();
+          $('.chat_goHome').hide();
         }else if(status == 'close'){
           $('.chat_box').hide();
           $('.evaluate_box').show();
+          $('.chat_goHome').hide();
           getUserContent();
+        }else if(status == 'chatLawyers'){
+          $('.chat_box').show();
+          $('.evaluate_box').hide();
+          $('.chat_goHome').show();
+          $('#close_question').hide();
         }
     }
 
