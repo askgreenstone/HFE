@@ -1147,6 +1147,10 @@ li.teamManage_close img.teamManage_delete{
 @media screen and (max-width: 360px) {
   html {
     font-size: 62.5%;
+
+  }
+  .teamManage_lawyerList li{
+    padding-right: 0.5rem;    
   }
 }
 @media screen and (min-width: 361px) and (max-width: 376px) {
