@@ -98,12 +98,13 @@ var CommonMixin = {
   staticWebPV: function(vt){
     //vt:1,网站 ｜ vt:2,电话呼入
     var ownUri = this.getUrlParams('ownUri');
+    var ida = this.getUrlParams('ida');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
     $.ajax({
       type:'get',
-      url: global.url+'/exp/SaveWXWebPV.do?ownUri='+ownUri+'&vt='+vt,
+      url: global.url+'/exp/SaveWXWebPV.do?ownUri='+ownUri+'&vt='+vt+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         // console.log(data);
@@ -145,11 +146,12 @@ var CommonMixin = {
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida');
     var ecardTel = '';
     $.ajax({
       type:'get',
       async:false,
-      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -312,6 +314,7 @@ var CommonMixin = {
       ownUri = this.checkDevOrPro();
       // console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida');
     if(!type) return;
     if(type=='telphone'){
       this.staticWebPV(2);
@@ -322,7 +325,7 @@ var CommonMixin = {
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
       if(localStorage.getItem('user_token_'+ntid) && localStorage.getItem('user_psw_'+ntid) == psw){
-        location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+        location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
       }else{
         // limit:1 未加密 limit:2 加密
         if(limit == 2){
@@ -334,13 +337,13 @@ var CommonMixin = {
             'type':type
           });
         }else{
-          location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+          location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
         }
         localStorage.setItem('user_token_'+ntid,ntid);
         localStorage.setItem('user_psw_'+ntid,psw);
       }
     }else{
-      location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+      location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
     }
   }
 };

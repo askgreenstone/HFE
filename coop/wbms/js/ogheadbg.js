@@ -5,7 +5,6 @@
 
 jQuery(function($) {
 var imgx, imgy, imgh, imgw;
-var mwID = Common.getUrlParam('mwID');
 var openId = Common.getUrlParam('openId');
 // var ratio = Common.getUrlParam('ratio');
 var api = new Api();
@@ -82,7 +81,7 @@ $('#themebg_next').click(function() {
               success: function(data) {
                 Common.getLoading(false);
                 console.log(data);
-                window.location.href = 'ogregister.html?mwID='+mwID+'&on='+data.on+'&openId='+openId;
+                window.location.href = 'ogregister.html?on='+data.on+'&openId='+openId;
               },
               error: function(error) {
                 Common.getLoading(false);
@@ -117,7 +116,7 @@ $('#themebg_next').click(function() {
         success: function(data) {
           console.log(data);
           Common.getLoading(false);
-          window.location.href = 'ogregister.html?mwID='+mwID+'&on='+data.in+'&openId='+openId;
+          window.location.href = 'ogregister.html?on='+data.in+'&openId='+openId;
         },
         error: function(error) {
           Common.getLoading(false);

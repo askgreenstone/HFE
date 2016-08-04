@@ -10,6 +10,7 @@ var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Establish = require('../public/Establish.react');
+var Shade = require('../../common/Shade.react');
 
 require('../../../../css/theme/theme004.less');
 
@@ -244,6 +245,7 @@ var Index004=React.createClass({
           <Password display="true"/>
         </div>
         <Toolbar/>
+        <Shade/>
 				</div>
 			)
 	}

@@ -1,4 +1,5 @@
 var openId = Common.getUrlParam('openId');
+var session = Common.getUrlParam('session');
 console.log(openId);
 
 
@@ -48,12 +49,11 @@ jQuery(function($){
     
   // 点击上传头像，跳转到裁切页面
   $('#wxRg_file').click(function(event) {
-    var mwID = Common.getUrlParam('mwID');
     var on = Common.getUrlParam('on');
     if(on){
-      window.location.href = 'ogheadbg.html?mwID='+mwID+'&on='+on+'&openId=' + openId;
+      window.location.href = 'ogheadbg.html?on='+on+'&openId=' + openId;
     }else{
-      window.location.href = 'ogheadbg.html?mwID='+mwID+'&openId=' + openId;
+      window.location.href = 'ogheadbg.html?openId=' + openId;
     }
   });
 
@@ -90,7 +90,6 @@ jQuery(function($){
         tel = $('#tel').val(),
         msgNo = $('#msgNo').val(),
         on = Common.getUrlParam('on'),
-        mwID = Common.getUrlParam('mwID'),
         openId = Common.getUrlParam('openId'),
         data = {};
     if(hi == '../image/head.png'){
@@ -118,45 +117,33 @@ jQuery(function($){
       alert('请输入验证码！');
       return;
     }else{
-      // 待修改
-      // data = {
-      //   p : on,
-      //   n : name,
-      //   cn : depart,
-      //   mn : tel,
-      //   vc : msgNo,
-      //   sp : specialArr,
-      //   rg : region,
-      //   add : address,
-      //   mwid : mwID,
-      //   openId : openId 
-      // }
+      data = {
+        p : on,
+        n : name,
+        cn : ogname,
+        mn : tel,
+        vc : msgNo,
+        rg : city,
+        add : address,
+        ida: 1,
+        ct: ogtel,
+        openId : openId 
+      }
     }
     console.log(data);
-    // 1050  微网站已存在  1000生成新的微网站，跳转到个人工作室
     $.ajax({
       type : 'POST',
-      url : Common.globalDistUrl() + 'exp/ExpMicroCardForMobile.do',
+      url : Common.globalDistUrl() + 'exp/DeptRegister.do?session='+session,
       data : JSON.stringify(data),
       dataType:'json',
       contentType:'application/json',
       success : function(data) {
         console.log(data);
-        // 待修改
-        // if(data.c == 1050){
-        //   alert('工作室已存在，请登录');
-        //   window.close();
-        // }else if(data.c == 1051){
-        //   alert('注册失败，请重试！')
-        // }else if(data.c == 1001){
-        //   alert('验证码不合法，请重试！');
-        // }else if(data.c == 1045){
-        //   alert('此用户已试用过工作室！');
-        //   window.close();
-        // }else if(data.c == 1000){
-        //   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&origin=shade';
-        // }
-        
+        if(data.c == 1000){
+          window.location.href = 'teammanage.html?session='+session+'&keyWord='+ogname+'&ei='+data.ei;
+        }else if(data.c == 1001){
+          alert('验证码错误！');
+        }
       },
       error : function(){
         alert('网络连接错误或服务器异常！');
@@ -164,9 +151,32 @@ jQuery(function($){
     })
   })
 
+
+  function getExpInfo(){
+    $.ajax({
+      type : 'GET',
+      url : Common.globalDistUrl() + 'exp/ExpertInfo.do?session=' + session,
+      success : function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          if(!$('#name').val()){
+            $('#name').val(data.n);
+          }
+          if(!$('#tel').val()){
+            $('#tel').val(data.m);
+          }
+        }
+      },
+      error : function(){
+        alert('网络连接错误或服务器异常！');
+      }
+    })
+  }
+
   //初始化数据
   function initAll() {
     getHeadImg();
+    getExpInfo();
   }
 
   initAll();

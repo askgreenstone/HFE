@@ -56,6 +56,7 @@ function gotoPay() {
           if(bound == 0){
             window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri;
           }else{
+            // alert(data.qi);
             onTrade(data.qi,bound);
           }  
         }

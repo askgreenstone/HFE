@@ -32,15 +32,17 @@ var Index003=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida');
     console.log(flag);
     //flag=true，需要重新请求数据，否则直接读取缓存
     if(flag){
       $.ajax({
         type:'get',
-        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
+        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri+'&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);
+          console.log('查询菜单')
           if(data.c == 1000){
             var temp = this.checkMenuType(data.ntl);
             this.setState({navArrs:temp});
@@ -66,10 +68,12 @@ var Index003=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida');
+    console.log(ida);
     $.ajax({
       type:'get',
       async:false,
-      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -103,9 +107,10 @@ var Index003=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida');
     $.ajax({
       type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1'+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -137,9 +142,10 @@ var Index003=React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida');
     $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
