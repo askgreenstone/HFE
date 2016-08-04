@@ -21,7 +21,7 @@ jQuery(function($){
       for(var i=0;i<lawyerTellists.length;i++){
         lawyerTellist.push($(lawyerTellists[i]).attr('lawyerTel'));
       }
-      console.log(lawyerTellist);
+      // console.log(lawyerTellist);
       if($.inArray(lawyerTel,lawyerTellist) == -1){
         $('#teamManage_selectList').append(str);
         $(this).addClass('teamManage_selected');
@@ -161,16 +161,17 @@ jQuery(function($){
         console.log(data);
         if(data.c == 1000){
           var html = $('#teamManage_selectList').html();
-          for(var i=0;i<data.el.length;i++){
-            var head = data.el[i].p?(Common.globalTransferUrl()+data.el[i].p):(Common.globalTransferUrl()+'header.jpg');
-            html += '<li class="teamManage_close" selectId="'+data.el[i].ei+'" lawyerTel="'+data.el[i].mn+'""><div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+head+'">'
-                  + '<div class="teamManage_imgMark"><img src="../image/lawSelect.png"/></div></div>'
-                  + '<p><span class="teamManage_title_name">'+data.el[i].n+'</span><span> 律师</span></p>'
-                  + '<img class="teamManage_delete" src="../image/delete.png"></li>'
-            // $('#teamManage_lawyerList li[lawyerTel='+data.el[i].mn+']').addClass('teamManage_selected')
+          if(data.el.length>0){
+            for(var i=0;i<data.el.length;i++){
+              var head = data.el[i].p?(Common.globalTransferUrl()+data.el[i].p):(Common.globalTransferUrl()+'header.jpg');
+              html += '<li class="teamManage_close" selectId="'+data.el[i].ei+'" lawyerTel="'+data.el[i].mn+'""><div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+head+'">'
+                    + '<div class="teamManage_imgMark"><img src="../image/lawSelect.png"/></div></div>'
+                    + '<p><span class="teamManage_title_name">'+data.el[i].n+'</span><span> 律师</span></p>'
+                    + '<img class="teamManage_delete" src="../image/delete.png"></li>'
+              // $('#teamManage_lawyerList li[lawyerTel='+data.el[i].mn+']').addClass('teamManage_selected')
+            }
+            $('#teamManage_selectList').html(html);
           }
-          $('#teamManage_selectList').html(html);
-
         }
       },
       error: function(){
