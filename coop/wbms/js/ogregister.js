@@ -50,10 +50,11 @@ jQuery(function($){
   // 点击上传头像，跳转到裁切页面
   $('#wxRg_file').click(function(event) {
     var on = Common.getUrlParam('on');
+    var ida = Common.getUrlParam('ida');
     if(on){
-      window.location.href = 'ogheadbg.html?on='+on+'&openId=' + openId;
+      window.location.href = 'ogheadbg.html?on='+on+'&openId=' + openId+'&ida='+ida+'&session='+session;
     }else{
-      window.location.href = 'ogheadbg.html?openId=' + openId;
+      window.location.href = 'ogheadbg.html?openId=' + openId+'&ida='+ida+'&session='+session;
     }
   });
 
@@ -131,6 +132,7 @@ jQuery(function($){
       }
     }
     console.log(data);
+    var ida = Common.getUrlParam('ida');
     $.ajax({
       type : 'POST',
       url : Common.globalDistUrl() + 'exp/DeptRegister.do?session='+session,
@@ -140,7 +142,7 @@ jQuery(function($){
       success : function(data) {
         console.log(data);
         if(data.c == 1000){
-          window.location.href = 'teammanage.html?session='+session+'&keyWord='+ogname+'&ei='+data.ei;
+          window.location.href = 'teammanage.html?session='+session+'&keyWord='+ogname+'&ei='+data.ei+'&ida='+ida;
         }else if(data.c == 1001){
           alert('验证码错误！');
         }

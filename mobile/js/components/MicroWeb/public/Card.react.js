@@ -20,10 +20,11 @@ var Card = React.createClass({
   },
   getServerInfo: function(){
     var ownUri = this.getUrlParams('ownUri');
+    var ida = this.getUrlParams('ida');
     var wid = $(window).width()/2;
     $.ajax({
       type:'get',
-      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
