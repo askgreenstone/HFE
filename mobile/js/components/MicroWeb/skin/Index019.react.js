@@ -208,7 +208,6 @@ var Index019 = React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
-    this.getLatestNews();
     // this.getUserList();
     $('body').css({'background':'#ebebeb'});
   },
@@ -217,6 +216,7 @@ var Index019 = React.createClass({
     this.getBgLogo();
     console.log('bg:'+this.state.bg);
     this.getUserWebState();
+    this.getLatestNews();
   },
 	render:function(){
     console.log(this.state.expspecial);

@@ -287,6 +287,18 @@ var CommonMixin = {
           limit:jsons[i].vt,
           psw:jsons[i].vp
         });
+      }else if(jsons[i].mt==9){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'',
+          type:'searchLawyers',
+          localtion:'',
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
+        });
       }
     }
     console.log(tempType);
@@ -330,7 +342,21 @@ var CommonMixin = {
     if(!type) return;
     if(type=='telphone'){
       this.staticWebPV(2);
-    }else if(type == 'consult'){
+    }else if(type == 'searchLawyers'){
+      // WeixinJSBridge.call('closeWindow');
+      var ownUri = this.getUrlParams('ownUri');
+      var ida = this.getUrlParams('ida');
+      if(ownUri){
+        if(ida){
+          location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri+'&ida='+ida;
+        }else{
+          location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri;
+        }
+      }else{
+        location.href = global.mshare+'htm/react/index.html#/lawyer';
+      }
+      
+     }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
       this.getWXMsg(ownUri);
      }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){

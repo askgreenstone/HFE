@@ -210,6 +210,7 @@ var Index002 = React.createClass({
     this.getBgLogo();
     this.getWxShareInfo();
     this.getUserWebState();
+    this.getLatestNews();
   },
   render: function() {
     var navNodes = this.state.navArrs.map(function(item,i){

@@ -240,6 +240,7 @@ var Index004=React.createClass({
     this.getWxShareInfo();
     this.setIphoneHeight();
     this.getUserWebState();
+    this.getLatestNews();
   },
 	render:function(){
 		 var navNodes = this.state.navArrs.map(function(item,i){

@@ -7,9 +7,9 @@ var LatestNews = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
-      console.log(ownUri);
     }
-    location.href = '#'+path+'?ownUri='+ownUri;
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    location.href = '#'+path+'?ownUri='+ownUri+'&ida='+ida;
   },
   //微信获取最先消息授权（区别于聊天授权），获取appid
   getWXNewsMsg:function(ownUri){
