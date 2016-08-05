@@ -11,6 +11,8 @@ var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Shade = require('../../common/Shade.react');
 var Establish = require('../public/Establish.react');
+var LatestNews = require('../public/LatestNews.react');
+
 
 require('../../../../css/theme/theme003.less');
 var Index003=React.createClass({
@@ -26,13 +28,41 @@ var Index003=React.createClass({
       shareImg:''
     };
   },
+  getLatestNews:function(){
+    var that = this;
+    // if(that.props.title) return;
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&ida='+ida,
+      success:function(data){
+        console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            newsTitle: data.r.fl.length>0?data.r.fl[0].title:'',
+            newsContent: data.r.fl.length>0?data.r.fl[0].content:'',
+            newsShow: data.r.fl.length>0?true:false
+          });
+        }
+      }.bind(this),
+      error:function(){
+        alert('网络连接错误或服务器异常！')
+      }.bind(this)
+    })
+    
+  },
 	getUserList: function(flag){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    var ida = this.getUrlParams('ida');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     console.log(flag);
     //flag=true，需要重新请求数据，否则直接读取缓存
     if(flag){
@@ -68,7 +98,7 @@ var Index003=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    var ida = this.getUrlParams('ida');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     console.log(ida);
     $.ajax({
       type:'get',
@@ -107,7 +137,7 @@ var Index003=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    var ida = this.getUrlParams('ida');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
       url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1'+'&ida='+ida,
@@ -142,7 +172,7 @@ var Index003=React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
-    var ida = this.getUrlParams('ida');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
       url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri+'&ida='+ida,
@@ -200,6 +230,7 @@ var Index003=React.createClass({
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index003"/>
 					</div>
+          <LatestNews newsShow={this.state.newsShow} newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} />
           <Establish/>
           <Message/>
           <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>

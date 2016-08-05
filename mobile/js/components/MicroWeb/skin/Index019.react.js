@@ -40,9 +40,10 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1',
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&ida='+ida,
       success:function(data){
         console.log(data);
         if(data.c == 1000){
@@ -82,9 +83,10 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -115,10 +117,11 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     if(flag){
       $.ajax({
         type:'get',
-        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
+        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri+'&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);
@@ -145,10 +148,11 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
       async:false,
-      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -181,9 +185,10 @@ var Index019 = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);

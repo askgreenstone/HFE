@@ -11,6 +11,7 @@ var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Establish = require('../public/Establish.react');
 var Shade = require('../../common/Shade.react');
+var LatestNews = require('../public/LatestNews.react');
 
 require('../../../../css/theme/theme004.less');
 
@@ -40,18 +41,47 @@ var Index004=React.createClass({
       shareImg:''
     };
   },
+  getLatestNews:function(){
+    var that = this;
+    // if(that.props.title) return;
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&ida='+ida,
+      success:function(data){
+        console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            newsTitle: data.r.fl.length>0?data.r.fl[0].title:'',
+            newsContent: data.r.fl.length>0?data.r.fl[0].content:'',
+            newsShow: data.r.fl.length>0?true:false
+          });
+        }
+      }.bind(this),
+      error:function(){
+        alert('网络连接错误或服务器异常！')
+      }.bind(this)
+    })
+    
+  },
   getUserList: function(flag){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     console.log(flag);
     //flag=true，需要重新请求数据，否则直接读取缓存
     if(flag){
       $.ajax({
         type:'get',
-        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
+        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri+'&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);
@@ -80,10 +110,11 @@ var Index004=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
       async:false,
-      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -117,9 +148,10 @@ var Index004=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -151,9 +183,10 @@ var Index004=React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -236,7 +269,7 @@ var Index004=React.createClass({
               <Establish/>
             </div>
 					</div>
-          
+          <LatestNews newsShow={this.state.newsShow} newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} />
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index004"/>
         <Message/>

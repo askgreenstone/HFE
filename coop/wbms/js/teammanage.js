@@ -81,6 +81,7 @@ jQuery(function($){
   $('#teamManage_submit').bind('click',function(){
     var list = $('#teamManage_selectList li');
     var ownUri = Common.getUrlParam('ei');
+    var from = Common.getUrlParam('from');
     // console.log(list)
     if(list.length == 0){
       alert('请至少选择一位律师！');
@@ -110,7 +111,11 @@ jQuery(function($){
         success : function(data) {
           console.log(data);
           if(data.c == 1000){
-            window.location.href = Common.globalDistUrl()+'usr/ThirdHomePage.do?ownUri=e'+ownUri+'&ida=1&origin=shade';
+            if(from == 'app'){
+              alert('提交成功！')
+            }else{
+              window.location.href = Common.globalDistUrl()+'usr/ThirdHomePage.do?ownUri=e'+ownUri+'&ida=1&origin=shade';
+            }
           }
           // 待修改
         },
