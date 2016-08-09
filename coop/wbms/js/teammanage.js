@@ -1,8 +1,6 @@
-var openId = Common.getUrlParam('openId');
 var session = Common.getUrlParam('session');
 var keyWord = Common.getUrlParam('keyWord');
 var pageCount = 0;
-console.log(openId);
 
 
 
@@ -54,6 +52,7 @@ jQuery(function($){
     var lawyerTel = $('#lawyerTel').val();
     var lawyerTellist = [];
     var lawyerTellists = $('#teamManage_selectList li');
+    var on = Common.getUrlParam('on');
     for(var i=0;i<lawyerTellists.length;i++){
       lawyerTellist.push($(lawyerTellists[i]).attr('lawyerTel'));
     }
@@ -68,7 +67,7 @@ jQuery(function($){
       alert('该律师已在机构团队中！');
     }else if($.inArray(lawyerTel,lawyerTellist) == -1){
       // console.log(Common.globalTransferUrl()+'header.jpg')
-      var str = '<li class="teamManage_close" lawyerTel='+lawyerTel+'><div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+Common.globalTransferUrl()+'header.jpg"><div class="teamManage_imgMark">'
+      var str = '<li class="teamManage_close" lawyerTel='+lawyerTel+'><div class="teamManage_imgBox"><img class="teamManage_headImg" src='+Common.globalTransferUrl()+on+'><div class="teamManage_imgMark">'
               + '<img src="../image/lawSelect.png"/></div></div><p><span class="teamManage_title_name">'+lawyerName+'</span>'
               + '<span> 律师</span></p><img class="teamManage_delete" src="../image/delete.png"></li>'
       $('#teamManage_selectList').append(str);
@@ -128,6 +127,9 @@ jQuery(function($){
   })
   // 页面初始化获取模糊查询机构成员（分页处理）
   function getOrgMember(page){
+    var on = Common.getUrlParam('on');
+    console.log(on);
+    var ei = Common.getUrlParam('ei');
     $.ajax({
       type: 'GET',
       url: Common.globalDistUrl() + 'exp/GetAllExpInDept.do?session='+session+'&k='+encodeURI(keyWord)+'&c=4&p='+page,
@@ -140,13 +142,34 @@ jQuery(function($){
             $('.teamManage_loadMore').hide()
           }
           for(var i=0;i<data.el.length;i++){
-            var head = data.el[i].p?(Common.globalTransferUrl()+data.el[i].p):(Common.globalTransferUrl()+'header.jpg');
-            html += '<li showId='+data.el[i].ei+' lawyerTel='+data.el[i].mn+'><div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+head+'">'
+            var head = data.el[i].p?(Common.globalTransferUrl()+data.el[i].p):(Common.globalTransferUrl()+on);
+            console.log(head);
+            var className = data.el[i].ei == ei?'teamManage_selected':'';
+            html += '<li showId='+data.el[i].ei+' lawyerTel='+data.el[i].mn+' class='+className+'>'
+                  + '<div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+head+'">'
                   + '<div class="teamManage_imgMark"><img src="../image/lawSelect.png"/></div></div>'
                   + '<p><span class="teamManage_title_name">'+data.el[i].n+'</span><span> 律师</span></p>'
                   + '<img class="teamManage_delete" src="../image/delete.png"></li>'
           }
           $('#teamManage_lawyerList').html(html);
+          var list = $(html);
+          for(var i=0;i<list.length;i++){
+            console.log($(list[i]).attr('showId'));
+            if($(list[i]).attr('showId') == ei){
+              var showId = $(list[i]).attr('showId');
+              var lawyerTel = $(list[i]).attr('lawyerTel');
+              var str = '<li class="teamManage_close" selectId="'+showId+'" lawyerTel='+lawyerTel+'>'+$(list[i]).html()+'</li>';
+              var lawyerTellist = [];
+              var lawyerTellists = $('#teamManage_selectList li');
+              for(var i=0;i<lawyerTellists.length;i++){
+                lawyerTellist.push($(lawyerTellists[i]).attr('lawyerTel'));
+              }
+              // console.log(lawyerTellist);
+              if($.inArray(lawyerTel,lawyerTellist) == -1){
+                $('#teamManage_selectList').append(str);
+              }
+            }
+          }
         }
       },
       error: function(){
@@ -159,6 +182,7 @@ jQuery(function($){
   // 页面初始化获取机构存在成员
   function getOrgExistMember(){
     var ei = Common.getUrlParam('ei');
+    var on = Common.getUrlParam('on');
     $.ajax({
       type: 'GET',
       url: Common.globalDistUrl() + 'exp/GetDeptMembers.do?session='+session+'&di='+ei,
@@ -168,7 +192,7 @@ jQuery(function($){
           var html = $('#teamManage_selectList').html();
           if(data.el.length>0){
             for(var i=0;i<data.el.length;i++){
-              var head = data.el[i].p?(Common.globalTransferUrl()+data.el[i].p):(Common.globalTransferUrl()+'header.jpg');
+              var head = data.el[i].p?(Common.globalTransferUrl()+data.el[i].p):(Common.globalTransferUrl()+on);
               html += '<li class="teamManage_close" selectId="'+data.el[i].ei+'" lawyerTel="'+data.el[i].mn+'""><div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+head+'">'
                     + '<div class="teamManage_imgMark"><img src="../image/lawSelect.png"/></div></div>'
                     + '<p><span class="teamManage_title_name">'+data.el[i].n+'</span><span> 律师</span></p>'

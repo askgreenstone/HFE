@@ -133,6 +133,7 @@ jQuery(function($){
     }
     console.log(data);
     var ida = Common.getUrlParam('ida');
+    var on = Common.getUrlParam('on');
     $.ajax({
       type : 'POST',
       url : Common.globalDistUrl() + 'exp/DeptRegister.do?session='+session,
@@ -142,7 +143,7 @@ jQuery(function($){
       success : function(data) {
         console.log(data);
         if(data.c == 1000){
-          window.location.href = 'teammanage.html?session='+session+'&keyWord='+ogname+'&ei='+data.ei+'&ida='+ida;
+          window.location.href = 'teammanage.html?session='+session+'&keyWord='+ogname+'&ei='+data.ei+'&ida='+ida+'&on='+on;
         }else if(data.c == 1001){
           alert('验证码错误！');
         }

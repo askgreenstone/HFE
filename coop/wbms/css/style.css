@@ -1087,18 +1087,19 @@ li.teamManage_close img.teamManage_delete{
 }
 .teamManage_submit{
   width: 100%;
-  height: 3rem;
+  height: 4rem;
 }
 .teamManage_submit span{
   width: 30%;
-  height: 3rem;
+  height: 4rem;
   display: block;
   border-radius: 3px;
-  line-height: 3rem;
+  line-height: 4rem;
   text-align: center;
   color: #fff;
   background: #4ebe86;
   float: right;
+  font-size: 1.4rem;
 }
 /*loading*/
 .spinner-bounce-circle {
