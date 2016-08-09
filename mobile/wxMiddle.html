@@ -68,13 +68,14 @@
           var wxShareTarget = getUrlParams('target'),
               ownUri = getUrlParams('ownUri'),
               ntid = getUrlParams('ntid'),
+              ida = getUrlParams('ida'),
               nid = getUrlParams('nid');
           if(nid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid+'&ida='+ida;
           }else if(ntid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
           }else{
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida;
           }
       });
      function getUrlParams(p) {

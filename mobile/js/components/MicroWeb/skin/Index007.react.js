@@ -10,6 +10,8 @@ var Shadow = require('../../common/Shadow.react');
 var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Establish = require('../public/Establish.react');
+var LatestNews = require('../public/LatestNews.react');
+
 
 require('../../../../css/theme/theme007.less');
 var Index007=React.createClass({
@@ -28,6 +30,34 @@ var Index007=React.createClass({
       container3:[]
     };
   },
+  getLatestNews:function(){
+    var that = this;
+    // if(that.props.title) return;
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&ida='+ida,
+      success:function(data){
+        console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            newsTitle: data.r.fl.length>0?data.r.fl[0].title:'',
+            newsContent: data.r.fl.length>0?data.r.fl[0].content:'',
+            newsShow: data.r.fl.length>0?true:false
+          });
+        }
+      }.bind(this),
+      error:function(){
+        alert('网络连接错误或服务器异常！')
+      }.bind(this)
+    })
+    
+  },
 	getUserList: function(flag){
     // alert($(window).width()+'x'+$(window).height());
     var ownUri = this.getUrlParams('ownUri');
@@ -35,11 +65,12 @@ var Index007=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     console.log(flag);
     if(flag){
       $.ajax({
         type:'get',
-        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
+        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri+'&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);
@@ -136,10 +167,11 @@ var Index007=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
       async:false,
-      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         // console.log(data);
@@ -172,9 +204,10 @@ var Index007=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -206,9 +239,10 @@ var Index007=React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -234,6 +268,7 @@ var Index007=React.createClass({
     this.getBgLogo();
     this.getWxShareInfo();
     this.getUserWebState();
+    this.getLatestNews();
   },
 	render:function(){
     var navNodes1 = this.state.container1.map(function(item,i){
@@ -302,6 +337,7 @@ var Index007=React.createClass({
               </div>
             </div>
 					</div>
+          <LatestNews newsShow={this.state.newsShow} newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} />
           <Establish/>
             <Share title={this.state.shareTitle} desc={this.state.shareDesc} 
         imgUrl={global.img+this.state.shareImg} target="index007"/>

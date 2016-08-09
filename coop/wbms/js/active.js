@@ -3,9 +3,9 @@ Zepto(function($){
 
   $('#reg_check').prop('checked',true);
 
-  // 无需邀请码，激活30天试用期
+  // 无需邀请码，激活180天试用期
   $('#active_btn').click(function() {
-    var data = {ad:30};
+    var data = {ad:180};
     $.ajax({
       type : 'post',
       url : Common.globalDistUrl() + 'exp/ActivateMicWeb.do?session='+ session,
@@ -31,7 +31,7 @@ Zepto(function($){
       alert('请输入邀请码');
       return
     }
-    var data = {ad:30,ac:ac};
+    var data = {ad:180,ac:ac};
     $.ajax({
       type : 'post',
       url : Common.globalDistUrl() + 'exp/ActivateMicWeb.do?session='+ session,

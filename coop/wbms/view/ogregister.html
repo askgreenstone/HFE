@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>我的工作室</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+	<div class="wxRegister">
+		<div class="wxRg_main">
+			<div class="wxRg_box">
+				<input id="wxRg_file" type="button">
+				<img id="wxRg_preview" src="../image/head.png" width="70" height="70">
+				<span class="wxRg_edit">logo上传</span>
+			</div>
+			<div class="ogRegister_title">机构信息</div>
+			<div class="wxRegister_box ogRegister_box"><span>机构名称</span><input type="text" id="ogname" placeholder="机构全称"></div>
+			<div class="wxRegister_box ogRegister_box"><span>机构电话</span><input type="text" id="ogtel" placeholder="机构联系电话"></div>
+			<div class="wxRegister_box ogRegister_box"><span>所在城市</span><input type="text" id="city" placeholder="机构所在城市"></div>
+			<div class="wxRegister_box ogRegister_box"><span>详细地址</span><input type="text" id="address" placeholder="请填写详细地址，用于具体导航"></div>
+
+
+			<div class="ogRegister_title">机构管理员信息</div>
+			<div class="wxRegister_box ogRegister_box"><span>管理员姓名</span><input type="text" id="name" placeholder="机构管理员姓名"></div>
+			<div class="wxRegister_box ogRegister_box"><span>+86</span><input type="text" id="tel" placeholder="请输入您的手机号码"></div>
+			<div class="wxRegister_box wxRegister_box_top"><input type="text" id="msgNo" placeholder="请输入短信验证码"><span id="regNo">验证码</span></div>
+
+
+		
+			<div class="wxRg_bottom">
+				<div class="wxRg_button ogRg_button" id="wxRg_next">提交</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<script type="text/javascript" src="../lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/api.js"></script>
+	<script type="text/javascript" src="../js/ogregister.js"></script>
+	<div id="globle_load_box"></div>
+</body>
+</html>

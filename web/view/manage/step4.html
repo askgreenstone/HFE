@@ -73,7 +73,7 @@
 							<input style="margin-top:0;border:0;padding:0;display:block;" ng-show="vm.languageType==2" class="step4_english" type="text" placeholder="菜单英文名称" ng-value="x.etn"/>
 							<small>{{x.md}}</small><br/>
 							<!-- <input ng-if="x.etn" type="text" placeholder="英文名称" ng-value="x.etn"/><br/> -->
-							<input class="step4_ac" ng-hide="x.mt==7||x.mt==2||x.mt==3||x.mt==4||x.mt==5" type="text" placeholder={{x.mt==6?'请填写所需跳转的网址':'请填写您的联系方式'}} value={{x.ac}}><br/>
+							<input class="step4_ac" ng-hide="x.mt==7||x.mt==2||x.mt==3||x.mt==4||x.mt==5||x.mt==8||x.mt==9" type="text" placeholder={{x.mt==6?'请填写所需跳转的网址':'请填写您的联系方式'}} value={{x.ac}}><br/>
 							<b ng-hide="x.mt!=7">
 								<span ng-click="vm.checkThis($event)" value="1" ng-class="x.nc==1?'active':''">介 绍 页</span>
 								<span ng-click="vm.checkThis($event)" value="2" ng-class="x.nc==2?'active':''">内容列表</span>

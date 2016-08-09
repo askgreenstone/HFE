@@ -29,20 +29,25 @@ var List1 = React.createClass({
       location.href = url;
     }else{
       var ownUri = this.getUrlParams('ownUri');
+      if(!ownUri){
+        ownUri = this.checkDevOrPro();
+      }
+      var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
       localStorage.setItem('user_token_'+ntid,ntid);
-      location.href = '#articleDetail?nid='+nid+'&ownUri='+ownUri+'&ntid='+ntid;
+      location.href = '#articleDetail?nid='+nid+'&ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
     }
   },
   getServerInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
     var ntid = this.getUrlParams('ntid');
+    var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     if(!ntid) return;
     $.ajax({
         type:'get',
-        url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
+        url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri+'&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);
@@ -64,8 +69,8 @@ var List1 = React.createClass({
   },
   getPageInfo: function(){
     console.log('number:'+number);
-    var ownUri = this.getUrlParams('ownUri');
     var ntid = this.getUrlParams('ntid');
+    var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
@@ -73,7 +78,7 @@ var List1 = React.createClass({
     // console.log('number:'+number);
     $.ajax({
         type:'get',
-        url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri+'&pn='+number+'&ps='+this.state.count,
+        url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri+'&pn='+number+'&ps='+this.state.count+'&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);
@@ -128,15 +133,15 @@ var List1 = React.createClass({
     }
   },
   checkUserLimit: function(){
-    var ownUri = this.getUrlParams('ownUri');
     var ntid = this.getUrlParams('ntid');
+    var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
     if(!ntid) return;
     $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
+      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -177,8 +182,8 @@ var List1 = React.createClass({
   },
   //查询后台用户密码
   getServerPsw:function(){
-    var ownUri = this.getUrlParams('ownUri');
     var ntid = this.getUrlParams('ntid');
+    var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
@@ -187,7 +192,7 @@ var List1 = React.createClass({
     $.ajax({
       type:'get',
       async: false,
-      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
+      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){

@@ -106,19 +106,27 @@ p {
 }
 .pub_btn{
   width: 100%;
-  height: 6rem;
+  height: 5rem;
+  background: #fff;
+  padding-top: 1rem;
   position: absolute;
   left: 0px;
   bottom: 0px;
 }
-.pub_btn a{
+.que_btn{
+  width: 100%;
+  height: 5rem;
+  background: #fff;
+  padding-top: 1rem;
+}
+.pub_btn a,.que_btn a{
   width: 95%;
   height: 4rem;
   line-height: 4rem;
   text-align: center;
   display: block;
   background: #5595E3;
-  margin: 1rem auto;
+  margin: 0rem auto;
   border-radius: 3px;
   color: #fff;
 }
@@ -127,9 +135,16 @@ p {
   width: 100%;
   height: 100%;
   background: #F2F2F2;
+  display: box;
+  display: -webkit-box;
+  -webkit-box-orient:vertical;
 }
 .que_list{
   width: 100%;
+  overflow-y: auto;
+}
+.question_list{
+  -webkit-box-flex: 1;
 }
 .que_list li{
   width: 100%;
@@ -138,13 +153,16 @@ p {
   background: #fff;
   margin-bottom: 10px;
   box-sizing: border-box;
+  word-break: break-all;
 }
 .que_list_money{
   color: #E88076;
   margin-right: 5px;
+  width: 60px;
+  display: inline-block;
 }
 .que_list_time{
-  margin-left: 50%;
+  margin-left: 24%;
   width: 24%;
   height: 2.6rem;
   line-height: 2.6rem;
@@ -160,6 +178,7 @@ p {
   color: #fff;
   text-align: center;
   border-radius: 3px;
+  margin-top: 0.5rem;
 }
 .que_list_unsolved{
   background: #FC5759;
@@ -170,6 +189,7 @@ p {
   color: #fff;
   text-align: center;
   border-radius: 3px;
+  margin-top: 0.5rem;
 }
 
 
@@ -178,25 +198,43 @@ p {
   width: 100%;
   height: 100%;
   background: #eee;
+  display: box;
+  display: -webkit-box;
+  -webkit-box-orient:vertical;
 }
 .chat_list{
   width: 100%;
+  // -webkit-box-flex:1;
+  overflow-y: auto;
 }
 .chat_list li{
   width: 100%;
   line-height: 1.6rem;
   padding: 0px 5px;
   box-sizing: border-box;
-  display: box;
-  display: -webkit-box;
 }
 .chat_list_head{
   width: 20%;
 }
+.chat_list_usr .chat_list_head{
+  float: right;
+}
+.chat_list_exp .chat_list_head{
+  float: left;
+}
+.chat_list li:after{
+  content: "."; 
+  display: block;
+  height: 0; 
+  clear: both; 
+  visibility: hidden;
+}
 .chat_list_head img{
-  width: 70%;
+  width: 60px;
+  height: 60px;
   margin: 1rem auto 0.5rem;
   display: block;
+  border-radius: 50%;
 }
 .chat_list_head i{
   width: 100%;
@@ -210,9 +248,10 @@ p {
   box-sizing: border-box;
   padding:2px 3px;
   word-break: break-all;
+  float: left;
 }
 .chat_list_content span{
-  border: 15px solid transparent;
+  border: 10px solid transparent;
   -webkit-border-image: url('../image/bor.png') 35 33 35 30 stretch;
   display: inline-block;
   color: #fff;
@@ -229,33 +268,81 @@ p {
 .chat_box{
   width: 100%;
   height: 6rem;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   background: #F2F2F2;
   border-top: 1px solid #ccc;
-  padding: 1.5rem;
+  padding: 1.5rem 0.5rem;
   box-sizing: border-box;
+  display: box;
+  display: -webkit-box;
 }
 .chat_inp{
-  width: 70%;
+  -webkit-box-flex: 1;
   height: 3rem;
   line-height: 3rem;
   padding-left: 10px;
   box-sizing: border-box;
   border: none;
   outline: none;
-  margin-right: 4%; 
+  display: block;
+  font-size: 1.4rem;
 }
 .chat_btn{
-  width: 24%;
+  width: 22%;
   height: 3rem;
   line-height: 3rem;
   text-align: center;
-  display: inline-block;
+  display: block;
   background: #5595E3;
   color: #fff;
   border-radius: 3px;
+  margin: 0 2%;
+}
+.js_chat_ts{
+  text-align: center;
+}
+.js_chat_ts i{
+  font-style: normal;
+  background: #b5b2b2;
+  color: #fff;
+  border-radius: 2px;
+  padding: 3px;
+  font-size: 12px;
+}
+.evaluate_box{
+  width: 100%;
+  height: 10rem;
+  border-top: 1px solid #ccc;
+  padding: 0.5rem;
+  background: url('../image/close.png') no-repeat right top #fff;
+  background-size: auto 80%;
+  box-sizing: border-box;
+  display: none;
+}
+.evaluate_tip{
+  background: url('../image/comment.png') no-repeat left center;
+  background-size: 6%;
+  width: 100%;
+  height: 2rem;
+  line-height: 2rem;
+  padding-left: 2rem;
+  box-sizing: border-box;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+.evaluate_con{
+  width: 85%;
+  line-height: 1.8rem;
+  color: #999
+}
+.chat_goHome{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 10px;
+  bottom: 6.5rem;
+}
+.chat_goHome img{
+  width: 100%;
 }
 /*评价页*/
 .eva_box{
@@ -271,17 +358,17 @@ p {
 }
 .eva_nice{
   width: 35%;
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  line-height: 30px;
   display: inline-block;
   background-image: url('../image/nice.png');
   background-repeat: no-repeat;
-  background-position: right -1px;
-  background-size: 25%;
+  background-position: right 0px;
+  background-size: 30px;
   margin-right: 25%;
 }
 .eva_nice_light{
-  background-position: right -28px;
+  background-position: right -30px;
 }
 .eva_btn{
   width: 35%;

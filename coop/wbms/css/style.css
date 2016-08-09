@@ -676,6 +676,7 @@ p {
   padding: 15px 0px;
   position: relative;
   background: #fff;
+  margin-bottom: 0.5rem;
 }
 #wxRg_file{
   width: 70px;
@@ -711,8 +712,8 @@ p {
 }
 .wxRegister_box{
   width: 100%;
-  height: 3.6rem;
-  line-height: 3.6rem;
+  height: 4rem;
+  line-height: 4rem;
   box-sizing: border-box;
   margin: 0.5rem 0px;
   background: #fff;
@@ -722,11 +723,12 @@ p {
   border-top: 1px solid #ccc;
 }
 .wxRegister_box span{
-  width: 40px;
+  width: 4rem;
   text-align: center;
   display: inline-block;
-  height: 20px;
-  line-height: 20px;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.2rem;
 }
 .wxRegister_box span.wxRegister_select{
   width: 80%;
@@ -737,8 +739,9 @@ p {
 }
 .wxRegister_box input{
   width: 60%;
-  height: 20px;
-  line-height: 20px;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.2rem;
   border: none;
   outline: none;
   padding-left: 10px;
@@ -761,15 +764,15 @@ p {
 }
 .wxRg_bottom{
   width: 100%;
-  height: 3.6rem;
+  height: 4.3rem;
   background: #fff;
   margin: 1rem auto;
-  padding-top: 0.4rem;
+  padding-top: 0.7rem;
 }
 .wxRg_button{
   width: 95%;
-  height: 3.2rem;
-  line-height: 3.2rem;
+  height: 3.6rem;
+  line-height: 3.6rem;
   text-align: center;
   background: #5595E3;
   color: #fff;
@@ -913,6 +916,191 @@ p {
   font-size: 1.2rem;
 }
     
+/*ogregister.html*/
+.ogRegister_title{
+  width: 100%;
+  height: 3.6rem;
+  line-height: 3.6rem;
+  padding-left: 10px;
+  box-sizing: border-box;
+  color: #5595E3;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.ogRegister_box span{
+  width: 7rem;
+}
+/*teamManage.html*/
+.teamManage{
+  width: 100%;
+  padding-top: 1rem;
+  background: #f6f6f6;
+  box-sizing: border-box;
+}
+.teamManage_title{
+  background: #94d2b3;
+  width: 100%;
+  height: 4rem;
+  color: #fff;
+  padding-left: 1rem;
+  box-sizing: border-box;
+  line-height: 4rem;
+  font-size: 1.4rem; 
+}
+.teamManage_myTeam{
+  background: #4ebe86;
+}
+.teamManage_lawyerList{
+  width: 100%;
+  padding-left: 1rem;
+  box-sizing: border-box;
+  margin: 0.5rem auto 1rem;
+  background: #f6f6f6;
+}
+.teamManage_lawyerList li{
+  float: left;
+  width: 25%;
+  box-sizing: border-box;
+  padding-right: 1rem;
+  position: relative;
+}   
+.teamManage_lawyerList li .teamManage_imgBox{
+  width: 100%;
+  margin: 0.5rem auto;
+  box-sizing: border-box;
+}
+.teamManage_lawyerList li .teamManage_imgBox>img{
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin: 0.5rem auto;
+  border-radius: 50%;
+}
+.teamManage_selected .teamManage_imgMark{
+  display: block;
+}
+.teamManage_imgMark{
+  width: 60px;
+  height: 60px;
+  background: #91523d;
+  opacity: 0.6;
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  margin-left: -36px;
+  border-radius: 50%;
+  display: none;
+}
+.teamManage_imgMark img{
+  width: 22px;
+  height: 18px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -11px;
+  margin-top: -9px;
+}
+.teamManage_lawyerList li p{
+  width: 100%;
+  display: block;
+  line-height: 2rem;
+  height: 2rem;
+  text-align: center;
+  font-size: 1.2rem; 
+}
+.teamManage_lawyerList li .teamManage_mark{
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: #91523d;
+  opacity: 0.4;
+  left: 4%;
+  top: 6%;
+  border-radius: 50%;
+}
+.teamManage_lawyerList li .teamManage_mark img{
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -30px;
+  margin-top: -30px;
+}
+.teamManage_lawyerList li .teamManage_title_name{
+  font-size: 1.4rem;
+  font-weight: bold; 
+}
+.teamManage_lawyerList:after,.teamManage_addImg:after,.teamManage_submit:after{
+  content: '';
+  display: block;
+  height: 0; 
+  clear: both; 
+  visibility: hidden;
+}
+.teamManage_loadMore{
+  width: 100%;
+  background: url('../image/loadmore.png') no-repeat center;
+  height: 2rem;
+  background-size: auto 100%;
+  margin: 0.5rem auto;
+}
+.teamManage_addBox{
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: #fff;
+}
+.teamManage_addBox input{
+  width: 100%;
+  height: 3.6rem;
+  line-height: 3.6rem;
+  border: none;
+  outline: none;
+  display: block;
+  background: #f6f6f6;
+  margin-bottom: 1px;
+  padding-left: 1rem;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+.teamManage_addImg{
+  width: 100%;
+  height: 3rem;
+  margin-top: 0.5rem;
+}
+.teamManage_addImg img{
+  float: right;
+  height: 90%;
+} 
+.teamManage_lawyerList li img.teamManage_delete{
+  position: absolute;
+  right: 10%;
+  top: 0;
+  width: 30%;
+  height: auto;
+  margin: 0;
+  display: none;
+}
+li.teamManage_close img.teamManage_delete{
+  display: block;
+}
+.teamManage_submit{
+  width: 100%;
+  height: 4rem;
+}
+.teamManage_submit span{
+  width: 30%;
+  height: 4rem;
+  display: block;
+  border-radius: 3px;
+  line-height: 4rem;
+  text-align: center;
+  color: #fff;
+  background: #4ebe86;
+  float: right;
+  font-size: 1.4rem;
+}
 /*loading*/
 .spinner-bounce-circle {
   width: 60px;
@@ -961,6 +1149,10 @@ p {
 @media screen and (max-width: 360px) {
   html {
     font-size: 62.5%;
+
+  }
+  .teamManage_lawyerList li{
+    padding-right: 0.5rem;    
   }
 }
 @media screen and (min-width: 361px) and (max-width: 376px) {
@@ -1007,3 +1199,10 @@ p {
     height: 2.5rem;
   }
 }
+
+
+
+
+
+
+

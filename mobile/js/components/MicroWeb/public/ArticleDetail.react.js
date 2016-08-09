@@ -27,11 +27,12 @@ var ArticleDetail = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     this.setState({uri:ownUri});
     if(nid){
-      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid;
+      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid+'&ida='+ida;
     }else{
-      newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
+      newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri+'&ida='+ida;
     }
     $.ajax({
       type:'get',
@@ -63,11 +64,12 @@ var ArticleDetail = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     this.setState({uri:ownUri});
     if(nid){
-    	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid;
+    	newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid+'&ida='+ida;
     }else{
-    	newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
+    	newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri+'&ida='+ida;
     }
 		$.ajax({
       type:'get',
@@ -127,11 +129,12 @@ var ArticleDetail = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     this.setState({uri:ownUri});
     if(nid){
-      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid;
+      newUrl = global.url+'/exp/QueryNewsContent.do?nId='+nid+'&ownUri='+ownUri+'&ntId='+ntid+'&ida='+ida;
     }else{
-      newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri;
+      newUrl = global.url+'/exp/QueryNewsContent.do?ntId='+ntid+'&ownUri='+ownUri+'&ida='+ida;
     }
     $.ajax({
       type:'get',
@@ -180,12 +183,13 @@ var ArticleDetail = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     if(!ntid) return;
     var tempPsw = '';
     $.ajax({
       type:'get',
       async: false,
-      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri,
+      url: global.url+'/exp/QueryNewsList.do?ntId='+ntid+'&ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -205,14 +209,19 @@ var ArticleDetail = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
-    window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
+    window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri+'&ida='+ida;
   },
   getIndexTheme: function(){
     var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri,
+      url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
           console.log(data);
           if(data.c == 1000){

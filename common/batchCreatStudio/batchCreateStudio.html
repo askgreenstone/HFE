@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <title>批量生成工作室</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <style>
+      *{
+        margin: 0px;
+        padding: 0px;
+      }
+      .wrap{
+        width: 100%;
+        height: 800px;
+      }
+      .wrap p{
+        width: 100%;
+        padding: 10px;
+      }
+      .wrap p span{
+        width: 60px;
+        height: 30px;
+        line-height: 30px;
+        display: inline-block;
+      }
+      .wrap p input{
+        width: 80%;
+        height: 30px;
+        line-height: 30px;
+        margin-left: 10px;
+        outline: none; 
+      }
+      #btn{
+        width: 60px;
+        display: block;
+        height: 30px;
+        line-height: 30px;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <p><span>公司：</span><input type="text" name="" placeholder="" id="company"></p>
+    <p><span>地址：</span><input type="text" name="" placeholder="" id="address"></p>
+    <p><span>区域：</span><input type="text" name="" placeholder="" id="reigon"></p>
+    <p><span>logo：</span><input type="text" name="" placeholder="" id="logo"></p>
+    <p><input type="button" id="btn" value="提交"/></p>
+  </div>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript">
+    var btn = document.getElementById('btn');
+    btn.onclick = function(){
+      var company = $('#company').val();
+      var address = $('#address').val();
+      var reigon = $('#reigon').val();
+      var logo = $('#logo').val();
+      var data = {
+        cp: company,
+        ar: address,
+        re: reigon,
+        logo: logo
+      }
+      console.log(JSON.stringify(data));
+      $.ajax({
+        type: 'POST',
+        url: 'http://t-dist.green-stone.cn/exp/BatchCreateMicroWeb.do',
+        data: JSON.stringify(data),
+        success: function(data){
+          console.log(data);
+          if(data.c == 1000){
+            alert('成功')
+          }else{
+            alert('打开控制台看看69行')
+          }
+        },
+        error:function(){
+          alert('网络连接错误或服务器异常！')
+        }
+      })
+    }
+  </script>  
+</body>
+
+</html>

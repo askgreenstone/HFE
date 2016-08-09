@@ -9,26 +9,25 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../css/pullToRefresh.css">
   <link rel="stylesheet" href="../css/style.css">
+  
 </head>
 <body>
 	<div id="wrap">
 		<div class="chatList">
-			<ul class="chat_list">
-				
-				
-				<li class="chat_list_usr">
-					
+		<div id="wrapper">
+			<ul id="chat_list" class="chat_list">
+				<!-- <li class="chat_list_usr">
+					<div class="chat_list_head">
+						<img src="../image/logo.png">
+						<i>李小冉</i>
+					</div>
 					<div class="chat_list_content">
 						<span>供热个别国家还不热环分为方便维护经费为境吧</span>
 					</div>
-					<div class="chat_list_head">
-						<img src="../image/ali.png">
-						<i>李小冉</i>
-					</div>
 				</li>
 				<li class="chat_list_exp">
-					
 					<div class="chat_list_head">
 						<img src="../image/ali.png">
 						<i>李大律</i>
@@ -36,37 +35,31 @@
 					<div class="chat_list_content">
 						<span>供热个别国家环境吧</span>
 					</div>
-				</li>
-				<li class="chat_list_usr">
-					
-					<div class="chat_list_content">
-						<span>供热个别国家还不热环境吧</span>
-					</div>
-					<div class="chat_list_head">
-						<img src="../image/ali.png">
-						<i>李小冉</i>
-					</div>
-				</li>
-				<li class="chat_list_exp">
-					
-					<div class="chat_list_head">
-						<img src="../image/ali.png">
-						<i>李大律</i>
-					</div>
-					<div class="chat_list_content">
-						<span>供热个别国</span>
-					</div>
-				</li>
+				</li> -->
 			</ul>
+		</div>
 			<div class="chat_box">
+				<span class="chat_btn" id="close_question">问题关闭</span>
 				<input type="text" name="" class="chat_inp">
 				<span class="chat_btn" id="chat_btn">发送</span>
 			</div>
+			<div class="evaluate_box">
+				<div class="evaluate_tip">我的评论：</div>
+				<div class="evaluate_con">范文芳合计为风发热供热被告人供热看见不给别人供热办国际人景和范文芳合计为风发热供热被告人供热看见不给别人供热办我风景和我</div>
+			</div>
 		</div>
-		
+		<div class="chat_goHome">
+      <img src="../image/home.png"/>
+    </div>
 	</div>
-	<script src="../lib/zepto.min.js"></script>
+	<script src="../lib/jquery.min.js"></script>
+	<script src="../lib/iscroll.js"></script>
+	<script src="../lib/pullToRefresh.js"></script> 
+	<script src="../lib/strophe.js"></script>
+	<script src="../lib/easemob.im-1.1.1.js"></script>
+	<script src="../lib/easemob.im.shim.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<script src="../js/common.js"></script>
-	<script src="../js/publishQuestions.js"></script>
+	<script src="../js/chatList.js"></script>
 </body>
 </html>

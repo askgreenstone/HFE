@@ -98,12 +98,13 @@ var CommonMixin = {
   staticWebPV: function(vt){
     //vt:1,网站 ｜ vt:2,电话呼入
     var ownUri = this.getUrlParams('ownUri');
+    var ida = this.getUrlParams('ida');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
     $.ajax({
       type:'get',
-      url: global.url+'/exp/SaveWXWebPV.do?ownUri='+ownUri+'&vt='+vt,
+      url: global.url+'/exp/SaveWXWebPV.do?ownUri='+ownUri+'&vt='+vt+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         // console.log(data);
@@ -141,11 +142,16 @@ var CommonMixin = {
   },
   getEcardTel: function(){
     var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    var ida = this.getUrlParams('ida');
     var ecardTel = '';
     $.ajax({
       type:'get',
       async:false,
-      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -169,7 +175,7 @@ var CommonMixin = {
     console.log(jsons);
     for(var i=0;i<jsons.length;i++){
       //特定菜单mt:1-电话，2-线上咨询，3-地图导航，4-微名片，5-微相册，6-个人微博
-      //介绍页或者列表mt:7
+      //介绍页或者列表mt:7，最新动态8
       if(jsons[i].mt==1){
         // console.log("tel://"+(jsons[i].ac?jsons[i].ac:tel));
         tempType.push({
@@ -269,6 +275,30 @@ var CommonMixin = {
             psw:jsons[i].vp
           });
         }
+      }else if(jsons[i].mt==8){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'',
+          type:'TimeAxis',
+          localtion:'',
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
+        });
+      }else if(jsons[i].mt==9){
+        tempType.push({
+          title:jsons[i].tn,
+          english:jsons[i].etn,
+          ntid:jsons[i].ntId,
+          src:jsons[i].lg,
+          ac:'',
+          type:'searchLawyers',
+          localtion:'',
+          limit:jsons[i].vt,
+          psw:jsons[i].vp
+        });
       }
     }
     console.log(tempType);
@@ -308,17 +338,32 @@ var CommonMixin = {
       ownUri = this.checkDevOrPro();
       // console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida');
     if(!type) return;
     if(type=='telphone'){
       this.staticWebPV(2);
-    }else if(type == 'consult'){
+    }else if(type == 'searchLawyers'){
+      // WeixinJSBridge.call('closeWindow');
+      var ownUri = this.getUrlParams('ownUri');
+      var ida = this.getUrlParams('ida');
+      if(ownUri){
+        if(ida){
+          location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri+'&ida='+ida;
+        }else{
+          location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri;
+        }
+      }else{
+        location.href = global.mshare+'htm/react/index.html#/lawyer';
+      }
+      
+     }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
       this.getWXMsg(ownUri);
      }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
       if(localStorage.getItem('user_token_'+ntid) && localStorage.getItem('user_psw_'+ntid) == psw){
-        location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+        location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
       }else{
         // limit:1 未加密 limit:2 加密
         if(limit == 2){
@@ -330,13 +375,13 @@ var CommonMixin = {
             'type':type
           });
         }else{
-          location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+          location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
         }
         localStorage.setItem('user_token_'+ntid,ntid);
         localStorage.setItem('user_psw_'+ntid,psw);
       }
     }else{
-      location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid;
+      location.href = '#'+type+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
     }
   }
 };

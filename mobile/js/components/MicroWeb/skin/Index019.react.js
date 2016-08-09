@@ -11,6 +11,7 @@ var Password = require('../../common/Password.react');
 var Toolbar = require('../../common/Toolbar.react');
 var Shade = require('../../common/Shade.react');
 var Establish = require('../public/Establish.react');
+var LatestNews = require('../public/LatestNews.react');
 
 require('../../../../css/theme/theme019.less');
 
@@ -25,8 +26,39 @@ var Index019 = React.createClass({
       shareTitle:'',
       shareDesc:'',
       shareImg:'',
-      expspecial:[]
+      expspecial:[],
+      newsTitle:'',
+      newsContent:'',
+      newsShow:false
     };
+  },
+  getLatestNews:function(){
+    var that = this;
+    // if(that.props.title) return;
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&ida='+ida,
+      success:function(data){
+        console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            newsTitle: data.r.fl.length>0?data.r.fl[0].title:'',
+            newsContent: data.r.fl.length>0?data.r.fl[0].content:'',
+            newsShow: data.r.fl.length>0?true:false
+          });
+        }
+      }.bind(this),
+      error:function(){
+        alert('网络连接错误或服务器异常！')
+      }.bind(this)
+    })
+    
   },
   transferArr: function(str){
     var arr =[]; 
@@ -51,9 +83,10 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri,
+      url: global.url+'/usr/QueryMicroCard.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -84,10 +117,11 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     if(flag){
       $.ajax({
         type:'get',
-        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri,
+        url: global.url+'/exp/QueryNewsTypes.do?&ownUri='+ownUri+'&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);
@@ -114,10 +148,11 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
       async:false,
-      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri,
+      url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -150,9 +185,10 @@ var Index019 = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri,
+      url: global.url+'/exp/QueryMicWebActivate.do?ownUri='+ownUri+'&ida='+ida,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -180,9 +216,11 @@ var Index019 = React.createClass({
     this.getBgLogo();
     console.log('bg:'+this.state.bg);
     this.getUserWebState();
+    this.getLatestNews();
   },
 	render:function(){
     console.log(this.state.expspecial);
+    console.log(this.state.newsShow);
     var expSpecial = this.state.expspecial.map(function(item,i){
       return(
             <span key={new Date().getTime()+i}>{item}</span>
@@ -224,6 +262,7 @@ var Index019 = React.createClass({
         <div id="limit_password_box" title="" value="" name="" type="">
           <Password display="true"/>
         </div>
+        <LatestNews newsShow={this.state.newsShow} newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} />
         <Establish/>
         <Toolbar/>
         <Shade/>
