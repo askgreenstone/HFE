@@ -16,7 +16,8 @@ var Card = React.createClass({
     $('#'+ele).hide(500);
   },
   gotoLink: function(path){
-    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&ida='+ida;
   },
   getServerInfo: function(){
     var ownUri = this.getUrlParams('ownUri');
