@@ -305,7 +305,7 @@ var CommonMixin = {
     return tempType;
   },
   //微信授权，获取appid
-  getWXMsg:function(ownUri){
+  getWXMsg:function(ownUri,ida){
         var wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
         $.ajax({
@@ -321,7 +321,7 @@ var CommonMixin = {
                   }else{
                     temp = 'web';
                   }
-                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'#wechat_redirect';
+                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'_'+ida+'#wechat_redirect';
                 }
             },
             error: function(xhr, status, err) {
@@ -358,7 +358,7 @@ var CommonMixin = {
       
      }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
-      this.getWXMsg(ownUri);
+      this.getWXMsg(ownUri,ida);
      }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入
