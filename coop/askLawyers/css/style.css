@@ -340,6 +340,7 @@ p {
   position: fixed;
   right: 10px;
   bottom: 6.5rem;
+  z-index: 2;
 }
 .chat_goHome img{
   width: 100%;

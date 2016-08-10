@@ -315,6 +315,14 @@ $(function() {
         window.location.href = 'evaluate.html?session=' + session + '&qid=' + qid + '&tu=' + targetUri+'&userUri=' + userUri;
     })
 
+    // 点击返回首页
+    $('.chat_goHome').on('click',function(){
+      var ownUri = Common.getUrlParam('ownUri');
+      var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
+      console.log(Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida);
+      window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
+    }) 
+
     function judgeType(msgtype, ossname) {
         if (msgtype == 1 || msgtype == 12) {
             if (ossname) {
