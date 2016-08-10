@@ -82,9 +82,9 @@ Zepto(function($){
                 console.log(data);
                 if(data.c == 1000){
                   if(openid){
-                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms&openId='+openid;
+                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&openId='+openid;
                   }else{
-                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess+'&origin=wbms';
+                   window.location.href = Common.globalDistUrl()+'mobile/#/'+data.theme+'?ownUri='+data.ownUri+'&sess='+sess;
                   }
                 }
               },
@@ -122,17 +122,18 @@ Zepto(function($){
           }else{
             // window.sessionStorage.setItem('userSession',data.u.sid);
             // window.location.href = 'view/active.html?session=' + data.u.sid;
-            getUserActiveState(data.u.sid);
-
-            if(isActive){//已激活
-              getMicroState(data.u.sid);
-            }else if(!isActive){//未激活
-              if(isExpired){//失效
-                window.location.href = 'view/actexpired.html?session='+data.u.sid;
-              }else{
-                window.location.href = 'view/active.html?session='+data.u.sid;
-              }
-            }
+            // getUserActiveState(data.u.sid);
+            // 激活逻辑暂时关闭（乔凡）
+            // if(isActive){//已激活
+            //   getMicroState(data.u.sid);
+            // }else if(!isActive){//未激活
+            //   if(isExpired){//失效
+            //     window.location.href = 'view/actexpired.html?session='+data.u.sid;
+            //   }else{
+            //     window.location.href = 'view/active.html?session='+data.u.sid;
+            //   }
+            // }
+            getMicroState(data.u.sid);
           }
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');
