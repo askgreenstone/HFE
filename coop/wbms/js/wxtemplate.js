@@ -127,7 +127,8 @@ jQuery(function($) {
 				// }
 	   //  }
 	   $('#template_login').click(function(){
-	   	window.location.href = '../index.html'
+	   	var openId = Common.getUrlParam('openId');
+	   	window.location.href = '../index.html?openId='+openId;
 	   })
 
 
