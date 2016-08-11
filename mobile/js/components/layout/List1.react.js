@@ -74,6 +74,7 @@ var List1 = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     if(!ntid) return;
     // console.log('number:'+number);
     $.ajax({
@@ -138,6 +139,7 @@ var List1 = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     if(!ntid) return;
     $.ajax({
       type:'get',
@@ -187,6 +189,7 @@ var List1 = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     if(!ntid) return;
     var tempPsw = '';
     $.ajax({

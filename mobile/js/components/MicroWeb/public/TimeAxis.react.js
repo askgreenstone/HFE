@@ -171,8 +171,8 @@ var TimeAxis = React.createClass({
               <img src={item.il[0]?(global.img+item.il[0]):global.img+item.p}/>
             </div>
             <div className="timeline_con">
-              <h2>{item.title}</h2>
-              <p>{item.content}</p>
+              <h2>{item.title?(item.title.length>6?item.title.substr(0,6)+'...':item.title):''}</h2>
+              <p>{item.content?(item.content.length>30?item.content.substr(0,30)+'...':item.content):''}</p>
             </div>
           </div>
         </li>
