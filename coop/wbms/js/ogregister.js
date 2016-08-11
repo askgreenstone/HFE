@@ -146,6 +146,8 @@ jQuery(function($){
           window.location.href = 'teammanage.html?session='+session+'&keyWord='+ogname+'&ei='+data.ei+'&ida='+ida+'&on='+on;
         }else if(data.c == 1001){
           alert('验证码错误！');
+        }else if(data.c == 9998){
+          alert(data.d);
         }
       },
       error : function(){
