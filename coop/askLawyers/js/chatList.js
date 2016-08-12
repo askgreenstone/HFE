@@ -10,6 +10,7 @@ var targetUri = '';
 var globalTs = '';
 var sendMsgTs = new Date().getTime();
 var globalMsgList = [];
+var expType = '';
 
 
 $(function() {
@@ -30,13 +31,20 @@ $(function() {
             var tempHeader = message.ext.up ? (Common.globalTransferUrl() + message.ext.up) : (pageImg[1].wxpor?pageImg[1].wxpor:Common.globalTransferUrl()+'header.jpg');
             var theOne = '';
             var timeStep = (message.ext.ts - sendMsgTs> 15000)?'block':'none';
+            var extra = message.ext.extra?message.ext.extra:'';
             console.log(message.ext.ts - sendMsgTs);
+            console.log(message.ext.mt, message.ext.on);
             // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
-            if (message.ext.on) {
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;"><img height="250" src="' + Common.globalTransferUrl() + message.ext.on + '"/></span></div></li>';
-            } else {
+            if(judgeType(message.ext.mt, message.ext.on) == 'img') {
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;display:inline-block"><img height="250" onclick="gotoSingle(\''+Common.globalTransferUrl()+message.ext.on+'\')"  src="' +Common.globalTransferUrl()+ message.ext.on + '@350w"/></span></div></li>';
+            }else if(judgeType(message.ext.mt, message.ext.on) == 'txt'){
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block" onclick="viewDoc(\'' + message.ext.fn + '\',\'' + message.ext.on + '\')">文档：' + message.ext.on + '</span></div></li>';
+            }else if(message.ext.mt == 8 || message.ext.mt == 9 || message.ext.mt == 99){
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block">收费名片<br/>收款方：'+message.ext.nm+'<br/>收费项目：'+message.data+'<br/>收费金额：'+formartDecimal(message.ext.p)+' 元<br/>备注信息：'+extra+'<br/><a onClick="weixinpay(\''+message.ext.mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span></div></li>';
+            }else{
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
             }
+            console.log(theOne);
 
             //console.log(isRepeat(message.ext.mi,globalMsgList));
             //过滤重复消息
@@ -125,8 +133,9 @@ $(function() {
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
-                        var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')"  src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        var isPay = newArrs[i].pay ? 'inline-block' : 'none';
+                        var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay ? 'none' : 'inline-block';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')"  src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $(comments).insertBefore('.chat_list li:eq(0)');
@@ -166,6 +175,28 @@ $(function() {
             }
         });
     }
+
+    //小数点后保留两位数
+    function formartDecimal(x){
+      var f_x = parseFloat(x);
+      if (isNaN(f_x)) {
+          //alert('function:changeTwoDecimal->parameter error');
+          return false;
+      }
+      var f_x = Math.round(x * 100) / 100;
+      var s_x = f_x.toString();
+      var pos_decimal = s_x.indexOf('.');
+      if (pos_decimal < 0) {
+          pos_decimal = s_x.length;
+          s_x += '.';
+      }
+      while (s_x.length <= pos_decimal + 2) {
+          s_x += '0';
+      }
+      return s_x;
+    }
+
+    
 
     $("#chat_btn").on('click', function() {
         // sendText();
@@ -230,6 +261,7 @@ $(function() {
                     for (var i = 0; i < data.mb.length; i++) {
                         if (data.mb[i].i.indexOf('e') > -1) {
                             targetUri = data.mb[i].i;
+                            expType = data.mb[i].expt;
                             // console.log(targetUri);
                         }
                     }
@@ -291,8 +323,9 @@ $(function() {
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
-                        var isMsg = newArrs[i].pic || newArrs[i].doc ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')" src="' + newArrs[i].pic + '"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        var isPay = newArrs[i].pay ? 'inline-block' : 'none';
+                        var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay ? 'none' : 'inline-block';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')" src="' + newArrs[i].pic + '"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：' + newArrs[i].docName + '</span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
@@ -324,6 +357,7 @@ $(function() {
     }) 
 
     function judgeType(msgtype, ossname) {
+      // msgtype  1  表示文件和图片   msgtype  12  表示音频文件
         if (msgtype == 1 || msgtype == 12) {
             if (ossname) {
                 if (ossname.indexOf('.jpg') > -1 || ossname.indexOf('.jpeg') > -1 || ossname.indexOf('.png') > -1) {
@@ -419,6 +453,20 @@ function getUserContent(){
     }
   })
 }
+// 跳转到收费名片调起支付
+function weixinpay(mi){
+  var sess = Common.getUrlParam('session');
+  var url = '';
+  var str = window.location.href;
+  if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+    url = 'http://t-mshare.green-stone.cn'
+  }else{
+    url = 'http://mshare.green-stone.cn'
+  }
+  window.location.href = url + '/htm/react/card.html?session='+sess+'&mi='+mi+'&expType='+expType;
+}
+
+
 function gotoSingle(src){
       console.log(src);
       var photoLists = [];
