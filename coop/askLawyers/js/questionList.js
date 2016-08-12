@@ -162,7 +162,8 @@ function callPay() {
 // 点击咨询新问题跳转发布问题页
 $('#pub_btn').click(function(){
 	var userUri = Common.getUrlParam('userUri');
-	window.location.href = 'publishQuestions.html?session='+session+'&userUri='+userUri;
+  var deptUri = Common.getUrlParam('deptUri');
+	window.location.href = 'publishQuestions.html?session='+session+'&userUri='+userUri+'&deptUri='+deptUri;
 })
 
 

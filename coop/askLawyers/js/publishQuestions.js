@@ -41,9 +41,19 @@ function gotoPay() {
       alert('咨询问题不能超过六十个字！');
       return;
     }
-    var data = {
+    var deptUri = Common.getUrlParam('deptUri');
+    var data = {};
+    if(deptUri){
+      data = {
+        'c': text, //问题描述
+        'b': bound, //int 金额
+        'do': deptUri//机构uri
+      }
+    }else{
+      data = {
        'c': text, //问题描述
        'b': bound //int 金额
+      }
     }
     $.ajax({
       type: 'POST',
