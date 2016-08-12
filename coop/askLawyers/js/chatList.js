@@ -463,7 +463,7 @@ function weixinpay(mi){
   }else{
     url = 'http://mshare.green-stone.cn'
   }
-  window.location.href = url + '/htm/react/card.html?session='+sess+'&mi='+mi+'&expType='+expType;
+  window.location.href = url + '/htm/react/card.html?session='+sess+'&mi='+mi+'&expType='+expType+'&locate='+encodeURI(str);
 }
 
 
