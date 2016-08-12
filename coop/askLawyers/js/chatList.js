@@ -38,7 +38,7 @@ $(function() {
             if(judgeType(message.ext.mt, message.ext.on) == 'img') {
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;display:inline-block"><img height="250" onclick="gotoSingle(\''+Common.globalTransferUrl()+message.ext.on+'\')"  src="' +Common.globalTransferUrl()+ message.ext.on + '@350w"/></span></div></li>';
             }else if(judgeType(message.ext.mt, message.ext.on) == 'txt'){
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block" onclick="viewDoc(\'' + message.ext.fn + '\',\'' + message.ext.on + '\')">文档：<a href="javascript:void(0);">' + message.ext.fn + '</a></span></div></li>';
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block" onclick="viewDoc(\'' + message.ext.on + '\')">文档：<a href="javascript:void(0);">' + message.ext.fn + '</a></span></div></li>';
             }else if(message.ext.mt == 8 || message.ext.mt == 9 || message.ext.mt == 99){
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block">收费名片<br/>收款方：'+message.ext.nm+'<br/>收费项目：'+message.data+'<br/>收费金额：'+formartDecimal(message.ext.p)+' 元<br/>备注信息：'+extra+'<br/><a onClick="weixinpay(\''+message.ext.mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span></div></li>';
             }else{
@@ -135,7 +135,7 @@ $(function() {
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
                         var isPay = newArrs[i].pay ? 'inline-block' : 'none';
                         var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')"  src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')"  src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $(comments).insertBefore('.chat_list li:eq(0)');
@@ -325,7 +325,7 @@ $(function() {
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
                         var isPay = newArrs[i].pay ? 'inline-block' : 'none';
                         var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')" src="' + newArrs[i].pic + '"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].fn + '\',\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="250" onclick="gotoSingle(\''+newArrs[i].pic+'\')" src="' + newArrs[i].pic + '"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
@@ -528,26 +528,28 @@ function fixSrc(src) {
     return temp;
 }
 
-function viewDoc(name, docname) {
-    console.log('name:' + docname);
+function viewDoc(name) {
+    console.log('name:' + name);
     var tempObj = {
-        ossFN: docname,
-        newFN: name + '.html'
+        ossFN: name,
+        newFN: fixSrc(name) + '.html'
     }
 
     $.ajax({
         type: 'post',
-        url: Common.globalDistUrl() + '/data/CommConvert.do?session=' + session,
+        url: Common.globalDistUrl() + 'data/CommConvert.do?session=' + session,
         data: JSON.stringify(tempObj),
         success: function(data) {
             console.log(data);
             if (data.c == 1000) {
                 // console.log(Common.globalTransferUrl()+fixSrc(docname)+'.html');
-                window.location.href = 'empty.html?name=' + fixSrc(docname);
+                window.location.href = 'empty.html?name=' + fixSrc(name);
+            }else if(data.c == 1999){
+              alert('打开文档失败');
             }
         },
         error: function(xhr, status, err) {
-            that.showAlert('系统开了小差，请刷新页面');
+            alert('系统开了小差，请刷新页面');
         }
     });
 }
