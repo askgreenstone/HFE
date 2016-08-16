@@ -250,7 +250,9 @@ var Dynamic = React.createClass({
         data: JSON.stringify(data),
         success: function(data) {
           console.log(data);
-          this.getDynamicComment()
+          if(data.c == 1000){
+            this.getDynamicComment()
+          }
         }.bind(this),
         error: function(data) {
             // console.log(data);
@@ -294,6 +296,32 @@ var Dynamic = React.createClass({
     }
     // console.log(descArr);
     return descArr.join("、");
+  },
+  gotoConsult:function(){
+    var session = this.getUrlParams('session');
+    var ownUri = this.getUrlParams('ownUri');
+    var usrUri = this.getUrlParams('usrUri');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var data = {
+      t: 99,
+      ml: [ownUri,usrUri]
+    }
+    $.ajax({
+      type: 'POST',
+      url: global.url+'/usr/CreateGroup.do?session='+session,
+      data: JSON.stringify(data),
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          window.location.href = global.url + '/coop/askLawyers/view/chatList.html?session='+session+'&groupId='+data.gi+'&ownUri='+ownUri+'&status=chatLawyers&usrUri='+usrUri+'&ida='+ida;
+        }
+        this.getDynamicComment()
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+          alert('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
@@ -377,7 +405,7 @@ var Dynamic = React.createClass({
             <p className="dynamic_exp_name">
               <span>{this.state.nm}</span><br/>
               <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}等</span>
-              <img className="dynamic_usr_consult" src="image/LatestNews/consult.png"/>
+              <img className="dynamic_usr_consult" onClick={this.gotoConsult} src="image/LatestNews/consult.png"/>
             </p>
           </div>
         </div>       
