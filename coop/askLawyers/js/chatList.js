@@ -11,6 +11,7 @@ var globalTs = '';
 var sendMsgTs = new Date().getTime();
 var globalMsgList = [];
 var expType = '';
+var st;
 
 
 $(function() {
@@ -412,6 +413,7 @@ $(function() {
         qid = Common.getUrlParam('qid');
         gi = Common.getUrlParam('groupId');
         userUri = Common.getUrlParam('userUri');
+        st = Common.getUrlParam('st');
         // console.log(session);
         wxSignature();
         getUserToken();

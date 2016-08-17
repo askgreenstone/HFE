@@ -305,9 +305,10 @@ var CommonMixin = {
     return tempType;
   },
   //微信授权，获取appid
-  getWXMsg:function(ownUri,ida){
+  getWXMsg:function(ownUri,ida,st){
         var wxPath = window.location.href,
-            uri = encodeURIComponent(wxPath.toString());
+            uri = encodeURIComponent(wxPath.toString()),
+            st = ;
         $.ajax({
             type: 'get',
             url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
@@ -321,7 +322,7 @@ var CommonMixin = {
                   }else{
                     temp = 'web';
                   }
-                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'_'+ida+'#wechat_redirect';
+                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'_'+ida+'_0_'+st+'#wechat_redirect';
                 }
             },
             error: function(xhr, status, err) {
@@ -338,27 +339,22 @@ var CommonMixin = {
       ownUri = this.checkDevOrPro();
       // console.log(ownUri);
     }
-    var ida = this.getUrlParams('ida');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var st;
+    if(ida == 1){
+      st = 2
+    }
     if(!type) return;
     if(type=='telphone'){
       this.staticWebPV(2);
     }else if(type == 'searchLawyers'){
       // WeixinJSBridge.call('closeWindow');
+      // 专业团队菜单（乔凡：机构特有菜单，跳转到找律师界面）
       var ownUri = this.getUrlParams('ownUri');
-      var ida = this.getUrlParams('ida');
-      if(ownUri){
-        if(ida){
-          location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri+'&ida='+ida;
-        }else{
-          location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri;
-        }
-      }else{
-        location.href = global.mshare+'htm/react/index.html#/lawyer';
-      }
-      
+      location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri+'&ida='+ida+'&st=2';
      }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
-      this.getWXMsg(ownUri,ida);
+      this.getWXMsg(ownUri,ida,st);
      }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入

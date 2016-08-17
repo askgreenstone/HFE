@@ -1,4 +1,5 @@
 var session;
+var st;
 $(document).ready(function() {
   init();
 });
@@ -6,6 +7,7 @@ $(document).ready(function() {
 
 function init(){
   session = Common.getUrlParam('session');
+  st = Common.getUrlParam('st')?Common.getUrlParam('st'):3;
   console.log(session);
   getQuestionList();
 }
@@ -75,9 +77,9 @@ $('.que_list').on('click','li',function(){
 		alert('该问题尚未被专家抢答！');
 		getQuestionList();
 	}else if(ic == 0){
-		window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId+'&status=chat';
+		window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId+'&st='+st+'&status=chat';
 	}else if(ic == 1){
-    window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId+'&status=close';
+    window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId+'&st='+st+'&status=close';
   }
 })
 
@@ -90,7 +92,8 @@ function onTrade(questionId,bound){
         'p': 2, //int 支付方式，0 账户余额 1 支付宝 2 微信支付
         't': 27, //int 交易类型。悬赏提问
         'from': 3, //int 客户端来源 3 web
-        'gi': questionId   //问题ID，标志参数
+        'gi': questionId,   //问题ID，标志参数
+        'st': st
       };
   $.ajax({
         type: 'POST',
@@ -133,7 +136,7 @@ function onBridgeReady() {
             if (res.err_msg.indexOf('ok') > -1) {
               // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
                 // alert('支付成功！')
-                window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri;
+                window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri+'&st='+st;
                 // location.href = '/htm/react/success.html';
             } else if (res.err_msg.indexOf('cancel') > -1) {
                 //alert('取消支付！');
@@ -163,7 +166,7 @@ function callPay() {
 $('#pub_btn').click(function(){
 	var userUri = Common.getUrlParam('userUri');
   var deptUri = Common.getUrlParam('deptUri');
-	window.location.href = 'publishQuestions.html?session='+session+'&userUri='+userUri+'&deptUri='+deptUri;
+	window.location.href = 'publishQuestions.html?session='+session+'&userUri='+userUri+'&deptUri='+deptUri+'&st='+st;
 })
 
 

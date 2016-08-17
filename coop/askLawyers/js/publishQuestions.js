@@ -1,6 +1,8 @@
 var session;
 var payParams;
 var userUri;
+var deptUri;
+var st;
 var doubleClickFlag = true;
 $(document).ready(function() {
   init();
@@ -10,6 +12,8 @@ $(document).ready(function() {
 function init(){
   session = Common.getUrlParam('session');
   userUri = Common.getUrlParam('userUri');
+  deptUri = Common.getUrlParam('deptUri');
+  st = Common.getUrlParam('st')?Common.getUrlParam('st'):3;
   console.log(session);
 }
 
@@ -41,18 +45,19 @@ function gotoPay() {
       alert('咨询问题不能超过六十个字！');
       return;
     }
-    var deptUri = Common.getUrlParam('deptUri');
     var data = {};
     if(deptUri){
       data = {
         'c': text, //问题描述
         'b': bound, //int 金额
-        'do': deptUri//机构uri
+        'do': deptUri,//机构uri
+        'st': st
       }
     }else{
       data = {
        'c': text, //问题描述
-       'b': bound //int 金额
+       'b': bound, //int 金额
+       'st': st
       }
     }
     $.ajax({
@@ -64,7 +69,7 @@ function gotoPay() {
         console.log(data);
         if(data.c == 1000){
           if(bound == 0){
-            window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri;
+            window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri+'&st='+st;
           }else{
             // alert(data.qi);
             onTrade(data.qi,bound);
@@ -79,6 +84,7 @@ function gotoPay() {
 
 
 function onTrade(questionId,bound){
+  // （注意）乔凡：问题列表页也有一次支付功能
   var payInfo = {
         'd': '发布悬赏', //描述
         'dt': 0, //int 目标类型，0 系统 1 用户 2 专家
@@ -86,7 +92,8 @@ function onTrade(questionId,bound){
         'p': 2, //int 支付方式，0 账户余额 1 支付宝 2 微信支付
         't': 27, //int 交易类型。悬赏提问
         'from': 3, //int 客户端来源 3 web
-        'gi': questionId   //问题ID，标志参数
+        'gi': questionId,   //问题ID，标志参数
+        'st':st
       };
   $.ajax({
         type: 'POST',
@@ -129,7 +136,7 @@ function onBridgeReady() {
             if (res.err_msg.indexOf('ok') > -1) {
               // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
                 // alert('支付成功！')
-                window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri;
+                window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri+'&st='+st;
                 // location.href = '/htm/react/success.html';
             } else if (res.err_msg.indexOf('cancel') > -1) {
                 //alert('取消支付！');
@@ -151,22 +158,6 @@ function callPay() {
         }
     } else {
         onBridgeReady();
-    }
-}
-
-//获取url中的参数
-function getUrlParams(p) {
-    var url = location.href;
-    var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
-    var paraObj = {};
-    for (i = 0; j = paraString[i]; i++) {
-        paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
-    }
-    var returnValue = paraObj[p.toLowerCase()];
-    if (typeof(returnValue) == "undefined") {
-        return "";
-    } else {
-        return returnValue;
     }
 }
 
