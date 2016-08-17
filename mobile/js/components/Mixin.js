@@ -307,8 +307,7 @@ var CommonMixin = {
   //微信授权，获取appid
   getWXMsg:function(ownUri,ida,st){
         var wxPath = window.location.href,
-            uri = encodeURIComponent(wxPath.toString()),
-            st = ;
+            uri = encodeURIComponent(wxPath.toString());
         $.ajax({
             type: 'get',
             url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
