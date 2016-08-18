@@ -409,7 +409,7 @@ var Dynamic = React.createClass({
             </p>
           </div>
         </div>       
-        
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic"/>
       </div>
     )
   }
