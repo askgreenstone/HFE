@@ -36,7 +36,7 @@ $('.pub_money_box li').bind('click', function(){
 $('#pub_btn').bind('click', controlTimes);
 
 function gotoPay() {
-    var text = $('.pub_area').val();
+    var text = $('.pub_area .pub_area').val();
     var bound = $('.pub_money_box li.active').text();
     if(!text){
       alert('请填写您要咨询的问题！');
