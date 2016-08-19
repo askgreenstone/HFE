@@ -323,6 +323,10 @@ var Dynamic = React.createClass({
       }.bind(this)
     })
   },
+  gotoIndex: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
@@ -401,7 +405,7 @@ var Dynamic = React.createClass({
             </div>
           </div>
           <div className="dynamic_exp_top dynamic_exp_chat">
-            <img className="dynamic_exp_img" src={global.img+this.state.head} width="65" height="65"/>
+            <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="65" height="65"/>
             <p className="dynamic_exp_name">
               <span>{this.state.nm}</span><br/>
               <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}等</span>
