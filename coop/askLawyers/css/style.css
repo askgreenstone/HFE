@@ -102,6 +102,9 @@ p {
 .pub_money_box li span{
   font-size: 1rem;
 }
+.pub_money_box li i{
+  font-style: normal;
+}
 .pub_money_box li.active{
   background: #5595E3;
   color: #fff;
