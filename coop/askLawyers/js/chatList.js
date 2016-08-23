@@ -7,6 +7,7 @@ var appKey = '';
 var scroll_offset = 0;
 var qid, gi;
 var targetUri = '';
+var name = '';
 var globalTs = '';
 var sendMsgTs = new Date().getTime();
 var globalMsgList = [];
@@ -262,6 +263,7 @@ $(function() {
                     for (var i = 0; i < data.mb.length; i++) {
                         if (data.mb[i].i.indexOf('e') > -1) {
                             targetUri = data.mb[i].i;
+                            name = data.mb[i].n;
                             expType = data.mb[i].expt;
                             // console.log(targetUri);
                         }
@@ -354,7 +356,22 @@ $(function() {
       var ownUri = Common.getUrlParam('ownUri');
       var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
       console.log(Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida);
-      window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
+      $.ajax({
+        type : 'POST',
+        url : Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri,
+        success : function(data){
+          console.log(data);
+          if(data.c == 1999){
+            alert(name+'律师还没有创建工作室！')
+          }else{
+            window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
+          }
+        },
+        error : function(){
+          alert('网络连接错误或服务器异常！')
+        } 
+      })
+      // window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
     }) 
 
     function judgeType(msgtype, ossname) {
