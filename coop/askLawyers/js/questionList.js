@@ -77,9 +77,9 @@ $('.que_list').on('click','li',function(){
 		alert('该问题尚未被专家抢答！');
 		getQuestionList();
 	}else if(ic == 0){
-		window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId+'&st='+st+'&status=chat';
+		window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&usrUri='+userUri+'&groupId='+groupId+'&st='+st+'&status=chat';
 	}else if(ic == 1){
-    window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&userUri='+userUri+'&groupId='+groupId+'&st='+st+'&status=close';
+    window.location.href = 'chatList.html?session='+session+'&qid='+qid+'&usrUri='+userUri+'&groupId='+groupId+'&st='+st+'&status=close';
   }
 })
 
