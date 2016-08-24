@@ -263,15 +263,16 @@ var Dynamic = React.createClass({
   },
   dynamicBindScroll: function(){
     $(document).ready(function() {
-      $('.dynamic_top').bind('scroll',function() {
+      $('.dynamic_contaniner').bind('scroll',function() {
         var top = $(this)[0].scrollTop;
-        var height = $('.dynamic_top').height();
-        // console.log(top);
-        // console.log(height);
+        var height = $('.dynamic_contaniner')[0].scrollHeight;
+        var winH = $(window).height();
+        console.log(top);
+        console.log(height);
         var scrollHeight = $('.dynamic_top')[0].scrollHeight;
         if(top == 0){
           $('.dynamic_exp_chat').css({'position':'absolute','display':'-webkit-box'});
-        }else if(top + height < scrollHeight){
+        }else if(top + winH + 100 < height){
           $('.dynamic_exp_chat').css({'display':'none'});
         }else{
           $('.dynamic_exp_chat').css({'position':'relative','display':'-webkit-box'});

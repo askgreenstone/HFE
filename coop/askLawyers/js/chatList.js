@@ -204,12 +204,16 @@ $(function() {
         // sendText();
         var userInput = $('.chat_inp').val(),
             gi = Common.getUrlParam('groupId'),
-            userUri = Common.getUrlParam('userUri');
+            userUri = Common.getUrlParam('usrUri');
         // console.log(userInput);
         if (!userInput) {
             alert('发送消息不能为空！');
             return;
         }
+        console.log(session);
+        console.log(gi);
+        console.log(userUri);
+        console.log(pageImg);
         if (!session || !gi || !userUri|| !pageImg) return;
         var tempObj = {
                 target: [gi],

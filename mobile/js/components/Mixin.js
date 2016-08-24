@@ -321,6 +321,7 @@ var CommonMixin = {
                   }else{
                     temp = 'web';
                   }
+                  // micwebchat后接四个参数，下划线链接  _ownUri_ida_groupId_sourceTtpe
                   location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'_'+ida+'_0_'+st+'#wechat_redirect';
                 }
             },
