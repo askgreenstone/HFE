@@ -267,8 +267,8 @@ var Dynamic = React.createClass({
         var top = $(this)[0].scrollTop;
         var height = $('.dynamic_contaniner')[0].scrollHeight;
         var winH = $(window).height();
-        console.log(top);
-        console.log(height);
+        // console.log(top);
+        // console.log(height);
         var scrollHeight = $('.dynamic_top')[0].scrollHeight;
         if(top == 0){
           $('.dynamic_exp_chat').css({'position':'absolute','display':'-webkit-box'});
@@ -406,7 +406,7 @@ var Dynamic = React.createClass({
             </div>
           </div>
           <div className="dynamic_exp_top dynamic_exp_chat">
-            <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="65" height="65"/>
+            <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="60" height="60"/>
             <p className="dynamic_exp_name">
               <span>{this.state.nm}</span><br/>
               <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}等</span>

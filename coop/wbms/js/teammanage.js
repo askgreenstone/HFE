@@ -152,24 +152,24 @@ jQuery(function($){
                   + '<img class="teamManage_delete" src="../image/delete.png"></li>'
           }
           $('#teamManage_lawyerList').html(html);
-          var list = $(html);
-          for(var i=0;i<list.length;i++){
-            console.log($(list[i]).attr('showId'));
-            if($(list[i]).attr('showId') == ei){
-              var showId = $(list[i]).attr('showId');
-              var lawyerTel = $(list[i]).attr('lawyerTel');
-              var str = '<li class="teamManage_close" selectId="'+showId+'" lawyerTel='+lawyerTel+'>'+$(list[i]).html()+'</li>';
-              var lawyerTellist = [];
-              var lawyerTellists = $('#teamManage_selectList li');
-              for(var i=0;i<lawyerTellists.length;i++){
-                lawyerTellist.push($(lawyerTellists[i]).attr('lawyerTel'));
-              }
-              // console.log(lawyerTellist);
-              if($.inArray(lawyerTel,lawyerTellist) == -1){
-                $('#teamManage_selectList').append(str);
-              }
-            }
-          }
+          // var list = $(html);
+          // for(var i=0;i<list.length;i++){
+          //   console.log($(list[i]).attr('showId'));
+          //   if($(list[i]).attr('showId') == ei){
+          //     var showId = $(list[i]).attr('showId');
+          //     var lawyerTel = $(list[i]).attr('lawyerTel');
+          //     var str = '<li class="teamManage_close" selectId="'+showId+'" lawyerTel='+lawyerTel+'>'+$(list[i]).html()+'</li>';
+          //     var lawyerTellist = [];
+          //     var lawyerTellists = $('#teamManage_selectList li');
+          //     for(var i=0;i<lawyerTellists.length;i++){
+          //       lawyerTellist.push($(lawyerTellists[i]).attr('lawyerTel'));
+          //     }
+          //     // console.log(lawyerTellist);
+          //     if($.inArray(lawyerTel,lawyerTellist) == -1){
+          //       $('#teamManage_selectList').append(str);
+          //     }
+          //   }
+          // }
         }
       },
       error: function(){
