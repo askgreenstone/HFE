@@ -433,7 +433,7 @@ $(function() {
         session = Common.getUrlParam('session');
         qid = Common.getUrlParam('qid');
         gi = Common.getUrlParam('groupId');
-        userUri = Common.getUrlParam('userUri');
+        userUri = Common.getUrlParam('usrUri');
         st = Common.getUrlParam('st');
         // console.log(session);
         wxSignature();
@@ -462,7 +462,7 @@ $(function() {
 
 
 function getUserContent(){
-  var userUri = Common.getUrlParam('userUri');
+  var userUri = Common.getUrlParam('usrUri');
   $.ajax({
     type: 'GET',
     url: Common.globalDistUrl() + 'usr/GetLastEvaluate.do?session='+session+'&qi='+qid+'&uri='+userUri,
