@@ -136,7 +136,7 @@ function onBridgeReady() {
             if (res.err_msg.indexOf('ok') > -1) {
               // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
                 // alert('支付成功！')
-                window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri+'&st='+st;
+                window.location.href = 'questionList.html?session=' + session+'&usrUri='+userUri+'&st='+st;
                 // location.href = '/htm/react/success.html';
             } else if (res.err_msg.indexOf('cancel') > -1) {
                 //alert('取消支付！');
@@ -166,7 +166,7 @@ function callPay() {
 $('#pub_btn').click(function(){
 	var userUri = Common.getUrlParam('userUri');
   var deptUri = Common.getUrlParam('deptUri');
-	window.location.href = 'publishQuestions.html?session='+session+'&userUri='+userUri+'&deptUri='+deptUri+'&st='+st;
+	window.location.href = 'publishQuestions.html?session='+session+'&usrUri='+userUri+'&deptUri='+deptUri+'&st='+st;
 })
 
 
