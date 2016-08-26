@@ -1,4 +1,7 @@
 var openId = Common.getUrlParam('openId');
+var session = Common.getUrlParam('session');
+var onHeadImg;
+console.log(session);
 console.log(openId);
 
 
@@ -49,11 +52,13 @@ jQuery(function($){
   // 点击上传头像，跳转到裁切页面
   $('#wxRg_file').click(function(event) {
     var mwID = Common.getUrlParam('mwID');
-    var on = Common.getUrlParam('on');
-    if(on){
-      window.location.href = 'wxheadbg.html?mwID='+mwID+'&on='+on+'&openId=' + openId;
+    // var imgSrc = $('#wxRg_preview').attr('src');
+    // var img = imgSrc == '../image/head.png'?'':imgSrc;
+    // var on = Common.getUrlParam('on')?Common.getUrlParam('on'):img;
+    if(onHeadImg !== '../image/head.png'){
+      window.location.href = 'wxheadbg.html?mwID='+mwID+'&on='+onHeadImg+'&openId=' + openId+'&session='+session;
     }else{
-      window.location.href = 'wxheadbg.html?mwID='+mwID+'&openId=' + openId;
+      window.location.href = 'wxheadbg.html?mwID='+mwID+'&openId=' + openId+'&session='+session;
     }
   });
 
@@ -109,12 +114,45 @@ jQuery(function($){
   })
 
 
-  // 获取头像
-  function getHeadImg(){
-    var on = Common.getUrlParam('on');
-    var headImg = on?Common.globalTransferUrl()+on:'../image/head.png';
-    console.log(headImg);
-    $('#wxRg_preview').attr('src',headImg);
+  // 获取用户信息
+  function getUsrInfo(){
+    $.ajax({
+      type : 'GET',
+      url : Common.globalDistUrl() + 'exp/ExpertInfo.do?session='+ session,
+      success : function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          $('#name').val(data.n);
+          $('#depart').val(data.cn);
+          $('#tel').val(data.m);
+          $('#address').val(data.ad);
+          var on = Common.getUrlParam('on');
+          onHeadImg = on?on:(data.p?data.p:'header.jpg');
+          $('#wxRg_preview').attr('src',Common.globalTransferUrl()+onHeadImg);
+          var arr = data.eil;
+          var list = $('.profession_list li');
+          var specialStr = [];
+          if(arr){
+            for(var k=0;k<3;k++){
+              for(var i=0;i<list.length;i++){
+                if($(list[i]).attr('data-id') == arr[k]){
+                  $(list[i]).addClass('selected');
+                }
+              }
+              var eilArr = ['公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
+              specialStr.push(eilArr[k]);
+            }
+            var text = specialStr.join(',');
+            var innerText = text.length>19?text.substring(0,19)+'...':text;
+            $('.wxRegister_select').text(innerText);
+          }
+          
+        }
+      },
+      error : function(){
+        alert('网络连接错误或服务器异常！');
+      }
+    })
   }
 
 
@@ -212,7 +250,7 @@ jQuery(function($){
 
   //初始化数据
   function initAll() {
-    getHeadImg();
+    getUsrInfo();
   }
 
   initAll();

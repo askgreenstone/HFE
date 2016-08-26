@@ -31,7 +31,11 @@ var TimeAxis = React.createClass({
     return {datas:[],Abstract:'',Title:'',Introduction:'',Img:'',TimeAxis:[],getMore:false};
   },
   gotoLink: function(path,fid,session,usrUri){
-    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri;
+    if(!fid){
+      return;
+    }else{
+      location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri;
+    }
   },
   getMoreData: function(){
     var ownUri = this.getUrlParams('ownUri');

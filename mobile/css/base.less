@@ -1197,7 +1197,6 @@ p{
 }
 .dynamic_bot{
   background: #fff;
-  border-top: 1px solid #ccc;
   box-sizing: border-box;
   width: 100%;
 }
@@ -1294,29 +1293,33 @@ p{
 .dynamic_usr_latest{
   width: 65%;
   display: block;
+  height: 20px;
+  line-height: 20px;
 }
 .dynamic_usr_img{
-  width: 10%;
-  height: 30px;
+  width: 12%;
+  height: 20px;
   display: block;
   background-image: url('../image/LatestNews/heart.png');
   background-repeat: no-repeat;
   background-position: right 0px;
-  background-size: 30px;
+  background-size: 20px;
   margin-right: 5%;
+  line-height: 20px;
 }
 .dynamic_usr_img_nice{
-  background-position: right -30px; 
+  background-position: right -20px; 
 }
 .dynamic_usr_wc{
-  width: 20%;
-  height: 30px;
-  background: #afd3c0;
-  color: #fff;
-  text-align: center;
-  line-height: 30px;
+  width: 16%;
+  height: 20px;
   display: block;
-  border-radius: 3px;
+  background-image: url('../image/LatestNews/tip.png');
+  background-repeat: no-repeat;
+  background-position: right 2px;
+  background-size: 20px;
+  margin-right: 5%;
+  line-height: 20px;
 }
 .dynamic_usr_light{
   background-position: right -30px;
@@ -1346,7 +1349,6 @@ p{
   line-height: 3rem;
   display: block;
   border-radius: 3px;
-  margin-top: 3rem;
 }
 .dynamic_usr_word{
   width: 100%;
@@ -1362,15 +1364,12 @@ p{
   padding: 0.5rem 1rem;
   box-sizing: border-box;
   background: #afd3c0;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
 }
 .dynamic_usr_write{
   display: none;
-  position: absolute;
-  left: 0;
-  bottom: 0;
 }
 .dynamic_exp_chat .dynamic_exp_name{
   width: 70%;
@@ -1387,6 +1386,10 @@ p{
 .dynamic_exp_chat span.dynamic_exp_date span{
   color: #333;
   font-size: 1.2rem;
+}
+.dynamic_blank{
+  width: 100%;
+  height: 7rem;
 }
 /*适配手机*/
 @media screen and (width: 320px) {

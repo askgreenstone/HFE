@@ -144,8 +144,8 @@ jQuery(function($){
           for(var i=0;i<data.el.length;i++){
             var head = data.el[i].p?(Common.globalTransferUrl()+data.el[i].p):(Common.globalTransferUrl()+on);
             console.log(head);
-            var className = data.el[i].ei == ei?'teamManage_selected':'';
-            html += '<li showId='+data.el[i].ei+' lawyerTel='+data.el[i].mn+' class='+className+'>'
+            // var className = data.el[i].ei == ei?'teamManage_selected':'';
+            html += '<li showId='+data.el[i].ei+' lawyerTel='+data.el[i].mn+'>'
                   + '<div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+head+'">'
                   + '<div class="teamManage_imgMark"><img src="../image/lawSelect.png"/></div></div>'
                   + '<p><span class="teamManage_title_name">'+data.el[i].n+'</span><span> 律师</span></p>'

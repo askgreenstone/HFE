@@ -149,6 +149,8 @@ var Dynamic = React.createClass({
             usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
             esl: data.r.fl[0].esl
           })
+          // var top = $('.dynamic_contaniner')[0].scrollHeight;
+          // $('.dynamic_contaniner').scrollTop(top);
         }
       }.bind(this),
       error: function(data) {
@@ -193,8 +195,11 @@ var Dynamic = React.createClass({
   },
   wirteComment: function(){
     $('.dynamic_usr_write').show();
-    $('.dynamic_exp_chat').hide();
-    $('.dynamic_top').unbind('scroll');
+    console.log($('.dynamic_contaniner'));
+    var top = $('.dynamic_contaniner')[0].scrollHeight;
+    $('.dynamic_contaniner').scrollTop(top);
+    // $('.dynamic_exp_chat').hide();
+    // $('.dynamic_top').unbind('scroll');
   },
   setComment: function(){
     var val = $('.dynamic_usr_write textarea').val();
@@ -219,9 +224,11 @@ var Dynamic = React.createClass({
           console.log(data);
           if(data.c == 1000){
             $('.dynamic_usr_write').hide();
-            $('.dynamic_exp_chat').css({'position':'absolute','height':'7rem','padding':'0.5rem 1rem','display':'-webkit-box'});
-            this.dynamicBindScroll();
+            $('.dynamic_usr_write textarea').val('');
+            // $('.dynamic_exp_chat').css({'position':'absolute','height':'7rem','padding':'0.5rem 1rem','display':'-webkit-box'});
+            // this.dynamicBindScroll();
             this.getDynamicComment();
+           
           }
         }.bind(this),
         error: function(data) {
@@ -335,7 +342,7 @@ var Dynamic = React.createClass({
     //   console.log($('.dynamic_top'));
     //   console.log($('.dynamic_top')[0].scrollHeight);
     // })
-    this.dynamicBindScroll();
+    // this.dynamicBindScroll();
   },
   componentWillMount:function(){
     this.getShareInfo();
@@ -356,7 +363,7 @@ var Dynamic = React.createClass({
       return(
         <div key={new Date().getTime()+i}>
           <div className="dynamic_exp_top">
-            <img className="dynamic_exp_img" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="65" height="65"/>
+            <img className="dynamic_exp_img" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="40" height="40"/>
             <p className="dynamic_exp_name">
               <span>{item.nm}</span><br/>
               <span className="dynamic_exp_date">{this.getDate(item.ts)}</span>
@@ -392,19 +399,22 @@ var Dynamic = React.createClass({
           <div className="dynamic_usr_content">
             <div className="dynamic_usr_news">
               <span className="dynamic_usr_latest">最新评论</span>
-              <span className={this.state.praiseFlag?'dynamic_usr_img dynamic_usr_img_nice':'dynamic_usr_img'} onClick={this.setPraise}></span>
-              <span className="dynamic_usr_wc" onClick={this.wirteComment}>写评论</span>
+              <span className={this.state.praiseFlag?'dynamic_usr_img dynamic_usr_img_nice':'dynamic_usr_img'} onClick={this.setPraise}>赞</span>
+              <span className="dynamic_usr_wc" onClick={this.wirteComment}>评论</span>
             </div>
             {usrContent}            
           </div>
-        </div>
-        <div className="dynamic_bot">
           <div className="dynamic_usr_content dynamic_usr_write">
             <div className="dynamic_usr_box">
               <textarea placeholder="写评论..."></textarea>
               <span onClick={this.setComment}>发送</span>
             </div>
           </div>
+        </div>
+        <div className="dynamic_blank">
+
+        </div>
+        <div className="dynamic_bot">
           <div className="dynamic_exp_top dynamic_exp_chat">
             <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="60" height="60"/>
             <p className="dynamic_exp_name">
