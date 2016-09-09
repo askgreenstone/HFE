@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>申请入驻列表</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <style>
+    html,body{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #myapp{
+      width: 100%;
+      height: 100%;
+      padding: .5rem;
+      box-sizing: border-box;
+    }
+    ul{
+      width: 100%;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border-bottom: none;
+    }
+    li{
+      width: 100%;
+      height: 3.5rem;
+      line-height: 3.5rem;
+      display: box;
+      display: -webkit-box;
+      border-bottom: 1px solid #ccc;
+    }
+    li span{
+      text-align: center;
+      border-right: 1px solid #ccc;
+      font-size: 1.2rem;
+    }
+    li .first{
+      width: 40px;
+      display: block;
+    }
+    li .second{
+      width: 50px;
+      display: block;
+    }
+    li .third{
+      box-flex: 1;
+      -webkit-box-flex: 1;
+      display: block;
+    }
+    li .fourth{
+      width: 85px;
+      display: block;
+      border-right: none;
+    }
+    .btnGroups{
+      width: 100%;
+      height: 3.5rem;
+      display: box;
+      display: -webkit-box;
+      padding: 1rem 15%;
+      box-sizing: border-box;
+    }
+    .btnGroups span{
+      width: 25%;
+      height: 3rem;
+      display: block;
+      border: 1px solid #ccc;
+      text-align: center;
+      line-height: 3rem;
+      border-radius: 5px;
+      margin-right: 10%;
+      font-size: 1.4rem;
+    }
+
+    
+    /*适配手机*/
+    @media screen and (width: 320px) {
+      html {
+            font-size: 62.5%;
+        }
+    }
+    @media screen and (min-width: 321px) and (max-width: 360px) {
+      html {
+          font-size: 62.5%;
+      }
+    }
+
+    @media screen and (min-width: 361px) and (max-width: 376px) {
+      html {
+        font-size: 66.5%;
+      }
+    }
+
+    @media screen and (min-width: 377px) {
+      html {
+        font-size: 75.5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="myapp">
+    <ul>
+      
+    </ul>
+    <div class="btnGroups">
+      <span id="prev">上一页</span>
+      <span id="next">下一页</span>
+      <span id="pageCount"></span>
+    </div>
+  </div>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript">
+    var GlobalUrl;
+    var pageCount = 0;
+    if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+      GlobalUrl = 'http://t-dist.green-stone.cn';
+    }else{
+      GlobalUrl = 'http://dist.green-stone.cn';
+    }
+    function getUserList(page){
+      $.ajax({
+        type: 'GET',
+        url: GlobalUrl + '/usr/QueryMicWebEntry.do?page='+page+'&count=10',
+        success: function(data){
+          console.log(data);
+          if(data.c == 1000){
+            var str = '<li><span class="first">时间</span><span class="second">申请人</span><span class="third">机构名称</span><span class="fourth">手机号</span></li>';
+            if(data.li.length>0){
+              for(var i=0;i<data.li.length;i++){
+                str += '<li><span class="first">'+getTimeDate(data.li[i].t)+'</span><span class="second">'+data.li[i].n+'</span><span class="third">'+data.li[i].add+'</span><span class="fourth">'+data.li[i].m+'</span></li>'
+              }
+            }
+            console.log(str);
+            $('#myapp ul').html(str);
+            $('#pageCount').text('第'+(page+1)+'页')
+            console.log(page);
+            if(page == 0){
+              $('#prev').css({'visibility':'hidden'});
+            }else{
+              $('#prev').css({'visibility':'visible'});
+            }
+            console.log(data.li.length);
+            if(data.li.length < 10){
+              $('#next').css({'visibility':'hidden'});
+            }else{
+              $('#next').css({'visibility':'visible'});
+            }
+          }
+        },
+        error: function(){
+          alert('网络连接错误或服务器异常！')
+        }
+      })
+    }
+    function getTimeDate(num){
+      var date = new Date(num);
+      var month = date.getMonth()+1;
+      var day = date.getDate();
+      return month+'-'+day;
+    }
+    getUserList(pageCount);
+    $('#prev').click(function(){
+      pageCount--;
+      getUserList(pageCount);
+    })
+    $('#next').click(function(){
+      pageCount++;
+      getUserList(pageCount);
+    })
+  </script>
+</body>
+
+</html>

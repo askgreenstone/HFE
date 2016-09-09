@@ -45,7 +45,7 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
-                  vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
+                  vm.headImg = data.p?(vm.TransferUrl+ data.p):vm.TransferUrl+'header.jpg';;
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
                 }

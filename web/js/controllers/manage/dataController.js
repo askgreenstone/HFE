@@ -46,11 +46,7 @@ define(['App'], function(app) {
                 console.log(data);
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
-                  if(data.ida == 0){
-                    vm.orgOrPer = 'orgNotExist';
-                  }else{
-                    vm.orgOrPer = 'orgOrPer';
-                  }
+                  vm.orgOrPer = 'orgNotExist';
                   vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
