@@ -31,6 +31,31 @@ define(['App'], function(app) {
           return count;
         }
 
+
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
         vm.getQrCode = function(){
           $http({
                 method: 'GET',
@@ -399,6 +424,7 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.ida = Common.getUrlParam('ida');
+          vm.checkUsrOrOrg();
           vm.GetWxShare();
           vm.getQrCode();
         }

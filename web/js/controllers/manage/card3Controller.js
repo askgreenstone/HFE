@@ -57,7 +57,7 @@ define(['App'], function(app) {
                   }else{
                     vm.orgOrPer = 'orgOrPer';
                   }
-                  vm.headImg = vm.transferurl + data.p;
+                  vm.headImg = data.p?(vm.transferurl + data.p):vm.transferurl+'header.jpg';
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
                 }

@@ -47,7 +47,7 @@ define(['App'], function(app) {
                   }else{
                     vm.orgOrPer = 'orgOrPer';
                   }
-                  vm.headImg = vm.transferUrl+ data.p;
+                  vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
                 }
@@ -63,7 +63,7 @@ define(['App'], function(app) {
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebModel.do',
-                params: {
+                paramvm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';s: {
                     session: vm.sess,
                     ida: vm.ida
                 },

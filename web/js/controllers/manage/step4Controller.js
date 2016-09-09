@@ -28,7 +28,7 @@ define(['App','Sortable'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
-                  vm.headImg = vm.transferUrl+ data.p;
+                  vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
                 }
