@@ -92,9 +92,15 @@
           n: name,
           mn:tel
         }
+        var url = '';
+        if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t-dist')>-1){
+          url = 'http://t-dist.green-stone.cn';
+        }else{
+          url = 'http://dist.green-stone.cn';
+        }
         $.ajax({
           type: 'POST',
-          url: 'http://dist.green-stone.cn/exp/BatchCreateMicroWeb.do',
+          url: url+'/exp/BatchCreateMicroWeb.do',
           data: JSON.stringify(data),
           success: function(data){
             console.log(data);

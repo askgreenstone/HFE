@@ -22,12 +22,49 @@ define(['App'], function(app) {
         vm.ownUri = ''; //获取用户ownUri 
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.menuLinkReply = function(){
           console.log(vm.enable);
-          $window.location.href = '#/reply2?session='+vm.sess+'&enable='+vm.enable;
+          $window.location.href = '#/reply2?session='+vm.sess+'&enable='+vm.enable+'&ida='+vm.ida;
+        }
+
+
+        // 切换个人与机构
+        vm.switchPerOrg = function(num){
+          console.log(num);
+          if(num === 1){
+            window.location.href = '#/wx?session='+vm.sess+'&ida=1';
+          }else{
+            window.location.href = '#/wx?session='+vm.sess+'&ida=0';
+          }
+        }
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = vm.transferUrl + data.p;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
         }
 
         vm.wxAuthor = function(){
@@ -35,7 +72,8 @@ define(['App'], function(app) {
               method: 'get',
               url: GlobalUrl+'/exp/ThirdAuthRedirect.do',
               params: {
-                  session:vm.sess
+                  session:vm.sess,
+                  ida: vm.ida
               },
               data: {}
           }).
@@ -58,7 +96,8 @@ define(['App'], function(app) {
               method: 'get',
               url: GlobalUrl+'/exp/ThirdAuthInfoQuery.do',
               params: {
-                  session:vm.sess
+                  session:vm.sess,
+                  ida: vm.ida
               },
               data: {},
               headers : {'Content-Type':undefined}
@@ -196,7 +235,8 @@ define(['App'], function(app) {
               method: 'get',
               url: GlobalUrl+'/exp/ThirdGetsubReplay.do',
               params: {
-                  session:vm.sess
+                  session:vm.sess,
+                  ida: vm.ida
               },
               data: {}
           }).
@@ -319,7 +359,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {}
             }).
@@ -382,7 +423,10 @@ define(['App'], function(app) {
           $http({
               method: 'post',
               url: GlobalUrl+'/exp/ThirdSetSubReplay.do',
-              params:{session:vm.sess},
+              params:{
+                session:vm.sess,
+                ida: vm.ida
+              },
               data: data,
               headers : {'Content-Type':undefined}
           }).
@@ -405,7 +449,10 @@ define(['App'], function(app) {
           $http({
               method: 'post',
               url: GlobalUrl+'/exp/ExpertInfo.do',
-              params:{session:vm.sess},
+              params:{
+                session:vm.sess,
+                ida: vm.ida
+              },
               data: {}
           }).
           success(function(data) {
@@ -441,10 +488,13 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.getAuthenState();
           vm.getOwnUri();
           vm.checkAuthorParam();
-          // vm.getWxAuthorResult();
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.checkUsrOrOrg();
 
         }
 

@@ -1,5 +1,14 @@
 ﻿<div class="view">
-    <div class="view_title">工作室管理</div>
+  <div class="view_title">
+    工作室管理
+    <select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
+      <option ng-selected="vm.selectedState" value="">--请选择--</option>
+    </select>
+    <span class="perLawyer">
+      <img src= {{vm.headImg}} width="20" height="20">
+      {{vm.lawyerName}} 律师
+    </span>
+  </div>
     <div class="manage_content">
         <div class="mc_left">
             <ul class="mcl_list">

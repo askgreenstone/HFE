@@ -19,8 +19,8 @@
             <ul class="menu">
                 <li class="active"><a name="chat" href="javascript:void(0);" onclick="gotoWebsite('','chat')">咨询会话</a></li>
                 <li><a name="docs" href="javascript:void(0);" onclick="gotoWebsite('','file')">个人文档</a></li>
-                <li><a name="home" href="javascript:void(0);" onclick="gotoWebsite('','wkstation')">个人工作室</a></li>
-                <li><a name="circle" href="javascript:void(0);" onclick="gotoWebsite('','circle')">绿 石 圈</a></li>
+                <li style="display:none"><a name="home" href="javascript:void(0);" onclick="gotoWebsite('','wkstation')">个人工作室</a></li>
+                <li style="display:none"><a name="circle" href="javascript:void(0);" onclick="gotoWebsite('','circle')">绿 石 圈</a></li>
                 <li id="micro_manage"><a name="active-actmode-actexpired-manage-add-card-data-editor-list-micro-micro1-micro2-photo-preview-single-step1-step2-step3-step4-step5-wx" href="javascript:void(0);" onclick="gotoWebsite('true','active')">工作室管理</a></li>
             </ul>
             <div class="logout" onclick="logout()">注销登录</div>
@@ -91,15 +91,31 @@ function checkLinkOrigin(){
 }
 
 function gotoWebsite(news, which) {
-    var sess = getSession();
+    var sess = getUrlParam('session')?getUrlParam('session'):getSession();
     if (!sess) return;
     setCookie('session', sess, 24);
     if (news) {
-        window.location.href = '#' + which + '?session=' + sess;
+      var ida = getUrlParam('ida');
+      window.location.href = '#' + which + '?session=' + sess+'&ida='+ida;
     } else {
-        window.location.href = 'http://web.green-stone.cn/htm/index.html#!/' + which;
+      window.location.href = 'http://web.green-stone.cn/htm/index.html#!/' + which;
     }
 }
+
+function getUrlParam(p) {
+  var url = location.href; 
+  var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
+  var paraObj = {} ;
+  for (var i=0,j=0; j=paraString[i]; i++){ 
+    paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length); 
+  } 
+  var returnValue = paraObj[p.toLowerCase()]; 
+  if(typeof(returnValue)=="undefined"){ 
+    return ""; 
+  }else{ 
+    return  returnValue;
+  } 
+};
 
 function getCookie(name) {
     var cookieValue = "";

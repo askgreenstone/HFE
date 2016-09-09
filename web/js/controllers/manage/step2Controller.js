@@ -19,12 +19,36 @@ define(['App'], function(app) {
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
           $window.history.back();
         };
+
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = vm.transferUrl+ data.p;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
 
         // 图片裁切
         vm.initCropper = function() {
@@ -124,8 +148,16 @@ define(['App'], function(app) {
                 fd.append('h', vm.imgh);
                 fd.append('x', vm.imgx);
                 fd.append('y', vm.imgy);
+                var url;
+
+                // 乔凡  添加status＝complete控制工作室定制状态为完成
+                if(state == 'complete'){
+                  url = GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=3'+'&ida='+vm.ida+'&status=complete';
+                }else{
+                  url = GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=3'+'&ida='+vm.ida;
+                }
                 // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
-                $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=3', fd, {
+                $http.post(url, fd, {
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined
@@ -137,8 +169,10 @@ define(['App'], function(app) {
                     console.log(data);
                     vm.getLocationUrl();
                     if(state == 'next'){
-                    $window.location.href = '#/step3?session='+vm.sess;
-                  }
+                      $window.location.href = '#/step3?session='+vm.sess+'&ida='+vm.ida;
+                    }else if(state == 'complete'){
+                      $window.location.href = '#/micro1?session='+vm.sess+'&ida='+vm.ida;
+                    }
                 })
                 .error(function() {
                     Common.getLoading(false);
@@ -173,15 +207,16 @@ define(['App'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
                 params: {
-                    session:vm.sess
+                    session: vm.sess
                 },
                 data: {
-                    in:name,
-                    it:1,
-                    w:vm.imgw,
-                    h:vm.imgh,
-                    x:vm.imgx,
-                    y:vm.imgy
+                  in:name,
+                  it:1,
+                  w:vm.imgw,
+                  h:vm.imgh,
+                  x:vm.imgx,
+                  y:vm.imgy,
+                  ida: vm.ida
                 }
             }).
             success(function(data, status, headers, config) {
@@ -192,7 +227,9 @@ define(['App'], function(app) {
                   vm.chooseSourceBg(data.in,false);
                   vm.getLocationUrl();
                   if(state == 'next'){
-                    $window.location.href = '#/step3?session='+vm.sess;
+                    $window.location.href = '#/step3?session='+vm.sess+'&ida='+vm.ida;
+                  }else if(state == 'complete'){
+                    $window.location.href = '#/micro1?session='+vm.sess+'&ida='+vm.ida;
                   }
                 }
             }).
@@ -210,7 +247,8 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/QueryImgMaterial.do',
                 params: {
                     session:vm.sess,
-                    it:1
+                    it:1,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -234,7 +272,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebImgs.do',
                 params: {
-                    session:vm.sess
+                    session: vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -272,7 +311,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {}
             }).
@@ -295,8 +335,9 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.origin = Common.getUrlParam('from');
+          vm.ida = Common.getUrlParam('ida');
           vm.getLocationUrl();
-          //重新订制跳转后，通过该标识隐藏上一步按钮
+          //更换背景跳转后，通过该标识隐藏上一步按钮
           if(vm.origin){
             vm.originFlag = false;
           }
@@ -305,6 +346,7 @@ define(['App'], function(app) {
           }
           vm.getServerBg();
           vm.getSourceImage();
+          vm.checkUsrOrOrg();
         }
 
         init();

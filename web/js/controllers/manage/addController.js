@@ -24,17 +24,43 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
         }
 
         vm.gotoLink = function(){
-          location.href = '#/manage?session'+vm.sess;
+          location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
           // if(um) um.destroy();
           $window.history.back();
         };
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = vm.transferUrl + data.p;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
 
         vm.replaceHtmlTag = function(str){
           var newStr = str.replace(/<[^>].*?>/g,'');
@@ -89,7 +115,8 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
               method: 'POST',
               url: GlobalUrl+'/exp/SaveNewsContent.do',
               params: {
-                  session:vm.sess
+                  session:vm.sess,
+                  ida: vm.ida
               },
               data: datas
           }).
@@ -111,9 +138,9 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           // alert(nid);
           var newUrl = '';
           if(ntid){
-            newUrl = GlobalUrl+'/exp/QueryNewsContent.do?nId='+nid+'&session='+vm.sess+'&ntId='+ntid;
+            newUrl = GlobalUrl+'/exp/QueryNewsContent.do?nId='+nid+'&session='+vm.sess+'&ntId='+ntid+'&ida='+vm.ida;
           }else{
-            newUrl = GlobalUrl+'/exp/QueryNewsContent.do?nId='+nid+'&session='+vm.sess;
+            newUrl = GlobalUrl+'/exp/QueryNewsContent.do?nId='+nid+'&session='+vm.sess+'&ida='+vm.ida;
           }
           $http({
                 method: 'GET',
@@ -284,6 +311,10 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = decodeURI(Common.getUrlParam('ntId'));
           vm.nid = Common.getUrlParam('nid');
+          vm.ida = Common.getUrlParam('ida');
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.checkUsrOrOrg();
 
           // var editor = new UE.ui.Editor();
           // editor.render('editor');

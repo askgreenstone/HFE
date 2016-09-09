@@ -10,25 +10,51 @@ define(['App'], function(app) {
         vm.url = '';
         vm.ar = '';
         vm.oid = '';
+        vm.ida = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
           $window.history.back();
         };
 
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = vm.transferUrl+ data.p;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
         vm.getMicroImg = function(){
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebModel.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -91,7 +117,8 @@ define(['App'], function(app) {
               method: 'POST',
               url: GlobalUrl+'/exp/ChooseMicWebModel.do',
               params: {
-                  session:vm.sess
+                  session:vm.sess,
+                  ida: vm.ida
               },
               data: JSON.stringify(tempObj)
           }).
@@ -99,7 +126,7 @@ define(['App'], function(app) {
               console.log(data);
               if(data.c == 1000){
                 localStorage.ar = vm.ar;
-                $window.location.href = '#/step2?session='+vm.sess+'&ar='+vm.ar;
+                $window.location.href = '#/step2?session='+vm.sess+'&ar='+vm.ar+'&ida='+vm.ida;
               }
           }).
           error(function(data, status, headers, config) {
@@ -110,7 +137,9 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.getMicroImg();
+          vm.checkUsrOrOrg();
         }
 
         init();

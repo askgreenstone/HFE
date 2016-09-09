@@ -38,13 +38,13 @@ $(function() {
             console.log(message.ext.mt, message.ext.on);
             // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
             if(judgeType(message.ext.mt, message.ext.on) == 'img') {
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;display:inline-block"><img height="150" onclick="gotoSingle(\''+Common.globalTransferUrl()+message.ext.on+'\')"  src="' +Common.globalTransferUrl()+ message.ext.on + '@350w"/></span></div></li>';
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;display:inline-block"><img height="150" onclick="gotoSingle(\''+Common.globalTransferUrl()+message.ext.on+'\')"  src="' +Common.globalTransferUrl()+ message.ext.on + '@350w"/></span></div></li>';
             }else if(judgeType(message.ext.mt, message.ext.on) == 'txt'){
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block" onclick="viewDoc(\'' + message.ext.on + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + message.ext.fn + '</a></span></div></li>';
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block" onclick="viewDoc(\'' + message.ext.on + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + message.ext.fn + '</a></span></div></li>';
             }else if(message.ext.mt == 8 || message.ext.mt == 9 || message.ext.mt == 99){
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block">收费名片<br/>收款方：'+message.ext.nm+'<br/>收费项目：'+message.data+'<br/>收费金额：'+formartDecimal(message.ext.p)+' 元<br/>备注信息：'+extra+'<br/><a onClick="weixinpay(\''+message.ext.mi+'\')" style="text-decoration:underline" href="javascript:void(0);">点击此处，立即支付</a></span></div></li>';
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block">收费名片<br/>收款方：'+message.ext.nm+'<br/>收费项目：'+message.data+'<br/>收费金额：'+formartDecimal(message.ext.p)+' 元<br/>备注信息：'+extra+'<br/><a onClick="weixinpay(\''+message.ext.mi+'\')" style="text-decoration:underline" href="javascript:void(0);">点击此处，立即支付</a></span></div></li>';
             }else{
-                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '@80w"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span>' + message.data + '</span></div></li>';
             }
             console.log(theOne);
 
@@ -359,16 +359,16 @@ $(function() {
     $('.chat_goHome').on('click',function(){
       var ownUri = Common.getUrlParam('ownUri');
       var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
-      console.log(Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida);
+      console.log(Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida=0');
       $.ajax({
         type : 'POST',
-        url : Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri,
+        url : Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida=0',
         success : function(data){
           console.log(data);
           if(data.c == 1999){
             alert(name+'律师还没有创建工作室！')
           }else{
-            window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
+            window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida=0';
           }
         },
         error : function(){

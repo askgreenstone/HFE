@@ -133,7 +133,21 @@ Zepto(function($){
             //     window.location.href = 'view/active.html?session='+data.u.sid;
             //   }
             // }
-            getMicroState(data.u.sid);
+            // mws  主题定制状态  0未设置   1已设置   2已完成
+            if(data.u.mws == 0){
+              if(openid){
+                window.location.href = 'view/custom.html?session='+data.u.sid+'&openId='+openid;
+              }else{
+                window.location.href = 'view/custom.html?session='+data.u.sid;
+              }
+            }else{
+              if(openid){             
+                window.location.href = Common.globalDistUrl()+'usr/ThirdHomePage.do?ownUri='+data.u.ja+'&sess='+data.u.sid+'&openId='+openid+'&ida=0';
+              }else{
+                window.location.href = Common.globalDistUrl()+'usr/ThirdHomePage.do?ownUri='+data.u.ja+'&sess='+data.u.sid+'&ida=0';
+              }
+            }
+            
           }
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');

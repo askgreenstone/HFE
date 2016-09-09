@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="addQuestion">
+<head>
+    <title>添加预置谜题</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0" />
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="../js/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../js/angularjs1.3.15/angular.min.js"></script>
+    <script type="text/javascript" src="../js/layer/layer.min.js"></script>
+    <script type="text/javascript" src="../js/addQuestion.js"></script>
+</head>
+<body ng-controller="addQuesCtr">
+<hr>
+<div class="input-group">
+    <span class="input-group-addon" >谜题名称</span>
+    <input type="text" class="form-control" placeholder="谜题名称" ng-model="question.ti" aria-describedby="sizing-addon2">
+</div>
+<hr>
+<div class="input-group">
+    <span class="input-group-addon" >谜题提示</span>
+    <input type="text" class="form-control" placeholder="谜题提示" ng-model="question.tp" aria-describedby="sizing-addon2">
+</div>
+<hr>
+<div class="input-group">
+    <span class="input-group-addon" >谜题答案</span>
+    <input type="text" class="form-control" placeholder="谜题答案" ng-model="question.ct" aria-describedby="sizing-addon2">
+</div>
+<hr>
+<label class="radio-inline">
+    <input type="radio" name="inlineRadioOptions" ng-model="question.lv" value="200" checked>低难度
+</label>
+<label class="radio-inline">
+    <input type="radio" name="inlineRadioOptions" ng-model="question.lv" value="500">高难度
+</label>
+
+<hr>
+<label class="radio-inline">
+    <input type="radio" name="inlineRadio" ng-model="question.cp"  value="lvshi.png" checked>绿石开门
+</label>
+<label class="radio-inline">
+    <input type="radio" name="inlineRadio" ng-model="question.cp"  value="anth.png">另外一家
+</label>
+<hr>
+<p class="text-center">
+    <button class="btn btn-success" style="width: 50%;" ng-click="subQuestion()">提交</button>
+</p>
+
+</body>
+</html>

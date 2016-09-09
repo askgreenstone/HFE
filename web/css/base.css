@@ -343,6 +343,8 @@ footer {
   font-size: 18px;
   color:#3bbffc;
   margin-left: 15px;
+  padding-top: 6px;
+  display: inline-block;
 }
 .mcr_search input{
   border:1px solid #e5e5e5;
@@ -1092,6 +1094,7 @@ input[type=checkbox], input[type=radio] {
 }
 .mb_right span.card3_reset_btn{
   margin-left: 30px;
+  margin-bottom: 10px;
 }
 .mb_input{
   margin: 0px 0 0 -10px;
@@ -2370,6 +2373,19 @@ input[type=checkbox], input[type=radio] {
   line-height: 36px;
 }
 
+/*增加区分个人与机构下拉框*/
+
+.orgOrPer{
+  margin: 0 3% 0 60%;
+}
+.orgNotExist{
+  margin: 0 3% 0 60%;
+  visibility: hidden;
+}
+.perLawyer img{
+  margin-right: 1%;
+  border-radius: 50%;
+}
 
 
 

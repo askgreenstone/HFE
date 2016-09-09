@@ -132,7 +132,7 @@ var Index015 = React.createClass({
       var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
       $.ajax({
         type:'get',
-        url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=17&ida='+ida,
+        url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1&ida='+ida,
         success: function(data) {
           // alert(JSON.stringify(data));
           console.log(data);

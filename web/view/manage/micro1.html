@@ -1,5 +1,14 @@
 ﻿<div class="view">
-	<div class="view_title">工作室管理</div>
+	<div class="view_title">
+		工作室管理
+		<select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
+			<option ng-selected="vm.selectedState" value="">--请选择--</option>
+		</select>
+		<span class="perLawyer">
+			<img src= {{vm.headImg}} width="20" height="20">
+			{{vm.lawyerName}} 律师
+		</span>
+	</div>
 	<div class="manage_content">
 		<div class="mc_left">
 			<ul class="mcl_list">
@@ -41,10 +50,9 @@
 				</div>
 				<div class="mb_right">
 					<span class="card3_reset_btn" ng-click="vm.menuLink('step1')">重新定制</span>
-					<!-- <div class="mb_input">
-						<i>工作室地址</i>
-						<input type="text" ng-model="vm.inputUrl" />
-					</div> -->
+					<span class="card3_reset_btn" ng-click="vm.resetStep('step2','step2')">调整背景</span>
+					<span class="card3_reset_btn" ng-click="vm.resetStep('step3','step3')">调整logo</span>
+					<span class="card3_reset_btn" ng-click="vm.resetStep('step4','step4')">调整菜单</span>
 					<div class="mb_input">
 						<img src={{vm.qrSrc}} height="200" width="200" style="margin:5px 0 0 10px;">
 						<i>微信扫描二维码<br/>手机生成工作室</i>

@@ -10,9 +10,10 @@ define(['App'], function(app) {
         vm.sess = '';
         vm.transferUrl = TransferUrl;
         vm.globalUrl = GlobalUrl;
+        vm.ida = '';
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
 
@@ -21,12 +22,51 @@ define(['App'], function(app) {
         }
 
 
+        // 切换个人与机构
+        vm.switchPerOrg = function(num){
+          if(num === 1){
+            window.location.href = '#/active?session='+vm.sess+'&ida=1';
+          }else{
+            window.location.href = '#/active?session='+vm.sess+'&ida=0';
+          }
+        }
+
+        // 检测该用户是否是机构管理员
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  if(data.ida == 0){
+                    vm.orgOrPer = 'orgNotExist';
+                  }else{
+                    vm.orgOrPer = 'orgOrPer';
+                  }
+                  vm.headImg = vm.transferUrl+ data.p;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
+
         //0未激活、1试用、2正常付费、3试用到期、4正常付费到期
         vm.getActiveState = function(){
           $http({
               method: 'get',
               url: GlobalUrl+'/exp/QueryMicWebActivate.do',
-              params: {session:vm.sess},
+              params: {session:vm.sess,ida:vm.ida},
               data: {}
           }).
           success(function(data) {
@@ -46,7 +86,8 @@ define(['App'], function(app) {
               if(data.as == 0){
                 vm.getAuthenState();
               }else{
-                window.location.href = '#/micro?session='+vm.sess;
+                console.log(vm.ida);
+                window.location.href = '#/micro?session='+vm.sess+'&ida='+vm.ida;
               }
             }
           }).
@@ -60,14 +101,14 @@ define(['App'], function(app) {
           $http({
               method: 'post',
               url: GlobalUrl+'/exp/ExpertInfo.do',
-              params:{session:vm.sess},
+              params:{session:vm.sess,ida:vm.ida},
               
               data: {}
           }).
           success(function(data) {
             console.log(data);
             if(data.c == 1000){
-              window.location.href = '#/active?session='+vm.sess;
+              window.location.href = '#/active?session='+vm.sess+'&ida='+vm.ida;
               // if(data.sts == 2){
               //   window.location.href = '#/active?session='+vm.sess;
               // }else{
@@ -85,14 +126,14 @@ define(['App'], function(app) {
           $http({
               method: 'post',
               url: GlobalUrl+'/exp/ActivateMicWeb.do',
-              params: {session:vm.sess},
+              params: {session:vm.sess,ida:vm.ida},
               headers : {'Content-Type':undefined},
               data: {ad:180}
           }).
           success(function(data) {
             console.log(data);
             if(data.c == 1000){
-               window.location.href = '#/micro?session='+vm.sess;
+               window.location.href = '#/micro?session='+vm.sess+'&ida='+vm.ida;
             }
           }).
           error(function(){
@@ -106,14 +147,14 @@ define(['App'], function(app) {
           $http({
                 method: 'post',
                 url: GlobalUrl+'/exp/ActivateMicWeb.do',
-                params: {session:vm.sess},
+                params: {session:vm.sess,ida:vm.ida},
                 headers : {'Content-Type':undefined},
                 data: {ac:vm.expCode,ad:180}
             }).
             success(function(data, status, headers, config) {
                 console.log(data);               
                 if(data.c == 1000){
-                  window.location.href = '#/micro?session='+vm.sess;
+                  window.location.href = '#/micro?session='+vm.sess+'&ida='+vm.ida;
                 }else if(data.c == 1046){
                   alert("激活码失效")
                 }
@@ -137,7 +178,7 @@ define(['App'], function(app) {
             $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsTypes.do',
-                params: {session:vm.sess,wf:1},
+                params: {session:vm.sess,wf:1,ida:vm.ida},
                 data: {}
             }).
             success(function(data, status, headers, config) {
@@ -178,7 +219,8 @@ define(['App'], function(app) {
                     session:vm.sess,
                     //wf:0不包含父菜单，1包含父菜单
                     wf:0,
-                    mwm:vm.microWebId
+                    mwm:vm.microWebId,
+                    ida:vm.ida
                 },
                 data: {
                     
@@ -202,7 +244,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebModel.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida:vm.ida
                 },
                 data: {
                     
@@ -224,11 +267,14 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.setInputChecked();
           vm.storeCurrentSession(vm.sess);
           vm.getMicroImg();
           vm.getActiveState();
-
+          vm.checkUsrOrOrg();
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = (vm.ida == 0?vm.contentList[0]:vm.contentList[1]);
         }
 
         init();

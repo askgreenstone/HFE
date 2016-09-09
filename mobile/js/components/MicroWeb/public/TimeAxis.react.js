@@ -28,14 +28,38 @@ Date.prototype.Format = function(fmt){ //author: meizz
 var TimeAxis = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
-    return {datas:[],Abstract:'',Title:'',Introduction:'',Img:'',TimeAxis:[],getMore:false};
+    return {datas:[],Abstract:'',Title:'',Introduction:'',Img:'',TimeAxis:[],getMore:false,headImg:''};
   },
   gotoLink: function(path,fid,session,usrUri){
     if(!fid){
       return;
     }else{
-      location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri;
+      location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&refresh=1';
     }
+  },
+  getServerInfo: function(){
+    var session = this.getUrlParams('session');
+    var ownUri = this.getUrlParams('ownUri');
+    var ei = ownUri.replace('e','');
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/ExpertInfo.do?session='+ session+'&ei='+ei,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        // alert('ownUri:'+ownUri+'ntid:'+ntid);
+        if(data.c == 1000){
+           this.setState({
+            headImg: data.p,
+            lawyerName: data.n
+          });
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('系统开了小差，请刷新页面');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   getMoreData: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -85,41 +109,6 @@ var TimeAxis = React.createClass({
     var number = date - count;
     console.log(number);
   },
-  getShareInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
-    $.ajax({
-      type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1',
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        // alert('ownUri:'+ownUri+'ntid:'+ntid);
-        if(data.c == 1000){
-          // console.log(data.sil[0].spu)
-          if(data.sil.length>0){
-            this.setState({
-              Title:data.sil[0].sti,
-              Introduction:data.sil[0].sd,
-              Img:data.sil[0].spu
-            });
-          }else{
-            this.setState({
-              Title:'我的工作室',
-              Introduction:'欢迎访问我的工作室！这里有我的职业介绍和成就',
-              Img:'greenStoneicon300.png'
-            });
-          }
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
   goHome: function(){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
@@ -153,16 +142,28 @@ var TimeAxis = React.createClass({
     console.log(this.state.Abstract);
   },
   componentWillMount:function(){
-    this.getShareInfo();
     this.getIndexTheme();
     this.getTimeAxis(0);
+    this.getServerInfo();
   }, 
   render: function() {
-    var ShareTitile = this.state.Title;
-    var ShareDesc = this.state.Introduction;
-    var ShareImg = this.state.Img;
+    var ShareTitile = this.state.lawyerName+'律师与您分享了TA的足迹';
+    var ShareDesc = '邀请您一起来看看'+this.state.lawyerName+'律师最近都在忙些什么';
+    var ShareImg = this.state.headImg;
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
+    var ownUri = this.getUrlParams('ownUri');
+    var str = window.location.href;
+    var temp,appid,ShareUrl;
+    // 时间轴，动态详情页面分享需要授权
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+        temp = 't-web';
+        appid = 'wx2858997bbc723661';
+      }else{
+        temp = 'web';
+        appid = 'wx73c8b5057bb41735';
+      }
+    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'#wechat_redirect';
     var navNodes = this.state.TimeAxis.map(function(item,i){
       return(
         <li key={new Date().getTime()+i} className="timeline" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri)}>
@@ -189,6 +190,7 @@ var TimeAxis = React.createClass({
         {navNodes}
       </ul>
       <div className="timeline_more" style={{display:this.state.getMore?'block':'none'}}><span onClick={this.getMoreData}>加载更多</span></div>
+      <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="TimeAxis" targetUrl={ShareUrl}/>
     </div>
   )
   }

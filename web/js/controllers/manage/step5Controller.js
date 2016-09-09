@@ -15,11 +15,11 @@ define(['App'], function(app) {
         }
 
         vm.gotoLink = function(){
-          location.href = '#/manage?session'+vm.sess;
+          location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
@@ -36,7 +36,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {}
             }).
@@ -336,7 +337,8 @@ define(['App'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/ThirdSetShareInfo.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: vm.tempData
             }).
@@ -358,7 +360,8 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/GetMicWebShareInfo.do',
                 params: {
                     session:vm.sess,
-                    st:1
+                    st:1,
+                    ida: vm.ida
                 },
                 data: {
                 }
@@ -395,6 +398,7 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.GetWxShare();
           vm.getQrCode();
         }

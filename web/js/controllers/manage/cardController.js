@@ -39,11 +39,11 @@ define(['App'], function(app) {
         vm.state = 'undo';
 
         vm.gotoLink = function(){
-          location.href = '#/manage?session'+vm.sess;
+          location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
@@ -52,8 +52,38 @@ define(['App'], function(app) {
 
 
         vm.calLength = function(cur){
-          var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
+          if(cur){
+            var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
+          }else{
+            var count = 0;
+          }
           return count;
+        }
+
+        // 查询该session是个人还是机构，不需要ida参数
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = vm.transferUrl + data.p;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
         }
 
 
@@ -64,7 +94,7 @@ define(['App'], function(app) {
         vm.checkCardState = function(){
           $http({
               method: 'GET',
-              url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess
+              url: GlobalUrl+'/exp/GetMicroCardEditStatus.do?session='+vm.sess+'&ida='+vm.ida
           }).
           success(function(data, status, headers, config) {
               console.log(data);
@@ -90,7 +120,7 @@ define(['App'], function(app) {
         vm.getIndexQrcode = function(){
           $http({
               method: 'GET',
-              url: GlobalUrl+'/exp/CreateMicWebQrCode.do?session='+vm.sess
+              url: GlobalUrl+'/exp/CreateMicWebQrCode.do?session='+vm.sess+'&ida='+vm.ida
           }).
           success(function(data, status, headers, config) {
               console.log(data);
@@ -108,7 +138,7 @@ define(['App'], function(app) {
         vm.getCardInfo = function(){
           $http({
               method: 'GET',
-              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess+'&ida='+vm.ida
             }).
             success(function(data, status, headers, config) {
               console.log(data);
@@ -357,7 +387,8 @@ define(['App'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     in:name,
@@ -412,7 +443,7 @@ define(['App'], function(app) {
             console.log(fd);
             $http({
                 method: 'POST',
-                url: GlobalUrl+'/exp/DataUpdate.do?session='+vm.sess,
+                url: GlobalUrl+'/exp/DataUpdate.do?session='+vm.sess+'&ida='+vm.ida,
                 params: {
                 },
                 data: fd
@@ -420,7 +451,7 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   if(data.c == 1000){
-                     $window.location.href = '#/card3?session='+vm.sess;
+                     $window.location.href = '#/card3?session='+vm.sess+'&ida='+vm.ida;
                   }
               }).
               error(function(data, status, headers, config) {
@@ -435,7 +466,7 @@ define(['App'], function(app) {
             console.log(fd);
             $http({
                 method: 'POST',
-                url: GlobalUrl+'/exp/DataInsert.do?session='+vm.sess,
+                url: GlobalUrl+'/exp/DataInsert.do?session='+vm.sess+'&ida='+vm.ida,
                 params: {
                 },
                 data: fd
@@ -443,7 +474,7 @@ define(['App'], function(app) {
               success(function(data, status, headers, config) {
                   console.log(data);
                   if(data.c == 1000){
-                     $window.location.href = '#/card3?session='+vm.sess;
+                     $window.location.href = '#/card3?session='+vm.sess+'&ida='+vm.ida;
                   }else if(data.c == 1037){
                     console.log("该用户微名片信息已存在，走update接口")
                   }
@@ -460,7 +491,7 @@ define(['App'], function(app) {
           $http({
               method: 'GET',
               async:false,
-              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess+'&ida='+vm.ida
           }).
           success(function(data, status, headers, config) {
             console.log(data);
@@ -511,7 +542,11 @@ define(['App'], function(app) {
        
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.getIndexQrcode();
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.checkUsrOrOrg();
         }
         init();
     };

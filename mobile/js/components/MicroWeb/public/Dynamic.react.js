@@ -50,42 +50,6 @@ var Dynamic = React.createClass({
   gotoLink: function(path){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
   },
-  getShareInfo: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    $.ajax({
-      type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1&ida='+ida,
-      success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        // alert('ownUri:'+ownUri+'ntid:'+ntid);
-        if(data.c == 1000){
-          // console.log(data.sil[0].spu)
-          if(data.sil.length>0){
-            this.setState({
-              Title:data.sil[0].sti,
-              Introduction:data.sil[0].sd,
-              Img:data.sil[0].spu
-            });
-          }else{
-            this.setState({
-              Title:'我的工作室',
-              Introduction:'欢迎访问我的工作室！这里有我的职业介绍和成就',
-              Img:'greenStoneicon300.png'
-            });
-          }
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
   goHome: function(){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
@@ -147,7 +111,10 @@ var Dynamic = React.createClass({
             expContent: data.r.fl[0].content,
             imgLists: data.r.fl[0].il,
             usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
-            esl: data.r.fl[0].esl
+            esl: data.r.fl[0].esl,
+            Title: data.r.fl[0].title,
+            Introduction: data.r.fl[0].content,
+            Img: data.r.fl[0].il[0]
           })
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
           // $('.dynamic_contaniner').scrollTop(top);
@@ -195,11 +162,9 @@ var Dynamic = React.createClass({
   },
   wirteComment: function(){
     $('.dynamic_usr_write').show();
-    console.log($('.dynamic_contaniner'));
-    var top = $('.dynamic_contaniner')[0].scrollHeight;
-    $('.dynamic_contaniner').scrollTop(top);
-    // $('.dynamic_exp_chat').hide();
-    // $('.dynamic_top').unbind('scroll');
+    console.log($('.dynamic_top'));
+    var top = $('.dynamic_top')[0].scrollHeight;
+    $('.dynamic_top').scrollTop(top);
   },
   setComment: function(){
     var val = $('.dynamic_usr_write textarea').val();
@@ -228,7 +193,10 @@ var Dynamic = React.createClass({
             // $('.dynamic_exp_chat').css({'position':'absolute','height':'7rem','padding':'0.5rem 1rem','display':'-webkit-box'});
             // this.dynamicBindScroll();
             this.getDynamicComment();
-           
+            setTimeout(function(){
+              var top = $('.dynamic_top')[0].scrollHeight;
+              $('.dynamic_top').scrollTop(top);
+            },500)
           }
         }.bind(this),
         error: function(data) {
@@ -267,26 +235,6 @@ var Dynamic = React.createClass({
         }.bind(this)
       })
     }
-  },
-  dynamicBindScroll: function(){
-    $(document).ready(function() {
-      $('.dynamic_contaniner').bind('scroll',function() {
-        var top = $(this)[0].scrollTop;
-        var height = $('.dynamic_contaniner')[0].scrollHeight;
-        var winH = $(window).height();
-        // console.log(top);
-        // console.log(height);
-        var scrollHeight = $('.dynamic_top')[0].scrollHeight;
-        if(top == 0){
-          $('.dynamic_exp_chat').css({'position':'absolute','display':'-webkit-box'});
-        }else if(top + winH + 100 < height){
-          $('.dynamic_exp_chat').css({'display':'none'});
-        }else{
-          $('.dynamic_exp_chat').css({'position':'relative','display':'-webkit-box'});
-        }
-        // console.log($('.dynamic_top')[0].scrollHeight)
-      });
-    });
   },
   transferArr: function(str){
     var arr =[]; 
@@ -345,7 +293,17 @@ var Dynamic = React.createClass({
     // this.dynamicBindScroll();
   },
   componentWillMount:function(){
-    this.getShareInfo();
+    var refresh = this.getUrlParams('refresh');
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    var fid = this.getUrlParams('fid');
+    var session = this.getUrlParams('session');
+    var usrUri = this.getUrlParams('usrUri');
+    if(refresh == 1){
+      window.location.href = global.url+'/mobile/#/Dynamic?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&refresh=0';
+    }
     this.getIndexTheme();
     this.getDynamicComment();
     this.getUsrPraise();
@@ -354,6 +312,19 @@ var Dynamic = React.createClass({
     var ShareTitile = this.state.Title;
     var ShareDesc = this.state.Introduction;
     var ShareImg = this.state.Img;
+    var ownUri = this.getUrlParams('ownUri');
+    var fid = this.getUrlParams('fid');
+    var temp,appid,ShareUrl;
+    // 时间轴，动态详情页面分享需要授权
+    var str = window.location.href;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+        temp = 't-web';
+        appid = 'wx2858997bbc723661';
+      }else{
+        temp = 'web';
+        appid = 'wx73c8b5057bb41735';
+      }
+    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_'+fid+'#wechat_redirect';
     var imgList = this.state.imgLists.map(function(item,i){
       return(
           <img key={new Date().getTime()+i} src={global.img+item}/>
@@ -411,9 +382,6 @@ var Dynamic = React.createClass({
             </div>
           </div>
         </div>
-        <div className="dynamic_blank">
-
-        </div>
         <div className="dynamic_bot">
           <div className="dynamic_exp_top dynamic_exp_chat">
             <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="60" height="60"/>
@@ -424,7 +392,7 @@ var Dynamic = React.createClass({
             </p>
           </div>
         </div>       
-        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic"/>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic" targetUrl={ShareUrl}/>
       </div>
     )
   }

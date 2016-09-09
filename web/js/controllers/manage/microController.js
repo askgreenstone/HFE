@@ -9,23 +9,63 @@ define(['App'], function(app) {
         vm.editState = '';
 
         vm.gotoLink = function(){
-          location.href = '#/manage?session'+vm.sess;
+          location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
           $window.history.back();
         };
 
+        // 切换个人与机构
+        vm.switchPerOrg = function(num){
+          if(num === 1){
+            window.location.href = '#/micro?session='+vm.sess+'&ida=1';
+          }else{
+            window.location.href = '#/micro?session='+vm.sess+'&ida=0';
+          }
+        }
+
+        // 检测该用户是否是机构管理员
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  if(data.ida == 0){
+                    vm.orgOrPer = 'orgNotExist';
+                  }else{
+                    vm.orgOrPer = 'orgOrPer';
+                  }
+                  vm.headImg = vm.transferUrl+ data.p;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
+
         vm.getMicroImg = function(){
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebModel.do',
                 params: {
-                    session:vm.sess
+                    session: vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -63,6 +103,7 @@ define(['App'], function(app) {
         };
 
         //判断主题制定状态：0未设置，1已设置，2已完成
+        // 乔凡：此接口不需要传入ida，data.s表示个人工作室完成状态，data.ds表示机构工作室完成状态
         vm.getMicroStatus = function(){
           $http({
                 method: 'GET',
@@ -77,13 +118,13 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  if(data.s == 0){
+                  if(data.s == 0 || data.ds == 0){
                     vm.menuLink('micro');
                     vm.editState = '开始定制'
-                  }else if(data.s == 1){
+                  }else if(data.s == 1 || data.ds == 1){
                     vm.menuLink('micro');
                     vm.editState = '继续定制'
-                  }else if(data.s == 2){
+                  }else if(data.s == 2 || data.ds == 2){
                     vm.menuLink('micro1');
                   }
                   
@@ -97,8 +138,12 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.getMicroStatus();
           vm.getMicroImg();
+          vm.checkUsrOrOrg();
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = (vm.ida == 0?vm.contentList[0]:vm.contentList[1]);
         }
         init();
     };
