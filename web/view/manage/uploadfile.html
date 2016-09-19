@@ -1,0 +1,109 @@
+<div class="view">
+	<div class="view_title">
+		工作室管理
+		<select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
+			<option ng-selected="vm.selectedState" value="">--请选择--</option>
+		</select>
+		<span class="perLawyer">
+			<img src= {{vm.headImg}} width="20" height="20">
+			{{vm.lawyerName}} 律师
+		</span>
+	</div>
+	<div class="manage_content">
+		<div class="mc_left">
+			<ul class="mcl_list">
+				<!-- <li>
+					<img src="image/manage/fans.png" width="18" height="18"/>
+					<span><a href="#manage">粉丝数据</a></span>
+				</li>
+				<li>
+					<img src="image/manage/wx.png" width="18" height="18"/>
+					<span><a href="#manage">公众号运营</a></span>
+				</li> -->
+				<li ng-click="vm.menuLink('micro')">
+					<img src="image/manage/micro.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">工作室首页设置</a></span>
+				</li>
+				<li ng-click="vm.menuLink('card3')">
+					<img src="image/manage/card.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">微名片信息</a></span>
+				</li>
+				<li ng-click="vm.menuLink('wx')">
+					<img src="image/manage/wx.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">公众号设置</a></span>
+				</li>
+				<li ng-click="vm.menuLink('data')">
+					<img src="image/manage/data.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">用户数据</a></span>
+				</li>
+				<li class="text-active" ng-click="vm.menuLink('manage')">
+					<img src="image/manage/set.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">内容维护</a></span>
+				</li>
+			</ul>
+		</div>
+		<div class="mc_right">
+			<div class="newFile_left">
+	      <p class="newFileClass">文件类别 : <span>培训类</span></p>
+	      <p>文件标题 : </p>
+	      <p><input type="text" id="title" placeholder="请输入文件标题"/>{{vm.newFileTitle}}</p>
+	      <p>文件说明 : </p>
+	      <p class="textarea"><textarea placeholder="请输入文件说明">{{vm.newFileContent}}</textarea></p>
+	      <div class="uploadFile" ng-click="vm.gotoUpload()">
+	        <img src="image/file.png" width="80" height="80" />
+	        <span>上传文件</span>
+	        <input type="file" name="" id="newFileUpload">
+	      </div>
+	    </div>
+	    <div class="usrContent">
+	      <p>已上传:</p>
+	      <ul class="contentList">
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	        <li>
+	          <p>09-01律师收费标准通知</p>
+	          <span>删除</span>
+	        </li>
+	      </ul>
+    </div>
+		<div class="clean"></div>
+		<div class="af_btn fix_center">
+			<span ng-click="vm.setFileUpload()">完成</span>
+		</div>
+	</div>
+	<div class="clean"></div>
+</div>

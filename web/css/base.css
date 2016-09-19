@@ -56,6 +56,9 @@ header {
     margin-right: 5px;
     cursor: pointer;
 }
+.logo img#dynamicImg{
+  border-radius: 50%;
+}
 
 .menu {
     float: left;
@@ -2386,6 +2389,205 @@ input[type=checkbox], input[type=radio] {
   margin-right: 1%;
   border-radius: 50%;
 }
+
+
+/*机构号文件上传列表页*/
+
+.usrTitle{
+  width: 98%;
+  height: 50px;
+  line-height: 30px;
+  font-size: 26px;
+  font-weight: bold;
+  padding-left: 2%;
+}
+.contentBox{
+  width: 100%;
+  display: box;
+  display: -webkit-box;
+}
+.contentClass{
+  width: 20%;
+  padding: 0 2% 2%;
+  box-sizing: border-box;
+}
+.contentClass li{
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 2%;
+  cursor: pointer;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.contentClass li.active{
+  background: #2ab6ff;
+  color: #fff;
+  border-color: #2ab6ff;
+}
+.contentList{
+  width: 80%;
+  height: 320px;
+  overflow: scroll;
+  padding: 0 2% 2%;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+}
+.contentList li{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  overflow: hidden;
+}
+.contentList li p:hover{
+  color: red;
+}
+.contentList li p{
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.contentList li span{
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  display: block;
+  border-radius: 5px;
+  width: 40px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 14px;
+  background: #e46060;
+  color: #fff;
+  margin-top: 5px;
+}
+.contentList li:after{
+  content: '';
+  visibility:hidden;
+  display:block;
+  height:0;
+  clear:both;
+}
+.addFile{
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+ /*机构号文件上传详情页*/
+.newFile_left{
+  width: 40%;
+  float: left;
+  margin-right: 10%;
+}
+.newFile_left p{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+.newFile_left p input{
+  width:100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  display: block;
+  outline: none;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.newFile_left p.textarea{
+  height: 120px;
+}
+.newFile_left p textarea{
+  width: 100%;
+  height: 120px;
+  line-height: 20px;
+  font-size: 14px;
+  resize: none;
+  outline: none; 
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.uploadFile{
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+.uploadFile span{
+  width: 80px;
+  height: 20px;
+  display: block;
+  text-align: center;
+  line-height: 20px;
+  cursor: pointer;
+}
+.uploadFile input{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  cursor: pointer;      
+}
+.usrContent{
+  width: 50%;
+  float: left;
+}
+.usrContent p{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+.contentList{
+  width: 80%;
+  padding: 0 2% 2%;
+  box-sizing: border-box;
+}
+.contentList li{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+}
+.contentList li p:hover{
+  color: red;
+}
+.contentList li p{
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 80%;
+}
+.contentList li span{
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  display: block;
+  border-radius: 5px;
+  width: 40px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 14px;
+  background: #e46060;
+  color: #fff;
+  margin-top: 5px;
+}
+
 
 
 

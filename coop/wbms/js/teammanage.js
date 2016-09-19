@@ -103,10 +103,14 @@ jQuery(function($){
         ida: 0,
         ea: arr
       }
+      console.log(data);
       $.ajax({
         type : 'POST',
         url : Common.globalDistUrl() + 'exp/AddExpToDept.do?session='+ session,
         data: JSON.stringify(data),
+        dataType:'json',
+        contentType:'application/json',
+        headers : {'Content-Type':undefined},
         success : function(data) {
           console.log(data);
           if(data.c == 1000){

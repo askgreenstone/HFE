@@ -384,7 +384,7 @@ $(function() {
             if (ossname) {
                 if (ossname.indexOf('.jpg') > -1 || ossname.indexOf('.jpeg') > -1 || ossname.indexOf('.png') > -1) {
                     return 'img'
-                } else if (ossname.indexOf('.doc') > -1 || ossname.indexOf('.docx') > -1 || ossname.indexOf('.xls') > -1 || ossname.indexOf('.xlsx') > -1 || ossname.indexOf('.ppt') > -1 || ossname.indexOf('.ppt') > -1 || ossname.indexOf('.pptx') > -1 || ossname.indexOf('.pdf') > -1) {
+                } else if (ossname.indexOf('.doc') > -1 || ossname.indexOf('.docx') > -1 || ossname.indexOf('.xls') > -1 || ossname.indexOf('.xlsx') > -1 || ossname.indexOf('.ppt') > -1 || ossname.indexOf('.pptx') > -1 || ossname.indexOf('.pdf') > -1) {
                     return 'txt'
                 } else {
                     return 'unknown'
