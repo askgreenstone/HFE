@@ -407,7 +407,7 @@ define(['App'], function(app) {
                     vm.user = {
                       title:'我的微网站',
                       desc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
-                      preview:'greenStoneicon300.png'
+                      preview:'batchdeptlogo20160811_W108_H108_S15.png'
                     }
                   }
                   setTimeout(function() {

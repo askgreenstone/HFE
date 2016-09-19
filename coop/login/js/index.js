@@ -31,7 +31,7 @@ Zepto(function($){
   			console.log(data);
   			if(data.c == 1000){
           sessionStorage.setItem('URLOrigin','login');
-  				window.location.href = Common.globalDistUrl()+'web/#/active?session='+data.u.sid;
+  				window.location.href = Common.globalDistUrl()+'web/#/active?session='+data.u.sid+'&ida=0';
   			}else if(data.c == 1005){
   				alert('用户名或密码错误！');
   			}else if(data.c == 1002){

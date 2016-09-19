@@ -170,32 +170,14 @@
 				<span class="lawyer_left"><div id="register">我也要注册</div></span>
 				<span class="lawyer_right"><div id="gotoMicroweb">进入TA的工作室</div></span>
 			</div>
-			<p>通过【在线法律】平台程颖律师收到的赞</p>
+			<p>通过【在线法律】平台 <span id="lawyerName"></span> 律师收到的赞</p>
 		</div>
 		<div class="praise">
 			<div class="praise_left">
 				<img src="image/nice.png">
 			</div>
 			<div class="praise_right">
-				<!-- <img src="image/1.png">
-				<img src="image/2.png">
-				<img src="image/3.png">
-				<img src="image/4.png">
-				<img src="image/1.png">
-				<img src="image/2.png">
-				<img src="image/3.png">
-				<img src="image/4.png">
-				<img src="image/1.png">
-				<img src="image/2.png">
-				<img src="image/3.png">
-				<img src="image/4.png">
-				<img src="image/1.png">
-				<img src="image/2.png">
-				<img src="image/3.png">
-				<img src="image/4.png">
-				<img src="image/1.png">
-				<img src="image/3.png">
-				<img src="image/2.png"> -->
+				
 			</div>
 		</div>
 		<div class="comment">
@@ -204,61 +186,7 @@
 			</div>
 			<div class="comment_right">
 				<ul class="comment_list">
-					<!-- <li>
-						<div class="list_left">
-							<img src="image/1.png">
-						</div>
-						<div class="list_right">
-							<div class="nameDate">
-								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
-							</div>
-							<span class="list_right_con">我废物和分别为扣积分我减肥微积分拷贝文件</span>	
-						</div>
-					</li>
-					<li>
-						<div class="list_left">
-							<img src="image/2.png">
-						</div>
-						<div class="list_right">
-							<div class="nameDate">
-								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
-							</div>
-							<span class="list_right_con">我废物和分别为扣积发布威锋网及部分金额为妇女而王菲王菲分泌物非文峰让我废物二分法发每年为分为妇女问分我减肥微积分拷贝文件</span>	
-						</div>
-					</li>
-					<li>
-						<div class="list_left">
-							<img src="image/3.png">
-						</div>
-						<div class="list_right">
-							<div class="nameDate">
-								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
-							</div>
-							<span class="list_right_con">我废物和分别为分为方便金额为符合基本文化发布违法被问我范文芳让我扣积分我减肥微积分拷贝文件</span>	
-						</div>
-					</li>
-					<li>
-						<div class="list_left">
-							<img src="image/4.png">
-						</div>
-						<div class="list_right">
-							<div class="nameDate">
-								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
-							</div>
-							<span class="list_right_con">我废物和分别风味咖啡即可我不服本本无法非逼我发被我看见为扣积分我减肥微积分拷贝文件</span>	
-						</div>
-					</li>
-					<li>
-						<div class="list_left">
-							<img src="image/1.png">
-						</div>
-						<div class="list_right">
-							<div class="nameDate">
-								<span class="list_right_name">绯闻</span><span class="list_right_date">6月4日</span>
-							</div>
-							<span class="list_right_con">我废物分为可积分即可为部分金额为方便可见和分别为扣积分我减肥微积分拷贝文件</span>	
-						</div>
-					</li> -->
+					
 				</ul>
 			</div>
 		</div>
@@ -331,6 +259,7 @@
 		        	console.log(str);
 		        	$('.praise_right').html(html);
 		        	$('.comment_list').html(str);
+		        	$('#lawyerName').text(data.res.enm);
 		        }
 		    },
 		    error: function(err) {
