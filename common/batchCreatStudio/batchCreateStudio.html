@@ -70,10 +70,13 @@
       var tel = $('#tel').val();
       
       console.log(JSON.stringify(data));
+
+
+      // 乔凡： 暂时去掉机构简称这一项
       if(!company){
         alert('机构名称不能为空')
-      }else if(!depart){
-        alert('机构简称不能为空')
+      // }else if(!depart){
+      //   alert('机构简称不能为空')
       }else if(!orgTel){
         alert('机构电话不能为空')
       }else if(!reigon){
@@ -89,7 +92,7 @@
       }else{
         var data = {
           cn: company,
-          csn: depart,
+          // csn: depart,
           ct: orgTel,
           rg: reigon,
           add: address,
