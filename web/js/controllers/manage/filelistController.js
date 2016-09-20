@@ -55,7 +55,7 @@ define(['App'], function(app) {
         }
 
 
-        // 查询文件分类
+        // 查询文件分类(1级分类)  tl:1
 
         vm.queryDocType = function(){
           $http({
@@ -89,14 +89,15 @@ define(['App'], function(app) {
         })       
         
 
-        // 查询文件分类下具体文章
+        // 查询文件分类下(2级分类)   tl:2
         vm.queryDeptDocs = function(typeId,typeNm){
           $http({
             method: 'GET',
             url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
             params: {
               session:vm.sess,
-              tl: 2
+              tl: 2,
+              ftid: typeId
             },
             data: {}
           }).
@@ -114,6 +115,12 @@ define(['App'], function(app) {
               // console.log(data);
               alert('系统开了小差，请刷新页面');
           });
+        }
+
+
+        // 添加新的一级分类
+        vm.addNewTitle = function(){
+          $('.filelist_shadow').show();
         }
 
         // 删除某篇文章

@@ -89,9 +89,9 @@ var Card = React.createClass({
             });
           }else{
             this.setState({
-              Title:'我的工作室',
+              Title:data.enm+'律师的工作室',
               Introduction:'欢迎访问我的工作室！这里有我的职业介绍和成就',
-              Img:'greenStoneicon300.png'
+              Img:'batchdeptlogo20160811_W108_H108_S15.png'
             });
           }
         }

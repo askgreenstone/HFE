@@ -49,6 +49,7 @@
 	      	<li ng-repeat="(key,value) in vm.titleList" ng-click="vm.queryDeptDocs(value.tid,value.tn)" ng-class="key==0?'active':''">
 						{{value.tn}}
 					</li>
+					<div ng-click="vm.addNewTitle()">添加分类</div>
 	      </ul>
 	      <ul class="contentList">
 	        <li id="x.tid" ng-repeat="x in vm.artitleList">
@@ -62,5 +63,16 @@
 	    </div>
 		</div>
 		<div class="clean"></div>
+	</div>
+	<div class="filelist_shadow">
+		<span class="step4_close" ng-click="vm.hiddenShadow()">
+			<img src="image/delete.png" width="30" height="30">
+		</span>
+		<p>请输入新的分类名称</p>
+		<input type="text" name="">
+		<div class="af_btn fix_center">
+			<span ng-click="vm.submitUserChoose()">确 认</span>
+			<span ng-click="vm.cancleChoose()">取 消</span>
+		</div>
 	</div>
 </div>

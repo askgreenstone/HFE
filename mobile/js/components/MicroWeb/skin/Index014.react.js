@@ -144,9 +144,9 @@ var Index014 = React.createClass({
             });
           }else{
             this.setState({
-              shareTitle:'我的微网站',
-              shareDesc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
-              shareImg:'greenStoneicon300.png'
+              shareTitle:data.enm+'律师的工作室',
+              shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
+              shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
             });
           }
         }

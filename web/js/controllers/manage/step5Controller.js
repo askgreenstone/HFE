@@ -405,8 +405,8 @@ define(['App'], function(app) {
                     vm.isServerData = true;
                   }else{
                     vm.user = {
-                      title:'我的微网站',
-                      desc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
+                      title:'我的工作室',
+                      desc:'欢迎访问我的工作室，您可以直接在线咨询我',
                       preview:'batchdeptlogo20160811_W108_H108_S15.png'
                     }
                   }

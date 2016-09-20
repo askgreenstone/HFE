@@ -216,9 +216,9 @@ define(['App'], function(app) {
                     vm.shareId = data.sil[0].si;
                   }else{
                     vm.user = {
-                      title:'XX律师微网站',
+                      title:'XX律师工作室',
                       desc:'XX律师专注于资本市场、基金、投融资、并购、公司法务等等',
-                      preview:'greenStoneicon300.png'
+                      preview:'batchdeptlogo20160811_W108_H108_S15.png'
                     }
                   }
                 }
