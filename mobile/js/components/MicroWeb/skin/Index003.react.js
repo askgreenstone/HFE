@@ -152,11 +152,19 @@ var Index003=React.createClass({
               shareImg:data.sil[0].spu
             });
           }else{
-            this.setState({
-              shareTitle:data.enm+'律师的工作室',
-              shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
-              shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
-            });
+            if(ida == 1){
+              this.setState({
+                shareTitle:(data.dnm?data.dnm:'我的')+'机构工作室',
+                shareDesc:'欢迎访问我的机构工作室，您可以直接在线咨询我',
+                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }else{
+              this.setState({
+                shareTitle:(data.enm?data.enm+'律师的':'我的')+'工作室',
+                shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
+                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }
           }
         }
       }.bind(this),

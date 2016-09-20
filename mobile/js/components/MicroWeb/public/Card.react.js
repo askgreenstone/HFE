@@ -88,11 +88,19 @@ var Card = React.createClass({
               Img:data.sil[0].spu
             });
           }else{
-            this.setState({
-              Title:data.enm+'律师的工作室',
-              Introduction:'欢迎访问我的工作室！这里有我的职业介绍和成就',
-              Img:'batchdeptlogo20160811_W108_H108_S15.png'
-            });
+            if(ida == 1){
+              this.setState({
+                Title:(data.dnm?data.dnm:'我的')+'机构工作室',
+                Introduction:'欢迎访问我的机构工作室，您可以直接在线咨询我',
+                Img:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }else{
+              this.setState({
+                Title:(data.enm?data.enm+'律师的':'我的')+'工作室',
+                Introduction:'欢迎访问我的工作室，您可以直接在线咨询我',
+                Img:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }
           }
         }
       }.bind(this),
