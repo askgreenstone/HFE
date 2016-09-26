@@ -533,8 +533,8 @@ define(['App'], function(app) {
             return false;
           }
 
-          if(vm.user.Address && vm.calLength(vm.user.Address)>60){
-            alert("地址长度不能超过六十位字符！"); 
+          if(vm.user.Address && vm.calLength(vm.user.Address)>120){
+            alert("地址长度不能超过一百二十位字符！"); 
             return false;
           }
           setTimeout(vm.setEcardInfo,300);
@@ -546,6 +546,7 @@ define(['App'], function(app) {
           vm.getIndexQrcode();
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.checkUsrOrOrg();
         }
         init();

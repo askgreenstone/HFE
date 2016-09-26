@@ -2,10 +2,11 @@
 
 define(['App'], function(app) {
 
-    var injectParams = ['$location', '$http', '$window', 'GlobalUrl','Common'];
-    var PreviewController = function($location, $http, $window, GlobalUrl,Common) {
+    var injectParams = ['$location', '$http', '$window', 'GlobalUrl','TransferUrl','Common'];
+    var PreviewController = function($location, $http, $window, GlobalUrl,TransferUrl,Common) {
 
         var vm = this;
+        vm.transferUrl = TransferUrl;
         vm.title = '标题';
         vm.updateFlag = 'false';
         vm.fileName = '';
@@ -154,6 +155,7 @@ define(['App'], function(app) {
           vm.ida = Common.getUrlParam('ida');
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.checkUsrOrOrg();
         }
 

@@ -138,6 +138,7 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.ida = Common.getUrlParam('ida');
+          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.getMicroImg();
           vm.checkUsrOrOrg();
         }

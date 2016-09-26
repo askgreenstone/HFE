@@ -123,6 +123,7 @@ define(['App'], function(app) {
           console.log(vm.ida);
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
           console.log(vm.abc);
           vm.getQrCode();
           vm.checkUsrOrOrg();

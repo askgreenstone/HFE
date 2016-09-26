@@ -2397,8 +2397,7 @@ input[type=checkbox], input[type=radio] {
   width: 98%;
   height: 50px;
   line-height: 30px;
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 16px;
   padding-left: 2%;
 }
 .contentBox{
@@ -2422,7 +2421,7 @@ input[type=checkbox], input[type=radio] {
   border-radius: 5px;
   margin-right: 2%;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 10px;
 }
 
@@ -2431,13 +2430,26 @@ input[type=checkbox], input[type=radio] {
   color: #fff;
   border-color: #2ab6ff;
 }
+.addNewTitle{
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #39d167;
+  border-radius: 5px;
+  margin-right: 2%;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #39d167;
+  color: #fff;
+}
 .contentList{
   width: 80%;
   height: 500px;
   overflow: scroll;
   padding: 0 2% 2%;
   box-sizing: border-box;
-  margin-bottom: 40px;
 }
 .contentList li{
   width: 100%;
@@ -2454,7 +2466,8 @@ input[type=checkbox], input[type=radio] {
   height: 40px;
   line-height: 40px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
+  width: 80%;
 }
 .contentList li span{
   float: right;
@@ -2466,7 +2479,7 @@ input[type=checkbox], input[type=radio] {
   width: 40px;
   border: 1px solid red;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   background: #e46060;
   color: #fff;
   margin-top: 5px;
@@ -2485,16 +2498,26 @@ input[type=checkbox], input[type=radio] {
   text-align: center;
   cursor: pointer;
 }
+.filelist_addNewTitle{
+  background-color: rgba(0,0,0,0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: none;
+}
 .filelist_shadow{
   width: 400px;
   height: 200px;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   margin-left: -200px;
   margin-top: -100px;
-  display: none;
-  background: #999;
+  background: #fff;
+  border-radius: 5px;
 }
 .filelist_shadow p{
   width: 100%;
@@ -2502,16 +2525,18 @@ input[type=checkbox], input[type=radio] {
   line-height: 60px;
   text-align: center;
   color: #666;
+  font-weight: bold;
+  font-size: 16px;
 }
 .filelist_shadow input{
   width: 60%;
   height: 30px;
   line-height: 30px;
-  border: none;
   outline: none;
   text-indent: 10px;
   display: block;
   margin: 20px auto;
+  font-size: 12px;
 }
 
  /*机构号文件上传详情页*/

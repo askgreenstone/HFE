@@ -36,6 +36,10 @@
 					<img src="image/manage/set.png"  width="18" height="18"/>
 					<span><a href="javascript:void(0)">内容维护</a></span>
 				</li>
+				<li ng-click="vm.menuLink('filelist')" ng-if="vm.isDeptAdmin">
+					<img src="image/manage/article.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">机构文件管理</a></span>
+				</li>
 			</ul>
 		</div>
 		<div class="mc_right">
@@ -137,9 +141,9 @@
 							<i>地址：</i>
 							<input type="text" ng-model="vm.user.Address" value="朝阳区三元桥时间国际4号楼" placeholder="您的地址">
 							<div class="step5_validate">
-								<span ng-class="vm.calLength(vm.user.Address)>60?'red':''">
-								{{vm.calLength(vm.user.Address)}}</span><i> / 60</i>
-								<b ng-show="vm.calLength(vm.user.Address)>60">字数超过限制</b>
+								<span ng-class="vm.calLength(vm.user.Address)>120?'red':''">
+								{{vm.calLength(vm.user.Address)}}</span><i> / 120</i>
+								<b ng-show="vm.calLength(vm.user.Address)>120">字数超过限制</b>
 							</div>
 							<div class="mb_input_tip">（请正确填写区域和地址，用于地图导航）</div>
 						</div>

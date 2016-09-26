@@ -336,6 +336,7 @@ define(['App'], function(app) {
           vm.sess = Common.getUrlParam('session');
           vm.origin = Common.getUrlParam('from');
           vm.ida = Common.getUrlParam('ida');
+          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.getLocationUrl();
           //更换背景跳转后，通过该标识隐藏上一步按钮
           if(vm.origin){

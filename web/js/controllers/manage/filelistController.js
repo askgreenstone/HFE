@@ -6,6 +6,8 @@ define(['App'], function(app) {
     var FilelistController = function($location,$http,$window,GlobalUrl,TransferUrl,Common) {
         var vm = this;
         vm.transferurl = TransferUrl;
+        vm.typeId = '';
+        vm.typeNm = '';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session='+vm.sess+'&ida='+vm.ida;
@@ -38,11 +40,7 @@ define(['App'], function(app) {
                 console.log(data);
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
-                  if(data.ida == 0){
-                    vm.orgOrPer = 'orgNotExist';
-                  }else{
-                    vm.orgOrPer = 'orgOrPer';
-                  }
+                  vm.orgOrPer = 'orgNotExist';
                   vm.headImg = data.p?(vm.transferurl + data.p):vm.transferurl+'header.jpg';
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
@@ -73,7 +71,6 @@ define(['App'], function(app) {
                 vm.titleList = data.li;
                 var typeId = data.li[0].tid;
                 var typeNm = data.li[0].tn;
-                console.log(typeId);
                 vm.queryDeptDocs(typeId,typeNm);
               }
           }).
@@ -105,10 +102,9 @@ define(['App'], function(app) {
               console.log(data);
               if(data.c == 1000){
                 vm.artitleList = data.li;
-                vm.ftid = typeId;
-                vm.ftnm = typeNm;
-                console.log(vm.ftid);
-                console.log(typeNm);
+                vm.typeId = typeId;
+                vm.typeNm = typeNm;
+                vm.order = data.li?(data.li.length+1):1;
               }
           }).
           error(function(data, status, headers, config) {
@@ -120,23 +116,66 @@ define(['App'], function(app) {
 
         // 添加新的一级分类
         vm.addNewTitle = function(){
-          $('.filelist_shadow').show();
+          $('body').css('overflow','hidden');
+          $('.filelist_addNewTitle').css('marginTop',$('body').scrollTop()).show();
+
         }
 
-        // 删除某篇文章
+        // 点击关闭按钮/取消/操作
+        vm.hiddenShadow = function(){
+          $('body').css('overflow','auto');
+          $('.filelist_addNewTitle').hide();
+        }
+
+        // 点击确定添加一级分类
+        vm.addNewTitleClass = function(){
+          var text = $('.filelist_shadow input').val();
+          var order = $('.contentClass li').length+1;
+          console.log(order);
+          if(!text){
+            alert('请输入新的分类名称！');
+            return;
+          }else{
+            var data = {
+              tn: text,
+              tl: 1,
+              o: order
+            }
+            $http({
+              method: 'POST',
+              url: GlobalUrl+'/exp/AddDeptDocTypes.do',
+              params: {
+                session:vm.sess
+              },
+              data: JSON.stringify(data)
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.hiddenShadow();
+                  vm.queryDocType();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+            
+          }
+        }
+
+        // 删除二级分类
         vm.deleteArticle = function(typeId){
           var data = {
-            dl: [
-              {
-                did: typeId
-              }
-            ]
+            li: [typeId]
           }
+          console.log(vm.typeId);
+          console.log(vm.typeNm);
           var flag = window.confirm('确定要删除么？');
           if(flag){
             $http({
               method: 'POST',
-              url: GlobalUrl+'/exp/DeleteDeptDocs.do',
+              url: GlobalUrl+'/exp/DeleteDeptDocTypes.do',
               params: {
                   session:vm.sess
               },
@@ -145,7 +184,8 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  // vm.artitleList = data.li;
+                  console.log(vm.typeId,vm.typeNm);
+                  vm.queryDeptDocs(vm.typeId,vm.typeNm)
                 }
             }).
             error(function(data, status, headers, config) {
@@ -155,9 +195,23 @@ define(['App'], function(app) {
           }
         }
 
+
+
+
+        // 点击二级分类跳转uploadfile
+        vm.gotoUpload = function(tid,order){
+          console.log(order);
+          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&ftid='+vm.typeId+'&ftnm='+vm.typeNm+'&order='+order+'&tid='+tid;
+        }
+
+
+
+        // 点击加号跳转uploadfile
         vm.gotoAddFile = function(){
-          console.log(vm.ftid);
-          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&ftid='+vm.ftid+'&ftnm='+vm.ftnm;
+          console.log(vm.typeId);
+          console.log(vm.typeNm);
+          console.log(vm.order);
+          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&ftid='+vm.typeId+'&ftnm='+vm.typeNm+'&order='+vm.order;
         }
 
 
@@ -168,6 +222,8 @@ define(['App'], function(app) {
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
           vm.checkUsrOrOrg();
           vm.queryDocType();
+
+         
         }
 
         init();

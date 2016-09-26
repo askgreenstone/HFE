@@ -6,9 +6,10 @@ define(['App'], function(app) {
     var UploadfileController = function($location,$http,$window,GlobalUrl,TransferUrl,Common) {
         var vm = this;
         vm.transferurl = TransferUrl;
-        vm.titleList;
         vm.newFileTitle = '';
         vm.newFileContent = '';
+
+        
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
@@ -19,21 +20,14 @@ define(['App'], function(app) {
         }
 
         vm.goBack = function(){
-          $window.history.back();
+          // $window.history.back();
+          $window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
         };
 
 
 
 
-        // 切换个人与机构
-        vm.switchPerOrg = function(num){
-          console.log(num);
-          if(num === 1){
-            window.location.href = '#/card3?session='+vm.sess+'&ida=1';
-          }else{
-            window.location.href = '#/card3?session='+vm.sess+'&ida=0';
-          }
-        }
+        
 
         // 查询该session是个人还是机构
         vm.checkUsrOrOrg = function(){
@@ -62,22 +56,21 @@ define(['App'], function(app) {
         }
 
 
-        // 查询文件分类
-
-        vm.queryDocType = function(){
+        // 查询二级分类下具体文件
+        vm.queryDeptDocs = function(tid){
           $http({
             method: 'GET',
-            url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
+            url: GlobalUrl+'/exp/QueryDeptDocs.do',
             params: {
                 session:vm.sess,
-                tl: 1
+                ti: tid
             },
             data: {}
           }).
           success(function(data, status, headers, config) {
               console.log(data);
               if(data.c == 1000){
-                vm.titleList = data.li;
+                vm.artitleList = data.dl;
               }
           }).
           error(function(data, status, headers, config) {
@@ -86,21 +79,29 @@ define(['App'], function(app) {
           });
         }
 
-        // 查询文件分类下具体文章
-        vm.queryDeptDocs = function(typeId){
+
+
+        // 查询二级分类标题及描述
+        vm.queryDeptDocTypes = function(){
           $http({
             method: 'GET',
             url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
             params: {
                 session:vm.sess,
-                tl: 2
+                tl: 2,
+                ftid: vm.ftid
             },
             data: {}
           }).
           success(function(data, status, headers, config) {
               console.log(data);
               if(data.c == 1000){
-                vm.artitleList = data.li;
+                for(var i=0;i<data.li.length;i++){
+                  if(vm.tid == data.li[i].tid){
+                    vm.newFileTitle = data.li[i].tn;
+                    vm.newFileContent = data.li[i].dd;
+                  }
+                }
               }
           }).
           error(function(data, status, headers, config) {
@@ -109,8 +110,12 @@ define(['App'], function(app) {
           });
         }
 
-        // 删除某篇文章
+
+        
+        
+        // 删除某个文件   待修改
         vm.deleteArticle = function(typeId){
+          console.log(typeId);
           var data = {
             dl: [
               {
@@ -131,7 +136,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  // vm.artitleList = data.li;
+                  vm.queryDeptDocs(vm.tid);
                 }
             }).
             error(function(data, status, headers, config) {
@@ -143,7 +148,7 @@ define(['App'], function(app) {
           
         }
 
-
+        // 检测上传文件格式
         vm.gotoUpload = function(){
           var $choose_file = $('#newFileUpload'),
               URL = window.URL || window.webkitURL,
@@ -156,10 +161,18 @@ define(['App'], function(app) {
               if (files && files.length) {
                   file = files[0];
                   // 支持mp3,mp4以及文件格式如下
+                  // 1文档2视频3音频
                   console.log(file.name);
                   var ossname = file.name
-                  if(ossname.indexOf('.doc')>-1||ossname.indexOf('.docx')>-1||ossname.indexOf('.xls')>-1||ossname.indexOf('.xlsx')>-1||ossname.indexOf('.ppt')>-1||ossname.indexOf('.pptx')>-1||ossname.indexOf('.pdf')>-1||ossname.indexOf('mp3')>-1||ossname.indexOf('mp4')>-1){
+                  if(ossname.indexOf('.doc')>-1||ossname.indexOf('.docx')>-1||ossname.indexOf('.xls')>-1||ossname.indexOf('.xlsx')>-1||ossname.indexOf('.ppt')>-1||ossname.indexOf('.pptx')>-1||ossname.indexOf('.pdf')>-1){
                     vm.uploadFile();
+                    vm.docType = 1;
+                  }else if(ossname.indexOf('mp3')>-1){
+                    vm.uploadFile();
+                    vm.docType = 3;
+                  }else if(ossname.indexOf('mp4')>-1){
+                    vm.uploadFile();
+                    vm.docType = 2;
                   }else{
                     alert('暂不支持该类型文件！')
                   }
@@ -193,6 +206,7 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     if(data.c == 1000){
+                      vm.docName = f.name;
                       vm.uploadFileName = data.on;
                     }
                     Common.getLoading(false);
@@ -208,16 +222,26 @@ define(['App'], function(app) {
 
         // 上传文件，标题，说明
         vm.setFileUpload = function(){
+          console.log(vm.newFileTitle);
+          console.log(vm.uploadFileName);
           if(!vm.newFileTitle){
             alert('请输入文件标题！');
             return;
-          }else if(!vm.uploadFileName){
-            alert('请传入文件');
-            return;
-          }else{
+          }
+          if(vm.tid){
+            var data = {
+              li: [
+                {
+                  tid: vm.tid,
+                  tn: vm.newFileTitle,
+                  dd: vm.newFileContent,
+                  o: vm.order
+                }
+              ]
+            }
             $http({
               method: 'POST',
-              url: GlobalUrl+'/exp/AddDeptDocs.do',
+              url: GlobalUrl+'/exp/ModifyDeptDocTypes.do',
               params: {
                   session:vm.sess
               },
@@ -226,15 +250,91 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  // vm.artitleList = data.li;
+                  vm.queryDeptDocTypes();
+                  if(vm.uploadFileName){
+                    vm.addUploadFile(vm.tid);
+                  }else{
+                    $window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
+                  }
                 }
             }).
             error(function(data, status, headers, config) {
                 // console.log(data);
                 alert('系统开了小差，请刷新页面');
             });
+            
+          }else{
+            // 先创建二级分类，然后上传文件
+            var data = {
+              tn: vm.newFileTitle,
+              tl: 2,
+              ftid: vm.ftid,
+              o: vm.order,
+              dd: vm.newFileContent
+            }
+            $http({
+              method: 'POST',
+              url: GlobalUrl+'/exp/AddDeptDocTypes.do',
+              params: {
+                  session:vm.sess
+              },
+              data: JSON.stringify(data)
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  if(vm.uploadFileName){
+                    vm.addUploadFile(data.tid);
+                  }else{
+                    alert('创建成功！')
+                  }
+                  vm.queryDeptDocTypes();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+            
           }
         }
+
+
+
+        // 上传文件方法
+        vm.addUploadFile = function(tid){
+          var data = {
+            dn: vm.docName,
+            odn: vm.uploadFileName,
+            dt: vm.docType,
+            dti: tid,
+            o: vm.order
+          }
+          console.log(data);
+          $http({
+            method: 'POST',
+            url: GlobalUrl+'/exp/AddDeptDocs.do',
+            params: {
+                session:vm.sess
+            },
+            data: JSON.stringify(data)
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                alert('上传成功！')
+                vm.queryDeptDocs(tid);
+              }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('系统开了小差，请刷新页面');
+          });
+        }
+        
+
+
+
 
 
         function init(){
@@ -243,9 +343,14 @@ define(['App'], function(app) {
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
           vm.checkUsrOrOrg();
-          vm.queryDocType();
           vm.ftid = Common.getUrlParam('ftid');
           vm.ftnm = decodeURI(Common.getUrlParam('ftnm'));
+          vm.tid = Common.getUrlParam('tid');
+          vm.order = Common.getUrlParam('order');
+          if(vm.tid){
+            vm.queryDeptDocs(vm.tid);
+            vm.queryDeptDocTypes();
+          }
           console.log(vm.ftnm);
           console.log(vm.ftid);
         }
