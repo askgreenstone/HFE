@@ -42,27 +42,35 @@
 				</li>
 				<li class="text-active" ng-click="vm.menuLink('filelist')">
 					<img src="image/manage/article.png"  width="18" height="18"/>
-					<span><a href="javascript:void(0)">机构文件管理</a></span>
+					<span><a href="javascript:void(0)">微课堂</a></span>
 				</li>
 			</ul>
 		</div>
 		<div class="mc_right">
 			<div class="list_lenged">
-				<h3 class="red">机构文件列表</h3>
-				<!-- <span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span> -->
+				<h3 class="red">微课堂</h3>
 			</div>
-			<!-- <div class="usrTitle">机构文件列表</div> -->
 	    <div class="contentBox">
-	      <ul class="contentClass">
-	      	<li ng-repeat="(key,value) in vm.titleList" ng-click="vm.queryDeptDocs(value.tid,value.tn)" ng-class="key==0?'active':''">
-						{{value.tn}}
-					</li>
-					<div class="addNewTitle" ng-click="vm.addNewTitle()">添加分类</div>
-	      </ul>
 	      <ul class="contentList">
-	        <li id="x.tid" ng-repeat="x in vm.artitleList">
-	        	<p ng-click="vm.gotoUpload(x.tid,x.o)">{{x.tn?(x.tn.length>15?x.tn.substr(0,15)+'...':x.tn):'文件名'}}</p>
+	        <!-- <li id="x.tid" ng-repeat="x in vm.artitleList">
+	        	<p ng-click="vm.gotoUpload(x.tid,x.o)"></p>
 	        	<span ng-click="vm.deleteArticle(x.tid)">删除</span>
+	        </li> -->
+	        <li id="x.tid" ng-repeat="x in vm.artitleList">
+	        	<div ng-click="vm.gotoUpload(x.tid,x.o)" class="contentList_left">
+	        		<img ng-src={{x.p?(vm.transferurl+x.p):(vm.transferurl+'header.jpg')}} width="120" height="120">
+	        	</div>
+	        	<div ng-click="vm.gotoUpload(x.tid,x.o)" class="contentList_center">
+	        		<div class="contentList_center_title">{{x.tn?(x.tn.length>15?x.tn.substr(0,15)+'...':x.tn):'文件名'}}</div>
+	        		<div class="contentList_center_expNm">
+	        			<span>{{x.s?x.s:'主讲人'}}</span>
+	        			<span>{{vm.getLocalTime(x.t)}}</span>
+	        		</div>
+	        		<div class="contentList_center_content">{{x.dd?(x.dd.length>60?x.dd.substr(0,60)+'...':x.dd):'文件描述'}}</div>
+	        	</div>	
+	        	<div ng-click="vm.deleteFileClass(x.tid)" class="contentList_right">
+	        		<span>删除</span>
+	        	</div>
 	        </li>
 	      </ul>
 	    </div>
@@ -72,18 +80,6 @@
 		</div>
 		<div class="clean"></div>
 	</div>
-	<div class="filelist_addNewTitle">
-		<div class="filelist_shadow">
-			<span class="step4_close" ng-click="vm.hiddenShadow()">
-				<img src="image/delete.png" width="30" height="30">
-			</span>
-			<p>请输入新的分类名称</p>
-			<input type="text" name="">
-			<div class="af_btn fix_center">
-				<span ng-click="vm.addNewTitleClass()">确 认</span>
-				<span ng-click="vm.hiddenShadow()">取 消</span>
-			</div>
-		</div>
-	</div>
+	
 	
 </div>

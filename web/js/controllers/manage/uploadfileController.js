@@ -8,6 +8,7 @@ define(['App'], function(app) {
         vm.transferurl = TransferUrl;
         vm.newFileTitle = '';
         vm.newFileContent = '';
+        vm.isServerData = false;//服务器端数据还是本地上传
 
         
 
@@ -23,6 +24,15 @@ define(['App'], function(app) {
           // $window.history.back();
           $window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
         };
+
+        vm.calLength = function(cur){
+          if(cur){
+            var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
+          }else{
+            var count = 0;
+          }
+          return count;
+        }
 
 
 
@@ -56,7 +66,7 @@ define(['App'], function(app) {
         }
 
 
-        // 查询二级分类下具体文件
+        // 查询分类下具体文件
         vm.queryDeptDocs = function(tid){
           $http({
             method: 'GET',
@@ -81,15 +91,13 @@ define(['App'], function(app) {
 
 
 
-        // 查询二级分类标题及描述
+        // 查询分类标题及描述
         vm.queryDeptDocTypes = function(){
           $http({
             method: 'GET',
             url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
             params: {
-                session:vm.sess,
-                tl: 2,
-                ftid: vm.ftid
+                session:vm.sess
             },
             data: {}
           }).
@@ -98,11 +106,20 @@ define(['App'], function(app) {
               if(data.c == 1000){
                 for(var i=0;i<data.li.length;i++){
                   if(vm.tid == data.li[i].tid){
+                    vm.newFileImg = data.li[i].p;
+                    vm.newFileExpNm = data.li[i].s;
                     vm.newFileTitle = data.li[i].tn;
                     vm.newFileContent = data.li[i].dd;
+                    vm.choosePic = data.li[i].p;
+                    vm.fileImg = vm.transferurl + data.li[i].p;
+                    vm.isServerData = true;
                   }
                 }
+                setTimeout(function() {
+                  vm.initCropper();
+                }, 300);
               }
+              console.log(vm.transferurl+vm.newFileImg);
           }).
           error(function(data, status, headers, config) {
               // console.log(data);
@@ -110,6 +127,168 @@ define(['App'], function(app) {
           });
         }
 
+
+        // 图片裁切
+        vm.initCropper = function() {
+          vm.hiddenInitImg = true;
+            $('#themeCropper').cropper({
+                aspectRatio: 1 / 1,
+                preview: '#img_preview',
+                viewMode:1,
+                crop: function(e) {
+                    // Output the result data for cropping image.
+                    // console.log(e.x);
+                    // console.log(e.y);
+                    // console.log(e.width);
+                    // console.log(e.height);
+                    // console.log(e.rotate);
+                    // console.log(e.scaleX);
+                    // console.log(e.scaleY);
+                    vm.imgx = Math.round(e.x);
+                    vm.imgy = Math.round(e.y);
+                    vm.imgh = Math.round(e.height);
+                    vm.imgw = Math.round(e.width);
+                },
+                cropend:function(){
+                  var cropDatas = $(this).cropper('getData');
+                  console.log(cropDatas);
+                  curw = Math.round(cropDatas.width);
+                  curh = Math.round(cropDatas.height);
+                  console.log('width,height:'+curw+curh);
+                }
+            });
+            var $choose_file = $('#choose_file'),
+                URL = window.URL || window.webkitURL,
+                blobURL;
+            if (URL) {
+                $choose_file.change(function() {
+                    var files = this.files,
+                        file;
+
+                    if (files && files.length) {
+                        file = files[0];
+
+                        if (/^image\/\w+$/.test(file.type)) {
+                            blobURL = URL.createObjectURL(file);
+                            $('#themeCropper').one('built.cropper', function() {
+                                URL.revokeObjectURL(blobURL); // Revoke when load complete
+                            }).cropper('reset').cropper('replace', blobURL);
+                        } else {
+                            alert('请选择图片文件！');
+                        }
+                    }
+                });
+            } else {
+                
+            }
+        }
+
+        vm.uploadImg = function() {
+          console.log('w,h,x,y:'+vm.imgw,vm.imgh,vm.imgx,vm.imgy);
+            var f = document.getElementById('choose_file').files[0],
+                r = new FileReader();
+            // console.log('f,r:'+f,r);
+            // console.log(f);
+            // return;
+            if(!f){
+              if(!vm.isServerData){
+                alert('请先选择图片！');
+                return;
+              }
+              else{
+                vm.clipSourceImg(vm.choosePic);
+                return;
+              }
+            }
+            //gif图片不被裁切
+            if(f.type.toString().toLowerCase().indexOf('gif')>-1){
+              alert('暂不支持gif！');
+              return;
+            }
+            Common.getLoading(true);
+            r.onloadend = function(e) {
+                var data = e.target.result;
+                var fd = new FormData();
+                fd.append('fileToUpload', f);
+                fd.append('filename', f.name);
+                fd.append('w', vm.imgw);
+                fd.append('h', vm.imgh);
+                fd.append('x', vm.imgx);
+                fd.append('y', vm.imgy);
+                console.log(fd);
+                $http.post(GlobalUrl + '/data/upload?session=' + vm.sess, fd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                })
+                .success(function(data) {
+                    Common.getLoading(false);
+                    console.log(data);
+                    vm.newFileImg = data.on;
+                    vm.fileImg = vm.transferurl+data.on;
+                    vm.isServerData = true;
+                    alert('上传成功');
+                    $('#themeCropper').cropper('destroy');
+                    setTimeout(function() {
+                      vm.initCropper();
+                    }, 300);
+                })
+                .error(function() {
+                    // console.log('error');
+                    Common.getLoading(false);
+                    alert('系统开了小差，请刷新页面');
+                });
+            };
+            r.readAsDataURL(f);
+        }
+
+
+        //二次裁切素材
+        vm.clipSourceImg = function(name){
+          console.log('name:'+name);
+          Common.getLoading(true);
+          //1-背景图片;2-logo;3-headImg;4-自动回复图文消息横版图片;5-更新分享信息图片;6-只裁图不更新数据库
+          $http({
+                method: 'POST',
+                url: GlobalUrl+'/exp/UpdateMicWebImgs.do',
+                headers: {
+                    'Content-Type': undefined
+                },
+                params: {
+                    session:vm.sess
+                },
+                data: JSON.stringify({
+                    in:name,
+                    it:6,
+                    w:vm.imgw,
+                    h:vm.imgh,
+                    x:vm.imgx,
+                    y:vm.imgy,
+                    ida: vm.ida
+                })
+            }).
+            success(function(data, status, headers, config) {
+                Common.getLoading(false);
+                console.log(data);
+                if(data.c == 1000){
+                  console.log('clipSourceImg success');
+                  vm.newFileImg = data.in;
+                  vm.fileImg = vm.transferurl+data.in;
+                  vm.choosePic = data.in;
+                  alert('上传成功');
+                  $('#themeCropper').cropper('destroy');
+                  setTimeout(function() {
+                    vm.initCropper();
+                  }, 100);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                Common.getLoading(false);
+                console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
 
         
         
@@ -149,8 +328,8 @@ define(['App'], function(app) {
         }
 
         // 检测上传文件格式
-        vm.gotoUpload = function(){
-          var $choose_file = $('#newFileUpload'),
+        vm.getUploadFileType = function(){
+          var $choose_file = $('#step5_upload'),
               URL = window.URL || window.webkitURL,
               blobURL;
           console.log(URL);
@@ -165,13 +344,13 @@ define(['App'], function(app) {
                   console.log(file.name);
                   var ossname = file.name
                   if(ossname.indexOf('.doc')>-1||ossname.indexOf('.docx')>-1||ossname.indexOf('.xls')>-1||ossname.indexOf('.xlsx')>-1||ossname.indexOf('.ppt')>-1||ossname.indexOf('.pptx')>-1||ossname.indexOf('.pdf')>-1){
-                    vm.uploadFile();
+                    vm.getUploadFileNm();
                     vm.docType = 1;
                   }else if(ossname.indexOf('mp3')>-1){
-                    vm.uploadFile();
+                    vm.getUploadFileNm();
                     vm.docType = 3;
                   }else if(ossname.indexOf('mp4')>-1){
-                    vm.uploadFile();
+                    vm.getUploadFileNm();
                     vm.docType = 2;
                   }else{
                     alert('暂不支持该类型文件！')
@@ -183,8 +362,8 @@ define(['App'], function(app) {
           }
         }
         //上传文件获取oss文件名
-        vm.uploadFile = function() {
-            var f = document.getElementById('newFileUpload').files[0],
+        vm.getUploadFileNm = function() {
+            var f = document.getElementById('step5_upload').files[0],
                 r = new FileReader();
             if (!f){
               alert('请先选择文件！');
@@ -224,20 +403,32 @@ define(['App'], function(app) {
         vm.setFileUpload = function(){
           console.log(vm.newFileTitle);
           console.log(vm.uploadFileName);
+          if(!vm.isServerData){
+            alert('请先上传课程图片！');
+            return;
+          }
+          if(!vm.newFileExpNm){
+            alert('请填写讲师姓名！');
+            return;
+          }
           if(!vm.newFileTitle){
-            alert('请输入文件标题！');
+            alert('请填写课程名称！');
+            return;
+          }
+          if(!vm.newFileContent){
+            alert('请填写课程简介！');
             return;
           }
           if(vm.tid){
             var data = {
-              li: [
-                {
-                  tid: vm.tid,
-                  tn: vm.newFileTitle,
-                  dd: vm.newFileContent,
-                  o: vm.order
-                }
-              ]
+              li: [{
+                tn: vm.newFileTitle,
+                o: vm.order,
+                dd: vm.newFileContent,
+                p: vm.newFileImg,
+                s: vm.newFileExpNm,
+                tid: vm.tid
+              }]
             }
             $http({
               method: 'POST',
@@ -250,11 +441,10 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.queryDeptDocTypes();
                   if(vm.uploadFileName){
                     vm.addUploadFile(vm.tid);
                   }else{
-                    $window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
+                    window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
                   }
                 }
             }).
@@ -267,10 +457,10 @@ define(['App'], function(app) {
             // 先创建二级分类，然后上传文件
             var data = {
               tn: vm.newFileTitle,
-              tl: 2,
-              ftid: vm.ftid,
               o: vm.order,
-              dd: vm.newFileContent
+              dd: vm.newFileContent,
+              p: vm.newFileImg,
+              s: vm.newFileExpNm
             }
             $http({
               method: 'POST',
@@ -287,8 +477,8 @@ define(['App'], function(app) {
                     vm.addUploadFile(data.tid);
                   }else{
                     alert('创建成功！')
+                    window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
                   }
-                  vm.queryDeptDocTypes();
                 }
             }).
             error(function(data, status, headers, config) {
@@ -323,7 +513,7 @@ define(['App'], function(app) {
               console.log(data);
               if(data.c == 1000){
                 alert('上传成功！')
-                vm.queryDeptDocs(tid);
+                window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
               }
           }).
           error(function(data, status, headers, config) {
@@ -343,16 +533,19 @@ define(['App'], function(app) {
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
           vm.checkUsrOrOrg();
-          vm.ftid = Common.getUrlParam('ftid');
-          vm.ftnm = decodeURI(Common.getUrlParam('ftnm'));
           vm.tid = Common.getUrlParam('tid');
           vm.order = Common.getUrlParam('order');
           if(vm.tid){
             vm.queryDeptDocs(vm.tid);
             vm.queryDeptDocTypes();
+          }else{
+            vm.fileImg = 'image/placeholder.png';
+            vm.isServerData = false;
+            setTimeout(function() {
+              vm.initCropper();
+            }, 300);
           }
-          console.log(vm.ftnm);
-          console.log(vm.ftid);
+          
         }
 
         init();

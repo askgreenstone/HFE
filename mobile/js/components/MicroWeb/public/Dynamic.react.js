@@ -327,7 +327,7 @@ var Dynamic = React.createClass({
     ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_'+fid+'#wechat_redirect';
     var imgList = this.state.imgLists.map(function(item,i){
       return(
-          <img key={new Date().getTime()+i} src={global.img+item}/>
+          <img key={new Date().getTime()+i} src={global.img+item+'@500w'}/>
        );
     }.bind(this));
     var usrContent = this.state.usrContents.map(function(item,i){

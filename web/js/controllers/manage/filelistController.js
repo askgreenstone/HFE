@@ -23,7 +23,30 @@ define(['App'], function(app) {
 
 
 
+        Date.prototype.Format = function(fmt){ //author: meizz   
+          var o = {   
+            "M+" : this.getMonth()+1,                 //月份   
+            "d+" : this.getDate(),                    //日   
+            "h+" : this.getHours(),                   //小时   
+            "m+" : this.getMinutes(),                 //分   
+            "s+" : this.getSeconds(),                 //秒   
+            "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+            "S"  : this.getMilliseconds()             //毫秒   
+          };   
+          if(/(y+)/.test(fmt))   
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+          for(var k in o)   
+            if(new RegExp("("+ k +")").test(fmt))   
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+          return fmt;   
+        } 
 
+        vm.getLocalTime = function(now) {  
+          // console.log(now);
+          if(!now)  return;
+          var time1 = new Date(now).Format("yyyy-MM-dd hh:mm:ss");  
+          return time1;      
+        }  
         
 
         // 查询该session是个人还是机构
@@ -53,48 +76,14 @@ define(['App'], function(app) {
         }
 
 
-        // 查询文件分类(1级分类)  tl:1
-
-        vm.queryDocType = function(){
-          $http({
-            method: 'GET',
-            url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
-            params: {
-                session:vm.sess,
-                tl: 1
-            },
-            data: {}
-          }).
-          success(function(data, status, headers, config) {
-              console.log(data);
-              if(data.c == 1000){
-                vm.titleList = data.li;
-                var typeId = data.li[0].tid;
-                var typeNm = data.li[0].tn;
-                vm.queryDeptDocs(typeId,typeNm);
-              }
-          }).
-          error(function(data, status, headers, config) {
-              // console.log(data);
-              alert('系统开了小差，请刷新页面');
-          });
-        }
-
-
-        $('.contentClass').on('click','li',function(){
-          $(this).addClass('active').siblings('li').removeClass('active');
-        })       
         
-
-        // 查询文件分类下(2级分类)   tl:2
-        vm.queryDeptDocs = function(typeId,typeNm){
+        // 查询文件分类
+        vm.queryDeptDocs = function(){
           $http({
             method: 'GET',
             url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
             params: {
-              session:vm.sess,
-              tl: 2,
-              ftid: typeId
+              session:vm.sess
             },
             data: {}
           }).
@@ -102,8 +91,6 @@ define(['App'], function(app) {
               console.log(data);
               if(data.c == 1000){
                 vm.artitleList = data.li;
-                vm.typeId = typeId;
-                vm.typeNm = typeNm;
                 vm.order = data.li?(data.li.length+1):1;
               }
           }).
@@ -114,63 +101,12 @@ define(['App'], function(app) {
         }
 
 
-        // 添加新的一级分类
-        vm.addNewTitle = function(){
-          $('body').css('overflow','hidden');
-          $('.filelist_addNewTitle').css('marginTop',$('body').scrollTop()).show();
-
-        }
-
-        // 点击关闭按钮/取消/操作
-        vm.hiddenShadow = function(){
-          $('body').css('overflow','auto');
-          $('.filelist_addNewTitle').hide();
-        }
-
-        // 点击确定添加一级分类
-        vm.addNewTitleClass = function(){
-          var text = $('.filelist_shadow input').val();
-          var order = $('.contentClass li').length+1;
-          console.log(order);
-          if(!text){
-            alert('请输入新的分类名称！');
-            return;
-          }else{
-            var data = {
-              tn: text,
-              tl: 1,
-              o: order
-            }
-            $http({
-              method: 'POST',
-              url: GlobalUrl+'/exp/AddDeptDocTypes.do',
-              params: {
-                session:vm.sess
-              },
-              data: JSON.stringify(data)
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  vm.hiddenShadow();
-                  vm.queryDocType();
-                }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('系统开了小差，请刷新页面');
-            });
-            
-          }
-        }
-
-        // 删除二级分类
-        vm.deleteArticle = function(typeId){
+        
+        // 删除文件分类
+        vm.deleteFileClass = function(typeId){
           var data = {
             li: [typeId]
           }
-          console.log(vm.typeId);
-          console.log(vm.typeNm);
           var flag = window.confirm('确定要删除么？');
           if(flag){
             $http({
@@ -184,8 +120,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  console.log(vm.typeId,vm.typeNm);
-                  vm.queryDeptDocs(vm.typeId,vm.typeNm)
+                  vm.queryDeptDocs()
                 }
             }).
             error(function(data, status, headers, config) {
@@ -198,10 +133,10 @@ define(['App'], function(app) {
 
 
 
-        // 点击二级分类跳转uploadfile
+        // 点击分类跳转uploadfile
         vm.gotoUpload = function(tid,order){
           console.log(order);
-          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&ftid='+vm.typeId+'&ftnm='+vm.typeNm+'&order='+order+'&tid='+tid;
+          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+order+'&tid='+tid;
         }
 
 
@@ -211,7 +146,7 @@ define(['App'], function(app) {
           console.log(vm.typeId);
           console.log(vm.typeNm);
           console.log(vm.order);
-          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&ftid='+vm.typeId+'&ftnm='+vm.typeNm+'&order='+vm.order;
+          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+vm.order;
         }
 
 
@@ -221,9 +156,7 @@ define(['App'], function(app) {
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
           vm.checkUsrOrOrg();
-          vm.queryDocType();
-
-         
+          vm.queryDeptDocs();
         }
 
         init();

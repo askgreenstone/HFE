@@ -1,0 +1,48 @@
+<div class="view">
+	<div class="view_title">
+		我的工具
+		<select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
+			<option ng-selected="vm.selectedState" value="">--请选择--</option>
+		</select>
+		<span class="perLawyer">
+			<img src= {{vm.headImg}} width="20" height="20">
+			{{vm.lawyerName}} 律师
+		</span>
+	</div>
+	<div class="manage_content">
+		<div class="toolsBox">
+			<ul>
+				<li>
+					<a href="javascript:;">
+						<img src="image/manage/micro.png" width="100" height="100">
+						<span>企业尽职调查</span>		
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="image/manage/micro.png" width="100" height="100">
+						<span>企业尽职调查</span>		
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="image/manage/micro.png" width="100" height="100">
+						<span>企业尽职调查</span>		
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="image/manage/micro.png" width="100" height="100">
+						<span>企业尽职调查</span>		
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="image/manage/micro.png" width="100" height="100">
+						<span>企业尽职调查</span>		
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

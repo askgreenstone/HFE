@@ -28,7 +28,16 @@ Date.prototype.Format = function(fmt){ //author: meizz
 var TimeAxis = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
-    return {datas:[],Abstract:'',Title:'',Introduction:'',Img:'',TimeAxis:[],getMore:false,headImg:''};
+    return {
+      datas:[],
+      Abstract:'',
+      Title:'',
+      Introduction:'',
+      Img:'',
+      TimeAxis:[],
+      getMore:false,
+      headImg:''
+    };
   },
   gotoLink: function(path,fid,session,usrUri){
     if(!fid){
@@ -66,7 +75,7 @@ var TimeAxis = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
-    var fid = window.localStorage.getItem('TimeAxis');
+    var fid = window.localStorage.getItem('TimeAxisfid');
     this.getTimeAxis(fid);
   },
   getTimeAxis: function(fid){
@@ -74,27 +83,43 @@ var TimeAxis = React.createClass({
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
     $.ajax({
       type:'get',
-      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=10&fid='+fid,
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=10&fid='+fid+'&idf='+idf,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
           // console.log(data.sil[0].spu)
+          console.log(data.r.fl);
           if(data.r.fl.length<10){
-            this.setState({
-              TimeAxis: this.state.TimeAxis.concat(data.r.fl),
-              getMore: false 
-            })
-            window.localStorage.removeItem('TimeAxis');
+            if(fid == 0){
+              this.setState({
+                TimeAxis: data.r.fl,
+                getMore: false 
+              })
+            }else{
+              this.setState({
+                TimeAxis: this.state.TimeAxis.concat(data.r.fl),
+                getMore: false 
+              })
+            }
+            window.localStorage.removeItem('TimeAxisfid');
           }else{
-            this.setState({
-              TimeAxis: this.state.TimeAxis.concat(data.r.fl),
-              getMore: true 
-            })
-            window.localStorage.setItem('TimeAxis',data.r.fl[data.r.fl.length-1].fid);
+            if(fid == 0){
+              this.setState({
+                TimeAxis: data.r.fl,
+                getMore: true 
+              })
+            }else{
+              this.setState({
+                TimeAxis: this.state.TimeAxis.concat(data.r.fl),
+                getMore: true 
+              })
+            }
+            window.localStorage.setItem('TimeAxisfid',data.r.fl[data.r.fl.length-1].fid);
           }
         }
       }.bind(this),
@@ -119,6 +144,9 @@ var TimeAxis = React.createClass({
   },
   getIndexTheme: function(){
     var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
     $.ajax({
       type: 'GET',
       url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri,
@@ -136,6 +164,30 @@ var TimeAxis = React.createClass({
       }.bind(this)
     })
   },
+  // 删除某一条数据
+  deleteDynamic: function(fid){
+    var session = this.getUrlParams('session');
+    var flag = window.confirm('确定要删除么？');
+    if(flag){
+      $.ajax({
+        type: 'POST',
+        url: global.url+'/usr/DeleteFeed.do?session='+session,
+        data: JSON.stringify({
+          fid: fid
+        }),
+        success: function(data) {
+            console.log(data);
+            if(data.c == 1000){
+              this.getTimeAxis(0);
+            }
+        }.bind(this),
+        error: function(data) {
+            // console.log(data);
+            alert('系统开了小差，请刷新页面');
+        }.bind(this)
+      })
+    }
+  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log($('.timeline_container'));
@@ -145,6 +197,11 @@ var TimeAxis = React.createClass({
     this.getIndexTheme();
     this.getTimeAxis(0);
     this.getServerInfo();
+    var usrUri = this.getUrlParams('usrUri');
+    var ownUri = this.getUrlParams('ownUri');
+    this.setState({
+      isSelf: ownUri == usrUri?true:false
+    })
   }, 
   render: function() {
     var ShareTitile = this.state.lawyerName+'律师与您分享了TA的足迹';
@@ -155,6 +212,7 @@ var TimeAxis = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     var str = window.location.href;
     var temp,appid,ShareUrl;
+    console.log(this.state.TimeAxis);
     // 时间轴，动态详情页面分享需要授权
     if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
         temp = 't-web';
@@ -166,12 +224,12 @@ var TimeAxis = React.createClass({
     ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'#wechat_redirect';
     var navNodes = this.state.TimeAxis.map(function(item,i){
       return(
-        <li key={new Date().getTime()+i} className="timeline" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri)}>
+        <li key={new Date().getTime()+i} className="timeline">
           <div className={i==0?'timeline_time timeline_time_first':'timeline_time'}>
             <p>{new Date(item.ts).Format("MM-dd hh:mm")}</p>
             <img src={i==0?'image/LatestNews/bor.png':'image/LatestNews/ellipse.png'}/>
           </div>
-          <div className="timeline_content">
+          <div className="timeline_content" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri)}>
             <div className="timeline_img">
               <img src={item.il[0]?(global.img+item.il[0]):global.img+item.p}/>
             </div>
@@ -179,6 +237,11 @@ var TimeAxis = React.createClass({
               <h2>{item.title?(item.title.length>6?item.title.substr(0,6)+'...':item.title):''}</h2>
               <p>{item.content?(item.content.length>30?item.content.substr(0,30)+'...':item.content):''}</p>
             </div>
+          </div>
+          <div className="timeline_action">
+          <span className="timeline_action_nice">{item.cnum}</span>
+          <span className="timeline_action_tip">{item.rnum}</span>
+          <span className="timeline_action_delete" onClick={this.deleteDynamic.bind(this,item.fid)} style={{display:this.state.isSelf?'block':'none'}}></span>
           </div>
         </li>
        );

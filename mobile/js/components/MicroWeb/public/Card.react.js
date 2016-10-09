@@ -207,7 +207,7 @@ var Card = React.createClass({
             <div className="uc_input" style={{display:this.state.Mob?'block':'none'}}>
               <a href={'tel://'+this.state.Mobile}>
                 {this.state.Mob}
-                <img src="image/theme002/telphone1.png" width="25" height="25"/>
+                <img src="image/theme002/mobile.png" width="25" height="25"/>
               </a>
             </div>
             <div className="uc_input" style={{display:this.state.eml?'block':'none'}}>
@@ -219,7 +219,7 @@ var Card = React.createClass({
             <div className="uc_input" style={{display:this.state.tel?'block':'none'}}>
               <a href={'tel://'+this.state.TelNo}>
                 {this.state.tel}
-                <img src="image/theme002/fax.png" width="25" height="25"/>
+                <img src="image/theme002/telphone1.png" width="25" height="25"/>
               </a>
             </div>
             <div className="uc_input" style={{display:this.state.web?'block':'none'}}>

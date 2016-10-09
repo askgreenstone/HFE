@@ -1111,9 +1111,10 @@ p{
 }
 .timeline{
   width: 100%;
-  height: 9rem;
+  height: 10rem;
   display: box;
   display: -webkit-box;
+  position: relative;
 }
 .timeline_time{
   width: 30%;
@@ -1145,7 +1146,8 @@ p{
   top: -1rem;
 }
 .timeline_content{
-  width: 65%;
+  width: 70%;
+  height: 70px;
   display: box;
   display: -webkit-box;
   padding-left: 1rem;
@@ -1162,12 +1164,42 @@ p{
 }
 .timeline_con{
   -webkit-box-flex: 1;
+  line-height: 1.5rem;
+  word-break: break-word;
 }
 .timeline_con h2{
   line-height: 0;
 }
-.timeline_con{
-  line-height: 1.5rem;
+.timeline_action{
+  position: absolute;
+  right: 0%;
+  bottom: 15%;
+  width: 45%;
+  height: 2rem;
+  display: box;
+  display: -webkit-box;
+}
+.timeline_action span{
+  width: 30%;
+  display: block;
+  height: 2rem;
+  line-height: 2rem;
+  padding-left: 2.5rem;
+  box-sizing: border-box;
+  background-size: auto 75%;
+  background-position: left center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.timeline_action_nice{
+  background-image: url('../image/nice.png');
+}
+.timeline_action_tip{
+  background-image: url('../image/tip.png');
+}
+.timeline_action span.timeline_action_delete{
+  background-image: url('../image/delete.png');
+  background-size: auto 70%;
 }
 .timeline_more{
   width: 100%;
@@ -1432,6 +1464,9 @@ p{
   }
   .timeline_time{
     padding-right: 1.5rem;
+  }
+  .timeline_action span{
+    padding-left: 2rem;
   }
 }
 @media screen and (min-width: 321px) and (max-width: 360px) {

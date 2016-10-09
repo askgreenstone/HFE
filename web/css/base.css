@@ -2445,51 +2445,63 @@ input[type=checkbox], input[type=radio] {
   color: #fff;
 }
 .contentList{
-  width: 80%;
-  height: 500px;
+  width: 100%;
+  height: 400px;
   overflow: scroll;
   padding: 0 2% 2%;
   box-sizing: border-box;
 }
 .contentList li{
   width: 100%;
-  height: 40px;
+  height: 120px;
+  display: box;
+  display: -webkit-box;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+.contentList_left{
+  width: 120px;
+  height: 120px;
+  margin: 10px 20px 20px 0;
+}
+.contentList_center{
+  box-flex: 1;
+  -webkit-box-flex: 1;
+}
+.contentList_center_title{
   line-height: 40px;
   font-size: 16px;
-  overflow: hidden;
+  font-weight: bold;
 }
-.contentList li p:hover{
-  color: red;
+.contentList_center_expNm{
+  line-height: 30px;
+  font-size: 12px;
 }
-.contentList li p{
-  float: left;
-  height: 40px;
-  line-height: 40px;
-  cursor: pointer;
-  font-size: 14px;
-  width: 80%;
+.contentList_center_expNm span:first-child{
+  margin-right: 20px;
 }
-.contentList li span{
-  float: right;
-  height: 30px;
+.contentList_center_content{
+  line-height: 20px;
+  font-size: 12px;
+}
+.contentList_right{
+  width: 100px;
+  height: 120px;
+}
+.contentList_right span{
   line-height: 30px;
   cursor: pointer;
-  display: block;
   border-radius: 5px;
-  width: 40px;
   border: 1px solid red;
   text-align: center;
   font-size: 12px;
   background: #e46060;
   color: #fff;
-  margin-top: 5px;
-}
-.contentList li:after{
-  content: '';
-  visibility:hidden;
-  display:block;
-  height:0;
-  clear:both;
+  width: 40px;
+  height: 30px;
+  display: block;
+  margin-top: 45px;
+  margin-left: 30px; 
 }
 .addFile{
   width: 100%;
@@ -2498,48 +2510,12 @@ input[type=checkbox], input[type=radio] {
   text-align: center;
   cursor: pointer;
 }
-.filelist_addNewTitle{
-  background-color: rgba(0,0,0,0.6);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  display: none;
-}
-.filelist_shadow{
-  width: 400px;
-  height: 200px;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  margin-left: -200px;
-  margin-top: -100px;
-  background: #fff;
-  border-radius: 5px;
-}
-.filelist_shadow p{
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-  color: #666;
-  font-weight: bold;
-  font-size: 16px;
-}
-.filelist_shadow input{
-  width: 60%;
-  height: 30px;
-  line-height: 30px;
-  outline: none;
-  text-indent: 10px;
-  display: block;
-  margin: 20px auto;
-  font-size: 12px;
-}
 
  /*机构号文件上传详情页*/
+.mc_right_uploadfile{
+  width: 96%;
+  padding-left: 3%;
+}
 .newFile_left{
   width: 40%;
   float: left;
@@ -2596,15 +2572,85 @@ input[type=checkbox], input[type=radio] {
   cursor: pointer;      
 }
 .usrContent{
-  width: 50%;
-  float: left;
+  width: 100%;
 }
-.usrContent p{
+.usrContentList{
+  width: 100%;
+}
+.usrContentList li{
   width: 100%;
   height: 40px;
+  display: box;
+  display: -webkit-box;
+}
+.usrContentList li:nth-child(even){
+  background: #eee;
+}
+.usrContentList li:nth-child(odd){
+  background: #ddd;
+}
+.usrContentList li span{
+  line-height: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 12px;
+  background: #e46060;
+  color: #fff;
+  width: 40px;
+  height: 30px;
+  display: block;
+  margin-top: 5px;
+}
+.usrContentList li p{
+  -webkit-box-flex: 1;
+  height: 40px;
   line-height: 40px;
+  text-indent: 10px;
+}
+.mb_input span.uploadfile_preview{
+  border-radius: 0;
+}
+.mc_right_uploadfile .mb_input span{
+  border-radius: 0; 
+}
+.mc_right_uploadfile .mb_input textarea{
+  height: 100px;
+}
+.input_file_fix .uploadFileDocName{
+  margin: -30px 0 20px 215px;
+  width: 300px;
+  color: red;
 }
 
+
+/*我的工具*/
+.toolsBox{
+  width: 100%;
+  margin: 20px;
+}
+.toolsBox ul{
+  width: 100%;
+
+}
+.toolsBox ul li{
+  float: left;
+  width: 120px;
+  height: 150px;
+  padding: 10px;
+  margin-right: 10px;
+}
+.toolsBox ul li img{
+  display: block;
+}
+.toolsBox ul li span{
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  display: block;
+}
 
 
 

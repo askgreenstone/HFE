@@ -15,6 +15,7 @@ var LatestNews = React.createClass({
   getWXNewsMsg:function(ownUri){
         var wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
+        var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
         $.ajax({
             type: 'get',
             url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
@@ -28,7 +29,7 @@ var LatestNews = React.createClass({
                   }else{
                     temp = 'web';
                   }
-                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'#wechat_redirect';
+                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+ida+'#wechat_redirect';
                 }
             },
             error: function(xhr, status, err) {

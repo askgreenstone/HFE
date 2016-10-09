@@ -42,41 +42,83 @@
 				</li>
 				<li class="text-active" ng-click="vm.menuLink('filelist')">
 					<img src="image/manage/article.png"  width="18" height="18"/>
-					<span><a href="javascript:void(0)">机构文件管理</a></span>
+					<span><a href="javascript:void(0)">微课堂</a></span>
 				</li>
 			</ul>
 		</div>
 		<div class="mc_right">
 			<div class="list_lenged">
-				<h3 class="red">机构文件列表信息</h3>
+				<h3 class="red">微课堂课程列表</h3>
 				<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span>
 			</div>
-			<div class="newFile_left">
-	      <p class="newFileClass">文件类别 : <span>{{vm.ftnm}}</span></p>
-	      <p>文件标题 : </p>
-	      <p><input type="text" id="title" placeholder="请输入文件标题" ng-model="vm.newFileTitle"/></p>
-	      <p>文件说明 : </p>
-	      <p class="textarea"><textarea placeholder="请输入文件说明" ng-model="vm.newFileContent"></textarea></p>
-	      <div class="uploadFile" ng-click="vm.gotoUpload()">
-	        <img src="image/file.png" width="80" height="80" />
-	        <span>上传文件</span>
-	        <input type="file" name="" id="newFileUpload">
-	      </div>
-	    </div>
-	    <div class="usrContent">
-	      <p>已上传:</p>
-	      <ul class="contentList">
-	        <li id="x.did" ng-repeat="x in vm.artitleList">
-	        	<p>{{x.dn?(x.dn.length>15?x.dn.substr(0,15)+'...':x.dn):'文件名'}}</p>
-	        	<span ng-click="vm.deleteArticle(x.did)">删除</span>
-	        </li>
-	      </ul>
-    </div>
-		<div class="clean"></div>
-		<div class="af_btn fix_center">
-			<span ng-click="vm.setFileUpload()">完成</span>
+			<div class="mc_right_content">
+				<div class="mc_right_uploadfile">
+					<form class="form_box">
+						<div class="mb_input mc_input me_input">
+							<i class="input_span">课程图片：</i>
+							<a href="javascript:void(0);">
+								<img src="image/docs/add.png" width="20" height="20"/> 选择图片
+								<input type="file" id="choose_file" ng-model="vm.fileName"/>
+							</a>
+							<span class="card1_preview uploadfile_preview" id="img_preview"></span>
+							<div class="form_box_crop">
+								<button ng-click="vm.uploadImg()">
+									上传图片
+								</button>
+								<div class="card1_left">
+									<img ng-show="vm.hiddenInitImg" id="themeCropper" src={{vm.fileImg}}>
+								</div>
+							</div>
+						</div>
+						<div class="mb_input mc_input">
+							<i>讲师姓名：</i>
+							<input type="text" ng-model="vm.newFileExpNm" placeholder="讲师姓名">
+							<div class="step5_validate">
+								<span ng-class="vm.calLength(vm.newFileExpNm)>18?'red':''">
+								{{vm.calLength(vm.newFileExpNm)}}</span><i> / 18</i>
+								<b ng-show="vm.calLength(vm.newFileExpNm)>18">字数超过限制</b>
+							</div>
+						</div>
+						<div class="mb_input mc_input">
+							<i>课程名称：</i>
+							<input type="text" ng-model="vm.newFileTitle" placeholder="课程名称：">
+							<div class="step5_validate">
+								<span ng-class="vm.calLength(vm.newFileTitle)>26?'red':''">
+								{{vm.calLength(vm.newFileTitle)}}</span><i> / 26</i>
+								<b ng-show="vm.calLength(vm.newFileTitle)>26">字数超过限制</b>
+							</div>
+						</div>
+						<div class="mb_input mc_input">
+							<i class="area">课程简介：</i>
+							<textarea ng-model="vm.newFileContent" placeholder="课程简介："></textarea>
+						</div>
+						<div class="mb_input mc_input input_file_fix">
+							<i>课程文件：</i>
+							<div class="changeBg" ng-click="vm.getUploadFileType()">
+								上传文件
+								<input type="file" id="step5_upload" ng-model="vm.fileName"/>
+							</div>
+							<div class="uploadFileDocName">{{vm.docName}}</div>
+						</div>
+					</form>
+				</div>
+				<div class="af_btn fix_center">
+					<span ng-click="vm.setFileUpload()">完成</span>
+				</div>
+				<div class="usrContent">
+			      <p>已上传课程:</p>
+			      <ul class="usrContentList">
+			        <li id="x.did" ng-repeat="x in vm.artitleList">
+			        	<p>{{x.dn?(x.dn.length>15?x.dn.substr(0,15)+'...':x.dn):'文件名'}}</p>
+			        	<span ng-click="vm.deleteArticle(x.did)">删除</span>
+			        </li>
+			      </ul>
+				</div>
+			</div>	
 		</div>
 	</div>
+	
+	
+	
 	<div class="clean"></div>
-</div>
 </div>
