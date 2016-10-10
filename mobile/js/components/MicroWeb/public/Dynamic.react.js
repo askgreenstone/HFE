@@ -116,6 +116,7 @@ var Dynamic = React.createClass({
             Introduction: data.r.fl[0].content,
             Img: data.r.fl[0].il[0]
           })
+          console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
           // $('.dynamic_contaniner').scrollTop(top);
         }
@@ -361,7 +362,7 @@ var Dynamic = React.createClass({
             </div>
             <div className="dynamic_exp_content">
               <div className="dynamic_exp_title">{this.state.expTitle}</div>
-              <div className="dynamic_exp_word">{this.state.expContent}</div>
+              <div className="dynamic_exp_word"><pre>{this.state.expContent}</pre></div>
               <div className="dynamic_exp_imgs">
                 {imgList}
               </div>
