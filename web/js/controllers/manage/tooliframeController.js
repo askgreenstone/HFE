@@ -28,22 +28,27 @@ define(['App'], function(app) {
         vm.getToolsIframe = function(){
           if(vm.typeNum == 3){
             vm.iframeSrc = 'http://www.pkulaw.cn/cluster_call_form.aspx?menu_item=law';
+            var iframe = '<iframe src='+vm.iframeSrc+' class="toolIframe"></iframe>';
+            $("div.manage_content").append(iframe);
             console.log(vm.iframeSrc);
             vm.dateBox = false;
           }else if(vm.typeNum == 4){
             vm.iframeSrc = 'http://wenshu.court.gov.cn/';
+            var iframe = '<iframe src='+vm.iframeSrc+' class="toolIframe"></iframe>';
+            $("div.manage_content").append(iframe);
             console.log(vm.iframeSrc);
             vm.dateBox = false;
           }else if(vm.typeNum == 5){
             vm.iframeSrc = 'http://www.pkulaw.cn/Case/';
+            var iframe = '<iframe src='+vm.iframeSrc+' class="toolIframe"></iframe>';
+            $("div.manage_content").append(iframe);
             console.log(vm.iframeSrc);
             vm.dateBox = false;            
           }else if(vm.typeNum == 6){
             vm.iframeSrc = false;
             vm.dateBox = true;
           }
-          var iframe = '<iframe src='+vm.iframeSrc+' class="toolIframe"></iframe>';
-          $("div.manage_content").append(iframe);
+          
           
         }
 
