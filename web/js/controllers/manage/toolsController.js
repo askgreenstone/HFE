@@ -84,7 +84,7 @@ define(['App'], function(app) {
               url: GlobalUrl+'/exp/GetExpTools.do',
               params: {
                   session:vm.sess,
-                  ia: 0
+                  ia: 2
               },
               data: {}
             }).
