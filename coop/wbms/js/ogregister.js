@@ -126,6 +126,7 @@ jQuery(function($){
         p : on,
         n : name,
         cn : ogname,
+        csn: ogsnm,
         mn : tel,
         vc : msgNo,
         rg : city,
