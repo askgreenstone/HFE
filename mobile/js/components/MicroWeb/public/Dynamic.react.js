@@ -50,6 +50,14 @@ var Dynamic = React.createClass({
   gotoLink: function(path){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
   },
+  gotoTimeAxis: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var session = this.getUrlParams('session');
+    var usrUri = this.getUrlParams('usrUri');
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf');
+    location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+  },
   goHome: function(){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
@@ -296,15 +304,17 @@ var Dynamic = React.createClass({
   componentWillMount:function(){
     var refresh = this.getUrlParams('refresh');
     var ownUri = this.getUrlParams('ownUri');
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
     var fid = this.getUrlParams('fid');
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
-    if(refresh == 1){
-      window.location.href = global.url+'/mobile/#/Dynamic?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&refresh=0';
-    }
+    // if(refresh == 1){
+    //   window.location.href = global.url+'/mobile/#/Dynamic?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&refresh=0';
+    // }
     this.getIndexTheme();
     this.getDynamicComment();
     this.getUsrPraise();
@@ -325,7 +335,7 @@ var Dynamic = React.createClass({
         temp = 'web';
         appid = 'wx73c8b5057bb41735';
       }
-    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_'+fid+'#wechat_redirect';
+    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_0_'+fid+'#wechat_redirect';
     var imgList = this.state.imgLists.map(function(item,i){
       return(
           <img key={new Date().getTime()+i} src={global.img+item+'@500w'}/>
@@ -356,6 +366,7 @@ var Dynamic = React.createClass({
                 <span className="dynamic_exp_date">{new Date(this.state.time).Format("MM-dd")}</span>
               </p>
               <p className="dynamic_exp_nice">
+                <i className="gotoTimeAxis" onClick={this.gotoTimeAxis}>更多动态</i> 
                 <span>{this.state.niceNo}</span>
                 <span className="dynamic_exp_com">{this.state.contentNo}</span>
               </p>            

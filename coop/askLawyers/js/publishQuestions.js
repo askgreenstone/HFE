@@ -41,8 +41,8 @@ function gotoPay() {
     if(!text){
       alert('请填写您要咨询的问题！');
       return; 
-    }else if(callength(text)>60){
-      alert('咨询问题不能超过六十个字！');
+    }else if(callength(text)>200){
+      alert('咨询问题不能超过二百个字！');
       return;
     }
     var data = {};

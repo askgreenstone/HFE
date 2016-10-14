@@ -59,8 +59,10 @@ var TimeAxis = React.createClass({
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
            this.setState({
-            headImg: data.p,
-            lawyerName: data.n
+            headImg: data.p?data.p:'batchdeptlogo20160811_W108_H108_S15.png',
+            lawyerName: data.n,
+            departImg: data.cl?data.cl:'batchdeptlogo20160811_W108_H108_S15.png',
+            departName: data.cn
           });
         }
       }.bind(this),
@@ -167,6 +169,10 @@ var TimeAxis = React.createClass({
   // 删除某一条数据
   deleteDynamic: function(fid){
     var session = this.getUrlParams('session');
+    var ownUri = this.getUrlParams('ownUri');
+    var usrUri = this.getUrlParams('usrUri');
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf');
     var flag = window.confirm('确定要删除么？');
     if(flag){
       $.ajax({
@@ -179,6 +185,8 @@ var TimeAxis = React.createClass({
             console.log(data);
             if(data.c == 1000){
               this.getTimeAxis(0);
+              // window.location.reload();
+              // window.location.href = '#TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida'+ida+'&idf='+idf;
             }
         }.bind(this),
         error: function(data) {
@@ -204,12 +212,23 @@ var TimeAxis = React.createClass({
     })
   }, 
   render: function() {
-    var ShareTitile = this.state.lawyerName+'律师与您分享了TA的足迹';
-    var ShareDesc = '邀请您一起来看看'+this.state.lawyerName+'律师最近都在忙些什么';
-    var ShareImg = this.state.headImg;
+    var ida = this.getUrlParams('ida');
+    var ShareTitile;
+    var ShareDesc;
+    var ShareImg;
+    if(ida == 0){
+      ShareTitile = this.state.lawyerName+'律师与您分享了TA的足迹';
+      ShareDesc = '邀请您一起来看看'+this.state.lawyerName+'律师最近都在忙些什么';
+      ShareImg = this.state.headImg;
+    }else{
+      ShareTitile = this.state.departName+'与您分享了TA的足迹';
+      ShareDesc = '邀请您一起来看看'+this.state.departName+'最近都在忙些什么';
+      ShareImg = this.state.departImg;
+    }
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
     var ownUri = this.getUrlParams('ownUri');
+    var idf = this.getUrlParams('idf');
     var str = window.location.href;
     var temp,appid,ShareUrl;
     console.log(this.state.TimeAxis);
@@ -221,7 +240,7 @@ var TimeAxis = React.createClass({
         temp = 'web';
         appid = 'wx73c8b5057bb41735';
       }
-    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'#wechat_redirect';
+    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
     var navNodes = this.state.TimeAxis.map(function(item,i){
       return(
         <li key={new Date().getTime()+i} className="timeline">
@@ -229,7 +248,7 @@ var TimeAxis = React.createClass({
             <p>{new Date(item.ts).Format("MM-dd hh:mm")}</p>
             <img src={i==0?'image/LatestNews/bor.png':'image/LatestNews/ellipse.png'}/>
           </div>
-          <div className="timeline_content" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri)}>
+          <div className="timeline_content" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}>
             <div className="timeline_img">
               <img src={item.il[0]?(global.img+item.il[0]):global.img+item.p}/>
             </div>
@@ -239,8 +258,8 @@ var TimeAxis = React.createClass({
             </div>
           </div>
           <div className="timeline_action">
-          <span className="timeline_action_nice">{item.cnum}</span>
-          <span className="timeline_action_tip">{item.rnum}</span>
+          <span className="timeline_action_nice">{item.cnum?item.cnum:'0'}</span>
+          <span className="timeline_action_tip">{item.rnum?item.rnum:'0'}</span>
           <span className="timeline_action_delete" onClick={this.deleteDynamic.bind(this,item.fid)} style={{display:this.state.isSelf?'block':'none'}}></span>
           </div>
         </li>

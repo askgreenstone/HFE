@@ -2630,28 +2630,99 @@ input[type=checkbox], input[type=radio] {
   width: 100%;
   margin: 20px;
 }
-.toolsBox ul{
+.mcr_toolbox{
   width: 100%;
-
 }
-.toolsBox ul li{
+.mcr_toolbox h3{
+  margin-right: 18px;
+  margin-left: 50px;
+}
+.mcr_tool_box{
+  width: 100%;
+  margin-left: 50px;
+}
+.mcr_tool_box li{
   float: left;
   width: 120px;
   height: 150px;
   padding: 10px;
   margin-right: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
-.toolsBox ul li img{
+.mcr_tool_box li img{
   display: block;
+  margin: 10px auto;
+  width: 80px;
+  height: 80px;
 }
-.toolsBox ul li span{
-  width: 100%;
+.mcr_tool_box li span{
+  width: 100px;
   height: 30px;
   text-align: center;
   line-height: 30px;
   display: block;
 }
+/*我的工具跳转空页面，加载iframe*/
+.toolIframe{
+  width: 100%;
+  height: 100%;
+  border: none;
+  // margin-left: 18px;
+}
+.toolIframe_title{
+  margin: 10px;
+  top: 10px;
+  height: 30px;
+}
 
+.toolIframe_title span{
+  left: 0;
+}
+.dateBox{
+  width: 100%;
+  margin-left: 10px;
+}
+.calculateDay{
+  float: left;
+  padding-left: 5%;
+  width: 45%;
+}
+.reckonDay{
+  float: left;
+}
+.dateBox h3{
+  color: #348bcf;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.dateBox #number{
+  width: 80px;
+}
+.showTime{
+  width: 220px;
+  height: 50px;
+  margin-top: 10px;
+  border: 1px solid #ffe0b4;
+  overflow: hidden;
+  background-position: 0 0;
+  background-repeat: repeat-x;
+  font: 16px/52px Arial;
+  font-weight: 700;
+  color: #666;
+  text-align: center;
+}
+.dateBox .button{
+  width: 70px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 5px;
+  line-height: 30px;
+  text-align: center;
+  background: #2ab6ff;
+  color: #fff;
+}
 
 
 

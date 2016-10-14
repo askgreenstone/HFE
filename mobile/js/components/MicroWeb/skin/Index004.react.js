@@ -49,10 +49,11 @@ var Index004=React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var idf = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var sl = idf == 0?3:5;
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&ida='+ida,
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&idf='+idf+'&sl='+sl,
       success:function(data){
         console.log(data);
         if(data.c == 1000){

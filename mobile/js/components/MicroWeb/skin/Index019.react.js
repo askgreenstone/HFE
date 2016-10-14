@@ -40,10 +40,11 @@ var Index019 = React.createClass({
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var idf = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var sl = idf == 0?3:5;
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&ida='+ida,
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&idf='+idf+'&sl='+sl,
       success:function(data){
         console.log(data);
         if(data.c == 1000){
@@ -228,8 +229,8 @@ var Index019 = React.createClass({
     }.bind(this));
     var navNodes = this.state.navArrs.map(function(item,i){
       return(
-            <li key={new Date().getTime()+i}>
-              <a href={item.ac?item.ac:'javascript:void(0);'} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
+            <li key={new Date().getTime()+i} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
+              <a href={item.ac?item.ac:'javascript:void(0);'}>
                 <div className="theme019_circle">
                   <img src={global.img+item.src}/>
                   <p>{item.title}</p>
