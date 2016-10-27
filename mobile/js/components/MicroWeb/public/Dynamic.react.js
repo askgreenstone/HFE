@@ -54,40 +54,9 @@ var Dynamic = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
-    var ida = this.getUrlParams('ida');
-    var idf = this.getUrlParams('idf');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
     location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
-  },
-  goHome: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri+'&ida='+ida;
-  },
-  getIndexTheme: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    $.ajax({
-      type: 'GET',
-      url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri+'&ida='+ida,
-      success: function(data) {
-          console.log(data);
-          if(data.c == 1000){
-            this.setState({
-              indexTheme: data.url
-            })
-          }
-      }.bind(this),
-      error: function(data) {
-          // console.log(data);
-          alert('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
   },
   getDate: function(time){
     var now = new Date().getTime();
@@ -267,9 +236,12 @@ var Dynamic = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var st = this.getUrlParams('st')?this.getUrlParams('st'):3;
+    // st  3  入口为个人工作室入口
     var data = {
       t: 99,
-      ml: [ownUri,usrUri]
+      ml: [ownUri,usrUri],
+      st: st
     }
     $.ajax({
       type: 'POST',
@@ -290,7 +262,23 @@ var Dynamic = React.createClass({
   },
   gotoIndex: function(){
     var ownUri = this.getUrlParams('ownUri');
-    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+    var ida = this.getUrlParams('ida');
+    $.ajax({
+      type: 'post',
+      url: global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0',
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1999){
+          alert('该律师还没有创建个人工作室');
+        }else if(data.c == 1000){
+          window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+        alert('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
@@ -313,9 +301,8 @@ var Dynamic = React.createClass({
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
     // if(refresh == 1){
-    //   window.location.href = global.url+'/mobile/#/Dynamic?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&refresh=0';
+    //   window.location.href= global.url+'usr/FeedDetailRedirct.do?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
     // }
-    this.getIndexTheme();
     this.getDynamicComment();
     this.getUsrPraise();
   }, 
@@ -335,7 +322,7 @@ var Dynamic = React.createClass({
         temp = 'web';
         appid = 'wx73c8b5057bb41735';
       }
-    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_0_'+fid+'#wechat_redirect';
+    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_'+fid+'_0'+'#wechat_redirect';
     var imgList = this.state.imgLists.map(function(item,i){
       return(
           <img key={new Date().getTime()+i} src={global.img+item+'@500w'}/>

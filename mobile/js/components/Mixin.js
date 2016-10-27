@@ -102,9 +102,10 @@ var CommonMixin = {
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
+    var st = this.getUrlParams('st')?this.getUrlParams('st'):'3';
     $.ajax({
       type:'get',
-      url: global.url+'/exp/SaveWXWebPV.do?ownUri='+ownUri+'&vt='+vt+'&ida='+ida,
+      url: global.url+'/exp/SaveWXWebPV.do?ownUri='+ownUri+'&vt='+vt+'&ida='+ida+'&st='+st,
       success: function(data) {
         // alert(JSON.stringify(data));
         // console.log(data);
@@ -344,6 +345,8 @@ var CommonMixin = {
     if(ida == 1){
       st = 2
     }
+    var consultState = false; //在线咨询状态flag
+    // 乔凡：在线咨询增加控制状态，调接口查询是否接受在线咨询
     if(!type) return;
     if(type=='telphone'){
       this.staticWebPV(2);

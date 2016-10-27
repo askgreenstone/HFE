@@ -40,10 +40,19 @@ var TimeAxis = React.createClass({
     };
   },
   gotoLink: function(path,fid,session,usrUri){
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf');
+    var ownUri = this.getUrlParams('ownUri');
+    var isFrom = this.getUrlParams('isFrom');
     if(!fid){
       return;
     }else{
-      location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&refresh=1';
+      console.log(global.url);
+      if(isFrom == 'app'){
+        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+      }else{
+        location.href = global.url+'/usr/FeedDetailRedirct.do?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+      }
     }
   },
   getServerInfo: function(){

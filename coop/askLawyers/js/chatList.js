@@ -7,7 +7,7 @@ var appKey = '';
 var scroll_offset = 0;
 var qid, gi;
 var targetUri = '';
-var name = '';
+var lawyerName = '';
 var globalTs = '';
 var sendMsgTs = new Date().getTime();
 var globalMsgList = [];
@@ -267,11 +267,13 @@ $(function() {
                     for (var i = 0; i < data.mb.length; i++) {
                         if (data.mb[i].i.indexOf('e') > -1) {
                             targetUri = data.mb[i].i;
-                            name = data.mb[i].n;
+                            lawyerName = data.mb[i].n;
                             expType = data.mb[i].expt;
+                            getFeedTimeLine(data.mb[i].i);
                             // console.log(targetUri);
                         }
                     }
+
                 }
             },
             error: function(xhr, status, err) {
@@ -350,15 +352,17 @@ $(function() {
         });
     }
 
+    // 关闭问题
     $('#close_question').on('click', function() {
         if (!session || !qid || !targetUri) return;
-        window.location.href = 'evaluate.html?session=' + session + '&qid=' + qid + '&tu=' + targetUri+'&userUri=' + userUri;
+        window.location.href = 'evaluate.html?session=' + session + '&qid=' + qid + '&tu=' + targetUri+'&userUri=' + userUri+'&st='+st;
     })
 
     // 点击返回首页
     $('.chat_goHome').on('click',function(){
-      var ownUri = Common.getUrlParam('ownUri');
+      var ownUri = Common.getUrlParam('ownUri')?Common.getUrlParam('ownUri'):targetUri;
       var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
+      var st = Common.getUrlParam('st')?Common.getUrlParam('st'):'3';
       console.log(Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida=0');
       $.ajax({
         type : 'POST',
@@ -366,9 +370,15 @@ $(function() {
         success : function(data){
           console.log(data);
           if(data.c == 1999){
-            alert(name+'律师还没有创建工作室！')
+            $('.chatList_index_no').show();
+            if(ida == 1){
+                $('.chatList_index_no').text(lawyerName+'未创建主页！');
+            }else{
+                $('.chatList_index_no').text(lawyerName+'律师未创建主页！');
+            }
+            // alert(lawyerName+'律师还没有创建工作室！')
           }else{
-            window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida=0';
+            window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida=0'+'&st='+st;
           }
         },
         error : function(){
@@ -377,6 +387,17 @@ $(function() {
       })
       // window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
     }) 
+
+    // 点击去往动态详情页面
+    $('.chatList_lawyer').on('click',function(){
+        var session = Common.getUrlParam('session');
+        var usrUri = Common.getUrlParam('usrUri');
+        var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
+        var idf = Common.getUrlParam('idf')?Common.getUrlParam('idf'):0;
+        var fid = $('.chatList_lawyer').attr('fid');
+        location.href =  Common.globalDistUrl()+'/usr/FeedDetailRedirct.do?ownUri='+targetUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+    })
+    
 
     function judgeType(msgtype, ossname) {
       // msgtype  1  表示文件和图片   msgtype  12  表示音频文件
@@ -434,25 +455,25 @@ $(function() {
         qid = Common.getUrlParam('qid');
         gi = Common.getUrlParam('groupId');
         userUri = Common.getUrlParam('usrUri');
-        st = Common.getUrlParam('st');
+        st = Common.getUrlParam('st')?Common.getUrlParam('st'):'3';
         // console.log(session);
         wxSignature();
         getUserToken();
         getGroupInfo();
+        getFeedTimeLine();
         var status = Common.getUrlParam('status');
         if(status == 'chat'){
           $('.chat_box').show();
+          $('#close_question').show();
           $('.evaluate_box').hide();
-          $('.chat_goHome').hide();
         }else if(status == 'close'){
           $('.chat_box').hide();
+          $('#close_question').hide();
           $('.evaluate_box').show();
-          $('.chat_goHome').hide();
           getUserContent();
         }else if(status == 'chatLawyers'){
           $('.chat_box').show();
           $('.evaluate_box').hide();
-          $('.chat_goHome').show();
           $('#close_question').hide();
         }
   }
@@ -579,6 +600,55 @@ function viewDoc(name) {
         }
     });
 }
+function getFeedTimeLine(ownUri) {
+    $.ajax({
+        type: 'get',
+        url: Common.globalDistUrl() + 'usr/FeedTimeline.do?ownUri=' + ownUri+'&c=1&idf=0',
+        success: function(data) {
+            console.log(data);
+            if (data.c == 1000) {
+                if(data.r.fl[0]){
+                    $('.chatList_top').show(); 
+                    $('.chatList_lawyer').attr('fid',data.r.fl[0].fid);
+                    $('.chatList_lawyer_title').text(data.r.fl[0].title);
+                    $('.chatList_lawyer_desc').text(data.r.fl[0].content.length>20?data.r.fl[0].content.substr(0,20)+'...':data.r.fl[0].content);
+                    $('.chatList_lawyer_time').text(new Date(data.r.fl[0].ts).Format('MM-dd hh:mm'));
+                    $('.chatList_lawyer_nice').text(data.r.fl[0].rnum);
+                    $('.chatList_lawyer_tip').text(data.r.fl[0].cnum);
+                }else{
+                   $('.chatList_top').hide(); 
+                   console.log(data);
+                }
+            }
+        },
+        error: function(xhr, status, err) {
+            alert('系统开了小差，请刷新页面');
+        }
+    });
+}
+Date.prototype.Format = function(fmt){ //author: meizz
+  var today = new Date();
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+  today.setMilliseconds(0);
+  console.log(today.getTime());
+  var o = {   
+    "M+" : this.getMonth()+1,                 //月份   
+    "d+" : this.getDate(),                    //日   
+    "h+" : this.getHours(),                   //小时   
+    "m+" : this.getMinutes(),                 //分   
+    "s+" : this.getSeconds(),                 //秒   
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+    "S"  : this.getMilliseconds()             //毫秒   
+  };  
+  if(/(y+)/.test(fmt))   
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+  for(var k in o)   
+    if(new RegExp("("+ k +")").test(fmt))   
+  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+  return fmt;   
+}  
 
 
 

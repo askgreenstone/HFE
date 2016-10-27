@@ -1,5 +1,6 @@
 var session;
 var userUri;
+var st;
 var flag = false;
 $(document).ready(function() {
   init();
@@ -9,6 +10,7 @@ $(document).ready(function() {
 function init(){
   session = Common.getUrlParam('session');
   userUri = Common.getUrlParam('userUri');
+  st = Common.getUrlParam('st')?Common.getUrlParam('st'):'3';
   console.log(session);
   getQuestionList();
 }
@@ -99,20 +101,23 @@ $('.eva_btn').bind('click',function(){
           qi: qi,
           tu: tu,
           co: text,
-          rf: 1
+          rf: 1,
+          st: st
         }
       }else{
         data = {
           qi: qi,
           tu: tu,
-          co: text
+          co: text,
+          st: st
         }
       } 
     }else{
       data = {
         qi: qi,
         tu: tu,
-        rf: 1
+        rf: 1,
+        st: st
       }
     }
     console.log(data);
