@@ -70,11 +70,10 @@ var Dynamic = React.createClass({
     }
   },
   getDynamicComment: function(){
-    var session = this.getUrlParams('session');
     var fid = this.getUrlParams('fid');
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedDetail.do?session='+session+'&fid='+fid,
+      url: global.url+'/usr/FeedDetail.do?fid='+fid,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -109,7 +108,7 @@ var Dynamic = React.createClass({
     var fid = this.getUrlParams('fid');
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedDetail.do?session='+session+'&fid='+fid,
+      url: global.url+'/usr/FeedDetail.do?fid='+fid,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -134,7 +133,7 @@ var Dynamic = React.createClass({
     var arr = [];
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedDetail.do?session='+session+'&fid='+fid,
+      url: global.url+'/usr/FeedDetail.do?fid='+fid,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
