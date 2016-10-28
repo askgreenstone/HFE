@@ -1236,7 +1236,11 @@ p{
   box-sizing: border-box;
   width: 100%;
   height: 7rem;
-  margin-top: 2rem;
+}
+.dynamic_blank_box{
+  width: 100%;
+  height: 2rem;
+  background: #f6f6f6; 
 }
 .dynamic_top{
   box-flex: 1;
@@ -1245,35 +1249,64 @@ p{
 }
 .dynamic_exp{
   width: 100%;
-  padding: 1rem 1rem 0; 
-  margin: 0 auto 1rem;
+  padding: 1rem 1.8rem 0; 
+  margin: 0 auto;
   background: #fff;
   box-sizing: border-box;
+  border-bottom: 1px solid #f4f4f4;
 }
 .dynamic_exp_top{
   width: 100%;
   display: box;
   display: -webkit-box;
 }
+.dynamic_exp_top_abs{
+  border-bottom: 1px solid #d6d6d6;
+}
 .dynamic_exp_img{
-  margin-right: 1rem;
   border-radius: 50%;
+  display: block;
+  margin-top: .5rem;
+}
+.dynamic_exp_img_abs{
+  margin: 1rem 1rem 0 0;
+  border-radius: 50%;
+  display: block;
+  width: 4rem;
+  height: 4rem;
+}
+.dynamic_exp_name_abs{
+  -webkit-box-flex: 1;
+}
+.dynamic_exp_name_title{
+  height: 3rem;
+  line-height: 4rem;
+  color: #000;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  display: block;
+}
+.dynamic_exp_date{
+  height: 3rem;
+  line-height: 3rem;
+  display: block;
+  color: #878787;
 }
 .dynamic_exp_name{
-  width: 40%;
-  padding: 1rem 0rem;
+  -webkit-box-flex: 1;
+  padding-top: 1rem;
   box-sizing: border-box;
 }
 .dynamic_exp_name span{
   line-height: 2rem;
-  font-size: @l-size;
+  font-size: 1.2rem;
 }
 .dynamic_exp_name span.dynamic_exp_date{
   font-size: @b-size;
-  color: #999;
+  color: #878787;
 }
 .dynamic_exp_nice{
-  width: 40%;
+  width: 60%;
   box-sizing: border-box;
   text-align: right;
 }
@@ -1293,36 +1326,36 @@ p{
   background-size: contain;
 }
 .gotoTimeAxis{
-  width: 60%;
+  width: 50%;
   height: 2rem;
   display: block;
-  text-align: center;
+  text-align: right;
   line-height: 2rem;
   font-style: normal;
   font-size: 1.4rem;
   border-radius: 3px;
-  border: 1px solid #ccc;
-  margin: 10px auto 20px;
+  margin-top: 1rem;
   cursor: pointer;
-  margin-left: 30%;
+  margin-left: 50%;
+  color: #da542e;
 }
 .dynamic_exp_title{
-  color: #42946a;
+  color: #000;
   width: 100%;
-  line-height: 2rem;
-  font-size: 1.6rem;
+  line-height: 3rem;
+  font-size: 1.8rem;
 }
 .dynamic_exp_word{
   width: 100%;
-  color: #999;
+  color: #4b4b4b;
   line-height: 1.5rem;
   font-size: 1.3rem;
-  margin-bottom: 1rem;
   padding: .5rem 0;
   box-sizing: border-box;
 }
 .dynamic_exp_word pre{
   font-size: 1.6rem;
+  line-height: 2rem;
   margin: 0;
   white-space: pre-wrap;
 }
@@ -1330,58 +1363,57 @@ p{
 }
 .dynamic_exp_imgs img{
   width: 100%;
-  margin-bottom: 3%;
+  margin-bottom: 2rem;
 }
 .dynamic_usr_content{
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0 2rem;
   background: #fff;
   box-sizing: border-box;
 }
+div.dynamic_usr_content_title{
+  height: 4rem;
+  line-height: 4rem;
+  text-indent: 2rem;
+  font-size: 1.6rem;
+  width: 100%;
+  background: #f4f4f4;
+  color: #878787; 
+}
 .dynamic_usr_news{
   border-bottom: 1px solid #eee;
-  height: 30px;
-  line-height: 30px;
+  height: 4rem;
   color: #999;
-  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
   font-size: 1.4rem;
-  //background-image: url('../image/LatestNews/heart.png');
-  //background-repeat: no-repeat;
-  //background-position: right 0px;
-  //background-size: 30px;
   display: box;
   display: -webkit-box;
 }
-.dynamic_usr_latest{
-  width: 65%;
-  display: block;
-  height: 20px;
-  line-height: 20px;
-}
-.dynamic_usr_img{
-  width: 12%;
+.dynamic_usr_news span{
+  width: 22%;
   height: 20px;
   display: block;
-  background-image: url('../image/LatestNews/heart.png');
   background-repeat: no-repeat;
-  background-position: right 0px;
+  background-position: left center;
   background-size: 20px;
-  margin-right: 5%;
+  padding-left: 2rem;
+  box-sizing: border-box;
   line-height: 20px;
+  text-align: center;
 }
-.dynamic_usr_img_nice{
-  background-position: right -20px; 
+.dynamic_usr_news span.dynamic_usr_latest{
+  width: 34%; 
 }
-.dynamic_usr_wc{
-  width: 16%;
-  height: 20px;
-  display: block;
-  background-image: url('../image/LatestNews/tip.png');
-  background-repeat: no-repeat;
-  background-position: right 2px;
-  background-size: 20px;
-  margin-right: 5%;
-  line-height: 20px;
+.dynamic_usr_news span.dynamic_usr_read{
+  background-image: url('../image/LatestNews/tip_read.png');
+  visibility: hidden;
+}
+.dynamic_usr_news span.dynamic_usr_img{
+  background-image: url('../image/LatestNews/tip_heart.png');
+}
+.dynamic_usr_news span.dynamic_usr_wc{
+  background-image: url('../image/LatestNews/tip_comment.png');
 }
 .dynamic_usr_light{
   background-position: right -30px;
@@ -1405,7 +1437,7 @@ p{
 .dynamic_usr_box span{
   width: 20%;
   height: 3rem;
-  background: #afd3c0;
+  background: #da542e;
   color: #fff;
   text-align: center;
   line-height: 3rem;
@@ -1414,18 +1446,17 @@ p{
 }
 .dynamic_usr_word{
   width: 100%;
-  padding-left: 6.5rem;
   line-height: 2rem;
   font-size: 1.4rem;
-  color: #999;
+  color: #4b4b4b;
   box-sizing: border-box;
   margin: -0.5rem 0 0.5rem;
 }
 .dynamic_exp_chat{
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem 0;
   box-sizing: border-box;
-  background: #afd3c0;
+  background: #fff;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -1438,12 +1469,23 @@ p{
 }
 .dynamic_exp_chat .dynamic_usr_consult{
   position: absolute;
-  right: 0.5rem;
-  top: -1.5rem;
-  width: 18%;
+  right: 0;
+  top: 0;
+  width: 22%;
+  height: 100%;
+  display: block;
+  background: red;
+  padding: 4%;
+  box-sizing: border-box;
+  background: #da542e; 
 }
-.dynamic_exp_name span{
-  color: #333;
+.dynamic_exp_chat .dynamic_usr_consult span{
+  width: 100%;
+  height: 2rem;
+  line-height: 2rem;
+  color: #fff;
+  text-align: center;
+  display: block;
 }
 .dynamic_exp_chat span.dynamic_exp_date span{
   color: #333;
@@ -1453,6 +1495,10 @@ p{
   width: 100%;
   height: 7rem;
 }
+.dynamic_exp_name_name{
+  color: #4b4b4b;
+}
+
 /*适配手机*/
 @media screen and (width: 320px) {
   .password_shadow{
@@ -1487,9 +1533,6 @@ p{
   }
   .timeline_action span{
     padding-left: 2rem;
-  }
-  .gotoTimeAxis{
-    margin-left: 20%;
   }
 }
 @media screen and (min-width: 321px) and (max-width: 360px) {

@@ -81,16 +81,16 @@
 						</div>
 						<div class="mb_input mc_input">
 							<i>课程名称：</i>
-							<input type="text" ng-model="vm.newFileTitle" placeholder="课程名称：">
+							<input type="text" ng-model="vm.newFileTitle" placeholder="课程名称">
 							<div class="step5_validate">
-								<span ng-class="vm.calLength(vm.newFileTitle)>26?'red':''">
-								{{vm.calLength(vm.newFileTitle)}}</span><i> / 26</i>
-								<b ng-show="vm.calLength(vm.newFileTitle)>26">字数超过限制</b>
+								<span ng-class="vm.calLength(vm.newFileTitle)>72?'red':''">
+								{{vm.calLength(vm.newFileTitle)}}</span><i> / 72</i>
+								<b ng-show="vm.calLength(vm.newFileTitle)>72">字数超过限制</b>
 							</div>
 						</div>
 						<div class="mb_input mc_input">
 							<i class="area">课程简介：</i>
-							<textarea ng-model="vm.newFileContent" placeholder="课程简介："></textarea>
+							<textarea ng-model="vm.newFileContent" placeholder="课程简介"></textarea>
 						</div>
 						<div class="mb_input mc_input input_file_fix">
 							<i>课程文件：</i>

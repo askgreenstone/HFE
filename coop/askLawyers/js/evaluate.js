@@ -84,7 +84,7 @@ $('.eva_nice').bind('click',function(){
 
 // 提交评价
 $('.eva_btn').bind('click',function(){
-  var text = $('.pub_area').val();
+  var text = $('.que_area').val();
   var qi = Common.getUrlParam('qid');
   var tu = Common.getUrlParam('tu');
   console.log(callength(text));
@@ -141,8 +141,8 @@ $('.eva_btn').bind('click',function(){
 
 // 计算字符串长度
 function callength(str){
-  var byteLen = 0, len = str.length;
   if( !str ) return 0;
+  var byteLen = 0, len = str.length;
   for( var i=0; i<len; i++ )
   byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
   return byteLen/2;

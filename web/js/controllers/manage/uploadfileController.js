@@ -292,7 +292,7 @@ define(['App'], function(app) {
 
         
         
-        // 删除某个文件   待修改
+        // 删除某个文件   
         vm.deleteArticle = function(typeId){
           console.log(typeId);
           var data = {
@@ -410,11 +410,17 @@ define(['App'], function(app) {
           if(!vm.newFileExpNm){
             alert('请填写讲师姓名！');
             return;
+          }else if(vm.calLength(vm.newFileExpNm)>18){
+            alert('课程名称不能超过18个字符！')
           }
+
           if(!vm.newFileTitle){
             alert('请填写课程名称！');
             return;
+          }else if(vm.calLength(vm.newFileTitle)>72){
+            alert('课程名称不能超过72个字符！')
           }
+
           if(!vm.newFileContent){
             alert('请填写课程简介！');
             return;

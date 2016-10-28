@@ -608,7 +608,8 @@ function getFeedTimeLine(ownUri) {
             console.log(data);
             if (data.c == 1000) {
                 if(data.r.fl[0]){
-                    $('.chatList_top').show(); 
+                    $('.chatList_top').show();
+                    $('.chatList_lawyer_img').attr('src',Common.globalTransferUrl() + data.r.fl[0].il[0]);
                     $('.chatList_lawyer').attr('fid',data.r.fl[0].fid);
                     $('.chatList_lawyer_title').text(data.r.fl[0].title);
                     $('.chatList_lawyer_desc').text(data.r.fl[0].content.length>20?data.r.fl[0].content.substr(0,20)+'...':data.r.fl[0].content);

@@ -86,12 +86,35 @@ var Dynamic = React.createClass({
             contentNo: data.r.fl[0].cl?data.r.fl[0].cl.length:0,
             expTitle: data.r.fl[0].title,
             expContent: data.r.fl[0].content,
-            imgLists: data.r.fl[0].il,
+            imgLists: data.r.fl[0].il.slice(0,2),
             usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
             esl: data.r.fl[0].esl,
             Title: data.r.fl[0].title,
             Introduction: data.r.fl[0].content,
             Img: data.r.fl[0].il[0]
+          })
+          console.log(data.r.fl[0].content);
+          // var top = $('.dynamic_contaniner')[0].scrollHeight;
+          // $('.dynamic_contaniner').scrollTop(top);
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+          alert('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
+  },
+  getAllImages: function(){
+    var session = this.getUrlParams('session');
+    var fid = this.getUrlParams('fid');
+    $.ajax({
+      type: 'GET',
+      url: global.url+'/usr/FeedDetail.do?session='+session+'&fid='+fid,
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            imgLists: data.r.fl[0].il
           })
           console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
@@ -228,8 +251,11 @@ var Dynamic = React.createClass({
         descArr.push(eilArr[arr[i]])
       }
     }
+    if(descArr.length == 0){
+      descArr = ['公司企业','资本市场','证券期货']
+    }
     // console.log(descArr);
-    return descArr.join("、");
+    return descArr.join(" ");
   },
   gotoConsult:function(){
     var session = this.getUrlParams('session');
@@ -281,12 +307,18 @@ var Dynamic = React.createClass({
     })
   },
   componentDidMount: function(){
-    $('body').css({'background':'#ebebeb'});
+    $('body').css({'background':'#fff'});
     console.log(this.state.Abstract);
-    // $(document).scroll(function(){
-    //   console.log($('.dynamic_top'));
-    //   console.log($('.dynamic_top')[0].scrollHeight);
-    // })
+    var that = this;
+    var getImageFlag = false;
+    $('.dynamic_top').scroll(function(){
+      // console.log($('.dynamic_top'));
+      if(!getImageFlag){
+        getImageFlag = true;
+        that.getAllImages();
+      }
+      // console.log($('.dynamic_top')[0].scrollHeight);
+    })
     // this.dynamicBindScroll();
   },
   componentWillMount:function(){
@@ -300,9 +332,7 @@ var Dynamic = React.createClass({
     var fid = this.getUrlParams('fid');
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
-    // if(refresh == 1){
-    //   window.location.href= global.url+'usr/FeedDetailRedirct.do?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
-    // }
+
     this.getDynamicComment();
     this.getUsrPraise();
   }, 
@@ -325,20 +355,18 @@ var Dynamic = React.createClass({
     ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_'+fid+'_0'+'#wechat_redirect';
     var imgList = this.state.imgLists.map(function(item,i){
       return(
-          <img key={new Date().getTime()+i} src={global.img+item+'@500w'}/>
+        <img key={new Date().getTime()+i} src={global.img+item+'@400w'}/>
        );
     }.bind(this));
     var usrContent = this.state.usrContents.map(function(item,i){
       return(
-        <div key={new Date().getTime()+i}>
-          <div className="dynamic_exp_top">
-            <img className="dynamic_exp_img" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="40" height="40"/>
-            <p className="dynamic_exp_name">
-              <span>{item.nm}</span><br/>
-              <span className="dynamic_exp_date">{this.getDate(item.ts)}</span>
-            </p>
+        <div key={new Date().getTime()+i} className={i == 0?"dynamic_exp_top dynamic_exp_top_abs":"dynamic_exp_top"}>
+          <img className="dynamic_exp_img_abs" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="40" height="40"/>
+          <div className="dynamic_exp_name_abs">
+            <span className="dynamic_exp_name_title">{item.nm}</span>
+            <span className="dynamic_exp_date">{new Date(item.ts).Format("yyyy-MM-dd")}</span>
+            <div className="dynamic_usr_word">{item.c}</div>
           </div>
-          <div className="dynamic_usr_word">{item.c}</div>
         </div>
        );
     }.bind(this));
@@ -346,34 +374,33 @@ var Dynamic = React.createClass({
       <div className="dynamic_contaniner">
         <div className="dynamic_top">
           <div className="dynamic_exp">
-            <div className="dynamic_exp_top">
-              <img className="dynamic_exp_img" src={global.img+this.state.head} width="65" height="65"/>
-              <p className="dynamic_exp_name">
-                <span>{this.state.nm}</span><br/>
-                <span className="dynamic_exp_date">{new Date(this.state.time).Format("MM-dd")}</span>
-              </p>
-              <p className="dynamic_exp_nice">
-                <i className="gotoTimeAxis" onClick={this.gotoTimeAxis}>更多动态</i> 
-                <span>{this.state.niceNo}</span>
-                <span className="dynamic_exp_com">{this.state.contentNo}</span>
-              </p>            
-            </div>
             <div className="dynamic_exp_content">
               <div className="dynamic_exp_title">{this.state.expTitle}</div>
+              <div className="dynamic_exp_top">
+                <p className="dynamic_exp_name">
+                  <span className="dynamic_exp_date">{new Date(this.state.time).Format("yyyy-MM-dd")} 发布</span>
+                </p>
+                <p className="dynamic_exp_nice">
+                  <i className="gotoTimeAxis" onClick={this.gotoTimeAxis}>更多动态</i> 
+                </p>            
+              </div>
               <div className="dynamic_exp_word"><pre>{this.state.expContent}</pre></div>
               <div className="dynamic_exp_imgs">
                 {imgList}
               </div>
             </div>
           </div>
-          <div className="dynamic_usr_content">
-            <div className="dynamic_usr_news">
-              <span className="dynamic_usr_latest">最新评论</span>
-              <span className={this.state.praiseFlag?'dynamic_usr_img dynamic_usr_img_nice':'dynamic_usr_img'} onClick={this.setPraise}>赞</span>
-              <span className="dynamic_usr_wc" onClick={this.wirteComment}>评论</span>
-            </div>
-            {usrContent}            
+          <div className="dynamic_usr_news">
+            <span className="dynamic_usr_latest"></span>
+            <span className="dynamic_usr_read">2000</span>
+            <span className={this.state.praiseFlag?"dynamic_usr_img dynamic_usr_img_nice":"dynamic_usr_img"} onClick={this.setPraise}>{this.state.niceNo}</span>
+            <span className="dynamic_usr_wc" onClick={this.wirteComment}>{this.state.contentNo}</span>
           </div>
+          <div className="dynamic_usr_content_title">最新评论</div> 
+          <div className="dynamic_usr_content">
+            {usrContent}         
+          </div>
+          <div className="dynamic_blank_box"></div>
           <div className="dynamic_usr_content dynamic_usr_write">
             <div className="dynamic_usr_box">
               <textarea placeholder="写评论..."></textarea>
@@ -381,13 +408,14 @@ var Dynamic = React.createClass({
             </div>
           </div>
         </div>
+
         <div className="dynamic_bot">
           <div className="dynamic_exp_top dynamic_exp_chat">
-            <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="60" height="60"/>
+            <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="50" height="50"/>
             <p className="dynamic_exp_name">
-              <span>{this.state.nm}</span><br/>
-              <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}等</span>
-              <img className="dynamic_usr_consult" onClick={this.gotoConsult} src="image/LatestNews/consult.png"/>
+              <span className="dynamic_exp_name_name">{this.state.nm}</span><br/>
+              <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}</span>
+              <span className="dynamic_usr_consult" onClick={this.gotoConsult} ><span>在线</span><span>咨询</span></span>
             </p>
           </div>
         </div>       

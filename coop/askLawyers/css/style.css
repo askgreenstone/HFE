@@ -84,6 +84,7 @@ p {
   left: 1.5rem;
   bottom: 1.5rem;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
 .pub_mon img{
   height: 100%;
@@ -342,6 +343,9 @@ p {
   background-size: auto 70%;
   box-sizing: border-box;
   cursor: pointer;
+}
+.chatList_index_close span{
+  -webkit-tap-highlight-color:rgba(255,0,0,0);
 }
 .chatList_index_close span.chat_goHome{
   border-left: none;
