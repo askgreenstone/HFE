@@ -235,6 +235,10 @@ var Index009=React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
+    var ida = this.getUrlParams('ida');
+    if(ida == 1){
+      document.title = '机构介绍';
+    }
   },
   componentWillMount: function(){
     this.getBgLogo();

@@ -173,6 +173,10 @@ var Card = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
+    var ida = this.getUrlParams('ida');
+    if(ida == 1){
+      document.title = '机构介绍';
+    }
   },
   componentWillMount:function(){
     this.getServerInfo();

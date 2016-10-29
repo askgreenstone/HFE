@@ -214,6 +214,10 @@ var Index002 = React.createClass({
     $('.leftBg>img').attr({'src':(global.img+this.state.bg)});
     $('body').css({'background':'#ebebeb'});
     $('.container').height(documentHeight);
+    var ida = this.getUrlParams('ida');
+    if(ida == 1){
+      document.title = '机构介绍';
+    }
   },
   componentWillMount: function(){
     this.getBgLogo();

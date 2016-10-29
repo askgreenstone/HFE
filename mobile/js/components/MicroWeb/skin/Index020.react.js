@@ -208,6 +208,10 @@ var Index020 = React.createClass({
     this.staticWebPV(1);
     // this.getUserList();
     $('body').css({'background':'#fff'});
+    var ida = this.getUrlParams('ida');
+    if(ida == 1){
+      document.title = '机构介绍';
+    }
   },
   componentWillMount: function(){
     this.getServerInfo();

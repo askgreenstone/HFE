@@ -247,6 +247,10 @@ var Index008=React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
+    var ida = this.getUrlParams('ida');
+    if(ida == 1){
+      document.title = '机构介绍';
+    }
     if(Global_share_arr.length>0){
       this.setState({
           shareTitle:Global_share_arr[0].sti,

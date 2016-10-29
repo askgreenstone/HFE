@@ -242,6 +242,10 @@ var Index004=React.createClass({
     }else if(this.isAndroid()){
       $('#bottomBar').css('bottom','-40px');
     }
+    var ida = this.getUrlParams('ida');
+    if(ida == 1){
+      document.title = '机构介绍';
+    }
   },
   componentWillMount: function(){
     this.getBgLogo();

@@ -318,6 +318,11 @@ var Dynamic = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'#fff'});
+    var that = this;
+    setTimeout(function(){
+      console.log('这是标题：'+that.state.expTitle);
+      document.title = that.state.expTitle;
+    },300)
     console.log(this.state.Abstract);
     var that = this;
     var getImageFlag = false;
