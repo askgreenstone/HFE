@@ -341,6 +341,7 @@ var CommonMixin = {
       // console.log(ownUri);
     }
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
     var st = 1;
     if(ida == 1){
       st = 2
@@ -355,6 +356,17 @@ var CommonMixin = {
       // 专业团队菜单（乔凡：机构特有菜单，跳转到找律师界面）
       var ownUri = this.getUrlParams('ownUri');
       location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri+'&ida='+ida+'&st=2';
+     }else if(type == 'TimeAxis'){
+      var str = window.location.href;
+      // 时间轴页面需要授权
+      if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+          temp = 't-web';
+          appid = 'wx2858997bbc723661';
+        }else{
+          temp = 'web';
+          appid = 'wx73c8b5057bb41735';
+        }
+      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
      }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
       this.getWXMsg(ownUri,ida,st);
