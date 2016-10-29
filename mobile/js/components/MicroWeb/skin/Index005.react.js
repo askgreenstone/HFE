@@ -47,7 +47,7 @@ var Index005 = React.createClass({
           this.setState({
             newsTitle: data.r.fl.length>0?data.r.fl[0].title:'',
             newsContent: data.r.fl.length>0?data.r.fl[0].content:'',
-            newsShow: data.r.fl.length>0?true:false
+            newsShow: false
           });
         }
       }.bind(this),

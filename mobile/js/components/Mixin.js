@@ -358,6 +358,7 @@ var CommonMixin = {
       location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri+'&ida='+ida+'&st=2';
      }else if(type == 'TimeAxis'){
       var str = window.location.href;
+      var temp,appid;
       // 时间轴页面需要授权
       if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
           temp = 't-web';
