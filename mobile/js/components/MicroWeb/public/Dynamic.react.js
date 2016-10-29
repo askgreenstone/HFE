@@ -114,7 +114,8 @@ var Dynamic = React.createClass({
         if(data.c == 1000){
           this.setState({
             imgLists: data.r.fl[0].il,
-            niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0
+            niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
+            usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[]
           })
           console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
@@ -376,7 +377,7 @@ var Dynamic = React.createClass({
     }.bind(this));
     var usrContent = this.state.usrContents.map(function(item,i){
       return(
-        <div key={new Date().getTime()+i} className={i == 0?"dynamic_exp_top dynamic_exp_top_abs":"dynamic_exp_top"}>
+        <div key={new Date().getTime()+i} className={i == 0?"dynamic_exp_top":"dynamic_exp_top dynamic_exp_top_abs"}>
           <img className="dynamic_exp_img_abs" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="40" height="40"/>
           <div className="dynamic_exp_name_abs">
             <span className="dynamic_exp_name_title">{item.nm}</span>
@@ -417,14 +418,14 @@ var Dynamic = React.createClass({
             {usrContent}         
           </div>
           <div className="dynamic_blank_box"></div>
-          <div className="dynamic_usr_content dynamic_usr_write">
-            <div className="dynamic_usr_box">
-              <textarea placeholder="写评论..."></textarea>
-              <span onClick={this.setComment}>发送</span>
-            </div>
+          
+        </div>
+        <div className="dynamic_usr_content dynamic_usr_write">
+          <div className="dynamic_usr_box">
+            <textarea placeholder="写评论..."></textarea>
+            <span onClick={this.setComment}>发送</span>
           </div>
         </div>
-
         <div className="dynamic_bot">
           <div className="dynamic_exp_top dynamic_exp_chat">
             <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="50" height="50"/>
