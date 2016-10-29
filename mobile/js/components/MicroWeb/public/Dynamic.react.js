@@ -126,6 +126,14 @@ var Dynamic = React.createClass({
       }.bind(this)
     })
   },
+  callength: function(str){
+    var byteLen = 0, len = str.length;
+    if( !str ) return 0;
+    for( var i=0; i<len; i++){
+      byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
+    }
+    return byteLen/2;
+  },
   getUsrPraise: function(){
     var session = this.getUrlParams('session');
     var fid = this.getUrlParams('fid');
@@ -173,6 +181,8 @@ var Dynamic = React.createClass({
     if(!val){
       alert('请输入要发送的内容！');
       return;
+    }else if(this.callength(val)){
+      alert('你输入的内容过长！')
     }else{
       var data = {
         fid: fid,
@@ -253,8 +263,9 @@ var Dynamic = React.createClass({
     if(descArr.length == 0){
       descArr = ['公司企业','资本市场','证券期货']
     }
+    var lawyerArr = descArr.slice(0,3);
     // console.log(descArr);
-    return descArr.join(" ");
+    return lawyerArr.join(" ");
   },
   gotoConsult:function(){
     var session = this.getUrlParams('session');
@@ -364,7 +375,7 @@ var Dynamic = React.createClass({
           <div className="dynamic_exp_name_abs">
             <span className="dynamic_exp_name_title">{item.nm}</span>
             <span className="dynamic_exp_date">{new Date(item.ts).Format("yyyy-MM-dd")}</span>
-            <div className="dynamic_usr_word">{item.c}</div>
+            <div className="dynamic_usr_word"><pre>{item.c}</pre></div>
           </div>
         </div>
        );

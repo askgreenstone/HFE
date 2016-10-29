@@ -75,8 +75,10 @@ var Index019 = React.createClass({
         descArr.push(eilArr[arr[i]])
       }
     }
+    var lawyerArr = descArr.slice(0,3);
     // console.log(descArr);
-    return descArr;
+    return lawyerArr;
+    // console.log(descArr);
   },
   getServerInfo: function(){
     var ownUri = this.getUrlParams('ownUri');
