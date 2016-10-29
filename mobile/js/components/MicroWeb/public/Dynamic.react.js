@@ -113,7 +113,8 @@ var Dynamic = React.createClass({
         console.log(data);
         if(data.c == 1000){
           this.setState({
-            imgLists: data.r.fl[0].il
+            imgLists: data.r.fl[0].il,
+            niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0
           })
           console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
@@ -181,7 +182,7 @@ var Dynamic = React.createClass({
     if(!val){
       alert('请输入要发送的内容！');
       return;
-    }else if(this.callength(val)){
+    }else if(this.callength(val) >= 1000){
       alert('你输入的内容过长！')
     }else{
       var data = {
@@ -202,7 +203,7 @@ var Dynamic = React.createClass({
             $('.dynamic_usr_write textarea').val('');
             // $('.dynamic_exp_chat').css({'position':'absolute','height':'7rem','padding':'0.5rem 1rem','display':'-webkit-box'});
             // this.dynamicBindScroll();
-            this.getDynamicComment();
+            this.getAllImages();
             setTimeout(function(){
               var top = $('.dynamic_top')[0].scrollHeight;
               $('.dynamic_top').scrollTop(top);
@@ -236,7 +237,7 @@ var Dynamic = React.createClass({
         success: function(data) {
           console.log(data);
           if(data.c == 1000){
-            this.getDynamicComment()
+            this.getAllImages()
           }
         }.bind(this),
         error: function(data) {
@@ -288,7 +289,7 @@ var Dynamic = React.createClass({
         if(data.c == 1000){
           window.location.href = global.url + '/coop/askLawyers/view/chatList.html?session='+session+'&groupId='+data.gi+'&ownUri='+ownUri+'&status=chatLawyers&usrUri='+usrUri+'&ida='+ida;
         }
-        this.getDynamicComment()
+        // this.getDynamicComment()
       }.bind(this),
       error: function(data) {
           // console.log(data);
