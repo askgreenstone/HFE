@@ -115,6 +115,7 @@ var Dynamic = React.createClass({
           this.setState({
             imgLists: data.r.fl[0].il,
             niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
+            contentNo: data.r.fl[0].cl?data.r.fl[0].cl.length:0,
             usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[]
           })
           console.log(data.r.fl[0].content);
