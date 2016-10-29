@@ -341,7 +341,7 @@ var CommonMixin = {
       // console.log(ownUri);
     }
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
+    var idf = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     var st = 1;
     if(ida == 1){
       st = 2
