@@ -266,7 +266,7 @@ $(function() {
                     pageImg = data.mb;
                     for (var i = 0; i < data.mb.length; i++) {
                         if (data.mb[i].i.indexOf('e') > -1) {
-                            targetUri = data.ei;
+                            targetUri = 'e'+data.ei;
                             lawyerName = data.en;
                             expType = data.mb[i].expt;
                             console.log(lawyerName);
@@ -391,11 +391,11 @@ $(function() {
 
     function gotoDynamic(){
       var session = Common.getUrlParam('session');
-        var usrUri = Common.getUrlParam('usrUri');
-        var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
-        var idf = Common.getUrlParam('idf')?Common.getUrlParam('idf'):0;
-        var fid = $('.chatList_lawyer').attr('fid');
-        location.href =  Common.globalDistUrl()+'usr/FeedDetailRedirct.do?ownUri='+targetUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+      var usrUri = Common.getUrlParam('usrUri');
+      var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
+      var idf = Common.getUrlParam('idf')?Common.getUrlParam('idf'):0;
+      var fid = $('.chatList_lawyer').attr('fid');
+      location.href =  Common.globalDistUrl()+'usr/FeedDetailRedirct.do?ownUri='+targetUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
     }
     // 点击去往动态详情页面
     $('.chatList_lawyer').on('click',gotoDynamic);
@@ -607,7 +607,7 @@ function viewDoc(name) {
 function getFeedTimeLine(ownUri) {
     $.ajax({
         type: 'get',
-        url: Common.globalDistUrl() + 'usr/FeedTimeline.do?ownUri=e' + ownUri+'&c=1&idf=0',
+        url: Common.globalDistUrl() + 'usr/FeedTimeline.do?ownUri=' + ownUri+'&c=1&idf=0',
         success: function(data) {
             console.log(data);
             if (data.c == 1000) {
