@@ -270,7 +270,7 @@ $(function() {
                             lawyerName = data.en;
                             expType = data.mb[i].expt;
                             console.log(lawyerName);
-                            getFeedTimeLine(data.ei);
+                            getFeedTimeLine(targetUri);
                             // console.log(targetUri);
                         }
                     }
@@ -389,18 +389,25 @@ $(function() {
       // window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
     }) 
 
-    function gotoDynamic(){
+    
+    // 点击去往动态详情页面
+    $('.chatList_lawyer').on('click',function(){
       var session = Common.getUrlParam('session');
       var usrUri = Common.getUrlParam('usrUri');
       var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
       var idf = Common.getUrlParam('idf')?Common.getUrlParam('idf'):0;
       var fid = $('.chatList_lawyer').attr('fid');
       location.href =  Common.globalDistUrl()+'usr/FeedDetailRedirct.do?ownUri='+targetUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
-    }
-    // 点击去往动态详情页面
-    $('.chatList_lawyer').on('click',gotoDynamic);
-    // 点击去往动态详情页面
-    $('.chatList_index_close_dynamic').on('click',gotoDynamic);
+    });
+    // 点击去往时间轴页面
+    $('.chatList_index_close_dynamic').on('click',function(){
+      var session = Common.getUrlParam('session');
+      var usrUri = Common.getUrlParam('usrUri');
+      var ida = Common.getUrlParam('ida')?Common.getUrlParam('ida'):0;
+      var idf = Common.getUrlParam('idf')?Common.getUrlParam('idf'):0;
+      var fid = $('.chatList_lawyer').attr('fid');
+      location.href =  Common.globalDistUrl()+'mobile/#/TimeAxis?ownUri='+targetUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+    });
     
     
 
@@ -612,7 +619,6 @@ function getFeedTimeLine(ownUri) {
             console.log(data);
             if (data.c == 1000) {
                 if(data.r.fl[0]){
-                    $('.chatList_top').show();
                     $('.chatList_lawyer_img').attr('src',Common.globalTransferUrl() + data.r.fl[0].il[0]);
                     $('.chatList_lawyer').attr('fid',data.r.fl[0].fid);
                     $('.chatList_lawyer_title').text(data.r.fl[0].title);
@@ -622,7 +628,8 @@ function getFeedTimeLine(ownUri) {
                     $('.chatList_lawyer_tip').text(data.r.fl[0].cnum);
                     $('.chatList_lawyer_read').text(data.r.fl[0].readnum);
                 }else{
-                   $('.chatList_top').hide(); 
+                    $('.chatList_lawyer').hide();
+                    $('.chatList_index_content_box').hide();
                    console.log(data);
                 }
                 console.log(lawyerName);

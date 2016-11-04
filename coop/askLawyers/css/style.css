@@ -258,7 +258,7 @@ p {
 .chatList{
   width: 100%;
   -webkit-box-flex: 1;
-  background: #eee;
+  background: #f6f6f6;
   display: box;
   display: -webkit-box;
   -webkit-box-orient:vertical;
@@ -366,7 +366,7 @@ p {
   background: #dbdbdb;
   text-align: center;
   font-size: 1rem;
-  color: #666; 
+  color: #d74218; 
   display: none;
 }
 .chatList_top h3{
@@ -464,7 +464,7 @@ p {
 .chat_list_usr span{
   -webkit-border-image: url('../image/bor-white.png') 35 33 35 30 stretch;
   float: right;
-  color: #666;
+  color: #fff;
 }
 .chat_list_exp span{
   -webkit-border-image: url('../image/bor-orange.png') 35 33 35 30 stretch;
@@ -489,6 +489,9 @@ p {
   outline: none;
   display: block;
   font-size: 1.4rem;
+  background: #eaeaea;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 .chat_btn{
   width: 22%;
@@ -496,8 +499,8 @@ p {
   line-height: 3rem;
   text-align: center;
   display: block;
-  background: #5595E3;
-  color: #fff;
+  background: transparent;
+  color: #d74218;
   border-radius: 3px;
   margin: 0 2%;
 }
@@ -506,8 +509,7 @@ p {
 }
 .js_chat_ts i{
   font-style: normal;
-  background: #b5b2b2;
-  color: #fff;
+  color: #878787;
   border-radius: 2px;
   padding: 3px;
   font-size: 12px;
