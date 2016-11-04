@@ -41,6 +41,7 @@ var Dynamic = React.createClass({
       time: '',
       niceNo: '',
       contentNo: '',
+      readNo: '',
       expTitle: '',
       expContent: '',
       usrContents: [],
@@ -83,6 +84,7 @@ var Dynamic = React.createClass({
             time: data.r.fl[0].ts,
             niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
             contentNo: data.r.fl[0].cl?data.r.fl[0].cl.length:0,
+            readNo: data.r.fl[0].readnum?data.r.fl[0].readnum:0,
             expTitle: data.r.fl[0].title,
             expContent: data.r.fl[0].content,
             imgLists: data.r.fl[0].il.slice(0,2),
@@ -226,7 +228,7 @@ var Dynamic = React.createClass({
     if(flag){
       alert('已经点过赞了！')
     }else{
-      $('.dynamic_usr_img').addClass('dynamic_usr_img_nice');
+      
       var data = {
         fid: fid,
         t: 1
@@ -239,7 +241,8 @@ var Dynamic = React.createClass({
         success: function(data) {
           console.log(data);
           if(data.c == 1000){
-            this.getAllImages()
+            this.getAllImages();
+            $('.dynamic_usr_img').addClass('dynamic_usr_img_nice');
           }
         }.bind(this),
         error: function(data) {
@@ -410,7 +413,7 @@ var Dynamic = React.createClass({
           </div>
           <div className="dynamic_usr_news">
             <span className="dynamic_usr_latest"></span>
-            <span className="dynamic_usr_read">2000</span>
+            <span className="dynamic_usr_read">{this.state.readNo}</span>
             <span className={this.state.praiseFlag?"dynamic_usr_img dynamic_usr_img_nice":"dynamic_usr_img"} onClick={this.setPraise}>{this.state.niceNo}</span>
             <span className="dynamic_usr_wc" onClick={this.wirteComment}>{this.state.contentNo}</span>
           </div>

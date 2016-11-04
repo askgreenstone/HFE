@@ -1111,10 +1111,12 @@ p{
 }
 .timeline{
   width: 100%;
-  height: 10rem;
-  display: box;
-  display: -webkit-box;
-  position: relative;
+}
+.timeline_str{
+  width: 1px;
+  height: 3rem;
+  margin: 1.5rem auto;
+  background: #878787; 
 }
 .timeline_time{
   width: 30%;
@@ -1126,65 +1128,81 @@ p{
   position: relative;
   border-right: 1px solid #3abde9;
 }
+.timeline_box_day{
+  width: 100%;
+  height: 4rem;
+  line-height: 4rem;
+  font-size: 1.8rem;
+  color: #000;
+  text-align: center;
+}
+.timeline_box_hour{
+  color: #878787;
+  text-align: center;
+  font-size: 1.2rem;
+}
+.timeline_box_img{
+  display: block;
+  margin: .5rem auto .5rem;
+  border-radius: 50%;
+}
+.timeline_box_img_box{
+  position: relative;
+}
+.timeline_box_close{
+  position: absolute;
+  left: 66%;
+  top: 30%;
+  width: 30px;
+  height: 30px;
+}
+.timeline_box_link{
+  width: 50%;
+  text-align: right;
+  cursor: pointer;
+  margin-left: 35px;
+}
+.timeline_box_title{
+  font-size: 1.5rem;
+  color: #4b4b4b;
+  margin: 1rem 0;
+}
 .timeline_time p{
   width: 100%;
   text-align: right; 
 }
-
-.timeline_time img{
-  width: 1rem;
-  height: 1rem;
-  position: absolute;
-  right: -0.5rem;
-  top: -0.5rem;
+.timeline_first .timeline_box_title{
+  color: #d74218;
 }
-.timeline_time_first img{
-  width: 2rem;
-  height: 2rem;
-  position: absolute;
-  right: -1rem;
-  top: -1rem;
+.timeline_first .timeline_str{
+  display: none;
 }
-.timeline_content{
-  width: 70%;
-  height: 70px;
-  display: box;
-  display: -webkit-box;
-  padding-left: 1rem;
-  box-sizing: border-box;
+.timeline_double .timeline_box_close{
+  left: 25%;
 }
-.timeline_img{
-  width: 70px;
-  height: 70px;
-  margin-right: 1rem;
+.timeline_double .timeline_box_link{
+  margin-left: 50%;
+  text-align: left;
+  position: relative;
+  left: -35px;
 }
-.timeline_img img{
-  width: 100%;
-  height: 100%;
-}
-.timeline_con{
-  -webkit-box-flex: 1;
-  line-height: 1.5rem;
-  word-break: break-word;
-}
-.timeline_con h2{
-  line-height: 0;
+.timeline_double .timeline_action{
+  margin-left: 0;
 }
 .timeline_action{
-  position: absolute;
-  right: 0%;
-  bottom: 10%;
-  width: 45%;
+  width: 80%;
   height: 2rem;
   display: box;
   display: -webkit-box;
+  margin-left: 20%;
 }
 .timeline_action span{
-  width: 30%;
+  width: 33%;
   display: block;
   height: 2rem;
   line-height: 2rem;
-  padding-left: 2.5rem;
+  padding-left: 1.5rem;
+  text-align: center;
   box-sizing: border-box;
   background-size: auto 75%;
   background-position: left center;
@@ -1197,9 +1215,8 @@ p{
 .timeline_action_tip{
   background-image: url('../image/tip.png');
 }
-.timeline_action span.timeline_action_delete{
-  background-image: url('../image/delete.png');
-  background-size: auto 70%;
+.timeline_action_read{
+  background-image: url('../image/read.png');
 }
 .timeline_more{
   width: 100%;
@@ -1407,7 +1424,6 @@ div.dynamic_usr_content_title{
 }
 .dynamic_usr_news span.dynamic_usr_read{
   background-image: url('../image/LatestNews/tip_read.png');
-  visibility: hidden;
 }
 .dynamic_usr_news span.dynamic_usr_img{
   background-image: url('../image/LatestNews/tip_heart.png');
@@ -1606,9 +1622,6 @@ div.dynamic_usr_content_title{
       width: 80%;
       text-align: right; 
     }
-    .timeline_content{
-      padding-left: 1.5rem;
-    }
 }
 
 @media screen and (min-width: 377px) {
@@ -1654,9 +1667,6 @@ div.dynamic_usr_content_title{
     .timeline_time p{
       width: 80%;
       text-align: right; 
-    }
-    .timeline_content{
-      padding-left: 1.5rem;
     }
 }
 @media screen and (width: 480px) {

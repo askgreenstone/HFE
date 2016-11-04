@@ -256,25 +256,24 @@ var TimeAxis = React.createClass({
     ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
     var navNodes = this.state.TimeAxis.map(function(item,i){
       return(
-        <li key={new Date().getTime()+i} className="timeline">
-          <div className={i==0?'timeline_time timeline_time_first':'timeline_time'}>
-            <p>{new Date(item.ts).Format("MM-dd hh:mm")}</p>
-            <img src={i==0?'image/LatestNews/bor.png':'image/LatestNews/ellipse.png'}/>
+        <li key={new Date().getTime()+i} className={i==0?"timeline timeline_first":(i%2 == 0?"timeline":"timeline_double")}>
+          <div className="timeline_str"></div>
+          <p className="timeline_box_day">{new Date(item.ts).Format("MM-dd")}</p>
+          <p className="timeline_box_hour">{new Date(item.ts).Format("hh:mm")}</p>
+          <div className="timeline_box_img_box">
+            <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):global.img+item.p} width="70" height="70"/>
+            <img className="timeline_box_close" onClick={this.deleteDynamic.bind(this,item.fid)} style={{display:this.state.isSelf?'block':'none'}} src="image/delete.png" />
           </div>
-          <div className="timeline_content" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}>
-            <div className="timeline_img">
-              <img src={item.il[0]?(global.img+item.il[0]):global.img+item.p}/>
+          <div className="timeline_box_link" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}>
+            <p className="timeline_box_title">{item.title?(item.title.length>6?item.title.substr(0,6)+'...':item.title):''}</p>
+            <div className="timeline_action">
+              <span className="timeline_action_read">{item.readnum?item.readnum:'0'}</span>
+              <span className="timeline_action_nice">{item.cnum?item.cnum:'0'}</span>
+              <span className="timeline_action_tip">{item.rnum?item.rnum:'0'}</span>
             </div>
-            <div className="timeline_con">
-              <h2>{item.title?(item.title.length>6?item.title.substr(0,6)+'...':item.title):''}</h2>
-              <p>{item.content?(item.content.length>30?item.content.substr(0,30)+'...':item.content):''}</p>
-            </div>
           </div>
-          <div className="timeline_action">
-          <span className="timeline_action_nice">{item.cnum?item.cnum:'0'}</span>
-          <span className="timeline_action_tip">{item.rnum?item.rnum:'0'}</span>
-          <span className="timeline_action_delete" onClick={this.deleteDynamic.bind(this,item.fid)} style={{display:this.state.isSelf?'block':'none'}}></span>
-          </div>
+          
+          
         </li>
        );
     }.bind(this));
