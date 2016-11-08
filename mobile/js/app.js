@@ -83,6 +83,10 @@ var Share = require('./components/MicroWeb/public/Share.react');
 var Board = require('./components/MicroWeb/public/Board.react');
 // 空页面，嵌套iframe
 var Empty = require('./components/layout/Empty.react');
+// 找律师界面
+var Lawyers = require('./components/MicroWeb/public/Lawyers.react');
+// 找律师搜索界面
+var SearchLawyers = require('./components/MicroWeb/public/SearchLawyers.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -123,6 +127,8 @@ ReactDOM.render((
     <Route path="/card4" component={Card4}/>
     <Route path="/TimeAxis" component={TimeAxis}/>
     <Route path="/Dynamic" component={Dynamic}/>
+    <Route path="/Lawyers" component={Lawyers}/>
+    <Route path="/SearchLawyers" component={SearchLawyers}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
     <Route path="/empty" component={Empty}/>
