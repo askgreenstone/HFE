@@ -261,7 +261,7 @@ var TimeAxis = React.createClass({
           <p className="timeline_box_day">{new Date(item.ts).Format("MM-dd")}</p>
           <p className="timeline_box_hour">{new Date(item.ts).Format("hh:mm")}</p>
           <div className="timeline_box_img_box">
-            <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):global.img+item.p} width="70" height="70"/>
+            <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):global.img+item.p} width="70" height="70"  onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}/>
             <img className="timeline_box_close" onClick={this.deleteDynamic.bind(this,item.fid)} style={{display:this.state.isSelf?'block':'none'}} src="image/delete.png" />
           </div>
           <div className="timeline_box_link" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}>

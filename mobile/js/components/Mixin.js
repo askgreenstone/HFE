@@ -355,7 +355,7 @@ var CommonMixin = {
       // WeixinJSBridge.call('closeWindow');
       // 专业团队菜单（乔凡：机构特有菜单，跳转到找律师界面）
       var ownUri = this.getUrlParams('ownUri');
-      location.href = global.mshare+'htm/react/index.html#/lawyer?ownUri='+ownUri+'&ida='+ida+'&st=2';
+      location.href = '#/Lawyers?ownUri='+ownUri+'&ida='+ida+'&st=2';
      }else if(type == 'TimeAxis'){
       var str = window.location.href;
       var temp,appid;

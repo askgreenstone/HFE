@@ -288,7 +288,11 @@ var Dynamic = React.createClass({
     $.ajax({
       type: 'POST',
       url: global.url+'/usr/CreateGroup.do?session='+session,
-      data: JSON.stringify(data),
+      data: JSON.stringify({
+        t: 99,
+        ml: ['e1584','u10179'],
+        st: 3
+      }),
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -343,6 +347,7 @@ var Dynamic = React.createClass({
     // this.dynamicBindScroll();
   },
   componentWillMount:function(){
+    document.title = '';
     var refresh = this.getUrlParams('refresh');
     var ownUri = this.getUrlParams('ownUri');
     var ida = this.getUrlParams('ida');
