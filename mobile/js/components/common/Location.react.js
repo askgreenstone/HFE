@@ -103,6 +103,7 @@ var Location = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'url(image/map.png)','background-size':'cover'});
     this.getLocationInfo();
+    document.title = '地图定位';
   },
   componentWillMount: function(){
     // this.getLocationInfo();

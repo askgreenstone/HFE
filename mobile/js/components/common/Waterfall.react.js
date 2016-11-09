@@ -80,6 +80,7 @@ var Waterfall = React.createClass({
   },
   componentDidMount:function(){
     this.wxSignature();
+    document.title = '我的照片';
   }, 
   render: function () {
       var screenWidth = document.body.scrollWidth/2-10;

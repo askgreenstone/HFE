@@ -121,6 +121,7 @@ var Lawyers = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'#fff'});
+    document.title = '律师列表';
   },
   componentWillMount: function(){
     this.getLawyerList(0);

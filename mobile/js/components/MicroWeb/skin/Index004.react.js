@@ -245,6 +245,8 @@ var Index004=React.createClass({
     var ida = this.getUrlParams('ida');
     if(ida == 1){
       document.title = '机构介绍';
+    }else{
+      document.title = '名片';
     }
   },
   componentWillMount: function(){

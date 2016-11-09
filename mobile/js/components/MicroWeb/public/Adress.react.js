@@ -34,10 +34,7 @@ var Adress = React.createClass({
   },
   componentDidMount: function(){
     this.getServerInfo();
-    var ida = this.getUrlParams('ida');
-    if(ida == 1){
-      document.title = '机构介绍';
-    }
+    document.title = '地址导航';
   },
   render: function() {
 

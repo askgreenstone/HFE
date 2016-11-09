@@ -105,10 +105,7 @@ var ArticleList = React.createClass({
     })
   },
   componentDidMount: function(){
-    var ida = this.getUrlParams('ida');
-    if(ida == 1){
-      document.title = '机构介绍';
-    }
+    document.title = '文章列表';
     // this.onlyToSetShareInfo();
   },
   componentWillMount: function(){

@@ -209,10 +209,7 @@ var TimeAxis = React.createClass({
     $('body').css({'background':'#ebebeb'});
     console.log($('.timeline_container'));
     console.log(this.state.Abstract);
-    var ida = this.getUrlParams('ida');
-    if(ida == 1){
-      document.title = '机构介绍';
-    }
+    document.title = '律师动态';
   },
   componentWillMount:function(){
     this.getIndexTheme();

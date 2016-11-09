@@ -107,10 +107,7 @@ var Photo = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     this.getPhotos();
-    var ida = this.getUrlParams('ida');
-    if(ida == 1){
-      document.title = '机构介绍';
-    }
+    document.title = '我的照片';
   },
   componentWillMount:function(){
     this.getServerInfo();

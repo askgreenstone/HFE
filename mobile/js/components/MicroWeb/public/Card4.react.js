@@ -63,6 +63,7 @@ var Card4 = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
+    document.title = 'card';
   },
   componentWillMount:function(){
   }, 

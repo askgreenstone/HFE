@@ -251,10 +251,7 @@ var ArticleDetail = React.createClass({
         this.checkUserLimit();
       }
     }
-    var ida = this.getUrlParams('ida');
-    if(ida == 1){
-      document.title = '机构介绍';
-    }
+    document.title = '文章详情';
 	},
   componentWillMount: function(){
     this.onlyToSetShareInfo();

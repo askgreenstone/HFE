@@ -120,6 +120,9 @@ var Lawyers = React.createClass({
     // console.log(descArr);
     return lawyerArr.join(" ");
   },
+  componentDidMount: function(){
+    document.title = '律师列表';
+  },
   componentWillMount: function(){
     // this.getLawyerCount(0,10);
     this.getLawyerList(0);
