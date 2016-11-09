@@ -71,7 +71,7 @@ var Lawyers = React.createClass({
   gotoDetail: function(id){
     var temp = '';
     var appid = '';
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var ida = 0;  //乔凡：聊天跳转到个人工作室，ida固定为0
     var st = this.getUrlParams('st')?this.getUrlParams('st'):3;
     var str = window.location.href;
     if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){

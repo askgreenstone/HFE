@@ -266,12 +266,12 @@ $(function() {
                     pageImg = data.mb;
                     for (var i = 0; i < data.mb.length; i++) {
                         if (data.mb[i].i.indexOf('e') > -1) {
-                            targetUri = 'e'+data.ei;
+                            targetUri = data.mb[i].i;
                             lawyerName = data.en;
                             expType = data.mb[i].expt;
                             console.log(lawyerName);
                             getFeedTimeLine(targetUri);
-                            // console.log(targetUri);
+                            console.log(targetUri);
                         }
                     }
 
