@@ -209,7 +209,14 @@ var TimeAxis = React.createClass({
     $('body').css({'background':'#ebebeb'});
     console.log($('.timeline_container'));
     console.log(this.state.Abstract);
+    var $body = $('body')
     document.title = '律师动态';
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body);
   },
   componentWillMount:function(){
     this.getIndexTheme();
@@ -265,8 +272,8 @@ var TimeAxis = React.createClass({
             <p className="timeline_box_title">{item.title?(item.title.length>6?item.title.substr(0,6)+'...':item.title):''}</p>
             <div className="timeline_action">
               <span className="timeline_action_read">{item.readnum?item.readnum:'0'}</span>
-              <span className="timeline_action_nice">{item.cnum?item.cnum:'0'}</span>
-              <span className="timeline_action_tip">{item.rnum?item.rnum:'0'}</span>
+              <span className="timeline_action_nice">{item.cnum?item.rnum:'0'}</span>
+              <span className="timeline_action_tip">{item.rnum?item.cnum:'0'}</span>
             </div>
           </div>
           

@@ -27,6 +27,8 @@ var Index008=React.createClass({
       shareTitle:'',
       shareDesc:'',
       shareImg:'',
+      documentExpTitle: '',
+      documentDepartTitle: '',
       container1:[],
       container2:[],
       container3:[]
@@ -209,7 +211,29 @@ var Index008=React.createClass({
         // alert(JSON.stringify(data));
         console.log(data);
         if(data.c == 1000){
-          Global_share_arr = data.sil;
+          if(data.sil.length>0){
+            this.setState({
+              shareTitle:data.sil[0].sti,
+              shareDesc:data.sil[0].sd,
+              shareImg:data.sil[0].spu,
+              documentDepartTitle: data.dnm?data.dnm:'机构介绍',
+              documentExpTitle: data.enm?data.enm:'我'
+            });
+          }else{
+            if(ida == 1){
+              this.setState({
+                shareTitle:(data.dnm?data.dnm:'我的')+'机构工作室',
+                shareDesc:'欢迎访问我的机构工作室，您可以直接在线咨询我',
+                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }else{
+              this.setState({
+                shareTitle:(data.enm?data.enm+'律师的':'我的')+'名片',
+                shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
+                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }
+          }
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -247,33 +271,27 @@ var Index008=React.createClass({
   },
   componentDidMount: function(){
     this.staticWebPV(1);
-    var ida = this.getUrlParams('ida');
-    if(ida == 1){
-      document.title = '机构介绍';
-    }else{
-      document.title = '名片';
-    }
-    if(Global_share_arr.length>0){
-      this.setState({
-          shareTitle:Global_share_arr[0].sti,
-          shareDesc:Global_share_arr[0].sd,
-          shareImg:Global_share_arr[0].spu
-      });
-    }else{
+    // 乔凡：重新修改title（解决ios不能修改document.title问题）
+    var that = this;
+    setTimeout(function(){
+      var ida = that.getUrlParams('ida');
+      var title = '';
+      console.log(that.state.documentDepartTitle);
+      console.log(that.state.documentExpTitle);
       if(ida == 1){
-        this.setState({
-          shareTitle:(data.dnm?data.dnm:'我的')+'机构工作室',
-          shareDesc:'欢迎访问我的机构工作室，您可以直接在线咨询我',
-          shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
-        });
+        title = that.state.documentDepartTitle?that.state.documentDepartTitle:'机构介绍';
       }else{
-        this.setState({
-          shareTitle:(data.enm?data.enm+'律师的':'我的')+'工作室',
-          shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
-          shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
-        });
+        title = that.state.documentExpTitle?(that.state.documentExpTitle+'的名片'):'名片';
       }
-    }
+      var $body = $('body')
+      document.title = title;
+      // hack在微信等webview中无法修改document.title的情况
+      var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+        setTimeout(function() {
+          $iframe.off('load').remove()
+        }, 0)
+      }).appendTo($body);
+    },300)
   },
   componentWillMount: function(){
     this.getBgLogo();

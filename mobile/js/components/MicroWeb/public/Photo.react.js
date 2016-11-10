@@ -107,7 +107,7 @@ var Photo = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     this.getPhotos();
-    document.title = '我的照片';
+    document.title = '我的相册';
   },
   componentWillMount:function(){
     this.getServerInfo();

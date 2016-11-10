@@ -251,7 +251,14 @@ var ArticleDetail = React.createClass({
         this.checkUserLimit();
       }
     }
-    document.title = '文章详情';
+    var $body = $('body')
+    document.title = '简介';
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body);
 	},
   componentWillMount: function(){
     this.onlyToSetShareInfo();

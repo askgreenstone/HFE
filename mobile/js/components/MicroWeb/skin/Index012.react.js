@@ -24,7 +24,9 @@ var Index012 = React.createClass({
       logo:'',
       shareTitle:'',
       shareDesc:'',
-      shareImg:''
+      shareImg:'',
+      documentExpTitle: '',
+      documentDepartTitle: ''
     };
   },
   getLatestNews:function(){
@@ -194,23 +196,38 @@ var Index012 = React.createClass({
       }.bind(this)
     });
   },
-    componentDidMount: function(){
-      this.staticWebPV(1);
-      $('body').css({'background':'#ebebeb'});
-      var ida = this.getUrlParams('ida');
+  componentDidMount: function(){
+    this.staticWebPV(1);
+    $('body').css({'background':'#ebebeb'});
+    // 乔凡：重新修改title（解决ios不能修改document.title问题）
+    var that = this;
+    setTimeout(function(){
+      var ida = that.getUrlParams('ida');
+      var title = '';
+      console.log(that.state.documentDepartTitle);
+      console.log(that.state.documentExpTitle);
       if(ida == 1){
-        document.title = '机构介绍';
+        title = that.state.documentDepartTitle?that.state.documentDepartTitle:'机构介绍';
       }else{
-        document.title = '名片';
+        title = that.state.documentExpTitle?(that.state.documentExpTitle+'的名片'):'名片';
       }
-    },
-    componentWillMount: function(){
-      this.getBgLogo();
-      console.log('bg:'+this.state.bg);
-      this.getWxShareInfo();
-      this.getUserWebState();
-      this.getLatestNews();
-    },
+      var $body = $('body')
+      document.title = title;
+      // hack在微信等webview中无法修改document.title的情况
+      var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+        setTimeout(function() {
+          $iframe.off('load').remove()
+        }, 0)
+      }).appendTo($body);
+    },300)
+  },
+  componentWillMount: function(){
+    this.getBgLogo();
+    console.log('bg:'+this.state.bg);
+    this.getWxShareInfo();
+    this.getUserWebState();
+    this.getLatestNews();
+  },
 	render:function(){
      var navNodes = this.state.navArrs.map(function(item,i){
       return(

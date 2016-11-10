@@ -24,6 +24,8 @@ var Index020 = React.createClass({
       shareTitle:'',
       shareDesc:'',
       shareImg:'',
+      documentExpTitle: '',
+      documentDepartTitle: '',
       expspecial:[],
       newsTitle:'',
       newsContent:'',
@@ -95,10 +97,7 @@ var Index020 = React.createClass({
             hI:data.hI,
             nm:data.nm,
             dp:data.dp,
-            expspecial:data.es?(this.transferArr(data.es).slice(0,3)):(this.transferArr("[1,2,3]")),
-            shareImg:global.img+data.hI,
-            shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
-            shareTitle:data.nm+'的工作室'
+            expspecial:data.es?(this.transferArr(data.es).slice(0,3)):(this.transferArr("[1,2,3]"))
           });
         }
       }.bind(this),
@@ -177,6 +176,51 @@ var Index020 = React.createClass({
       }.bind(this)
     });
   },
+  getWxShareInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+      console.log(ownUri);
+    }
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    $.ajax({
+      type:'get',
+      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1&ida='+ida,
+      success: function(data) {
+        // alert(JSON.stringify(data));
+        console.log(data);
+        if(data.c == 1000){
+          if(data.sil.length>0){
+            this.setState({
+              shareTitle:data.sil[0].sti,
+              shareDesc:data.sil[0].sd,
+              shareImg:data.sil[0].spu,
+              documentDepartTitle: data.dnm?data.dnm:'机构介绍',
+              documentExpTitle: data.enm?data.enm:'我'
+            });
+          }else{
+            if(ida == 1){
+              this.setState({
+                shareTitle:(data.dnm?data.dnm:'我的')+'机构工作室',
+                shareDesc:'欢迎访问我的机构工作室，您可以直接在线咨询我',
+                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }else{
+              this.setState({
+                shareTitle:(data.enm?data.enm+'律师的':'我的')+'名片',
+                shareDesc:'欢迎访问我的工作室，您可以直接在线咨询我',
+                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showAlert('系统开了小差，请刷新页面');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   //查询用户微网站是否过期
   getUserWebState: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -208,12 +252,27 @@ var Index020 = React.createClass({
     this.staticWebPV(1);
     // this.getUserList();
     $('body').css({'background':'#fff'});
-    var ida = this.getUrlParams('ida');
-    if(ida == 1){
-      document.title = '机构介绍';
-    }else{
-      document.title = '名片';
-    }
+    // 乔凡：重新修改title（解决ios不能修改document.title问题）
+    var that = this;
+    setTimeout(function(){
+      var ida = that.getUrlParams('ida');
+      var title = '';
+      console.log(that.state.documentDepartTitle);
+      console.log(that.state.documentExpTitle);
+      if(ida == 1){
+        title = that.state.documentDepartTitle?that.state.documentDepartTitle:'机构介绍';
+      }else{
+        title = that.state.documentExpTitle?(that.state.documentExpTitle+'的名片'):'名片';
+      }
+      var $body = $('body')
+      document.title = title;
+      // hack在微信等webview中无法修改document.title的情况
+      var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+        setTimeout(function() {
+          $iframe.off('load').remove()
+        }, 0)
+      }).appendTo($body);
+    },300)
   },
   componentWillMount: function(){
     this.getServerInfo();
@@ -221,6 +280,7 @@ var Index020 = React.createClass({
     console.log('bg:'+this.state.bg);
     this.getUserWebState();
     this.getLatestNews();
+    this.getWxShareInfo();
   },
 	render:function(){
     console.log(this.state.expspecial);

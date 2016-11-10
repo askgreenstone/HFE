@@ -173,7 +173,14 @@ var Card = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
+    var $body = $('body')
     document.title = '微名片';
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body);
   },
   componentWillMount:function(){
     this.getServerInfo();
