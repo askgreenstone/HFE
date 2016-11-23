@@ -344,16 +344,16 @@ var Dynamic = React.createClass({
     },300)
     console.log(this.state.Abstract);
     var getImageFlag = false;
-    // $('.dynamic_top').scroll(function(){
-    //   if(!getImageFlag){
-    //     var imgs = $(this).find('img.lazy');
-    //     console.log(imgs);
-    //     for (var i = imgs.length - 1; i >= 0; i--) {
-    //       $(imgs[i]).attr('src',$(imgs[i]).attr('data-original'))
-    //     }
-    //     getImageFlag = true;
-    //   }
-    // })
+    $('.dynamic_top').scroll(function(){
+      if(!getImageFlag){
+        var imgs = $(this).find('img.lazy');
+        console.log(imgs);
+        for (var i = imgs.length - 1; i >= 0; i--) {
+          $(imgs[i]).attr('src',$(imgs[i]).attr('data-original'))
+        }
+        getImageFlag = true;
+      }
+    })
   },
   componentWillMount:function(){
     document.title = '';
@@ -378,6 +378,7 @@ var Dynamic = React.createClass({
     var ShareImg = this.state.Img;
     var ownUri = this.getUrlParams('ownUri');
     var fid = this.getUrlParams('fid');
+    console.log(ShareDesc);
     var temp,appid,ShareUrl;
     // 时间轴，动态详情页面分享需要授权
     var str = window.location.href;
