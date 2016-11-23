@@ -9,7 +9,70 @@ define(['App'], function(app) {
         vm.newFileTitle = '';
         vm.newFileContent = '';
         vm.isServerData = false;//服务器端数据还是本地上传
+        vm.uploadProgress = false;//开始上传出现进度条
+        var uploader = new VODUpload({
+          // 文件上传失败
+          'onUploadFailed': function (fileName, code, message) {
+              console.log("onUploadFailed: " + fileName + code + "," + message);
+              alert('文件上传失败，请重试!');
+          },
+          // 文件上传完成
+          'onUploadSucceed': function (fileName) {
+              console.log("onUploadSucceed: " + fileName);
+              $('.uploadFileName').text(fileName);
+              $('.uploadFilePercent').hide();
+              $('.uploadProgress').hide();
+              vm.uploadSucced();
+          },
+          // 文件上传进度
+          'onUploadProgress': function (fileName, totalSize, uploadedSize) {
+              // console.log("file:" + fileName + ", " + totalSize, uploadedSize, "percent:", Math.ceil(uploadedSize * 100 / totalSize));
+              $('.uploadFileName').text(fileName);
+              $('.uploadFileBox').show();
+              $('.uploadFilePercent').text(Math.ceil(uploadedSize * 100 / totalSize)+'%')
+              $('.uploadProgress span').animate({width: Math.ceil(uploadedSize * 100 / totalSize)+'px'},100);
+          },
+          // token超时
+          'onUploadTokenExpired': function (callback) {
+              console.log("onUploadTokenExpired");
+          }
+        });
 
+        // 文件上传到阿里云
+        vm.uploadToAliyun = function(){
+          var $choose_file = $('#step5_upload')[0].files;
+          var str = window.location.href,
+              web = '';
+          if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+            web = 't-gstonevedio';
+          }else{
+            web = 'gstonevedio'
+          }
+          console.log($choose_file);
+          var newDate = new Date().getTime();
+          var fileName = '';
+          console.log(newDate+'_'+vm.ownUri+$choose_file[0].name);
+          if(vm.docType == 2){
+            vm.uploadFileName = newDate+'_'+vm.ownUri+'_'+'video.m3u8';
+            fileName = newDate+'_'+vm.ownUri+'_'+'video.mp4'
+          }else{
+            vm.uploadFileName = newDate+'_'+vm.ownUri+'_'+'audio.m3u8';
+            fileName = newDate+'_'+vm.ownUri+'_'+'audio.mp3'
+          }
+
+          uploader.addFile(
+            $choose_file[0],
+            'http://oss-cn-beijing.aliyuncs.com',
+            web,
+            'wkt/'+fileName
+          );
+          uploader.startUpload();
+        }
+
+        vm.uploadSucced = function(){
+          vm.docName = $('.uploadFileName').text();
+          console.log(vm.uploadFileName);
+        };
         
 
         vm.gotoLink = function(){
@@ -340,6 +403,7 @@ define(['App'], function(app) {
               if (files && files.length) {
                   file = files[0];
                   // 支持mp3,mp4以及文件格式如下
+                  // 视频音频文件上传阿里云流媒体文档文件正常上传
                   // 1文档2视频3音频
                   console.log(file.name);
                   var ossname = file.name
@@ -347,10 +411,10 @@ define(['App'], function(app) {
                     vm.getUploadFileNm();
                     vm.docType = 1;
                   }else if(ossname.indexOf('mp3')>-1){
-                    vm.getUploadFileNm();
+                    vm.getAliyunData();
                     vm.docType = 3;
                   }else if(ossname.indexOf('mp4')>-1){
-                    vm.getUploadFileNm();
+                    vm.getAliyunData();
                     vm.docType = 2;
                   }else{
                     alert('暂不支持该类型文件！')
@@ -529,7 +593,47 @@ define(['App'], function(app) {
         }
         
 
+        // 上传阿里云流媒体文件
+        // 获取ID，secret，token，token过期时间
+        vm.getAliyunData = function(){
+          $http({
+            method: 'GET',
+            url: GlobalUrl+'/exp/GetAliVodToken.do',
+            params: {
+                session:vm.sess
+             }
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                uploader.init(data.id,data.secret,data.token,data.tp);
+                vm.uploadToAliyun();
+              }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('系统开了小差，请刷新页面');
+          });
+        }
 
+
+
+        vm.getExpOwnuri = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/QueryMicroCard.do?session='+vm.sess
+          }).
+          success(function(data, status, headers, config) {
+              console.log(data);
+              if(data.c == 1000){
+                vm.ownUri = data.uri;
+              }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('系统开了小差，请刷新页面');
+          }); 
+        }
 
 
 
@@ -541,6 +645,7 @@ define(['App'], function(app) {
           vm.checkUsrOrOrg();
           vm.tid = Common.getUrlParam('tid');
           vm.order = Common.getUrlParam('order');
+          vm.getExpOwnuri();
           if(vm.tid){
             vm.queryDeptDocs(vm.tid);
             vm.queryDeptDocTypes();

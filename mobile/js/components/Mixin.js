@@ -331,6 +331,26 @@ var CommonMixin = {
             }
         });
   },
+  // 查询用户是否开通在线咨询功能
+  // ocm字段  0表示关闭在线咨询功能，1表示开通在线咨询功能
+  getExpConsult: function(ownUri){
+    $.ajax({
+      type: 'get',
+      url: global.url+'/exp/Settings.do?ownUri=' + ownUri,
+      success: function(data) {
+        if (data.c == 1000) {
+          if(data.ocm == 1){
+            this.getWXMsg(ownUri,ida,st);
+          }else{
+            alert('该律师暂时关闭在线咨询功能');
+          }
+        }
+      },
+      error: function(xhr, status, err) {
+        alert('系统开了小差，请刷新页面');
+      }
+    });
+  },
   //菜单跳转公用方法
   menuLink: function(type,ntid,limit,psw,title){
     // console.log(event);
@@ -346,7 +366,6 @@ var CommonMixin = {
     if(ida == 1){
       st = 2
     }
-    var consultState = false; //在线咨询状态flag
     // 乔凡：在线咨询增加控制状态，调接口查询是否接受在线咨询
     if(!type) return;
     if(type=='telphone'){
@@ -370,7 +389,8 @@ var CommonMixin = {
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
      }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
-      this.getWXMsg(ownUri,ida,st);
+      this.getExpConsult(ownUri,ida,st);
+      // this.getWXMsg(ownUri,ida,st);
      }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入

@@ -82,8 +82,44 @@ var Lawyers = React.createClass({
       temp = 'web';
       appid = 'wx73c8b5057bb41735';
     }
+    // 查询用户是否开通在线咨询功能
+    // ocm字段  0表示关闭在线咨询功能，1表示开通在线咨询功能
+    $.ajax({
+      type: 'get',
+      url: global.url+'/exp/Settings.do?ownUri=' + id,
+      success: function(data) {
+        if (data.c == 1000) {
+          if(data.ocm == 1){
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_base&state=explistchat_e'+id+'_'+ida+'_0_'+st+'#wechat_redirect';
+          }else{
+            this.gotoIndex();
+          }
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        alert('系统开了小差，请刷新页面');
+      }.bind(this)
+    });
     console.log(temp+'....'+appid);
-    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_base&state=explistchat_e'+id+'_'+ida+'_0_'+st+'#wechat_redirect';
+  },
+  gotoIndex: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    $.ajax({
+      type: 'post',
+      url: global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0',
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1999){
+          alert('该律师还没有创建个人工作室');
+        }else{
+          window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+        alert('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   transferNumber: function(str){
     var num = '';
