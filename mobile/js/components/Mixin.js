@@ -147,7 +147,7 @@ var CommonMixin = {
       ownUri = this.checkDevOrPro();
       console.log(ownUri);
     }
-    var ida = this.getUrlParams('ida');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     var ecardTel = '';
     $.ajax({
       type:'get',
@@ -307,33 +307,46 @@ var CommonMixin = {
   },
   //微信授权，获取appid
   getWXMsg:function(ownUri,ida,st){
-        var wxPath = window.location.href,
-            uri = encodeURIComponent(wxPath.toString());
-        $.ajax({
-            type: 'get',
-            url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
-            success: function(data) {
-                // alert('wx:' + JSON.stringify(data));
-                if (data.c == 1000) {
-                  var temp = '';
-                  var str = window.location.href;
-                  if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
-                    temp = 't-web';
-                  }else{
-                    temp = 'web';
-                  }
-                  // micwebchat后接四个参数，下划线链接  _ownUri_ida_groupId_sourceTtpe
-                  location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'_'+ida+'_0_'+st+'#wechat_redirect';
-                }
-            },
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
+    var wxPath = window.location.href,
+        uri = encodeURIComponent(wxPath.toString()),
+        doubleClickFlag = true;
+    if(doubleClickFlag){
+      doubleClickFlag = false;
+      $.ajax({
+        type: 'get',
+        url: global.url+'/usr/ThirdJSapiSignature.do?apath=' + uri,
+        success: function(data) {
+            // alert('wx:' + JSON.stringify(data));
+            if (data.c == 1000) {
+              var temp = '';
+              var str = window.location.href;
+              if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+                temp = 't-web';
+              }else{
+                temp = 'web';
+              }
+              // micwebchat后接四个参数，下划线链接  _ownUri_ida_groupId_sourceTtpe
+              location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+data.appId+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'_'+ida+'_0_'+st+'#wechat_redirect';
             }
-        });
+        },
+        error: function(xhr, status, err) {
+            console.error(this.props.url, status, err.toString());
+        }
+      });
+      setTimeout(function(){
+        doubleClickFlag = true;
+      },3000);
+    }
+    
   },
   // 查询用户是否开通在线咨询功能
   // ocm字段  0表示关闭在线咨询功能，1表示开通在线咨询功能
   getExpConsult: function(ownUri){
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var st = 1;
+    if(ida == 1){
+      st = 2
+    }
     $.ajax({
       type: 'get',
       url: global.url+'/exp/Settings.do?ownUri=' + ownUri,
