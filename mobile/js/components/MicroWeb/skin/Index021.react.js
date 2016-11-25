@@ -254,7 +254,7 @@ var Index021 = React.createClass({
     $('.theme021_blur').css({
       'backgroundImage': 'url('+bgImg+')'
     });
-    alert($(window).height()+'....'+$(window).width());
+    // alert($(window).height()+'....'+$(window).width());
     console.log($('.theme021_blur').css('backgroundImage'));
     // 乔凡：重新修改title（解决ios不能修改document.title问题）
     var that = this;

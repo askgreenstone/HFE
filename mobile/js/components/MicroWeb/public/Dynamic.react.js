@@ -50,7 +50,8 @@ var Dynamic = React.createClass({
       expConsultState: false,
       expConsultWord1: '律师',
       expConsultWord2: '名片',
-      newContentArray: []
+      newContentArray: [],
+      showFlag: false    //懒加载图片显示隐藏
     };
   },
   // 查询用户是否开通在线咨询功能
@@ -98,7 +99,7 @@ var Dynamic = React.createClass({
       return Math.floor(result*24) + '小时前';
     }
   },
-  getDynamicComment: function(){
+  getDynamicComment: function(flag){
     var fid = this.getUrlParams('fid');
     var usrUri = this.getUrlParams('usrUri');
     $.ajax({
@@ -143,7 +144,8 @@ var Dynamic = React.createClass({
             expTitle: data.r.fl[0].title,
             usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
             esl: data.r.fl[0].esl,
-            Title: data.r.fl[0].title
+            Title: data.r.fl[0].title,
+            showFlag: flag
           })
           console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
@@ -197,7 +199,7 @@ var Dynamic = React.createClass({
             $('.dynamic_usr_write').hide();
             $('.dynamic_usr_write textarea').val('');
             // $('.dynamic_exp_chat').css({'position':'absolute','height':'7rem','padding':'0.5rem 1rem','display':'-webkit-box'});
-            this.getDynamicComment();
+            this.getDynamicComment(true);
             setTimeout(function(){
               var top = $('.dynamic_top')[0].scrollHeight;
               $('.dynamic_top').scrollTop(top);
@@ -231,7 +233,7 @@ var Dynamic = React.createClass({
         success: function(data) {
           console.log(data);
           if(data.c == 1000){
-            this.getDynamicComment();
+            this.getDynamicComment(true);
             $('.dynamic_usr_img').addClass('dynamic_usr_img_nice');
           }
         }.bind(this),
@@ -346,7 +348,7 @@ var Dynamic = React.createClass({
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
 
-    this.getDynamicComment();
+    this.getDynamicComment(false);
     this.getExpConsultState();
   }, 
   render: function() {
@@ -376,7 +378,7 @@ var Dynamic = React.createClass({
       return(
         <div key={new Date().getTime()+i}>
           <div className="dynamic_exp_word"><pre>{item.content}</pre></div>
-          <ImgList list={item.il}/>
+          <ImgList list={item.il} showFlag={this.state.showFlag}/>
         </div>
        );
     }.bind(this));
