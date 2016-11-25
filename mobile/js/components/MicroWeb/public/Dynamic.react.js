@@ -100,6 +100,7 @@ var Dynamic = React.createClass({
   },
   getDynamicComment: function(){
     var fid = this.getUrlParams('fid');
+    var usrUri = this.getUrlParams('usrUri');
     $.ajax({
       type: 'GET',
       url: global.url+'/usr/FeedDetail.do?fid='+fid,
@@ -117,6 +118,19 @@ var Dynamic = React.createClass({
               newContentArray: data.r.fl,
               Introduction: data.r.fl[0].content,
               Img: data.r.fl[0].il[0]
+            })
+          }
+          if(data.r.fl[0].rl){
+            for(var i=0;i<data.r.fl[0].rl.length;i++){
+              if(usrUri == data.r.fl[0].rl[i].uri){
+                this.setState({
+                  praiseFlag: true
+                })
+              }
+            }
+          }else{
+            this.setState({
+              praiseFlag: false
             })
           }
           this.setState({
@@ -149,40 +163,6 @@ var Dynamic = React.createClass({
       byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
     }
     return byteLen/2;
-  },
-  getUsrPraise: function(){
-    var session = this.getUrlParams('session');
-    var fid = this.getUrlParams('fid');
-    var usrUri = this.getUrlParams('usrUri');
-    var arr = [];
-    $.ajax({
-      type: 'GET',
-      url: global.url+'/usr/FeedDetail.do?fid='+fid,
-      success: function(data) {
-        console.log(data);
-        if(data.c == 1000){
-          arr = data.r.fl[0].rl;
-          if(arr){
-            for(var i=0;i<arr.length;i++){
-              if(usrUri == arr[i].uri){
-                this.setState({
-                  praiseFlag: true
-                })
-              }
-            }
-          }else{
-            this.setState({
-              praiseFlag: false
-            })
-          }
-          
-        }
-      }.bind(this),
-      error: function(data) {
-          // console.log(data);
-          alert('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
   },
   wirteComment: function(){
     $('.dynamic_usr_write').show();
@@ -217,9 +197,7 @@ var Dynamic = React.createClass({
             $('.dynamic_usr_write').hide();
             $('.dynamic_usr_write textarea').val('');
             // $('.dynamic_exp_chat').css({'position':'absolute','height':'7rem','padding':'0.5rem 1rem','display':'-webkit-box'});
-            if(this.state.oldContent){
-              this.getDynamicComment();
-            }
+            this.getDynamicComment();
             setTimeout(function(){
               var top = $('.dynamic_top')[0].scrollHeight;
               $('.dynamic_top').scrollTop(top);
@@ -369,7 +347,6 @@ var Dynamic = React.createClass({
     var usrUri = this.getUrlParams('usrUri');
 
     this.getDynamicComment();
-    this.getUsrPraise();
     this.getExpConsultState();
   }, 
   render: function() {

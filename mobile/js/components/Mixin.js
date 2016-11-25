@@ -341,19 +341,15 @@ var CommonMixin = {
   },
   // 查询用户是否开通在线咨询功能
   // ocm字段  0表示关闭在线咨询功能，1表示开通在线咨询功能
-  getExpConsult: function(ownUri){
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    var st = 1;
-    if(ida == 1){
-      st = 2
-    }
+  getExpConsult: function(ownUri,ida,st){
+    var that = this;
     $.ajax({
       type: 'get',
       url: global.url+'/exp/Settings.do?ownUri=' + ownUri,
       success: function(data) {
         if (data.c == 1000) {
           if(data.ocm == 1){
-            this.getWXMsg(ownUri,ida,st);
+            that.getWXMsg(ownUri,ida,st);
           }else{
             alert('该律师暂时关闭在线咨询功能');
           }
@@ -403,7 +399,6 @@ var CommonMixin = {
      }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
       this.getExpConsult(ownUri,ida,st);
-      // this.getWXMsg(ownUri,ida,st);
      }else if(type == 'photo'||type == 'articleDetail'||type == 'articleList'){
       console.log(limit);
       //如果用户已经正常输入密码，则未退出页面过程中不需要重复输入

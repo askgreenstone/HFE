@@ -270,7 +270,7 @@ $(function() {
                             lawyerName = data.en;
                             expType = data.mb[i].expt;
                             console.log(lawyerName);
-                            getFeedTimeLine(targetUri);
+                            getFeedTimeLine(data.mb[i].i);
                             console.log(targetUri);
                         }
                     }
@@ -614,7 +614,7 @@ function viewDoc(name) {
 function getFeedTimeLine(ownUri) {
     $.ajax({
         type: 'get',
-        url: Common.globalDistUrl() + 'usr/FeedTimeline.do?ownUri=' + ownUri+'&c=1&idf=0',
+        url: Common.globalDistUrl() + 'usr/FeedTimeline.do?ownUri=' + ownUri+'&c=1&idf=0&p=0',
         success: function(data) {
             console.log(data);
             if (data.c == 1000) {

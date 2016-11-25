@@ -92,7 +92,7 @@ var Lawyers = React.createClass({
           if(data.ocm == 1){
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_base&state=explistchat_e'+id+'_'+ida+'_0_'+st+'#wechat_redirect';
           }else{
-            this.gotoIndex();
+            this.gotoIndex(id);
           }
         }
       }.bind(this),
@@ -101,8 +101,7 @@ var Lawyers = React.createClass({
       }.bind(this)
     });
   },
-  gotoIndex: function(){
-    var ownUri = this.getUrlParams('ownUri');
+  gotoIndex: function(ownUri){
     $.ajax({
       type: 'post',
       url: global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0',

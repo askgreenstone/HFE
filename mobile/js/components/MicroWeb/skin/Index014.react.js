@@ -38,10 +38,9 @@ var Index014 = React.createClass({
       console.log(ownUri);
     }
     var idf = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    var sl = idf == 0?3:5;
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&idf='+idf+'&sl='+sl,
+      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=1&idf='+idf+'&p=0',
       success:function(data){
         console.log(data);
         if(data.c == 1000){

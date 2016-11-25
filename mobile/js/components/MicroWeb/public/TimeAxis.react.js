@@ -95,9 +95,16 @@ var TimeAxis = React.createClass({
       ownUri = this.checkDevOrPro();
     }
     var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
+    var isFrom = this.getUrlParams('isFrom');
+    var url;
+    if(isFrom == 'app'){
+      url = global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=10&fid='+fid+'&idf='+idf+'&p=1';
+    }else{
+      url = global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=10&fid='+fid+'&idf='+idf+'&p=0';
+    }
     $.ajax({
       type:'get',
-      url: global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=10&fid='+fid+'&idf='+idf,
+      url: url,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -265,7 +272,7 @@ var TimeAxis = React.createClass({
           <p className="timeline_box_day">{new Date(item.ts).Format("MM-dd")}</p>
           <p className="timeline_box_hour">{new Date(item.ts).Format("hh:mm")}</p>
           <div className="timeline_box_img_box">
-            <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):global.img+item.p} width="70" height="70"  onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}/>
+            <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):(item.cil[0].il[0]?(global.img+item.cil[0].il[0]):(global.img+item.p))} width="70" height="70"  onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}/>
             <img className="timeline_box_close" onClick={this.deleteDynamic.bind(this,item.fid)} style={{display:this.state.isSelf?'block':'none'}} src="image/delete.png" />
           </div>
           <div className="timeline_box_link" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}>
