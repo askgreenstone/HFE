@@ -25,80 +25,84 @@
   	}
   	.lawyer{
   		width: 100%;
-  		height: 9rem;
-  		background: #D3ECE2;
-  		padding: 1rem;
+  		background: #fff;
   		box-sizing: border-box;
-  		margin-bottom: 1rem;
   		font-size: 1.4rem;
   		color: #333;
   	}
   	.lawyer_box{
   		width: 100%;
-  		display: box;
-  		display: -webkit-box;
-  		margin-bottom: 2rem;
+  		margin-bottom: 1rem;
   	}
-  	.lawyer_left{
-  		width: 50%;
-  		display: block;
-  	}
-  	.lawyer_right{
-  		width: 50%;
-  		display: block;
-  		text-align: right;
-  	}
-  	.lawyer_box span div{
-  		border: 1px solid;
-	    padding: 2px;
-	    display: inline-block;
-	    border-radius: 3px;
-  	}
-  	.lawyer p{
-  		border-top: 1px solid #333;
-  		height: 3rem;
-  		line-height: 3rem;
-  	}
+    .lawyer_box img{
+      display: block;
+      border-radius: 50%;
+      margin: 1rem auto;
+    }
+    .lawyer_content{
+      width: 100%;
+      padding: 0 30%;
+      box-sizing: border-box;
+      display: box;
+      display: -webkit-box;
+    }
+    .lawyer_content div{
+      -webkit-box-flex: 1;
+      margin-bottom: 2rem;
+    }
+    .lawyer_content div img{
+      width: 60%;
+      display: block;
+      margin: 1rem auto;
+    }
+    .lawyer_content div span{
+      widows: 100%;
+      display: block;
+      height: 2rem;
+      text-align: center;
+      line-height: 2rem;
+      color: #4d4d4d;
+    }
+    .lawyer_source{
+      width: 100%;
+      height: 3rem;
+      line-height: 3rem;
+      color: #878787;
+      background: #f8f8f8;
+      text-align: center;
+      font-size: 1.2rem;
+    }
   	.praise{
   		width: 100%;
   		display: box;
   		display: -webkit-box;
-  		margin-bottom: 1rem;
+      padding: 1.8rem;
+      box-sizing: border-box;
+      background: #fff;
   	}
   	.praise_left{
-  		width: 10%;
+  		width: 50px;
+      height: 50px;
   	}
-  	.praise_left img{
-  		width: 60%;
-  		display: block;
-  		margin: 1rem auto;
-  	}
+    .praise_left img{
+      margin: 1px;
+    }
   	.praise_right{
   		width: 90%;
   	}
   	.praise_right img{
-  		width: 11.5%;
-  		margin: 0.5%;
+  		margin: 1px;
   	}
-  	.comment{
-  		width: 100%;
-  		display: box;
-  		display: -webkit-box;
-  		background: #eee;
-  	}
-  	.comment_left{
-  		width: 10%;
-  	}
-  	.comment_left img{
-  		width: 60%;
-  		display: block;
-  		margin: 1rem auto;
-  	}
-  	.comment_right{
-  		width: 90%;
-  	}
+    .blank{
+      width: 100%;
+      height: 1.2rem;
+      background: #f8f8f8;
+    }
   	.comment_list{
   		width: 100%;
+      background: #fff;
+      padding: 1.8rem;
+      box-sizing: border-box;
   	}
   	.comment_list li{
   		width: 100%;
@@ -106,44 +110,45 @@
   		display: -webkit-box;
   		margin-bottom: 0.5rem;
   	}
+    .list_top{
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+    }
   	.list_left{
-  		width: 15%;
-  	}
-  	.list_left img{
-  		width: 75%;
-  		margin-top: 1rem;
-  		margin-bottom: 1rem;
-  		display: block;
+      border-radius: 50%;
+      display: block;
+      width: 4rem;
+      height: 4rem;
+      margin-right: 1rem;
   	}
   	.list_right{
-  		width: 85%;
-  		padding-top: 1rem;
-  	}
-  	.nameDate{
-  		width: 100%;
-  		display: box;
-  		display: -webkit-box;
-  		line-height: 1.4rem;
-  		color: #666;
-  		font-size: 1.4rem;
+  		-webkit-box-flex: 1;
   	}
   	.list_right_name{
-  		width: 50%;
-  		display: block;
+  		height: 3rem;
+      line-height: 3rem;
+      color: #000;
+      font-size: 1.6rem;
+      display: block;
   	}
   	.list_right_date{
-  		width: 45%;
-  		display: block;
-  		text-align: right;
+  		height: 2rem;
+      line-height: 2rem;
+      display: block;
+      color: #878787;
   	}
   	.list_right_con{
-  		width: 95%;
-  		display: inline-block;
-  		color: #999;
-  		font-size: 1.3rem;
+  		width: 100%;
+      line-height: 2rem;
+      font-size: 1.4rem;
+      color: #4b4b4b;
+      box-sizing: border-box;
+      margin: -0.5rem 0 0.5rem;
+      word-break: break-word;
   	}
-
-
+    .list_right_con pre{
+      white-space: pre-wrap;
+    }
   	/*适配手机*/
 		@media screen and (max-width: 360px) {
 		  html {
@@ -167,29 +172,26 @@
 	<div class="wrap">
 		<div class="lawyer">
 			<div class="lawyer_box">
-				<span class="lawyer_left"><div id="register">我也要注册</div></span>
-				<span class="lawyer_right"><div id="gotoMicroweb">进入TA的工作室</div></span>
+        <img width="70" height="70" class="lawyer_head" src="image/head.png">
 			</div>
-			<p>通过【在线法律】平台 <span id="lawyerName"></span> 律师收到的赞</p>
+      <div class="lawyer_content">
+        <div id="gotoMicroweb"><img src="image/personal.png" /><span>ta的名片</span></div>
+        <div id="register"><img src="image/regist.png" /><span>我要注册</span></div>
+      </div>
 		</div>
+    <div class="lawyer_source">通过【在线法律】平台 <span id="lawyerName"></span> 律师收到的赞</div>
 		<div class="praise">
 			<div class="praise_left">
-				<img src="image/nice.png">
+				<img src="image/zan.png" width="48" height="48"> 
 			</div>
 			<div class="praise_right">
 				
 			</div>
 		</div>
-		<div class="comment">
-			<div class="comment_left">
-				<img src="image/tip.png">
-			</div>
-			<div class="comment_right">
-				<ul class="comment_list">
-					
-				</ul>
-			</div>
-		</div>
+    <div class="blank"></div>
+		<ul class="comment_list">
+			
+		</ul>
 	</div>
 	<script type="text/javascript" src="lib/jquery.min.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
@@ -232,24 +234,38 @@
 		        if(data.c ==1000){
 		        	var html = ''
 		        	var str = ''
+              // 专家头像
+              $('.lawyer_head').attr({
+                src: data.res.ep?(Common.globalTransferUrl()+data.res.ep):(Common.globalTransferUrl()+'header.jpg')
+              });
+              // 点赞头像列表
 		        	if(data.res.rl.length>0){
 		        		for(var i=0;i<data.res.rl.length;i++){
 		        			var img = data.res.rl[i].p?Common.globalTransferUrl()+data.res.rl[i].p:Common.globalTransferUrl()+'header.jpg';
-			        		html += '<img src="'+img+'">'
+			        		html += '<img src="'+img+'" width="48" height="48">'
 			        	}
 		        	}else{
 		        		$('.praise').hide();
 		        	}
+              // 评论列表
 		        	if(data.res.el.length>0){
 		        		for(var k=0;k<data.res.el.length;k++){
 			        		var img = data.res.el[k].p?Common.globalTransferUrl()+data.res.el[k].p:Common.globalTransferUrl()+'header.jpg';
-			        		str += '<li>'
-											+ '<div class="list_left">'
-											+ '<img src="'+img+'"/></div>'
-											+ '<div class="list_right"><div class="nameDate">'
-											+ '<span class="list_right_name">'+data.res.el[k].nm+'</span>'
-											+ '<span class="list_right_date">'+formatDate(data.res.el[k].ts)+'</span></div>'
-											+ '<span class="list_right_con">'+data.res.el[k].c+'</span></div></li>'
+                  if(k == 0){
+                    str += '<li>'
+                      + '<img class="list_left" src="'+img+'"/>'
+                      + '<div class="list_right">'
+                      + '<div class="list_right_name">'+data.res.el[k].nm+'</div>'
+                      + '<div class="list_right_date">'+formatDate(data.res.el[k].ts)+'</div>'
+                      + '<div class="list_right_con"><pre>'+data.res.el[k].c+'</pre></div></div></li>'
+                  }else{
+                    str += '<li class="list_top">'
+                      + '<img class="list_left" src="'+img+'"/>'
+                      + '<div class="list_right">'
+                      + '<div class="list_right_name">'+data.res.el[k].nm+'</div>'
+                      + '<div class="list_right_date">'+formatDate(data.res.el[k].ts)+'</div>'
+                      + '<div class="list_right_con"><pre>'+data.res.el[k].c+'</pre></div></div></li>'
+                  }
 			        	}
 		        	}else{
 		        		$('.comment').hide();
@@ -270,10 +286,11 @@
 
 
 		// 显示时间格式
-		function formatDate(now)   {     
+		function formatDate(now)   {  
+      var year = new Date(now).getFullYear();
       var month = new Date(now).getMonth()+1;     
       var date =new Date(now).getDate();     
-      return month+"月"+date+"日";     
+      return year+'-'+month+"-"+date;     
     }     
 
     var d=new Date();     
