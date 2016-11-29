@@ -15,16 +15,44 @@ define(['App','Sortable'], function(app) {
           if(!title){
             title = '暂无描述';
           }
-          location.href = '#/'+path+'?session='+vm.sess+'&title='+encodeURI(title)+'&pid='+pid+'&pth='+pth+'&ntid='+vm.ntid;
+          location.href = '#/'+path+'?session='+vm.sess+'&title='+encodeURI(title)+'&pid='+pid+'&pth='+pth+'&ntid='+vm.ntid+'&ida='+vm.ida;
         };
         
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.gotoUpload = function(path){
-          location.href = '#/'+path+'?session='+vm.sess+'&ntId='+vm.ntid;
+          location.href = '#/'+path+'?session='+vm.sess+'&ntId='+vm.ntid+'&ida='+vm.ida;
         };
+
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
 
         vm.getServerPhotos = function() {
             if(!vm.sess) return;
@@ -33,7 +61,8 @@ define(['App','Sortable'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryWXPhotoList.do?ntId='+vm.ntid,
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {}
             }).
@@ -74,7 +103,8 @@ define(['App','Sortable'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/SortWXPhotoList.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {pl:vm.currentSortArray}
             }).
@@ -95,6 +125,11 @@ define(['App','Sortable'], function(app) {
           vm.ntid = Common.getUrlParam('ntId');
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.getServerPhotos();
+          vm.ida = Common.getUrlParam('ida');
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
+          vm.checkUsrOrOrg();
         }
 
         init();

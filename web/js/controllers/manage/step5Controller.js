@@ -15,11 +15,11 @@ define(['App'], function(app) {
         }
 
         vm.gotoLink = function(){
-          location.href = '#/manage?session'+vm.sess;
+          location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
@@ -31,12 +31,38 @@ define(['App'], function(app) {
           return count;
         }
 
+
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.TransferUrl+ data.p):vm.TransferUrl+'header.jpg';;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
         vm.getQrCode = function(){
           $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {}
             }).
@@ -336,7 +362,8 @@ define(['App'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/ThirdSetShareInfo.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: vm.tempData
             }).
@@ -358,7 +385,8 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/GetMicWebShareInfo.do',
                 params: {
                     session:vm.sess,
-                    st:1
+                    st:1,
+                    ida: vm.ida
                 },
                 data: {
                 }
@@ -377,9 +405,9 @@ define(['App'], function(app) {
                     vm.isServerData = true;
                   }else{
                     vm.user = {
-                      title:'我的微网站',
-                      desc:'欢迎访问我的微网站！这里有我的职业介绍和成就',
-                      preview:'greenStoneicon300.png'
+                      title:'我的工作室',
+                      desc:'欢迎访问我的工作室，您可以直接在线咨询我',
+                      preview:'batchdeptlogo20160811_W108_H108_S15.png'
                     }
                   }
                   setTimeout(function() {
@@ -395,6 +423,9 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
+          vm.isDeptAdmin = vm.ida == 0?false:true;
+          vm.checkUsrOrOrg();
           vm.GetWxShare();
           vm.getQrCode();
         }

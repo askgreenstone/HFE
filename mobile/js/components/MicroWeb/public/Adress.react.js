@@ -34,6 +34,14 @@ var Adress = React.createClass({
   },
   componentDidMount: function(){
     this.getServerInfo();
+    var $body = $('body')
+    document.title = '我的地址';
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body);
   },
   render: function() {
 

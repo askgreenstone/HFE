@@ -2,16 +2,54 @@
 
 define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
-    var injectParams = ['$location','$window','$http','GlobalUrl','Common'];
-    var EditorController = function($location,$window,$http,GlobalUrl,Common) {
+    var injectParams = ['$location','$window','$http','GlobalUrl','TransferUrl','Common'];
+    var EditorController = function($location,$window,$http,GlobalUrl,TransferUrl,Common) {
 
         var vm = this;
         vm.title = '标题';
         vm.isEdit = false;
         vm.nId = '';
         vm.showUeditorFlag = true;
+        vm.transferUrl = TransferUrl;
         vm.createInfo = {
           url:''
+        }
+
+
+        // 切换个人与机构
+        vm.switchPerOrg = function(num){
+          console.log(num);
+          if(num === 1){
+            window.location.href = '#/editor?session='+vm.sess+'&ida=1';
+          }else{
+            window.location.href = '#/editor?session='+vm.sess+'&ida=0';
+          }
+        }
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
         }
 
         vm.queryContentState = function(){
@@ -20,7 +58,8 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 url: GlobalUrl+'/exp/QueryNewsContent.do',
                 params: {
                     ntId:vm.ntid,
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -104,7 +143,8 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/SaveNewsContent.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: datas
             }).
@@ -125,14 +165,14 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
 
         vm.gotoLink = function(path, title) {
             if(title){
-              $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title);
+              $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ida='+vm.ida;
             }else{
-              $window.location.href = '#/' + path+'?session='+vm.sess;
+              $window.location.href = '#/' + path+'?session='+vm.sess+'&ida='+vm.ida;
             }
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.getUMThemeJson = function(){
@@ -251,6 +291,11 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = decodeURI(Common.getUrlParam('ntid'));
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
+          vm.checkUsrOrOrg();
 
           // um = UM.getEditor('editor');
           // ue = UE.getEditor('editor');

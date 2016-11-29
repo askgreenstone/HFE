@@ -1,5 +1,6 @@
 var React = require('react');
 var CommonMixin = require('../../Mixin');
+var ImgList = require('../../layout/ImgList.react')
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 Date.prototype.Format = function(fmt){ //author: meizz
@@ -41,81 +42,51 @@ var Dynamic = React.createClass({
       time: '',
       niceNo: '',
       contentNo: '',
+      readNo: '',
       expTitle: '',
       expContent: '',
       usrContents: [],
-      praiseFlag: false
+      praiseFlag: false,
+      expConsultState: false,
+      expConsultWord1: '律师',
+      expConsultWord2: '名片',
+      newContentArray: [],
+      showFlag: false    //懒加载图片显示隐藏
     };
   },
-  gotoLink: function(path){
-    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
-  },
-  getShareInfo: function(){
+  // 查询用户是否开通在线咨询功能
+  // ocm字段  0表示关闭在线咨询功能，1表示开通在线咨询功能
+  getExpConsultState: function(){
     var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     $.ajax({
-      type:'get',
-      url: global.url+'/usr/GetMicWebShareInfo.do?ou='+ownUri+'&st=1&ida='+ida,
+      type: 'get',
+      url: global.url+'/exp/Settings.do?ownUri=' + ownUri,
       success: function(data) {
-        // alert(JSON.stringify(data));
-        console.log(data);
-        // alert('ownUri:'+ownUri+'ntid:'+ntid);
-        if(data.c == 1000){
-          // console.log(data.sil[0].spu)
-          if(data.sil.length>0){
+        if (data.c == 1000) {
+          if(data.ocm == 1){
             this.setState({
-              Title:data.sil[0].sti,
-              Introduction:data.sil[0].sd,
-              Img:data.sil[0].spu
-            });
-          }else{
-            this.setState({
-              Title:'我的工作室',
-              Introduction:'欢迎访问我的工作室！这里有我的职业介绍和成就',
-              Img:'greenStoneicon300.png'
-            });
+              expConsultState: true,
+              expConsultWord1: '在线',
+              expConsultWord2: '咨询'
+            })
           }
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
-        console.error(this.props.url, status, err.toString());
+        alert('系统开了小差，请刷新页面');
       }.bind(this)
     });
   },
-  goHome: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri+'&ida='+ida;
+  gotoLink: function(path){
+    location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
   },
-  getIndexTheme: function(){
+  gotoTimeAxis: function(){
     var ownUri = this.getUrlParams('ownUri');
-    if(!ownUri){
-      ownUri = this.checkDevOrPro();
-    }
+    var session = this.getUrlParams('session');
+    var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    $.ajax({
-      type: 'GET',
-      url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri+'&ida='+ida,
-      success: function(data) {
-          console.log(data);
-          if(data.c == 1000){
-            this.setState({
-              indexTheme: data.url
-            })
-          }
-      }.bind(this),
-      error: function(data) {
-          // console.log(data);
-          alert('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
+    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
+    location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
   },
   getDate: function(time){
     var now = new Date().getTime();
@@ -128,52 +99,31 @@ var Dynamic = React.createClass({
       return Math.floor(result*24) + '小时前';
     }
   },
-  getDynamicComment: function(){
-    var session = this.getUrlParams('session');
-    var fid = this.getUrlParams('fid');
-    $.ajax({
-      type: 'GET',
-      url: global.url+'/usr/FeedDetail.do?session='+session+'&fid='+fid,
-      success: function(data) {
-        console.log(data);
-        if(data.c == 1000){
-          this.setState({
-            head: data.r.fl[0].p?data.r.fl[0].p:'header.jpg',
-            nm: data.r.fl[0].nm,
-            time: data.r.fl[0].ts,
-            niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
-            contentNo: data.r.fl[0].cl?data.r.fl[0].cl.length:0,
-            expTitle: data.r.fl[0].title,
-            expContent: data.r.fl[0].content,
-            imgLists: data.r.fl[0].il,
-            usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
-            esl: data.r.fl[0].esl
-          })
-          // var top = $('.dynamic_contaniner')[0].scrollHeight;
-          // $('.dynamic_contaniner').scrollTop(top);
-        }
-      }.bind(this),
-      error: function(data) {
-          // console.log(data);
-          alert('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
-  },
-  getUsrPraise: function(){
-    var session = this.getUrlParams('session');
+  getDynamicComment: function(flag){
     var fid = this.getUrlParams('fid');
     var usrUri = this.getUrlParams('usrUri');
-    var arr = [];
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedDetail.do?session='+session+'&fid='+fid,
+      url: global.url+'/usr/FeedDetail.do?fid='+fid,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
-          arr = data.r.fl[0].rl;
-          if(arr){
-            for(var i=0;i<arr.length;i++){
-              if(usrUri == arr[i].uri){
+          if(data.r.fl[0].pl[0]){
+            this.setState({
+              newContentArray: data.r.fl[0].pl,
+              Introduction: data.r.fl[0].pl[0].content,
+              Img: data.r.fl[0].pl[0].il[0]
+            })
+          }else{
+            this.setState({
+              newContentArray: data.r.fl,
+              Introduction: data.r.fl[0].content,
+              Img: data.r.fl[0].il[0]
+            })
+          }
+          if(data.r.fl[0].rl){
+            for(var i=0;i<data.r.fl[0].rl.length;i++){
+              if(usrUri == data.r.fl[0].rl[i].uri){
                 this.setState({
                   praiseFlag: true
                 })
@@ -184,7 +134,22 @@ var Dynamic = React.createClass({
               praiseFlag: false
             })
           }
-          
+          this.setState({
+            head: data.r.fl[0].p?data.r.fl[0].p:'header.jpg',
+            nm: data.r.fl[0].nm,
+            time: data.r.fl[0].ts,
+            niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
+            contentNo: data.r.fl[0].cl?data.r.fl[0].cl.length:0,
+            readNo: data.r.fl[0].readnum?data.r.fl[0].readnum:0,
+            expTitle: data.r.fl[0].title,
+            usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
+            esl: data.r.fl[0].esl,
+            Title: data.r.fl[0].title,
+            showFlag: flag
+          })
+          console.log(data.r.fl[0].content);
+          // var top = $('.dynamic_contaniner')[0].scrollHeight;
+          // $('.dynamic_contaniner').scrollTop(top);
         }
       }.bind(this),
       error: function(data) {
@@ -193,13 +158,19 @@ var Dynamic = React.createClass({
       }.bind(this)
     })
   },
+  callength: function(str){
+    var byteLen = 0, len = str.length;
+    if( !str ) return 0;
+    for( var i=0; i<len; i++){
+      byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
+    }
+    return byteLen/2;
+  },
   wirteComment: function(){
     $('.dynamic_usr_write').show();
-    console.log($('.dynamic_contaniner'));
-    var top = $('.dynamic_contaniner')[0].scrollHeight;
-    $('.dynamic_contaniner').scrollTop(top);
-    // $('.dynamic_exp_chat').hide();
-    // $('.dynamic_top').unbind('scroll');
+    console.log($('.dynamic_top'));
+    var top = $('.dynamic_top')[0].scrollHeight;
+    $('.dynamic_top').scrollTop(top);
   },
   setComment: function(){
     var val = $('.dynamic_usr_write textarea').val();
@@ -208,6 +179,8 @@ var Dynamic = React.createClass({
     if(!val){
       alert('请输入要发送的内容！');
       return;
+    }else if(this.callength(val) >= 1000){
+      alert('你输入的内容过长！')
     }else{
       var data = {
         fid: fid,
@@ -226,9 +199,11 @@ var Dynamic = React.createClass({
             $('.dynamic_usr_write').hide();
             $('.dynamic_usr_write textarea').val('');
             // $('.dynamic_exp_chat').css({'position':'absolute','height':'7rem','padding':'0.5rem 1rem','display':'-webkit-box'});
-            // this.dynamicBindScroll();
-            this.getDynamicComment();
-           
+            this.getDynamicComment(true);
+            setTimeout(function(){
+              var top = $('.dynamic_top')[0].scrollHeight;
+              $('.dynamic_top').scrollTop(top);
+            },500)
           }
         }.bind(this),
         error: function(data) {
@@ -245,7 +220,7 @@ var Dynamic = React.createClass({
     if(flag){
       alert('已经点过赞了！')
     }else{
-      $('.dynamic_usr_img').addClass('dynamic_usr_img_nice');
+      
       var data = {
         fid: fid,
         t: 1
@@ -258,7 +233,8 @@ var Dynamic = React.createClass({
         success: function(data) {
           console.log(data);
           if(data.c == 1000){
-            this.getDynamicComment()
+            this.getDynamicComment(true);
+            $('.dynamic_usr_img').addClass('dynamic_usr_img_nice');
           }
         }.bind(this),
         error: function(data) {
@@ -268,108 +244,153 @@ var Dynamic = React.createClass({
       })
     }
   },
-  dynamicBindScroll: function(){
-    $(document).ready(function() {
-      $('.dynamic_contaniner').bind('scroll',function() {
-        var top = $(this)[0].scrollTop;
-        var height = $('.dynamic_contaniner')[0].scrollHeight;
-        var winH = $(window).height();
-        // console.log(top);
-        // console.log(height);
-        var scrollHeight = $('.dynamic_top')[0].scrollHeight;
-        if(top == 0){
-          $('.dynamic_exp_chat').css({'position':'absolute','display':'-webkit-box'});
-        }else if(top + winH + 100 < height){
-          $('.dynamic_exp_chat').css({'display':'none'});
-        }else{
-          $('.dynamic_exp_chat').css({'position':'relative','display':'-webkit-box'});
-        }
-        // console.log($('.dynamic_top')[0].scrollHeight)
-      });
-    });
-  },
   transferArr: function(str){
     var arr =[]; 
     var descArr = [];
     arr = str?str.replace(/\[/,"").replace(/\]/g,"").split(","):[];
-    // arr = JSON.parse(str);
-    // console.log(arr);
+    // arr = JSON.stringify(str);
+    console.log(arr);
     var eilArr = ['','公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
-    for(var i = 0; i<arr.length; i++){
-      if(arr[i] == 99){
-        descArr.push('其他')
-      }else{
-        descArr.push(eilArr[arr[i]])
+    if(!arr){
+      descArr = ['公司企业','资本市场','证券期货']
+    }else{
+      for(var i = 0; i<arr.length; i++){
+        if(arr[i] == 99){
+          descArr.push('其他')
+        }else{
+          descArr.push(eilArr[arr[i]])
+        }
       }
     }
-    // console.log(descArr);
-    return descArr.join("、");
+    var lawyerArr = descArr.slice(0,3);
+    console.log(lawyerArr);
+    return lawyerArr.join(" ");
   },
   gotoConsult:function(){
     var session = this.getUrlParams('session');
     var ownUri = this.getUrlParams('ownUri');
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var st = this.getUrlParams('st')?this.getUrlParams('st'):3;
+    // st  3  入口为个人工作室入口
     var data = {
       t: 99,
-      ml: [ownUri,usrUri]
+      ml: [ownUri,usrUri],
+      st: st
     }
     $.ajax({
       type: 'POST',
       url: global.url+'/usr/CreateGroup.do?session='+session,
-      data: JSON.stringify(data),
+      data: JSON.stringify({
+        t: 99,
+        ml: [ownUri,usrUri],
+        st: 3
+      }),
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
           window.location.href = global.url + '/coop/askLawyers/view/chatList.html?session='+session+'&groupId='+data.gi+'&ownUri='+ownUri+'&status=chatLawyers&usrUri='+usrUri+'&ida='+ida;
         }
-        this.getDynamicComment()
       }.bind(this),
       error: function(data) {
-          // console.log(data);
           alert('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
   gotoIndex: function(){
     var ownUri = this.getUrlParams('ownUri');
-    window.location.href = global.url + '/usr/ThirdHomePage.do?ownUri=' + ownUri;
+    $.ajax({
+      type: 'post',
+      url: global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0',
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1999){
+          alert('该律师还没有创建个人工作室');
+        }else{
+          window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
+        }
+      }.bind(this),
+      error: function(data) {
+        alert('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   componentDidMount: function(){
-    $('body').css({'background':'#ebebeb'});
+    $('body').css({'background':'#fff'});
+    var that = this;
+    setTimeout(function(){
+      console.log('这是标题：'+that.state.expTitle);
+      document.title = that.state.expTitle;
+    },300)
     console.log(this.state.Abstract);
-    // $(document).scroll(function(){
-    //   console.log($('.dynamic_top'));
-    //   console.log($('.dynamic_top')[0].scrollHeight);
-    // })
-    // this.dynamicBindScroll();
+    var getImageFlag = false;
+    $('.dynamic_top').scroll(function(){
+      if(!getImageFlag){
+        var imgs = $(this).find('img.lazy');
+        console.log(imgs);
+        for (var i = imgs.length - 1; i >= 0; i--) {
+          $(imgs[i]).attr('src',$(imgs[i]).attr('data-original'))
+        }
+        getImageFlag = true;
+      }
+    })
   },
   componentWillMount:function(){
-    this.getShareInfo();
-    this.getIndexTheme();
-    this.getDynamicComment();
-    this.getUsrPraise();
+    document.title = '';
+    var refresh = this.getUrlParams('refresh');
+    var ownUri = this.getUrlParams('ownUri');
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    var fid = this.getUrlParams('fid');
+    var session = this.getUrlParams('session');
+    var usrUri = this.getUrlParams('usrUri');
+
+    this.getDynamicComment(false);
+    this.getExpConsultState();
   }, 
   render: function() {
     var ShareTitile = this.state.Title;
     var ShareDesc = this.state.Introduction;
     var ShareImg = this.state.Img;
+    var ownUri = this.getUrlParams('ownUri');
+    var fid = this.getUrlParams('fid');
+    console.log(ShareDesc);
+    var temp,appid,ShareUrl;
+    // 时间轴，动态详情页面分享需要授权
+    var str = window.location.href;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+        temp = 't-web';
+        appid = 'wx2858997bbc723661';
+      }else{
+        temp = 'web';
+        appid = 'wx73c8b5057bb41735';
+      }
+    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_'+fid+'_0'+'#wechat_redirect';
     var imgList = this.state.imgLists.map(function(item,i){
       return(
-          <img key={new Date().getTime()+i} src={global.img+item}/>
+        <img key={new Date().getTime()+i} src={global.img+item+'@400w'}/>
+       );
+    }.bind(this));
+    var newImgContent = this.state.newContentArray.map(function(item,i){
+      return(
+        <div key={new Date().getTime()+i}>
+          <div className="dynamic_exp_word"><pre>{item.content}</pre></div>
+          <ImgList list={item.il} showFlag={this.state.showFlag}/>
+        </div>
        );
     }.bind(this));
     var usrContent = this.state.usrContents.map(function(item,i){
       return(
-        <div key={new Date().getTime()+i}>
-          <div className="dynamic_exp_top">
-            <img className="dynamic_exp_img" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="40" height="40"/>
-            <p className="dynamic_exp_name">
-              <span>{item.nm}</span><br/>
-              <span className="dynamic_exp_date">{this.getDate(item.ts)}</span>
-            </p>
+        <div key={new Date().getTime()+i} className={i == 0?"dynamic_exp_top":"dynamic_exp_top dynamic_exp_top_abs"}>
+          <img className="dynamic_exp_img_abs" src={item.p?(global.img+item.p):(global.img+'header.jpg')} width="40" height="40"/>
+          <div className="dynamic_exp_name_abs">
+            <span className="dynamic_exp_name_title">{item.nm}</span>
+            <span className="dynamic_exp_date">{new Date(item.ts).Format("yyyy-MM-dd")}</span>
+            <div className="dynamic_usr_word"><pre>{item.c}</pre></div>
           </div>
-          <div className="dynamic_usr_word">{item.c}</div>
         </div>
        );
     }.bind(this));
@@ -377,54 +398,52 @@ var Dynamic = React.createClass({
       <div className="dynamic_contaniner">
         <div className="dynamic_top">
           <div className="dynamic_exp">
-            <div className="dynamic_exp_top">
-              <img className="dynamic_exp_img" src={global.img+this.state.head} width="65" height="65"/>
-              <p className="dynamic_exp_name">
-                <span>{this.state.nm}</span><br/>
-                <span className="dynamic_exp_date">{new Date(this.state.time).Format("MM-dd")}</span>
-              </p>
-              <p className="dynamic_exp_nice">
-                <span>{this.state.niceNo}</span>
-                <span className="dynamic_exp_com">{this.state.contentNo}</span>
-              </p>            
-            </div>
             <div className="dynamic_exp_content">
               <div className="dynamic_exp_title">{this.state.expTitle}</div>
-              <div className="dynamic_exp_word">{this.state.expContent}</div>
-              <div className="dynamic_exp_imgs">
-                {imgList}
+              <div className="dynamic_exp_top">
+                <p className="dynamic_exp_name">
+                  <span className="dynamic_exp_date">{new Date(this.state.time).Format("yyyy-MM-dd")} 发布</span>
+                </p>
+                <p className="dynamic_exp_nice">
+                  <i className="gotoTimeAxis" onClick={this.gotoTimeAxis}>更多动态</i> 
+                </p>            
               </div>
+              <div className="newContent">
+                {newImgContent}
+              </div>
+              
             </div>
           </div>
+          <div className="dynamic_usr_news">
+            <span className="dynamic_usr_latest"></span>
+            <span className="dynamic_usr_read">{this.state.readNo}</span>
+            <span className={this.state.praiseFlag?"dynamic_usr_img dynamic_usr_img_nice":"dynamic_usr_img"} onClick={this.setPraise}>{this.state.niceNo}</span>
+            <span className="dynamic_usr_wc" onClick={this.wirteComment}>{this.state.contentNo}</span>
+          </div>
+          <div className="dynamic_usr_content_title">最新评论</div> 
           <div className="dynamic_usr_content">
-            <div className="dynamic_usr_news">
-              <span className="dynamic_usr_latest">最新评论</span>
-              <span className={this.state.praiseFlag?'dynamic_usr_img dynamic_usr_img_nice':'dynamic_usr_img'} onClick={this.setPraise}>赞</span>
-              <span className="dynamic_usr_wc" onClick={this.wirteComment}>评论</span>
-            </div>
-            {usrContent}            
+            {usrContent}         
           </div>
-          <div className="dynamic_usr_content dynamic_usr_write">
-            <div className="dynamic_usr_box">
-              <textarea placeholder="写评论..."></textarea>
-              <span onClick={this.setComment}>发送</span>
-            </div>
-          </div>
+          <div className="dynamic_blank_box"></div>
+          
         </div>
-        <div className="dynamic_blank">
-
+        <div className="dynamic_usr_content dynamic_usr_write">
+          <div className="dynamic_usr_box">
+            <textarea placeholder="写评论..."></textarea>
+            <span onClick={this.setComment}>发送</span>
+          </div>
         </div>
         <div className="dynamic_bot">
           <div className="dynamic_exp_top dynamic_exp_chat">
-            <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="60" height="60"/>
+            <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="50" height="50"/>
             <p className="dynamic_exp_name">
-              <span>{this.state.nm}</span><br/>
-              <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}等</span>
-              <img className="dynamic_usr_consult" onClick={this.gotoConsult} src="image/LatestNews/consult.png"/>
+              <span className="dynamic_exp_name_name">{this.state.nm}</span><br/>
+              <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}</span>
+              <span className="dynamic_usr_consult" onClick={this.state.expConsultState?this.gotoConsult:this.gotoIndex} ><span>{this.state.expConsultWord1}</span><span>{this.state.expConsultWord2}</span></span>
             </p>
           </div>
         </div>       
-        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic"/>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic" targetUrl={ShareUrl}/>
       </div>
     )
   }

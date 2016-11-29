@@ -52,5 +52,5 @@ Zepto(function($){
     }
   });
 
-  getMicroState();
+  // getMicroState();
 })

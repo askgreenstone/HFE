@@ -84,6 +84,7 @@ jQuery(function($){
   $('#wxRg_next').bind('click',function(event) {
     var hi = $('#wxRg_preview').attr('src'),
         ogname = $('#ogname').val(),
+        ogsnm = $('#ogsnm').val(),
         ogtel = $('#ogtel').val(),
         city = $('#city').val(),
         address = $('#address').val(),
@@ -95,6 +96,9 @@ jQuery(function($){
         data = {};
     if(hi == '../image/head.png'){
       alert('请上传头像！');
+      return;
+    }else if(!ogsnm){
+      alert('请输入机构简称！');
       return;
     }else if(!ogname){
       alert('请输入机构名称！');
@@ -122,6 +126,7 @@ jQuery(function($){
         p : on,
         n : name,
         cn : ogname,
+        csn: ogsnm,
         mn : tel,
         vc : msgNo,
         rg : city,

@@ -58,7 +58,10 @@ var Index017 = require('./components/MicroWeb/skin/Index017.react');
 var Index018 = require('./components/MicroWeb/skin/Index018.react');
 //皮肤十九（简版一）
 var Index019 = require('./components/MicroWeb/skin/Index019.react');
-
+//皮肤二十（d9x设计出品 左图右文竖向菜单）
+var Index020 = require('./components/MicroWeb/skin/Index020.react');
+//皮肤二十（d9x设计出品 上图下文底部菜单横向滚动）
+var Index021 = require('./components/MicroWeb/skin/Index021.react');
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
 var Single = require('./components/MicroWeb/public/Single.react');
@@ -82,6 +85,10 @@ var Share = require('./components/MicroWeb/public/Share.react');
 var Board = require('./components/MicroWeb/public/Board.react');
 // 空页面，嵌套iframe
 var Empty = require('./components/layout/Empty.react');
+// 找律师界面
+var Lawyers = require('./components/MicroWeb/public/Lawyers.react');
+// 找律师搜索界面
+var SearchLawyers = require('./components/MicroWeb/public/SearchLawyers.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -107,6 +114,8 @@ ReactDOM.render((
     <Route path="/index017" component={Index017}/>
     <Route path="/index018" component={Index018}/>
     <Route path="/index019" component={Index019}/>
+    <Route path="/index020" component={Index020}/>
+    <Route path="/index021" component={Index021}/>
 
 
     
@@ -121,6 +130,8 @@ ReactDOM.render((
     <Route path="/card4" component={Card4}/>
     <Route path="/TimeAxis" component={TimeAxis}/>
     <Route path="/Dynamic" component={Dynamic}/>
+    <Route path="/Lawyers" component={Lawyers}/>
+    <Route path="/SearchLawyers" component={SearchLawyers}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
     <Route path="/empty" component={Empty}/>

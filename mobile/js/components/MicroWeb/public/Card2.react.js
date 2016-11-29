@@ -55,6 +55,7 @@ var Card2 = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
+    document.title = '微名片';
   },
   componentWillMount:function(){
     this.getServerInfo();

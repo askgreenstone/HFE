@@ -11,7 +11,7 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.hiddenInitImg = false;//裁图初始化之后置为true
-        vm.selectChange = '';
+        vm.selectChange = '上传logo';
         vm.goToNext = true;
         vm.OwnerUri = '';
         vm.logoState = false;   //logo存在为true，不存在为false 
@@ -21,17 +21,41 @@ define(['App'], function(app) {
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         //重新订制新加参数from，上一步按钮隐藏标示
         vm.resetStep = function(path,from){
-          $window.location.href = '#/' + path + '?session='+vm.sess+'&from='+from;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&from='+from+'&ida='+ida;
         }
 
         vm.goBack = function(){
           $window.history.back();
         };
+
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
 
         // 图片裁切
         vm.initCropper = function() {
@@ -131,8 +155,15 @@ define(['App'], function(app) {
                 fd.append('ThirdUpload', f);
                 fd.append('filename', f.name);
                 console.log(fd);
+                var url;
+                // 乔凡  添加status＝complete控制工作室定制状态为完成
+                if(vm.origin){
+                    url = GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=5'+'&ida='+vm.ida+'&status=complete';
+                }else{
+                    url = GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=5'+'&ida='+vm.ida;
+                }
                 // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo 6 微信分享图标
-                $http.post(GlobalUrl + '/exp/ThirdUpload.do?session=' + vm.sess + '&type=5', fd, {
+                $http.post(url, fd, {
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined
@@ -176,7 +207,7 @@ define(['App'], function(app) {
           console.log(fd);
           $http({
                 method: 'POST',
-                url: GlobalUrl+'/exp/DataUpdate.do?session='+vm.sess,
+                url: GlobalUrl+'/exp/DataUpdate.do?session='+vm.sess+'&ida='+vm.ida,
                 params: {},
                 data: fd
             }).
@@ -202,7 +233,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebImgs.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -312,7 +344,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/CreateMicWebQrCode.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {}
             }).
@@ -335,9 +368,18 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
+          vm.isDeptAdmin = vm.ida == 0?false:true;
+          vm.origin = Common.getUrlParam('from');
           vm.getServerLogo();
-          // vm.getLocationUrl();
-          // vm.getSourceImage();
+          //更换背景跳转后，通过该标识隐藏上一步按钮
+          if(vm.origin){
+            vm.originFlag = false;
+          }
+          else{
+            vm.originFlag = true;
+          }
+          vm.checkUsrOrOrg();
         }
 
         init();

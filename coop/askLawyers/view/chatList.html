@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>聊天列表</title>
+  <title>在线咨询</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
   <meta name="x5-orientation" content="portrait">
@@ -14,43 +14,44 @@
   
 </head>
 <body>
-	<div id="wrap">
+	<div id="box">
+		<div class="chatList_lawyer">
+			<img class="chatList_lawyer_img" src="../image/ali.png">
+			<div class="chatList_lawyer_content">
+				<div class="chatList_lawyer_name"><span>测试</span> 律师</div>
+				<span class="chatList_lawyer_title"></span>
+				<span class="chatList_lawyer_desc"></span>
+			</div>
+		</div>
+		<div class="chatList_index_close">
+			<span class="chat_goHome">律师名片</span>
+			<span class="chatList_index_close_dynamic">律师动态</span>
+			<span style="display:none;" class="chatList_index_close_heart">送心意</span>
+			<span class="chatList_index_close_close" id="close_question">结束提问</span>
+		</div>
+		<div class="chatList_index_content_box">
+			<span class="chatList_lawyer_time"></span>
+			<span class="chatList_lawyer_read"></span>
+			<span class="chatList_lawyer_nice"></span>
+			<span class="chatList_lawyer_tip"></span>
+		</div>
+		<div class="chatList_index_no"></div>
 		<div class="chatList">
-		<div id="wrapper">
-			<ul id="chat_list" class="chat_list">
-				<!-- <li class="chat_list_usr">
-					<div class="chat_list_head">
-						<img src="../image/logo.png">
-						<i>李小冉</i>
-					</div>
-					<div class="chat_list_content">
-						<span>供热个别国家还不热环分为方便维护经费为境吧</span>
-					</div>
-				</li>
-				<li class="chat_list_exp">
-					<div class="chat_list_head">
-						<img src="../image/ali.png">
-						<i>李大律</i>
-					</div>
-					<div class="chat_list_content">
-						<span>供热个别国家环境吧</span>
-					</div>
-				</li> -->
-			</ul>
-		</div>
-			<div class="chat_box">
-				<span class="chat_btn" id="close_question">问题关闭</span>
-				<input type="text" name="" class="chat_inp">
-				<span class="chat_btn" id="chat_btn">发送</span>
+			<div id="wrapper">
+				<ul id="chat_list" class="chat_list">
+					
+				</ul>
 			</div>
-			<div class="evaluate_box">
-				<div class="evaluate_tip">我的评论：</div>
-				<div class="evaluate_con"></div>
-			</div>
+			
 		</div>
-		<div class="chat_goHome">
-      <img src="../image/home.png"/>
-    </div>
+		<div class="chat_box">
+			<input type="text" name="" class="chat_inp" placeholder="继续咨询...">
+			<span class="chat_btn" id="chat_btn">发送</span>
+		</div>
+		<div class="evaluate_box">
+			<div class="evaluate_tip">我的评论：</div>
+			<div class="evaluate_con"></div>
+		</div>
 	</div>
 	<script src="../lib/jquery.min.js"></script>
 	<script src="../lib/iscroll.js"></script>

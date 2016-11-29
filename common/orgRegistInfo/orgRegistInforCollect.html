@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>现在申请入驻</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <style>
+    html,body{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #myapp{
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    header{
+      width: 100%;
+      height: 3rem;
+      line-height: 3rem;
+      font-size: 1.6rem;
+    }
+    section{
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 1rem 1rem .5rem;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+    }
+    .input{
+      width: 100%;
+      height: 3.5rem;
+      line-height: 3.5rem;
+      display: box;
+      display: -webkit-box;
+      background: #eee;
+      margin-bottom: .5rem;
+      padding-left: .5rem;
+      box-sizing: border-box;
+    }  
+    .input input{
+      box-flex: 1;
+      -webkit-box-flex: 1;
+      border: none;
+      outline: none;
+      -webkit-appearance: none;
+      display: block;
+      height: 2.5rem;
+      background: #eee;
+      line-height: 2.5rem;
+      padding-left: .5rem;
+      box-sizing: border-box;
+      font-size: 1.2rem;
+      margin-top: .5rem;
+    }
+    .input span{
+      width: 10%;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      text-align: center;
+      border-right: 1px solid #666;
+      margin-top: 1rem;
+      display: block;
+    }
+    .tips{
+      width: 100%;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      color: red;
+      font-size: 1.2rem;
+    }
+    footer{
+      width: 100%;
+      height: 4rem;
+    }
+    footer .submit{
+      width: 25%;
+      height: 3.5rem;
+      line-height: 3.5rem;
+      text-align: center;
+      float: right;
+      border: 1px solid #ccc;
+      font-size: 1.4rem;
+    }
+    /*适配手机*/
+    @media screen and (width: 320px) {
+      html {
+            font-size: 62.5%;
+        }
+    }
+    @media screen and (min-width: 321px) and (max-width: 360px) {
+      html {
+          font-size: 62.5%;
+      }
+    }
+
+    @media screen and (min-width: 361px) and (max-width: 376px) {
+      html {
+        font-size: 66.5%;
+      }
+    }
+
+    @media screen and (min-width: 377px) {
+      html {
+        font-size: 75.5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="myapp">
+    <header>
+      请填写您的基本信息
+    </header>
+    <section>
+      <div class="input">
+        <input type="text" placeholder="请填写您的真实姓名" id="name">
+      </div>
+      <div class="input">
+        <input type="text" placeholder="请填写机构名称" id="depart">
+      </div>
+      <div class="input">
+        <span>＋86</span><input type="text" placeholder="请填写您电话" id="tel">
+      </div>
+      <div class="tips">
+        请保持开机状态，我们会在3个工作日内联系您！
+      </div>
+    </section>
+    <footer>
+      <div class="submit">提交</div>
+    </footer>
+  </div>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript">
+    var btn = $('.submit');
+    btn.click(function(){
+      var name = $('#name').val();
+      var depart = $('#depart').val();
+      var tel = $('#tel').val();
+      if(!name){
+        alert('请输入您的真实姓名！');
+        return;
+      }
+      if(!depart){
+        alert('请输入机构名称！');
+        return;
+      }
+      if(!tel){
+        alert('请输入您的电话！');
+        return;
+      }
+      var datas = {
+        n: name,
+        add: depart,
+        m: tel
+      }
+      var GlobalUrl;
+      if(window.location.href.indexOf('localhost')>-1 || window.location.href.indexOf('t-dist')>-1){
+        GlobalUrl = 'http://t-dist.green-stone.cn';
+      }else{
+        GlobalUrl = 'http://dist.green-stone.cn';
+      }
+      $.ajax({
+        type: 'POST',
+        url: GlobalUrl + '/usr/MicWebEntry.do',
+        data: JSON.stringify(datas),
+        success: function(data){
+          console.log(data);
+          if(data.c == 1000){
+            alert('提交成功！')
+          }
+        },
+        error: function(){
+          alert('网络连接错误或服务器异常！')
+        }
+      })
+    })
+  </script>
+</body>
+</html>

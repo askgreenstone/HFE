@@ -18,6 +18,9 @@ var Share = React.createClass({
             uri = encodeURIComponent(wxPath.toString());
         // alert(currentPath);
         if(!ownUri) return;
+        if(this.props.target == 'Dynamic' || this.props.target == 'TimeAxis'){
+          currentPath = this.props.targetUrl;
+        }
         // alert('currentPath:'+currentPath+',wxPath:'+wxPath);
         // alert('uri:' + uri);
         $.ajax({

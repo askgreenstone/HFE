@@ -88,11 +88,19 @@ var Card = React.createClass({
               Img:data.sil[0].spu
             });
           }else{
-            this.setState({
-              Title:'我的工作室',
-              Introduction:'欢迎访问我的工作室！这里有我的职业介绍和成就',
-              Img:'greenStoneicon300.png'
-            });
+            if(ida == 1){
+              this.setState({
+                Title:(data.dnm?data.dnm:'我的')+'机构工作室',
+                Introduction:'欢迎访问我的机构工作室，您可以直接在线咨询我',
+                Img:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }else{
+              this.setState({
+                Title:(data.enm?data.enm+'律师的':'我的')+'工作室',
+                Introduction:'欢迎访问我的工作室，您可以直接在线咨询我',
+                Img:'batchdeptlogo20160811_W108_H108_S15.png'
+              });
+            }
           }
         }
       }.bind(this),
@@ -165,6 +173,14 @@ var Card = React.createClass({
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log(this.state.Abstract);
+    var $body = $('body')
+    document.title = '微名片';
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body);
   },
   componentWillMount:function(){
     this.getServerInfo();
@@ -199,7 +215,7 @@ var Card = React.createClass({
             <div className="uc_input" style={{display:this.state.Mob?'block':'none'}}>
               <a href={'tel://'+this.state.Mobile}>
                 {this.state.Mob}
-                <img src="image/theme002/telphone1.png" width="25" height="25"/>
+                <img src="image/theme002/mobile.png" width="25" height="25"/>
               </a>
             </div>
             <div className="uc_input" style={{display:this.state.eml?'block':'none'}}>
@@ -211,7 +227,7 @@ var Card = React.createClass({
             <div className="uc_input" style={{display:this.state.tel?'block':'none'}}>
               <a href={'tel://'+this.state.TelNo}>
                 {this.state.tel}
-                <img src="image/theme002/fax.png" width="25" height="25"/>
+                <img src="image/theme002/telphone1.png" width="25" height="25"/>
               </a>
             </div>
             <div className="uc_input" style={{display:this.state.web?'block':'none'}}>

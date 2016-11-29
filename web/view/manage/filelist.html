@@ -1,0 +1,85 @@
+<div class="view">
+	<div class="view_title">
+		工作室管理
+		<select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
+			<option ng-selected="vm.selectedState" value="">--请选择--</option>
+		</select>
+		<span class="perLawyer">
+			<img src= {{vm.headImg}} width="20" height="20">
+			{{vm.lawyerName}} 律师
+		</span>
+	</div>
+	<div class="manage_content">
+		<div class="mc_left">
+			<ul class="mcl_list">
+				<!-- <li>
+					<img src="image/manage/fans.png" width="18" height="18"/>
+					<span><a href="#manage">粉丝数据</a></span>
+				</li>
+				<li>
+					<img src="image/manage/wx.png" width="18" height="18"/>
+					<span><a href="#manage">公众号运营</a></span>
+				</li> -->
+				<li ng-click="vm.menuLink('micro')">
+					<img src="image/manage/micro.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">工作室首页设置</a></span>
+				</li>
+				<li ng-click="vm.menuLink('card3')">
+					<img src="image/manage/card.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">微名片信息</a></span>
+				</li>
+				<li ng-click="vm.menuLink('wx')">
+					<img src="image/manage/wx.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">公众号设置</a></span>
+				</li>
+				<li ng-click="vm.menuLink('data')">
+					<img src="image/manage/data.png" width="18" height="18"/>
+					<span><a href="javascript:void(0)">用户数据</a></span>
+				</li>
+				<li ng-click="vm.menuLink('manage')">
+					<img src="image/manage/set.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">内容维护</a></span>
+				</li>
+				<li class="text-active" ng-click="vm.menuLink('filelist')">
+					<img src="image/manage/article.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">微课堂</a></span>
+				</li>
+			</ul>
+		</div>
+		<div class="mc_right">
+			<div class="list_lenged">
+				<h3 class="red">微课堂</h3>
+			</div>
+	    <div class="contentBox">
+	      <ul class="contentList">
+	        <!-- <li id="x.tid" ng-repeat="x in vm.artitleList">
+	        	<p ng-click="vm.gotoUpload(x.tid,x.o)"></p>
+	        	<span ng-click="vm.deleteArticle(x.tid)">删除</span>
+	        </li> -->
+	        <li id="x.tid" ng-repeat="x in vm.artitleList">
+	        	<div ng-click="vm.gotoUpload(x.tid,x.o)" class="contentList_left">
+	        		<img ng-src={{x.p?(vm.transferurl+x.p):(vm.transferurl+'header.jpg')}} width="120" height="120">
+	        	</div>
+	        	<div ng-click="vm.gotoUpload(x.tid,x.o)" class="contentList_center">
+	        		<div class="contentList_center_title">{{x.tn?(x.tn.length>15?x.tn.substr(0,15)+'...':x.tn):'文件名'}}</div>
+	        		<div class="contentList_center_expNm">
+	        			<span>{{x.s?x.s:'主讲人'}}</span>
+	        			<span>{{vm.getLocalTime(x.t)}}</span>
+	        		</div>
+	        		<div class="contentList_center_content">{{x.dd?(x.dd.length>60?x.dd.substr(0,60)+'...':x.dd):'文件描述'}}</div>
+	        	</div>	
+	        	<div ng-click="vm.deleteFileClass(x.tid)" class="contentList_right">
+	        		<span>删除</span>
+	        	</div>
+	        </li>
+	      </ul>
+	    </div>
+	    <div class="addFile">
+	      <img src="image/addFile.png" ng-click="vm.gotoAddFile()" width="100" height="100">
+	    </div>
+		</div>
+		<div class="clean"></div>
+	</div>
+	
+	
+</div>

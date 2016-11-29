@@ -8,12 +8,36 @@ define(['App','Sortable'], function(app) {
         vm.transferUrl = TransferUrl;
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
           $window.history.back();
         };
+
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
 
         vm.showShadow = function(){
           $('body').css('overflow','hidden');
@@ -70,12 +94,24 @@ define(['App','Sortable'], function(app) {
               });
             }
             console.log(newType);
+            // 乔凡  添加status＝complete控制工作室定制状态为完成
+            var submitData;
+            if(vm.origin){
+              submitData = {
+                session:vm.sess,
+                ida: vm.ida,
+                status: 'complete'
+              }
+            }else{
+              submitData = {
+                session:vm.sess,
+                ida: vm.ida
+              }
+            }
             $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/ThirdSetNewsType.do',
-                params: {
-                    session:vm.sess
-                },
+                params: submitData,
                 data: {newType:newType}
             }).
             success(function(data, status, headers, config) {
@@ -169,14 +205,25 @@ define(['App','Sortable'], function(app) {
             });
           });
           console.log(submitInfo);
-
+          var submitData;
+          // 乔凡  添加status＝complete控制工作室定制状态为完成
+          if(vm.origin){
+            submitData = {
+              session:vm.sess,
+              ida: vm.ida,
+              status: 'complete'
+            }
+          }else{
+            submitData = {
+              session:vm.sess,
+              ida: vm.ida
+            }
+          }
           //提交后台数据
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/ThirdSetNewsType.do',
-                params: {
-                    session:vm.sess
-                },
+                params: submitData,
                 data: {newType:submitInfo}
             }).
             success(function(data, status, headers, config) {
@@ -185,7 +232,11 @@ define(['App','Sortable'], function(app) {
                 if(data.c == 1000){
                   // vm.getServerMenuList();
                   if(flag){
-                    vm.menuLink('step5');
+                    if(vm.originFlag){
+                      vm.menuLink('step5');
+                    }else{
+                      vm.menuLink('micro1');
+                    }
                   }
                 }
             }).
@@ -233,7 +284,8 @@ define(['App','Sortable'], function(app) {
                 url: GlobalUrl+'/exp/QueryTheModelIcon.do',
                 params: {
                     session:vm.sess,
-                    mId:vm.microWebId
+                    mId:vm.microWebId,
+                    ida: vm.ida
                 },
                 data: {}
             }).
@@ -265,7 +317,8 @@ define(['App','Sortable'], function(app) {
                     session:vm.sess,
                     //wf:0不包含父菜单，1包含父菜单
                     wf:0,
-                    mwm:vm.microWebId
+                    mwm:vm.microWebId,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -302,7 +355,8 @@ define(['App','Sortable'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/DeleteUriMenu.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     ntId:id
@@ -354,10 +408,11 @@ define(['App','Sortable'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/ThirdUpdateOrderAndTitle.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
-                    mwn:vm.microName?vm.microName:'我的微网站',
+                    mwn:vm.microName?vm.microName:'我的工作室',
                     mol: vm.currentSortArray,
                     mwm:vm.microWebId
                 }
@@ -379,7 +434,8 @@ define(['App','Sortable'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebModel.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -403,7 +459,19 @@ define(['App','Sortable'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          
+          vm.origin = Common.getUrlParam('from');
+          vm.ida = Common.getUrlParam('ida');
+          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.getMicroImg();
+          //更换背景跳转后，通过该标识隐藏上一步按钮
+          if(vm.origin){
+            vm.originFlag = false;
+          }else{
+            vm.originFlag = true;
+          }
+          console.log(vm.originFlag);
+          vm.checkUsrOrOrg();
         }
 
         init();

@@ -2,28 +2,57 @@
 
 define(['App'], function(app) {
 
-    var injectParams = ['$location','$http','GlobalUrl','$window','Common'];
-    var ListController = function($location,$http,GlobalUrl,$window,Common) {
+    var injectParams = ['$location','$http','GlobalUrl','$window','TransferUrl','Common'];
+    var ListController = function($location,$http,GlobalUrl,$window,TransferUrl,Common) {
 
         var vm = this;
         vm.title = '标题';
         vm.sess = '';
         vm.selectedState = false;
         vm.addArticle = true;
+        vm.transferUrl = TransferUrl;
 
         vm.gotoLink = function(path) {
           var title = Common.getUrlParam('title'),
               ntid = Common.getUrlParam('ntId');
-          $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + title +'&ntId='+ntid+'&ts='+new Date().getTime();
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + title +'&ntId='+ntid+'&ts='+new Date().getTime()+'&ida='+vm.ida;
         };
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
           $window.history.back();
         };
+
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
 
 
         vm.getArticleList = function(){
@@ -32,7 +61,8 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/QueryNewsList.do',
                 params: {
                     ntId:vm.ntid,
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -72,7 +102,8 @@ define(['App'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/SortWXNewsList.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {nl:vm.currentSortArray}
             }).
@@ -93,7 +124,11 @@ define(['App'], function(app) {
             $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsTypes.do',
-                params: {session:vm.sess,wf:1},
+                params: {
+                  session:vm.sess,
+                  wf:1,
+                  ida: vm.ida
+                },
                 data: {}
             }).
             success(function(data, status, headers, config) {
@@ -123,7 +158,8 @@ define(['App'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/DeleteNews.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     nId:nid
@@ -144,7 +180,7 @@ define(['App'], function(app) {
         }
 
         vm.updateArticle = function(nid){
-          location.href = '#/add?session='+vm.sess+'&title='+Common.getUrlParam('title')+'&nid='+nid;
+          location.href = '#/add?session='+vm.sess+'&title='+Common.getUrlParam('title')+'&nid='+nid+'&ida='+vm.ida;
         }
 
         vm.publishArticle = function(nid){
@@ -152,7 +188,8 @@ define(['App'], function(app) {
                 method: 'POST',
                 url: GlobalUrl+'/exp/UpdateNewsStatus.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     nId:nid
@@ -207,7 +244,8 @@ define(['App'], function(app) {
                     method: 'POST',
                     url: GlobalUrl+'/exp/ResetNewTypeOfNews.do',
                     params: {
-                        session:vm.sess
+                        session: vm.sess,
+                        ida: vm.ida
                     },
                     headers : {'Content-Type':undefined},
                     data: data
@@ -236,9 +274,14 @@ define(['App'], function(app) {
           vm.title = decodeURI(Common.getUrlParam('title'));
           vm.ntid = Common.getUrlParam('ntId');
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.addArticle = vm.ntid!=0?true:false;
           vm.getArticleList();
           vm.getContentList();
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
+          vm.checkUsrOrOrg();
         }
 
         init();

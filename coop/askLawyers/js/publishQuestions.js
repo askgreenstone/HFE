@@ -4,18 +4,13 @@ var userUri;
 var deptUri;
 var st;
 var doubleClickFlag = true;
+var moneyTipShow = false;
 $(document).ready(function() {
   init();
 });
 
 
-function init(){
-  session = Common.getUrlParam('session');
-  userUri = Common.getUrlParam('userUri');
-  deptUri = Common.getUrlParam('deptUri');
-  st = Common.getUrlParam('st')?Common.getUrlParam('st'):3;
-  console.log(session);
-}
+
 
 
 //多次点击控制
@@ -34,15 +29,27 @@ $('.pub_money_box li').bind('click', function(){
 })
 //调起支付
 $('#pub_btn').bind('click', controlTimes);
+// 出现金额选择
+$('#pub_mon').bind('click', function(){
+  if(!moneyTipShow){
+    $('.pub_money_tip').show();
+    moneyTipShow = true;
+  }else{
+    $('.pub_money_tip').hide();
+    moneyTipShow = false;
+  }
+  
+});
 
 function gotoPay() {
-    var text = $('.pub_area .pub_area').val();
+    var text = $('.pub_area_box .pub_area').val();
     var bound = $('.pub_money_box li.active i').text();
+    console.log(text);
     if(!text){
       alert('请填写您要咨询的问题！');
       return; 
-    }else if(callength(text)>60){
-      alert('咨询问题不能超过六十个字！');
+    }else if(callength(text)>200){
+      alert('咨询问题不能超过二百个字！');
       return;
     }
     var data = {};
@@ -69,6 +76,7 @@ function gotoPay() {
         console.log(data);
         if(data.c == 1000){
           if(bound == 0){
+            $('.pub_area_box .pub_area').val('');
             window.location.href = 'questionList.html?session=' + session+'&userUri='+userUri+'&st='+st;
           }else{
             // alert(data.qi);
@@ -169,4 +177,14 @@ function callength(str){
   for( var i=0; i<len; i++ )
   byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
   return byteLen/2;
+}
+
+
+
+function init(){
+  session = Common.getUrlParam('session');
+  userUri = Common.getUrlParam('userUri');
+  deptUri = Common.getUrlParam('deptUri');
+  st = Common.getUrlParam('st')?Common.getUrlParam('st'):3;
+  console.log(session);
 }

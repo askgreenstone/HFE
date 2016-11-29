@@ -60,7 +60,7 @@ var ArticleList = React.createClass({
               this.setState({
                 shareTitle:'我的工作室',
                 shareDesc:'欢迎访问我的工作室！这里有我的职业介绍和成就!',
-                shareImg:global.img+'greenStoneicon300.png'
+                shareImg:global.img+'batchdeptlogo20160811_W108_H108_S15.png'
               });
             }
              // alert(this.state.shareTitle);
@@ -105,6 +105,14 @@ var ArticleList = React.createClass({
     })
   },
   componentDidMount: function(){
+    var $body = $('body')
+    document.title = '列表';
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body);
     // this.onlyToSetShareInfo();
   },
   componentWillMount: function(){
@@ -116,7 +124,7 @@ var ArticleList = React.createClass({
   	// if(this.state.shareTitle){
   	// 	tempNode = <Share title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={this.state.shareImg} target="articleList"/>;
   	// }else{
-  	// 	// tempNode = <Share title="工作室" desc="这是一个律师工作室，由绿石开发提供技术支持！" imgUrl={global.url+'greenStoneicon300.png'} target="articleList"/>;
+  	// 	// tempNode = <Share title="工作室" desc="这是一个律师工作室，由绿石开发提供技术支持！" imgUrl={global.url+'batchdeptlogo20160811_W108_H108_S15.png'} target="articleList"/>;
   	// }  
   	// console.log(this.state.shareTitle+'@'+this.state.shareDesc+'@'+this.state.shareImg);
     return (

@@ -662,7 +662,7 @@ p {
 /*wxRegister.html*/
 .wxRegister{
   width: 100%;
-  height: 60rem;
+  height: 65rem;
   background: #F2F2F2;
   overflow: hidden;
 }
@@ -934,28 +934,25 @@ p {
 .teamManage{
   width: 100%;
   padding-top: 1rem;
-  background: #f6f6f6;
+  background: #fff;
   box-sizing: border-box;
 }
 .teamManage_title{
-  background: #94d2b3;
+  background: #f5f5f5;
   width: 100%;
   height: 4rem;
-  color: #fff;
+  color: #878787;
   padding-left: 1rem;
   box-sizing: border-box;
   line-height: 4rem;
   font-size: 1.4rem; 
-}
-.teamManage_myTeam{
-  background: #4ebe86;
 }
 .teamManage_lawyerList{
   width: 100%;
   padding-left: 1rem;
   box-sizing: border-box;
   margin: 0.5rem auto 1rem;
-  background: #f6f6f6;
+  background: #fff;
 }
 .teamManage_lawyerList li{
   float: left;
@@ -970,8 +967,8 @@ p {
   box-sizing: border-box;
 }
 .teamManage_lawyerList li .teamManage_imgBox>img{
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   display: block;
   margin: 0.5rem auto;
   border-radius: 50%;
@@ -980,25 +977,14 @@ p {
   display: block;
 }
 .teamManage_imgMark{
-  width: 60px;
-  height: 60px;
-  background: #91523d;
-  opacity: 0.6;
+  width: 2rem;
+  height: 2rem;
   position: absolute;
-  left: 50%;
-  top: 0.5rem;
-  margin-left: -33px;
+  right: 0px;
+  top: 0;
   border-radius: 50%;
   display: none;
-}
-.teamManage_imgMark img{
-  width: 22px;
-  height: 18px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -11px;
-  margin-top: -9px;
+
 }
 .teamManage_lawyerList li p{
   width: 100%;
@@ -1052,22 +1038,29 @@ p {
   background: #fff;
 }
 .teamManage_addBox input{
-  width: 100%;
+  width: 60%;
   height: 3.6rem;
   line-height: 3.6rem;
   border: none;
   outline: none;
   display: block;
-  background: #f6f6f6;
-  margin-bottom: 1px;
-  padding-left: 1rem;
+  background: #fff;
   box-sizing: border-box;
-  border-radius: 3px;
+  border-bottom: 1px solid #ccc;
+  margin: 1rem auto;
+  text-align: center;
+  font-size: 1.2rem;
 }
 .teamManage_addImg{
-  width: 100%;
+  width: 20%;
   height: 3rem;
-  margin-top: 0.5rem;
+  margin: 1rem auto;
+  border: 1px solid #d74218;
+  border-radius: 3px;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #d74218;
 }
 .teamManage_addImg img{
   float: right;
@@ -1176,9 +1169,6 @@ li.teamManage_close img.teamManage_delete{
   .index_main div.index_main_space{
     height: 2.2rem;
   }
-  .teamManage_imgMark{
-    margin-left: -36px;
-  }
 }
 @media screen and (min-width: 377px) {
   html {
@@ -1200,9 +1190,6 @@ li.teamManage_close img.teamManage_delete{
   }
   .index_main div.index_main_space{
     height: 2.5rem;
-  }
-  .teamManage_imgMark{
-    margin-left: -36px;
   }
 }
 

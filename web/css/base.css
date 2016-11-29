@@ -56,6 +56,9 @@ header {
     margin-right: 5px;
     cursor: pointer;
 }
+.logo img#dynamicImg{
+  border-radius: 50%;
+}
 
 .menu {
     float: left;
@@ -343,6 +346,8 @@ footer {
   font-size: 18px;
   color:#3bbffc;
   margin-left: 15px;
+  padding-top: 6px;
+  display: inline-block;
 }
 .mcr_search input{
   border:1px solid #e5e5e5;
@@ -1092,6 +1097,7 @@ input[type=checkbox], input[type=radio] {
 }
 .mb_right span.card3_reset_btn{
   margin-left: 30px;
+  margin-bottom: 10px;
 }
 .mb_input{
   margin: 0px 0 0 -10px;
@@ -2370,8 +2376,376 @@ input[type=checkbox], input[type=radio] {
   line-height: 36px;
 }
 
+/*增加区分个人与机构下拉框*/
+
+.orgOrPer{
+  margin: 0 3% 0 60%;
+}
+.orgNotExist{
+  margin: 0 3% 0 60%;
+  visibility: hidden;
+}
+.perLawyer img{
+  margin-right: 1%;
+  border-radius: 50%;
+}
 
 
+/*机构号文件上传列表页*/
+
+.usrTitle{
+  width: 98%;
+  height: 50px;
+  line-height: 30px;
+  font-size: 16px;
+  padding-left: 2%;
+}
+.contentBox{
+  width: 100%;
+  display: box;
+  display: -webkit-box;
+}
+.contentClass{
+  width: 20%;
+  padding: 0 2% 2%;
+  box-sizing: border-box;
+  height: 500px;
+  overflow: scroll;
+}
+.contentClass li{
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 2%;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.contentClass li.active{
+  background: #2ab6ff;
+  color: #fff;
+  border-color: #2ab6ff;
+}
+.addNewTitle{
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #39d167;
+  border-radius: 5px;
+  margin-right: 2%;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background: #39d167;
+  color: #fff;
+}
+.contentList{
+  width: 100%;
+  height: 400px;
+  overflow: scroll;
+  padding: 0 2% 2%;
+  box-sizing: border-box;
+}
+.contentList li{
+  width: 100%;
+  height: 120px;
+  display: box;
+  display: -webkit-box;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+.contentList_left{
+  width: 120px;
+  height: 120px;
+  margin: 10px 20px 20px 0;
+}
+.contentList_center{
+  box-flex: 1;
+  -webkit-box-flex: 1;
+}
+.contentList_center_title{
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.contentList_center_expNm{
+  line-height: 30px;
+  font-size: 12px;
+}
+.contentList_center_expNm span:first-child{
+  margin-right: 20px;
+}
+.contentList_center_content{
+  line-height: 20px;
+  font-size: 12px;
+}
+.contentList_right{
+  width: 100px;
+  height: 120px;
+}
+.contentList_right span{
+  line-height: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 12px;
+  background: #e46060;
+  color: #fff;
+  width: 40px;
+  height: 30px;
+  display: block;
+  margin-top: 45px;
+  margin-left: 30px; 
+}
+.addFile{
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+ /*机构号文件上传详情页*/
+.mc_right_uploadfile{
+  width: 96%;
+  padding-left: 3%;
+}
+.newFile_left{
+  width: 40%;
+  float: left;
+  margin-right: 10%;
+}
+.newFile_left p{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+.newFile_left p input{
+  width:100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  display: block;
+  outline: none;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.newFile_left p.textarea{
+  height: 120px;
+}
+.newFile_left p textarea{
+  width: 100%;
+  height: 120px;
+  line-height: 20px;
+  font-size: 14px;
+  resize: none;
+  outline: none; 
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.uploadFile{
+  width: 100%;
+  height: 100px;
+  position: relative;
+}
+.uploadFile span{
+  width: 80px;
+  height: 20px;
+  display: block;
+  text-align: center;
+  line-height: 20px;
+  cursor: pointer;
+}
+.uploadFile input{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  cursor: pointer;      
+}
+.usrContent{
+  width: 100%;
+}
+.usrContentList{
+  width: 100%;
+}
+.usrContentList li{
+  width: 100%;
+  height: 40px;
+  display: box;
+  display: -webkit-box;
+}
+.usrContentList li:nth-child(even){
+  background: #eee;
+}
+.usrContentList li:nth-child(odd){
+  background: #ddd;
+}
+.usrContentList li span{
+  line-height: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 12px;
+  background: #e46060;
+  color: #fff;
+  width: 40px;
+  height: 30px;
+  display: block;
+  margin-top: 5px;
+}
+.usrContentList li p{
+  -webkit-box-flex: 1;
+  height: 40px;
+  line-height: 40px;
+  text-indent: 10px;
+}
+.mb_input span.uploadfile_preview{
+  border-radius: 0;
+}
+.mc_right_uploadfile .mb_input span{
+  border-radius: 0; 
+}
+.mc_right_uploadfile .mb_input textarea{
+  height: 100px;
+}
+.input_file_fix .uploadFileDocName{
+  margin: -30px 0 20px 215px;
+  width: 200px;
+  color: red;
+}
+.uploadFileBox{
+  width: 100%;
+  height: 40px;
+  margin-left: 85px;
+  display: none;
+  line-height: 40px;
+}
+.uploadProgress{
+  width: 102px;
+  height: 10px;
+  border: 1px solid orange;
+  position: relative;
+  display: inline-block; 
+}
+.uploadProgress span{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 8px;
+  background: orange;
+  width: 0px;
+  display: inline-block;
+}
+
+
+/*我的工具*/
+.toolsBox{
+  width: 100%;
+  margin: 20px;
+}
+.mcr_toolbox{
+  width: 100%;
+}
+.mcr_toolbox h3{
+  margin-right: 18px;
+  margin-left: 50px;
+}
+.mcr_tool_box{
+  width: 100%;
+  margin-left: 50px;
+}
+.mcr_tool_box li{
+  float: left;
+  width: 120px;
+  height: 150px;
+  padding: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.mcr_tool_box li img{
+  display: block;
+  margin: 10px auto;
+  width: 80px;
+  height: 80px;
+}
+.mcr_tool_box li span{
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  display: block;
+}
+/*我的工具跳转空页面，加载iframe*/
+.toolIframe{
+  width: 100%;
+  height: 100%;
+  border: none;
+  // margin-left: 18px;
+}
+.toolIframe_title{
+  margin: 10px;
+  top: 10px;
+  height: 30px;
+}
+
+.toolIframe_title span{
+  left: 0;
+}
+.dateBox{
+  width: 100%;
+  margin-left: 10px;
+}
+.calculateDay{
+  float: left;
+  padding-left: 5%;
+  width: 45%;
+}
+.reckonDay{
+  float: left;
+}
+.dateBox h3{
+  color: #348bcf;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.dateBox #number{
+  width: 80px;
+}
+.showTime{
+  width: 220px;
+  height: 50px;
+  margin-top: 10px;
+  border: 1px solid #ffe0b4;
+  overflow: hidden;
+  background-position: 0 0;
+  background-repeat: repeat-x;
+  font: 16px/52px Arial;
+  font-weight: 700;
+  color: #666;
+  text-align: center;
+}
+.dateBox .button{
+  width: 70px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 5px;
+  line-height: 30px;
+  text-align: center;
+  background: #2ab6ff;
+  color: #fff;
+}
 
 
 

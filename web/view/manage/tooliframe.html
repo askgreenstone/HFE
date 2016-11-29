@@ -1,0 +1,26 @@
+<div class="view">
+	<div class="list_lenged toolIframe_title">
+		<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回我的工具</span>
+	</div>
+	<div class="manage_content">
+		<div class="iframeBox" ng-if="vm.iframeSrc"></div>
+		<div class="dateBox" ng-if="vm.dateBox">
+			<div class="calculateDay">
+				<h3>相隔天数计算</h3>
+				<p>开始时间：<input type="date" name="dateStart" id="dateStart"></p>
+				<p>结束时间：<input type="date" name="dateEnd" id="dateEnd"></p>
+				<div class="button" ng-click="vm.calculateDate()">计算</div>
+				<div class="button" ng-click="vm.resetDate()">重置</div>
+				<p ng-if="vm.time" class="showTime">两个日期相差<span>{{vm.time}}</span>天</p>
+			</div>
+			<div class="reckonDay">
+				<h3>日期推算</h3>
+				<p>选择日期：<input type="date" name="dateSelect" id="dateSelect" ng-model="vm.dateSelect"></p>
+				<p>天数相差：<input type="number" name="number" id="number" ng-model="vm.dateNumber">天<span> （填负数则向前推算）</span>	</p>
+				<div class="button" ng-click="vm.dateCalculate()">推算</div>
+				<p ng-if="vm.dateCalcul" class="showTime">{{vm.dateCalcul}}</p>
+			</div>
+			
+		</div>
+	</div>
+</div>

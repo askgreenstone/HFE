@@ -194,10 +194,10 @@ jQuery(function($) {
                       shareId = data.sil[0].si;
                       shareImg = data.sil[0].spu;
                   }else {
-                      $("#title").val('我的微网站');
-                      $("#desc").val('欢迎访问我的微网站！这里有我的职业介绍和成就');
-                      $("#share_preview").attr('src',Common.globalTransferUrl() + 'greenStoneicon300.jpg');
-                      shareImg = 'greenStoneicon300.jpg';
+                      $("#title").val('我的工作室');
+                      $("#desc").val('欢迎访问我的工作室，您可以直接在线咨询我');
+                      $("#share_preview").attr('src',Common.globalTransferUrl() + 'batchdeptlogo20160811_W108_H108_S15.png');
+                      shareImg = 'batchdeptlogo20160811_W108_H108_S15.png';
                   }
               } 
           },

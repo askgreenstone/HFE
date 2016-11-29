@@ -23,6 +23,15 @@ body {
   overflow: hidden;
   font-size: 1.4rem;
 }
+#box {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 1.4rem;
+  display: box;
+  display: -webkit-box; 
+  -webkit-box-orient:vertical;
+}
 a:link,
 a:visited {
   color: #595757;
@@ -46,30 +55,56 @@ p {
 .publish{
   width: 100%;
   height: 100%;
+  background: #fff; 
 }
-
+.pub_area_box{
+  width: 100%;
+  height: 20rem;
+  margin: 0 auto 0.5rem ;
+  box-sizing: border-box;
+  position: relative;
+}
 .pub_area{
   width: 100%;
-  height: 15rem;
-  margin: 0.5rem auto;
+  height: 100%;
+  line-height: 2rem;
   display: block;
   resize: none;
   outline: none;
-  line-height: 2rem;
-  padding-left: 10px;
+  padding: 1rem;
   box-sizing: border-box;
   border: none;
-  position: relative;
   font-size: 1.4rem;
+  border-bottom: 1px solid #dbdbdb;
 }
-.pub_area_box{
-  padding-left: 0px;
+.pub_mon{
+  width: 5rem;
+  height: 2rem;
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+.pub_mon img{
+  height: 100%;
+}
+.pub_pic{
+  left: 7.5rem;
+}
+.pub_pic img{
+  height: 85%;
+  margin-top: 3%;
+}
+.pub_money_tip{
+  display: none;
 }
 .pub_money{
   width: 100%;
-  height: 8rem;
+  height: 9rem;
   margin: 1rem auto;
   background: #fff;
+  border-bottom: 1px solid #dbdbdb;
 }
 .pub_money p{
   width: 100%;
@@ -106,7 +141,7 @@ p {
   font-style: normal;
 }
 .pub_money_box li.active{
-  background: #5595E3;
+  background: #fa5321;
   color: #fff;
   border-color: transparent;
 }
@@ -123,8 +158,9 @@ p {
   height: 3rem;
   background: #fff;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 1rem;
+  bottom: 1rem;
+  cursor: pointer;
 }
 .que_btn{
   width: 100%;
@@ -138,10 +174,11 @@ p {
   line-height: 3rem;
   text-align: center;
   display: block;
-  background: #6BCDCF;
+  background: #fff;
+  border: 1px solid #fa5321;
   margin: 0rem auto;
   border-radius: 3px;
-  color: #fff;
+  color: #fa5321;
 }
 .que_btn a{
   width: 95%;
@@ -220,11 +257,154 @@ p {
 /*聊天列表页*/
 .chatList{
   width: 100%;
-  height: 100%;
-  background: #eee;
+  -webkit-box-flex: 1;
+  background: #f6f6f6;
   display: box;
   display: -webkit-box;
   -webkit-box-orient:vertical;
+}
+.chatList_lawyer_title{
+  color: #333;
+  line-height: 1.5rem;
+  display: inline-block;
+  border-right: 2px solid #333;
+  padding-right: 1rem;
+}
+.chatList_lawyer_desc{
+  line-height: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #999;
+}
+.chatList_lawyer_time{
+  width: 52%;
+  display: block;
+  height: 2rem;
+  line-height: 2rem;
+}
+.chatList_lawyer_nice{
+  width: 16%;
+  display: block;
+  background: url('../image/niceNo.png') no-repeat left center;
+  background-size: auto 80%;
+  padding-left: 5%;
+  text-align: center;
+  box-sizing: border-box;
+  height: 2rem;
+  line-height: 2rem;
+}
+.chatList_lawyer_read{
+  width: 16%;
+  display: block;
+  background: url('../image/read.png') no-repeat left center;
+  background-size: auto 80%;
+  padding-left: 5%;
+  text-align: center;
+  box-sizing: border-box;
+  height: 2rem;
+  line-height: 2rem;
+}
+.chatList_lawyer_tip{
+  width: 16%;
+  display: block; 
+  background: url('../image/tip.png') no-repeat left center;
+  background-size: auto 80%;
+  padding-left: 5%;
+  text-align: center;
+  box-sizing: border-box;
+  height: 2rem;
+  line-height: 2rem;
+}
+.chatList_index_close{
+  width: 100%;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  box-sizing: border-box;
+  display: box;
+  display: -webkit-box;
+  background: #fff; 
+}
+.chatList_index_close span{
+  display: block;
+  -webkit-box-flex: 1;
+  padding-top: 3.5rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  background-image: url('../image/personal.png');
+  background-position: top center;
+  background-repeat: no-repeat;  
+  background-size: auto 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.chatList_index_close span{
+  -webkit-tap-highlight-color:rgba(255,0,0,0);
+}
+.chatList_index_close span.chatList_index_close_dynamic{
+  background-image: url('../image/dynamic.png');
+}
+.chatList_index_close span.chatList_index_close_heart{
+  background-image: url('../image/heart.png');
+}
+.chatList_index_close span.chatList_index_close_close{
+  background-image: url('../image/quit.png');
+}
+.chatList_index_content_box{
+  width: 100%;
+  height: 4rem;
+  background: #fff;
+  padding-top: 1rem;
+  box-sizing: border-box;
+  padding-left: 1rem; 
+  display: box;
+  display: -webkit-box;
+  border-top: 1px solid #ccc;
+}
+.chatList_index_no{
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  background: #dbdbdb;
+  text-align: center;
+  font-size: 1rem;
+  color: #d74218; 
+  display: none;
+}
+.chatList_top h3{
+  color: #009966;
+  width: 100%;
+  padding-left: 1rem;
+  box-sizing: border-box;
+  margin: 0;
+  height: 4rem;
+  line-height: 4rem;
+}
+.chatList_lawyer{
+  width: 100%;
+  display: box;
+  display: -webkit-box;
+  background: #fff; 
+}
+.chatList_lawyer_name{
+  font-size: 1.4rem;
+  color: #878787;
+  height: 3rem;
+  line-height: 3rem;
+}
+.chatList_lawyer_name span{
+  font-size: 1.6rem;
+  color: #d74218;
+}
+.chatList_lawyer_img{
+  width: 50px;
+  height: 50px;
+  margin: 20px;
+  border-radius: 50%;
+  display: block;
+}
+.chatList_lawyer_content{
+  box-flex: 1;
+  -webkit-box-flex: 1;
+  margin-top: 10px;
 }
 .chat_list{
   width: 100%;
@@ -284,7 +464,7 @@ p {
 .chat_list_usr span{
   -webkit-border-image: url('../image/bor-white.png') 35 33 35 30 stretch;
   float: right;
-  color: #666;
+  color: #fff;
 }
 .chat_list_exp span{
   -webkit-border-image: url('../image/bor-orange.png') 35 33 35 30 stretch;
@@ -309,6 +489,9 @@ p {
   outline: none;
   display: block;
   font-size: 1.4rem;
+  background: #eaeaea;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 .chat_btn{
   width: 22%;
@@ -316,8 +499,8 @@ p {
   line-height: 3rem;
   text-align: center;
   display: block;
-  background: #5595E3;
-  color: #fff;
+  background: transparent;
+  color: #d74218;
   border-radius: 3px;
   margin: 0 2%;
 }
@@ -326,8 +509,7 @@ p {
 }
 .js_chat_ts i{
   font-style: normal;
-  background: #b5b2b2;
-  color: #fff;
+  color: #878787;
   border-radius: 2px;
   padding: 3px;
   font-size: 12px;
@@ -357,17 +539,6 @@ p {
   width: 85%;
   line-height: 1.8rem;
   color: #999
-}
-.chat_goHome{
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  right: 10px;
-  bottom: 6.5rem;
-  z-index: 2;
-}
-.chat_goHome img{
-  width: 100%;
 }
 /*评价页*/
 .eva_box{
@@ -404,6 +575,20 @@ p {
   text-align: center;
   color: #fff;
   border-radius: 3px;
+}
+.que_area{
+  width: 100%;
+  height: 15rem;
+  margin: 0.5rem auto;
+  display: block;
+  resize: none;
+  outline: none;
+  line-height: 2rem;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border: none;
+  position: relative;
+  font-size: 1.4rem;
 }
 /*问题详情页*/
 .detail_list li{

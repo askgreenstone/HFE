@@ -11,16 +11,43 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
 
         vm.gotoLink = function(path,title){
-          location.href = '#/'+path+'?title='+encodeURI(title);
+          location.href = '#/'+path+'?title='+encodeURI(title)+'&ida='+vm.ida;
         };
         
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
         vm.goBack = function(){
           $window.history.back();
         };
+
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
 
         vm.deleteOne = function(){
           console.log(vm.pid);
@@ -30,7 +57,8 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/DeleteWXPhoto.do',
                 params: {
                     pId:vm.pid,
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                 }
@@ -59,7 +87,8 @@ define(['App'], function(app) {
                 params: {
                   pId:vm.pid,
                   session:vm.sess,
-                  ntId:vm.ntid 
+                  ntId:vm.ntid,
+                  ida: vm.ida 
                 },
                 data: {
                   pd:vm.pohtoDesc
@@ -96,7 +125,8 @@ define(['App'], function(app) {
                 url: GlobalUrl+'/exp/QueryWXPhotoList.do',
                 params: {
                     ntId:vm.ntid,
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -185,6 +215,11 @@ define(['App'], function(app) {
           //当前图片描述
           vm.des = vm.title;
           vm.getServerPhotos();
+          vm.ida = Common.getUrlParam('ida');
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
+          vm.checkUsrOrOrg();
         }
 
         init();

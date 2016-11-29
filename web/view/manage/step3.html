@@ -1,5 +1,14 @@
 ﻿<div class="view">
-	<div class="view_title">工作室管理</div>
+	<div class="view_title">
+		工作室管理
+		<select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
+			<option ng-selected="vm.selectedState" value="">--请选择--</option>
+		</select>
+		<span class="perLawyer">
+			<img src= {{vm.headImg}} width="20" height="20">
+			{{vm.lawyerName}} 律师
+		</span>
+	</div>
 	<div class="manage_content">
 		<div class="mc_left">
 			<ul class="mcl_list">
@@ -26,6 +35,10 @@
 				<li ng-click="vm.menuLink('manage')">
 					<img src="image/manage/set.png"  width="18" height="18"/>
 					<span><a href="javascript:void(0)">内容维护</a></span>
+				</li>
+				<li ng-click="vm.menuLink('filelist')" ng-if="vm.isDeptAdmin">
+					<img src="image/manage/article.png"  width="18" height="18"/>
+					<span><a href="javascript:void(0)">微课堂</a></span>
 				</li>
 			</ul>
 		</div>
@@ -82,10 +95,10 @@
 				<!-- </div> -->
 			</div>
 			<div class="af_btn fix_center">
-				<span ng-click="vm.menuLink('step2')">上一步</span>
-				<span ng-show="vm.goToNext" ng-click="vm.menuLink('step4')">跳过</span>
-				<span ng-click="vm.menuLink('step4')">保存并下一步</span>
-
+				<span ng-if="vm.originFlag" ng-click="vm.menuLink('step2')">上一步</span>
+				<span ng-if="vm.originFlag" ng-show="vm.goToNext" ng-click="vm.menuLink('step4')">跳过</span>
+				<span ng-if="vm.originFlag" ng-click="vm.menuLink('step4')">保存并下一步</span>
+				<span ng-if="!vm.originFlag" ng-click="vm.menuLink('micro1')">完成</span>
 			</div>
 		</div>
 		<div class="clean"></div>

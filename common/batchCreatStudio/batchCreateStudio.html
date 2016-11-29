@@ -47,10 +47,12 @@
 <body>
   <div class="wrap">
     <p><span>机构名称：</span><input type="text" name="" placeholder="" id="company"></p>
+    <p><span>机构简称：</span><input type="text" name="" placeholder="" id="depart"></p>
     <p><span>机构电话：</span><input type="text" name="" placeholder="" id="orgTel"></p>
     <p><span>机构城市：</span><input type="text" name="" placeholder="" id="reigon"></p>
     <p><span>机构地址：</span><input type="text" name="" placeholder="" id="address"></p>
     <p><span>logo名：</span><input type="text" name="" placeholder="" id="logo"></p>
+    <p><span>微网站logo：</span><input type="text" name="" placeholder="" id="microLogo"></p>
     <p><span>管理员姓名：</span><input type="text" name="" placeholder="" id="name"></p>
     <p><span>管理员电话：</span><input type="text" name="" placeholder="" id="tel"></p>
     <p><input type="button" id="btn" value="提交"/></p>
@@ -60,16 +62,22 @@
     var btn = document.getElementById('btn');
     btn.onclick = function(){
       var company = $('#company').val();
+      var depart = $('#depart').val();
       var orgTel = $('#orgTel').val();
       var reigon = $('#reigon').val();
       var address = $('#address').val();
       var logo = $('#logo').val();
+      var microLogo = $('#microLogo').val();
       var name = $('#name').val();
       var tel = $('#tel').val();
       
       console.log(JSON.stringify(data));
+
+
       if(!company){
         alert('机构名称不能为空')
+      }else if(!depart){
+        alert('机构简称不能为空')
       }else if(!orgTel){
         alert('机构电话不能为空')
       }else if(!reigon){
@@ -78,6 +86,8 @@
         alert('机构地址不能为空')
       }else if(!logo){
         alert('logo名不能为空')
+      }else if(!microLogo){
+        alert('微网站logo名不能为空')
       }else if(!name){
         alert('管理员姓名不能为空')
       }else if(!tel){
@@ -85,23 +95,31 @@
       }else{
         var data = {
           cn: company,
+          csn: depart,
           ct: orgTel,
           rg: reigon,
           add: address,
           p: logo,
+          mblogo: microLogo,
           n: name,
           mn:tel
         }
+        var url = '';
+        if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t-dist')>-1){
+          url = 'http://t-dist.green-stone.cn';
+        }else{
+          url = 'http://dist.green-stone.cn';
+        }
         $.ajax({
           type: 'POST',
-          url: 'http://dist.green-stone.cn/exp/BatchCreateMicroWeb.do',
+          url: url+'/exp/BatchCreateMicroWeb.do',
           data: JSON.stringify(data),
           success: function(data){
             console.log(data);
             if(data.c == 1000){
               alert('成功')
             }else{
-              alert('打开控制台看看69行')
+              alert('打开控制台看看118行')
             }
           },
           error:function(){

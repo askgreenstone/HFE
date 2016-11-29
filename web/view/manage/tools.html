@@ -1,0 +1,50 @@
+<div class="view">
+	<div class="view_title">
+		我的工具
+		<select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
+			<option ng-selected="vm.selectedState" value="">--请选择--</option>
+		</select>
+		<span class="perLawyer">
+			<img src= {{vm.headImg}} width="20" height="20">
+			{{vm.lawyerName}} 律师
+		</span>
+	</div>
+	<div class="manage_content">
+		
+		<div class="mcr_lenged mcr_toolbox">
+			<!-- 特色工具 -->
+			<div class="toolBox_special" ng-if="vm.specialTools">
+				<h3 class="green">特色工具</h3>
+				<ul class="mcr_tool_box">
+					<li ng-repeat="x in vm.specialTools" ng-click="vm.gotoIframe(x.tt)">
+						<img ng-src={{vm.transferUrl+x.ti}} width="100" height="100"/>
+						<span>{{x.tn}}</span>
+					</li>
+					<div class="clean"></div>
+				</ul>
+			</div>
+			<!-- 查询工具 -->
+			<div class="toolBox_search" ng-if="vm.searchTools">
+				<h3 class="red">查询工具</h3>
+				<ul class="mcr_tool_box">
+					<li ng-repeat="x in vm.searchTools" ng-click="vm.gotoIframe(x.tt)">
+						<img ng-src={{vm.transferUrl+x.ti}} width="100" height="100"/>
+						<span>{{x.tn}}</span>
+					</li>
+					<div class="clean"></div>
+				</ul>
+			</div>
+			<!-- 计算工具 -->
+			<div class="toolBox_calculate" ng-if="vm.calculate">
+				<h3 class="orange">计算工具</h3>
+				<ul class="mcr_tool_box">
+					<li ng-repeat="x in vm.calculate" ng-click="vm.gotoIframe(x.tt)">
+						<img ng-src={{vm.transferUrl+x.ti}} width="100" height="100"/>
+						<span>{{x.tn}}</span>
+					</li>
+					<div class="clean"></div>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -19,21 +19,64 @@ define(['App'], function(app) {
         }
 
         vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess;
+          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
         }
 
 
         vm.gotoLink = function(path, title,ntid) {
-            $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ntId='+ntid;
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&title=' + encodeURI(title)+'&ntId='+ntid+'&ida='+vm.ida;
             // UE.getEditor('editor').destroy();
         };
+
+        // 切换个人与机构
+        vm.switchPerOrg = function(num){
+          console.log(num);
+          if(num === 1){
+            window.location.href = '#/manage?session='+vm.sess+'&ida=1';
+          }else{
+            window.location.href = '#/manage?session='+vm.sess+'&ida=0';
+          }
+        }
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  if(data.ida == 0){
+                    vm.orgOrPer = 'orgNotExist';
+                  }else{
+                    vm.orgOrPer = 'orgOrPer';
+                  }
+                  vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
 
         vm.getAllArticle = function() {
             if(!vm.sess) return;
             $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsList.do',
-                params: {session:vm.sess},
+                params: {
+                  session:vm.sess,
+                  ida: vm.ida
+                },
                 data: {}
             }).
             success(function(data, status, headers, config) {
@@ -56,7 +99,11 @@ define(['App'], function(app) {
             $http({
                 method: 'GET',
                 url: GlobalUrl+'/exp/QueryNewsTypes.do',
-                params: {session:vm.sess,wf:1},
+                params: {
+                  session:vm.sess,
+                  wf:1,
+                  ida: vm.ida
+                },
                 data: {}
             }).
             success(function(data, status, headers, config) {
@@ -97,7 +144,8 @@ define(['App'], function(app) {
                     session:vm.sess,
                     //wf:0不包含父菜单，1包含父菜单
                     wf:0,
-                    mwm:vm.microWebId
+                    mwm:vm.microWebId,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -106,7 +154,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.microName = data.mwn;
+                  vm.microName = data.mwn?data.mwn:'我的工作室';
                 }
             }).
             error(function(data, status, headers, config) {
@@ -121,7 +169,8 @@ define(['App'], function(app) {
                 method: 'GET',
                 url: GlobalUrl+'/exp/GetMicWebModel.do',
                 params: {
-                    session:vm.sess
+                    session:vm.sess,
+                    ida: vm.ida
                 },
                 data: {
                     
@@ -219,7 +268,8 @@ define(['App'], function(app) {
               method: 'POST',
               url: GlobalUrl+'/exp/SetMicWebNewsPwd.do',
               params: {
-                  session:vm.sess
+                  session:vm.sess,
+                  ida: vm.ida
               },
               data: tempObj
           }).
@@ -238,12 +288,17 @@ define(['App'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
+          vm.ida = Common.getUrlParam('ida');
           vm.getServerCatalogue();
           vm.storeCurrentSession(vm.sess);
           vm.getMicroImg();
           // vm.getOldIntroduce();
           // vm.getOldContent();
           vm.getAllArticle();
+          vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
+          vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          vm.isDeptAdmin = vm.ida == 0?false:true;
+          vm.checkUsrOrOrg();
         }
 
         init();

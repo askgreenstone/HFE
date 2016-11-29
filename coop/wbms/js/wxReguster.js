@@ -55,7 +55,8 @@ jQuery(function($){
     // var imgSrc = $('#wxRg_preview').attr('src');
     // var img = imgSrc == '../image/head.png'?'':imgSrc;
     // var on = Common.getUrlParam('on')?Common.getUrlParam('on'):img;
-    if(onHeadImg !== '../image/head.png'){
+    console.log(onHeadImg);
+    if(onHeadImg !== 'header.jpg'){
       window.location.href = 'wxheadbg.html?mwID='+mwID+'&on='+onHeadImg+'&openId=' + openId+'&session='+session;
     }else{
       window.location.href = 'wxheadbg.html?mwID='+mwID+'&openId=' + openId+'&session='+session;
@@ -128,6 +129,7 @@ jQuery(function($){
           $('#address').val(data.ad);
           var on = Common.getUrlParam('on');
           onHeadImg = on?on:(data.p?data.p:'header.jpg');
+          console.log(onHeadImg);
           $('#wxRg_preview').attr('src',Common.globalTransferUrl()+onHeadImg);
           var arr = data.eil;
           var list = $('.profession_list li');
@@ -250,7 +252,11 @@ jQuery(function($){
 
   //初始化数据
   function initAll() {
-    getUsrInfo();
+    var on = Common.getUrlParam('on');
+    onHeadImg = on?on:'header.jpg';
+    if(session){getUsrInfo()};
+    console.log(onHeadImg);
+    $('#wxRg_preview').attr('src',Common.globalTransferUrl()+onHeadImg);
   }
 
   initAll();

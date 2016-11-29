@@ -1,5 +1,6 @@
 var session;
 var userUri;
+var st;
 var flag = false;
 $(document).ready(function() {
   init();
@@ -9,6 +10,7 @@ $(document).ready(function() {
 function init(){
   session = Common.getUrlParam('session');
   userUri = Common.getUrlParam('userUri');
+  st = Common.getUrlParam('st')?Common.getUrlParam('st'):'3';
   console.log(session);
   getQuestionList();
 }
@@ -82,7 +84,7 @@ $('.eva_nice').bind('click',function(){
 
 // 提交评价
 $('.eva_btn').bind('click',function(){
-  var text = $('.pub_area').val();
+  var text = $('.que_area').val();
   var qi = Common.getUrlParam('qid');
   var tu = Common.getUrlParam('tu');
   console.log(callength(text));
@@ -99,20 +101,23 @@ $('.eva_btn').bind('click',function(){
           qi: qi,
           tu: tu,
           co: text,
-          rf: 1
+          rf: 1,
+          st: st
         }
       }else{
         data = {
           qi: qi,
           tu: tu,
-          co: text
+          co: text,
+          st: st
         }
       } 
     }else{
       data = {
         qi: qi,
         tu: tu,
-        rf: 1
+        rf: 1,
+        st: st
       }
     }
     console.log(data);
@@ -136,8 +141,8 @@ $('.eva_btn').bind('click',function(){
 
 // 计算字符串长度
 function callength(str){
-  var byteLen = 0, len = str.length;
   if( !str ) return 0;
+  var byteLen = 0, len = str.length;
   for( var i=0; i<len; i++ )
   byteLen += str.charCodeAt(i) > 255 ? 2 : 1;
   return byteLen/2;
