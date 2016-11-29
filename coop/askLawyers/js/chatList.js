@@ -362,13 +362,13 @@ $(function() {
       console.log(Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida);
       $.ajax({
         type : 'POST',
-        url : Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri,
+        url : Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri + '&ida=0',
         success : function(data){
           console.log(data);
           if(data.c == 1999){
             alert(name+'律师还没有创建工作室！')
           }else{
-            window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida='+ida;
+            window.location.href = Common.globalDistUrl() + 'usr/ThirdHomePage.do?ownUri=' + ownUri+'&ida=0';
           }
         },
         error : function(){
