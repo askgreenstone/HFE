@@ -283,7 +283,7 @@ var Dynamic = React.createClass({
       url: global.url+'/usr/CreateGroup.do?session='+session,
       data: JSON.stringify({
         t: 99,
-        ml: ['e1584','u10179'],
+        ml: [ownUri,usrUri],
         st: 3
       }),
       success: function(data) {

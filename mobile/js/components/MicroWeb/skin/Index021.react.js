@@ -250,10 +250,11 @@ var Index021 = React.createClass({
     this.staticWebPV(1);
     // this.getUserList();
     $('body').css({'background':'#fff'});
-    var bgImg = global.img+this.state.bg;
-    $('.theme021_blur').css({
-      'backgroundImage': 'url('+bgImg+')'
-    });
+    // 背景图
+    // var bgImg = global.img+this.state.bg;
+    // $('.theme021_blur').css({
+    //   'backgroundImage': 'url('+bgImg+')'
+    // });
     // alert($(window).height()+'....'+$(window).width());
     console.log($('.theme021_blur').css('backgroundImage'));
     // 乔凡：重新修改title（解决ios不能修改document.title问题）
