@@ -6,6 +6,7 @@ define(['App','Sortable'], function(app) {
     var Step4Controller = function($location,$http,$window,TransferUrl,GlobalUrl,Common) {
         var vm = this;
         vm.transferUrl = TransferUrl;
+        vm.isDeptAdmin = true;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
@@ -28,6 +29,11 @@ define(['App','Sortable'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
+                  if(data.ida == 1){
+                    vm.isDeptAdmin = true;
+                  }else{
+                    vm.isDeptAdmin = false;
+                  }
                   vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
@@ -459,10 +465,8 @@ define(['App','Sortable'], function(app) {
 
         function init(){
           vm.sess = Common.getUrlParam('session');
-          
           vm.origin = Common.getUrlParam('from');
           vm.ida = Common.getUrlParam('ida');
-          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.getMicroImg();
           //更换背景跳转后，通过该标识隐藏上一步按钮
           if(vm.origin){

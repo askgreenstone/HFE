@@ -19,6 +19,7 @@ define(['App'], function(app) {
         vm.isImgUpload = false;// 初始化为false，上传图片后为true
         vm.authenState = 22;// 获取用户是否为认证状态  21为已认证 22未认证
         vm.ownUri = ''; //获取用户ownUri 
+        vm.isDeptAdmin = true;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess;

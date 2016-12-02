@@ -13,9 +13,9 @@ var Shade = require('../../common/Shade.react');
 var Establish = require('../public/Establish.react');
 var LatestNews = require('../public/LatestNews.react');
 
-require('../../../../css/theme/theme020.less');
+require('../../../../css/theme/theme022.less');
 
-var Index020 = React.createClass({
+var Index022 = React.createClass({
 	mixins:[CommonMixin],
   getInitialState: function(){
     return {
@@ -125,7 +125,7 @@ var Index020 = React.createClass({
             var temp = this.checkMenuType(data.ntl);
             this.setState({navArrs:temp});
             //缓存菜单数据
-            sessionStorage.setItem('menu_info_index020',JSON.stringify(data.ntl));
+            sessionStorage.setItem('menu_info_index022',JSON.stringify(data.ntl));
           }
         }.bind(this),
         error: function(xhr, status, err) {
@@ -134,7 +134,7 @@ var Index020 = React.createClass({
         }.bind(this)
       });
     }else{
-      var localJsons = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info_index020')));
+      var localJsons = this.checkMenuType(JSON.parse(sessionStorage.getItem('menu_info_index022')));
       this.setState({navArrs:localJsons});
     }
   },
@@ -160,8 +160,8 @@ var Index020 = React.createClass({
           //依据菜单版本号判断，版本号不一致，需要重新请求服务端数据
           if(from == 'app'){
             this.getUserList(true);
-          }else if(sessionStorage.getItem('menu_version_index020')){
-            if(sessionStorage.getItem('menu_version_index020') != data.mv){
+          }else if(sessionStorage.getItem('menu_version_index022')){
+            if(sessionStorage.getItem('menu_version_index022') != data.mv){
               this.getUserList(true);
             }else{
               this.getUserList(false);
@@ -169,7 +169,7 @@ var Index020 = React.createClass({
           }else{
             this.getUserList(true);
           }
-          sessionStorage.setItem('menu_version_index020',data.mv);
+          sessionStorage.setItem('menu_version_index022',data.mv);
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -296,31 +296,27 @@ var Index020 = React.createClass({
       return(
             <li key={new Date().getTime()+i} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
               <a href={item.ac?item.ac:'javascript:void(0);'}>
-                <p><img src={global.img+item.src} width="100%"/>{item.title}</p>
+                {item.title}
               </a>
             </li>
        );
     }.bind(this));
 		return (
 				<div>
-					<div className="theme020_container">
-            <div className="theme020_box">
-              <div className="theme020_headImg">
-                <img src={global.img+this.state.hI} width="75" height="75" />
-              </div>
-              <div className="theme020_content">
-                <div className="theme020_content_blank"></div>
-                <div className="theme020_content_abs">{expSpecial}</div>
-                <div className="theme020_content_depart">{this.state.dp}</div>
-                <div className="theme020_content_lawyer"><span className="theme020_content_lawyer">{this.state.nm}</span><span>律师</span></div>
-              </div>
+					<div className="theme022_container">
+            <div className="theme022_headImg">
+              <img src={global.img+this.state.hI} width="130" height="130" />
             </div>
-            <ul className="theme020_menu_list">
+            <div className="theme022_content_lawyer">{this.state.nm}</div>
+            <div className="theme022_content_depart">律师</div>
+            <div className="theme022_content_depart">{this.state.dp}</div>
+            <div className="theme022_content_depart theme022_content_abs">{expSpecial}</div>
+            <ul className="theme022_menu_list">
               {navNodes}
             </ul>
           </div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-          imgUrl={this.state.shareImg} target="index020"/>
+          imgUrl={this.state.shareImg} target="index022"/>
           <Message/>
           <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
           <div id="limit_password_box" title="" value="" name="" type="">
@@ -334,4 +330,4 @@ var Index020 = React.createClass({
 			)
 	}
 })
-module.exports = Index020;
+module.exports = Index022;

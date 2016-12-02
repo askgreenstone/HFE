@@ -8,6 +8,7 @@ define(['App'], function(app) {
         vm.transferurl = TransferUrl;
         vm.typeId = '';
         vm.typeNm = '';
+        vm.isDeptAdmin = true;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session='+vm.sess+'&ida='+vm.ida;
@@ -64,6 +65,11 @@ define(['App'], function(app) {
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
+                  if(data.ida == 1){
+                    vm.isDeptAdmin = true;
+                  }else{
+                    vm.isDeptAdmin = false;
+                  }
                   vm.headImg = data.p?(vm.transferurl + data.p):vm.transferurl+'header.jpg';
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);

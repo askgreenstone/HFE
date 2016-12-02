@@ -57,8 +57,9 @@ var Home = React.createClass({
         <div><Link to='/index017'><img src='image/index017.png'/><span>index017</span></Link></div>
         <div><Link to='/index018'><img src='image/index018.png'/><span>index018</span></Link></div>
         <div><Link to='/index019'><img src='image/index019.png'/><span>index019</span></Link></div>
-        <div><Link to='/index020'><img src='image/index019.png'/><span>index020</span></Link></div>
-        <div><Link to='/index021'><img src='image/index019.png'/><span>index021</span></Link></div>
+        <div><Link to='/index020'><img src='image/index020.png'/><span>index020</span></Link></div>
+        <div><Link to='/index021'><img src='image/index021.png'/><span>index021</span></Link></div>
+        <div><Link to='/index022'><img src='image/index022.png'/><span>index022</span></Link></div>
       </div>
       );
   },

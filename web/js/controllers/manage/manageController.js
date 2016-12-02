@@ -17,6 +17,7 @@ define(['App'], function(app) {
           checked:'',
           password:''
         }
+        vm.isDeptAdmin = true;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
@@ -54,8 +55,10 @@ define(['App'], function(app) {
                 if(data.c == 1000){
                   if(data.ida == 0){
                     vm.orgOrPer = 'orgNotExist';
+                    vm.isDeptAdmin = false;
                   }else{
                     vm.orgOrPer = 'orgOrPer';
+                    vm.isDeptAdmin = true;
                   }
                   vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
                   vm.lawyerName = data.n;
@@ -297,7 +300,7 @@ define(['App'], function(app) {
           vm.getAllArticle();
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
-          vm.isDeptAdmin = vm.ida == 0?false:true;
+          
           vm.checkUsrOrOrg();
         }
 

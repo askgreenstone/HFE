@@ -20,6 +20,7 @@ define(['App'], function(app) {
         vm.isImgUpload = false;// 初始化为false，上传图片后为true
         vm.authenState = 22;// 获取用户是否为认证状态  21为已认证 22未认证
         vm.ownUri = ''; //获取用户ownUri 
+        vm.isDeptAdmin = true;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
@@ -56,6 +57,11 @@ define(['App'], function(app) {
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
+                  if(data.ida == 1){
+                    vm.isDeptAdmin = true;
+                  }else{
+                    vm.isDeptAdmin = false;
+                  }
                   vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
@@ -494,7 +500,6 @@ define(['App'], function(app) {
           vm.checkAuthorParam();
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
-          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.checkUsrOrOrg();
 
         }

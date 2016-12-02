@@ -13,6 +13,7 @@ define(['App'], function(app) {
           desc:'',
           preview:''
         }
+        vm.isDeptAdmin = true;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
@@ -45,6 +46,11 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
+                  if(data.ida == 1){
+                    vm.isDeptAdmin = true;
+                  }else{
+                    vm.isDeptAdmin = false;
+                  }
                   vm.headImg = data.p?(vm.TransferUrl+ data.p):vm.TransferUrl+'header.jpg';;
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
@@ -348,22 +354,23 @@ define(['App'], function(app) {
                 st:1,
                 sti:vm.user.title,
                 sd:vm.user.desc,
-                spu:vm.user.preview
+                spu:vm.user.preview,
+                ida: vm.ida
             }
           }else{//插入
             vm.tempData = {
                 st:1,
                 sti:vm.user.title,
                 sd:vm.user.desc,
-                spu:vm.user.preview
+                spu:vm.user.preview,
+                ida: vm.ida
             }
           }
           $http({
                 method: 'POST',
                 url: GlobalUrl+'/exp/ThirdSetShareInfo.do',
                 params: {
-                    session:vm.sess,
-                    ida: vm.ida
+                    session:vm.sess
                 },
                 data: vm.tempData
             }).
@@ -424,7 +431,6 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.ida = Common.getUrlParam('ida');
-          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.checkUsrOrOrg();
           vm.GetWxShare();
           vm.getQrCode();

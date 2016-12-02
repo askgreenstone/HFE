@@ -102,6 +102,7 @@ var Index003=React.createClass({
     }
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     console.log(ida);
+    var from = this.getUrlParams('from');
     $.ajax({
       type:'get',
       async:false,
@@ -115,7 +116,9 @@ var Index003=React.createClass({
           this.setState({bg:data.bi,logo:data.l});
           //依据菜单版本号判断，版本号不一致，需要重新请求服务端数据
           // console.log(sessionStorage.getItem('menu_version_index003'));
-          if(sessionStorage.getItem('menu_version_index003')){
+          if(from == 'app'){
+            this.getUserList(true);
+          }else if(sessionStorage.getItem('menu_version_index003')){
             if(sessionStorage.getItem('menu_version_index003') != data.mv){
               this.getUserList(true);
             }else{

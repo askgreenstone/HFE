@@ -11,6 +11,7 @@ define(['App'], function(app) {
           desc:'',
           preview:''
         }
+        vm.isDeptAdmin = true;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -31,6 +32,38 @@ define(['App'], function(app) {
         vm.calLength = function(cur){
           var count = cur.replace(/[\u4E00-\u9FA5]/g,'aa').length;
           return count;
+        }
+
+
+        // 查询该session是个人还是机构
+        vm.checkUsrOrOrg = function(){
+          $http({
+              method: 'GET',
+              url: GlobalUrl+'/exp/ExpertInfo.do',
+              params: {
+                  session:vm.sess
+              },
+              data: {}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
+                if(data.c == 1000){
+                  vm.orgOrPer = 'orgNotExist';
+                  if(data.ida == 1){
+                    vm.isDeptAdmin = true;
+                  }else{
+                    vm.isDeptAdmin = false;
+                  }
+                  vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
+                  vm.lawyerName = data.n;
+                  console.log(vm.headImg);
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
         }
 
         vm.getCardUri = function(){
@@ -233,6 +266,7 @@ define(['App'], function(app) {
           vm.sess = Common.getUrlParam('session');
           vm.GetWxShare();
           vm.getCardUri();
+          vm.checkUsrOrOrg();
         }
 
         init();

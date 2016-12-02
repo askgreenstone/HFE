@@ -1,0 +1,122 @@
+/*字体大小*/
+@b-size: 1.2rem;
+@s-size: 1.3rem;
+@m-size: 1.4rem;
+@l-size: 1.5rem;
+@xl-size: 1.6rem;
+/*常用色值*/
+@black10:#000;
+@black07:rgba(0,0,0,0.7);
+@black06:rgba(0,0,0,0.6);
+
+#myapp>div{
+	width:100%;
+	height:100%;
+}
+.theme022_container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.theme022_box{
+  width: 100%;
+  padding: 15% 12%;
+  box-sizing: border-box;
+  display: box;
+  display: -webkit-box;
+}
+.theme022_headImg{
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 3rem;
+}
+.theme022_content_lawyer{
+  width: 100%;
+  height: 1.8rem;
+  line-height: 1.8rem;
+  color: #d74218;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.theme022_content_depart{
+  width: 100%;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #878787;
+  font-size: 1.2rem;
+}
+.theme022_content_depart span{
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+.theme022_menu_list{
+  width: 100%;
+  margin: 0px;
+}
+.theme022_menu_list li{
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 4rem;
+  color: #4b4b4b;
+  text-align: center;
+  line-height: 4rem;
+  cursor: pointer;
+}
+.theme022_menu_list li a{
+  width: 100%;
+  height: 100%;
+  display: block;
+  color: #595757;
+  font-size: 1.6rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (width: 320px) {
+  html {
+    font-size: 62.5%;
+  }
+  .theme022_menu_list li{
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 360px) {
+  html {
+    font-size: 62.5%;
+  }
+  .theme022_menu_list li{
+    margin-bottom: 0;
+  }
+}
+@media screen and (min-width: 361px) and (max-width: 376px) {
+  html {
+    font-size: 66.5%;
+  }
+}
+@media screen and (min-width: 377px) and (max-width: 414px) {
+  html {
+    font-size: 75.5%;
+  }
+
+}
+@media screen and (width: 384px) and (height: 519px) {
+  html {
+    font-size: 66.5%;
+  }
+}
+@media screen and (min-width: 415px) {
+  html {
+    font-size: 80%;
+  }
+  .theme022_menu_list li{
+    margin-bottom: 1.5rem;
+  }
+}
+
+//魅族手机单独处理

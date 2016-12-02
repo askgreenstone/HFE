@@ -102,9 +102,15 @@ var Dynamic = React.createClass({
   getDynamicComment: function(flag){
     var fid = this.getUrlParams('fid');
     var usrUri = this.getUrlParams('usrUri');
+    var url;
+    if(flag){
+      url = global.url+'/usr/FeedDetail.do?fid='+fid+'&ia=1';
+    }else{
+      url = global.url+'/usr/FeedDetail.do?fid='+fid;
+    }
     $.ajax({
       type: 'GET',
-      url: global.url+'/usr/FeedDetail.do?fid='+fid,
+      url: url,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){

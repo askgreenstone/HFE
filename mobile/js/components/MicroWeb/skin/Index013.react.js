@@ -95,6 +95,7 @@ var Index013 = React.createClass({
       console.log(ownUri);
     }
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var from = this.getUrlParams('from');
     $.ajax({
       type:'get',
       async:false,
@@ -106,7 +107,9 @@ var Index013 = React.createClass({
           // this.setState({navArrs:data.ntl});
           //alert(0);
           this.setState({bg:data.bi,logo:data.l});
-          if(sessionStorage.getItem('menu_version_index013')){
+          if(from == 'app'){
+            this.getUserList(true);
+          }else if(sessionStorage.getItem('menu_version_index013')){
             if(sessionStorage.getItem('menu_version_index013') != data.mv){
               this.getUserList(true);
             }else{

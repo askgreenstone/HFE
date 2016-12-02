@@ -10,6 +10,7 @@ define(['App'], function(app) {
         vm.newFileContent = '';
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.uploadProgress = false;//开始上传出现进度条
+        vm.isDeptAdmin = true;
         var uploader = new VODUpload({
           // 文件上传失败
           'onUploadFailed': function (fileName, code, message) {
@@ -117,6 +118,11 @@ define(['App'], function(app) {
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
+                  if(data.ida == 1){
+                    vm.isDeptAdmin = true;
+                  }else{
+                    vm.isDeptAdmin = false;
+                  }
                   vm.headImg = data.p?(vm.transferurl + data.p):vm.transferurl+'header.jpg';
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);

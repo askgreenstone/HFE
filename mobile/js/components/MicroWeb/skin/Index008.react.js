@@ -168,6 +168,7 @@ var Index008=React.createClass({
       console.log(ownUri);
     }
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    var from = this.getUrlParams('from');
     $.ajax({
       type:'get',
       url: global.url+'/usr/GetMicWebImgs.do?ou='+ownUri+'&ida='+ida,
@@ -178,7 +179,9 @@ var Index008=React.createClass({
           // this.setState({navArrs:data.ntl});
           //alert(0);
           this.setState({bg:data.bi,logo:data.l});
-          if(sessionStorage.getItem('menu_version_index008')){
+          if(from == 'app'){
+            this.getUserList(true);
+          }else if(sessionStorage.getItem('menu_version_index008')){
             if(sessionStorage.getItem('menu_version_index008') != data.mv){
               this.getUserList(true);
             }else{

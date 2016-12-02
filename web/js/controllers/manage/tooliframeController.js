@@ -9,6 +9,7 @@ define(['App'], function(app) {
         vm.sess = '';
         vm.transferUrl = TransferUrl;
         vm.globalUrl = GlobalUrl;
+        vm.isDeptAdmin = true;
 
         vm.menuLink = function(path){
           $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;

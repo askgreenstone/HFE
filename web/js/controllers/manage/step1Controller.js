@@ -11,6 +11,7 @@ define(['App'], function(app) {
         vm.ar = '';
         vm.oid = '';
         vm.ida = '';
+        vm.isDeptAdmin = true;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -37,6 +38,11 @@ define(['App'], function(app) {
                 console.log(data);
                 if(data.c == 1000){
                   vm.orgOrPer = 'orgNotExist';
+                  if(data.ida == 1){
+                    vm.isDeptAdmin = true;
+                  }else{
+                    vm.isDeptAdmin = false;
+                  }
                   vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
@@ -138,7 +144,6 @@ define(['App'], function(app) {
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.ida = Common.getUrlParam('ida');
-          vm.isDeptAdmin = vm.ida == 0?false:true;
           vm.getMicroImg();
           vm.checkUsrOrOrg();
         }
