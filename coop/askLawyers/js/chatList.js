@@ -619,10 +619,10 @@ function getFeedTimeLine(ownUri) {
             console.log(data);
             if (data.c == 1000) {
                 if(data.r.fl[0]){
-                    $('.chatList_lawyer_img').attr('src',Common.globalTransferUrl() + data.r.fl[0].il[0]);
+                    $('.chatList_lawyer_img').attr('src',data.r.fl[0].p?(Common.globalTransferUrl()+data.r.fl[0].p):(Common.globalTransferUrl()+'header.jpg'));
                     $('.chatList_lawyer').attr('fid',data.r.fl[0].fid);
                     $('.chatList_lawyer_title').text(data.r.fl[0].title);
-                    $('.chatList_lawyer_desc').text(data.r.fl[0].content.length>20?data.r.fl[0].content.substr(0,20)+'...':data.r.fl[0].content);
+                    $('.chatList_lawyer_desc').text(data.r.fl[0].content?(data.r.fl[0].content.length>20?(data.r.fl[0].content.substr(0,20)+'...'):data.r.fl[0].content):(data.r.fl[0].cil[0].content.length>20?data.r.fl[0].cil[0].content.substr(0,20)+'...':data.r.fl[0].cil[0].content));
                     $('.chatList_lawyer_time').text(new Date(data.r.fl[0].ts).Format('yyyy-MM-dd'));
                     $('.chatList_lawyer_nice').text(data.r.fl[0].rnum);
                     $('.chatList_lawyer_tip').text(data.r.fl[0].cnum);
