@@ -14,8 +14,13 @@ define(['App'], function(app) {
           location.href = '#/manage?session='+vm.sess+'&ida='+vm.ida;
         };
 
-        vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+        //   跳转到文件列表页  doctype1微课堂：2文件；3通知
+        vm.menuLink = function(path,type){
+          if(type){
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida+'&dt='+type;
+          }else{
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+          }
         }
 
         vm.goBack = function(){
@@ -89,7 +94,8 @@ define(['App'], function(app) {
             method: 'GET',
             url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
             params: {
-              session:vm.sess
+              session:vm.sess,
+              dt: vm.dt
             },
             data: {}
           }).
@@ -142,7 +148,8 @@ define(['App'], function(app) {
         // 点击分类跳转uploadfile
         vm.gotoUpload = function(tid,order){
           console.log(order);
-          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+order+'&tid='+tid;
+          console.log(vm.dt);
+          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+order+'&tid='+tid+'&dt='+vm.dt;
         }
 
 
@@ -152,13 +159,15 @@ define(['App'], function(app) {
           console.log(vm.typeId);
           console.log(vm.typeNm);
           console.log(vm.order);
-          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+vm.order;
+          console.log(vm.dt);
+          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+vm.order+'&dt='+vm.dt;
         }
 
 
         function init(){
           vm.sess = Common.getUrlParam('session');
           vm.ida = Common.getUrlParam('ida');
+          vm.dt = Common.getUrlParam('dt');
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
           vm.checkUsrOrOrg();

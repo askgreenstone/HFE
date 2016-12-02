@@ -40,9 +40,17 @@
 					<img src="image/manage/set.png"  width="18" height="18"/>
 					<span><a href="javascript:void(0)">内容维护</a></span>
 				</li>
-				<li ng-click="vm.menuLink('filelist')" ng-if="vm.isDeptAdmin">
-					<img src="image/manage/article.png"  width="18" height="18"/>
+				<li ng-click="vm.menuLink('filelist',1)" ng-if="vm.isDeptAdmin">
+					<img src="image/manage/class.png"  width="20" height="20"/>
 					<span><a href="javascript:void(0)">微课堂</a></span>
+				</li>
+				<li ng-click="vm.menuLink('filelist',2)" ng-if="vm.isDeptAdmin">
+					<img src="image/manage/file.png"  width="20" height="20"/>
+					<span><a href="javascript:void(0)">文件</a></span>
+				</li>
+				<li ng-click="vm.menuLink('filelist',3)" ng-if="vm.isDeptAdmin">
+					<img src="image/manage/notice.png"  width="20" height="20"/>
+					<span><a href="javascript:void(0)">通知</a></span>
 				</li>
 			</ul>
 		</div>

@@ -25,12 +25,19 @@ define(['App','ZeroClipboard'], function(app,ZeroClipboard) {
           console.log('nc:'+vm.createInfo.content);
         }
 
+
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
-        vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+
+        //   跳转到文件列表页  doctype1微课堂：2文件；3通知
+        vm.menuLink = function(path,type){
+          if(type){
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida+'&dt='+type;
+          }else{
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+          }
         }
 
         vm.goBack = function(){

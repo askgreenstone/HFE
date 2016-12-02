@@ -13,8 +13,13 @@ define(['App'], function(app) {
           location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
-        vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+        //   跳转到文件列表页  doctype1微课堂：2文件；3通知
+        vm.menuLink = function(path,type){
+          if(type){
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida+'&dt='+type;
+          }else{
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+          }
         }
 
         vm.goBack = function(){
@@ -121,16 +126,28 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  if(data.s == 0 || data.ds == 0){
-                    vm.menuLink('micro');
-                    vm.editState = '开始定制'
-                  }else if(data.s == 1 || data.ds == 1){
-                    vm.menuLink('micro');
-                    vm.editState = '继续定制'
-                  }else if(data.s == 2 || data.ds == 2){
-                    vm.menuLink('micro1');
+                  // 区分个人机构定制状态
+                  if(vm.ida == 0){
+                    if(data.s == 0){
+                      vm.menuLink('micro');
+                      vm.editState = '开始定制'
+                    }else if(data.s == 1){
+                      vm.menuLink('micro');
+                      vm.editState = '继续定制'
+                    }else if(data.s == 2){
+                      vm.menuLink('micro1');
+                    }
+                  }else{
+                    if(data.s == 0){
+                      vm.menuLink('micro');
+                      vm.editState = '开始定制'
+                    }else if(data.s == 1){
+                      vm.menuLink('micro');
+                      vm.editState = '继续定制'
+                    }else if(data.s == 2){
+                      vm.menuLink('micro1');
+                    }
                   }
-                  
                 }
             }).
             error(function(data, status, headers, config) {

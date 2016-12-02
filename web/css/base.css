@@ -2623,6 +2623,13 @@ input[type=checkbox], input[type=radio] {
   width: 200px;
   color: red;
 }
+.uploadTextBox{
+  width: 100%;
+  height: 40px;
+  margin-left: 85px;
+  line-height: 40px;
+  color: red;
+}
 .uploadFileBox{
   width: 100%;
   height: 40px;

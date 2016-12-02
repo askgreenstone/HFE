@@ -80,8 +80,13 @@ define(['App'], function(app) {
           location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
         };
 
-        vm.menuLink = function(path){
-          $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+        //   跳转到文件列表页  doctype1微课堂：2文件；3通知
+        vm.menuLink = function(path,type){
+          if(type){
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida+'&dt='+type;
+          }else{
+            $window.location.href = '#/' + path + '?session='+vm.sess+'&ida='+vm.ida;
+          }
         }
 
         vm.goBack = function(){
@@ -166,7 +171,8 @@ define(['App'], function(app) {
             method: 'GET',
             url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
             params: {
-                session:vm.sess
+                session:vm.sess,
+                dt: vm.dt
             },
             data: {}
           }).
@@ -416,12 +422,15 @@ define(['App'], function(app) {
                   if(ossname.indexOf('.doc')>-1||ossname.indexOf('.docx')>-1||ossname.indexOf('.xls')>-1||ossname.indexOf('.xlsx')>-1||ossname.indexOf('.ppt')>-1||ossname.indexOf('.pptx')>-1||ossname.indexOf('.pdf')>-1){
                     vm.getUploadFileNm();
                     vm.docType = 1;
-                  }else if(ossname.indexOf('mp3')>-1){
+                    $('.uploadTextBox').show();
+                  }else if(ossname.indexOf('.mp3')>-1){
                     vm.getAliyunData();
                     vm.docType = 3;
-                  }else if(ossname.indexOf('mp4')>-1){
+                    $('.uploadTextBox').hide();
+                  }else if(ossname.indexOf('.mp4')>-1){
                     vm.getAliyunData();
                     vm.docType = 2;
+                    $('.uploadTextBox').hide();
                   }else{
                     alert('暂不支持该类型文件！')
                   }
@@ -457,6 +466,7 @@ define(['App'], function(app) {
                     if(data.c == 1000){
                       vm.docName = f.name;
                       vm.uploadFileName = data.on;
+                      $('.uploadTextBox').text(f.name);
                     }
                     Common.getLoading(false);
                 })
@@ -520,7 +530,7 @@ define(['App'], function(app) {
                   if(vm.uploadFileName){
                     vm.addUploadFile(vm.tid);
                   }else{
-                    window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
+                    window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida+'&dt='+vm.dt;
                   }
                 }
             }).
@@ -536,7 +546,8 @@ define(['App'], function(app) {
               o: vm.order,
               dd: vm.newFileContent,
               p: vm.newFileImg,
-              s: vm.newFileExpNm
+              s: vm.newFileExpNm,
+              dt: vm.dt
             }
             $http({
               method: 'POST',
@@ -553,7 +564,7 @@ define(['App'], function(app) {
                     vm.addUploadFile(data.tid);
                   }else{
                     alert('创建成功！')
-                    window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
+                    window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida+'&dt='+vm.dt;
                   }
                 }
             }).
@@ -589,7 +600,7 @@ define(['App'], function(app) {
               console.log(data);
               if(data.c == 1000){
                 alert('上传成功！')
-                window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
+                window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida+'&dt='+vm.dt;
               }
           }).
           error(function(data, status, headers, config) {
@@ -651,6 +662,7 @@ define(['App'], function(app) {
           vm.checkUsrOrOrg();
           vm.tid = Common.getUrlParam('tid');
           vm.order = Common.getUrlParam('order');
+          vm.dt = Common.getUrlParam('dt');
           vm.getExpOwnuri();
           if(vm.tid){
             vm.queryDeptDocs(vm.tid);
