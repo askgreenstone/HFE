@@ -11,6 +11,7 @@ define(['App'], function(app) {
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.uploadProgress = false;//开始上传出现进度条
         vm.isDeptAdmin = true;
+        vm.docTypeName = '微课堂课程列表';
         var uploader = new VODUpload({
           // 文件上传失败
           'onUploadFailed': function (fileName, code, message) {
@@ -664,6 +665,13 @@ define(['App'], function(app) {
           vm.order = Common.getUrlParam('order');
           vm.dt = Common.getUrlParam('dt');
           vm.getExpOwnuri();
+          if(vm.dt == 1){
+            vm.docTypeName = '微课堂课程列表';
+          }else if(vm.dt == 2){
+            vm.docTypeName = '文件列表';
+          }else{
+            vm.docTypeName = '通知列表';
+          }
           if(vm.tid){
             vm.queryDeptDocs(vm.tid);
             vm.queryDeptDocTypes();

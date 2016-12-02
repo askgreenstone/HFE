@@ -9,6 +9,7 @@ define(['App'], function(app) {
         vm.typeId = '';
         vm.typeNm = '';
         vm.isDeptAdmin = true;
+        vm.docTypeName = '微课堂';
 
         vm.gotoLink = function(){
           location.href = '#/manage?session='+vm.sess+'&ida='+vm.ida;
@@ -170,6 +171,13 @@ define(['App'], function(app) {
           vm.dt = Common.getUrlParam('dt');
           vm.contentList = [{tn:'个人工作室',ida:0},{tn:'机构工作室',ida:1}];
           vm.abc = vm.ida == 0?vm.contentList[0]:vm.contentList[1];
+          if(vm.dt == 1){
+            vm.docTypeName = '微课堂';
+          }else if(vm.dt == 2){
+            vm.docTypeName = '文件';
+          }else{
+            vm.docTypeName = '通知';
+          }
           vm.checkUsrOrOrg();
           vm.queryDeptDocs();
         }
