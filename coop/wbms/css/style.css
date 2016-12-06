@@ -1029,7 +1029,7 @@ p {
   background: url('../image/loadmore.png') no-repeat center;
   height: 2rem;
   background-size: auto 100%;
-  margin: 0.5rem auto;
+  margin: 1rem auto;
 }
 .teamManage_addBox{
   width: 100%;
@@ -1070,13 +1070,24 @@ p {
   position: absolute;
   right: 10%;
   top: 0;
-  width: 30%;
+  width: 25%;
   height: auto;
   margin: 0;
   display: none;
 }
+.teamManage_lawyerList li img.teamManage_select{
+  position: absolute;
+  right: 10%;
+  top: 0;
+  width: 25%;
+  height: auto;
+  margin: 0;
+}
 li.teamManage_close img.teamManage_delete{
   display: block;
+}
+li.teamManage_close img.teamManage_select{
+  display: none;
 }
 .teamManage_submit{
   width: 100%;
@@ -1090,8 +1101,9 @@ li.teamManage_close img.teamManage_delete{
   line-height: 4rem;
   text-align: center;
   color: #fff;
-  background: #4ebe86;
+  border: 1px solid #d74218;
   float: right;
+  color: #d74218;
   font-size: 1.4rem;
 }
 /*loading*/

@@ -26,14 +26,19 @@ jQuery(function($){
       }else{
         alert('该律师已在机构团队中！')
       }
+      $(this).find('.teamManage_select').attr('src','../image/select_light.png')
     }else{
       $(this).removeClass('teamManage_selected');
       var showId = $(this).attr('showId');
       var selectLi = $('li[selectId='+showId+']');
       // console.log(selectLi);
       selectLi.remove();
+      $(this).find('.teamManage_select').attr('src','../image/select_gray.png')
     }
   }) 
+
+
+
   // 点击底部li关闭按钮，底部删除li，头部对应li改变状态
   $('#teamManage_selectList').on('click','.teamManage_delete',function(){
     // console.log(this);
@@ -42,12 +47,17 @@ jQuery(function($){
       var showLi = $('li[showId='+selectId+']');
       // console.log(showLi);
       showLi.removeClass('teamManage_selected');
+      showLi.find('.teamManage_select').attr('src','../image/select_gray.png');
+
     }
     $(this).parent().remove();
   })
 
+
+
+
   // 手动添加团队成员操作
-  $('.teamManage_addImg img').bind('click',function(){
+  $('.teamManage_addImg').bind('click',function(){
     var lawyerName = $('#lawyerName').val();
     var lawyerTel = $('#lawyerTel').val();
     var lawyerTellist = [];
@@ -153,6 +163,7 @@ jQuery(function($){
                   + '<div class="teamManage_imgBox"><img class="teamManage_headImg" src="'+head+'">'
                   + '<div class="teamManage_imgMark"><img src="../image/lawSelect.png"/></div></div>'
                   + '<p><span class="teamManage_title_name">'+data.el[i].n+'</span><span> 律师</span></p>'
+                  + '<img class="teamManage_select" src="../image/select_gray.png">'
                   + '<img class="teamManage_delete" src="../image/delete.png"></li>'
           }
           $('#teamManage_lawyerList').html(html);

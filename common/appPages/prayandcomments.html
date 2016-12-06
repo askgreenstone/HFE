@@ -179,7 +179,7 @@
         <div id="register"><img src="image/regist.png" /><span>我要注册</span></div>
       </div>
 		</div>
-    <div class="lawyer_source">通过【在线法律】平台 <span id="lawyerName"></span> 律师收到的赞</div>
+    <div class="lawyer_source"><span id="sourceType"></span><span id="lawyerName"></span> 律师收到的赞</div>
 		<div class="praise">
 			<div class="praise_left">
 				<img src="image/zan.png" width="48" height="48"> 
@@ -198,6 +198,7 @@
 	<script type="text/javascript">
 		var ownUri;
 		var status;
+    var st;
 		$(document).ready(function() {
 		  init();
 		});
@@ -206,13 +207,24 @@
 		function init(){
 		  ownUri = Common.getUrlParam('ownUri');
 		  status = Common.getUrlParam('status');
+      st = Common.getUrlParam('st');
 		  console.log(status);
 		  // 状态码  1显示律师信息  0隐藏
+      // sourceFrom 区分来源  在线法律平台传1，公众号传2，工作室传3，全部来源传0
 		  if(status == 0){
 		  	$('.lawyer').hide();
 		  }else{
 		  	$('.lawyer').show();
 		  }
+      if(st == 1){
+        $('#sourceType').text('通过【在线法律平台】平台 ');
+      }else if(st == 2){
+        $('#sourceType').text('通过 公众号 ');
+      }else if(st == 3){
+        $('#sourceType').text('通过 工作室 ');
+      }else{
+        $('#sourceType').text('');
+      }
 		  getUsrComment();
 		  $('#register').bind('click',function(){
 		  	window.location.href = Common.globalDistUrl() + 'coop/wbms/view/wxtemplate.html'
@@ -227,7 +239,7 @@
 		function getUsrComment(){
 			$.ajax({
 		    type: 'GET',
-		    url: Common.globalDistUrl() + 'usr/ExpertRaiseAndEvaluate.do?ou='+ownUri,
+		    url: Common.globalDistUrl() + 'usr/ExpertRaiseAndEvaluate.do?ou='+ownUri+'&st='+st,
 		    success: function(data) {
 		        //alert( 'success:' + JSON.stringify(data) );
 		        console.log(data);
