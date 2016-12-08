@@ -138,13 +138,13 @@ define(['App'], function(app) {
                       vm.menuLink('micro1');
                     }
                   }else{
-                    if(data.s == 0){
+                    if(data.ds == 0){
                       vm.menuLink('micro');
                       vm.editState = '开始定制'
-                    }else if(data.s == 1){
+                    }else if(data.ds == 1){
                       vm.menuLink('micro');
                       vm.editState = '继续定制'
-                    }else if(data.s == 2){
+                    }else if(data.ds == 2){
                       vm.menuLink('micro1');
                     }
                   }

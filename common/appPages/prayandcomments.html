@@ -210,7 +210,7 @@
       st = Common.getUrlParam('st');
 		  console.log(status);
 		  // 状态码  1显示律师信息  0隐藏
-      // sourceFrom 区分来源  在线法律平台传1，公众号传2，工作室传3，全部来源传0
+      // sourceFrom 区分来源  在线法律平台传1，公众号传2，名片传3，全部来源传0
 		  if(status == 0){
 		  	$('.lawyer').hide();
 		  }else{
@@ -221,7 +221,7 @@
       }else if(st == 2){
         $('#sourceType').text('通过 公众号 ');
       }else if(st == 3){
-        $('#sourceType').text('通过 工作室 ');
+        $('#sourceType').text('通过 名片 ');
       }else{
         $('#sourceType').text('');
       }
