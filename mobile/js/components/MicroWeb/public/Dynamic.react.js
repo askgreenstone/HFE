@@ -257,7 +257,7 @@ var Dynamic = React.createClass({
     // arr = JSON.stringify(str);
     console.log(arr);
     var eilArr = ['','公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
-    if(!arr){
+    if(arr.length < 1){
       descArr = ['公司企业','资本市场','证券期货']
     }else{
       for(var i = 0; i<arr.length; i++){
@@ -268,6 +268,7 @@ var Dynamic = React.createClass({
         }
       }
     }
+    console.log(descArr);
     var lawyerArr = descArr.slice(0,3);
     console.log(lawyerArr);
     return lawyerArr.join(" ");

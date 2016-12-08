@@ -279,12 +279,10 @@ var TimeAxis = React.createClass({
             <p className="timeline_box_title">{item.title?(item.title.length>6?item.title.substr(0,6)+'...':item.title):''}</p>
             <div className="timeline_action">
               <span className="timeline_action_read">{item.readnum?item.readnum:'0'}</span>
-              <span className="timeline_action_nice">{item.cnum?item.rnum:'0'}</span>
-              <span className="timeline_action_tip">{item.rnum?item.cnum:'0'}</span>
+              <span className="timeline_action_nice">{item.rnum?item.rnum:'0'}</span>
+              <span className="timeline_action_tip">{item.cnum?item.cnum:'0'}</span>
             </div>
           </div>
-          
-          
         </li>
        );
     }.bind(this));
