@@ -81,7 +81,7 @@ var Index021 = React.createClass({
     console.log(descArr);
     var lawyerArr = descArr.slice(0,3);
     console.log(lawyerArr);
-    return lawyerArr.join(" ");
+    return lawyerArr;
   },
   getServerInfo: function(){
     var ownUri = this.getUrlParams('ownUri');
