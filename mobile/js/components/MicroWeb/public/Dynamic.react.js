@@ -86,7 +86,12 @@ var Dynamic = React.createClass({
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
-    location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+    var isFrom = this.getUrlParams('isFrom');
+    if(isFrom == 'app'){
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+    }else{
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+    }
   },
   getDate: function(time){
     var now = new Date().getTime();
