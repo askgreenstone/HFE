@@ -265,11 +265,13 @@ var TimeAxis = React.createClass({
         appid = 'wx73c8b5057bb41735';
       }
     ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
+    var date = (new Date().getMonth()*1+1)+'-'+new Date().getDate();
+    console.log(date);
     var navNodes = this.state.TimeAxis.map(function(item,i){
       return(
         <li key={new Date().getTime()+i} className={i==0?"timeline timeline_first":(i%2 == 0?"timeline":"timeline_double")}>
           <div className="timeline_str"></div>
-          <p className="timeline_box_day">{new Date(item.ts).Format("MM-dd")}</p>
+          <p className={(new Date(item.ts).Format("MM-dd")==date)?'timeline_box_day':'timeline_box_day timeline_box_date'}>{(new Date(item.ts).Format("MM-dd")== date) ? '今天' : new Date(item.ts).Format("MM-dd")}</p>
           <p className="timeline_box_hour">{new Date(item.ts).Format("hh:mm")}</p>
           <div className="timeline_box_img_box">
             <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):(item.cil[0].il[0]?(global.img+item.cil[0].il[0]):(global.img+item.p))} width="70" height="70"  onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}/>
