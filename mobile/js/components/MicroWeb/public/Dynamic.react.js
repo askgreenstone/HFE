@@ -51,7 +51,8 @@ var Dynamic = React.createClass({
       expConsultWord1: '律师',
       expConsultWord2: '名片',
       newContentArray: [],
-      showFlag: false    //懒加载图片显示隐藏
+      showFlag: false,    //懒加载图片显示隐藏
+      isFrom: false        //app端不显示底部栏
     };
   },
   // 查询用户是否开通在线咨询功能
@@ -258,7 +259,14 @@ var Dynamic = React.createClass({
   transferArr: function(str){
     var arr =[]; 
     var descArr = [];
-    arr = str?str.replace(/\[/,"").replace(/\]/g,"").split(","):[];
+    if(str == "[]"){
+      arr = [];
+    }else if(str){
+      arr = str.replace(/\[/,"").replace(/\]/g,"").split(",");
+    }else{
+      arr = [];
+    }
+    // arr = str?str.replace(/\[/,"").replace(/\]/g,"").split(","):[];
     // arr = JSON.stringify(str);
     console.log(arr);
     var eilArr = ['','公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
@@ -274,7 +282,7 @@ var Dynamic = React.createClass({
       }
     }
     console.log(descArr);
-    var lawyerArr = descArr.slice(0,3);
+    var lawyerArr = descArr?descArr.slice(0,3):['公司企业','资本市场','证券期货'];
     console.log(lawyerArr);
     return lawyerArr.join(" ");
   },
@@ -359,7 +367,10 @@ var Dynamic = React.createClass({
     var fid = this.getUrlParams('fid');
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
-
+    var isFrom = this.getUrlParams('isFrom');
+    this.setState({
+      isFrom: isFrom
+    })
     this.getDynamicComment(false);
     this.getExpConsultState();
   }, 
@@ -445,7 +456,7 @@ var Dynamic = React.createClass({
             <span onClick={this.setComment}>发送</span>
           </div>
         </div>
-        <div className="dynamic_bot">
+        <div className="dynamic_bot" style={{display:this.state.isFrom?'none':'block'}}>
           <div className="dynamic_exp_top dynamic_exp_chat">
             <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="50" height="50"/>
             <p className="dynamic_exp_name">

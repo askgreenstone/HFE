@@ -1102,7 +1102,7 @@ p{
 /*时间轴页面*/
 .htmleaf_container{
   background: #f6f6f6;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 .timeline_container{
   width: 100%;
@@ -1115,8 +1115,8 @@ p{
 .timeline_str{
   width: 1px;
   height: 3rem;
-  margin: 1.5rem auto;
-  background: #878787; 
+  margin: 1rem auto;
+  background: #ddd; 
 }
 .timeline_time{
   width: 30%;
@@ -1130,11 +1130,12 @@ p{
 }
 .timeline_box_day{
   width: 100%;
-  height: 4rem;
-  line-height: 4rem;
+  height: 1.8rem;
+  line-height: 1.8rem;
   font-size: 1.8rem;
   color: #000;
   text-align: center;
+  margin-top: 1rem;
 }
 .timeline_box_date{
   color: #878787;
@@ -1142,7 +1143,8 @@ p{
 .timeline_box_hour{
   color: #878787;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 .timeline_box_img{
   display: block;
@@ -1154,19 +1156,19 @@ p{
 }
 .timeline_box_close{
   position: absolute;
-  left: 66%;
+  left: 63%;
   top: 30%;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 .timeline_box_link{
   width: 50%;
   text-align: right;
   cursor: pointer;
-  margin-left: 35px;
+  margin-left: 25px;
 }
 .timeline_box_title{
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #4b4b4b;
   margin: 1rem 0;
 }
@@ -1177,17 +1179,20 @@ p{
 .timeline_first .timeline_box_title{
   color: #d74218;
 }
+.timeline_first .timeline_box_day{
+  color: #000;
+}
 .timeline_first .timeline_str{
   display: none;
 }
 .timeline_double .timeline_box_close{
-  left: 25%;
+  left: 32%;
 }
 .timeline_double .timeline_box_link{
   margin-left: 50%;
   text-align: left;
   position: relative;
-  left: -35px;
+  left: -25px;
 }
 .timeline_double .timeline_action{
   margin-left: 0;
@@ -1198,6 +1203,7 @@ p{
   display: box;
   display: -webkit-box;
   margin-left: 20%;
+  color: #878787;
 }
 .timeline_action span{
   width: 33%;
@@ -1933,3 +1939,10 @@ div.dynamic_usr_content_title{
 //  
 //}
 
+
+
+@-moz-document url-prefix() {
+  #bottom .bottom-right section{
+    margin-top: 4%;
+  }
+}

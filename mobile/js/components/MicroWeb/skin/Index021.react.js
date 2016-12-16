@@ -99,9 +99,10 @@ var Index021 = React.createClass({
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
            this.setState({
-            nm:data.nm,
-            dp:data.dp,
-            expspecial:data.es?(this.transferArr(data.es).slice(0,3)):(this.transferArr("[1,2,3]"))
+            hI: data.hI,
+            nm: data.nm,
+            dp: data.dp,
+            expspecial: data.es?(this.transferArr(data.es).slice(0,3)):(this.transferArr("[1,2,3]"))
           });
         }
       }.bind(this),
@@ -319,7 +320,7 @@ var Index021 = React.createClass({
 					<div className="theme021_container">
             <div className="theme021_box">
               <div className="theme021_headImg">
-                <img src={global.img+this.state.bg} />
+                <img src={global.img+this.state.hI} />
               </div>
               <div className="theme021_content">
                 <div className="theme021_content_name">{this.state.nm}</div>
