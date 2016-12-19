@@ -85,13 +85,11 @@ var Dynamic = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
-    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
-    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
     var isFrom = this.getUrlParams('isFrom');
     if(isFrom == 'app'){
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app';
     }else{
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf;
     }
   },
   getDate: function(time){
@@ -157,7 +155,9 @@ var Dynamic = React.createClass({
             usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
             esl: data.r.fl[0].esl,
             Title: data.r.fl[0].title,
-            showFlag: flag
+            showFlag: flag,
+            idf: data.r.fl[0].idf,
+            ida: data.r.fl[0].ida
           })
           console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
