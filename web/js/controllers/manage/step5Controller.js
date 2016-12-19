@@ -416,10 +416,18 @@ define(['App'], function(app) {
                     vm.choosePic = data.sil[0].spu;
                     vm.isServerData = true;
                   }else{
-                    vm.user = {
-                      title:'我的工作室',
-                      desc:'欢迎访问我的工作室，您可以直接在线咨询我',
-                      preview:'batchdeptlogo20160811_W108_H108_S15.png'
+                    if(vm.ida == 0){
+                       vm.user = {
+                          title:'我的名片',
+                          desc:'欢迎访问我的名片，您可以直接在线咨询我',
+                          preview:'batchdeptlogo20160811_W108_H108_S15.png'
+                        } 
+                    }else{
+                        vm.user = {
+                          title:'我的机构简介',
+                          desc:'我的机构简介',
+                          preview:'batchdeptlogo20160811_W108_H108_S15.png'
+                        }
                     }
                   }
                   setTimeout(function() {

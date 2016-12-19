@@ -292,7 +292,7 @@ var Dynamic = React.createClass({
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     var st = this.getUrlParams('st')?this.getUrlParams('st'):3;
-    // st  3  入口为个人工作室入口
+    // st  3  入口为个人名片入口
     var data = {
       t: 99,
       ml: [ownUri,usrUri],
@@ -325,7 +325,7 @@ var Dynamic = React.createClass({
       success: function(data) {
         console.log(data);
         if(data.c == 1999){
-          alert('该律师还没有创建个人工作室');
+          alert('该律师还没有创建个人名片');
         }else{
           window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
         }

@@ -90,14 +90,14 @@ var Card = React.createClass({
           }else{
             if(ida == 1){
               this.setState({
-                Title:(data.dnm?data.dnm:'我的')+'机构工作室',
-                Introduction:'欢迎访问我的机构工作室，您可以直接在线咨询我',
+                Title:(data.dnm?data.dnm:'我的')+'机构简介',
+                Introduction:'欢迎访问'+(data.dnm?data.dnm:'我的')+'机构简介',
                 Img:'batchdeptlogo20160811_W108_H108_S15.png'
               });
             }else{
               this.setState({
-                Title:(data.enm?data.enm+'律师的':'我的')+'工作室',
-                Introduction:'欢迎访问我的工作室，您可以直接在线咨询我',
+                Title:(data.enm?data.enm+'律师的':'我的')+'名片',
+                Introduction:'欢迎访问我的名片，您可以直接在线咨询我',
                 Img:'batchdeptlogo20160811_W108_H108_S15.png'
               });
             }
@@ -260,7 +260,7 @@ var Card = React.createClass({
               <div onClick={this.itdToggle} style={{display:this.state.itdd?'block':'none'}}>全文</div>
             </div>
             <div className="user_create">
-                <a href="http://dist.green-stone.cn/coop/wbms/view/wxtemplate.html">创建我的工作室</a>
+                <a href="http://dist.green-stone.cn/coop/wbms/view/wxtemplate.html">创建我的名片</a>
             </div>
           </div>
           <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="card"/>

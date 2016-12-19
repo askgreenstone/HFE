@@ -207,7 +207,7 @@ var Board = React.createClass({
     }
     console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
     if(!this.state.indexTheme){
-      this.showNotice('该专家尚未开通个人工作室业务');
+      this.showNotice('该专家尚未开通个人名片业务');
     }else{
       window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
     }

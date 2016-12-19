@@ -22,11 +22,11 @@ var Toolbar = React.createClass({
 	},
   join: function(e){
     e.stopPropagation();
-    this.showNotice('工作室可以连接到您所在的组织机构或合作单位网络，彰显实力和集群效应。详询 <a style="text-decoration:underline;font-weight:bold;color:#53B920" href="tel://861057173025">+86 10 5717 3025</a>');
+    this.showNotice('名片可以连接到您所在的组织机构或合作单位网络，彰显实力和集群效应。详询 <a style="text-decoration:underline;font-weight:bold;color:#53B920" href="tel://861057173025">+86 10 5717 3025</a>');
   },
   wxpublic: function(e){
     e.stopPropagation();
-    this.showNotice('工作室可以嵌入微信公众号，让您运营自己的品牌，与客户实时互动、在线收费和提供服务。这需要您提供或申请微信公众号，详询 <a style="text-decoration:underline;font-weight:bold;color:#53B920" href="tel://861057173025">+86 10 5717 3025</a>');
+    this.showNotice('名片可以嵌入微信公众号，让您运营自己的品牌，与客户实时互动、在线收费和提供服务。这需要您提供或申请微信公众号，详询 <a style="text-decoration:underline;font-weight:bold;color:#53B920" href="tel://861057173025">+86 10 5717 3025</a>');
   },
   gotoWbms: function(which){
     var sess = this.getUrlParams('sess');

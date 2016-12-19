@@ -194,8 +194,8 @@ jQuery(function($) {
                       shareId = data.sil[0].si;
                       shareImg = data.sil[0].spu;
                   }else {
-                      $("#title").val('我的工作室');
-                      $("#desc").val('欢迎访问我的工作室，您可以直接在线咨询我');
+                      $("#title").val('我的名片');
+                      $("#desc").val('欢迎访问我的名片，您可以直接在线咨询我');
                       $("#share_preview").attr('src',Common.globalTransferUrl() + 'batchdeptlogo20160811_W108_H108_S15.png');
                       shareImg = 'batchdeptlogo20160811_W108_H108_S15.png';
                   }
