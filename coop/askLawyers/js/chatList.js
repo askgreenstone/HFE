@@ -13,6 +13,7 @@ var sendMsgTs = new Date().getTime();
 var globalMsgList = [];
 var expType = '';
 var st;
+var doubleClickFlag = true;
 
 
 $(function() {
@@ -198,9 +199,23 @@ $(function() {
       return s_x;
     }
 
-    
+    //多次点击控制
+    function controlTimes(){
+      if(doubleClickFlag){
+          gotoConsult();
+          doubleClickFlag = false;
+      }
+      setTimeout(function(){
+          doubleClickFlag = true;
+      },1000);
+    }
 
-    $("#chat_btn").on('click', function() {
+
+    // 发送聊天
+    $('#chat_btn').bind('click', controlTimes);
+
+
+    function gotoConsult() {
         // sendText();
         var userInput = $('.chat_inp').val(),
             gi = Common.getUrlParam('groupId'),
@@ -252,7 +267,7 @@ $(function() {
                 alert('系统开了小差，请刷新页面');
             }
         });
-    })
+    }
 
     function getGroupInfo() {
         if (!session || !gi) return;

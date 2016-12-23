@@ -89,7 +89,7 @@ var Dynamic = React.createClass({
     if(isFrom == 'app'){
       location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app';
     }else{
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf;
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf;
     }
   },
   getDate: function(time){
@@ -383,15 +383,8 @@ var Dynamic = React.createClass({
     console.log(ShareDesc);
     var temp,appid,ShareUrl;
     // 时间轴，动态详情页面分享需要授权
-    var str = window.location.href;
-    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
-        temp = 't-web';
-        appid = 'wx2858997bbc723661';
-      }else{
-        temp = 'web';
-        appid = 'wx73c8b5057bb41735';
-      }
-    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNewsDetail_'+ownUri+'_'+fid+'_0'+'#wechat_redirect';
+    ShareUrl = window.location.href;
+    console.log(ShareUrl);
     var imgList = this.state.imgLists.map(function(item,i){
       return(
         <img key={new Date().getTime()+i} src={global.img+item+'@400w'}/>
@@ -440,12 +433,15 @@ var Dynamic = React.createClass({
           <div className="dynamic_usr_news">
             <span className="dynamic_usr_latest"></span>
             <span className="dynamic_usr_read">{this.state.readNo}</span>
-            <span className={this.state.praiseFlag?"dynamic_usr_img dynamic_usr_img_nice":"dynamic_usr_img"} onClick={this.setPraise}>{this.state.niceNo}</span>
-            <span className="dynamic_usr_wc" onClick={this.wirteComment}>{this.state.contentNo}</span>
+            <span className={this.state.praiseFlag?"dynamic_usr_img dynamic_usr_img_nice":"dynamic_usr_img"}>{this.state.niceNo}</span>
+            <span className="dynamic_usr_wc">{this.state.contentNo}</span>
           </div>
-          <div className="dynamic_usr_content_title">最新评论</div> 
-          <div className="dynamic_usr_content">
-            {usrContent}         
+          <div style={{display:this.state.usrContents.length>1?'block':'none'}}>
+            <div className="dynamic_usr_content_title">最新评论</div> 
+            <div className="dynamic_usr_content">
+              {usrContent}         
+            </div>
+          
           </div>
           <div className="dynamic_blank_box"></div>
           
@@ -466,7 +462,7 @@ var Dynamic = React.createClass({
             </p>
           </div>
         </div>       
-        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic" targetUrl={ShareUrl}/>
+        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic" />
       </div>
     )
   }

@@ -41,7 +41,7 @@ var TimeAxis = React.createClass({
   },
   gotoLink: function(path,fid,session,usrUri){
     var ida = this.getUrlParams('ida');
-    var idf = this.getUrlParams('idf');
+    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
     var ownUri = this.getUrlParams('ownUri');
     var isFrom = this.getUrlParams('isFrom');
     if(!fid){
@@ -49,19 +49,18 @@ var TimeAxis = React.createClass({
     }else{
       console.log(global.url);
       if(isFrom == 'app'){
-        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&ida='+ida+'&idf='+idf+'&isFrom=app';
       }else{
-        location.href = global.url+'/usr/FeedDetailRedirct.do?ownUri='+ownUri+'&fid='+fid+'&session='+session+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf;
+        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&ida='+ida+'&idf='+idf;
       }
     }
   },
   getServerInfo: function(){
-    var session = this.getUrlParams('session');
     var ownUri = this.getUrlParams('ownUri');
     var ei = ownUri.replace('e','');
     $.ajax({
       type:'get',
-      url: global.url+'/exp/ExpertInfo.do?session='+ session+'&ei='+ei,
+      url: global.url+'/exp/ExpertInfo.do?ei='+ei,
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
@@ -257,21 +256,22 @@ var TimeAxis = React.createClass({
     var temp,appid,ShareUrl;
     console.log(this.state.TimeAxis);
     // 时间轴，动态详情页面分享需要授权
-    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
-        temp = 't-web';
-        appid = 'wx2858997bbc723661';
-      }else{
-        temp = 'web';
-        appid = 'wx73c8b5057bb41735';
-      }
-    ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
-    var date = (new Date().getMonth()*1+1)+'-'+new Date().getDate();
-    console.log(date);
+    // if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+    //     temp = 't-web';
+    //     appid = 'wx2858997bbc723661';
+    //   }else{
+    //     temp = 'web';
+    //     appid = 'wx73c8b5057bb41735';
+    //   }
+    // ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
+    ShareUrl = window.location.href;
+    var nowDate = (new Date().getMonth()*1+1)+'-'+new Date().getDate();
+    console.log(nowDate);
     var navNodes = this.state.TimeAxis.map(function(item,i){
       return(
         <li key={new Date().getTime()+i} className={i==0?"timeline timeline_first":(i%2 == 0?"timeline":"timeline_double")}>
           <div className="timeline_str"></div>
-          <p className={(new Date(item.ts).Format("MM-dd")==date)?'timeline_box_day':'timeline_box_day timeline_box_date'}>{(new Date(item.ts).Format("MM-dd")== date) ? '今天' : new Date(item.ts).Format("MM-dd")}</p>
+          <p className={(new Date(item.ts).Format("MM-dd")==nowDate)?'timeline_box_day':'timeline_box_day timeline_box_date'}>{(new Date(item.ts).Format("MM-dd")== nowDate) ? '今天' : new Date(item.ts).Format("MM-dd")}</p>
           <p className="timeline_box_hour">{new Date(item.ts).Format("hh:mm")}</p>
           <div className="timeline_box_img_box">
             <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):(item.cil[0].il[0]?(global.img+item.cil[0].il[0]):(global.img+item.p))} width="56" height="56"  onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}/>
@@ -295,7 +295,7 @@ var TimeAxis = React.createClass({
         {navNodes}
       </ul>
       <div className="timeline_more" style={{display:this.state.getMore?'block':'none'}}><span onClick={this.getMoreData}>加载更多</span></div>
-      <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="TimeAxis" targetUrl={ShareUrl}/>
+      <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="TimeAxis" />
     </div>
   )
   }

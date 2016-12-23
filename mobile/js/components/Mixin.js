@@ -388,14 +388,16 @@ var CommonMixin = {
       var str = window.location.href;
       var temp,appid;
       // 时间轴页面需要授权
-      if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
-          temp = 't-web';
-          appid = 'wx2858997bbc723661';
-        }else{
-          temp = 'web';
-          appid = 'wx73c8b5057bb41735';
-        }
-      window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
+      // 乔凡：2016年12月23日取消授权操作
+      // if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+      //     temp = 't-web';
+      //     appid = 'wx2858997bbc723661';
+      //   }else{
+      //     temp = 'web';
+      //     appid = 'wx73c8b5057bb41735';
+      //   }
+      // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
+      window.location.href = '#TimeAxis?ownUri='+ownUri+'&ida='+ida;
      }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
       this.getExpConsult(ownUri,ida,st);

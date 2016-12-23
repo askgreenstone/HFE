@@ -12,15 +12,16 @@ var Share = React.createClass({
             ntid = this.getUrlParams('ntid'),
             nid = this.getUrlParams('nid'),
             ida = this.getUrlParams('ida'),
-            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target+'&ntid='+ntid+'&nid='+nid+'&ida='+ida,
+            fid = this.getUrlParams('fid'),
+            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target+'&ntid='+ntid+'&nid='+nid+'&fid='+fid+'&ida='+ida,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
             wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
         // alert(currentPath);
         if(!ownUri) return;
-        if(this.props.target == 'Dynamic' || this.props.target == 'TimeAxis'){
-          currentPath = this.props.targetUrl;
-        }
+        // if(this.props.target == 'Dynamic' || this.props.target == 'TimeAxis'){
+        //   currentPath = this.props.targetUrl;
+        // }
         // alert('currentPath:'+currentPath+',wxPath:'+wxPath);
         // alert('uri:' + uri);
         $.ajax({
