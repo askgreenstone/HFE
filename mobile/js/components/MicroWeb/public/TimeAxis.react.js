@@ -96,6 +96,7 @@ var TimeAxis = React.createClass({
     var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
     var isFrom = this.getUrlParams('isFrom');
     var url;
+    // p字段区分公开私密动态
     if(isFrom == 'app'){
       url = global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=10&fid='+fid+'&idf='+idf+'&p=1';
     }else{
@@ -225,9 +226,9 @@ var TimeAxis = React.createClass({
     }).appendTo($body);
   },
   componentWillMount:function(){
+    this.getServerInfo();
     this.getIndexTheme();
     this.getTimeAxis(0);
-    this.getServerInfo();
     var usrUri = this.getUrlParams('usrUri');
     var ownUri = this.getUrlParams('ownUri');
     this.setState({

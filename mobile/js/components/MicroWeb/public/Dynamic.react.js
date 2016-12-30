@@ -287,35 +287,28 @@ var Dynamic = React.createClass({
     return lawyerArr.join(" ");
   },
   gotoConsult:function(){
-    var session = this.getUrlParams('session');
     var ownUri = this.getUrlParams('ownUri');
-    var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     var st = this.getUrlParams('st')?this.getUrlParams('st'):3;
+    var doubleClickFlag = true;
+    var str = window.location.href;
+    var temp,appid;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+        temp = 't-web';
+        appid = 'wx2858997bbc723661';
+      }else{
+        temp = 'web';
+        appid = 'wx73c8b5057bb41735';
+      }
     // st  3  入口为个人名片入口
-    var data = {
-      t: 99,
-      ml: [ownUri,usrUri],
-      st: st
+    if(doubleClickFlag){
+      doubleClickFlag = false;
+      
+      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthForChat.do&response_type=code&scope=snsapi_userinfo&state=micwebchat_'+ownUri+'_'+ida+'_0_'+st+'#wechat_redirect';
+      setTimeout(function(){
+        doubleClickFlag = true;
+      },3000);
     }
-    $.ajax({
-      type: 'POST',
-      url: global.url+'/usr/CreateGroup.do?session='+session,
-      data: JSON.stringify({
-        t: 99,
-        ml: [ownUri,usrUri],
-        st: 3
-      }),
-      success: function(data) {
-        console.log(data);
-        if(data.c == 1000){
-          window.location.href = global.url + '/coop/askLawyers/view/chatList.html?session='+session+'&groupId='+data.gi+'&ownUri='+ownUri+'&status=chatLawyers&usrUri='+usrUri+'&ida='+ida;
-        }
-      }.bind(this),
-      error: function(data) {
-          alert('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
   },
   gotoIndex: function(){
     var ownUri = this.getUrlParams('ownUri');
