@@ -49,7 +49,7 @@ var TimeAxis = React.createClass({
     }else{
       console.log(global.url);
       if(isFrom == 'app'){
-        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&session='+session+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app';
       }else{
         location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&ida='+ida+'&idf='+idf;
       }
@@ -58,6 +58,7 @@ var TimeAxis = React.createClass({
   getServerInfo: function(){
     var ownUri = this.getUrlParams('ownUri');
     var ei = ownUri.replace('e','');
+    var idf = this.getUrlParams('idf');
     $.ajax({
       type:'get',
       url: global.url+'/exp/ExpertInfo.do?ei='+ei,
@@ -66,12 +67,19 @@ var TimeAxis = React.createClass({
         console.log(data);
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
-           this.setState({
-            headImg: data.p?data.p:'batchdeptlogo20160811_W108_H108_S15.png',
-            lawyerName: data.n,
-            departImg: data.cl?data.cl:'batchdeptlogo20160811_W108_H108_S15.png',
-            departName: data.cn
-          });
+          if(idf == 0){
+            this.setState({
+              ShareTitile : data.n+'律师与您分享了TA的足迹',
+              ShareDesc : '邀请您一起来看看'+data.n+'律师最近都在忙些什么',
+              ShareImg : data.p?data.p:'batchdeptlogo20160811_W108_H108_S15.png'
+            })
+          }else{
+            this.setState({
+              ShareTitile : data.cn+'律师与您分享了TA的足迹',
+              ShareDesc : '邀请您一起来看看'+data.cn+'律师最近都在忙些什么',
+              ShareImg : data.cl?data.cl:'batchdeptlogo20160811_W108_H108_S15.png'
+            })
+          }
         }
       }.bind(this),
       error: function(xhr, status, err) {
@@ -237,18 +245,6 @@ var TimeAxis = React.createClass({
   }, 
   render: function() {
     var ida = this.getUrlParams('ida');
-    var ShareTitile;
-    var ShareDesc;
-    var ShareImg;
-    if(ida == 0){
-      ShareTitile = this.state.lawyerName+'律师与您分享了TA的足迹';
-      ShareDesc = '邀请您一起来看看'+this.state.lawyerName+'律师最近都在忙些什么';
-      ShareImg = this.state.headImg;
-    }else{
-      ShareTitile = this.state.departName+'与您分享了TA的足迹';
-      ShareDesc = '邀请您一起来看看'+this.state.departName+'最近都在忙些什么';
-      ShareImg = this.state.departImg;
-    }
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
     var ownUri = this.getUrlParams('ownUri');
@@ -256,15 +252,10 @@ var TimeAxis = React.createClass({
     var str = window.location.href;
     var temp,appid,ShareUrl;
     console.log(this.state.TimeAxis);
-    // 时间轴，动态详情页面分享需要授权
-    // if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
-    //     temp = 't-web';
-    //     appid = 'wx2858997bbc723661';
-    //   }else{
-    //     temp = 'web';
-    //     appid = 'wx73c8b5057bb41735';
-    //   }
-    // ShareUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
+    // 控制台打印分享信息
+    console.log(this.state.ShareTitile);
+    console.log(this.state.ShareDesc);
+    console.log(this.state.ShareImg);
     ShareUrl = window.location.href;
     var nowDate = (new Date().getMonth()*1+1)+'-'+new Date().getDate();
     console.log(nowDate);
@@ -296,7 +287,7 @@ var TimeAxis = React.createClass({
         {navNodes}
       </ul>
       <div className="timeline_more" style={{display:this.state.getMore?'block':'none'}}><span onClick={this.getMoreData}>加载更多</span></div>
-      <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="TimeAxis" />
+      <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="TimeAxis" />
     </div>
   )
   }

@@ -69,6 +69,7 @@
               ownUri = getUrlParams('ownUri'),
               ntid = getUrlParams('ntid'),
               ida = getUrlParams('ida'),
+              idf = getUrlParams('idf')?getUrlParams('idf'):0,
               fid = getUrlParams('fid'),
               nid = getUrlParams('nid');
           if(nid){
@@ -76,9 +77,9 @@
           }else if(ntid){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
           }else if(fid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&fid='+fid+'&ida='+ida;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&fid='+fid+'&ida='+ida+'&idf='+idf;
           }else{
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
           }
       });
      function getUrlParams(p) {

@@ -87,9 +87,9 @@ var Dynamic = React.createClass({
     var usrUri = this.getUrlParams('usrUri');
     var isFrom = this.getUrlParams('isFrom');
     if(isFrom == 'app'){
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app';
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app';
     }else{
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf;
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&ida='+this.state.ida+'&idf='+this.state.idf;
     }
   },
   getDate: function(time){
@@ -368,14 +368,13 @@ var Dynamic = React.createClass({
     this.getExpConsultState();
   }, 
   render: function() {
-    var ShareTitile = this.state.Title;
-    var ShareDesc = this.state.Introduction;
-    var ShareImg = this.state.Img;
+    // 控制台打印分享信息
+    console.log(this.state.Title);
+    console.log(this.state.Introduction);
+    console.log(this.state.Img);
     var ownUri = this.getUrlParams('ownUri');
     var fid = this.getUrlParams('fid');
-    console.log(ShareDesc);
     var temp,appid,ShareUrl;
-    // 时间轴，动态详情页面分享需要授权
     ShareUrl = window.location.href;
     console.log(ShareUrl);
     var imgList = this.state.imgLists.map(function(item,i){
@@ -455,7 +454,7 @@ var Dynamic = React.createClass({
             </p>
           </div>
         </div>       
-        <Share title={ShareTitile} desc={ShareDesc} imgUrl={global.img+ShareImg} target="Dynamic" />
+        <Share title={this.state.Title} desc={this.state.Introduction} imgUrl={global.img+this.state.Img} target="Dynamic" />
       </div>
     )
   }
