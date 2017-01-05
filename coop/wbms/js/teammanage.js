@@ -114,9 +114,11 @@ jQuery(function($){
         ea: arr
       }
       console.log(data);
+
+      // AddExpToDept  接口增加 "ifa" 参数，安卓和web端传1，iOS不用动
       $.ajax({
         type : 'POST',
-        url : Common.globalDistUrl() + 'exp/AddExpToDept.do?session='+ session,
+        url : Common.globalDistUrl() + 'exp/AddExpToDept.do?session='+ session+'&ifa=1',
         data: JSON.stringify(data),
         dataType:'json',
         contentType:'application/json',

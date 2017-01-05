@@ -266,7 +266,7 @@ var TimeAxis = React.createClass({
           <p className={(new Date(item.ts).Format("MM-dd")==nowDate)?'timeline_box_day':'timeline_box_day timeline_box_date'}>{(new Date(item.ts).Format("MM-dd")== nowDate) ? '今天' : new Date(item.ts).Format("MM-dd")}</p>
           <p className="timeline_box_hour">{new Date(item.ts).Format("hh:mm")}</p>
           <div className="timeline_box_img_box">
-            <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):(item.cil[0].il[0]?(global.img+item.cil[0].il[0]):(global.img+item.p))} width="56" height="56"  onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}/>
+            <img className="timeline_box_img" src={item.il[0]?(global.img+item.il[0]):(item.cil?(item.cil[0].il[0]?(global.img+item.cil[0].il[0]):(global.img+item.p)):(global.img+item.p))} width="56" height="56"  onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}/>
             <img className="timeline_box_close" onClick={this.deleteDynamic.bind(this,item.fid)} style={{display:this.state.isSelf?'block':'none'}} src="image/delete.png" />
           </div>
           <div className="timeline_box_link" onClick={this.gotoLink.bind(this,'Dynamic',item.fid,session,usrUri,ida,idf)}>

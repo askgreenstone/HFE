@@ -492,20 +492,26 @@ define(['App'], function(app) {
             alert('请填写讲师姓名！');
             return;
           }else if(vm.calLength(vm.newFileExpNm)>18){
-            alert('课程名称不能超过18个字符！')
+            alert('课程名称不能超过18个字符！');
+            return;
           }
 
           if(!vm.newFileTitle){
             alert('请填写课程名称！');
             return;
           }else if(vm.calLength(vm.newFileTitle)>72){
-            alert('课程名称不能超过72个字符！')
+            alert('课程名称不能超过72个字符！');
+            return;
           }
 
           if(!vm.newFileContent){
             alert('请填写课程简介！');
             return;
+          }else if(vm.calLength(vm.newFileContent)>512){
+            alert('课程名称不能超过512个字符！');
+            return;
           }
+
           if(vm.tid){
             var data = {
               li: [{

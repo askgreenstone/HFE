@@ -99,6 +99,11 @@
 						<div class="mb_input mc_input">
 							<i class="area">课程简介：</i>
 							<textarea ng-model="vm.newFileContent" placeholder="课程简介"></textarea>
+							<div class="step5_validate">
+								<span ng-class="vm.calLength(vm.newFileContent)>512?'red':''">
+								{{vm.calLength(vm.newFileContent)}}</span><i> / 512</i>
+								<b ng-show="vm.calLength(vm.newFileContent)>512">字数超过限制</b>
+							</div>
 						</div>
 						<div class="mb_input mc_input input_file_fix">
 							<i>课程文件：</i>
