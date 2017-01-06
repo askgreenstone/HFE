@@ -108,17 +108,19 @@ jQuery(function($){
         })      
       }
       var di = Common.getUrlParam('ei');
+      // AddExpToDept  接口增加 "ifa" 参数，安卓和web端传1，iOS不用动
       var data = {
         di: di,
         ida: 0,
-        ea: arr
+        ea: arr,
+        ifa: 1
       }
       console.log(data);
 
-      // AddExpToDept  接口增加 "ifa" 参数，安卓和web端传1，iOS不用动
+      
       $.ajax({
         type : 'POST',
-        url : Common.globalDistUrl() + 'exp/AddExpToDept.do?session='+ session+'&ifa=1',
+        url : Common.globalDistUrl() + 'exp/AddExpToDept.do?session='+ session,
         data: JSON.stringify(data),
         dataType:'json',
         contentType:'application/json',
