@@ -1,6 +1,7 @@
 var session = Common.getUrlParam('session');
 var keyWord = Common.getUrlParam('keyWord');
 var pageCount = 0;
+var doubleClickFlag = true;
 
 
 
@@ -86,8 +87,21 @@ jQuery(function($){
     }
   })
 
+  //多次点击控制
+  function controlTimes(){
+    if(doubleClickFlag){
+        submitTeamNumbers();
+        doubleClickFlag = false;
+    }
+    setTimeout(function(){
+        doubleClickFlag = true;
+    },1000);
+  }
+
   // 点击提交按钮
-  $('#teamManage_submit').bind('click',function(){
+  $('#teamManage_submit').bind('click',controlTimes);
+
+  function submitTeamNumbers(){
     var list = $('#teamManage_selectList li');
     var ownUri = Common.getUrlParam('ei');
     var from = Common.getUrlParam('from');
@@ -140,9 +154,10 @@ jQuery(function($){
           alert('网络连接错误或服务器异常！');
         }
       })
-
     }
-  })
+  }
+    
+  
   // 页面初始化获取模糊查询机构成员（分页处理）
   function getOrgMember(page){
     var on = Common.getUrlParam('on');
