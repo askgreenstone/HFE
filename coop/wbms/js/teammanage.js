@@ -95,7 +95,7 @@ jQuery(function($){
     }
     setTimeout(function(){
         doubleClickFlag = true;
-    },1000);
+    },3000);
   }
 
   // 点击提交按钮

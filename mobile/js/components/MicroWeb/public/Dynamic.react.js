@@ -192,7 +192,8 @@ var Dynamic = React.createClass({
       alert('请输入要发送的内容！');
       return;
     }else if(this.callength(val) >= 1000){
-      alert('你输入的内容过长！')
+      alert('你输入的内容过长！');
+      return;
     }else{
       var data = {
         fid: fid,
@@ -230,9 +231,9 @@ var Dynamic = React.createClass({
     var session = this.getUrlParams('session');
     var fid = this.getUrlParams('fid');
     if(flag){
-      alert('已经点过赞了！')
+      alert('已经点过赞了！');
+      return;
     }else{
-      
       var data = {
         fid: fid,
         t: 1
