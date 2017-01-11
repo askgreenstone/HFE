@@ -64,8 +64,13 @@ var Index020 = require('./components/MicroWeb/skin/Index020.react');
 var Index021 = require('./components/MicroWeb/skin/Index021.react');
 //皮肤二十二（d9x设计出品 上图下文底部菜单竖向罗列）
 var Index022 = require('./components/MicroWeb/skin/Index022.react');
-//皮肤二十二（d9x设计出品 上图下文左下角菜单竖向罗列）
+//皮肤二十三（d9x设计出品 上图下文左下角菜单竖向罗列）
 var Index023 = require('./components/MicroWeb/skin/Index023.react');
+//皮肤二十四（d9x设计出品 上图下文左下角菜单竖向罗列）
+var Index024 = require('./components/MicroWeb/skin/Index024.react');
+
+
+
 //公共组件承载页面
 var Photo = require('./components/MicroWeb/public/Photo.react');
 var Single = require('./components/MicroWeb/public/Single.react');
@@ -122,7 +127,7 @@ ReactDOM.render((
     <Route path="/index021" component={Index021}/>
     <Route path="/index022" component={Index022}/>
     <Route path="/index023" component={Index023}/>
-
+    <Route path="/index024" component={Index024}/>
 
     
     <Route path="/photo" component={Photo}/>

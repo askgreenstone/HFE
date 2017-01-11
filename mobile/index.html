@@ -12,47 +12,157 @@
         width: 60px;
 	    height: 60px;
 	    position: absolute;
+        background: #fff;
 	    top: 50%;
 	    left: 50%;
 	    margin: -30px 0 0 -30px;
         z-index: -1;
+        padding: 5px;
+        box-sizing: border-box;
     }
     
     .spinner-bounce-circle div {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: #53c8ff;
-        opacity: 0.6;
+        background-size: 100%;
         position: absolute;
         top: 0;
         left: 0;
-        -webkit-animation: circlebounce 2.0s infinite ease-in-out;
-        animation: circlebounce 2.0s infinite ease-in-out;
+        -webkit-animation: circlebounce 10s infinite ease-in-out;
+        animation: circlebounce 10s infinite ease-in-out;
     }
     
-    .spinner-bounce-circle div:nth-child(1) {
-        -webkit-animation-delay: -1.0s;
-        animation-delay: -1.0s;
-    }
     
     @-webkit-keyframes circlebounce {
-        0%,
-        100% {
-            -webkit-transform: scale(0.0)
+        0%{
+            background-image: url('image/loading/1.png');
         }
-        50% {
-            -webkit-transform: scale(1.0)
+        5%{
+            background-image: url('image/loading/2.png');
+        }
+        10%{
+            background-image: url('image/loading/3.png');
+        }
+        15%{
+            background-image: url('image/loading/4.png');
+        }
+        20%{
+            background-image: url('image/loading/5.png');
+        }
+        25%{
+            background-image: url('image/loading/6.png');
+        }
+        30%{
+            background-image: url('image/loading/7.png');
+        }
+        35%{
+            background-image: url('image/loading/8.png');
+        }
+        40%{
+            background-image: url('image/loading/9.png');
+        }
+        45%{
+            background-image: url('image/loading/10.png');
+        }
+        50%{
+            background-image: url('image/loading/11.png');
+        }
+        55%{
+            background-image: url('image/loading/12.png');
+        }
+        60%{
+            background-image: url('image/loading/13.png');
+        }
+        65%{
+            background-image: url('image/loading/14.png');
+        }
+        70%{
+            background-image: url('image/loading/15.png');
+        }
+        75%{
+            background-image: url('image/loading/16.png');
+        }
+        80%{
+            background-image: url('image/loading/17.png');
+        }
+        85%{
+            background-image: url('image/loading/18.png');
+        }
+        90%{
+            background-image: url('image/loading/19.png');
+        }
+        95%{
+            background-image: url('image/loading/20.png');
+        }
+        100%{
+            background-image: url('image/loading/21.png');
         }
     }
     
     @keyframes circlebounce {
-        0%,
-        100% {
-            transform: scale(0.0);
+        0%{
+            background-image: url('image/loading/1.png');
         }
-        50% {
-            transform: scale(1.0);
+        5%{
+            background-image: url('image/loading/2.png');
+        }
+        10%{
+            background-image: url('image/loading/3.png');
+        }
+        15%{
+            background-image: url('image/loading/4.png');
+        }
+        20%{
+            background-image: url('image/loading/5.png');
+        }
+        25%{
+            background-image: url('image/loading/6.png');
+        }
+        30%{
+            background-image: url('image/loading/7.png');
+        }
+        35%{
+            background-image: url('image/loading/8.png');
+        }
+        40%{
+            background-image: url('image/loading/9.png');
+        }
+        45%{
+            background-image: url('image/loading/10.png');
+        }
+        50%{
+            background-image: url('image/loading/11.png');
+        }
+        55%{
+            background-image: url('image/loading/12.png');
+        }
+        60%{
+            background-image: url('image/loading/13.png');
+        }
+        65%{
+            background-image: url('image/loading/14.png');
+        }
+        70%{
+            background-image: url('image/loading/15.png');
+        }
+        75%{
+            background-image: url('image/loading/16.png');
+        }
+        80%{
+            background-image: url('image/loading/17.png');
+        }
+        85%{
+            background-image: url('image/loading/18.png');
+        }
+        90%{
+            background-image: url('image/loading/19.png');
+        }
+        95%{
+            background-image: url('image/loading/20.png');
+        }
+        100%{
+            background-image: url('image/loading/21.png');
         }
     }
     </style>
@@ -61,7 +171,6 @@
 <body>
     <div id="myapp">
       <div class="spinner-bounce-circle">
-        <div></div>
         <div></div>
       </div>
     </div>

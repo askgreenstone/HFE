@@ -92,7 +92,7 @@ define(['App'], function(app) {
 
         vm.goBack = function(){
           // $window.history.back();
-          $window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida;
+          $window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida+'&dt='+vm.dt;
         };
 
         vm.calLength = function(cur){
@@ -441,6 +441,34 @@ define(['App'], function(app) {
               
           }
         }
+        // 上传文件成功后调convert接口
+        vm.gotoConvert = function(ossname) {
+          console.log(ossname);
+          var data = {
+            'on' : ossname
+          }
+          $http({
+              method: 'POST',
+              url: GlobalUrl+'/data/Convert.do',
+              params: {
+                  session:vm.sess
+              },
+              data: JSON.stringify(data)
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.c == 1000){
+                  console.log('调取convert接口成功！')
+                }
+            }).
+            error(function(data, status, headers, config) {
+                // console.log(data);
+                alert('系统开了小差，请刷新页面');
+            });
+        }
+
+
+
         //上传文件获取oss文件名
         vm.getUploadFileNm = function() {
             var f = document.getElementById('step5_upload').files[0],
@@ -465,6 +493,7 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     if(data.c == 1000){
+                      vm.gotoConvert(data.on);
                       vm.docName = f.name;
                       vm.uploadFileName = data.on;
                       $('.uploadTextBox').text(f.name);
