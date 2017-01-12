@@ -314,30 +314,65 @@ var Index024 = React.createClass({
             <div className="theme024_headImg">
               <img src='image/theme024bg.png'/>
               <div className="theme024_headBox">
-                <img className="theme024_logo" src='image/theme024bg.png' width='43' height='43'/>
+                <img className="theme024_logo" src='image/index024_lll.png' width='43' height='43'/>
                 <p className="theme024_name">大成律师事务所</p>
                 <ul className="theme024_headMenu">
                   <li>
-                    <img src='image/theme024bg.png'/>
+                    <img src='image/index024_lll.png'/>
                     <span>Tel</span>
                   </li>
                   <li>
-                    <img src='image/theme024bg.png'/>
+                    <img src='image/index024_lll.png'/>
                     <span>Tel</span>
                   </li>
                   <li>
-                    <img src='image/theme024bg.png'/>
+                    <img src='image/index024_lll.png'/>
                     <span>Tel</span>
                   </li>
                 </ul>
               </div> 
             </div>
-            <div className="theme024_content_lawyer">{this.state.nm}<i> 律师</i></div>
-            <div className="theme024_content_depart">{this.state.dp}</div>
-            <div className="theme024_content_depart theme024_content_abs">{expSpecial}</div>
+            <div className="theme024_aboutUs">
+              <p className="title">关于我们</p>
+              <p className="content">大成律师事务所作为WSG(世界服务集团)中国区唯一成员，是中国成立最早、目前全球规模最大的律师事务所。
+                北京市大成律师事务所成立于1992年。
+              </p>
+              <p className="view">view</p>
+
+            </div>
+            <div className="theme024_gradient"></div>
             <ul className="theme024_menu_list">
-              {navNodes}
-            </ul>
+              <li>
+                <a>
+                  <img src="image/index024_lll.png" />
+                  <p>律师简介</p>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <img src="image/index024_lll.png" />
+                  <p>代表案例</p>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <img src="image/index024_lll.png" />
+                  <p>专业团队</p>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <img src="image/index024_lll.png" />
+                  <p>微 名 片</p>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <img src="image/index024_lll.png" />
+                  <p>微 相 册</p>
+                </a>
+              </li>
+            </ul> 
           </div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
           imgUrl={this.state.shareImg} target="index024"/>
@@ -347,7 +382,6 @@ var Index024 = React.createClass({
             <Password display="true"/>
           </div>
           <LatestNews newsShow={this.state.newsShow} newsTitle={this.state.newsTitle} newsContent={this.state.newsContent} />
-          <Establish/>
           <Toolbar/>
           <Shade/>
 				</div>
