@@ -39,9 +39,8 @@ var TimeAxis = React.createClass({
       headImg:''
     };
   },
-  gotoLink: function(path,fid,session,usrUri){
-    var ida = this.getUrlParams('ida');
-    var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
+  gotoLink: function(path,fid,session,usrUri,ida,idf){
+    
     var ownUri = this.getUrlParams('ownUri');
     var isFrom = this.getUrlParams('isFrom');
     if(!fid){
@@ -104,7 +103,7 @@ var TimeAxis = React.createClass({
     var idf = this.getUrlParams('idf')?this.getUrlParams('idf'):0;
     var isFrom = this.getUrlParams('isFrom');
     var url;
-    // p字段区分公开私密动态
+    // p字段区分公开私密动态  app端不区分，微信端只显示公开
     if(isFrom == 'app'){
       url = global.url+'/usr/FeedTimeline.do?ownUri='+ownUri+'&c=10&fid='+fid+'&idf='+idf+'&p=1';
     }else{
@@ -220,6 +219,24 @@ var TimeAxis = React.createClass({
       })
     }
   },
+  // 点击去往个人足迹
+  gotoSelf: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var usrUri = this.getUrlParams('usrUri');
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf')||0;
+    $('#timeaxis_self').addClass('timeaxis_active').siblings().removeClass('timeaxis_active');
+    location.href = 'wxMiddle.html?target=TimeAxis&ownUri='+ownUri+'&usrUri='+usrUri+'&ida=1&idf=0&isFrom=app&isAndroid=true';
+  },
+  // 点击去往机构足迹
+  gotoCompany: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var usrUri = this.getUrlParams('usrUri');
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf')||0;
+    $('#timeaxis_company').addClass('timeaxis_active').siblings().removeClass('timeaxis_active');
+    location.href = 'wxMiddle.html?target=TimeAxis&ownUri='+ownUri+'&usrUri='+usrUri+'&ida=1&idf=1&isFrom=app&isAndroid=true';
+  },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
     console.log($('.timeline_container'));
@@ -245,10 +262,12 @@ var TimeAxis = React.createClass({
   }, 
   render: function() {
     var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf')||0;
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
     var ownUri = this.getUrlParams('ownUri');
-    var idf = this.getUrlParams('idf');
+    var isAndroid = this.getUrlParams('isAndroid');
+    console.log('isAndroid == '+isAndroid);
     var str = window.location.href;
     var temp,appid,ShareUrl;
     console.log(this.state.TimeAxis);
@@ -282,13 +301,20 @@ var TimeAxis = React.createClass({
     }.bind(this));
   console.log(navNodes);  
   return (
-    <div className="htmleaf_container">
-      <ul className="timeline_container">
-        {navNodes}
+    <div className="timeaxis">
+      <ul className="timeaxis_tab" style={{display:(ida == 1 && isAndroid)?'box':'none'}}>
+        <li id="timeaxis_self" className="timeaxis_active" onClick={this.gotoSelf}>我的足迹</li>
+        <li id="timeaxis_company" onClick={this.gotoCompany}>机构的足迹</li>
       </ul>
-      <div className="timeline_more" style={{display:this.state.getMore?'block':'none'}}><span onClick={this.getMoreData}>加载更多</span></div>
-      <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="TimeAxis" />
+      <div className="htmleaf_container">
+        <ul className="timeline_container">
+          {navNodes}
+        </ul>
+        <div className="timeline_more" style={{display:this.state.getMore?'block':'none'}}><span onClick={this.getMoreData}>加载更多</span></div>
+        <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="TimeAxis" />
+      </div>
     </div>
+    
   )
   }
 });
