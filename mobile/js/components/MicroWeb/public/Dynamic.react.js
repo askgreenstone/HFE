@@ -86,7 +86,10 @@ var Dynamic = React.createClass({
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
     var isFrom = this.getUrlParams('isFrom');
-    if(isFrom == 'app'){
+    var isAndroid = this.getUrlParams('isAndroid');
+    if(isAndroid == 'true'){
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app&isAndroid=true';
+    }else if(isFrom == 'app'){
       location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app';
     }else{
       location.href = '#/TimeAxis?ownUri='+ownUri+'&ida='+this.state.ida+'&idf='+this.state.idf;

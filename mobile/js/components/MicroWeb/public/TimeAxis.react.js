@@ -43,14 +43,18 @@ var TimeAxis = React.createClass({
     
     var ownUri = this.getUrlParams('ownUri');
     var isFrom = this.getUrlParams('isFrom');
+    var usrUri = this.getUrlParams('usrUri');
+    var isAndroid = this.getUrlParams('isAndroid');
     if(!fid){
       return;
     }else{
       console.log(global.url);
-      if(isFrom == 'app'){
-        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+      if(isAndroid == 'true'){
+        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true';
+      }else if(isFrom == 'app'){
+        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app';
       }else{
-        location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri')+'&fid='+fid+'&ida='+ida+'&idf='+idf;
+        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf;
       }
     }
   },
@@ -221,6 +225,9 @@ var TimeAxis = React.createClass({
   },
   // 点击去往个人足迹
   gotoSelf: function(){
+    if($('#timeaxis_self').hasClass('timeaxis_active')){
+      return;
+    }
     var ownUri = this.getUrlParams('ownUri');
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida');
@@ -230,6 +237,9 @@ var TimeAxis = React.createClass({
   },
   // 点击去往机构足迹
   gotoCompany: function(){
+    if($('#timeaxis_company').hasClass('timeaxis_active')){
+      return;
+    }
     var ownUri = this.getUrlParams('ownUri');
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida');
@@ -303,8 +313,8 @@ var TimeAxis = React.createClass({
   return (
     <div className="timeaxis">
       <ul className="timeaxis_tab" style={{display:(ida == 1 && isAndroid)?'box':'none'}}>
-        <li id="timeaxis_self" className="timeaxis_active" onClick={this.gotoSelf}>我的足迹</li>
-        <li id="timeaxis_company" onClick={this.gotoCompany}>机构的足迹</li>
+        <li id="timeaxis_self" className={idf == 0?'timeaxis_active':''} onClick={this.gotoSelf}>我的足迹</li>
+        <li id="timeaxis_company" className={idf == 1?'timeaxis_active':''}  onClick={this.gotoCompany}>机构的足迹</li>
       </ul>
       <div className="htmleaf_container">
         <ul className="timeline_container">
