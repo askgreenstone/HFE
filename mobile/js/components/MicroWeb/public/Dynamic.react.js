@@ -81,6 +81,12 @@ var Dynamic = React.createClass({
   gotoLink: function(path){
     location.href = '#'+path+'?ownUri='+this.getUrlParams('ownUri');
   },
+  gotoReportList: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var fid = this.getUrlParams('fid');
+    window.localStorage.setItem('reportTitle',this.state.Title);
+    location.href = '#ReportList?ownUri='+ownUri+'&fid='+fid+'&ida='+this.state.ida+'&idf='+this.state.idf;
+  },
   gotoTimeAxis: function(){
     var ownUri = this.getUrlParams('ownUri');
     var session = this.getUrlParams('session');
@@ -147,9 +153,14 @@ var Dynamic = React.createClass({
               praiseFlag: false
             })
           }
+          // base64转码后的文本需要做的改动：
+          // 将结果中的加号”+”替换成中划线“-“;
+          // 将结果中的斜杠”/”替换成下划线”_”;
+          // 将结果中尾部的“=”号全部保留;
           this.setState({
             head: data.r.fl[0].p?data.r.fl[0].p:'header.jpg',
             nm: data.r.fl[0].nm,
+            basename: data.r.fl[0].basename.replace(/\+/g,'-').replace(/\//g,'_'),
             time: data.r.fl[0].ts,
             niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
             contentNo: data.r.fl[0].cl?data.r.fl[0].cl.length:0,
@@ -381,16 +392,12 @@ var Dynamic = React.createClass({
     var temp,appid,ShareUrl;
     ShareUrl = window.location.href;
     console.log(ShareUrl);
-    var imgList = this.state.imgLists.map(function(item,i){
-      return(
-        <img key={new Date().getTime()+i} src={global.img+item+'@400w'}/>
-       );
-    }.bind(this));
+    var imgWidth = $('.dynamic_exp_content').width();
     var newImgContent = this.state.newContentArray.map(function(item,i){
       return(
         <div key={new Date().getTime()+i}>
           <div className="dynamic_exp_word"><pre>{item.content}</pre></div>
-          <ImgList list={item.il} showFlag={this.state.showFlag}/>
+          <ImgList list={item.il} showFlag={this.state.showFlag} imgWidth={imgWidth} basename={this.state.basename}/>
         </div>
        );
     }.bind(this));
@@ -414,10 +421,11 @@ var Dynamic = React.createClass({
               <div className="dynamic_exp_title">{this.state.expTitle}</div>
               <div className="dynamic_exp_top">
                 <p className="dynamic_exp_name">
-                  <span className="dynamic_exp_date">{new Date(this.state.time).Format("yyyy-MM-dd")} 发布</span>
+                  <span className="dynamic_exp_expName">{this.state.nm}</span>
+                  <span className="dynamic_exp_date">{new Date(this.state.time).Format("yyyy-MM-dd")}</span>
                 </p>
-                <p className="dynamic_exp_nice">
-                  <i className="gotoTimeAxis" onClick={this.gotoTimeAxis}>更多动态</i> 
+                <p className="dynamic_exp_nice" onClick={this.gotoTimeAxis}>
+                  更多动态 
                 </p>            
               </div>
               <div className="newContent">
@@ -427,7 +435,7 @@ var Dynamic = React.createClass({
             </div>
           </div>
           <div className="dynamic_usr_news">
-            <span className="dynamic_usr_latest"></span>
+            <span className="dynamic_usr_latest" onClick={this.gotoReportList}>举报</span>
             <span className="dynamic_usr_read">{this.state.readNo}</span>
             <span className={this.state.praiseFlag?"dynamic_usr_img dynamic_usr_img_nice":"dynamic_usr_img"}>{this.state.niceNo}</span>
             <span className="dynamic_usr_wc">{this.state.contentNo}</span>

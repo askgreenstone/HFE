@@ -1120,14 +1120,20 @@ p{
   text-align: center;
   line-height: 3rem;
   font-size: 1.4rem;
-  border-right: 2px solid #666;
   color: #999;
 }
-.timeaxis_tab li:last-child{
-  border-right: none;
-}
 .timeaxis_tab li.timeaxis_active{
-  color: #333;
+  color: #d74218;
+}
+.timeaxis_tab li.timeaxis_active:after{
+  content: ".";
+  width: 100%;
+  color: #d74218;
+  display: block;
+  height: 1rem;
+  margin-top: -2rem;
+  font-weight: bolder;
+  font-size: 2rem;
 }
 .htmleaf_container{
   width: 100%;
@@ -1349,10 +1355,14 @@ p{
   font-size: 1.6rem;
   display: block;
 }
+.dynamic_exp_name span.dynamic_exp_expName{
+  font-size: 1.4rem;
+  color: #da542e;
+  margin-right: 1rem;
+}
 .dynamic_exp_date{
   height: 3rem;
   line-height: 3rem;
-  display: block;
   color: #878787;
 }
 .dynamic_exp_name{
@@ -1369,38 +1379,13 @@ p{
   color: #878787;
 }
 .dynamic_exp_nice{
-  width: 60%;
+  width: 25%;
+  padding-top: 1rem;
   box-sizing: border-box;
   text-align: right;
-}
-.dynamic_exp_nice span{
-  width: 20%;
-  height: 20px;
-  background: url('../image/LatestNews/nice.png') no-repeat left center;
-  padding-left: 1rem;
-  margin-right: 1rem;
-  display: inline-block;
-  background-size: contain;
-  line-height: 2rem;
-}
-
-.dynamic_exp_nice span.dynamic_exp_com{
-  background: url('../image/LatestNews/tip.png') no-repeat left center;
-  background-size: contain;
-}
-.gotoTimeAxis{
-  width: 50%;
-  height: 2rem;
-  display: block;
-  text-align: right;
-  line-height: 2rem;
-  font-style: normal;
   font-size: 1.4rem;
-  border-radius: 3px;
-  margin-top: 1rem;
-  cursor: pointer;
-  margin-left: 50%;
   color: #da542e;
+  line-height: 2rem;
 }
 .dynamic_exp_title{
   color: #000;
@@ -1452,6 +1437,7 @@ div.dynamic_usr_content_title{
   font-size: 1.4rem;
   display: box;
   display: -webkit-box;
+  background: #fff;
 }
 .dynamic_usr_news span{
   width: 22%;
@@ -1467,6 +1453,9 @@ div.dynamic_usr_content_title{
 }
 .dynamic_usr_news span.dynamic_usr_latest{
   width: 34%; 
+  text-align: left;
+  color: #da542e;
+  padding-left: 0;
 }
 .dynamic_usr_news span.dynamic_usr_read{
   background-image: url('../image/LatestNews/tip_read.png');
@@ -1523,9 +1512,8 @@ div.dynamic_usr_content_title{
   padding: 0.5rem 2rem 0;
   box-sizing: border-box;
   background: #fff;
-  position: absolute;
-  left: 0;
-  bottom: 0;
+  position: relative;
+  height: 7rem;
 }
 .dynamic_usr_write{
   display: none;
@@ -1769,6 +1757,96 @@ div.dynamic_usr_content_title{
   cursor: pointer;
   display: block;
   text-align: center;
+}
+
+/*举报列表页*/
+.reportBox{
+  width: 100%;
+  height: 100%;
+  background: #ebebeb;
+}
+.reportBox p{
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  padding-left: 1.8rem;
+  box-sizing: border-box;
+  font-size: 1.4rem;
+  border-bottom: 1px solid #e5e5e5;
+  color: #999;
+}
+.reportBox_list{
+  width: 100%;
+  padding-left: 1.8rem;
+  background: #fff;
+  box-sizing: border-box;
+}
+.reportBox_list li{
+  width: 100%;
+  height: 3.3rem;
+  line-height: 3.3rem;
+  background: #fff;
+  border-bottom: 1px solid #efefef;
+  color: #000;
+  font-size: 1.6rem;
+}
+.reportTitle{
+  width: 100%;
+  height: 6rem;
+  line-height: 6rem;
+  background: #fff;
+  padding-left: 1.8rem;
+  box-sizing: border-box;
+  font-size: 1.6rem;
+}
+.reportContent{
+  width: 100%;
+  height: 10rem;
+  background: #fff;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.reportContent textarea{
+  display: block;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  padding: 1rem 1.8rem;
+  box-sizing: border-box;
+  font-size: 1.4rem; 
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255,0,0,0.5);
+  -webkit-appearance: none;
+}
+.reportSub{
+  width: 100%;
+  height: 3.5rem;
+  padding: 0 1.8rem;
+  box-sizing: border-box;
+}
+.reportSub span{
+  width: 100%;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  text-align: center;
+  display: block;
+  background: #1aad19;
+  color: #fff;
+  font-size: 1.6rem;
+  border-radius: 5px;
+}
+.reportNom{
+  width: 15%;
+  height: 2rem;
+  display: block;
+  position: absolute;
+  right: .5rem;
+  bottom: 0;
+  text-align: center;
+}
+.reportNom i{
+  font-style: normal;
 }
 
 

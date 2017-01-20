@@ -83,6 +83,10 @@ var Card2 = require('./components/MicroWeb/public/Card2.react');
 var TimeAxis = require('./components/MicroWeb/public/TimeAxis.react');
 // 时间轴具体动态页
 var Dynamic = require('./components/MicroWeb/public/Dynamic.react');
+// 举报列表
+var ReportList = require('./components/MicroWeb/public/ReportList.react');
+// 举报详情
+var ReportDetail = require('./components/MicroWeb/public/ReportDetail.react');
 //特殊需求，添加了英文版本微名片
 // 李玉龙英文微名片
 var Card3 = require('./components/MicroWeb/public/Card3.react');
@@ -141,6 +145,8 @@ ReactDOM.render((
     <Route path="/card4" component={Card4}/>
     <Route path="/TimeAxis" component={TimeAxis}/>
     <Route path="/Dynamic" component={Dynamic}/>
+    <Route path="/ReportList" component={ReportList}/>
+    <Route path="/ReportDetail" component={ReportDetail}/>
     <Route path="/Lawyers" component={Lawyers}/>
     <Route path="/SearchLawyers" component={SearchLawyers}/>
     <Route path="/share" component={Share}/>
