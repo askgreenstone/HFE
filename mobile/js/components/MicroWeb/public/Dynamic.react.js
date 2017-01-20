@@ -39,6 +39,7 @@ var Dynamic = React.createClass({
       imgLists: [],
       head: '',
       nm: '',
+      basename: '5Zyo57q_5rOV5b6L',
       time: '',
       niceNo: '',
       contentNo: '',
@@ -435,7 +436,7 @@ var Dynamic = React.createClass({
             </div>
           </div>
           <div className="dynamic_usr_news">
-            <span className="dynamic_usr_latest" onClick={this.gotoReportList}>举报</span>
+            <span className="dynamic_usr_latest" style={{visibility:this.state.isFrom?'hidden':'visible'}} onClick={this.gotoReportList}>举报</span>
             <span className="dynamic_usr_read">{this.state.readNo}</span>
             <span className={this.state.praiseFlag?"dynamic_usr_img dynamic_usr_img_nice":"dynamic_usr_img"}>{this.state.niceNo}</span>
             <span className="dynamic_usr_wc">{this.state.contentNo}</span>
