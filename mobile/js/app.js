@@ -66,7 +66,7 @@ var Index021 = require('./components/MicroWeb/skin/Index021.react');
 var Index022 = require('./components/MicroWeb/skin/Index022.react');
 //皮肤二十三（d9x设计出品 上图下文左下角菜单竖向罗列）
 var Index023 = require('./components/MicroWeb/skin/Index023.react');
-//皮肤二十四（d9x设计出品 上图下文左下角菜单竖向罗列）
+//皮肤二十四（d9x设计出品 山水画风格）
 var Index024 = require('./components/MicroWeb/skin/Index024.react');
 
 

@@ -302,8 +302,7 @@ var Index024 = React.createClass({
       return(
             <li key={new Date().getTime()+i} onClick={this.menuLink.bind(this,item.type,item.ntid,item.limit,item.psw,item.title)}>
               <a href={item.ac?item.ac:'javascript:void(0);'}>
-                <img src={global.img+item.src} />
-                <p>{item.title}</p>
+                <p><img src={global.img+item.src} /></p>
               </a>
             </li>
        );
@@ -312,66 +311,11 @@ var Index024 = React.createClass({
 				<div>
 					<div className="theme024_container">
             <div className="theme024_headImg">
-              <img src='image/theme024bg.png'/>
-              <div className="theme024_headBox">
-                <img className="theme024_logo" src='image/index024_lll.png' width='43' height='43'/>
-                <p className="theme024_name">大成律师事务所</p>
-                <ul className="theme024_headMenu">
-                  <li>
-                    <img src='image/index024_lll.png'/>
-                    <span>Tel</span>
-                  </li>
-                  <li>
-                    <img src='image/index024_lll.png'/>
-                    <span>Tel</span>
-                  </li>
-                  <li>
-                    <img src='image/index024_lll.png'/>
-                    <span>Tel</span>
-                  </li>
-                </ul>
-              </div> 
+              <img src={global.img+this.state.hI} width="65" height="65"/>
+              <p className="theme024_name">{this.state.nm}</p>
             </div>
-            <div className="theme024_aboutUs">
-              <p className="title">关于我们</p>
-              <p className="content">大成律师事务所作为WSG(世界服务集团)中国区唯一成员，是中国成立最早、目前全球规模最大的律师事务所。
-                北京市大成律师事务所成立于1992年。
-              </p>
-              <p className="view">view</p>
-
-            </div>
-            <div className="theme024_gradient"></div>
             <ul className="theme024_menu_list">
-              <li>
-                <a>
-                  <img src="image/index024_lll.png" />
-                  <p>律师简介</p>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <img src="image/index024_lll.png" />
-                  <p>代表案例</p>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <img src="image/index024_lll.png" />
-                  <p>专业团队</p>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <img src="image/index024_lll.png" />
-                  <p>微 名 片</p>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <img src="image/index024_lll.png" />
-                  <p>微 相 册</p>
-                </a>
-              </li>
+              {navNodes}
             </ul> 
           </div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
