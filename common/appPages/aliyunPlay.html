@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>测试页面</title>
+    <title>播放测试页面</title>
     <link rel="stylesheet" href="http://g.alicdn.com/de/prismplayer/1.5.2/skins/default/index.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="http://g.alicdn.com/de/prismplayer/1.5.2/prism-min.js"></script>
@@ -15,20 +15,20 @@
     // 初始化播放器
     var player = new prismplayer({
         id: "J_prismPlayer", // 容器id
-        source: "http://t-video.green-stone.cn/wktout/t-gstonetrans/1481610211605_e1462_video.m3u8",// 视频地址
+        source: "http://live.green-stone.cn/gstone/liveAndroid.m3u8",// 视频地址
         autoplay: true,    //自动播放：否
         width: "100%",       // 播放器宽度
         height: "400px"      // 播放器高度
     });
-    player.on("ready", function(){
+    // player.on("ready", function(){
     	
-    	var flag = window.confirm('是否从上次离开位置继续？');
-    	if(flag){
-    		console.log('test');
-    		player.seek('10');
-    	}
+    // 	var flag = window.confirm('是否从上次离开位置继续？');
+    // 	if(flag){
+    // 		console.log('test');
+    // 		player.seek('10');
+    // 	}
     	
-    })
+    // })
 
     var btn = document.getElementById('btn');
     btn.onclick = function(){

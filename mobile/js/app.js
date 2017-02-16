@@ -102,6 +102,11 @@ var Empty = require('./components/layout/Empty.react');
 var Lawyers = require('./components/MicroWeb/public/Lawyers.react');
 // 找律师搜索界面
 var SearchLawyers = require('./components/MicroWeb/public/SearchLawyers.react');
+// 直播列表页面
+var LiveList = require('./components/MicroWeb/public/LiveList.react');
+// 直播详情
+var LiveDetail = require('./components/MicroWeb/public/LiveDetail.react');
+
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -149,6 +154,8 @@ ReactDOM.render((
     <Route path="/ReportDetail" component={ReportDetail}/>
     <Route path="/Lawyers" component={Lawyers}/>
     <Route path="/SearchLawyers" component={SearchLawyers}/>
+    <Route path="/LiveList" component={LiveList}/>
+    <Route path="/LiveDetail" component={LiveDetail}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
     <Route path="/empty" component={Empty}/>
