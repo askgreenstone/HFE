@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -22,28 +23,29 @@
         height: "400px"      // 播放器高度
     });
     // player.on("ready", function(){
-    	
-    // 	var flag = window.confirm('是否从上次离开位置继续？');
-    // 	if(flag){
-    // 		console.log('test');
-    // 		player.seek('10');
-    // 	}
-    	
+        
+    //  var flag = window.confirm('是否从上次离开位置继续？');
+    //  if(flag){
+    //      console.log('test');
+    //      player.seek('10');
+    //  }
+        
     // })
 
     var btn = document.getElementById('btn');
     btn.onclick = function(){
-    	player.play();
-    	player.seek('10');
+        player.play();
+        player.seek('10');
     }
    
     player.on("pause", function() {
         var time = player.getCurrentTime();
         console.log(time);
     });
+    console.log('11111');
     // window.onbeforeunload = function(){
-    // 	event.returnValue="确定离开当前页面吗？";
-    // 	var time = player.getCurrentTime();
+    //  event.returnValue="确定离开当前页面吗？";
+    //  var time = player.getCurrentTime();
     //   console.log(time);
     // }
 </script>

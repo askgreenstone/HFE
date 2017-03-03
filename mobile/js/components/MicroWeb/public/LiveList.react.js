@@ -7,7 +7,7 @@ Date.prototype.Format = function(fmt){ //author: meizz
   today.setMinutes(0);
   today.setSeconds(0);
   today.setMilliseconds(0);
-  console.log(today.getTime());
+  // console.log(today.getTime());
   var o = {   
     "M+" : this.getMonth()+1,                 //月份   
     "d+" : this.getDate(),                    //日   
@@ -35,10 +35,10 @@ var LiveList = React.createClass({
     };
   },
   getLiveList: function(){
-    var deptOwnUri = this.getUrlParams('deptOwnUri')||'e399';
+    var ownUri = this.getUrlParams('ownUri');
     $.ajax({
       type: 'get',
-      url: global.url+'/exp/GetLiveListInfo.do?do='+deptOwnUri,
+      url: global.url+'/exp/GetLiveListInfo.do?do='+ownUri,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -56,7 +56,9 @@ var LiveList = React.createClass({
   },
   gotoLiveDetail:function(lid){
     var ownUri = this.getUrlParams('ownUri');
-    window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid;
+    var session = this.getUrlParams('session');
+    var ida = this.getUrlParams('ida');
+    window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ida='+ida+'&session='+session;
   },
   componentDidMount: function(){
     var $body = $('body')

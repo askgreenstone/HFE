@@ -106,7 +106,8 @@ var SearchLawyers = require('./components/MicroWeb/public/SearchLawyers.react');
 var LiveList = require('./components/MicroWeb/public/LiveList.react');
 // 直播详情
 var LiveDetail = require('./components/MicroWeb/public/LiveDetail.react');
-
+// 创建我的直播
+var CreateLive = require('./components/MicroWeb/public/CreateLive.react');
 
 //定义路由：https://github.com/rackt/react-router
 ReactDOM.render((
@@ -156,6 +157,7 @@ ReactDOM.render((
     <Route path="/SearchLawyers" component={SearchLawyers}/>
     <Route path="/LiveList" component={LiveList}/>
     <Route path="/LiveDetail" component={LiveDetail}/>
+    <Route path="/CreateLive" component={CreateLive}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
     <Route path="/empty" component={Empty}/>
