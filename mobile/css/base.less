@@ -1855,6 +1855,7 @@ div.dynamic_usr_content_title{
   display: box;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .live_list_top{
   width: 100%;
@@ -1870,14 +1871,13 @@ div.dynamic_usr_content_title{
   background: #292929;
   padding: 1.5rem;
   box-sizing: border-box;
-  margin-top: -2px;
 }
 .live_list_top_content div{
   width: 100%;
 }
 .live_list_top_content div>span{
   display: block;
-  width: 60%;
+  width: 75%;
   height: 2rem;
   line-height: 2rem;
   color: #fff;
@@ -1887,7 +1887,7 @@ div.dynamic_usr_content_title{
 }
 .live_list_top_content div>span:last-child{
   text-align: right;
-  width: 40%;
+  width: 25%;
   float: right;
   font-size: 1.2rem;
 }
@@ -1943,13 +1943,38 @@ div.dynamic_usr_content_title{
   padding-bottom: 0;
   position: relative;
 }
-.live_detail_top .live_detail_play{
-  width: 50px;
+.live_detail_shadow{
+  position: absolute;
+  left: 0;
+  bottom: 7rem;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.live_detail_play{
+  width: 110px;
   height: 50px;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-top: -5.5rem;
+  margin-top: 1.5rem;
+  margin-left: -55px;
+  text-align: center;
+  background: #d74218;
+  border-radius: 8px;
+  color: #fff;
+  line-height: 50px;
+  font-size: 1.4rem;
+  z-index: 1000;
+}
+.live_detail_play_time{
+  width: 200px;
+  margin-left: -100px;
+  background: transparent;
+}
+.live_detail_play_button{
+  width: 50px;
+  background: transparent;
   margin-left: -25px;
 }
 .live_detail_nav{
@@ -2228,7 +2253,8 @@ div.dynamic_usr_content_title{
 
 // 播放器
 .prism-player{
-  display: none;
+  width: 1px;
+  height: 1px;
 }
 .prism-player .prism-big-play-btn {
   width: 90px;
@@ -2470,6 +2496,7 @@ body.prism-full-window {
 }
 .create_pic img{
   width: 4rem;
+  border-radius: 50%; 
 }
 .create_pic span:last-child{
   height: 4rem;
@@ -2500,12 +2527,12 @@ body.prism-full-window {
   width: 70%;
   height: 4rem;
   display: block;
-  background: red;
+  background: #fff;
   text-align: center;
   margin: 0 auto;
   border-radius: 5px;
   font-size: 1.4rem;
-  color: #fff;
+  color: #d74218;
 }
 .create_live .create_profess,.create_live .create_speaker,.create_live .upload_head{
   width: 100%;
@@ -2548,6 +2575,82 @@ body.prism-full-window {
   left: 25%;
   top: 0;
 }
+// 日历时间
+.picker-modal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 11500;
+  display: none;
+  width: 100%;
+  height: 13rem;
+  background: #cfd5da;
+  -webkit-transition-property: -webkit-transform;
+       -o-transition-property:      -o-transform;
+          transition-property:         transform;
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+}
+.picker-modal.modal-in,
+.picker-modal.modal-out {
+  -webkit-transition-duration: 400ms;
+       -o-transition-duration: 400ms;
+          transition-duration: 400ms;
+}
+.picker-modal.modal-in {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.picker-modal.modal-out {
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+}
+.picker-modal .picker-modal-inner {
+  position: relative;
+  height: 100%;
+}
+.picker-modal .toolbar {
+  position: relative;
+  width: 100%;
+  border-top: 1px solid #999;
+}
+.picker-modal .toolbar + .picker-modal-inner {
+  height: -webkit-calc(100% - 2.2rem);
+  height:         calc(100% - 2.2rem);
+}
+.picker-modal.picker-modal-inline,
+.popover .picker-modal {
+  position: relative;
+  z-index: inherit;
+  display: block;
+  background: none;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.picker-modal.picker-modal-inline .toolbar,
+.popover .picker-modal .toolbar {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid #999;
+}
+.popover .picker-modal {
+  width: auto;
+}
+.popover .picker-modal .toolbar {
+  background: none;
+}
+.toast {
+  width: auto;
+  height: 2rem;
+  padding: 0 .8rem;
+  font-size: .8rem;
+  line-height: 2rem;
+  color: white;
+  background: rgba(0, 0, 0, .8);
+  border-radius: 1rem;
+}
+
+
 /*!
  * Cropper v2.2.0
  * https://github.com/fengyuanchen/cropper

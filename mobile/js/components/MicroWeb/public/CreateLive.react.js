@@ -1,30 +1,7 @@
 var React = require('react');
 
 var CommonMixin = require('../../Mixin');
-var cropper = require('../../common/Cropper.react')
-Date.prototype.Format = function(fmt){ //author: meizz
-  var today = new Date();
-  today.setHours(0);
-  today.setMinutes(0);
-  today.setSeconds(0);
-  today.setMilliseconds(0);
-  // console.log(today.getTime());
-  var o = {   
-    "M+" : this.getMonth()+1,                 //月份   
-    "d+" : this.getDate(),                    //日   
-    "h+" : this.getHours(),                   //小时   
-    "m+" : this.getMinutes(),                 //分   
-    "s+" : this.getSeconds(),                 //秒   
-    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-    "S"  : this.getMilliseconds()             //毫秒   
-  };  
-  if(/(y+)/.test(fmt))   
-    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-  for(var k in o)   
-    if(new RegExp("("+ k +")").test(fmt))   
-  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-  return fmt;   
-}  
+var cropper = require('../../common/Cropper.react');
 
 
 var CreateLive = React.createClass({
@@ -69,6 +46,7 @@ var CreateLive = React.createClass({
             headImg: data.ll[0].sp,
             Speakerdesc: data.ll[0].sd
           })
+          $('.create_per_intro textarea').val(data.ll[0].sd);
         }
       }.bind(this),
       error: function(data) {
@@ -80,6 +58,7 @@ var CreateLive = React.createClass({
     this.setState({
       CreateDate: e.target.value
     });
+    console.log(e.target.value);
   },
   changeTitle:  function(e) {
     this.setState({
@@ -96,9 +75,20 @@ var CreateLive = React.createClass({
       SpeakerDesc: e.target.value
     });
   },
+  getLidProfession: function(data,listId){
+    var profess = '';
+    console.log(data);
+    for(var i = 0,len = data.length;i<len;i++){
+      if(data[i].lid == listId){
+        profess = data[i].ln
+      }
+    }
+    console.log(profess);
+    return profess;
+  },
   getLiveList: function(){
     var ownUri = this.getUrlParams('ownUri')||'e399';
-    var lid = this.getUrlParams('lid')*1-1;
+    var lid = this.getUrlParams('lid');
     $.ajax({
       type: 'get',
       url: global.url+'/exp/GetLiveListInfo.do?do='+ownUri,
@@ -109,7 +99,7 @@ var CreateLive = React.createClass({
             FirstData: data.ll.length > 0?data.ll.slice(0,1):[],
             ListData: data.ll.length > 1?data.ll.slice(1):[],
             ProfessList: data.ll,
-            profession: data.ll[0].ln
+            profession: this.getLidProfession(data.ll,lid)
           })
         }
       }.bind(this),
@@ -275,7 +265,7 @@ var CreateLive = React.createClass({
     var lid = this.getUrlParams('lid');
     var ldid = this.getUrlParams('ldid')||0;
     var livetime = $('.create_time input').val();
-    var newTime = Date.parse(new Date(livetime));
+    var newTime = new Date(livetime.replace('T',' ')).getTime();
     var livetitle = $('.create_title input').val();
     var livedesc = $('.create_intro textarea').val();
     var speakername = this.state.speaker;
@@ -341,7 +331,6 @@ var CreateLive = React.createClass({
         $iframe.off('load').remove()
       }, 0)
     }).appendTo($body);
-    
   },
   componentWillMount: function(){
     this.getLiveList();
@@ -371,7 +360,7 @@ var CreateLive = React.createClass({
             <span>系列</span><span onClick={this.showProfess}>{this.state.profession}</span>  
           </div> 
           <div className="create_pro create_time">
-            <span>直播时间</span><span><input type="date" value={this.state.CreateDate} onChange={this.changeDate}/></span>
+            <span>直播时间</span><span><input type="datetime-local" value={this.state.CreateDate} onChange={this.changeDate}/></span>
           </div> 
           <div className="create_title">
             <input type="text" placeholder="输入课程标题..." value={this.state.CreateTitle} onChange={this.changeTitle}/>
@@ -386,7 +375,7 @@ var CreateLive = React.createClass({
           <span>主讲人照片</span><span onClick={this.uploadHead}><img src={global.img+this.state.headImg}/></span>
           </div> 
           <div className="create_per_intro">
-            <textarea placeholder="主讲人介绍..." value={this.state.Speakerdesc} onChange={this.changeSpeakerDesc}></textarea>
+            <textarea placeholder="主讲人介绍..." onChange={this.changeSpeakerDesc}></textarea>
           </div> 
           <div className="create_sub" onClick={this.postLiveInfo}><span>提交</span></div>
           <ul className="create_profess" style={{display:this.state.ProfessShow?'block':false}}>{ProfessListNode}</ul>

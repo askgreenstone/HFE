@@ -13,8 +13,34 @@ var LiveDetail = React.createClass({
       QuestionList: [],
       editFlag: false,
       editState: false,
-      editShowFlag: false
+      editShowFlag: false,
+      askQuestionFlag: true,
+      ldid: 0
     };
+  },
+  getLiveListPic: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var lid = this.getUrlParams('lid');
+    $.ajax({
+      type: 'get',
+      url: global.url+'/exp/GetLiveListInfo.do?do='+ownUri,
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          for (var i = data.ll.length - 1; i >= 0; i--) {
+            if(data.ll[i].lid == lid){
+              this.setState({
+                liveListPic: data.ll[i].lp
+              })
+            }
+          }
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+        alert('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   getEidtState: function(){
     var ida = this.getUrlParams('ida');
@@ -24,19 +50,19 @@ var LiveDetail = React.createClass({
       })
     }
   },
-  getTheOne: function(data,ldid){
+  getTheOne: function(data,LiveDetailId){
     var arr = [];
     console.log(data);
     for(var i = 0,len = data.length;i<len;i++){
-      if(data[i].ldid == ldid){
+      if(data[i].ldid == LiveDetailId){
         arr = data[i]
       }
-    };
+    }
     console.log(arr);
     return [arr];
   },
   postLiveQuestions:function(){
-    var ldid = window.localStorage.getItem('ldid');
+    // var ldid = window.sessionStorage.getItem('ldid');
     var session = this.getUrlParams('session');
     var text = $('.live_detail_text').val();
     var ownUri = this.getUrlParams('ownUri');
@@ -45,7 +71,7 @@ var LiveDetail = React.createClass({
       return;
     }
     var data = {
-      ldid: ldid,
+      ldid: this.state.ldid,
       lsu: ownUri,
       qd: text
     }
@@ -57,7 +83,7 @@ var LiveDetail = React.createClass({
         console.log(data);
         if(data.c == 1000){
           $('.live_detail_text').val('');
-          this.getLiveQuestion(ldid);
+          this.getLiveQuestion(this.state.ldid);
         }
       }.bind(this),
       error: function(data) {
@@ -66,30 +92,40 @@ var LiveDetail = React.createClass({
       }.bind(this)
     })
   },
-  getLiveQuestion:function(ldid){
+  getLiveQuestion:function(LiveDetailId){
     var session = this.getUrlParams('session');
-    var ldid = ldid?ldid:window.localStorage.getItem('ldid');
-    $.ajax({
-      type: 'get',
-      url: global.url+'/exp/GetLiveQuestion.do?session='+session+'&ldid='+ldid,
-      success: function(data) {
-        console.log(data);
-        if(data.c == 1000){
-          this.setState({
-            QuestionList: data.ql
-          })
-        }
-      }.bind(this),
-      error: function(data) {
-        alert('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
+    var ldid = LiveDetailId?LiveDetailId:this.state.ldid;
+    console.log(ldid);
+    if(ldid == 0 || !ldid){
+      this.setState({
+        QuestionList: [],
+        askQuestionFlag: false
+      })
+    }else{
+      $.ajax({
+        type: 'get',
+        url: global.url+'/exp/GetLiveQuestion.do?session='+session+'&ldid='+ldid,
+        success: function(data) {
+          console.log(data);
+          if(data.c == 1000){
+            this.setState({
+              QuestionList: data.ql,
+              askQuestionFlag: true
+            })
+          }
+        }.bind(this),
+        error: function(data) {
+          alert('系统开了小差，请刷新页面');
+        }.bind(this)
+      })
+    }
+    
   },
-  getLiveInfo: function(ldid){
+  getLiveInfo: function(LiveDetailId){
   	var ownUri = this.getUrlParams('ownUri');
   	var lid = this.getUrlParams('lid');
-    var livedetailid = ldid;
-    console.log(livedetailid);
+    var livedetailid = LiveDetailId;
+    // console.log(livedetailid);
     $.ajax({
       type: 'get',
       url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid,
@@ -99,15 +135,21 @@ var LiveDetail = React.createClass({
           var urlLdid = this.getUrlParams('ldid');
           console.log(urlLdid);
           if(!urlLdid){
-            window.localStorage.setItem('ldid',data.sldid);
+            // window.sessionStorage.setItem('ldid',data.sldid);
+            this.setState({
+              ldid: data.sldid
+            })
           }
-          var livedid = livedetailid?livedetailid:window.localStorage.getItem('ldid');
-          window.localStorage.setItem('ldid',livedid);
-          console.log(livedid);
+          var livedid = livedetailid?livedetailid:data.sldid;
+          // window.sessionStorage.setItem('ldid',livedid);
+          
+          // console.log(livedid);
           this.setState({
+            ldid: livedid,
             FirstData: this.getTheOne(data.ll,livedid),
             ListData: data.ll
           })
+          this.getLiveQuestion(livedid);
         }
       }.bind(this),
       error: function(data) {
@@ -118,38 +160,32 @@ var LiveDetail = React.createClass({
   }, 
   liveVideoShow: function(data){
     console.log(data);
-    this.setState({
-      FirstData: [data]
-    })
-    $('.prism-player').show();
+    // $('.prism-player').show();
     $('.live_detail_top img').hide();
+    $('.live_detail_play').hide();
+    var source = data.va?data.va:data.la;
     var player = new prismplayer({
         id: "J_prismPlayer", // 容器id
         source: "http://live.green-stone.cn/gstone/liveIOS.m3u8",// 视频地址
-        autoplay: true,    //自动播放：否
-        width: "100%"      // 播放器高度
+        autoplay: true,    //自动播放：是（移动端不支持）
+        width: "100%",      // 播放器宽度
+        height: "200px"     //播放器高度
     });
-    var ldid = data.ldid;
-    $('.live_detail_list li[data-id='+ldid+']').addClass('class_name')
-    console.log('qiaofan:::::::::::'+$('.live_detail_list li[data-id='+ldid+']'));
-    // $('.live_detail_list').on('click', 'li', function(event) {
-    //   event.preventDefault();
-    //   var index = $(this).index();
-    //   console.log($(this));
-    //   alert(index);
-    //   console.log($('.live_detail_list').children('').eq(index));
-    //   // .addClass('live_detail_list_active');
-    //   // $(this).addClass('live_detail_list_active')  //.siblings('').removeClass('live_detail_list_active');
-    //   // $('.live_detail').children('').eq(index).show().siblings('').hide();
-    // });
-    // player.play();
+    setTimeout(function(){
+        player.play();
+        console.log('qiaof:video play success')
+      },300
+    );
   },
-  gotoDetail: function(ldid){
-    console.log('跳转到其他详情直播ldid'+ldid);
-    window.localStorage.setItem('ldid',ldid);
-    console.log(window.localStorage.getItem('ldid'));
-    this.getLiveInfo(ldid);
-    this.getLiveQuestion(ldid);
+  gotoDetail: function(LiveDetailId){
+    console.log('跳转到其他详情直播ldid'+LiveDetailId);
+    this.setState({
+      ldid: LiveDetailId
+    })
+    // window.sessionStorage.setItem('ldid',ldid);
+    // console.log(window.sessionStorage.getItem('ldid'));
+    this.getLiveInfo(LiveDetailId);
+    // this.getLiveQuestion(ldid);
   },
   gotoCreatNewLive: function(){
     var lid = this.getUrlParams('lid');
@@ -203,7 +239,7 @@ var LiveDetail = React.createClass({
           console.log(data);
           if(data.c == 1000){
             this.getLiveInfo();
-            this.getLiveQuestion();
+            // this.getLiveQuestion();
             this.setState({
               editState: false
             })
@@ -226,30 +262,21 @@ var LiveDetail = React.createClass({
     })
     $('.live_detail_list_edit_delete').show();
   },
-  selectLiveDetail: function(ldid){
-    console.log(ldid);
-    var selectLiveDom = $('.live_detail_list li[data-id='+ldid+'] .live_detail_list_input');
+  cancleEdit: function(){
+    this.setState({
+      editState: false
+    })
+    $('.live_detail_list_edit').show();
+    $('.live_detail_list_edit_delete').hide();
+  },
+  selectLiveDetail: function(LiveDetailId){
+    console.log(LiveDetailId);
+    var selectLiveDom = $('.live_detail_list li[data-id='+LiveDetailId+'] .live_detail_list_input');
     if(selectLiveDom.hasClass('live_detail_list_input_active')){
       selectLiveDom.removeClass('live_detail_list_input_active');
     }else{
       selectLiveDom.addClass('live_detail_list_input_active');
     }
-    // $('.live_detail_list li[data-id='+ldid+'] .live_detail_list_input').addClass('live_detail_list_input_active');
-    // console.log(this);
-    // $(this).addClass('live_detail_list_input_active');
-  },
-  judgeTime: function(time){
-    var now = new Date();
-    var theTime = new Date(time);
-    var end = now - theTime;
-    var str = '';
-    console.log(end);
-    if(end < 60*1000*1000){
-      str = '刚刚';
-    }else{
-      str = ''
-    }
-    return end;
   },
   componentDidMount: function(){
     var $body = $('body')
@@ -267,53 +294,75 @@ var LiveDetail = React.createClass({
     	$(this).addClass('live_detail_nav_active').siblings('').removeClass('live_detail_nav_active');
     	$('.live_detail').children('').eq(index).show().siblings('').hide();
     });
+    // setTimeout(function(){
+    //   console.log('乔凡：定时器删除sessionStorage');
+    //   window.sessionStorage.removeItem('ldid');
+    // },1000)
+    
   },
   componentWillMount: function(){
     var ldid = this.getUrlParams('ldid');
+    this.getLiveListPic();
     if(ldid){
       this.getLiveInfo(ldid);
-      this.getLiveQuestion(ldid);
     }else{
       this.getLiveInfo();
-      this.getLiveQuestion();
     }
     this.getEidtState();
   },
   render:function(){
-    var ldid = window.localStorage.getItem('ldid');
-    console.log(this.state.editShowFlag);
-    console.log(this.state.editFlag);
+    // var ldid = window.sessionStorage.getItem('ldid');
+    var ldid = this.state.ldid;
+    // console.log(this.state.editShowFlag);
+    // console.log(this.state.editFlag);
+    var now  = new Date().getTime();
   	var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
           <div id="J_prismPlayer" className="prism-player"></div>
-          <img className="live_detail_bg" src={item.lp?(global.img+item.lp):(global.img+'header.jpg')} />
+          <img className="live_detail_bg" src={item.lp?(global.img+item.lp):(global.img+this.state.liveListPic)} />
           <div className="live_list_top_content">
-            <div><span>{item.ld}</span><span></span></div>
-            <div><span className="live_list_teacher">主讲：<span>{item.sn}</span> <span>律师</span></span><span>{new Date(item.livetime).Format("MM/dd hh:mm")}</span></div>
+            <div><span>{item.ld?item.ld:'课程介绍'}</span><span></span></div>
+            <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
-          <img className="live_detail_play" onClick={this.liveVideoShow.bind(this,item)} src="../../image/play.png"/>
+          <div className="live_detail_shadow" style={{display:item.va?'none':(item.livetime > now?'inline':'none')}}><span className="live_detail_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
+          <div className="live_detail_shadow" style={{display:item.va?'none':(item.livetime > now?'none':'inline')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+          <div className="live_detail_shadow" style={{display:(item.va)?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="../image/video_on.png"/></span></div>
         </div>
        );
     }.bind(this));
     var len = this.state.ListData.length-1;
-    console.log(len);
+    // console.log(len);
     var ListDataShow = this.state.ListData.map(function(item,i){
       return(
-        <li data-id={item.ldid} className={item.ldid == ldid?"live_detail_list_active":""} key={new Date().getTime()+i}>
-          <div className="live_detail_list_input" onClick={this.selectLiveDetail.bind(this,item.ldid)} style={{display:this.state.editState?'block':'none'}}></div>
-          <div className="live_detail_list_img" onClick={this.gotoDetail.bind(this,item.ldid)}>
+        <li data-id={item.ldid} className={item.ldid == ldid?"live_detail_list_active":""} key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.ldid)}>
+          <div className="live_detail_list_img">
             <i></i>
     				<div></div>
     			</div>
-    			<div className="live_detail_list_content" onClick={this.gotoDetail.bind(this,item.ldid)}>
+    			<div className="live_detail_list_content">
     				<div className="live_list_title">{item.lt}<br/><i>视频</i></div>
     				<div className="live_list_content">{new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
     			</div>
         </li>
        );
     }.bind(this));
-    console.log(this.state.FirstData);
+    var ListDataInputShow = this.state.ListData.map(function(item,i){
+      return(
+        <li data-id={item.ldid} className={item.ldid == ldid?"live_detail_list_active":""} key={new Date().getTime()+i} onClick={this.selectLiveDetail.bind(this,item.ldid)} >
+          <div className="live_detail_list_input"></div>
+          <div className="live_detail_list_img">
+            <i></i>
+            <div></div>
+          </div>
+          <div className="live_detail_list_content">
+            <div className="live_list_title">{item.lt}<br/><i>视频</i></div>
+            <div className="live_list_content">{new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
+          </div>
+        </li>
+       );
+    }.bind(this));
+    // console.log(this.state.FirstData);
     var TeacherDataShow = this.state.FirstData.map(function(item,i){
       return(
       	<div key={new Date().getTime()+i}>
@@ -340,7 +389,7 @@ var LiveDetail = React.createClass({
           <div className="live_detail_question_content">
             <span>
               <i className="live_detail_question_content_name">{item.qn}</i>
-              <i className="live_detail_question_content_time">{this.judgeTime(item.ts)}</i><br/>
+              <i className="live_detail_question_content_time">{new Date(item.ts).Format("MM-dd hh:mm")}</i><br/>
               <i className="live_detail_question_content_text">{item.qd}</i>
             </span>
           </div>
@@ -357,15 +406,18 @@ var LiveDetail = React.createClass({
           </ul>
           <div className="live_detail">
             <div className="live_detail_list_box">
-              <ul className="live_detail_list">
+              <ul className="live_detail_list" style={{display:this.state.editState?'none':'block'}}>
                 {ListDataShow}
               </ul>
+              <ul className="live_detail_list" style={{display:this.state.editState?'block':'none'}}>
+                {ListDataInputShow}
+              </ul>
               <div className="live_detail_list_edit" style={{display:this.state.editFlag?'box':'none'}}>
-                <span onClick={this.editDetailLive}><img src="image/live_detail_edit.png"/>编辑</span>
+                <span onClick={this.editDetailLive} style={{display:this.state.askQuestionFlag?'block':'none'}}><img src="image/live_detail_edit.png"/>编辑</span>
                 <span onClick={this.gotoCreatNewLive}><img src="image/live_detail_new.png"/>新建</span>
               </div>
               <div className="live_detail_list_edit live_detail_list_edit_delete" style={{display:this.state.editShowFlag?'box':'none'}}>
-                <span></span>
+                <span onClick={this.cancleEdit}>取消</span>
                 <span></span>
                 <span onClick={this.gotoEditLive}>编辑</span>
                 <span onClick={this.gotoDeleteLive} className="delete">删除</span>
@@ -379,7 +431,7 @@ var LiveDetail = React.createClass({
               <ul className="live_detail_question_box">
                 {QuestionListShow}
               </ul>
-              <div className="live_detail_question_text">
+              <div className="live_detail_question_text" style={{display:this.state.askQuestionFlag?'box':'none'}}>
                 <input className="live_detail_text" placeholder="请输入文字" type="text"/>
                 <span onClick={this.postLiveQuestions}>提问</span>
               </div>
