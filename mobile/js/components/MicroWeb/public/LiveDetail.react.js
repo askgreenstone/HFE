@@ -11,11 +11,12 @@ var LiveDetail = React.createClass({
       FirstData: [],
       ListData: [],
       QuestionList: [],
-      editFlag: false,
-      editState: false,
-      editShowFlag: false,
-      askQuestionFlag: true,
-      ldid: 0
+      editFlag: false,    //是否显示编辑框ida=1显示ida=0隐藏
+      editState: false,   //用于在编辑时切换目录列表结构
+      editShowFlag: false,    //点击编辑时出现新的编辑框（包含取消按钮）
+      askQuestionFlag: true,  //是否可以进行提问data.ls为2即正在直播时可以进行提问，其余情况都不可以
+      ldid: 0,
+      editDetailFlag: false     //目录列表中没有具体直播时不显示编辑按钮
     };
   },
   getLiveListPic: function(){
@@ -109,8 +110,7 @@ var LiveDetail = React.createClass({
           console.log(data);
           if(data.c == 1000){
             this.setState({
-              QuestionList: data.ql,
-              askQuestionFlag: true
+              QuestionList: data.ql
             })
           }
         }.bind(this),
@@ -132,22 +132,22 @@ var LiveDetail = React.createClass({
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
+          // livestatus: int 直播状态  1 未直播   2直播中  3直播结束
           var urlLdid = this.getUrlParams('ldid');
           console.log(urlLdid);
           if(!urlLdid){
-            // window.sessionStorage.setItem('ldid',data.sldid);
             this.setState({
               ldid: data.sldid
             })
           }
           var livedid = livedetailid?livedetailid:data.sldid;
-          // window.sessionStorage.setItem('ldid',livedid);
-          
           // console.log(livedid);
           this.setState({
             ldid: livedid,
             FirstData: this.getTheOne(data.ll,livedid),
-            ListData: data.ll
+            ListData: data.ll,
+            askQuestionFlag: data.ls == 2?true:false,
+            editDetailFlag: data.ll.length>0?true:false
           })
           this.getLiveQuestion(livedid);
         }
@@ -164,9 +164,11 @@ var LiveDetail = React.createClass({
     $('.live_detail_top img').hide();
     $('.live_detail_play').hide();
     var source = data.va?data.va:data.la;
+    // "http://live.green-stone.cn/gstone/liveIOS.m3u8"
+    // alert(source);
     var player = new prismplayer({
         id: "J_prismPlayer", // 容器id
-        source: "http://live.green-stone.cn/gstone/liveIOS.m3u8",// 视频地址
+        source: source,// 视频地址
         autoplay: true,    //自动播放：是（移动端不支持）
         width: "100%",      // 播放器宽度
         height: "200px"     //播放器高度
@@ -294,10 +296,7 @@ var LiveDetail = React.createClass({
     	$(this).addClass('live_detail_nav_active').siblings('').removeClass('live_detail_nav_active');
     	$('.live_detail').children('').eq(index).show().siblings('').hide();
     });
-    // setTimeout(function(){
-    //   console.log('乔凡：定时器删除sessionStorage');
-    //   window.sessionStorage.removeItem('ldid');
-    // },1000)
+    
     
   },
   componentWillMount: function(){
@@ -322,12 +321,12 @@ var LiveDetail = React.createClass({
           <div id="J_prismPlayer" className="prism-player"></div>
           <img className="live_detail_bg" src={item.lp?(global.img+item.lp):(global.img+this.state.liveListPic)} />
           <div className="live_list_top_content">
-            <div><span>{item.ld?item.ld:'课程介绍'}</span><span></span></div>
+            <div><span>{item.lt?item.lt:'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
             <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
-          <div className="live_detail_shadow" style={{display:item.va?'none':(item.livetime > now?'inline':'none')}}><span className="live_detail_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
-          <div className="live_detail_shadow" style={{display:item.va?'none':(item.livetime > now?'none':'inline')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-          <div className="live_detail_shadow" style={{display:(item.va)?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="../image/video_on.png"/></span></div>
+          <div className="live_detail_shadow" style={{display:item.ls == 2?'inline':'none'}}><span className="live_detail_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
+          <div className="live_detail_shadow" style={{display:item.ls == 1?'inline':'none'}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+          <div className="live_detail_shadow" style={{display:item.ls == 3?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="../image/video_on.png"/></span></div>
         </div>
        );
     }.bind(this));
@@ -368,7 +367,7 @@ var LiveDetail = React.createClass({
       	<div key={new Date().getTime()+i}>
       		<div className="live_detail_class">
           		<p className="live_detail_introduce_box">课程详情</p>
-          		<div>{item.lt}</div>
+          		<div>{item.ld}</div>
           	</div>
           	<div className="live_detail_class">
           		<p className="live_detail_introduce_box">讲师介绍</p>
@@ -413,7 +412,7 @@ var LiveDetail = React.createClass({
                 {ListDataInputShow}
               </ul>
               <div className="live_detail_list_edit" style={{display:this.state.editFlag?'box':'none'}}>
-                <span onClick={this.editDetailLive} style={{display:this.state.askQuestionFlag?'block':'none'}}><img src="image/live_detail_edit.png"/>编辑</span>
+                <span onClick={this.editDetailLive} style={{display:this.state.editDetailFlag?'block':'none'}}><img src="image/live_detail_edit.png"/>编辑</span>
                 <span onClick={this.gotoCreatNewLive}><img src="image/live_detail_new.png"/>新建</span>
               </div>
               <div className="live_detail_list_edit live_detail_list_edit_delete" style={{display:this.state.editShowFlag?'box':'none'}}>

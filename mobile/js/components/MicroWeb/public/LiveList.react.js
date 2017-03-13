@@ -69,6 +69,8 @@ var LiveList = React.createClass({
         $iframe.off('load').remove()
       }, 0)
     }).appendTo($body);
+    var session = this.getUrlParams('session');
+    // alert('直播列表页session='+session);
   },
   componentWillMount: function(){
     this.getLiveList();

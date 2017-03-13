@@ -19,7 +19,7 @@ var CreateLive = React.createClass({
       speaker: '请选择',
       speakeruri: 399,
       headImg: 'header.jpg',
-      CreateDate: new Date().Format('yyyy-MM-dd'),
+      CreateDate: new Date().Format('yyyy-MM-dd')+'T'+new Date().Format('hh:mm'),
       CreateTitle: '',
       CreateDesc: '',
       Speakerdesc: '',
@@ -39,7 +39,7 @@ var CreateLive = React.createClass({
         console.log(data);
         if(data.c == 1000){
           this.setState({
-            CreateDate: new Date(data.ll[0].livetime).Format('yyyy-MM-dd'),
+            CreateDate: new Date(data.ll[0].livetime).Format('yyyy-MM-dd')+'T'+new Date(data.ll[0].livetime).Format('hh:mm'),
             CreateTitle: data.ll[0].lt,
             CreateDesc: data.ll[0].ld,
             speaker: data.ll[0].sn,
@@ -120,8 +120,9 @@ var CreateLive = React.createClass({
     })
   },
   showSpeaker: function(){
-    var ownUri = this.getUrlParams('ownUri')?(this.getUrlParams('ownUri').replace('e','')):'399';
+    var ownUri = this.getUrlParams('ownUri').replace('e','');
     var session = this.getUrlParams('session');
+    // alert('qiaof: 主讲人接口测试session='+session);
     $.ajax({
       type: 'get',
       url: global.url+'/exp/GetDeptMembers.do?di='+ownUri+'&session='+session,
@@ -143,7 +144,7 @@ var CreateLive = React.createClass({
     this.setState({
       SpeakerShow: false,
       speaker: speaker,
-      speakeruri: speakeruri
+      speakeruri: 'e'+speakeruri
     })
   },
   uploadHead: function(){
@@ -206,6 +207,7 @@ var CreateLive = React.createClass({
       fd.append('x', imgx);
       fd.append('y', imgy);
       console.log(fd);
+      $('.upload_bg').show();
       // Type : 1二维码  2  头像  3背景图  4 自动回复图文消息横版图片 5 微网站logo
       $.ajax({
           type: 'POST',
@@ -220,9 +222,11 @@ var CreateLive = React.createClass({
                 uploadShow: false,
                 headImg: data.on
               })
+              $('.upload_bg').hide();
             }
           },
           error: function(error) {
+            $('.upload_bg').hide();
             alert('网络连接错误或服务器异常！');
           }
       })
@@ -242,6 +246,7 @@ var CreateLive = React.createClass({
       x:imgx,
       y:imgy
     };
+    $('.upload_bg').show();
     $.ajax({
         type: 'POST',
         url: global.url + '/exp/UpdateMicWebImgs.do?session=' + session,
@@ -252,8 +257,10 @@ var CreateLive = React.createClass({
             uploadShow: false,
             headImg: data.in
           })
+          $('.upload_bg').hide();
         },
         error: function(error) {
+          $('.upload_bg').hide();
           alert('网络连接错误或服务器异常！');
         }
     })
@@ -265,13 +272,14 @@ var CreateLive = React.createClass({
     var lid = this.getUrlParams('lid');
     var ldid = this.getUrlParams('ldid')||0;
     var livetime = $('.create_time input').val();
-    var newTime = new Date(livetime.replace('T',' ')).getTime();
+    var newTime = new Date(livetime.replace('T',' ')).getTime()?new Date(livetime.replace('T',' ')).getTime():new Date(livetime).getTime()-8*60*60*1000;
     var livetitle = $('.create_title input').val();
     var livedesc = $('.create_intro textarea').val();
     var speakername = this.state.speaker;
     var speakeruri = this.state.speakeruri;
     var speakerpic = this.state.headImg;
     var speakerdesc = $('.create_per_intro textarea').val();
+    // alert(newTime);
     if(!livetime){
       alert('请选择直播时间！');
       return;
@@ -387,6 +395,7 @@ var CreateLive = React.createClass({
             </div>
             <div className="upload_btn" onClick={this.getUploadHead.bind(this,this.state.imgw,this.state.imgh,this.state.imgx,this.state.imgy)}><span>完成</span></div>
           </div>
+          <div className="upload_bg"><img src="image/load.gif"/></div>
         </div> 
     );
   }
