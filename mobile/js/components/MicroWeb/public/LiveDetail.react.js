@@ -146,9 +146,12 @@ var LiveDetail = React.createClass({
             ldid: livedid,
             FirstData: this.getTheOne(data.ll,livedid),
             ListData: data.ll,
-            askQuestionFlag: data.ls == 2?true:false,
+            askQuestionFlag: this.getTheOne(data.ll,livedid)[0].ls == 2?true:false,
             editDetailFlag: data.ll.length>0?true:false
           })
+          if(this.getTheOne(data.ll,livedid)[0].ls == 2){
+            $('.live_detail_question_text').show();
+          }
           this.getLiveQuestion(livedid);
         }
       }.bind(this),
@@ -163,31 +166,32 @@ var LiveDetail = React.createClass({
     // $('.prism-player').show();
     $('.live_detail_top img').hide();
     $('.live_detail_play').hide();
-    var source = data.va?data.va:data.la;
+    var source = data.ls==3?data.va:data.la;
     // "http://live.green-stone.cn/gstone/liveIOS.m3u8"
     // alert(source);
+    
     var player = new prismplayer({
-        id: "J_prismPlayer", // 容器id
-        source: source,// 视频地址
-        autoplay: true,    //自动播放：是（移动端不支持）
-        width: "100%",      // 播放器宽度
-        height: "200px"     //播放器高度
+      id: "J_prismPlayer", // 容器id
+      source: source,// 视频地址
+      autoplay: true,    //自动播放：是（移动端不支持）
+      width: "100%",      // 播放器宽度
+      height: "200px",     //播放器高度
+      isLive: data.ls == 2?true:false,
+      showBuffer: true
     });
     setTimeout(function(){
         player.play();
         console.log('qiaof:video play success')
       },300
     );
+    
   },
   gotoDetail: function(LiveDetailId){
     console.log('跳转到其他详情直播ldid'+LiveDetailId);
     this.setState({
       ldid: LiveDetailId
     })
-    // window.sessionStorage.setItem('ldid',ldid);
-    // console.log(window.sessionStorage.getItem('ldid'));
     this.getLiveInfo(LiveDetailId);
-    // this.getLiveQuestion(ldid);
   },
   gotoCreatNewLive: function(){
     var lid = this.getUrlParams('lid');
@@ -313,7 +317,7 @@ var LiveDetail = React.createClass({
     // var ldid = window.sessionStorage.getItem('ldid');
     var ldid = this.state.ldid;
     // console.log(this.state.editShowFlag);
-    // console.log(this.state.editFlag);
+    console.log(this.state.askQuestionFlag);
     var now  = new Date().getTime();
   	var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
@@ -326,7 +330,7 @@ var LiveDetail = React.createClass({
           </div>
           <div className="live_detail_shadow" style={{display:item.ls == 2?'inline':'none'}}><span className="live_detail_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
           <div className="live_detail_shadow" style={{display:item.ls == 1?'inline':'none'}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-          <div className="live_detail_shadow" style={{display:item.ls == 3?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="../image/video_on.png"/></span></div>
+          <div className="live_detail_shadow" style={{display:item.ls == 3?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
         </div>
        );
     }.bind(this));
@@ -340,8 +344,8 @@ var LiveDetail = React.createClass({
     				<div></div>
     			</div>
     			<div className="live_detail_list_content">
-    				<div className="live_list_title">{item.lt}<br/><i>视频</i></div>
-    				<div className="live_list_content">{new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
+    				<div className="live_list_title">{item.lt}<br/><i>{item.ls == 3?'点播':'直播'}</i></div>
+    				<div className="live_list_content">{item.ls == 3?'':new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
     			</div>
         </li>
        );
@@ -355,8 +359,8 @@ var LiveDetail = React.createClass({
             <div></div>
           </div>
           <div className="live_detail_list_content">
-            <div className="live_list_title">{item.lt}<br/><i>视频</i></div>
-            <div className="live_list_content">{new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
+            <div className="live_list_title">{item.lt}<br/><i>{item.ls == 3?'点播':'直播'}</i></div>
+            <div className="live_list_content">{item.ls == 3?'':new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
           </div>
         </li>
        );

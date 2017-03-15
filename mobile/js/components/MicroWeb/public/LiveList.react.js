@@ -94,7 +94,7 @@ var LiveList = React.createClass({
           <div className="live_list_bot_content">
             <div className="live_list_title">{item.ln}</div>
             <div className="live_list_content">主讲：<span>{item.sn}</span> <span>律师</span></div>
-            <div className="live_list_content">{new Date(item.lt).Format("yyyy-MM-dd hh:mm")}</div>
+            <div className="live_list_content"></div>
           </div>
         </li>
        );

@@ -140,11 +140,12 @@ var CreateLive = React.createClass({
       }.bind(this)
     })
   },
-  getSpeaker: function(speaker,speakeruri){
+  getSpeaker: function(speaker,speakeruri,headImg){
     this.setState({
       SpeakerShow: false,
       speaker: speaker,
-      speakeruri: 'e'+speakeruri
+      speakeruri: 'e'+speakeruri,
+      headImg: headImg
     })
   },
   uploadHead: function(){
@@ -272,6 +273,7 @@ var CreateLive = React.createClass({
     var lid = this.getUrlParams('lid');
     var ldid = this.getUrlParams('ldid')||0;
     var livetime = $('.create_time input').val();
+    var nowTime = new Date().getTime();
     var newTime = new Date(livetime.replace('T',' ')).getTime()?new Date(livetime.replace('T',' ')).getTime():new Date(livetime).getTime()-8*60*60*1000;
     var livetitle = $('.create_title input').val();
     var livedesc = $('.create_intro textarea').val();
@@ -283,23 +285,40 @@ var CreateLive = React.createClass({
     if(!livetime){
       alert('请选择直播时间！');
       return;
+    }else if(newTime<nowTime){
+      alert('请选择正确的直播时间！');
+      return;
     }
+
     if(!livetitle){
       alert('请输入课程标题！');
       return;
+    }else if(livetitle.length>18){
+      alert('课程标题不能超过18个字！');
+      return;
     }
+
     if(!livedesc){
       alert('请输入课程介绍！');
       return;
+    }else if(livedesc.length>140){
+      alert('课程介绍不能超过140个字！');
+      return;
     }
+
     if(!speakername || speakername == '请选择'){
       alert('请选择主讲人！');
       return;
     }
+
     if(!speakerdesc){
       alert('请输入主讲人介绍！');
       return;
+    }else if(speakerdesc.length>140){
+      alert('主讲人介绍不能超过140个字！');
+      return;
     }
+
     var data = {
       lid : lid,
       ldid : ldid,
@@ -348,6 +367,7 @@ var CreateLive = React.createClass({
     }
   },
   render:function(){
+    // console.log(this.isAndroid());
     var ProfessListNode = this.state.ProfessList.map(function(item,i){
       return(
         <li key={new Date().getTime()+i} onClick={this.getExpProfess.bind(this,item.ln)}>
@@ -357,7 +377,7 @@ var CreateLive = React.createClass({
     }.bind(this));
     var SpeakerListNode = this.state.SpeakerList.map(function(item,i){
       return(
-        <li key={new Date().getTime()+i} onClick={this.getSpeaker.bind(this,item.n,item.ei)}>
+        <li key={new Date().getTime()+i} onClick={this.getSpeaker.bind(this,item.n,item.ei,item.p)}>
           {item.n}
         </li>
        );
@@ -386,14 +406,17 @@ var CreateLive = React.createClass({
             <textarea placeholder="主讲人介绍..." onChange={this.changeSpeakerDesc}></textarea>
           </div> 
           <div className="create_sub" onClick={this.postLiveInfo}><span>提交</span></div>
-          <ul className="create_profess" style={{display:this.state.ProfessShow?'block':false}}>{ProfessListNode}</ul>
-          <ul className="create_speaker" style={{display:this.state.SpeakerShow?'block':false}}>{SpeakerListNode}</ul>
-          <div className="upload_head" style={{display:this.state.uploadShow?'block':false}}>
-            <div className="upload_btn"><span>选择头像</span><input id="uploadHead_choose" type="file"/></div>
+          <ul className="create_profess" style={{display:this.state.ProfessShow?'block':'none'}}>{ProfessListNode}</ul>
+          <ul className="create_speaker" style={{display:this.state.SpeakerShow?'block':'none'}}>{SpeakerListNode}</ul>
+          <div className="upload_head" style={{display:this.state.uploadShow?'block':'none'}}>
+            
             <div className="cropper_main">
               <img id="themeCropper" src={global.img+this.state.headImg} width="1" height="1"/>
             </div>
-            <div className="upload_btn" onClick={this.getUploadHead.bind(this,this.state.imgw,this.state.imgh,this.state.imgx,this.state.imgy)}><span>完成</span></div>
+            <div className="upload_btn_box">
+              <div className="upload_btn" style={{display:this.isAndroid()?'none':'block'}}><span>选择头像</span><input id="uploadHead_choose" type="file"/></div>
+              <div className="upload_btn" onClick={this.getUploadHead.bind(this,this.state.imgw,this.state.imgh,this.state.imgx,this.state.imgy)}><span>完成</span></div>
+            </div>
           </div>
           <div className="upload_bg"><img src="image/load.gif"/></div>
         </div> 
