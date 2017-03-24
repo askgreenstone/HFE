@@ -53,7 +53,7 @@ var Location = React.createClass({
                       // alert(JSON.stringify(res));
                     },
                     cancel: function (res) {
-                      alert('用户拒绝授权获取地理位置');
+                      this.showAlert('用户拒绝授权获取地理位置');
                     }
                   });
 
@@ -68,11 +68,11 @@ var Location = React.createClass({
               } else if(data.c == 1040){
                   console.log("避开微信认证")
               }  else {
-                  alert('wx location code:' + data.c + ',error:' + data.d);
+                  this.showAlert('wx location code:' + data.c + ',error:' + data.d);
               }
           },
           error: function(xhr, status, err) {
-              this.showAlert('系统开了小差，请刷新页面');
+              this.showRefresh('系统开了小差，请刷新页面');
               console.error(this.props.url, status, err.toString());
           }
       });

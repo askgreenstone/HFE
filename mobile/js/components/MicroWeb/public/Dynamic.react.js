@@ -75,7 +75,7 @@ var Dynamic = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     });
   },
@@ -181,7 +181,7 @@ var Dynamic = React.createClass({
       }.bind(this),
       error: function(data) {
           // console.log(data);
-          alert('系统开了小差，请刷新页面');
+          this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -204,10 +204,10 @@ var Dynamic = React.createClass({
     var session = this.getUrlParams('session');
     var fid = this.getUrlParams('fid');
     if(!val){
-      alert('请输入要发送的内容！');
+      this.showAlert('请输入要发送的内容！');
       return;
     }else if(this.callength(val) >= 1000){
-      alert('你输入的内容过长！');
+      this.showAlert('你输入的内容过长！');
       return;
     }else{
       var data = {
@@ -236,7 +236,7 @@ var Dynamic = React.createClass({
         }.bind(this),
         error: function(data) {
             // console.log(data);
-            alert('系统开了小差，请刷新页面');
+            this.showRefresh('系统开了小差，请刷新页面');
         }.bind(this)
       })
     }
@@ -246,7 +246,7 @@ var Dynamic = React.createClass({
     var session = this.getUrlParams('session');
     var fid = this.getUrlParams('fid');
     if(flag){
-      alert('已经点过赞了！');
+      this.showAlert('已经点过赞了！');
       return;
     }else{
       var data = {
@@ -267,7 +267,7 @@ var Dynamic = React.createClass({
         }.bind(this),
         error: function(data) {
             // console.log(data);
-            alert('系统开了小差，请刷新页面');
+            this.showRefresh('系统开了小差，请刷新页面');
         }.bind(this)
       })
     }
@@ -334,13 +334,13 @@ var Dynamic = React.createClass({
       success: function(data) {
         console.log(data);
         if(data.c == 1999){
-          alert('该律师还没有创建个人名片');
+          this.showAlert('该律师还没有创建个人名片');
         }else{
           window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
         }
       }.bind(this),
       error: function(data) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -466,7 +466,8 @@ var Dynamic = React.createClass({
               <span className="dynamic_usr_consult" onClick={this.state.expConsultState?this.gotoConsult:this.gotoIndex} ><span>{this.state.expConsultWord1}</span><span>{this.state.expConsultWord2}</span></span>
             </p>
           </div>
-        </div>       
+        </div>  
+        <Message/>     
         <Share title={this.state.Title} desc={this.state.Introduction} imgUrl={global.img+this.state.Img} target="Dynamic" />
       </div>
     )

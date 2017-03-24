@@ -1,5 +1,5 @@
 var React = require('react');
-
+var Message = require('../../common/Message.react');
 var CommonMixin = require('../../Mixin');
 
 
@@ -22,7 +22,7 @@ var Lawyers = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     var elements = [];
     if(!key_word){
-      alert('请输入关键字！')
+      this.showAlert('请输入关键字！')
     }else if(ownUri){
       window.location.href = '#SearchLawyers?key_word='+key_word+'&ida='+ida+'&st='+st+'&ownUri='+ownUri;
     }else{
@@ -64,7 +64,7 @@ var Lawyers = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -97,7 +97,7 @@ var Lawyers = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     });
     console.log(temp+'....'+appid);
@@ -109,14 +109,14 @@ var Lawyers = React.createClass({
       success: function(data) {
         console.log(data);
         if(data.c == 1999){
-          alert('该律师还没有创建个人名片');
+          this.showAlert('该律师还没有创建个人名片');
         }else{
           window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
         }
       }.bind(this),
       error: function(data) {
           // console.log(data);
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -222,6 +222,7 @@ var Lawyers = React.createClass({
               <span onClick={this.getMoreLawyer}>加载更多</span>
             </div>
           </ul>
+          <Message/>
         </div> 
     );
   }

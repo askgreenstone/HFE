@@ -1,30 +1,6 @@
 var React = require('react');
-
+var Message = require('../../common/Message.react');
 var CommonMixin = require('../../Mixin');
-Date.prototype.Format = function(fmt){ //author: meizz
-  var today = new Date();
-  today.setHours(0);
-  today.setMinutes(0);
-  today.setSeconds(0);
-  today.setMilliseconds(0);
-  // console.log(today.getTime());
-  var o = {   
-    "M+" : this.getMonth()+1,                 //月份   
-    "d+" : this.getDate(),                    //日   
-    "h+" : this.getHours(),                   //小时   
-    "m+" : this.getMinutes(),                 //分   
-    "s+" : this.getSeconds(),                 //秒   
-    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-    "S"  : this.getMilliseconds()             //毫秒   
-  };  
-  if(/(y+)/.test(fmt))   
-    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-  for(var k in o)   
-    if(new RegExp("("+ k +")").test(fmt))   
-  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-  return fmt;   
-}  
-
 
 var LiveList = React.createClass({
   mixins:[CommonMixin],
@@ -50,15 +26,13 @@ var LiveList = React.createClass({
       }.bind(this),
       error: function(data) {
           // console.log(data);
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
   gotoLiveDetail:function(lid){
     var ownUri = this.getUrlParams('ownUri');
-    var session = this.getUrlParams('session');
-    var ida = this.getUrlParams('ida');
-    window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ida='+ida+'&session='+session;
+    window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid;
   },
   componentDidMount: function(){
     var $body = $('body')
@@ -105,6 +79,7 @@ var LiveList = React.createClass({
           <ul className="Live_list">
             {ListDataShow}
           </ul>
+          <Message/>
         </div> 
     );
   }

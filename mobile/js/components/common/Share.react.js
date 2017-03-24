@@ -100,7 +100,7 @@ var Share = React.createClass({
                 }
             },
             error: function(xhr, status, err) {
-                that.showAlert('系统开了小差，请刷新页面');
+                that.showRefresh('系统开了小差，请刷新页面');
                 console.error(this.props.url, status, err.toString());
             }
         });

@@ -127,7 +127,7 @@ jQuery(function($){
         di: di,
         ida: 0,
         ea: arr,
-        ifa: 1
+        ifa: 0
       }
       console.log(data);
 
@@ -251,7 +251,7 @@ jQuery(function($){
   //初始化数据
   function initAll() {
     getOrgMember(pageCount);
-    getOrgExistMember();
+    // getOrgExistMember();
   }
 
   initAll();

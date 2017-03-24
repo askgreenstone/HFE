@@ -69,11 +69,11 @@ var Waterfall = React.createClass({
               } else if(data.c == 1040){
                   console.log("避开微信认证");
               }  else {
-                  alert('wx preview code:' + data.c + ',error:' + data.d);
+                  this.showAlert('wx preview code:' + data.c + ',error:' + data.d);
               }
           },
           error: function(xhr, status, err) {
-              this.showAlert('网络连接错误或服务器异常！');
+              this.showRefresh('系统开了小差，请刷新页面');
               console.error(this.props.url, status, err.toString());
           }
       });

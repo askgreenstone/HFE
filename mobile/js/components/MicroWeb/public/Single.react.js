@@ -7,7 +7,7 @@ var Single = React.createClass({
 	},
   mixins:[CommonMixin],
   singleHidden:function(e){
-  	alert(0)
+  	this.showAlert(0)
   },
   render: function() {
     return (

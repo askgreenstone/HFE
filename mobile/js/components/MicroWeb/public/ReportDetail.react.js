@@ -1,5 +1,6 @@
 var React = require('react');
 var CommonMixin = require('../../Mixin');
+var Message = require('../../common/Message.react');
 var ReportDetail = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
@@ -22,7 +23,7 @@ var ReportDetail = React.createClass({
     var reportContent = $('.reportContent textarea').val();
     var len = reportContent?reportContent.length:0;
     if(len>200){
-      alert('投诉描述内容过长！');
+      this.showAlert('投诉描述内容过长！');
       return;
     }else{
       // ctype：int 被投诉类别  1 最新动态   2 微课堂
@@ -40,13 +41,14 @@ var ReportDetail = React.createClass({
         success: function(data) {
           console.log(data);
           if(data.c == 1000){
-            alert('提交成功！')
-            WeixinJSBridge.call('closeWindow');
+            this.showAlert('提交成功！',function(){
+              WeixinJSBridge.call('closeWindow');
+            })
           }
         }.bind(this),
         error: function(data) {
             // console.log(data);
-            alert('系统开了小差，请刷新页面');
+            this.showRefresh('系统开了小差，请刷新页面');
         }.bind(this)
       })
     }
@@ -80,6 +82,7 @@ var ReportDetail = React.createClass({
           <span className="reportNom"><i>0</i>/200</span>  
         </div>
         <div className="reportSub" onClick={this.submitReport}><span>提交</span></div>
+        <Message/>
       </div>
     )
   }

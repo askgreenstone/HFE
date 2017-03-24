@@ -2,6 +2,7 @@ var React = require('react');
 var CommonMixin = require('../../Mixin');
 var List1 = require('../../layout/List1.react');
 var Share = require('../../common/Share.react');
+var Message = require('../../common/Message.react');
 
 var ArticleList = React.createClass({
 	mixins:[CommonMixin],
@@ -67,7 +68,7 @@ var ArticleList = React.createClass({
            }
         }.bind(this),
         error: function(xhr, status, err) {
-          this.showAlert('系统开了小差，请刷新页面');
+          this.showRefresh('系统开了小差，请刷新页面');
         }.bind(this)
       });
   },
@@ -127,6 +128,7 @@ var ArticleList = React.createClass({
       <div className="ad_goHome" onClick={this.goHome}>
         <img src="image/home.png"/>
       </div>
+      <Message/>
     </div>
     );
   },

@@ -86,7 +86,7 @@ var TimeAxis = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -153,7 +153,7 @@ var TimeAxis = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -189,7 +189,7 @@ var TimeAxis = React.createClass({
       }.bind(this),
       error: function(data) {
           // console.log(data);
-          alert('系统开了小差，请刷新页面');
+          this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -200,8 +200,8 @@ var TimeAxis = React.createClass({
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida');
     var idf = this.getUrlParams('idf');
-    var flag = window.confirm('确定要删除么？');
-    if(flag){
+    var that = this;
+    that.showConfirm('执行删除后将无法恢复，确定继续吗？',function(){
       $.ajax({
         type: 'POST',
         url: global.url+'/usr/DeleteFeed.do?session='+session,
@@ -211,17 +211,14 @@ var TimeAxis = React.createClass({
         success: function(data) {
             console.log(data);
             if(data.c == 1000){
-              this.getTimeAxis(0);
-              // window.location.reload();
-              // window.location.href = '#TimeAxis?ownUri='+ownUri+'&session='+session+'&usrUri='+usrUri+'&ida'+ida+'&idf='+idf;
+              that.getTimeAxis(0);
             }
-        }.bind(this),
+        }.bind(that),
         error: function(data) {
-            // console.log(data);
-            alert('系统开了小差，请刷新页面');
-        }.bind(this)
+            that.showRefresh('系统开了小差，请刷新页面');
+        }.bind(that)
       })
-    }
+    });
   },
   // 点击去往个人足迹
   gotoSelf: function(){
@@ -323,6 +320,7 @@ var TimeAxis = React.createClass({
         <div className="timeline_more" style={{display:this.state.getMore?'block':'none'}}><span onClick={this.getMoreData}>加载更多</span></div>
         <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="TimeAxis" />
       </div>
+      <Message/>
     </div>
     
   )

@@ -66,7 +66,7 @@ var Index004=React.createClass({
         }
       }.bind(this),
       error:function(){
-        alert('网络连接错误或服务器异常！')
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
     
@@ -95,7 +95,7 @@ var Index004=React.createClass({
           }
         }.bind(this),
         error: function(xhr, status, err) {
-          this.showAlert('系统开了小差，请刷新页面');
+          this.showRefresh('系统开了小差，请刷新页面');
           console.error(this.props.url, status, err.toString());
         }.bind(this)
       });
@@ -142,7 +142,7 @@ var Index004=React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -187,7 +187,7 @@ var Index004=React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -214,7 +214,7 @@ var Index004=React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });

@@ -22,11 +22,11 @@ var CommonMixin = {
             if (data.c == 1000) {
 
             } else {
-                alert('code:' + data.c + ',error:' + data.d);
+                this.showAlert('code:' + data.c + ',error:' + data.d);
             }
         },
         error: function(xhr, status, err) {
-            this.showAlert('系统开了小差，请刷新页面');
+            this.showRefresh('系统开了小差，请刷新页面');
             console.error(this.props.url, status, err.toString());
         }
     });
@@ -72,20 +72,53 @@ var CommonMixin = {
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     return isiOS;
   },
-  showAlert: function(content){
-    //调用：this.showAlert('系统开了小差，请刷新页面');
+  // 检测wechat客户端
+  isWechat: function() {  
+    var ua = navigator.userAgent.toLowerCase();
+    return /micromessenger/i.test(ua) || typeof navigator.wxuserAgent !== 'undefined';
+  },
+  showAlert: function(content,callback){
+    //调用：this.showAlert('提交成功！');
     $('.base_shadow').show();
     $('.base_alert').show().siblings().hide();
     $('.base_alert span').text(content);
-  },
-  showTip: function(content){
-    //调用：this.showTip('操作成功！');
-    $('.base_shadow').show();
-    $('.base_tip').show().siblings().hide();
-    $('.base_tip span').text(content);
-    setTimeout(function(){
+    $('.base_shadow').click(function(event) {
+      console.log(event.target.id);
       $('.base_shadow').hide();
-    },800);
+      if(event.target.id == 'base_alert_confirm'){
+        if(typeof (callback) == 'function'){
+          callback()
+        }
+      };
+    });
+  },
+  showRefresh: function(content){
+    //调用：this.showRefresh('系统开了小差，请刷新页面');
+    $('.base_shadow').show();
+    $('.base_reFresh').show().siblings().hide();
+    $('.base_reFresh span').text(content);
+  },
+  showConfirm: function(content,callback1,callback2){
+    //调用：this.showConfirm('操作成功！');
+    $('.base_shadow').show();
+    $('.base_confirm').show().siblings().hide();
+    $('.base_confirm span').text(content);
+    $('.base_shadow').click(function(event) {
+      console.log(event.target.id);
+      $('.base_shadow').hide();
+      if(event.target.id == 'base_confirm_confirm'){
+        if(typeof (callback1) == 'function'){
+          callback1()
+        }
+      };
+      if(event.target.id == 'base_confirm_cancle'){
+        if(typeof (callback2) == 'function'){
+          callback2()
+        }
+      };
+      
+    });
+    
   },
   showNotice: function(content){
     $('.notice_box').show();
@@ -114,7 +147,7 @@ var CommonMixin = {
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -162,7 +195,7 @@ var CommonMixin = {
         }
       },
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         // console.error(this.props.url, status, err.toString());
       }
     });
@@ -351,12 +384,12 @@ var CommonMixin = {
           if(data.ocm == 1){
             that.getWXMsg(ownUri,ida,st);
           }else{
-            alert('该律师暂时关闭在线咨询功能');
+            this.showAlert('该律师暂时关闭在线咨询功能');
           }
         }
       },
       error: function(xhr, status, err) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }
     });
   },

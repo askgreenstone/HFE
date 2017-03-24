@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+    <meta name="x5-orientation" content="portrait">
+    <title>直播列表页面</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div class="live_list_box">
+      <div class="live_list_top">
+          
+      </div>
+      <ul class="Live_list">
+        
+      </ul>
+    </div> 
+<!-- prism-player为h5播放器皮肤的钩子类名，请务必加上  -->
+<!-- <div class="parent">
+    <div class="mark"><img src="image/zan.png"></div>
+    <div id="J_prismPlayer" class="prism-player"></div>
+    <div class="child">
+        <div class="input"><input type="text" name=""></div>
+        <div class="span"><span>发送</span></div>
+    </div>
+</div> -->
+<script type="text/javascript" src="lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/ali.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/livelist.js"></script>
+<script>
+    // 初始化播放器
+    // 2月16日直播测试
+    // http://live.green-stone.cn/gstone/liveIOS.m3u8
+    // http://live.green-stone.cn/gstone/livee166131415.m3u8
+    // $('.mark').on('click', function(event) {
+    //     event.preventDefault();
+    //     $(this).hide()
+    //     var player = new prismplayer({
+    //         id: "J_prismPlayer", // 容器id
+    //         source: "http://videolive.green-stone.cn/video/livee165832311.m3u8",// 视频地址
+    //         autoplay: true,    //自动播放：否
+    //         width: "100%",       // 播放器宽度
+    //         height: "100%",      // 播放器高度
+    //         skinLayout: [                            // false | Array, 播放器使用的ui组件，非必填，不传使用默认，传false或[]整体隐藏
+    //             {name:"bigPlayButton", align:"cc", x:30, y:80},
+    //             {name:"controlBar", align:"blabs", x:0, y:0,
+    //                 children: [
+    //                     {name:"progress", align:"tlabs", x: 0, y:0},
+    //                     {name:"playButton", align:"tl", x:15, y:26},
+    //                     {name:"timeDisplay", align:"tl", x:10, y:24},
+    //                     {name:"fullScreenButton", align:"tr", x:20, y:25},
+    //                     {name:"volume", align:"tr", x:20, y:25}
+    //                 ]
+    //             }
+    //           ]
+    //     });
+    //     // http://videolive.green-stone.cn/video/livee165831392.m3u8
+    //     setTimeout(function(){
+    //         player.play();
+    //     },300)
+    //     // $('.child').css('display','-webkit-box');
+    // });
+</script>
+</body> 

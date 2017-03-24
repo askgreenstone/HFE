@@ -1,6 +1,7 @@
 var React = require('react');
 
 var CommonMixin = require('../../Mixin');
+var Message = require('../../common/Message.react');
 
 
 
@@ -50,7 +51,7 @@ var Lawyers = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        this.showAlert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -97,7 +98,7 @@ var Lawyers = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     });
   },
@@ -108,14 +109,14 @@ var Lawyers = React.createClass({
       success: function(data) {
         console.log(data);
         if(data.c == 1999){
-          alert('该律师还没有创建个人名片');
+          this.showAlert('该律师还没有创建个人名片');
         }else{
           window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
         }
       }.bind(this),
       error: function(data) {
           // console.log(data);
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -208,6 +209,7 @@ var Lawyers = React.createClass({
               <span onClick={this.getMoreLawyer}>加载更多</span>
             </div>
           </ul>
+          <Message/>
         </div>
       );
     }else{

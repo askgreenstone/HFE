@@ -85,7 +85,7 @@ var Board = React.createClass({
             }
         },
         error: function(xhr, status, err) {
-            that.showAlert('系统开了小差，请刷新页面');
+            that.showRefresh('系统开了小差，请刷新页面');
             // console.error(this.props.url, status, err.toString());
         }
     });
@@ -150,7 +150,7 @@ var Board = React.createClass({
             }
         },
         error: function(xhr, status, err) {
-            that.showAlert('系统开了小差，请刷新页面');
+            that.showRefresh('系统开了小差，请刷新页面');
             console.error(this.props.url, status, err.toString());
         }
     });
@@ -187,7 +187,7 @@ var Board = React.createClass({
             console.log(data);
             if (data.c == 1000) {
               that.refs.boardMsgInput.value = '';
-              that.showTip('留言发送成功！');
+              that.showAlert('留言发送成功！');
               if(pageImg){
                 setTimeout(function(){
                   that.getMsgList(gi,sess,pageImg);
@@ -196,7 +196,7 @@ var Board = React.createClass({
             }
         },
         error: function(xhr, status, err) {
-            that.showAlert('系统开了小差，请刷新页面');
+            that.showRefresh('系统开了小差，请刷新页面');
         }
     });
   },
@@ -227,7 +227,7 @@ var Board = React.createClass({
       }.bind(this),
       error: function(data) {
           // console.log(data);
-          alert('系统开了小差，请刷新页面');
+          this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -236,7 +236,7 @@ var Board = React.createClass({
         gi = this.getUrlParams('groupId');
     if(pageImg){
       this.getMsgList(gi,sess,pageImg); 
-      this.showTip('刷新成功！');   
+      this.showAlert('刷新成功！');   
     }
   },
   viewDoc: function(name,docname){
@@ -258,7 +258,7 @@ var Board = React.createClass({
             }
         },
         error: function(xhr, status, err) {
-            that.showAlert('系统开了小差，请刷新页面');
+            that.showRefresh('系统开了小差，请刷新页面');
         }
     });
   },
@@ -323,11 +323,11 @@ var Board = React.createClass({
               } else if(data.c == 1040){
                   console.log("避开微信认证");
               }  else {
-                  alert('wx preview code:' + data.c + ',error:' + data.d);
+                  this.showAlert('wx preview code:' + data.c + ',error:' + data.d);
               }
           },
           error: function(xhr, status, err) {
-              this.showAlert('系统开了小差，请刷新页面');
+              this.showRefresh('系统开了小差，请刷新页面');
               console.error(this.props.url, status, err.toString());
           }
       });

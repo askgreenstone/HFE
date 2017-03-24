@@ -1,5 +1,5 @@
 var React = require('react');
-
+var Message = require('../../common/Message.react');
 var CommonMixin = require('../../Mixin');
 var cropper = require('../../common/Cropper.react');
 
@@ -50,7 +50,7 @@ var CreateLive = React.createClass({
         }
       }.bind(this),
       error: function(data) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -58,7 +58,7 @@ var CreateLive = React.createClass({
     this.setState({
       CreateDate: e.target.value
     });
-    console.log(e.target.value);
+    //console.log(e.target.value);
   },
   changeTitle:  function(e) {
     this.setState({
@@ -104,7 +104,7 @@ var CreateLive = React.createClass({
         }
       }.bind(this),
       error: function(data) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -136,7 +136,7 @@ var CreateLive = React.createClass({
         }
       }.bind(this),
       error: function(data) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
   },
@@ -182,7 +182,7 @@ var CreateLive = React.createClass({
                         URL.revokeObjectURL(blobURL); // Revoke when load complete
                     }).cropper('reset').cropper('replace', blobURL);
                 } else {
-                    alert('请选择图片文件！');
+                    this.showAlert('请选择图片文件！');
                 }
             }
         });
@@ -228,7 +228,7 @@ var CreateLive = React.createClass({
           },
           error: function(error) {
             $('.upload_bg').hide();
-            alert('网络连接错误或服务器异常！');
+            this.showRefresh('系统开了小差，请刷新页面');
           }
       })
     })
@@ -262,7 +262,7 @@ var CreateLive = React.createClass({
         },
         error: function(error) {
           $('.upload_bg').hide();
-          alert('网络连接错误或服务器异常！');
+          this.showRefresh('系统开了小差，请刷新页面');
         }
     })
   },
@@ -283,39 +283,39 @@ var CreateLive = React.createClass({
     var speakerdesc = $('.create_per_intro textarea').val();
     // alert(newTime);
     if(!livetime){
-      alert('请选择直播时间！');
+      this.showAlert('请选择直播时间！');
       return;
     }else if(newTime<nowTime){
-      alert('请选择正确的直播时间！');
+      this.showAlert('请选择正确的直播时间！');
       return;
     }
 
     if(!livetitle){
-      alert('请输入课程标题！');
+      this.showAlert('请输入课程标题！');
       return;
     }else if(livetitle.length>18){
-      alert('课程标题不能超过18个字！');
+      this.showAlert('课程标题不能超过18个字！');
       return;
     }
 
     if(!livedesc){
-      alert('请输入课程介绍！');
+      this.showAlert('请输入课程介绍！');
       return;
     }else if(livedesc.length>140){
-      alert('课程介绍不能超过140个字！');
+      this.showAlert('课程介绍不能超过140个字！');
       return;
     }
 
     if(!speakername || speakername == '请选择'){
-      alert('请选择主讲人！');
+      this.showAlert('请选择主讲人！');
       return;
     }
 
     if(!speakerdesc){
-      alert('请输入主讲人介绍！');
+      this.showAlert('请输入主讲人介绍！');
       return;
     }else if(speakerdesc.length>140){
-      alert('主讲人介绍不能超过140个字！');
+      this.showAlert('主讲人介绍不能超过140个字！');
       return;
     }
 
@@ -339,12 +339,13 @@ var CreateLive = React.createClass({
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
-          alert('提交成功！');
-          window.location.href = '#/LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ida='+ida+'&session='+session;
+          this.showAlert('提交成功！',function(){
+            window.location.href = '#/LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ida='+ida+'&session='+session;
+          });
         }
       }.bind(this),
       error: function(data) {
-        alert('系统开了小差，请刷新页面');
+        this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
     
@@ -419,6 +420,7 @@ var CreateLive = React.createClass({
             </div>
           </div>
           <div className="upload_bg"><img src="image/load.gif"/></div>
+          <Message/>
         </div> 
     );
   }
