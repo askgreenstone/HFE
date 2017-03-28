@@ -2,6 +2,7 @@ var React = require('react');
 
 var CommonMixin = require('../../Mixin');
 var prismplayer = require('../../common/prism-min.react');
+var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
 
@@ -15,7 +16,10 @@ var LiveDetail = React.createClass({
       askQuestionFlag: true,  //是否可以进行提问data.ls为2即正在直播时可以进行提问，其余情况都不可以
       ldid: 0,
       LiveVideoQue: '',
-      LiveDetailQue: ''
+      LiveDetailQue: '',
+      ShareTitile: '直播详情',
+      ShareDesc: '直播详情页面',
+      ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png'
     };
   },
   getLiveListPic: function(){
@@ -73,6 +77,9 @@ var LiveDetail = React.createClass({
         if(data.c == 1000){
           $('.live_detail_text').val('');
           this.getLiveQuestion(this.state.ldid);
+        }else if(data.c == 1052){
+          $('.live_detail_text').val('');
+          this.showAlert('主讲人已经关闭提问功能。');
         }
       }.bind(this),
       error: function(data) {
@@ -155,66 +162,81 @@ var LiveDetail = React.createClass({
         this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
-  }, 
+  },
+  addLiveWatchNum: function(){
+    var data = {
+      ldid: this.state.ldid
+    }
+    $.ajax({
+      type: 'post',
+      url: global.url+'/exp/AddLiveWatchNum.do',
+      data: JSON.stringify(data),
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          console.log('addLiveWatchNum success!');
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
+  },
   liveVideoShow: function(data){
-    // console.log(data);
-    // var source = data.ls==3?data.va:data.la;
-    // var arr = [];
-    // if(data.ls == 3){
-    //   arr = [
-    //           {name:"bigPlayButton", align:"cc", x:30, y:80},
-    //           {name:"controlBar", align:"blabs", x:0, y:0,
-    //               children: [
-    //                   {name:"progress", align:"tlabs", x: 0, y:0},
-    //                   {name:"playButton", align:"tl", x:15, y:26},
-    //                   {name:"timeDisplay", align:"tl", x:10, y:24},
-    //                   {name:"volume", align:"tr", x:20, y:25}
-    //               ]
-    //           }
-    //         ]
-    //   $('.live_detail_list_edit_box').hide();
-    // }else{
-    //   arr = [];
-    //   $('.live_detail_list_edit_box').show();
-    // }
-    // "http://live.green-stone.cn/gstone/liveIOS.m3u8"
-    // alert(source);
-    $('.live_detail_play').hide();
-    var player = new prismplayer({
-            id: "J_prismPlayer", // 容器id
-            source: "http://videolive.green-stone.cn/video/livee165832311.m3u8",// 视频地址
-            autoplay: true,    //自动播放：否
-            width: "100%",       // 播放器宽度
-            height: "100%",      // 播放器高度
-            skinLayout: [
+    console.log(data);
+    var source = data.ls==3?data.va:data.la;
+    var arr = [];
+    if(data.ls == 3){
+      arr = [
               {name:"bigPlayButton", align:"cc", x:30, y:80},
-              {name:"controlBar", align:"blabs", x:0, y:0,
+              {name:"controlBar", align:"blabs", x:0, y:50,
                   children: [
                       {name:"progress", align:"tlabs", x: 0, y:0},
                       {name:"playButton", align:"tl", x:15, y:26},
-                      {name:"timeDisplay", align:"tl", x:10, y:24},
-                      {name:"volume", align:"tr", x:20, y:25}
+                      {name:"timeDisplay", align:"tl", x:10, y:24}
                   ]
               }
             ]
+      $('.live_detail_list_edit_box').hide();
+    }else{
+      arr = [];
+      $('.live_detail_list_edit_box').show();
+      this.addLiveWatchNum();
+    }
+    // "http://live.green-stone.cn/gstone/liveIOS.m3u8"
+    // alert(source);
+
+    $('.live_detail_play').hide();
+    $('.live_detail_shadow').hide();
+    var player = new prismplayer({
+            id: "J_prismPlayer", // 容器id
+            source: source,// 视频地址
+            autoplay: true,    //自动播放：否
+            width: "100%",       // 播放器宽度
+            height: "100%",      // 播放器高度
+            skinLayout: arr
         });
-    setTimeout(function(){
-      player.play();
-    },300)
-    // var that = this;
+    player.play();
+    var that = this;
     // // alert('播放器初始化成功！')
-    // player.on("ended", function() {
-    //     that.showAlert('播放结束！',function(){
-    //       player.setPlayerSize('1px','1px');
-    //       $('.live_detail_list_edit_box').hide();
-    //       that.gotoDetail(data.ldid);
-    //     });
-    // });
-    // player.on("pause", function() {
-    //     player.setPlayerSize('1px','1px');
-    //     $('.live_detail_list_edit_box').hide();
-    //     that.gotoDetail(data.ldid);
-    // });
+    if(data.ls ==2){
+      player.on("pause", function() {
+        player.setPlayerSize('1px','1px');
+        $('.live_detail_list_edit_box').hide();
+        $('.live_detail_play_play').show().parent().show();
+        that.gotoDetail(data.ldid);
+      });
+    }
+    player.on("ended", function() {
+      that.showAlert('播放结束！',function(){
+        player.setPlayerSize('1px','1px');
+        that.gotoDetail(data.ldid);
+      });
+    });
+    player.on("m3u8Retry", function() {
+      that.showAlert('直播流中断，正在重试！');
+    });
   },
   gotoDetail: function(LiveDetailId){
     console.log('跳转到其他详情直播ldid'+LiveDetailId);
@@ -250,10 +272,8 @@ var LiveDetail = React.createClass({
     }
   },
   render:function(){
-    // var ldid = window.sessionStorage.getItem('ldid');
     var ldid = this.state.ldid;
-    // console.log(this.state.editShowFlag);
-    // console.log(this.state.askQuestionFlag);
+    console.log(this.state.liveListPic);
     var now  = new Date().getTime();
   	var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
@@ -264,7 +284,7 @@ var LiveDetail = React.createClass({
             <div><span>{item.lt?item.lt:'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
             <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
-          <div className="live_detail_shadow" style={{display:item.ls == 2?'inline':'none'}}><span className="live_detail_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
+          <div className="live_detail_shadow" style={{display:item.ls == 2?'inline':'none'}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
           <div className="live_detail_shadow" style={{display:item.ls == 1?'inline':'none'}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           <div className="live_detail_shadow" style={{display:item.ls == 3?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
         </div>
@@ -354,7 +374,7 @@ var LiveDetail = React.createClass({
               <div className="liveShow_span">接受</div>
             </div>
           </div>
-          
+          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveList"/>
           <Message/>
         </div> 
     );

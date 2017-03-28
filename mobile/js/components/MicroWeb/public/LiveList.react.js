@@ -1,5 +1,6 @@
 var React = require('react');
 var Message = require('../../common/Message.react');
+var Share = require('../../common/Share.react');
 var CommonMixin = require('../../Mixin');
 
 var LiveList = React.createClass({
@@ -8,6 +9,9 @@ var LiveList = React.createClass({
     return {
       FirstData:[],
       ListData:[],
+      ShareTitile: '直播列表分享',
+      ShareDesc: '直播列表页',
+      ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png'
     };
   },
   getLiveList: function(){
@@ -80,6 +84,7 @@ var LiveList = React.createClass({
             {ListDataShow}
           </ul>
           <Message/>
+          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveList"/>
         </div> 
     );
   }

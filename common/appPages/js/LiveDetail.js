@@ -262,6 +262,12 @@ jQuery(function($){
   $('.live_detail_top').on('click','.live_detail_play_button',function(event) {
     event.preventDefault();
     /* Act on the event */
+    $(this).hide();
+    $('.live_detail_nav').hide();
+    $('.live_detail').hide();
+    $('.live_detail_bg').hide();
+    $('.live_list_top_content').hide();
+    $('.live_detail_shadow').hide();
     gotoPlay();
   });
 

@@ -74,6 +74,8 @@
               usrUri = getUrlParams('usrUri'),
               isAndroid = getUrlParams('isAndroid'),
               isIos = getUrlParams('isIos'),
+              lid = getUrlParams('lid'),
+              ldid = getUrlParams('ldid'),
               nid = getUrlParams('nid');
           if(nid){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid+'&ida='+ida;
@@ -85,6 +87,8 @@
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true';
           }else if(isIos){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+          }else if(ldid){
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
           }else{
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
           }
