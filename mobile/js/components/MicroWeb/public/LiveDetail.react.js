@@ -149,11 +149,15 @@ var LiveDetail = React.createClass({
             ownUri: this.getTheOne(data.ll,livedid)[0].dou,
             FirstData: this.getTheOne(data.ll,livedid),
             ListData: data.ll,
-            askQuestionFlag: this.getTheOne(data.ll,livedid)[0].ls == 2?true:false
+            askQuestionFlag: this.getTheOne(data.ll,livedid)[0].ls == 2?true:false,
+            ShareTitile: this.getTheOne(data.ll,livedid)[0].lt,
+            ShareDesc: this.getTheOne(data.ll,livedid)[0].sn+'带来关于'+this.getTheOne(data.ll,livedid)[0].ld+'的精彩讲课',
+            ShareImg: this.getTheOne(data.ll,livedid)[0].sp
           })
           if(this.getTheOne(data.ll,livedid)[0].ls == 2){
             $('.live_detail_question_text').show();
           }
+
           this.getLiveQuestion(livedid);
         }
       }.bind(this),
@@ -225,25 +229,29 @@ var LiveDetail = React.createClass({
         player.setPlayerSize('1px','1px');
         $('.live_detail_list_edit_box').hide();
         $('.live_detail_play_play').show().parent().show();
-        that.gotoDetail(data.ldid);
+        that.gotoDetail(data);
       });
     }
     player.on("ended", function() {
       that.showAlert('播放结束！',function(){
         player.setPlayerSize('1px','1px');
-        that.gotoDetail(data.ldid);
+        that.gotoDetail(data);
       });
     });
     player.on("m3u8Retry", function() {
       that.showAlert('直播流中断，正在重试！');
     });
   },
-  gotoDetail: function(LiveDetailId){
-    console.log('跳转到其他详情直播ldid'+LiveDetailId);
+  gotoDetail: function(data){
+    console.log(data);
+    console.log('跳转到其他详情直播ldid'+data.ldid);
     this.setState({
-      ldid: LiveDetailId
+      ldid: data.ldid,
+      ShareTitile: data.lt,
+      ShareDesc: data.sn+'带来关于'+data.ld+'的精彩讲课',
+      ShareImg: data.sp
     })
-    this.getLiveInfo(LiveDetailId);
+    this.getLiveInfo(data.ldid);
   },
   componentDidMount: function(){
     var $body = $('body')
@@ -275,6 +283,9 @@ var LiveDetail = React.createClass({
     var ldid = this.state.ldid;
     console.log(this.state.liveListPic);
     var now  = new Date().getTime();
+    console.log(this.state.ShareTitile);
+    console.log(this.state.ShareDesc);
+    console.log(this.state.ShareImg);
   	var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
@@ -294,7 +305,7 @@ var LiveDetail = React.createClass({
     // console.log(len);
     var ListDataShow = this.state.ListData.map(function(item,i){
       return(
-        <li data-id={item.ldid} className={item.ldid == ldid?"live_detail_list_active":""} key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item.ldid)}>
+        <li data-id={item.ldid} className={item.ldid == ldid?"live_detail_list_active":""} key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item)}>
           <div className="live_detail_list_img">
             <i></i>
     				<div></div>

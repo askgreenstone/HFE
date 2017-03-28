@@ -10,9 +10,29 @@ var LiveList = React.createClass({
       FirstData:[],
       ListData:[],
       ShareTitile: '直播列表分享',
-      ShareDesc: '直播列表页',
+      ShareDesc: '包含金融案件、金融专业、金融行业、金融涉外在内的6个系列课程将每周定期推出',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png'
     };
+  },
+  getDeptInfo: function(){
+    var ownUri = this.getUrlParams('ownUri').replace('e','');
+    $.ajax({
+      type: 'get',
+      url: global.url+'/exp/ExpertInfo.do?ei='+ownUri,
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            ShareImg: data.p,
+            ShareTitile: data.cn+'开直播课了'
+          })
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   getLiveList: function(){
     var ownUri = this.getUrlParams('ownUri');
@@ -52,8 +72,12 @@ var LiveList = React.createClass({
   },
   componentWillMount: function(){
     this.getLiveList();
+    this.getDeptInfo();
   },
   render:function(){
+    // console.log(this.state.ShareDesc);
+    // console.log(this.state.ShareTitile);
+    // console.log(this.state.ShareImg);
     var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top" key={new Date().getTime()+i} onClick={this.gotoLiveDetail.bind(this,item.lid)}>
