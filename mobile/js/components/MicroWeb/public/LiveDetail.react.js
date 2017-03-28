@@ -385,7 +385,7 @@ var LiveDetail = React.createClass({
               <div className="liveShow_span">接受</div>
             </div>
           </div>
-          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveList"/>
+          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveDetail"/>
           <Message/>
         </div> 
     );

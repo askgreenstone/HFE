@@ -13,7 +13,9 @@ var Share = React.createClass({
             nid = this.getUrlParams('nid'),
             ida = this.getUrlParams('ida'),
             fid = this.getUrlParams('fid'),
-            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target+'&ntid='+ntid+'&nid='+nid+'&fid='+fid+'&ida='+ida,
+            lid = this.getUrlParams('lid'),
+            ldid = this.getUrlParams('ldid'),
+            currentPath = global.share+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target='+this.props.target+'&ntid='+ntid+'&nid='+nid+'&fid='+fid+'&ida='+ida+'&lid='+lid+'&ldid='+ldid,
             // currentPath = 'http://dist.green-stone.cn/mobile/wxMiddle.html?ownUri=e442&wxsharetype=1',
             wxPath = window.location.href,
             uri = encodeURIComponent(wxPath.toString());
