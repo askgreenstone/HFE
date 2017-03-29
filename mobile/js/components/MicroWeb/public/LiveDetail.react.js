@@ -165,7 +165,7 @@ var LiveDetail = React.createClass({
             ListData: data.ll,
             askQuestionFlag: this.getTheOne(data.ll,livedid)[0].ls == 2?true:false,
             ShareTitile: this.getTheOne(data.ll,livedid)[0].lt,
-            ShareDesc: this.getTheOne(data.ll,livedid)[0].sn+'带来关于'+this.getTheOne(data.ll,livedid)[0].ld+'的精彩讲课',
+            ShareDesc: this.getTheOne(data.ll,livedid)[0].sn+'带来关于'+this.getTheOne(data.ll,livedid)[0].lt+'的精彩讲课',
             ShareImg: this.getTheOne(data.ll,livedid)[0].sp,
             ShareLdid: this.getTheOne(data.ll,livedid)[0].ldid
           })
