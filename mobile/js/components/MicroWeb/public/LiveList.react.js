@@ -23,7 +23,7 @@ var LiveList = React.createClass({
         console.log(data);
         if(data.c == 1000){
           this.setState({
-            ShareImg: data.p,
+            ShareImg: data.cl,
             ShareTitile: data.cn+'开直播课了'
           })
         }
@@ -56,7 +56,20 @@ var LiveList = React.createClass({
   },
   gotoLiveDetail:function(lid){
     var ownUri = this.getUrlParams('ownUri');
-    window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid;
+    $.ajax({
+      type: 'get',
+      url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid,
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+data.sldid;
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   componentDidMount: function(){
     var $body = $('body')

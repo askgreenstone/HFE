@@ -15,11 +15,10 @@ var LiveDetail = React.createClass({
       QuestionList: [],
       askQuestionFlag: true,  //是否可以进行提问data.ls为2即正在直播时可以进行提问，其余情况都不可以
       ldid: 0,
-      LiveVideoQue: '',
-      LiveDetailQue: '',
       ShareTitile: '直播详情',
       ShareDesc: '直播详情页面',
-      ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png'
+      ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png',
+      ShareLdid: 0
     };
   },
   getLiveListPic: function(){
@@ -36,6 +35,7 @@ var LiveDetail = React.createClass({
               this.setState({
                 liveListPic: data.ll[i].lp
               })
+              this.setDocumentTitle(data.ll[i].ln);
             }
           }
         }
@@ -44,6 +44,20 @@ var LiveDetail = React.createClass({
         this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
+  },
+  setDocumentTitle: function(wxTitle){
+    document.title = wxTitle;
+    if (/ip(hone|od|ad)/i.test(navigator.userAgent)) {
+        var i = document.createElement('iframe');
+        i.src = '/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+            setTimeout(function(){
+                i.remove();
+            }, 9)
+        }
+        document.body.appendChild(i);
+    }
   },
   getTheOne: function(data,LiveDetailId){
     var arr = [];
@@ -152,7 +166,8 @@ var LiveDetail = React.createClass({
             askQuestionFlag: this.getTheOne(data.ll,livedid)[0].ls == 2?true:false,
             ShareTitile: this.getTheOne(data.ll,livedid)[0].lt,
             ShareDesc: this.getTheOne(data.ll,livedid)[0].sn+'带来关于'+this.getTheOne(data.ll,livedid)[0].ld+'的精彩讲课',
-            ShareImg: this.getTheOne(data.ll,livedid)[0].sp
+            ShareImg: this.getTheOne(data.ll,livedid)[0].sp,
+            ShareLdid: this.getTheOne(data.ll,livedid)[0].ldid
           })
           if(this.getTheOne(data.ll,livedid)[0].ls == 2){
             $('.live_detail_question_text').show();
@@ -249,19 +264,12 @@ var LiveDetail = React.createClass({
       ldid: data.ldid,
       ShareTitile: data.lt,
       ShareDesc: data.sn+'带来关于'+data.ld+'的精彩讲课',
-      ShareImg: data.sp
+      ShareImg: data.sp,
+      ShareLdid: data.ldid
     })
     this.getLiveInfo(data.ldid);
   },
   componentDidMount: function(){
-    var $body = $('body')
-    document.title = '直播详情';
-    // hack在微信等webview中无法修改document.title的情况
-    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
-      setTimeout(function() {
-        $iframe.off('load').remove()
-      }, 0)
-    }).appendTo($body);
     $('.live_detail_nav').on('click', 'li', function(event) {
     	event.preventDefault();
     	var index = $(this).index();
@@ -283,16 +291,17 @@ var LiveDetail = React.createClass({
     var ldid = this.state.ldid;
     console.log(this.state.liveListPic);
     var now  = new Date().getTime();
-    console.log(this.state.ShareTitile);
-    console.log(this.state.ShareDesc);
-    console.log(this.state.ShareImg);
+    // console.log(this.state.ShareTitile);
+    // console.log(this.state.ShareDesc);
+    // console.log(this.state.ShareImg);
+    // console.log(this.state.ShareLdid);
   	var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
           <div id="J_prismPlayer" className="prism-player"></div>
           <img className="live_detail_bg" src={item.lp?(global.img+item.lp):(global.img+this.state.liveListPic)} />
           <div className="live_list_top_content">
-            <div><span>{item.lt?item.lt:'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
+            <div><span>{item.lt?(item.lt.length>13?item.lt.substring(0,13)+'...':item.lt):'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
             <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
           <div className="live_detail_shadow" style={{display:item.ls == 2?'inline':'none'}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
@@ -305,13 +314,13 @@ var LiveDetail = React.createClass({
     // console.log(len);
     var ListDataShow = this.state.ListData.map(function(item,i){
       return(
-        <li data-id={item.ldid} className={item.ldid == ldid?"live_detail_list_active":""} key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item)}>
+        <li data-id={item.ldid} className={item.ldid == ldid?(item.ls == 3?"live_detail_list_online_active":"live_detail_list_video_active"):(item.ls == 3?"live_detail_list_online_off":"")} key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item)}>
           <div className="live_detail_list_img">
             <i></i>
     				<div></div>
     			</div>
     			<div className="live_detail_list_content">
-    				<div className="live_list_title">{item.lt}<br/><i>{item.ls == 3?'点播':'直播'}</i></div>
+    				<div className="live_list_title">{item.lt.length>20?(item.lt.substring(0,20)+'...'):item.lt}<br/><i>{item.ls == 3?'视频':'直播'}</i></div>
     				<div className="live_list_content">{item.ls == 3?'':new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
     			</div>
         </li>
@@ -385,7 +394,7 @@ var LiveDetail = React.createClass({
               <div className="liveShow_span">接受</div>
             </div>
           </div>
-          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveDetail"/>
+          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveDetail" ldid={this.state.ldid}/>
           <Message/>
         </div> 
     );

@@ -30,26 +30,6 @@
         left: 0;
         background-image: url('image/load.gif');
     }
-    
-    @-webkit-keyframes circlebounce {
-        0%,
-        100% {
-            -webkit-transform: scale(0.0)
-        }
-        50% {
-            -webkit-transform: scale(1.0)
-        }
-    }
-    
-    @keyframes circlebounce {
-        0%,
-        100% {
-            transform: scale(0.0);
-        }
-        50% {
-            transform: scale(1.0);
-        }
-    }
     </style>
 </head>
 
@@ -73,6 +53,7 @@
               lid = getUrlParams('lid'),
               ldid = getUrlParams('ldid'),
               nid = getUrlParams('nid');
+          // alert(ldid);
           if(nid){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid+'&ida='+ida;
           }else if(ntid){
@@ -83,7 +64,7 @@
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true';
           }else if(isIos){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
-          }else if(ldid){
+          }else if(lid){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
           }else{
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
