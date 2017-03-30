@@ -18,7 +18,8 @@ var LiveDetail = React.createClass({
       ShareTitile: '直播详情',
       ShareDesc: '直播详情页面',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png',
-      ShareLdid: 0
+      ShareLdid: 0,
+      shareData: []
     };
   },
   getLiveListPic: function(){
@@ -167,7 +168,8 @@ var LiveDetail = React.createClass({
             ShareTitile: this.getTheOne(data.ll,livedid)[0].lt,
             ShareDesc: this.getTheOne(data.ll,livedid)[0].sn+'带来关于'+this.getTheOne(data.ll,livedid)[0].lt+'的精彩讲课',
             ShareImg: this.getTheOne(data.ll,livedid)[0].sp,
-            ShareLdid: this.getTheOne(data.ll,livedid)[0].ldid
+            ShareLdid: this.getTheOne(data.ll,livedid)[0].ldid,
+            shareData: this.getTheOne(data.ll,livedid)
           })
           if(this.getTheOne(data.ll,livedid)[0].ls == 2){
             $('.live_detail_question_text').show();
@@ -220,7 +222,8 @@ var LiveDetail = React.createClass({
       $('.live_detail_list_edit_box').hide();
     }else{
       arr = [];
-      $('.live_detail_list_edit_box').show();
+      // 2016年3月30日14:41  暂时隐藏下载app入口
+      // $('.live_detail_list_edit_box').show();
       this.addLiveWatchNum();
     }
     // "http://live.green-stone.cn/gstone/liveIOS.m3u8"
@@ -263,9 +266,10 @@ var LiveDetail = React.createClass({
     this.setState({
       ldid: data.ldid,
       ShareTitile: data.lt,
-      ShareDesc: data.sn+'带来关于'+data.ld+'的精彩讲课',
+      ShareDesc: data.sn+'带来关于'+data.lt+'的精彩讲课',
       ShareImg: data.sp,
-      ShareLdid: data.ldid
+      ShareLdid: data.ldid,
+      shareData: [data]
     })
     this.getLiveInfo(data.ldid);
   },
@@ -359,6 +363,11 @@ var LiveDetail = React.createClass({
         </li>
        );
     }.bind(this));
+    var ShareBox = this.state.shareData.map(function(item,i){
+      return(
+        <Share key={new Date().getTime()+i} title={item.lt} desc={item.sn+'带来关于'+item.lt+'的精彩讲课'} imgUrl={global.img+item.sp} target="LiveDetail" ldid={item.ldid}/>
+      )
+    })  
     return(
         <div className="live_list_box">
           {FirstDataShow}
@@ -394,7 +403,7 @@ var LiveDetail = React.createClass({
               <div className="liveShow_span">接受</div>
             </div>
           </div>
-          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveDetail" ldid={this.state.ldid}/>
+          {ShareBox}
           <Message/>
         </div> 
     );

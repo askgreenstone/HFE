@@ -97,7 +97,7 @@ var LiveList = React.createClass({
           <img src={global.img+item.lp} />
           <div className="live_list_top_content">
             <div><span>{item.ln}</span><span style={{display:'none'}} className="live_list_live">直播中</span></div>
-            <div><span className="live_list_teacher">主讲：<span>{item.sn}</span> <span>律师</span></span><span>{new Date(item.lt).Format("MM/dd hh:mm")}</span></div>
+            <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:"无"}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{new Date(item.lt).Format("MM/dd hh:mm")}</span></div>
           </div>
         </div>
        );
