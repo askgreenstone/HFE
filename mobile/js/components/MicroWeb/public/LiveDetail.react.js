@@ -19,7 +19,8 @@ var LiveDetail = React.createClass({
       ShareDesc: '直播详情页面',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png',
       ShareLdid: 0,
-      shareData: []
+      shareData: [],
+      liveListTitle: ''
     };
   },
   getLiveListPic: function(){
@@ -34,7 +35,8 @@ var LiveDetail = React.createClass({
           for (var i = data.ll.length - 1; i >= 0; i--) {
             if(data.ll[i].lid == lid){
               this.setState({
-                liveListPic: data.ll[i].lp
+                liveListPic: data.ll[i].lp,
+                liveListTitle: data.ll[i].ln
               })
               this.setDocumentTitle(data.ll[i].ln);
             }
@@ -308,6 +310,7 @@ var LiveDetail = React.createClass({
             <div><span>{item.lt?(item.lt.length>13?item.lt.substring(0,13)+'...':item.lt):'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
             <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
+          <div className="live_detail_shadow" style={{display:ldid == 0?'inline':'none'}}></div>
           <div className="live_detail_shadow" style={{display:item.ls == 2?'inline':'none'}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
           <div className="live_detail_shadow" style={{display:item.ls == 1?'inline':'none'}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           <div className="live_detail_shadow" style={{display:item.ls == 3?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
@@ -365,9 +368,9 @@ var LiveDetail = React.createClass({
     }.bind(this));
     var ShareBox = this.state.shareData.map(function(item,i){
       return(
-        <Share key={new Date().getTime()+i} title={item.lt} desc={item.sn+'带来关于'+item.lt+'的精彩讲课'} imgUrl={global.img+item.sp} target="LiveDetail" ldid={item.ldid}/>
+        <Share key={new Date().getTime()+i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetail" ldid={item.ldid?item.ldid:'0'}/>
       )
-    })  
+    }.bind(this)); 
     return(
         <div className="live_list_box">
           {FirstDataShow}
