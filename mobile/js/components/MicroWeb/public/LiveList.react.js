@@ -115,7 +115,7 @@ var LiveList = React.createClass({
        );
     }.bind(this));
     return(
-        <div className="live_list_box">
+        <div className="live_list_box live_list_box_auto">
           {FirstDataShow}
           <ul className="Live_list">
             {ListDataShow}

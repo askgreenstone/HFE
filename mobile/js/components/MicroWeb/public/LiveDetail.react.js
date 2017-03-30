@@ -304,7 +304,7 @@ var LiveDetail = React.createClass({
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
           <div id="J_prismPlayer" className="prism-player"></div>
           <img className="live_detail_bg" src={item.lp?(global.img+item.lp):(global.img+this.state.liveListPic)} />
-          <div className="live_list_top_content">
+          <div className="live_list_top_content live_detail_top_content">
             <div><span>{item.lt?(item.lt.length>13?item.lt.substring(0,13)+'...':item.lt):'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
             <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
