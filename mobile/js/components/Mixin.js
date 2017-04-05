@@ -384,12 +384,12 @@ var CommonMixin = {
           if(data.ocm == 1){
             that.getWXMsg(ownUri,ida,st);
           }else{
-            this.showAlert('该律师暂时关闭在线咨询功能');
+            that.showAlert('该律师暂时关闭在线咨询功能');
           }
         }
       },
       error: function(xhr, status, err) {
-        this.showRefresh('系统开了小差，请刷新页面');
+        that.showRefresh('系统开了小差，请刷新页面');
       }
     });
   },
