@@ -296,6 +296,7 @@ var LiveDetail = React.createClass({
   render:function(){
     var ldid = this.state.ldid;
     console.log(this.state.liveListPic);
+    var idShow = this.getUrlParams('idShow');
     var now  = new Date().getTime();
     // console.log(this.state.ShareTitile);
     // console.log(this.state.ShareDesc);
@@ -328,7 +329,7 @@ var LiveDetail = React.createClass({
     			</div>
     			<div className="live_detail_list_content">
     				<div className="live_list_title">{item.lt.length>20?(item.lt.substring(0,20)+'...'):item.lt}<br/><i>{item.ls == 3?'视频':'直播'}</i></div>
-    				<div className="live_list_content">{item.ls == 3?'':new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
+    				<div className="live_list_content">{item.ls == 3?item.ldur:new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
     			</div>
         </li>
        );
@@ -375,17 +376,17 @@ var LiveDetail = React.createClass({
         <div className="live_list_box">
           {FirstDataShow}
           <ul className="live_detail_nav">
-          	<li className="live_detail_nav_active"><span>目录</span><span>.</span></li>
-          	<li><span>介绍</span><span>.</span></li>
+          	<li className={idShow == 1?"":"live_detail_nav_active"}><span>目录</span><span>.</span></li>
+          	<li className={idShow == 1?"live_detail_nav_active":""}><span>介绍</span><span>.</span></li>
           	<li><span>提问</span><span>.</span></li>
           </ul>
           <div className="live_detail">
-            <div className="live_detail_list_box">
-              <ul className="live_detail_list" style={{display:this.state.editState?'none':'block'}}>
+            <div className="live_detail_list_box" style={{display:idShow == 1?"none":"block"}}>
+              <ul className="live_detail_list">
                 {ListDataShow}
               </ul>
             </div>
-	          <div className="live_detail_introduce">
+	          <div className="live_detail_introduce" style={{display:idShow == 1?"block":"none"}}>
 	          	{TeacherDataShow}
 	          </div>
 	          <div className="live_detail_question">

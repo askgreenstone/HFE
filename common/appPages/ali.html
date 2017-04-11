@@ -87,7 +87,7 @@
     <div class="mark"><img src="image/zan.png"></div>
     <div id="J_prismPlayer" class="prism-player"></div>
     <div class="child">
-        <div class="input"><input type="text" name=""></div>
+        <div class="input"><input type="text" name="okokokok"></div>
         <div class="span"><span>发送</span></div>
     </div>
 </div>
@@ -101,9 +101,11 @@
     $('.mark').on('click', function(event) {
         event.preventDefault();
         $(this).hide()
+        // http://live.green-stone.cn/gstone/livee165431369.m3u8
+        // http://videolive.green-stone.cn/video/livee165832311.m3u8
         var player = new prismplayer({
             id: "J_prismPlayer", // 容器id
-            source: "http://videolive.green-stone.cn/video/livee165832311.m3u8",// 视频地址
+            source: "http://live.green-stone.cn/gstone/livee165431369.m3u8",// 视频地址
             autoplay: true,    //自动播放：否
             width: "100%",       // 播放器宽度
             height: "100%",      // 播放器高度
