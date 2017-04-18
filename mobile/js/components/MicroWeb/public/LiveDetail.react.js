@@ -211,17 +211,19 @@ var LiveDetail = React.createClass({
     var source = data.ls==3?data.va:data.la;
     var arr = [];
     if(data.ls == 3){
-      arr = [
-              {name:"bigPlayButton", align:"cc", x:30, y:80},
-              {name:"controlBar", align:"blabs", x:0, y:50,
-                  children: [
-                      {name:"progress", align:"tlabs", x: 0, y:0},
-                      {name:"playButton", align:"tl", x:15, y:26},
-                      {name:"timeDisplay", align:"tl", x:10, y:24}
-                  ]
-              }
-            ]
-      $('.live_detail_list_edit_box').hide();
+      // arr = [
+      //         {name:"bigPlayButton", align:"cc", x:30, y:80},
+      //         {name:"controlBar", align:"blabs", x:0, y:50,
+      //             children: [
+      //                 {name:"progress", align:"tlabs", x: 0, y:0},
+      //                 {name:"playButton", align:"tl", x:15, y:26},
+      //                 {name:"timeDisplay", align:"tl", x:10, y:24}
+      //             ]
+      //         }
+      //       ]
+      // $('.live_detail_list_edit_box').hide();
+      this.showAlert('直播已结束！');
+      return;
     }else{
       arr = [];
       // 2016年3月30日14:41  暂时隐藏下载app入口
