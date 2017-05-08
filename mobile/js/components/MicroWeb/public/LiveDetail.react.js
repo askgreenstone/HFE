@@ -20,15 +20,27 @@ var LiveDetail = React.createClass({
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png',
       ShareLdid: 0,
       shareData: [],
-      liveListTitle: ''
+      liveListTitle: '',
+      loginFlag: false,
+      LoginBoxFlag: false,
+      messageCodeFlag: true,      //发送短信验证码
+      time: 60,
+      userSession: ''
     };
   },
   getLiveListPic: function(){
     var ownUri = this.getUrlParams('ownUri');
     var lid = this.getUrlParams('lid');
+    var session = this.getUrlParams('session');
+    if(session){
+      this.setState({
+        userSession: session
+      })
+    }
+    var url = session?global.url+'/exp/GetLiveListInfo.do?do='+ownUri+'&session='+session:global.url+'/exp/GetLiveListInfo.do?do='+ownUri
     $.ajax({
       type: 'get',
-      url: global.url+'/exp/GetLiveListInfo.do?do='+ownUri,
+      url: url,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -41,6 +53,13 @@ var LiveDetail = React.createClass({
               this.setDocumentTitle(data.ll[i].ln);
             }
           }
+        }else if(data.c == 1016){
+          var that = this;
+          this.showAlert('身份验证失败，请登录！',function(){
+            that.setState({
+              LoginBoxFlag: true
+            })
+          })
         }
       }.bind(this),
       error: function(data) {
@@ -145,9 +164,11 @@ var LiveDetail = React.createClass({
   	var lid = this.getUrlParams('lid');
     var livedetailid = LiveDetailId;
     // console.log(livedetailid);
+    // 新增ip字段，区分直播公开，私有（微信端没有授权，所以只展示公开课程）乔凡：2017.04.26
+    // ip=1表示公开   ip=2表示内部
     $.ajax({
       type: 'get',
-      url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid,
+      url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid+'&ip=1',
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -181,7 +202,6 @@ var LiveDetail = React.createClass({
         }
       }.bind(this),
       error: function(data) {
-          // console.log(data);
         this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
@@ -201,7 +221,6 @@ var LiveDetail = React.createClass({
         }
       }.bind(this),
       error: function(data) {
-          // console.log(data);
         this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
@@ -228,9 +247,6 @@ var LiveDetail = React.createClass({
       // $('.live_detail_list_edit_box').show();
       this.addLiveWatchNum();
     }
-    // "http://live.green-stone.cn/gstone/liveIOS.m3u8"
-    // alert(source);
-
     $('.live_detail_play').hide();
     $('.live_detail_shadow').hide();
     var player = new prismplayer({
@@ -243,8 +259,8 @@ var LiveDetail = React.createClass({
         });
     player.play();
     var that = this;
-    // // alert('播放器初始化成功！')
     if(data.ls ==2){
+      alert('直播！')
       player.on("pause", function() {
         player.setPlayerSize('1px','1px');
         $('.live_detail_list_edit_box').hide();
@@ -258,11 +274,19 @@ var LiveDetail = React.createClass({
         that.gotoDetail(data);
       });
     });
-    player.on("m3u8Retry", function() {
-      that.showAlert('直播流中断，正在重试！');
-    });
+    // 增加ife字段，is-fee : int是否收费（1免费  2收费）乔凡：2017年4月26日
+    // 首先判断session
+    if(!this.state.userSession && data.ife == 2){
+      // alert('ife是2');
+      setTimeout(function(){
+        var ife = 'ife';
+        // player.pause();
+        that.gotoDetail(data,ife);
+      },10000)
+    }
+    
   },
-  gotoDetail: function(data){
+  gotoDetail: function(data,ife){
     console.log(data);
     console.log('跳转到其他详情直播ldid'+data.ldid);
     this.setState({
@@ -273,7 +297,159 @@ var LiveDetail = React.createClass({
       ShareLdid: data.ldid,
       shareData: [data]
     })
+    if(ife == 'ife'){
+      this.setState({
+        loginFlag: true
+      })
+    }else{
+      this.setState({
+        loginFlag: false
+      })
+    }
     this.getLiveInfo(data.ldid);
+  },
+  showLoginBox: function(){
+    console.log(this.state.LoginBoxFlag)
+    this.setState({
+      LoginBoxFlag: true
+    })
+  },
+  checkUserTel: function(){
+    var userTel = $('#userTel').val();
+    console.log(userTel);
+    if(!userTel){
+      this.showAlert('请输入电话！')
+      return;
+    }else if(userTel.length != 11){
+      this.showAlert('电话号码位数不正确！')
+      return;
+    };
+    $.ajax({
+      type: 'get',
+      url: global.url+'/comm/Verify.do?pn='+userTel,
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+          this.getMessageCode();
+        }
+      }.bind(this),
+      error: function(data) {
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
+  },
+  getMessageCode: function(){
+    var that = this;
+    console.log(that.state.time);
+    var messageTime = that.state.time;
+    if(messageTime == 0 ){
+      that.setState({
+        messageCodeFlag: true,
+        time: 60
+      })
+      return;
+    }else{
+      that.setState({
+        messageCodeFlag: false
+      })
+      setTimeout(function(){
+        that.setState({
+          time: that.state.time*1-1
+        })
+        that.getMessageCode();
+      },1000)
+    }
+  },
+  userLogin: function(){
+    var userTel = $('#userTel').val();
+    var userPwd = $('#userPwd').val();
+    if(!userTel){
+      // alert('请输入电话！');
+      this.showAlert('请输入电话！')
+      return;
+    }else if(userTel.length != 11){
+      this.showAlert('电话号码位数不正确！')
+      return;
+    }else if(!userPwd){
+      this.showAlert('请输入验证码！')
+      return;
+    };
+    var data = {
+      pn: userTel,
+      vc: userPwd
+    }
+
+    $.ajax({
+      type: 'post',
+      url: global.url+'/exp/WebLogin.do?',
+      data: JSON.stringify(data),
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1001){
+          this.showAlert('验证码错误！');
+          return;
+        }else if(data.c == 1000){
+          var that = this;
+          that.setState({
+            LoginBoxFlag: false,
+            loginFlag: false,
+            userSession: data.session
+          })
+          that.checkUserType(data.session);
+        }
+      }.bind(this),
+      error: function(data) {
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
+  },
+  checkUserType: function(session){
+    $.ajax({
+      type: 'post',
+      url: global.url+'/exp/QueryIsLiveMember.do?session='+session,
+      success: function(data) {
+        console.log(data);
+        // is-live-member : int 是否直播会员 1 是， 0 否
+        if(data.c == 1000){
+          if(data.ilm == 0){
+            var that = this;
+            this.showAlert('您还不是直播会员，请注册！',function(){
+              that.gotoOpenMember();
+            })
+          }else if(data.ilm == 1){
+            var ownUri = this.getUrlParams('ownUri');
+            var lid = this.getUrlParams('lid');
+            var ldid = this.state.ldid;
+            var that = this;
+            this.showAlert('登录成功！',function(){
+              // that.getLiveListPic();
+              // that.getLiveInfo(this.state.ldid);
+              window.location.href = 'wxMiddle.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+            })
+          }
+        }
+      }.bind(this),
+      error: function(data) {
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
+  },
+  gotoOpenMember: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var lid = this.getUrlParams('lid');
+    var ldid = this.state.ldid;
+    var temp;
+    var appid;
+    var str = window.location.href;
+    // window.location.href = '#OpenMember?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+      temp = 't-web';
+      appid = 'wx2858997bbc723661';
+    }else{
+      temp = 'web';
+      appid = 'wx73c8b5057bb41735';
+    }
+    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fexp%2fWeiXinWebOAuthForExp.do&response_type=code&scope=snsapi_base&state=livememberpay_'+ownUri+'_'+lid+'_'+ldid+'#wechat_redirect';
   },
   componentDidMount: function(){
     $('.live_detail_nav').on('click', 'li', function(event) {
@@ -283,6 +459,10 @@ var LiveDetail = React.createClass({
     	$(this).addClass('live_detail_nav_active').siblings('').removeClass('live_detail_nav_active');
     	$('.live_detail').children('').eq(index).show().siblings('').hide();
     });
+    var isMember = this.getUrlParams('ilm');
+    if(isMember){
+      this.showAlert('您已经是会员了！')
+    }
   },
   componentWillMount: function(){
     var ldid = this.getUrlParams('ldid');
@@ -311,10 +491,16 @@ var LiveDetail = React.createClass({
             <div><span>{item.lt?(item.lt.length>13?item.lt.substring(0,13)+'...':item.lt):'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
             <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
-          <div className="live_detail_shadow" style={{display:ldid == 0?'inline':'none'}}></div>
-          <div className="live_detail_shadow" style={{display:item.ls == 2?'inline':'none'}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
-          <div className="live_detail_shadow" style={{display:item.ls == 1?'inline':'none'}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-          <div className="live_detail_shadow" style={{display:item.ls == 3?'inline':'none'}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(ldid == 0?'inline':'none')}}></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 2?'inline':'none')}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 1?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
+          <div className="live_detail_shadow live_detail_shadow_logIn" style={{display:this.state.loginFlag?'block':'none'}}>
+            <span className="live_detail_shadow_logIn_all">开通会员后可观看完整版</span>
+            <span className="live_detail_shadow_logIn_pay">年度会员仅需1999元</span>
+            <span className="live_detail_shadow_logIn_btn" onClick={this.gotoOpenMember}>开通会员</span>
+            <span className="live_detail_shadow_logIn_all">已是会员请继续<i onClick={this.showLoginBox}>登录</i>观看</span>
+          </div>
         </div>
        );
     }.bind(this));
@@ -398,6 +584,25 @@ var LiveDetail = React.createClass({
                 <span onClick={this.postLiveQuestions}>提问</span>
               </div>
 	          </div>
+          </div>
+          <div className="live_detail_login" style={{display:this.state.LoginBoxFlag?'block':'none'}}>
+            <div className="login_box">
+              <div className="login_box_title">用户登录</div>
+              <div className="login_box_tel">
+                <span>+86</span><input id="userTel" type="text" />
+              </div>
+              <div className="login_box_code">
+                <input type="text" id="userPwd" placeholder="请输入验证码" />
+                <span className="login_box_code_button" style={{display:this.state.messageCodeFlag?'block':'none'}} onClick={this.checkUserTel} >短信验证码</span>
+                <span className="login_box_code_time" style={{display:this.state.messageCodeFlag?'none':'block'}}>
+                  <span className="login_box_code_button">重新发送</span>
+                  <span className="login_box_code_time_code">{this.state.time}</span>
+                  s
+                </span>
+              </div>
+              <div className="login_button" onClick={this.userLogin}>登录</div>
+              <div className="login_add">还不是会员，<span onClick={this.gotoOpenMember}>现在加入</span></div>
+            </div>
           </div>
           <div className="live_detail_list_edit_box">
             <div className="live_detail_list_edit">

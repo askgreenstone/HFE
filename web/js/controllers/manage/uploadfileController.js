@@ -228,8 +228,8 @@ define(['App'], function(app) {
                 cropend:function(){
                   var cropDatas = $(this).cropper('getData');
                   console.log(cropDatas);
-                  curw = Math.round(cropDatas.width);
-                  curh = Math.round(cropDatas.height);
+                  // curw = Math.round(cropDatas.width);
+                  // curh = Math.round(cropDatas.height);
                   console.log('width,height:'+curw+curh);
                 }
             });

@@ -482,7 +482,7 @@ p{
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 100; /* 此处的图层要大于页面 */
+    z-index: 10000; /* 此处的图层要大于页面 */
     display:none;
     .base_alert{
         width: 81%;
@@ -2018,6 +2018,53 @@ div.dynamic_usr_content_title{
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
+.live_detail_shadow_logIn{
+  padding-top: 10rem;
+  box-sizing: border-box;
+  z-index: 1005; 
+  display: none;
+}
+.live_detail_shadow_logIn_all{
+  width: 100%;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  display: block;
+  text-align: center;
+}
+.live_detail_shadow_logIn_pay{
+  width: 100%;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 2rem;
+  color: #d74218;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  display: block;
+  text-align: center;
+}
+.live_detail_shadow_logIn_btn{
+  width: 110px;
+  height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  background: #d74218;
+  border-radius: 8px;
+  color: #fff;
+  line-height: 50px;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  display: block;
+  text-align: center;
+}
+.live_detail_shadow_logIn_all i{
+  color: #d74218;
+  text-decoration: underline;
+  margin: 0 .3rem;
+  font-style: normal;
+}
 .live_detail_play{
   width: 110px;
   height: 50px;
@@ -2086,6 +2133,7 @@ div.dynamic_usr_content_title{
 .live_detail_list{
   padding: 2rem 1.5rem;
   background: #f8f8f8;
+  height: auto;
 }
 .live_detail_list li{
   display: box;
@@ -2342,6 +2390,122 @@ div.dynamic_usr_content_title{
   line-height: 2rem;
   display: inline-block;
   text-align: center;
+}
+// 直播详情页登录盒子
+.live_detail_login{
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+  z-index: 1006;
+}
+.login_box{
+  width: 250px;
+  height: 300px;
+  background: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -125px;
+  margin-top: -150px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+.login_box_title{
+  width:100%;
+  height:15px;
+  padding-bottom:45px;
+  display:block;
+  font-size:15px;
+  color:#000;
+  box-sizing: border-box;
+}
+.login_box_tel{
+  width:100%;
+  height:20px;
+  line-height: 20px;
+  padding-bottom: 15px;
+  display: box;
+  display: -webkit-box;
+  border-bottom: 1px solid #cecece;
+}
+.login_box_tel span{
+  color: #d74218;
+  display: block;
+  height: 20px;
+  line-height: 21px;
+  margin-right: 5px;
+  font-size: 15px;
+}
+.login_box_tel input{
+  height: 20px;
+  line-height: 20px;
+  min-height: 20px;
+  font-size: 15px;
+  display: block;
+  -webkit-box-flex: 1;
+  border: none;
+  outline: none;
+}
+.login_box_code{
+  width: 100%;
+  height: 20px;
+  padding: 20px 0 15px 0;
+  line-height: 20px;
+  display: box;
+  display: -webkit-box;
+  font-size: 15px;
+  border-bottom: 1px solid #cecece;
+}
+.login_box_code input{
+  display: block;
+  height:20px;
+  line-height:20px;
+  min-height:20px;
+  font-size: 15px;
+  -webkit-box-flex: 1;
+  border: none;
+  outline: none;
+}
+.login_box_code_button{
+  height: 20px;
+  text-align: center;
+  line-height: 21px;
+  font-size: 12px;
+  color: #d74218;
+  width: 90px;
+}
+.login_box_code_time{
+  display: none;
+  width: 90px;
+  text-align: center;
+}
+.login_box_code_time_code{
+  font-size: 12px;
+}
+.login_button{
+  background: #d74218;
+  margin-top: 24px;
+  color: #fff;
+  border-radius: 0;
+  height: 42.5px;
+  line-height: 42.5px;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+.login_add{
+  width: 100%;
+  height: 12px;
+  line-height: 12px;
+  text-align: center;
+  font-size: 12px;
+}
+.login_add span{
+  color: #d74218;
 }
 
 
@@ -3047,6 +3211,120 @@ body.prism-full-window {
   width: 100%;
   height: 30rem;
 }
+/*开通会员*/
+.open_member{
+  width: 100%;
+  height: 100%;
+  background: #f4f4f4;
+  padding-top: 1.2rem;
+}
+.open_member_input_box{
+  width: 100%;
+  height: 4rem;
+  border-bottom: 1px solid #f4f4f4;
+  background: #fff;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  display: box;
+  display: -webkit-box;
+}
+.open_member_input_box input{
+  -webkit-box-flex: 1;
+  margin-top: 1rem;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.3rem;
+  display: block;
+  border: none;
+  outline: none;
+}
+.open_member_input_box>span{
+  display: block;
+  height: 2rem;
+  padding-right: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  line-height: 2rem;
+  font-size: 1.4rem;
+  border-right: 1px solid #333; 
+}
+.open_member_input_box>span.login_box_code_button{
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  padding-right: 0;
+  border-radius: .3rem;
+}
+.open_member_input_box>span.login_box_code_time{
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  padding-right: 0;
+  border-radius: .3rem;
+}
+.open_member_textarea_box{
+  width: 100%;
+  height: 7rem;
+  background: #fff;
+  padding: 0 1.5rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+}
+.open_member_textarea_box textarea{
+    width: 100%;
+    height: 6rem;
+    line-height: 3rem;
+    font-size: 1.3rem;
+    display: block;
+    resize: none;
+    border: none;
+    outline: none;
+}
+.open_member_submit{
+  width: 100%;
+  height: 4rem;
+  text-align: center;
+  line-height: 4rem;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
+.open_member_submit span{
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #d74218;
+}
+.open_member_content{
+    width: 100%;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+}
+.open_member_content div{
+    width: 100%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.open_member_content p{
+    width: 100%;
+    line-height: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
 /*适配手机*/
 
 @media screen and (width: 320px) {

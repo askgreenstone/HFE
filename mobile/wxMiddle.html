@@ -52,6 +52,7 @@
               isIos = getUrlParams('isIos'),
               lid = getUrlParams('lid'),
               ldid = getUrlParams('ldid'),
+              session = getUrlParams('session'),
               nid = getUrlParams('nid');
           // alert(ldid);
           if(nid){
@@ -66,6 +67,8 @@
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
           }else if(lid){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&idShow=1';
+          }else if(session){
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
           }else{
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
           }

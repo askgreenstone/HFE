@@ -186,5 +186,8 @@ function init(){
   userUri = Common.getUrlParam('userUri');
   deptUri = Common.getUrlParam('deptUri');
   st = Common.getUrlParam('st')?Common.getUrlParam('st'):3;
+  if(!deptUri){
+    $('#pub_mon').hide();
+  }
   console.log(session);
 }

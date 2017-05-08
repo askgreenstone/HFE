@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>开通会员</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style type="text/css">
+  	/*开通会员*/
+  	*{
+  		margin: 0;
+  		padding: 0;
+  	}
+		.open_member{
+		  width: 100%;
+		  height: 100%;
+		  background: #f4f4f4;
+		  padding-top: 1.2rem;
+		}
+		.open_member_input_box{
+		  width: 100%;
+		  height: 4rem;
+		  border-bottom: 1px solid #f4f4f4;
+		  background: #fff;
+		  padding: 0 1.5rem;
+		  box-sizing: border-box;
+		  display: box;
+		  display: -webkit-box;
+		}
+		.open_member_input_box input{
+		  -webkit-box-flex: 1;
+		  margin-top: 1rem;
+		  height: 2rem;
+		  line-height: 2rem;
+		  font-size: 1.3rem;
+		  display: block;
+		  border: none;
+		  outline: none;
+		}
+		.open_member_input_box>span{
+		  display: block;
+		  height: 2rem;
+		  padding-right: 1rem;
+		  margin-right: 1rem;
+		  margin-top: 1rem;
+		  line-height: 2rem;
+		  font-size: 1.4rem;
+		  border-right: 1px solid #333; 
+		}
+		.open_member_input_box>div.login_box_code_button{
+			margin-top: 1rem;
+		  font-size: 1.2rem;
+		  line-height: 2rem;
+		  height: 2rem;
+		  border: 1px solid #ccc;
+		  padding-right: 0;
+		  border-radius: .3rem;
+		  display: block;
+		  width: 90px;
+		  color: #d74218;
+		  text-align: center;
+		}
+		.open_member_input_box>div.login_box_code_time{
+			margin-top: 1rem;
+			height: 2rem;
+		  font-size: 1.2rem;
+		  line-height: 2rem;
+		  border: 1px solid #ccc;
+		  padding-right: 0;
+		  border-radius: .3rem;
+		  display: none;
+		  width: 90px;
+		  text-align: center;
+		}
+		.open_member_textarea_box{
+		  width: 100%;
+		  height: 7rem;
+		  background: #fff;
+		  padding: 0 1.5rem;
+		  margin-top: 1.2rem;
+		  margin-bottom: 1.5rem;
+		  box-sizing: border-box;
+		}
+		.open_member_textarea_box textarea{
+		    width: 100%;
+		    height: 6rem;
+		    line-height: 3rem;
+		    font-size: 1.3rem;
+		    display: block;
+		    resize: none;
+		    border: none;
+		    outline: none;
+		}
+		.open_member_submit{
+		  width: 100%;
+		  height: 4rem;
+		  text-align: center;
+		  line-height: 4rem;
+		  color: #fff;
+		  font-size: 1.5rem;
+		  padding: 0 1.5rem;
+		  box-sizing: border-box;
+		  margin-bottom: 2rem;
+		}
+		.open_member_submit span{
+		  width: 100%;
+		  height: 100%;
+		  display: block;
+		  background: #d74218;
+		}
+		.open_member_content{
+		    width: 100%;
+		    padding: 0 1.5rem;
+		    box-sizing: border-box;
+		}
+		.open_member_content div{
+		    width: 100%;
+		    height: 1.5rem;
+		    line-height: 1.5rem;
+		    font-size: 1.5rem;
+		    margin-bottom: 1rem;
+		}
+		.open_member_content p{
+		    width: 100%;
+		    line-height: 2rem;
+		    font-size: 1.2rem;
+		    color: #666;
+		}
+		/*适配手机*/
+		@media screen and (max-width: 360px) {
+		  html {
+		    font-size: 62.5%;
+		  }
+		}
+		@media screen and (min-width: 361px) and (max-width: 376px) {
+		  html {
+		    font-size: 66.5%;
+		  }
+		}
+		@media screen and (min-width: 377px) {
+		  html {
+		    font-size: 75.5%;
+		  }
+		}
+  </style>
+</head>
+<body>
+	<div class="open_member">
+    <div class="open_member_input_box">
+      <input type="text" placeholder="请输入真实姓名" id="userName"/>
+    </div>
+    <div class="open_member_input_box">
+      <span>+86</span>
+      <input type="text" placeholder="请输入电话号码" id="userTel"/>
+    </div>
+    <div class="open_member_input_box">
+      <input type="text" placeholder="请输入短信验证码" id="userCode"/>
+      <div class="login_box_code_button">短信验证码</div>
+      <div class="login_box_code_time">
+        <span>重新发送</span>
+        <span class="login_box_code_time_code">{this.state.time}</span>
+        s
+      </div>
+    </div>
+    <div class="open_member_textarea_box">
+      <textarea placeholder="请填写所在单位名称" id="userDepart"></textarea>
+    </div>
+    <div class="open_member_submit">
+      <span>支付会员费  1999元</span>
+    </div>
+    <div class="open_member_content">
+      <div>会员服务介绍：</div>
+      <p>违法完了那内为开工过个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我</p>
+    </div>
+  </div> 
+	<script src="../lib/zepto.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script>
+		var ownUri;
+		var lid;
+		var ldid;
+		var openId;
+		var session;
+		var payParams = {};
+		$(document).ready(function() {
+		  init();
+		});
+
+		function init(){
+			ownUri = Common.getUrlParam('ownUri'); 
+			lid = Common.getUrlParam('lid'); 
+			ldid = Common.getUrlParam('ldid'); 
+			openId = Common.getUrlParam('openId'); 
+		}
+
+		// 检验电话格式获取验证码
+		function checkUserTel(){
+	    var userTel = $('#userTel').val();
+	    console.log(userTel);
+	    if(!userTel){
+	      alert('请输入电话！')
+	      return;
+	    }else if(userTel.length != 11){
+	      alert('电话号码位数不正确！')
+	      return;
+	    };
+	    $.ajax({
+	      type: 'get',
+	      url: Common.globalDistUrl()+'comm/Verify.do?pn='+userTel,
+	      success: function(data) {
+	        console.log(data);
+	        if(data.c == 1000){
+	          getMessageCode();
+	        }
+	      },
+	      error: function(data) {
+	        alert('系统开了小差，请刷新页面');
+	      }
+	    })
+	  }
+	  // 获取验证码，开始倒计时
+	  function getMessageCode(){
+	   	var count = 61;
+      timer = setInterval(function(){
+        count--;
+        console.log(count);
+        if(count > 0){
+        	$('.login_box_code_button').hide();
+	   			$('.login_box_code_time').show();
+	   			$('.login_box_code_time .login_box_code_time_code').text(count);
+        }else{
+          count = 61;
+          clearInterval(timer);
+          $('.login_box_code_button').show();
+	   			$('.login_box_code_time').hide();
+        }
+      },1000);
+	  }
+	  // 会员注册，注册成功进入支付逻辑
+	  function expRegister(){
+	    var userName = $('#userName').val();
+	    var userTel = $('#userTel').val();
+	    var userCode = $('#userCode').val();
+	    var userDepart = $('#userDepart').val();
+	    var openId = Common.getUrlParam('openId');
+	    if(!userName){
+	      alert('请输入您的姓名！')
+	      return;
+	    }else if(!userTel){
+	      alert('请输入电话！')
+	      return;
+	    }else if(userTel.length != 11){
+	      alert('电话号码位数不正确！')
+	      return;
+	    }else if(!userCode){
+	      alert('请输入验证码！')
+	      return;
+	    }else if(!userDepart){
+	      alert('请输入所在单位名称！')
+	      return;
+	    }
+	    var data = {
+	      en: userName,
+	      pn: userTel,
+	      vc: userCode,
+	      cy: userDepart,
+	      openId: openId
+	    }
+	    $.ajax({
+	      type: 'post',
+	      url: Common.globalDistUrl() +'exp/WXRegister.do',
+	      data: JSON.stringify(data),
+	      success: function(data) {
+	        console.log(data);
+	        if(data.c == 1001){
+	          alert('请输入正确的验证码！')
+	        }else if(data.c == 1000){
+	        	session = data.session;
+	          this.gotoTrade(data.session);
+	        }
+	      },
+	      error: function(data) {
+	        alert('系统开了小差，请刷新页面');
+	      }
+	    })
+	  }
+	  // 掉起后台支付接口，获取支付信息
+	  function gotoTrade(session){
+		  var payInfo = {
+        'd': '直播会员', //描述
+        'dt': 0, //int 目标类型，0 系统 1 用户 2 专家
+        'f': 0.01, //float 交易金额
+        'p': 2, //int 支付方式，0 账户余额 1 支付宝 2 微信支付
+        't': 28, //int 交易类型。直播会员
+        'from': 3 //int 客户端来源 3 web
+      };
+		  $.ajax({
+		        type: 'POST',
+		        url: Common.globalDistUrl() + 'exp/Trade.do?session=' + session,
+		        data: JSON.stringify(payInfo),
+		        dataType: 'json',
+		        success: function(data) {
+		            //alert( 'success:' + JSON.stringify(data) );
+		            console.log(data);
+		            if (data.c == 1000) {
+		                payParams = {
+		                    'appId': data.appId,
+		                    'timeStamp': data.timeStamp,
+		                    'nonceStr': data.nonceStr,
+		                    'package': data.packageStr,
+		                    'signType': 'MD5',
+		                    'paySign': data.paySign
+		                }
+		                callPay();
+		            } else {
+		                alert('Trade error:' + data.d);
+		            }
+
+		        },
+		        error: function(err) {
+		            alert('error:' + JSON.stringify(err));
+		        }
+		      });
+		}
+		// 支付成功，失败，取消回调
+		function onBridgeReady() {
+		    //alert('onBridgeReady run');
+		    WeixinJSBridge.invoke(
+		        'getBrandWCPayRequest', payParams,
+		        function(res) {
+
+		            //if (res.err_msg == "get_brand_wcpay_request：ok") {} // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+		            WeixinJSBridge.log(res.err_msg);
+		            // alert(res.err_code+res.err_desc+res.err_msg);
+		            if (res.err_msg.indexOf('ok') > -1) {
+		              // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
+		                 // alert('支付成功！')
+                	window.location.href = Common.globalDistUrl()+'mobile/#/LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+		            } else if (res.err_msg.indexOf('cancel') > -1) {
+		                // alert('取消支付！');
+		            } else if (res.err_msg.indexOf('fail') > -1) {
+		                alert('支付失败！');
+		            }
+		        }
+		    );
+		}
+		// 掉起微信支付
+		function callPay() {
+		    //alert('callPay run');
+		    if (typeof WeixinJSBridge == "undefined") {
+		        if (document.addEventListener) {
+		            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		        } else if (document.attachEvent) {
+		            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+		            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		        }
+		    } else {
+		        onBridgeReady();
+		    }
+		}
+		// 检测手机号码是否正确，正确发送验证码
+		$('.login_box_code_button').on('click', function(event) {
+			event.preventDefault();
+			checkUserTel();
+		});
+		// 会员注册，注册成功掉起支付
+		$('.open_member_submit').on('click', function(event) {
+			event.preventDefault();
+			/* Act on the event */
+			expRegister();
+		});
+	</script>
+</body>
+</html>
