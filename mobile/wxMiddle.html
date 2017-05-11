@@ -65,7 +65,7 @@
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true';
           }else if(isIos){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
-          }else if(lid){
+          }else if(lid && !session){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&idShow=1';
           }else if(session){
             location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;

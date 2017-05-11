@@ -230,7 +230,10 @@ var LiveDetail = React.createClass({
     var source = data.ls==3?data.va:data.la;
     var arr = [];
     if(data.ls == 3){
-      arr = [
+      if(!this.state.userSession && data.ife == 2){
+        arr = []
+      }else{
+        arr = [
               {name:"bigPlayButton", align:"cc", x:30, y:80},
               {name:"controlBar", align:"blabs", x:0, y:50,
                   children: [
@@ -240,10 +243,11 @@ var LiveDetail = React.createClass({
                   ]
               }
             ]
+      }
       $('.live_detail_list_edit_box').hide();
     }else{
       arr = [];
-      // 2016年3月30日14:41  暂时隐藏下载app入口
+      // 2017年3月30日14:41  暂时隐藏下载app入口
       // $('.live_detail_list_edit_box').show();
       this.addLiveWatchNum();
     }
@@ -260,7 +264,7 @@ var LiveDetail = React.createClass({
     player.play();
     var that = this;
     if(data.ls ==2){
-      alert('直播！')
+      // alert('直播！')
       player.on("pause", function() {
         player.setPlayerSize('1px','1px');
         $('.live_detail_list_edit_box').hide();
@@ -276,11 +280,13 @@ var LiveDetail = React.createClass({
     });
     // 增加ife字段，is-fee : int是否收费（1免费  2收费）乔凡：2017年4月26日
     // 首先判断session
+    alert('userSession='+that.state.userSession+'ife='+data.ife)
     if(!this.state.userSession && data.ife == 2){
       // alert('ife是2');
       setTimeout(function(){
         var ife = 'ife';
-        // player.pause();
+        alert(player.getCurrentTime());
+        player.destroy();
         that.gotoDetail(data,ife);
       },10000)
     }
@@ -313,6 +319,11 @@ var LiveDetail = React.createClass({
     this.setState({
       LoginBoxFlag: true
     })
+    // alert(this.state.ldid)
+    // var ownUri = this.getUrlParams('ownUri');
+    // var lid = this.getUrlParams('lid');
+    // var ldid = this.state.ldid;
+    // window.location.href = '#OpenMember?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
   },
   checkUserTel: function(){
     var userTel = $('#userTel').val();
@@ -388,6 +399,11 @@ var LiveDetail = React.createClass({
         if(data.c == 1001){
           this.showAlert('验证码错误！');
           return;
+        }else if(data.c == 1014){
+          var that = this;
+          this.showAlert('您尚未注册，请先注册！',function(){
+            that.gotoOpenMember();
+          });
         }else if(data.c == 1000){
           var that = this;
           that.setState({
@@ -417,15 +433,44 @@ var LiveDetail = React.createClass({
               that.gotoOpenMember();
             })
           }else if(data.ilm == 1){
+            // alert(window.location.href);
             var ownUri = this.getUrlParams('ownUri');
             var lid = this.getUrlParams('lid');
             var ldid = this.state.ldid;
-            var that = this;
-            this.showAlert('登录成功！',function(){
-              // that.getLiveListPic();
-              // that.getLiveInfo(this.state.ldid);
-              window.location.href = 'wxMiddle.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
-            })
+            // var that = this;
+            // var temp;
+            // var appid;
+            // var str = window.location.href;
+            // // window.location.href = '#OpenMember?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
+            // if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+            //   temp = 't-web';
+            //   appid = 'wx2858997bbc723661';
+            // }else{
+            //   temp = 'web';
+            //   appid = 'wx73c8b5057bb41735';
+            // }
+            // // this.showAlert('登录成功！',function(){
+            //   window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fexp%2fWeiXinWebOAuthForExp.do&response_type=code&scope=snsapi_base&state=livememberpay_'+ownUri+'_'+lid+'_'+ldid+'#wechat_redirect';
+            //   // window.location.href =  global.url+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveShow&lid='+lid+'&ldid='+ldid+'&session='+session;
+            //   // that.gotoOpenMember();
+            //   // window.location.href = global.url+'/exp/LiveLoginRedirect.do?do='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+            // // })
+
+
+
+            window.location.href = global.url + '/common/appPages/LiveDetail.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+
+
+
+
+
+            // $('#userTel').val('');
+            // $('#userPwd').val('');
+            // alert(data.session);
+            // this.setState({
+            //   userSession: session,
+            //   loginFlag: false
+            // })
           }
         }
       }.bind(this),
@@ -459,7 +504,7 @@ var LiveDetail = React.createClass({
     	$(this).addClass('live_detail_nav_active').siblings('').removeClass('live_detail_nav_active');
     	$('.live_detail').children('').eq(index).show().siblings('').hide();
     });
-    var isMember = this.getUrlParams('ilm');
+    var isMember = this.getUrlParams('ilm');  
     if(isMember){
       this.showAlert('您已经是会员了！')
     }

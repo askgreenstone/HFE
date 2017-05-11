@@ -56,7 +56,7 @@ jQuery(function($){
   function getLiveListPic(){
     $.ajax({
       type: 'get',
-      url: Common.globalDistUrl()+'/exp/GetLiveListInfo.do?do='+ownUri,
+      url: Common.globalDistUrl()+'exp/GetLiveListInfo.do?do='+ownUri,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -73,7 +73,7 @@ jQuery(function($){
         }
       },
       error: function(data) {
-        this.showRefresh('系统开了小差，请刷新页面');
+        alert('系统开了小差，请刷新页面');
       }
     })
   }
@@ -84,7 +84,7 @@ jQuery(function($){
   function getLiveInfo(livedetailid){
     $.ajax({
       type: 'get',
-      url: Common.globalDistUrl()+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid,
+      url: Common.globalDistUrl()+'exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){
@@ -158,7 +158,7 @@ jQuery(function($){
       }.bind(this),
       error: function(data) {
           // console.log(data);
-        this.showRefresh('系统开了小差，请刷新页面');
+        alert('系统开了小差，请刷新页面');
       }.bind(this)
     })
   } 
@@ -174,7 +174,7 @@ jQuery(function($){
     }else{
       $.ajax({
         type: 'get',
-        url: Common.globalDistUrl()+'/exp/GetLiveQuestion.do?ldid='+ldid,
+        url: Common.globalDistUrl()+'exp/GetLiveQuestion.do?ldid='+ldid,
         success: function(data) {
           console.log(data);
           if(data.c == 1000){
@@ -198,7 +198,7 @@ jQuery(function($){
           }
         },
         error: function(data) {
-          this.showRefresh('系统开了小差，请刷新页面');
+          alert('系统开了小差，请刷新页面');
         }
       })
     }
@@ -212,7 +212,7 @@ jQuery(function($){
     /* Act on the event */
     var text = $('.live_detail_text').val();
     if(!text){
-      this.showAlert('请输入问题')
+      alert('请输入问题')
       return;
     }
     var data = {
@@ -222,7 +222,7 @@ jQuery(function($){
     }
     $.ajax({
       type: 'post',
-      url: Common.globalDistUrl()+'/exp/AddLiveQuestion.do',
+      url: Common.globalDistUrl()+'exp/AddLiveQuestion.do',
       data: JSON.stringify(data),
       success: function(data) {
         console.log(data);
@@ -232,7 +232,7 @@ jQuery(function($){
         }
       }.bind(this),
       error: function(data) {
-        this.showRefresh('系统开了小差，请刷新页面');
+        alert('系统开了小差，请刷新页面');
       }.bind(this)
     })
   });

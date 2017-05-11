@@ -60,15 +60,12 @@ var OpenMember = React.createClass({
     },1000)
   },
   expRegister: function(){
-    var userName = $('#userName').val();
     var userTel = $('#userTel').val();
     var userCode = $('#userCode').val();
-    var userDepart = $('#userDepart').val();
-    var openId = this.getUrlParams('openId');
-    if(!userName){
-      this.showAlert('请输入您的姓名！')
-      return;
-    }else if(!userTel){
+    var ownUri = this.getUrlParams('ownUri');
+    var lid = this.getUrlParams('lid');
+    var ldid = this.getUrlParams('ldid');
+    if(!userTel){
       this.showAlert('请输入电话！')
       return;
     }else if(userTel.length != 11){
@@ -77,34 +74,27 @@ var OpenMember = React.createClass({
     }else if(!userCode){
       this.showAlert('请输入验证码！')
       return;
-    }else if(!userDepart){
-      this.showAlert('请输入所在单位名称！')
-      return;
     }
     var data = {
-      en: userName,
       pn: userTel,
-      vc: userCode,
-      cy: userDepart,
-      openId: openId
+      vc: userCode
     }
     $.ajax({
       type: 'post',
-      url: global.url+'/exp/WXRegister.do?pn='+userTel,
+      url: global.url+'/exp/WebLogin.do?',
       data: JSON.stringify(data),
       success: function(data) {
         console.log(data);
         if(data.c == 1001){
-          this.showAlert('请输入正确的验证码！')
+          this.showAlert('验证码错误！');
+          return;
+        }else if(data.c == 1014){
+          var that = this;
+          this.showAlert('您尚未注册，请先注册！',function(){
+            that.gotoOpenMember();
+          });
         }else if(data.c == 1000){
-          this.gotoTrade(data.session);
-          this.setState({
-            userSession : data.session
-          })
-          // var ownUri = this.getUrlParams('ownUri');
-          // var lid = this.getUrlParams('lid');
-          // var ldid = this.getUrlParams('ldid');
-          // window.location.href = '#/LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
+          window.location.href = '#LiveShow?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
         }
       }.bind(this),
       error: function(data) {
@@ -112,89 +102,26 @@ var OpenMember = React.createClass({
       }.bind(this)
     })
   },
-  gotoTrade: function(session){
-    // 掉起微信支付
-    var payInfo = {
-        'd': '直播会员', //描述
-        'dt': 0, //int 目标类型，0 系统 1 用户 2 专家
-        'f': 0.01, //float 交易金额
-        'p': 2, //int 支付方式，0 账户余额 1 支付宝 2 微信支付
-        't': 28, //int 交易类型。直播会员
-        'from': 3 //int 客户端来源 3 web
-      };
-    $.ajax({
-        type: 'POST',
-        url: global.url+ '/exp/Trade.do?session=' + session,
-        data: JSON.stringify(payInfo),
-        dataType: 'json',
-        success: function(data) {
-            //alert( 'success:' + JSON.stringify(data) );
-            console.log(data);
-            if (data.c == 1000) {
-              this.setState({
-                payParams: {
-                    'appId': data.appId,
-                    'timeStamp': data.timeStamp,
-                    'nonceStr': data.nonceStr,
-                    'package': data.packageStr,
-                    'signType': 'MD5',
-                    'paySign': data.paySign
-                }
-              })
-              var that = this;
-              setTimeout(function(){
-                that.callPay();
-              },500)
-            } else {
-                alert('Trade error:' + data.d);
-            }
-        }.bind(this),
-        error: function(err) {
-            alert('error:' + JSON.stringify(err));
-        }.bind(this)
-      });
-  },
-  callPay:function() {
-    // alert('callPay run');
-    if (typeof WeixinJSBridge == "undefined") {
-        if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
-        } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady);
-            document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
-        }
-    } else {
-        this.onBridgeReady();
+  gotoOpenMember: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var lid = this.getUrlParams('lid');
+    var ldid = this.state.ldid;
+    var temp;
+    var appid;
+    var str = window.location.href;
+    // window.location.href = '#OpenMember?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+      temp = 't-web';
+      appid = 'wx2858997bbc723661';
+    }else{
+      temp = 'web';
+      appid = 'wx73c8b5057bb41735';
     }
-  },
-  onBridgeReady:function() {
-    //alert('onBridgeReady run');
-    WeixinJSBridge.invoke(
-        'getBrandWCPayRequest', this.state.payParams,
-        function(res) {
-
-            //if (res.err_msg == "get_brand_wcpay_request：ok") {} // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-            WeixinJSBridge.log(res.err_msg);
-            alert(res.err_code+res.err_desc+res.err_msg);
-            if (res.err_msg.indexOf('ok') > -1) {
-              // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
-                // alert('支付成功！')
-                var ownUri = this.getUrlParams('ownUri');
-                var lid = this.getUrlParams('lid');
-                var ldid = this.getUrlParams('ldid');
-                window.location.href = '#/LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+this.state.userSession;
-                // location.href = '/htm/react/success.html';
-            } else if (res.err_msg.indexOf('cancel') > -1) {
-                //alert('取消支付！');
-            } else if (res.err_msg.indexOf('fail') > -1) {
-                alert('支付失败！');
-            }
-        }
-    );
+    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fexp%2fWeiXinWebOAuthForExp.do&response_type=code&scope=snsapi_base&state=livememberpay_'+ownUri+'_'+lid+'_'+ldid+'#wechat_redirect';
   },
   componentDidMount: function(){
     var $body = $('body')
-    document.title = '开通会员';
+    document.title = '会员登录';
     // hack在微信等webview中无法修改document.title的情况
     var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
       setTimeout(function() {
@@ -209,10 +136,6 @@ var OpenMember = React.createClass({
     return(
         <div className="open_member">
           <div className="open_member_input_box">
-            
-            <input type="text" placeholder="请输入真实姓名" id="userName"/>
-          </div>
-          <div className="open_member_input_box">
             <span>+86</span>
             <input type="text" placeholder="请输入电话号码" id="userTel"/>
           </div>
@@ -225,15 +148,8 @@ var OpenMember = React.createClass({
               s
             </span>
           </div>
-          <div className="open_member_textarea_box">
-            <textarea placeholder="请填写所在单位名称" id="userDepart"></textarea>
-          </div>
           <div className="open_member_submit" onClick={this.expRegister}>
-            <span>支付会员费  1999元</span>
-          </div>
-          <div className="open_member_content">
-            <div>会员服务介绍：</div>
-            <p>违法完了那内为开工过个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我违法呢为了纪念分位列国内为各位看过完了国内为开工过完了那个我那个我</p>
+            <span>登录</span>
           </div>
           <Message/>
         </div> 
