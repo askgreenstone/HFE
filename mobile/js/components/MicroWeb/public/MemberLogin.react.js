@@ -95,7 +95,7 @@ var MemberLogin = React.createClass({
         }else if(data.c == 1014){
           var that = this;
           this.showAlert('您尚未注册，请先注册！',function(){
-            window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId;
+            window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId+'&unionid='+unionid;
           });
         }else if(data.c == 1000){
           // is-live-member : int 是否直播会员 1 是， 0 否
@@ -103,7 +103,7 @@ var MemberLogin = React.createClass({
             window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
           }else if(data.ilm == 0){
             this.showAlert('您尚未购买会员服务，请先购买！',function(){
-              window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId;
+              window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId+'&unionid='+unionid;
             });
           }
         }
@@ -132,7 +132,7 @@ var MemberLogin = React.createClass({
   },
   componentDidMount: function(){
     var $body = $('body')
-    document.title = '开通会员';
+    document.title = '用户登录';
     // hack在微信等webview中无法修改document.title的情况
     var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
       setTimeout(function() {

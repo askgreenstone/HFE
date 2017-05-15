@@ -247,6 +247,7 @@
 	    var userCode = $('#userCode').val();
 	    var userDepart = $('#userDepart').val();
 	    var openId = Common.getUrlParam('openId');
+	    var unionid = Common.getUrlParam('unionid');
 	    if(!userName){
 	      alert('请输入您的姓名！')
 	      return;
@@ -268,7 +269,8 @@
 	      pn: userTel,
 	      vc: userCode,
 	      cy: userDepart,
-	      openId: openId
+	      openId: openId,
+	      unionid: unionid
 	    }
 	    $.ajax({
 	      type: 'post',
@@ -291,13 +293,13 @@
 	  // 掉起后台支付接口，获取支付信息
 	  function gotoTrade(session){
 		  var payInfo = {
-        'd': '直播会员', //描述
-        'dt': 0, //int 目标类型，0 系统 1 用户 2 专家
-        'f': 0.01, //float 交易金额
-        'p': 2, //int 支付方式，0 账户余额 1 支付宝 2 微信支付
-        't': 28, //int 交易类型。直播会员
-        'from': 3 //int 客户端来源 3 web
-      };
+		        'd': '直播会员', //描述
+		        'dt': 0, //int 目标类型，0 系统 1 用户 2 专家
+		        'f': 0.01, //float 交易金额
+		        'p': 2, //int 支付方式，0 账户余额 1 支付宝 2 微信支付
+		        't': 28, //int 交易类型。直播会员
+		        'from': 3 //int 客户端来源 3 web
+		      };
 		  $.ajax({
 		        type: 'POST',
 		        url: Common.globalDistUrl() + 'exp/Trade.do?session=' + session,
