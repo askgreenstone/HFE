@@ -111,7 +111,7 @@ var CreateLive = require('./components/MicroWeb/public/CreateLive.react');
 // 播放器页面
 var LiveShow = require('./components/MicroWeb/public/LiveShow.react');
 // 开通会员
-var OpenMember = require('./components/MicroWeb/public/OpenMember.react');
+var MemberLogin = require('./components/MicroWeb/public/MemberLogin.react');
 
 
 //定义路由：https://github.com/rackt/react-router
@@ -164,7 +164,7 @@ ReactDOM.render((
     <Route path="/LiveDetail" component={LiveDetail}/>
     <Route path="/CreateLive" component={CreateLive}/>
     <Route path="/LiveShow" component={LiveShow}/>
-    <Route path="/OpenMember" component={OpenMember}/>
+    <Route path="/MemberLogin" component={MemberLogin}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
     <Route path="/empty" component={Empty}/>

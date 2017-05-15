@@ -4,7 +4,7 @@ var Share = require('../../common/Share.react');
 var CommonMixin = require('../../Mixin');
 var Message = require('../../common/Message.react');
 
-var OpenMember = React.createClass({
+var MemberLogin = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
     return {
@@ -59,12 +59,14 @@ var OpenMember = React.createClass({
       that.getMessageCode();
     },1000)
   },
-  expRegister: function(){
+  expLogin: function(){
     var userTel = $('#userTel').val();
     var userCode = $('#userCode').val();
     var ownUri = this.getUrlParams('ownUri');
     var lid = this.getUrlParams('lid');
     var ldid = this.getUrlParams('ldid');
+    var openId = this.getUrlParams('openId');
+    var unionid = this.getUrlParams('unionid');
     if(!userTel){
       this.showAlert('请输入电话！')
       return;
@@ -77,7 +79,9 @@ var OpenMember = React.createClass({
     }
     var data = {
       pn: userTel,
-      vc: userCode
+      vc: userCode,
+      openId: openId,
+      unionid: unionid
     }
     $.ajax({
       type: 'post',
@@ -91,10 +95,17 @@ var OpenMember = React.createClass({
         }else if(data.c == 1014){
           var that = this;
           this.showAlert('您尚未注册，请先注册！',function(){
-            that.gotoOpenMember();
+            window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId;
           });
         }else if(data.c == 1000){
-          window.location.href = '#LiveShow?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
+          // is-live-member : int 是否直播会员 1 是， 0 否
+          if(data.ilm == 1){
+            window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
+          }else if(data.ilm == 0){
+            this.showAlert('您尚未购买会员服务，请先购买！',function(){
+              window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId;
+            });
+          }
         }
       }.bind(this),
       error: function(data) {
@@ -121,7 +132,7 @@ var OpenMember = React.createClass({
   },
   componentDidMount: function(){
     var $body = $('body')
-    document.title = '会员登录';
+    document.title = '开通会员';
     // hack在微信等webview中无法修改document.title的情况
     var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
       setTimeout(function() {
@@ -148,7 +159,7 @@ var OpenMember = React.createClass({
               s
             </span>
           </div>
-          <div className="open_member_submit" onClick={this.expRegister}>
+          <div className="open_member_submit member_login_submit" onClick={this.expLogin}>
             <span>登录</span>
           </div>
           <Message/>
@@ -157,4 +168,4 @@ var OpenMember = React.createClass({
   }
 });
 
-module.exports = OpenMember;
+module.exports = MemberLogin;
