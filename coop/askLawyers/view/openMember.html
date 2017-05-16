@@ -341,7 +341,9 @@
 		            if (res.err_msg.indexOf('ok') > -1) {
 		              // alert('tit:'+icObj.it+',month:'+icObj.lt+',ic:'+ic);
 		                 // alert('支付成功！')
-                	window.location.href = Common.globalDistUrl()+'mobile/#/LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+                	// window.location.href = Common.globalDistUrl()+'mobile/#/LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+            		window.location.href = Common.globalDistUrl()+'mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveDetail&lid='+lid+'&ldid='+ldid+'&session='+session;
+
 		            } else if (res.err_msg.indexOf('cancel') > -1) {
 		                // alert('取消支付！');
 		            } else if (res.err_msg.indexOf('fail') > -1) {
