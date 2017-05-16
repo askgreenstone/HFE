@@ -102,7 +102,7 @@ var MemberLogin = React.createClass({
           if(data.ilm == 1){
             // window.location.href = global.url +'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveDetail&lid='+lid+'&ldid='+ldid+'&session='+data.session;
             
-            window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session+'&state=login';
+            window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
             
           }else if(data.ilm == 0){
             this.showAlert('您尚未购买会员服务，请先购买！',function(){
