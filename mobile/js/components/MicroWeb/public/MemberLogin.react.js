@@ -100,8 +100,10 @@ var MemberLogin = React.createClass({
         }else if(data.c == 1000){
           // is-live-member : int 是否直播会员 1 是， 0 否
           if(data.ilm == 1){
-            window.location.href = global.url +'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveDetail&lid='+lid+'&ldid='+ldid+'&session='+data.session;
-            // window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
+            // window.location.href = global.url +'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveDetail&lid='+lid+'&ldid='+ldid+'&session='+data.session;
+            
+            window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session+'&state=login';
+            
           }else if(data.ilm == 0){
             this.showAlert('您尚未购买会员服务，请先购买！',function(){
               window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId+'&unionid='+unionid;

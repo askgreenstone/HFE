@@ -481,10 +481,16 @@ var LiveDetail = React.createClass({
     	$('.live_detail').children('').eq(index).show().siblings('').hide();
     });
     var loginType = this.getUrlParams('loginType');  
+    var state = this.getUrlParams('state');  
     if(loginType == 1){
       this.showAlert('登录成功！')
     }else if(loginType == 2){
       this.showAlert('您已经是会员了！')
+    }
+    if(state == 'register'){
+      this.gotoOpenMember()
+    }else if(state == 'login'){
+      this.gotoMemberLogin()
     }
   },
   componentWillMount: function(){
