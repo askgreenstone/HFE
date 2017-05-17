@@ -4,6 +4,7 @@ var CommonMixin = require('../../Mixin');
 var prismplayer = require('../../common/prism-min.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
+var doubleClickFlag = true;
 
 
 var LiveDetail = React.createClass({
@@ -25,6 +26,7 @@ var LiveDetail = React.createClass({
       LoginBoxFlag: false,
       messageCodeFlag: true,      //发送短信验证码
       time: 60,
+      doubleClickFlag: true,
       userSession: ''
     };
   },
@@ -84,6 +86,19 @@ var LiveDetail = React.createClass({
     }
     // console.log(arr);
     return [arr];
+  },
+  //多次点击控制
+  controlTimes:function(){
+    var that = this;
+    console.log(doubleClickFlag);
+    if(doubleClickFlag){
+        that.postLiveQuestions();
+        doubleClickFlag = false
+        console.log(doubleClickFlag)
+      }
+      setTimeout(function(){
+        doubleClickFlag = true
+      },1000);
   },
   postLiveQuestions:function(){
     var text = $('.live_detail_text').val();
@@ -623,7 +638,7 @@ var LiveDetail = React.createClass({
               </ul>
               <div className="live_detail_question_text" style={{display:this.state.askQuestionFlag?'box':'none'}}>
                 <input className="live_detail_text" placeholder="请输入文字" type="text"/>
-                <span onClick={this.postLiveQuestions}>提问</span>
+                <span onClick={this.controlTimes}>提问</span>
               </div>
 	          </div>
           </div>
