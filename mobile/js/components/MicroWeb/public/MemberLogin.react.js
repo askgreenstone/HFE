@@ -92,21 +92,49 @@ var MemberLogin = React.createClass({
         if(data.c == 1001){
           this.showAlert('验证码错误！');
           return;
-        }else if(data.c == 1014){
-          var that = this;
-          this.showAlert('您尚未注册，请先注册！',function(){
-            window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId+'&unionid='+unionid;
-          });
-        }else if(data.c == 1000){
+        }
+        // else if(data.c == 1014){
+        //   var that = this;
+        //   this.showAlert('您尚未注册，请先注册！',function(){
+        //     window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId+'&unionid='+unionid;
+        //   });
+        // }
+        else if(data.c == 1000){
           // is-live-member : int 是否直播会员 1 是， 0 否
-          if(data.ilm == 1){
-            // window.location.href = global.url +'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveDetail&lid='+lid+'&ldid='+ldid+'&session='+data.session;
+          // if(data.ilm == 1){
+          //   // window.location.href = global.url +'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveDetail&lid='+lid+'&ldid='+ldid+'&session='+data.session;
             
-            window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
+          //   window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+data.session;
             
-          }else if(data.ilm == 0){
-            this.showAlert('您尚未购买会员服务，请先购买！',function(){
-              window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId+'&unionid='+unionid;
+          // }else if(data.ilm == 0){
+          //   this.showAlert('您尚未购买会员服务，请先购买！',function(){
+          //     window.location.href = global.url + '/coop/askLawyers/view/openMember.html?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&openId='+openId+'&unionid='+unionid;
+          //   });
+          // }
+          this.checkUserType(data.session)
+        }
+      }.bind(this),
+      error: function(data) {
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
+  },
+  checkUserType: function(session){
+    var ownUri = this.getUrlParams('ownUri');
+    var lid = this.getUrlParams('lid');
+    var ldid = this.getUrlParams('ldid');
+    $.ajax({
+      type: 'post',
+      url: global.url+'/exp/QueryIsDeptMember.do?session='+session+'&do='+ownUri,
+      success: function(data) {
+        console.log(data);
+        // idm : int 是否机构成员 1 是， 0 否
+        if(data.c == 1000){
+          if(data.idm == 1){
+            window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+          }else{
+            this.showAlert('您还不是机构成员！',function(){
+              window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
             });
           }
         }

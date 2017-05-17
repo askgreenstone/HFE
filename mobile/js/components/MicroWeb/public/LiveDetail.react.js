@@ -472,6 +472,23 @@ var LiveDetail = React.createClass({
     }
     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fexp%2fWeiXinWebOAuthForExp.do&response_type=code&scope=snsapi_base&state=livelogin_'+ownUri+'_'+lid+'_'+ldid+'#wechat_redirect';
   },
+  gotoDeptMemberLogin: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var lid = this.getUrlParams('lid');
+    var ldid = this.state.ldid;
+    var temp;
+    var appid;
+    var str = window.location.href;
+    // window.location.href = '#OpenMember?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid;
+    if(str.indexOf('localhost')>-1 || str.indexOf('t-dist')>-1){
+      temp = 't-web';
+      appid = 'wx2858997bbc723661';
+    }else{
+      temp = 'web';
+      appid = 'wx73c8b5057bb41735';
+    }
+    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fexp%2fWeiXinWebOAuthForExp.do&response_type=code&scope=snsapi_base&state=deptlivelogin_'+ownUri+'_'+lid+'_'+ldid+'#wechat_redirect';
+  },
   componentDidMount: function(){
     $('.live_detail_nav').on('click', 'li', function(event) {
     	event.preventDefault();
@@ -519,10 +536,8 @@ var LiveDetail = React.createClass({
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 1?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
           <div className="live_detail_shadow live_detail_shadow_logIn" style={{display:this.state.loginFlag?'block':'none'}}>
-            <span className="live_detail_shadow_logIn_all">开通会员后可观看完整版</span>
-            <span className="live_detail_shadow_logIn_pay">年度会员仅需1999元</span>
-            <span className="live_detail_shadow_logIn_btn" onClick={this.gotoOpenMember}>开通会员</span>
-            <span className="live_detail_shadow_logIn_all">已是会员请继续<i onClick={this.gotoMemberLogin}>登录</i>观看</span>
+            <span className="live_detail_shadow_logIn_member">仅限学员观看</span>
+            <span className="live_detail_shadow_logIn_memberlogin" onClick={this.gotoDeptMemberLogin}>学员登录</span>
           </div>
         </div>
        );
