@@ -204,7 +204,7 @@ var TimeAxis = React.createClass({
     that.showConfirm('执行删除后将无法恢复，确定继续吗？',function(){
       $.ajax({
         type: 'POST',
-        url: global.url+'/usr/DeleteFeed.do?session='+session,
+        url: global.url+'/usr/DeleteFeed.do',
         data: JSON.stringify({
           fid: fid
         }),

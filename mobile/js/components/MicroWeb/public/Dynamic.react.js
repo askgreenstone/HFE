@@ -122,12 +122,21 @@ var Dynamic = React.createClass({
     }else{
       url = global.url+'/usr/FeedDetail.do?fid='+fid;
     }
+    var that = this;
+    var ownUri = this.getUrlParams('ownUri');
+    var ida = this.getUrlParams('ida');
+    var idf = this.getUrlParams('idf');
     $.ajax({
       type: 'GET',
       url: url,
       success: function(data) {
         console.log(data);
-        if(data.c == 1000){
+        if(data.c == 1031){
+          this.showAlert('图文消息已删除,点击返回更多动态',function(){
+            window.location.href = '#TimeAxis?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
+          });
+
+        }else if(data.c == 1000){
           if(data.r.fl[0].pl[0]){
             this.setState({
               newContentArray: data.r.fl[0].pl,

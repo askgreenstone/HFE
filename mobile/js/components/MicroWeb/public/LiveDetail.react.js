@@ -262,7 +262,11 @@ var LiveDetail = React.createClass({
         player.setPlayerSize('1px','1px');
         $('.live_detail_list_edit_box').hide();
         $('.live_detail_play_play').show().parent().show();
-        that.gotoDetail(data);
+        if(!that.state.userSession && data.ife == 2){
+          that.gotoDetail(data,ife);
+        }else{
+          that.gotoDetail(data);
+        }
       });
     }
     player.on("ended", function() {
