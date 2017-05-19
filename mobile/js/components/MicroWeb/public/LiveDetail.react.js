@@ -299,7 +299,7 @@ var LiveDetail = React.createClass({
         // alert(player.getCurrentTime());
         player.setPlayerSize('1px','1px');
         that.gotoDetail(data,ife);
-      },10000)
+      },180000)
     }
     
   },
