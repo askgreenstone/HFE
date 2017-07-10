@@ -1686,6 +1686,12 @@ input[type=checkbox], input[type=radio] {
   margin: 20px 0 0 70px;
   width: 80px;
 }
+.input_file_upload{
+  width: 100%;
+}
+.input_file_upload i{
+  width: 100%;
+}
 .input_file_fix input{
   border:0;
   display: inline-block;

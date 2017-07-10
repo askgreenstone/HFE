@@ -12,6 +12,8 @@ define(['App'], function(app) {
         vm.uploadProgress = false;//开始上传出现进度条
         vm.isDeptAdmin = true;
         vm.docTypeName = '微课堂课程列表';
+        vm.bdid = '' //上传百度文档的文档ID
+        vm.bdt = '' //上传百度文档的文件类型doctype
         var uploader = new VODUpload({
           // 文件上传失败
           'onUploadFailed': function (fileName, code, message) {
@@ -21,7 +23,8 @@ define(['App'], function(app) {
           // 文件上传完成
           'onUploadSucceed': function (fileName) {
               console.log("onUploadSucceed: " + fileName);
-              $('.uploadFileName').text(fileName);
+              var uploadShortName = fileName.length>20?fileName.substring(0,20)+'...':fileName; 
+              $('.uploadFileName').text(uploadShortName);
               $('.uploadFilePercent').hide();
               $('.uploadProgress').hide();
               vm.uploadSucced();
@@ -29,7 +32,8 @@ define(['App'], function(app) {
           // 文件上传进度
           'onUploadProgress': function (fileName, totalSize, uploadedSize) {
               // console.log("file:" + fileName + ", " + totalSize, uploadedSize, "percent:", Math.ceil(uploadedSize * 100 / totalSize));
-              $('.uploadFileName').text(fileName);
+              var uploadShortName = fileName.length>20?fileName.substring(0,20)+'...':fileName;                 
+              $('.uploadFileName').text(uploadShortName);
               $('.uploadFileBox').show();
               $('.uploadFilePercent').text(Math.ceil(uploadedSize * 100 / totalSize)+'%')
               $('.uploadProgress span').animate({width: Math.ceil(uploadedSize * 100 / totalSize)+'px'},100);
@@ -441,31 +445,31 @@ define(['App'], function(app) {
               
           }
         }
-        // 上传文件成功后调convert接口
-        vm.gotoConvert = function(ossname) {
-          console.log(ossname);
-          var data = {
-            'on' : ossname
-          }
-          $http({
-              method: 'POST',
-              url: GlobalUrl+'/data/Convert.do',
-              params: {
-                  session:vm.sess
-              },
-              data: JSON.stringify(data)
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  console.log('调取convert接口成功！')
-                }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('系统开了小差，请刷新页面');
-            });
-        }
+        // 上传文件成功后调convert接口  2017年7月5日修改为使用百度文档上传，此接口废弃
+        // vm.gotoConvert = function(ossname) {
+        //   console.log(ossname);
+        //   var data = {
+        //     'on' : ossname
+        //   }
+        //   $http({
+        //       method: 'POST',
+        //       url: GlobalUrl+'/data/Convert.do',
+        //       params: {
+        //           session:vm.sess
+        //       },
+        //       data: JSON.stringify(data)
+        //     }).
+        //     success(function(data, status, headers, config) {
+        //         console.log(data);
+        //         if(data.c == 1000){
+        //           console.log('调取convert接口成功！')
+        //         }
+        //     }).
+        //     error(function(data, status, headers, config) {
+        //         // console.log(data);
+        //         alert('系统开了小差，请刷新页面');
+        //     });
+        // }
 
 
 
@@ -484,7 +488,8 @@ define(['App'], function(app) {
                 fd.append('fileToUpload', f);
                 fd.append('filename', f.name);
                 console.log(fd);
-                $http.post(GlobalUrl + '/data/upload?session=' + vm.sess, fd, {
+                // UploadBaiDuDoc.do
+                $http.post(GlobalUrl + '/data/UploadBaiDuDoc.do?session=' + vm.sess, fd, {
                     transformRequest: angular.identity,
                     headers: {
                         'Content-Type': undefined
@@ -493,10 +498,15 @@ define(['App'], function(app) {
                 .success(function(data) {
                     console.log(data);
                     if(data.c == 1000){
-                      vm.gotoConvert(data.on);
+                      vm.bdid = data.bdid; //上传百度文档的文档ID
+                      vm.bdt = data.bdt; //上传百度文档的文件类型doctype
+                      // 上传百度文档后  uploadBaiduFileName设置为true
                       vm.docName = f.name;
-                      vm.uploadFileName = data.on;
-                      $('.uploadTextBox').text(f.name);
+                      vm.uploadFileName = '';
+                      vm.uploadBaiduFileName = true;
+                      console.log(f.name);
+                      var uploadTextBoxText = f.name.length>20?f.name.substring(0,20)+'...':f.name;
+                      $('.uploadTextBox').text(uploadTextBoxText);
                     }
                     Common.getLoading(false);
                 })
@@ -563,7 +573,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  if(vm.uploadFileName){
+                  if(vm.uploadFileName || vm.uploadBaiduFileName){
                     vm.addUploadFile(vm.tid);
                   }else{
                     window.location.href = '#/filelist?session='+vm.sess+'&ida='+vm.ida+'&dt='+vm.dt;
@@ -596,7 +606,7 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  if(vm.uploadFileName){
+                  if(vm.uploadFileName || vm.uploadBaiduFileName){
                     vm.addUploadFile(data.tid);
                   }else{
                     alert('创建成功！')
@@ -621,7 +631,9 @@ define(['App'], function(app) {
             odn: vm.uploadFileName,
             dt: vm.docType,
             dti: tid,
-            o: vm.order
+            o: vm.order,
+            bdid: vm.bdid, //上传百度文档的文档ID
+            bdt: vm.bdt //上传百度文档的文件类型doctype
           }
           console.log(data);
           $http({
