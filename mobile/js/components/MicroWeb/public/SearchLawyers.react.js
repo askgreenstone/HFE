@@ -27,7 +27,7 @@ var Lawyers = React.createClass({
       url: url,
       success: function(data) {
         // alert(JSON.stringify(data));
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           for(var i=0;i<data.s.length;i++){
             arrList.push(data.s[i]);
@@ -52,7 +52,7 @@ var Lawyers = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         this.showRefresh('系统开了小差，请刷新页面');
-        console.error(this.props.url, status, err.toString());
+        // console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
   },
@@ -82,7 +82,7 @@ var Lawyers = React.createClass({
       temp = 'web';
       appid = 'wx73c8b5057bb41735';
     }
-    console.log(temp+'....'+appid);
+    // console.log(temp+'....'+appid);
     // 查询用户是否开通在线咨询功能
     // ocm字段  0表示关闭在线咨询功能，1表示开通在线咨询功能
     $.ajax({
@@ -107,7 +107,7 @@ var Lawyers = React.createClass({
       type: 'post',
       url: global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0',
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1999){
           this.showAlert('该律师还没有创建个人名片');
         }else{

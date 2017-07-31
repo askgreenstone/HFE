@@ -8,7 +8,7 @@ Date.prototype.Format = function(fmt){ //author: meizz
   today.setMinutes(0);
   today.setSeconds(0);
   today.setMilliseconds(0);
-  console.log(today.getTime());
+  // console.log(today.getTime());
   var o = {   
     "M+" : this.getMonth()+1,                 //月份   
     "d+" : this.getDate(),                    //日   
@@ -48,7 +48,7 @@ var TimeAxis = React.createClass({
     if(!fid){
       return;
     }else{
-      console.log(global.url);
+      // console.log(global.url);
       if(isAndroid == 'true'){
         location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true';
       }else if(isFrom == 'app'){
@@ -67,7 +67,7 @@ var TimeAxis = React.createClass({
       url: global.url+'/exp/ExpertInfo.do?ei='+ei,
       success: function(data) {
         // alert(JSON.stringify(data));
-        console.log(data);
+        // console.log(data);
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
           if(idf == 0){
@@ -87,7 +87,7 @@ var TimeAxis = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         this.showRefresh('系统开了小差，请刷新页面');
-        console.error(this.props.url, status, err.toString());
+        // console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
   },
@@ -118,11 +118,11 @@ var TimeAxis = React.createClass({
       url: url,
       success: function(data) {
         // alert(JSON.stringify(data));
-        console.log(data);
+        // console.log(data);
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
           // console.log(data.sil[0].spu)
-          console.log(data.r.fl);
+          // console.log(data.r.fl);
           if(data.r.fl.length<10){
             if(fid == 0){
               this.setState({
@@ -154,21 +154,21 @@ var TimeAxis = React.createClass({
       }.bind(this),
       error: function(xhr, status, err) {
         this.showRefresh('系统开了小差，请刷新页面');
-        console.error(this.props.url, status, err.toString());
+        // console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
   },
   transferTime: function(count){
     var date = new Date().getTime();
     var number = date - count;
-    console.log(number);
+    // console.log(number);
   },
   goHome: function(){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
     }
-    console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
+    // console.log(global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri);
     window.location.href = global.url + '/mobile/#/'+ this.state.indexTheme +'?ownUri=' + ownUri;
   },
   getIndexTheme: function(){
@@ -180,7 +180,7 @@ var TimeAxis = React.createClass({
       type: 'GET',
       url: global.url+'/usr/QueryMicWebInfo.do?ownUri='+ownUri,
       success: function(data) {
-          console.log(data);
+          // console.log(data);
           if(data.c == 1000){
             this.setState({
               indexTheme: data.url
@@ -209,7 +209,7 @@ var TimeAxis = React.createClass({
           fid: fid
         }),
         success: function(data) {
-            console.log(data);
+            // console.log(data);
             if(data.c == 1000){
               that.getTimeAxis(0);
             }
@@ -246,8 +246,8 @@ var TimeAxis = React.createClass({
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});
-    console.log($('.timeline_container'));
-    console.log(this.state.Abstract);
+    // console.log($('.timeline_container'));
+    // console.log(this.state.Abstract);
     var $body = $('body')
     document.title = '律师动态';
     // hack在微信等webview中无法修改document.title的情况
@@ -274,17 +274,17 @@ var TimeAxis = React.createClass({
     var usrUri = this.getUrlParams('usrUri');
     var ownUri = this.getUrlParams('ownUri');
     var isAndroid = this.getUrlParams('isAndroid');
-    console.log('isAndroid == '+isAndroid);
+    // console.log('isAndroid == '+isAndroid);
     var str = window.location.href;
     var temp,appid,ShareUrl;
-    console.log(this.state.TimeAxis);
+    // console.log(this.state.TimeAxis);
     // 控制台打印分享信息
-    console.log(this.state.ShareTitile);
-    console.log(this.state.ShareDesc);
-    console.log(this.state.ShareImg);
+    // console.log(this.state.ShareTitile);
+    // console.log(this.state.ShareDesc);
+    // console.log(this.state.ShareImg);
     ShareUrl = window.location.href;
     var nowDate = (new Date().getMonth()*1+1)+'-'+new Date().getDate();
-    console.log(nowDate);
+    // console.log(nowDate);
     var navNodes = this.state.TimeAxis.map(function(item,i){
       return(
         <li key={new Date().getTime()+i} className={i==0?"timeline timeline_first":(i%2 == 0?"timeline":"timeline_double")}>
@@ -306,7 +306,7 @@ var TimeAxis = React.createClass({
         </li>
        );
     }.bind(this));
-  console.log(navNodes);  
+  // console.log(navNodes);  
   return (
     <div className="timeaxis">
       <ul className="timeaxis_tab" style={{display:(ida == 1 && isAndroid)?'box':'none'}}>

@@ -16,7 +16,7 @@ var MemberLogin = React.createClass({
   },
   checkUserTel: function(){
     var userTel = $('#userTel').val();
-    console.log(userTel);
+    // console.log(userTel);
     if(!userTel){
       this.showAlert('请输入电话！')
       return;
@@ -28,7 +28,7 @@ var MemberLogin = React.createClass({
       type: 'get',
       url: global.url+'/comm/Verify.do?pn='+userTel,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           this.getMessageCode();
         }
@@ -40,7 +40,7 @@ var MemberLogin = React.createClass({
   },
   getMessageCode: function(){
     var that = this;
-    console.log(that.state.time);
+    // console.log(that.state.time);
     var messageTime = that.state.time;
     if(messageTime == 0 ){
       that.setState({
@@ -88,7 +88,7 @@ var MemberLogin = React.createClass({
       url: global.url+'/exp/WebLogin.do?',
       data: JSON.stringify(data),
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1001){
           this.showAlert('验证码错误！');
           return;
@@ -127,7 +127,7 @@ var MemberLogin = React.createClass({
       type: 'post',
       url: global.url+'/exp/QueryIsDeptMember.do?session='+session+'&do='+ownUri,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         // idm : int 是否机构成员 1 是， 0 否
         if(data.c == 1000){
           if(data.idm == 1){

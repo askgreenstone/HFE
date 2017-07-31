@@ -488,6 +488,7 @@ define(['App'], function(app) {
                 fd.append('fileToUpload', f);
                 fd.append('filename', f.name);
                 console.log(fd);
+                console.log(fd.fileToUpload);
                 // UploadBaiDuDoc.do
                 $http.post(GlobalUrl + '/data/UploadBaiDuDoc.do?session=' + vm.sess, fd, {
                     transformRequest: angular.identity,

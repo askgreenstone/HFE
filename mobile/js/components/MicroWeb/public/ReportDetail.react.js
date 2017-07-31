@@ -39,7 +39,7 @@ var ReportDetail = React.createClass({
         url: global.url+'/usr/UserComplaint.do',
         data: JSON.stringify(data),
         success: function(data) {
-          console.log(data);
+          // console.log(data);
           if(data.c == 1000){
             this.showAlert('提交成功！',function(){
               WeixinJSBridge.call('closeWindow');

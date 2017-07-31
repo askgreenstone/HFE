@@ -43,7 +43,7 @@ var LiveShow = React.createClass({
       type: 'get',
       url: url,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           for (var i = data.ll.length - 1; i >= 0; i--) {
             if(data.ll[i].lid == lid){
@@ -100,7 +100,7 @@ var LiveShow = React.createClass({
       this.showAlert('请输入问题')
       return;
     }
-    console.log(this.state.ownUri);
+    // console.log(this.state.ownUri);
     var data = {
       ldid: this.state.ldid,
       lsu: this.state.ownUri,
@@ -111,7 +111,7 @@ var LiveShow = React.createClass({
       url: global.url+'/exp/AddLiveQuestion.do?',
       data: JSON.stringify(data),
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           $('.live_detail_text').val('');
           this.getLiveQuestion(this.state.ldid);
@@ -147,7 +147,7 @@ var LiveShow = React.createClass({
         type: 'get',
         url: global.url+'/exp/GetLiveQuestion.do?ldid='+ldid,
         success: function(data) {
-          console.log(data);
+          // console.log(data);
           if(data.c == 1000){
             this.setState({
               QuestionList: data.ql
@@ -172,7 +172,7 @@ var LiveShow = React.createClass({
       type: 'get',
       url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid+'&ip=1',
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           // livestatus: int 直播状态  1 未直播   2直播中  3直播结束
           var urlLdid = this.getUrlParams('ldid');
@@ -217,7 +217,7 @@ var LiveShow = React.createClass({
       url: global.url+'/exp/AddLiveWatchNum.do',
       data: JSON.stringify(data),
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           console.log('addLiveWatchNum success!');
         }
@@ -228,7 +228,7 @@ var LiveShow = React.createClass({
     })
   },
   liveVideoShow: function(data){
-    console.log(data);
+    // console.log(data);
     var source = data.ls==3?data.va:data.la;
     var arr = [];
     if(data.ls == 3){
@@ -294,8 +294,8 @@ var LiveShow = React.createClass({
     
   },
   gotoDetail: function(data,ife){
-    console.log(data);
-    console.log('跳转到其他详情直播ldid'+data.ldid);
+    // console.log(data);
+    // console.log('跳转到其他详情直播ldid'+data.ldid);
     this.setState({
       ldid: data.ldid,
       ShareTitile: data.lt,
@@ -316,14 +316,14 @@ var LiveShow = React.createClass({
     this.getLiveInfo(data.ldid);
   },
   showLoginBox: function(){
-    console.log(this.state.LoginBoxFlag)
+    // console.log(this.state.LoginBoxFlag)
     this.setState({
       LoginBoxFlag: true
     })
   },
   checkUserTel: function(){
     var userTel = $('#userTel').val();
-    console.log(userTel);
+    // console.log(userTel);
     if(!userTel){
       this.showAlert('请输入电话！')
       return;
@@ -335,7 +335,7 @@ var LiveShow = React.createClass({
       type: 'get',
       url: global.url+'/comm/Verify.do?pn='+userTel,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           this.getMessageCode();
         }
@@ -347,7 +347,7 @@ var LiveShow = React.createClass({
   },
   getMessageCode: function(){
     var that = this;
-    console.log(that.state.time);
+    // console.log(that.state.time);
     var messageTime = that.state.time;
     if(messageTime == 0 ){
       that.setState({
@@ -391,7 +391,7 @@ var LiveShow = React.createClass({
       url: global.url+'/exp/WebLogin.do?',
       data: JSON.stringify(data),
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1001){
           this.showAlert('验证码错误！');
           return;
@@ -415,7 +415,7 @@ var LiveShow = React.createClass({
       type: 'post',
       url: global.url+'/exp/QueryIsLiveMember.do?session='+session,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         // is-live-member : int 是否直播会员 1 是， 0 否
         if(data.c == 1000){
           if(data.ilm == 0){
@@ -481,7 +481,7 @@ var LiveShow = React.createClass({
   },
   render:function(){
     var ldid = this.state.ldid;
-    console.log(this.state.liveListPic);
+    // console.log(this.state.liveListPic);
     var idShow = this.getUrlParams('idShow');
     var now  = new Date().getTime();
     // console.log(this.state.ShareTitile);

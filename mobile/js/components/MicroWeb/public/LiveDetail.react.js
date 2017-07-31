@@ -4,6 +4,7 @@ var CommonMixin = require('../../Mixin');
 var prismplayer = require('../../common/prism-min.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
+var BaiduDoc = require('../../common/BaiduDoc.react');
 var doubleClickFlag = true;
 
 
@@ -44,7 +45,7 @@ var LiveDetail = React.createClass({
       type: 'get',
       url: url,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           for (var i = data.ll.length - 1; i >= 0; i--) {
             if(data.ll[i].lid == lid){
@@ -90,11 +91,11 @@ var LiveDetail = React.createClass({
   //多次点击控制
   controlTimes:function(){
     var that = this;
-    console.log(doubleClickFlag);
+    // console.log(doubleClickFlag);
     if(doubleClickFlag){
         that.postLiveQuestions();
         doubleClickFlag = false
-        console.log(doubleClickFlag)
+        // console.log(doubleClickFlag)
       }
       setTimeout(function(){
         doubleClickFlag = true
@@ -106,7 +107,7 @@ var LiveDetail = React.createClass({
       this.showAlert('请输入问题')
       return;
     }
-    console.log(this.state.ownUri);
+    // console.log(this.state.ownUri);
     var data = {
       ldid: this.state.ldid,
       lsu: this.state.ownUri,
@@ -117,7 +118,7 @@ var LiveDetail = React.createClass({
       url: global.url+'/exp/AddLiveQuestion.do?',
       data: JSON.stringify(data),
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           $('.live_detail_text').val('');
           this.getLiveQuestion(this.state.ldid);
@@ -153,7 +154,7 @@ var LiveDetail = React.createClass({
         type: 'get',
         url: global.url+'/exp/GetLiveQuestion.do?ldid='+ldid,
         success: function(data) {
-          console.log(data);
+          // console.log(data);
           if(data.c == 1000){
             this.setState({
               QuestionList: data.ql
@@ -178,7 +179,7 @@ var LiveDetail = React.createClass({
       type: 'get',
       url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid+'&ip=1',
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           // livestatus: int 直播状态  1 未直播   2直播中  3直播结束
           var urlLdid = this.getUrlParams('ldid');
@@ -223,7 +224,7 @@ var LiveDetail = React.createClass({
       url: global.url+'/exp/AddLiveWatchNum.do',
       data: JSON.stringify(data),
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           console.log('addLiveWatchNum success!');
         }
@@ -236,6 +237,15 @@ var LiveDetail = React.createClass({
   liveVideoShow: function(data){
     console.log(data);
     var source = data.ls==3?data.va:data.la;
+    // 设置微信title（苹果手机）
+    var $body = $('body')
+    document.title = data.lt;
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body);
     var arr = [];
     if(data.ls == 3){
       if(!this.state.userSession && data.ife == 2){
@@ -304,8 +314,8 @@ var LiveDetail = React.createClass({
     
   },
   gotoDetail: function(data,ife){
-    console.log(data);
-    console.log('跳转到其他详情直播ldid'+data.ldid);
+    // console.log(data);
+    // console.log('跳转到其他详情直播ldid'+data.ldid);
     this.setState({
       ldid: data.ldid,
       ShareTitile: data.lt,
@@ -326,14 +336,14 @@ var LiveDetail = React.createClass({
     this.getLiveInfo(data.ldid);
   },
   showLoginBox: function(){
-    console.log(this.state.LoginBoxFlag)
+    // console.log(this.state.LoginBoxFlag)
     this.setState({
       LoginBoxFlag: true
     })
   },
   checkUserTel: function(){
     var userTel = $('#userTel').val();
-    console.log(userTel);
+    // console.log(userTel);
     if(!userTel){
       this.showAlert('请输入电话！')
       return;
@@ -345,7 +355,7 @@ var LiveDetail = React.createClass({
       type: 'get',
       url: global.url+'/exp/WebVerifyCode.do?pn='+userTel,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           this.getMessageCode();
         }
@@ -359,7 +369,7 @@ var LiveDetail = React.createClass({
   },
   getMessageCode: function(){
     var that = this;
-    console.log(that.state.time);
+    // console.log(that.state.time);
     var messageTime = that.state.time;
     if(messageTime == 0 ){
       that.setState({
@@ -403,7 +413,7 @@ var LiveDetail = React.createClass({
       url: global.url+'/exp/WebLogin.do?',
       data: JSON.stringify(data),
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1001){
           this.showAlert('验证码错误！');
           return;
@@ -435,7 +445,7 @@ var LiveDetail = React.createClass({
       type: 'post',
       url: global.url+'/exp/QueryIsLiveMember.do?session='+session,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         // is-live-member : int 是否直播会员 1 是， 0 否
         if(data.c == 1000){
           if(data.ilm == 0){
@@ -508,6 +518,38 @@ var LiveDetail = React.createClass({
     }
     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fexp%2fWeiXinWebOAuthForExp.do&response_type=code&scope=snsapi_base&state=deptlivelogin_'+ownUri+'_'+lid+'_'+ldid+'#wechat_redirect';
   },
+  // 打开百度文档
+  openBaiduOffice: function(bdid){
+    // console.log(bdid);
+    var docId = bdid.substring(0,bdid.indexOf('_'));
+    // console.log(docId);
+    var option = {
+        docId: docId,
+        token: 'TOKEN',
+        host: 'BCEDOC',
+        width: 600, //文档容器宽度
+        zoom: false,              //是否显示放大缩小按钮
+        zoomStepWidth:200,
+        pn: 1,  //定位到第几页，可选
+        ready: function (handler) {  // 设置字体大小和颜色, 背景颜色（可设置白天黑夜模式）
+            handler.setFontSize(1);
+            handler.setBackgroundColor('#000');
+            handler.setFontColor('#fff');
+        },
+        flip: function (data) {    // 翻页时回调函数, 可供客户进行统计等
+            // console.log(data.pn);
+        },
+        fontSize:'big',
+        toolbarConf: {
+                page: true, //上下翻页箭头图标
+                pagenum: true, //几分之几页
+                full: false, //是否显示全屏图标,点击后全屏
+                copy: true, //是否可以复制文档内容
+                position: 'center',// 设置 toolbar中翻页和放大图标的位置(值有left/center)
+        } //文档顶部工具条配置对象,必选
+    };
+    new Document('reader', option);
+  },
   componentDidMount: function(){
     $('.live_detail_nav').on('click', 'li', function(event) {
     	event.preventDefault();
@@ -522,6 +564,19 @@ var LiveDetail = React.createClass({
     }else if(loginType == 2){
       this.showAlert('您已经是会员了！')
     }
+    var timer = null;
+    $('.live_detail_text').on('focus', function() {
+        clearInterval(timer);
+        var index = 0;
+        timer = setInterval(function() {
+            if(index>5) {
+                $('body').scrollTop(1000000);
+                clearInterval(timer);
+            }
+            index++;
+        }, 50)
+    })
+    
   },
   componentWillMount: function(){
     var ldid = this.getUrlParams('ldid');
@@ -534,7 +589,7 @@ var LiveDetail = React.createClass({
   },
   render:function(){
     var ldid = this.state.ldid;
-    console.log(this.state.liveListPic);
+    // console.log(this.state.liveListPic);
     var idShow = this.getUrlParams('idShow');
     var now  = new Date().getTime();
     // console.log(this.state.ShareTitile);
@@ -580,16 +635,21 @@ var LiveDetail = React.createClass({
     var TeacherDataShow = this.state.FirstData.map(function(item,i){
       return(
       	<div key={new Date().getTime()+i}>
-      		<div className="live_detail_class">
-          		<p className="live_detail_introduce_box">课程详情</p>
-          		<div>{item.ld}</div>
-          	</div>
-          	<div className="live_detail_class">
-          		<p className="live_detail_introduce_box">讲师介绍</p>
-          		<img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')}/>
-          		<p className="live_detail_introduce_teacher"><span className="teacher_name">{item.sn}</span><span className="teacher_job">律师</span></p>
-          		<div>{item.sd}</div>
-          	</div>
+      		<div className="live_detail_class" style={{display:item.bdid?"block":"none"}}>
+        		<p className="live_detail_introduce_box">课程附件</p>
+        		<div>{item.dn}<span onClick={this.openBaiduOffice.bind(this,item.bdid)} className="live_detail_introduce_box_span">打开</span></div>
+            <div id="reader"></div>
+        	</div>
+          <div className="live_detail_class">
+            <p className="live_detail_introduce_box">课程详情</p>
+            <div>{item.ld}</div>
+          </div>
+        	<div className="live_detail_class">
+        		<p className="live_detail_introduce_box">讲师介绍</p>
+        		<img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')}/>
+        		<p className="live_detail_introduce_teacher"><span className="teacher_name">{item.sn}</span><span className="teacher_job">律师</span></p>
+        		<div>{item.sd}</div>
+        	</div>
       	</div>
         
        );

@@ -9,7 +9,7 @@ Date.prototype.Format = function(fmt){ //author: meizz
   today.setMinutes(0);
   today.setSeconds(0);
   today.setMilliseconds(0);
-  console.log(today.getTime());
+  // console.log(today.getTime());
   var o = {   
     "M+" : this.getMonth()+1,                 //月份   
     "d+" : this.getDate(),                    //日   
@@ -130,7 +130,7 @@ var Dynamic = React.createClass({
       type: 'GET',
       url: url,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1031){
           this.showAlert('图文消息已删除,点击返回更多动态',function(){
             window.location.href = '#TimeAxis?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
@@ -183,7 +183,7 @@ var Dynamic = React.createClass({
             idf: data.r.fl[0].idf,
             ida: data.r.fl[0].ida
           })
-          console.log(data.r.fl[0].content);
+          // console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
           // $('.dynamic_contaniner').scrollTop(top);
         }
@@ -204,7 +204,7 @@ var Dynamic = React.createClass({
   },
   wirteComment: function(){
     $('.dynamic_usr_write').show();
-    console.log($('.dynamic_top'));
+    // console.log($('.dynamic_top'));
     var top = $('.dynamic_top')[0].scrollHeight;
     $('.dynamic_top').scrollTop(top);
   },
@@ -231,7 +231,7 @@ var Dynamic = React.createClass({
         url: global.url+'/usr/CommentFeed.do?session='+session,
         data: JSON.stringify(data),
         success: function(data) {
-          console.log(data);
+          // console.log(data);
           if(data.c == 1000){
             $('.dynamic_usr_write').hide();
             $('.dynamic_usr_write textarea').val('');
@@ -268,7 +268,7 @@ var Dynamic = React.createClass({
         url: global.url+'/usr/CommentFeed.do?session='+session,
         data: JSON.stringify(data),
         success: function(data) {
-          console.log(data);
+          // console.log(data);
           if(data.c == 1000){
             this.getDynamicComment(true);
             $('.dynamic_usr_img').addClass('dynamic_usr_img_nice');
@@ -293,7 +293,7 @@ var Dynamic = React.createClass({
     }
     // arr = str?str.replace(/\[/,"").replace(/\]/g,"").split(","):[];
     // arr = JSON.stringify(str);
-    console.log(arr);
+    // console.log(arr);
     var eilArr = ['','公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
     if(arr.length < 1){
       descArr = ['公司企业','资本市场','证券期货']
@@ -306,9 +306,9 @@ var Dynamic = React.createClass({
         }
       }
     }
-    console.log(descArr);
+    // console.log(descArr);
     var lawyerArr = descArr?descArr.slice(0,3):['公司企业','资本市场','证券期货'];
-    console.log(lawyerArr);
+    // console.log(lawyerArr);
     return lawyerArr.join(" ");
   },
   gotoConsult:function(){
@@ -341,7 +341,7 @@ var Dynamic = React.createClass({
       type: 'post',
       url: global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0',
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1999){
           this.showAlert('该律师还没有创建个人名片');
         }else{
@@ -357,15 +357,15 @@ var Dynamic = React.createClass({
     $('body').css({'background':'#fff'});
     var that = this;
     setTimeout(function(){
-      console.log('这是标题：'+that.state.expTitle);
+      // console.log('这是标题：'+that.state.expTitle);
       document.title = that.state.expTitle;
     },300)
-    console.log(this.state.Abstract);
+    // console.log(this.state.Abstract);
     var getImageFlag = false;
     $('.dynamic_top').scroll(function(){
       if(!getImageFlag){
         var imgs = $(this).find('img.lazy');
-        console.log(imgs);
+        // console.log(imgs);
         for (var i = imgs.length - 1; i >= 0; i--) {
           $(imgs[i]).attr('src',$(imgs[i]).attr('data-original'))
         }
@@ -394,14 +394,14 @@ var Dynamic = React.createClass({
   }, 
   render: function() {
     // 控制台打印分享信息
-    console.log(this.state.Title);
-    console.log(this.state.Introduction);
-    console.log(this.state.Img);
+    // console.log(this.state.Title);
+    // console.log(this.state.Introduction);
+    // console.log(this.state.Img);
     var ownUri = this.getUrlParams('ownUri');
     var fid = this.getUrlParams('fid');
     var temp,appid,ShareUrl;
     ShareUrl = window.location.href;
-    console.log(ShareUrl);
+    // console.log(ShareUrl);
     var imgWidth = $('.dynamic_exp_content').width();
     var newImgContent = this.state.newContentArray.map(function(item,i){
       return(

@@ -20,7 +20,7 @@ var LiveList = React.createClass({
       type: 'get',
       url: global.url+'/exp/ExpertInfo.do?ei='+ownUri,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           this.setState({
             ShareImg: data.cl,
@@ -40,7 +40,7 @@ var LiveList = React.createClass({
       type: 'get',
       url: global.url+'/exp/GetLiveListInfo.do?do='+ownUri,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           this.setState({
             FirstData: data.ll.length > 0?data.ll.slice(0,1):[],
@@ -60,7 +60,7 @@ var LiveList = React.createClass({
       type: 'get',
       url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid,
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         if(data.c == 1000){
           window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+data.sldid;
         }

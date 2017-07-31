@@ -40,6 +40,8 @@ $(function() {
             // $('.chat_list').append('<li style="display:'+timeStep+'" class="js_chat_ts"><i>'+new Date(message.ext.ts).Format('yyyy-MM-dd hh:mm:ss')+'</i></li>'+theOne);
             if(judgeType(message.ext.mt, message.ext.on) == 'img') {
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="text-align:center;display:inline-block"><img height="150" onclick="gotoSingle(\''+Common.globalTransferUrl()+message.ext.on+'\')"  src="' +Common.globalTransferUrl()+ message.ext.on + '@350w"/></span></div></li>';
+            }else if(message.ext.bdid){
+                theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block" onclick="viewBaiduDoc(\'' + message.ext.bdid + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + message.ext.fn + '</a></span></div></li>';
             }else if(judgeType(message.ext.mt, message.ext.on) == 'txt'){
                 theOne = '<li class="' + tempClass + '"><div class="chat_list_head"><img src="' + tempHeader + '"><i>' + message.ext.nm + '</i></div><div class="chat_list_content"><span style="display:inline-block" onclick="viewDoc(\'' + message.ext.on + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + message.ext.fn + '</a></span></div></li>';
             }else if(message.ext.mt == 8 || message.ext.mt == 9 || message.ext.mt == 99){
@@ -109,6 +111,7 @@ $(function() {
                             time: new Date(data.s[i].ts).Format('yyyy-MM-dd hh:mm:ss'),
                             ts: data.s[i].ts,
                             content: data.s[i].p.msg.msg,
+                            bdid: data.s[i].p.ext.bdid,
                             pic: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'img' ? (Common.globalTransferUrl() + data.s[i].p.ext.on) : '',
                             doc: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'txt' ? fixSrc(data.s[i].p.ext.on) : '',
                             unknown: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'unknown' ? '您收到的消息格式暂不支持，无法显示' : '',
@@ -136,9 +139,10 @@ $(function() {
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
+                        var isBaiduDoc = newArrs[i].bdid ? 'inline-block' : 'none';
                         var isPay = newArrs[i].pay ? 'inline-block' : 'none';
-                        var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" style="text-decoration:underline" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="150" onclick="gotoSingle(\''+newArrs[i].pic+'\')"  src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay || newArrs[i].bdid ? 'none' : 'inline-block';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" style="text-decoration:underline" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="150" onclick="gotoSingle(\''+newArrs[i].pic+'\')"  src="' + newArrs[i].pic + '@350w"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + newArrs[i].fn + '</a></span><span style="display:' + isDoc + '" onclick="viewBaiduDoc(\'' + newArrs[i].bdid + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $(comments).insertBefore('.chat_list li:eq(0)');
@@ -318,6 +322,7 @@ $(function() {
                             time: new Date(data.s[i].ts).Format('yyyy-MM-dd hh:mm:ss'),
                             ts: data.s[i].ts,
                             content: data.s[i].p.msg.msg,
+                            bdid: data.s[i].p.ext.bdid,
                             pic: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'img' ? (Common.globalTransferUrl() + data.s[i].p.ext.on) : '',
                             doc: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'txt' ? fixSrc(data.s[i].p.ext.on) : '',
                             unknown: judgeType(data.s[i].p.ext.mt, data.s[i].p.ext.on) == 'unknown' ? '您收到的消息格式暂不支持，无法显示' : '',
@@ -348,9 +353,10 @@ $(function() {
                         var temp = newArrs[i].type ? 'chat_list_usr' : 'chat_list_exp';
                         var isPic = newArrs[i].pic ? 'inline-block' : 'none';
                         var isDoc = newArrs[i].doc ? 'inline-block' : 'none';
+                        var isBaiduDoc = newArrs[i].bdid ? 'inline-block' : 'none';
                         var isPay = newArrs[i].pay ? 'inline-block' : 'none';
-                        var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay ? 'none' : 'inline-block';
-                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" style="text-decoration:underline" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="150" onclick="gotoSingle(\''+newArrs[i].pic+'\')" src="' + newArrs[i].pic + '"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
+                        var isMsg = newArrs[i].pic || newArrs[i].doc || newArrs[i].pay || newArrs[i].bdid ? 'none' : 'inline-block';
+                        comments += '<li  class="js_chat_ts"><i>' + new Date(newArrs[i].ts).Format('yyyy-MM-dd hh:mm:ss') + '</i></li><li class="' + temp + '"><div class="chat_list_head"><img src="' + newArrs[i].img + '"><i>' + newArrs[i].name + '</i></div><div class="chat_list_content"><span style="display:' + isPay + '">收费名片<br/>收款方：'+newArrs[i].name+'<br/>收费项目：'+newArrs[i].content+'<br/>收费金额：'+formartDecimal(newArrs[i].pay)+' 元<br/>备注信息：'+newArrs[i].extra+'<br/><a onClick="weixinpay(\''+newArrs[i].mi+'\')" style="text-decoration:underline" href="javascript:void(0);">点击此处，立即支付</a></span><span style="text-align:center;display:' + isPic + '"><img height="150" onclick="gotoSingle(\''+newArrs[i].pic+'\')" src="' + newArrs[i].pic + '"/></span><span style="display:' + isDoc + '" onclick="viewDoc(\'' + newArrs[i].docName + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + newArrs[i].fn + '</a></span><span style="display:' + isBaiduDoc + '" onclick="viewBaiduDoc(\'' + newArrs[i].bdid + '\')">文档：<a href="javascript:void(0);" style="text-decoration:underline">' + newArrs[i].fn + '</a></span><span style="display:' + isMsg + '">' + newArrs[i].content + '</span></div></li>';
                     }
 
                     $('.chat_list').append(comments);
@@ -502,6 +508,18 @@ $(function() {
           $('.evaluate_box').hide();
           $('#close_question').hide();
         }
+        var timer = null;
+        $('.chat_inp').on('focus', function() {
+            clearInterval(timer);
+            var index = 0;
+            timer = setInterval(function() {
+                if(index>5) {
+                    $('body').scrollTop(1000000);
+                    clearInterval(timer);
+                }
+                index++;
+            }, 50)
+        })
   }
     init();
 
@@ -599,6 +617,12 @@ function fixSrc(src) {
     // console.log(src);
     var temp = src.split('.')[0];
     return temp;
+}
+
+// 乔凡：新增百度文档预览2017年7月10日
+function viewBaiduDoc(bdid){
+    console.log(bdid);
+    window.location.href = 'baiduDoc.html?bdid=' + bdid;
 }
 
 function viewDoc(name) {
