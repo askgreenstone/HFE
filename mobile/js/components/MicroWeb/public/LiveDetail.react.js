@@ -637,7 +637,7 @@ var LiveDetail = React.createClass({
       	<div key={new Date().getTime()+i}>
       		<div className="live_detail_class" style={{display:item.bdid?"block":"none"}}>
         		<p className="live_detail_introduce_box">课程附件</p>
-        		<div>{item.dn}<span onClick={this.openBaiduOffice.bind(this,item.bdid)} className="live_detail_introduce_box_span">打开</span></div>
+        		<div onClick={this.openBaiduOffice.bind(this,item.bdid)}>{item.dn}<span className="live_detail_introduce_box_span">打开</span></div>
             <div id="reader"></div>
         	</div>
           <div className="live_detail_class">
