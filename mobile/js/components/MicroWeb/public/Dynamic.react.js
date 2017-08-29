@@ -181,7 +181,9 @@ var Dynamic = React.createClass({
             Title: data.r.fl[0].title,
             showFlag: flag,
             idf: data.r.fl[0].idf,
-            ida: data.r.fl[0].ida
+            ida: data.r.fl[0].ida,
+            acn: data.r.fl[0].acn,
+            vcn: data.r.fl[0].vcn
           })
           // console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
@@ -372,6 +374,17 @@ var Dynamic = React.createClass({
         getImageFlag = true;
       }
     })
+    // 音视频不能同时播放，做到互不干扰
+    $('#audioPlay').on('play', function(event) {
+      event.preventDefault();
+      $('#videoPlay')[0].pause();
+      /* Act on the event */
+    });
+    $('#videoPlay').on('play', function(event) {
+      event.preventDefault();
+      $('#audioPlay')[0].pause();
+      /* Act on the event */
+    });
   },
   componentWillMount:function(){
     document.title = '';
@@ -403,6 +416,7 @@ var Dynamic = React.createClass({
     ShareUrl = window.location.href;
     // console.log(ShareUrl);
     var imgWidth = $('.dynamic_exp_content').width();
+
     var newImgContent = this.state.newContentArray.map(function(item,i){
       return(
         <div key={new Date().getTime()+i}>
@@ -438,10 +452,16 @@ var Dynamic = React.createClass({
                   更多动态 
                 </p>            
               </div>
+              <div className="dynamic_audio" style={{display:this.state.acn?'flex':'none'}}>
+                <image src="../image/voice.png" width="10%" />
+                <audio id="audioPlay" width="90%" controls="controls" height="100" src={this.state.acn?global.img+this.state.acn:"http://t-transfer.green-stone.cn/audio_20160914145701.mp3"}></audio>
+              </div>
+              <div className="dynamic_audio" style={{display:this.state.vcn?'block':'none'}}>
+                <video id="videoPlay" poster="http://transfer.green-stone.cn/zaixianfalvxuanchuan20170829_W900_H500_S48.jpg" src={this.state.vcn?global.img+this.state.vcn:"http://videolive.green-stone.cn/video/livee16588103.m3u8"} width="100%" controls="controls" webkit-playsinline playsinline></video>
+              </div>
               <div className="newContent">
                 {newImgContent}
               </div>
-              
             </div>
           </div>
           <div className="dynamic_usr_news">
