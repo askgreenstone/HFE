@@ -377,6 +377,7 @@ var Dynamic = React.createClass({
     // 音视频不能同时播放，做到互不干扰
     $('#audioPlay').on('play', function(event) {
       event.preventDefault();
+      console.log($('#audioPlay')[0]);
       $('#videoPlay')[0].pause();
       /* Act on the event */
     });
@@ -453,7 +454,7 @@ var Dynamic = React.createClass({
                 </p>            
               </div>
               <div className="dynamic_audio" style={{display:this.state.acn?'flex':'none'}}>
-                <image src="../image/voice.png" width="10%" />
+                <image src="image/voice.png" width="10%" />
                 <audio id="audioPlay" width="90%" controls="controls" height="100" src={this.state.acn?global.img+this.state.acn:"http://t-transfer.green-stone.cn/audio_20160914145701.mp3"}></audio>
               </div>
               <div className="dynamic_audio" style={{display:this.state.vcn?'block':'none'}}>
