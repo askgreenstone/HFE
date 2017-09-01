@@ -377,6 +377,7 @@ var Dynamic = React.createClass({
     // 音视频不能同时播放，做到互不干扰
     $('#audioPlay').on('play', function(event) {
       event.preventDefault();
+      console.log($('#audioPlay')[0]);
       $('#videoPlay')[0].pause();
       /* Act on the event */
     });
