@@ -453,11 +453,11 @@ var Dynamic = React.createClass({
                 </p>            
               </div>
               <div className="dynamic_audio" style={{display:this.state.acn?'flex':'none'}}>
-                <image src="../image/voice.png" width="10%" />
+                <image src="image/voice.png" width="10%" />
                 <audio id="audioPlay" width="90%" controls="controls" height="100" src={this.state.acn?global.img+this.state.acn:"http://t-transfer.green-stone.cn/audio_20160914145701.mp3"}></audio>
               </div>
               <div className="dynamic_audio" style={{display:this.state.vcn?'block':'none'}}>
-                <video id="videoPlay" poster="http://transfer.green-stone.cn/zaixianfalvxuanchuan20170829_W900_H500_S48.jpg" src={this.state.vcn?global.img+this.state.vcn:"http://videolive.green-stone.cn/video/livee16588103.m3u8"} width="100%" controls="controls" webkit-playsinline playsinline></video>
+                <video id="videoPlay" width="100%" controls="controls" webkit-playsinline playsinline poster="http://transfer.green-stone.cn/zaixianfalvxuanchuan20170829_W900_H500_S48.jpg" src={this.state.vcn?global.img+this.state.vcn:"http://videolive.green-stone.cn/video/livee16588103.m3u8"} ></video>
               </div>
               <div className="newContent">
                 {newImgContent}
