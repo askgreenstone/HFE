@@ -53,7 +53,8 @@ var Dynamic = React.createClass({
       expConsultWord2: '名片',
       newContentArray: [],
       showFlag: false,    //懒加载图片显示隐藏
-      isFrom: false        //app端不显示底部栏
+      isFrom: false,        //app端不显示底部栏
+      waterMarkFlag: 'onLineLaw'  //默认为在线法律，否则为其他律所logo
     };
   },
   // 查询用户是否开通在线咨询功能
@@ -112,6 +113,33 @@ var Dynamic = React.createClass({
     }else{
       return Math.floor(result*24) + '小时前';
     }
+  },
+  // 判断是否为德和衡机构成员，添加不同水印
+  queryIsDeptMember: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    var that = this;
+    // 德和衡  测试环境ownURi e1480  生产环境ownUri e5563
+    $.ajax({
+      type: 'post',
+      url: global.url+'/exp/QueryIsDeptMember.do?qu='+ownUri+'&do=e1480',
+      success: function(data) {
+        // console.log(data);
+        // idm : int 是否机构成员 1 是， 0 否
+        console.log(data);
+        if(data.idm === 1){
+          this.setState({
+            waterMarkFlag: 'deHeHeng'
+          })
+        }else{
+          this.setState({
+            waterMarkFlag: 'onLineLaw'
+          })
+        }
+      }.bind(this),
+      error: function(data) {
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   getDynamicComment: function(flag){
     var fid = this.getUrlParams('fid');
@@ -183,7 +211,8 @@ var Dynamic = React.createClass({
             idf: data.r.fl[0].idf,
             ida: data.r.fl[0].ida,
             acn: data.r.fl[0].acn,
-            vcn: data.r.fl[0].vcn
+            vcn: data.r.fl[0].vcn,
+            vp: data.r.fl[0].vp
           })
           // console.log(data.r.fl[0].content);
           // var top = $('.dynamic_contaniner')[0].scrollHeight;
@@ -405,6 +434,7 @@ var Dynamic = React.createClass({
     })
     this.getDynamicComment(false);
     this.getExpConsultState();
+    this.queryIsDeptMember();
   }, 
   render: function() {
     // 控制台打印分享信息
@@ -422,7 +452,7 @@ var Dynamic = React.createClass({
       return(
         <div key={new Date().getTime()+i}>
           <div className="dynamic_exp_word"><pre>{item.content}</pre></div>
-          <ImgList list={item.il} showFlag={this.state.showFlag} imgWidth={imgWidth} basename={this.state.basename}/>
+          <ImgList list={item.il} showFlag={this.state.showFlag} imgWidth={imgWidth} basename={this.state.basename} waterMarkFlag={this.state.waterMarkFlag}/>
         </div>
        );
     }.bind(this));
@@ -458,7 +488,7 @@ var Dynamic = React.createClass({
                 <audio id="audioPlay" width="90%" controls="controls" height="100" src={this.state.acn?global.img+this.state.acn:"http://t-transfer.green-stone.cn/audio_20160914145701.mp3"}></audio>
               </div>
               <div className="dynamic_audio" style={{display:this.state.vcn?'block':'none'}}>
-                <video id="videoPlay" width="100%" controls="controls" webkit-playsinline playsinline poster="http://transfer.green-stone.cn/zaixianfalvxuanchuan20170829_W900_H500_S48.jpg" src={this.state.vcn?global.img+this.state.vcn:"http://videolive.green-stone.cn/video/livee16588103.m3u8"} ></video>
+                <video id="videoPlay" width="100%" controls="controls" webkit-playsinline="true" playsinline="true" poster={this.state.vp?global.img+this.state.vp:"http://transfer.green-stone.cn/zaixianfalvxuanchuan20170829_W900_H500_S48.jpg"} src={this.state.vcn?global.img+this.state.vcn:"http://videolive.green-stone.cn/video/livee16588103.m3u8"} ></video>
               </div>
               <div className="newContent">
                 {newImgContent}

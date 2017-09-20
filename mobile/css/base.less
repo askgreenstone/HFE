@@ -1553,6 +1553,24 @@ div.dynamic_usr_content_title{
   height: 200px;
   background: #ccc;
 }
+video::-internal-media-controls-download-button {
+    display:none;
+}
+
+video::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+video::-webkit-media-controls-panel {
+    width: calc(100% + 30px); 
+}
+audio::-webkit-media-controls {
+    overflow: hidden !important
+}
+audio::-webkit-media-controls-enclosure {
+    width: calc(100% + 32px);
+    margin-left: auto;
+}
 .dynamic_usr_box{
   width: 100%;
   height: 6rem;
