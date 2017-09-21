@@ -125,7 +125,7 @@ var Dynamic = React.createClass({
       success: function(data) {
         // console.log(data);
         // idm : int 是否机构成员 1 是， 0 否
-        console.log(data);
+        // console.log(data);
         if(data.idm === 1){
           this.setState({
             waterMarkFlag: 'deHeHeng'
