@@ -121,7 +121,7 @@ var Dynamic = React.createClass({
     // 德和衡  测试环境ownURi e1480  生产环境ownUri e5563
     $.ajax({
       type: 'post',
-      url: global.url+'/exp/QueryIsDeptMember.do?qu='+ownUri+'&do=e1480',
+      url: global.url+'/exp/QueryIsDeptMember.do?qu='+ownUri+'&do=e5563',
       success: function(data) {
         // console.log(data);
         // idm : int 是否机构成员 1 是， 0 否
