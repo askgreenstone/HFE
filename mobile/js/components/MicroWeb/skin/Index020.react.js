@@ -102,6 +102,7 @@ var Index020 = React.createClass({
             hI:data.hI,
             nm:data.nm,
             dp:data.dp,
+            rk:data.rk,
             expspecial:data.es?(this.transferArr(data.es).slice(0,3)):(this.transferArr("[1,2,3]"))
           });
         }
@@ -215,7 +216,7 @@ var Index020 = React.createClass({
               });
             }else{
               this.setState({
-                shareTitle:(data.enm?data.enm+'律师的':'我的')+'名片',
+                shareTitle:(data.enm?data.enm+data.rk+'的':'我的')+'名片',
                 shareDesc:'欢迎访问我的名片，您可以直接在线咨询我',
                 shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
               });
@@ -318,7 +319,7 @@ var Index020 = React.createClass({
                 <div className="theme020_content_blank"></div>
                 <div className="theme020_content_abs">{expSpecial}</div>
                 <div className="theme020_content_depart">{this.state.dp}</div>
-                <div className="theme020_content_lawyer"><span className="theme020_content_lawyer">{this.state.nm}</span><span>律师</span></div>
+                <div className="theme020_content_lawyer"><span className="theme020_content_lawyer">{this.state.nm}</span><span>{this.state.rk}</span></div>
               </div>
             </div>
             <ul className="theme020_menu_list">

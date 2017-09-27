@@ -60,6 +60,9 @@ var config = {
         },{
             test: /\.(jpg|png|svg|gif)$/, 
             loader: 'url?limit=8192'
+        },{
+            test: /\.(woff2|woff|eot|svg|ttf|otf)(\?.*)?$/, 
+            loader: 'url-loader'
         }]
     }
 }

@@ -101,10 +101,11 @@ var Index019 = React.createClass({
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
            this.setState({
-            hI:data.hI,
-            nm:data.nm,
-            dp:data.dp,
-            expspecial:data.es?(this.transferArr(data.es)):(this.transferArr("[1,2,3]"))
+            hI: data.hI,
+            nm: data.nm,
+            dp: data.dp,
+            rk: data.rk,
+            expspecial: data.es?(this.transferArr(data.es)):(this.transferArr("[1,2,3]"))
           });
           $('.qr_hidden').height(document.body.scrollHeight);
         }
@@ -218,7 +219,7 @@ var Index019 = React.createClass({
               });
             }else{
               this.setState({
-                shareTitle:(data.enm?data.enm+'律师的':'我的')+'名片',
+                shareTitle:(data.enm?data.enm+data.rk+'的':'我的')+'名片',
                 shareDesc:'欢迎访问我的名片，您可以直接在线咨询我',
                 shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
               });
