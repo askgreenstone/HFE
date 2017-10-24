@@ -404,6 +404,7 @@ var CommonMixin = {
     }
     var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
     var idf = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    console.log('ida='+ida+'...idf='+idf);
     var st = 1;
     if(ida == 1){
       st = 2
@@ -430,7 +431,7 @@ var CommonMixin = {
       //     appid = 'wx73c8b5057bb41735';
       //   }
       // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fusr%2fWeiXinWebOAuthDispatch.do&response_type=code&scope=snsapi_userinfo&state=expNews_'+ownUri+'_0_'+idf+'#wechat_redirect';
-      window.location.href = '#TimeAxis?ownUri='+ownUri+'&ida='+ida;
+      window.location.href = '#TimeAxis?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
      }else if(type == 'consult'){
       // WeixinJSBridge.call('closeWindow'); 
       this.getExpConsult(ownUri,ida,st);
