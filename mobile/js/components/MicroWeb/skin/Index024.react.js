@@ -320,7 +320,7 @@ var Index024 = React.createClass({
             </ul> 
           </div>
 					<Share title={this.state.shareTitle} desc={this.state.shareDesc} 
-          imgUrl={this.state.shareImg} target="index024"/>
+          imgUrl={global.img+this.state.shareImg} target="index024"/>
           <Message/>
           <Shadow display={this.state.activeState} context="用户尚未开通此功能!"/>
           <div id="limit_password_box" title="" value="" name="" type="">

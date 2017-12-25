@@ -41,7 +41,9 @@ Api = (function() {
   };
 
  	Api.prototype.verify = function(phonenumber, callback) {
-		$.get(verify_url+'?pn='+phonenumber, function(json){
+    var token = encodeURIComponent(CryptoJS.HmacSHA1('gstonesms'+phonenumber+'gstone-bu5-rEIqop89NZiJwkqX6Bi1ZW2wEi92','gstonesms').toString(CryptoJS.enc.Base64));
+    console.log(token);
+		$.get(verify_url+'?pn='+phonenumber+'&token='+token, function(json){
 			if (callback)
 				callback(json);
 		});
