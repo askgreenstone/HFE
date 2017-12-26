@@ -198,6 +198,7 @@ var Index020 = React.createClass({
       success: function(data) {
         // alert(JSON.stringify(data));
         console.log(data);
+        // console.log('qiaof:'+(data.enm?(data.rk?(data.enm+data.rk+'的'):(data.enm+'律师的')):('我的'))+'名片')
         if(data.c == 1000){
           if(data.sil.length>0){
             this.setState({
@@ -216,7 +217,7 @@ var Index020 = React.createClass({
               });
             }else{
               this.setState({
-                shareTitle:(data.enm?data.enm+data.rk+'的':'我的')+'名片',
+                shareTitle:(data.enm?(data.rk?(data.enm+data.rk+'的'):(data.enm+'律师的')):('我的'))+'名片',
                 shareDesc:'欢迎访问我的名片，您可以直接在线咨询我',
                 shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
               });
