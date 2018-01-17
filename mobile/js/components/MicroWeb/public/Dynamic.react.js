@@ -115,33 +115,6 @@ var Dynamic = React.createClass({
       return Math.floor(result*24) + '小时前';
     }
   },
-  // 判断是否为德和衡机构成员，添加不同水印
-  queryIsDeptMember: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    var that = this;
-    // 德和衡  测试环境ownURi e1480  生产环境ownUri e19784
-    $.ajax({
-      type: 'post',
-      url: global.url+'/exp/QueryIsDeptMember.do?qu='+ownUri+'&do=e19784',
-      success: function(data) {
-        // console.log(data);
-        // idm : int 是否机构成员 1 是， 0 否
-        // console.log(data);
-        if(data.idm === 1){
-          this.setState({
-            waterMarkFlag: 'deHeHeng'
-          })
-        }else{
-          this.setState({
-            waterMarkFlag: 'onLineLaw'
-          })
-        }
-      }.bind(this),
-      error: function(data) {
-        this.showRefresh('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
-  },
   getDynamicComment: function(flag){
     var fid = this.getUrlParams('fid');
     var usrUri = this.getUrlParams('usrUri');
@@ -435,7 +408,6 @@ var Dynamic = React.createClass({
     })
     this.getDynamicComment(false);
     this.getExpConsultState();
-    this.queryIsDeptMember();
   }, 
   render: function() {
     // 控制台打印分享信息
@@ -443,6 +415,17 @@ var Dynamic = React.createClass({
     // console.log(this.state.Introduction);
     // console.log(this.state.Img);
     var ownUri = this.getUrlParams('ownUri');
+    var isFromWhichApp = this.getUrlParams('isFromWhichApp');
+    var waterMarkFlag = '';
+    // console.log(isFromWhichApp)
+    if(isFromWhichApp == 2){
+      waterMarkFlag = 'deHeHeng'
+    }else if(isFromWhichApp == 3){
+      waterMarkFlag = 'timeRipper'
+    }else{
+      waterMarkFlag = 'onLineLaw'
+    }
+    // console.log(waterMarkFlag);
     var fid = this.getUrlParams('fid');
     var temp,appid,ShareUrl;
     ShareUrl = window.location.href;
@@ -453,7 +436,7 @@ var Dynamic = React.createClass({
       return(
         <div key={new Date().getTime()+i}>
           <div className="dynamic_exp_word"><pre>{item.content}</pre></div>
-          <ImgList list={item.il} showFlag={this.state.showFlag} imgWidth={imgWidth} basename={this.state.basename} waterMarkFlag={this.state.waterMarkFlag}/>
+          <ImgList list={item.il} showFlag={this.state.showFlag} imgWidth={imgWidth} basename={this.state.basename} waterMarkFlag={waterMarkFlag}/>
         </div>
        );
     }.bind(this));
