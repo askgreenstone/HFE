@@ -49,8 +49,8 @@ var Dynamic = React.createClass({
       usrContents: [],
       praiseFlag: false,
       expConsultState: false,
-      expConsultWord1: '名',
-      expConsultWord2: '片',
+      expConsultWord1: '我的',
+      expConsultWord2: '名片',
       newContentArray: [],
       showFlag: false,    //懒加载图片显示隐藏
       isFrom: false,        //app端不显示底部栏
@@ -68,9 +68,7 @@ var Dynamic = React.createClass({
         if (data.c == 1000) {
           if(data.ocm == 1){
             this.setState({
-              expConsultState: true,
-              expConsultWord1: '在线',
-              expConsultWord2: '咨询'
+              expConsultState: true
             })
           }
         }
@@ -507,7 +505,8 @@ var Dynamic = React.createClass({
             <p className="dynamic_exp_name">
               <span className="dynamic_exp_name_name">{this.state.nm}</span><br/>
               <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}</span>
-              <span className="dynamic_usr_consult" onClick={this.state.expConsultState?this.gotoConsult:this.gotoIndex} ><span>{this.state.expConsultWord1}</span><span>{this.state.expConsultWord2}</span></span>
+              <span className="dynamic_usr_consult" style={{display:this.state.expConsultState?'block':'none'}} onClick={this.gotoConsult} ><span>在线</span><span>咨询</span></span>
+              <span className="dynamic_usr_consult dynamic_exp_card" style={{display:this.state.expConsultState?'none':'block'}} onClick={this.gotoIndex} ><span>名片</span></span>
             </p>
           </div>
         </div>  

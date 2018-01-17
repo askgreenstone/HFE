@@ -227,6 +227,7 @@ var TimeAxis = React.createClass({
       return;
     }
     var ownUri = this.getUrlParams('ownUri');
+    var isFromWhichApp = this.getUrlParams('isFromWhichApp');
     var usrUri = this.getUrlParams('usrUri');
     var ida = this.getUrlParams('ida');
     var idf = this.getUrlParams('idf')||0;
@@ -240,6 +241,7 @@ var TimeAxis = React.createClass({
     }
     var ownUri = this.getUrlParams('ownUri');
     var usrUri = this.getUrlParams('usrUri');
+    var isFromWhichApp = this.getUrlParams('isFromWhichApp');
     var ida = this.getUrlParams('ida');
     var idf = this.getUrlParams('idf')||0;
     $('#timeaxis_company').addClass('timeaxis_active').siblings().removeClass('timeaxis_active');
