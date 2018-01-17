@@ -6,11 +6,12 @@ var CommonMixin = require('../../Mixin');
 var LiveList = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
+    // desc：包含金融案件、金融专业、金融行业、金融涉外在内的6个系列课程将每周定期推出
     return {
       FirstData:[],
       ListData:[],
       ShareTitile: '直播列表分享',
-      ShareDesc: '包含金融案件、金融专业、金融行业、金融涉外在内的6个系列课程将每周定期推出',
+      ShareDesc: '精彩直播定期推出',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png'
     };
   },
@@ -97,7 +98,7 @@ var LiveList = React.createClass({
           <img src={global.img+item.lp} />
           <div className="live_list_top_content">
             <div><span>{item.ln}</span><span style={{display:'none'}} className="live_list_live">直播中</span></div>
-            <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:"无"}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{new Date(item.lt).Format("MM/dd hh:mm")}</span></div>
+            <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:"无"}</span> </span><span>{new Date(item.lt).Format("MM/dd hh:mm")}</span></div>
           </div>
         </div>
        );
@@ -108,7 +109,7 @@ var LiveList = React.createClass({
           <div className="live_list_bot_img"><img src={global.img+item.lp} /></div>
           <div className="live_list_bot_content">
             <div className="live_list_title">{item.ln}</div>
-            <div className="live_list_content">主讲：<span>{item.sn}</span> <span>律师</span></div>
+            <div className="live_list_content">主讲：<span>{item.sn}</span> </div>
             <div className="live_list_content"></div>
           </div>
         </li>

@@ -199,7 +199,31 @@ var Index008=React.createClass({
       }.bind(this)
     });
   },
-  getWxShareInfo: function(){
+  getExpertInfo: function(){
+    var ownUri = this.getUrlParams('ownUri');
+    if(!ownUri){
+      ownUri = this.checkDevOrPro();
+    }
+    var exOwnUri = ownUri.replace('e','');
+    var ida = this.getUrlParams('ida')?this.getUrlParams('ida'):0;
+    $.ajax({
+      type:'get',
+      url: global.url+'/exp/ExpertInfo.do?ei='+exOwnUri,
+      success: function(data) {
+        console.log(data);
+        if(data.c == 1000){
+            var expertHead = data.p||'header.jpg';
+            var exCompanyLogo = data.cl||'header.jpg';
+          this.getWxShareInfo(expertHead,exCompanyLogo);
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.showRefresh('系统开了小差，请刷新页面');
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  getWxShareInfo: function(expertHead,exCompanyLogo){
     var ownUri = this.getUrlParams('ownUri');
     if(!ownUri){
       ownUri = this.checkDevOrPro();
@@ -226,13 +250,13 @@ var Index008=React.createClass({
               this.setState({
                 shareTitle:(data.dnm?data.dnm:'我的')+'机构简介',
                 shareDesc:'欢迎访问'+(data.dnm?data.dnm:'我的')+'机构简介',
-                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+                shareImg:exCompanyLogo
               });
             }else{
               this.setState({
-                shareTitle:(data.enm?(data.rk?(data.enm+data.rk+'的'):(data.enm+'律师的')):('我的'))+'名片',
+                shareTitle:(data.enm?(data.eg?(data.enm+data.eg+'的'):(data.enm+'的')):('我的'))+'名片',
                 shareDesc:'欢迎访问我的名片，您可以直接在线咨询我',
-                shareImg:'batchdeptlogo20160811_W108_H108_S15.png'
+                shareImg:expertHead
               });
             }
           }
@@ -297,7 +321,7 @@ var Index008=React.createClass({
   },
   componentWillMount: function(){
     this.getBgLogo();
-    this.getWxShareInfo();
+    this.getExpertInfo();
     this.getUserWebState();
     this.getLatestNews();
   },

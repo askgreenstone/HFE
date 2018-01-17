@@ -384,7 +384,7 @@ var CommonMixin = {
           if(data.ocm == 1){
             that.getWXMsg(ownUri,ida,st);
           }else{
-            that.showAlert('该律师暂时关闭在线咨询功能');
+            that.showAlert('该用户暂时关闭在线咨询功能');
           }
         }
       },

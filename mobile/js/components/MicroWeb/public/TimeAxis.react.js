@@ -72,15 +72,15 @@ var TimeAxis = React.createClass({
         if(data.c == 1000){
           if(idf == 0){
             this.setState({
-              ShareTitile : data.n+'律师与您分享了TA的足迹',
-              ShareDesc : '邀请您一起来看看'+data.n+'律师最近都在忙些什么',
-              ShareImg : data.p?data.p:'batchdeptlogo20160811_W108_H108_S15.png'
+              ShareTitile : data.n?(data.g?(data.n+data.g+'与您分享了TA的足迹'):(data.n+'与您分享了TA的足迹')):'我的足迹',
+              ShareDesc : '邀请您一起来看看'+(data.n?data.n:'我')+'最近都在忙些什么',
+              ShareImg : data.p?data.p:'header.jpg'
             })
           }else{
             this.setState({
-              ShareTitile : data.cn+'律师与您分享了TA的足迹',
-              ShareDesc : '邀请您一起来看看'+data.cn+'律师最近都在忙些什么',
-              ShareImg : data.cl?data.cl:'batchdeptlogo20160811_W108_H108_S15.png'
+              ShareTitile : data.cn?(data.g?(data.cn+data.g+'与您分享了TA的足迹'):(data.cn+'与您分享了TA的足迹')):'我的足迹',
+              ShareDesc : '邀请您一起来看看'+(data.cn?data.cn:'我')+'最近都在忙些什么',
+              ShareImg : data.cl?data.cl:'header.jpg'
             })
           }
         }
@@ -249,7 +249,7 @@ var TimeAxis = React.createClass({
     // console.log($('.timeline_container'));
     // console.log(this.state.Abstract);
     var $body = $('body')
-    document.title = '律师动态';
+    document.title = '动态';
     // hack在微信等webview中无法修改document.title的情况
     var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
       setTimeout(function() {

@@ -619,7 +619,7 @@ var LiveDetail = React.createClass({
           <img className="live_detail_bg" src={item.lp?(global.img+item.lp):(global.img+this.state.liveListPic)} />
           <div className="live_list_top_content live_detail_top_content">
             <div><span>{item.lt?(item.lt.length>13?item.lt.substring(0,13)+'...':item.lt):'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
-            <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
+            <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> </span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
           </div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(ldid == 0?'inline':'none')}}></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 2?'inline':'none')}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
@@ -663,7 +663,7 @@ var LiveDetail = React.createClass({
         	<div className="live_detail_class">
         		<p className="live_detail_introduce_box">讲师介绍</p>
         		<img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')}/>
-        		<p className="live_detail_introduce_teacher"><span className="teacher_name">{item.sn}</span><span className="teacher_job">律师</span></p>
+        		<p className="live_detail_introduce_teacher"><span className="teacher_name">{item.sn}</span></p>
         		<div>{item.sd}</div>
         	</div>
       	</div>

@@ -114,8 +114,8 @@ var Photo = React.createClass({
     this.getIndexTheme();
   }, 
   render: function() {
-    var ShareTitile = (this.state.nm?this.state.nm:'')+'律师微相册';
-    var ShareDesc = (this.state.nm?this.state.nm:'')+'律师个人风采展示';
+    var ShareTitile = (this.state.nm?this.state.nm:'')+'微相册';
+    var ShareDesc = (this.state.nm?this.state.nm:'')+'风采展示';
     var ShareUrl = this.state.hI?this.state.hI:'';
     return (
         <div>

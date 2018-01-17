@@ -49,8 +49,8 @@ var Dynamic = React.createClass({
       usrContents: [],
       praiseFlag: false,
       expConsultState: false,
-      expConsultWord1: '律师',
-      expConsultWord2: '名片',
+      expConsultWord1: '名',
+      expConsultWord2: '片',
       newContentArray: [],
       showFlag: false,    //懒加载图片显示隐藏
       isFrom: false,        //app端不显示底部栏
@@ -168,14 +168,14 @@ var Dynamic = React.createClass({
           if(data.r.fl[0].pl[0]){
             this.setState({
               newContentArray: data.r.fl[0].pl,
-              Introduction: data.r.fl[0].pl[0].content,
-              Img: data.r.fl[0].pl[0].il[0]
+              Introduction: data.r.fl[0].pl[0].content||'动态介绍',
+              Img: data.r.fl[0].pl[0].il[0]?data.r.fl[0].pl[0].il[0]:(data.r.fl[0].p?data.r.fl[0].p:'header.jpg')
             })
           }else{
             this.setState({
               newContentArray: data.r.fl,
-              Introduction: data.r.fl[0].content,
-              Img: data.r.fl[0].il[0]
+              Introduction: data.r.fl[0].content||'动态介绍',
+              Img: data.r.fl[0].il[0]?data.r.fl[0].il[0]:(data.r.fl[0].p?data.r.fl[0].p:'header.jpg')
             })
           }
           if(data.r.fl[0].rl){
@@ -203,10 +203,10 @@ var Dynamic = React.createClass({
             niceNo: data.r.fl[0].rl?data.r.fl[0].rl.length:0,
             contentNo: data.r.fl[0].cl?data.r.fl[0].cl.length:0,
             readNo: data.r.fl[0].readnum?data.r.fl[0].readnum:0,
-            expTitle: data.r.fl[0].title,
+            expTitle: data.r.fl[0].title||'动态',
             usrContents: data.r.fl[0].cl?data.r.fl[0].cl:[],
             esl: data.r.fl[0].esl,
-            Title: data.r.fl[0].title,
+            Title: data.r.fl[0].title||'我的动态',
             showFlag: flag,
             idf: data.r.fl[0].idf,
             ida: data.r.fl[0].ida,
@@ -374,7 +374,7 @@ var Dynamic = React.createClass({
       success: function(data) {
         // console.log(data);
         if(data.c == 1999){
-          this.showAlert('该律师还没有创建个人名片');
+          this.showAlert('还没有创建个人名片');
         }else{
           window.location.href = global.url+'/usr/ThirdHomePage.do?ownUri='+ownUri+'&ida=0';
         }

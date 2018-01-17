@@ -61,7 +61,7 @@ var ArticleList = React.createClass({
               this.setState({
                 shareTitle:'我的名片',
                 shareDesc:'欢迎访问我的名片！这里有我的职业介绍和成就!',
-                shareImg:global.img+'batchdeptlogo20160811_W108_H108_S15.png'
+                shareImg:global.img+'header.jpg'
               });
             }
              // alert(this.state.shareTitle);
