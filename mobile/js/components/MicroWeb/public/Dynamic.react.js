@@ -94,13 +94,14 @@ var Dynamic = React.createClass({
     var session = this.getUrlParams('session');
     var usrUri = this.getUrlParams('usrUri');
     var isFrom = this.getUrlParams('isFrom');
+    var isFromWhichApp = this.getUrlParams('isFromWhichApp');
     var isAndroid = this.getUrlParams('isAndroid');
     if(isAndroid == 'true'){
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app&isAndroid=true';
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app&isAndroid=true'+'&isFromWhichApp='+isFromWhichApp;
     }else if(isFrom == 'app'){
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app';
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFrom=app'+'&isFromWhichApp='+isFromWhichApp;
     }else{
-      location.href = '#/TimeAxis?ownUri='+ownUri+'&ida='+this.state.ida+'&idf='+this.state.idf;
+      location.href = '#/TimeAxis?ownUri='+ownUri+'&ida='+this.state.ida+'&idf='+this.state.idf+'&isFromWhichApp='+isFromWhichApp;
     }
   },
   getDate: function(time){

@@ -45,16 +45,17 @@ var TimeAxis = React.createClass({
     var isFrom = this.getUrlParams('isFrom');
     var usrUri = this.getUrlParams('usrUri');
     var isAndroid = this.getUrlParams('isAndroid');
+    var isFromWhichApp = this.getUrlParams('isFromWhichApp');
     if(!fid){
       return;
     }else{
       // console.log(global.url);
       if(isAndroid == 'true'){
-        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true';
+        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true'+'&isFromWhichApp='+isFromWhichApp;
       }else if(isFrom == 'app'){
-        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFrom=app'+'&isFromWhichApp='+isFromWhichApp;
       }else{
-        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf;
+        location.href = '#'+path+'?ownUri='+ownUri+'&usrUri='+usrUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFromWhichApp='+isFromWhichApp;
       }
     }
   },
@@ -230,7 +231,7 @@ var TimeAxis = React.createClass({
     var ida = this.getUrlParams('ida');
     var idf = this.getUrlParams('idf')||0;
     $('#timeaxis_self').addClass('timeaxis_active').siblings().removeClass('timeaxis_active');
-    location.href = 'wxMiddle.html?target=TimeAxis&ownUri='+ownUri+'&usrUri='+usrUri+'&ida=1&idf=0&isFrom=app&isAndroid=true';
+    location.href = 'wxMiddle.html?target=TimeAxis&ownUri='+ownUri+'&usrUri='+usrUri+'&ida=1&idf=0&isFrom=app&isAndroid=true'+'&isFromWhichApp='+isFromWhichApp;
   },
   // 点击去往机构足迹
   gotoCompany: function(){
@@ -242,7 +243,7 @@ var TimeAxis = React.createClass({
     var ida = this.getUrlParams('ida');
     var idf = this.getUrlParams('idf')||0;
     $('#timeaxis_company').addClass('timeaxis_active').siblings().removeClass('timeaxis_active');
-    location.href = 'wxMiddle.html?target=TimeAxis&ownUri='+ownUri+'&usrUri='+usrUri+'&ida=1&idf=1&isFrom=app&isAndroid=true';
+    location.href = 'wxMiddle.html?target=TimeAxis&ownUri='+ownUri+'&usrUri='+usrUri+'&ida=1&idf=1&isFrom=app&isAndroid=true'+'&isFromWhichApp='+isFromWhichApp;
   },
   componentDidMount: function(){
     $('body').css({'background':'#ebebeb'});

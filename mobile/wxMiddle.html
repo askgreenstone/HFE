@@ -41,6 +41,7 @@
     <script type="text/javascript">
       jQuery(document).ready(function($) {
           //此处增加分享逻辑ntid = localStorage.getItem('tempNtid');
+          // 动态详情页面分享增加isFromWhichApp字段，在线法律传1，德和衡传2，时间涟漪传3
           var wxShareTarget = getUrlParams('target'),
               ownUri = getUrlParams('ownUri'),
               ntid = getUrlParams('ntid'),
@@ -54,23 +55,24 @@
               ldid = getUrlParams('ldid'),
               session = getUrlParams('session'),
               nid = getUrlParams('nid');
+              isFromWhichApp = getUrlParams('isFromWhichApp');
           // alert(ldid);
           if(nid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid+'&ida='+ida;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid+'&ida='+ida+'&isFromWhichApp='+isFromWhichApp;
           }else if(ntid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida+'&isFromWhichApp='+isFromWhichApp;
           }else if(fid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&fid='+fid+'&ida='+ida+'&idf='+idf;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFromWhichApp='+isFromWhichApp;
           }else if(isAndroid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true';
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true'+'&isFromWhichApp='+isFromWhichApp;
           }else if(isIos){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app';
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app'+'&isFromWhichApp='+isFromWhichApp;
           }else if(lid && !session){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&idShow=1';
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&idShow=1'+'&isFromWhichApp='+isFromWhichApp;
           }else if(session){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session+'&isFromWhichApp='+isFromWhichApp;
           }else{
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida+'&idf='+idf;
+            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida+'&idf='+idf+'&isFromWhichApp='+isFromWhichApp;
           }
       });
      function getUrlParams(p) {
