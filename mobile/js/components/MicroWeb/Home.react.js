@@ -27,7 +27,7 @@ window.addEventListener('orientationchange', function(event){
     }
     if( window.orientation == 90 || window.orientation == -90 ) {
         $('#myapp').css('display','none');
-        var that = CommonMixin;
+        console.log('111111111');
         setTimeout(function(){
           alert('横屏体验较差，请竖屏查看');
         },500);
