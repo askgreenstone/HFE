@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
     <meta name="x5-orientation" content="portrait">
     <title>播放测试页面</title>
-    <link rel="stylesheet" href="http://g.alicdn.com/de/prismplayer/1.5.2/skins/default/index.css" />
+    <!-- <link rel="stylesheet" href="http://g.alicdn.com/de/prismplayer/1.5.2/skins/default/index.css" /> -->
+    <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.5.0/skins/default/aliplayer-min.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="js/ali.js"></script>
+    <!-- <script type="text/javascript" src="js/ali.js"></script> -->
+    <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.5.0/aliplayer-min.js"></script>
     <style type="text/css">
         *{
             margin: 0;
@@ -104,21 +106,28 @@
         // http://live.green-stone.cn/gstone/livee165431369.m3u8
         // http://videolive.green-stone.cn/video/livee165832311.m3u8
         // http://live.green-stone.cn/gstone/livee165431369.m3u8
-        var player = new prismplayer({
+        var player = new Aliplayer({
             id: "J_prismPlayer", // 容器id
-            source: "http://videolive.green-stone.cn/video/livee758241847_h.m3u8",// 视频地址
+            source: "http://videolive.green-stone.cn/video/livee165832311.m3u8",// 视频地址
             autoplay: true,    //自动播放：否
             width: "100%",       // 播放器宽度
             height: "100%",      // 播放器高度
             skinLayout: [                            // false | Array, 播放器使用的ui组件，非必填，不传使用默认，传false或[]整体隐藏
                 {name:"bigPlayButton", align:"cc", x:30, y:80},
+                {name: "H5Loading", align: "cc"},
+                {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
+                {name: "infoDisplay", align: "cc"},
                 {name:"controlBar", align:"blabs", x:0, y:0,
                     children: [
                         {name:"progress", align:"tlabs", x: 0, y:0},
                         {name:"playButton", align:"tl", x:15, y:26},
                         {name:"timeDisplay", align:"tl", x:10, y:24},
                         {name:"fullScreenButton", align:"tr", x:20, y:25},
-                        {name:"volume", align:"tr", x:20, y:25}
+                        {name:"volume", align:"tr", x:20, y:25},
+                        {name:"streamButton", align:"tr",x:10, y:23},
+                        {name:"speedButton", align:"tr",x:10, y:23},
+                        {name: "snapshot", align: "tr", x: 20, y: 25}
+
                     ]
                 }
               ]

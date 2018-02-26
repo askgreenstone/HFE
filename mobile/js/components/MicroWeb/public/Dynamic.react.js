@@ -420,6 +420,8 @@ var Dynamic = React.createClass({
       waterMarkFlag = 'deHeHeng'
     }else if(isFromWhichApp == 3){
       waterMarkFlag = 'timeRipper'
+    }else if(isFromWhichApp == 4){
+      waterMarkFlag = 'jingYingShiDai'
     }else{
       waterMarkFlag = 'onLineLaw'
     }

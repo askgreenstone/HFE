@@ -21,7 +21,10 @@ if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t
 
 
 //横屏检测
-window.addEventListener('orientationchange', function(event){
+var ua = navigator.userAgent.toLowerCase();
+var isWechat =  /micromessenger/i.test(ua) || typeof navigator.wxuserAgent ;
+if(isWechat !== 'undefined'){
+  window.addEventListener('orientationchange', function(event){
     if ( window.orientation == 180 || window.orientation==0 ) {
         $('#myapp').css('display','block');
     }
@@ -31,7 +34,9 @@ window.addEventListener('orientationchange', function(event){
           alert('横屏体验较差，请竖屏查看');
         },500);
     }
-}); 
+  });
+}
+ 
 
 
 var Home = React.createClass({
