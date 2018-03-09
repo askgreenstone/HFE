@@ -416,12 +416,15 @@ var Dynamic = React.createClass({
     var isFromWhichApp = this.getUrlParams('isFromWhichApp');
     var waterMarkFlag = '';
     // console.log(isFromWhichApp)
+    // isFromWhichApp    在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5
     if(isFromWhichApp == 2){
       waterMarkFlag = 'deHeHeng'
     }else if(isFromWhichApp == 3){
       waterMarkFlag = 'timeRipper'
     }else if(isFromWhichApp == 4){
       waterMarkFlag = 'jingYingShiDai'
+    }else if(isFromWhichApp == 5){
+      waterMarkFlag = 'gaoduansusong'
     }else{
       waterMarkFlag = 'onLineLaw'
     }
