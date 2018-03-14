@@ -36,7 +36,6 @@ var Card = React.createClass({
         if(data.c == 1000){
            this.setState({
             QR:global.img+data.QR,
-            hI:global.img+data.hI,
             nm:data.nm,
             dp:data.dp,
             rk:data.rk,
@@ -82,6 +81,9 @@ var Card = React.createClass({
             var expertHead = data.p||'header.jpg';
             var exCompanyLogo = data.cl||'header.jpg';
           this.getShareInfo(expertHead,exCompanyLogo);
+          this.setState({
+            hI:global.img+data.p||global.img+'header.jpg'
+          })
         }
       }.bind(this),
       error: function(xhr, status, err) {

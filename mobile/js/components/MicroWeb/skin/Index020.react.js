@@ -99,7 +99,6 @@ var Index020 = React.createClass({
         // alert('ownUri:'+ownUri+'ntid:'+ntid);
         if(data.c == 1000){
            this.setState({
-            hI:data.hI,
             nm:data.nm,
             dp:data.dp,
             rk:data.rk,
@@ -201,6 +200,9 @@ var Index020 = React.createClass({
             var expertHead = data.p||'header.jpg';
             var exCompanyLogo = data.cl||'header.jpg';
           this.getWxShareInfo(expertHead,exCompanyLogo);
+          this.setState({
+            hI:data.p||'header.jpg'
+          })
         }
       }.bind(this),
       error: function(xhr, status, err) {
