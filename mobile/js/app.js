@@ -107,9 +107,9 @@ var LiveList = require('./components/MicroWeb/public/LiveList.react');
 // 直播详情
 var LiveDetail = require('./components/MicroWeb/public/LiveDetail.react');
 // 创建我的直播
-var CreateLive = require('./components/MicroWeb/public/CreateLive.react');
+var LiveListShow = require('./components/MicroWeb/public/LiveListShow.react');
 // 播放器页面
-var LiveShow = require('./components/MicroWeb/public/LiveShow.react');
+var LiveDetailShow = require('./components/MicroWeb/public/LiveDetailShow.react');
 // 开通会员
 var MemberLogin = require('./components/MicroWeb/public/MemberLogin.react');
 
@@ -162,8 +162,8 @@ ReactDOM.render((
     <Route path="/SearchLawyers" component={SearchLawyers}/>
     <Route path="/LiveList" component={LiveList}/>
     <Route path="/LiveDetail" component={LiveDetail}/>
-    <Route path="/CreateLive" component={CreateLive}/>
-    <Route path="/LiveShow" component={LiveShow}/>
+    <Route path="/LiveListShow" component={LiveListShow}/>
+    <Route path="/LiveDetailShow" component={LiveDetailShow}/>
     <Route path="/MemberLogin" component={MemberLogin}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>

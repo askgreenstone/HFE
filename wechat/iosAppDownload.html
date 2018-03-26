@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>菁英时代</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta property="og:type" content="webpage">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no minimal-ui">
+  <style>
+    html {
+        font-size: 62.5%;
+    }
+    html,body{
+      width: 100%;
+      height: 100%;
+    }
+    
+    body {
+        margin: 0 auto;
+        padding: 0;
+        /*background-color: #f4efec;*/
+    }
+    .container{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .container_bg{
+      width: 100%;
+    }
+    .container_bg img{
+      width: 100%;
+    }
+    .container_logo{
+      width: 160px;
+      height: 160px;
+      margin: 30px auto;
+      background: url('image/iosAppBorder.png') no-repeat center center;
+      background-size: 100%;
+    }
+    .container_logo img{
+      width: 100px;
+      border-radius: 24px;
+      margin: 30px;
+    }
+    .container_name h2{
+      font-size: 24px; 
+      height: 33px;
+      line-height: 33px;
+      margin-bottom: -5px;
+      text-align: center;
+    }
+    .container_name h2 img{
+      height: 100%;
+    }
+    .scontainer_describe ul{
+      width: 100%;
+      text-align: center;
+      padding: 0;
+    }
+    .scontainer_describe ul li{
+      list-style: none;
+      display: inline-block;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #969b9d;
+      padding: 0 5px;
+    }
+    .scontainer_qrcode{
+      text-align: center;
+    }
+    .scontainer_qrcode img{
+      width: 110px;
+      height: 110px;
+      border: 1px solid #c2c2c2;
+      padding: 3px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .scontainer_qrcode img:hover {
+      transform: scale(1.4);
+      box-shadow: 0 0 10px rgba(21, 21, 21, 0.2);
+      border: none;
+    }
+
+  </style>
+</head>	
+<body>
+<div class="container"> 	
+  <div class="container_bg">
+    <img src="image/iosAppBg.png">
+  </div>
+  <div class="container_logo">
+    <img src="image/iosAppLogo.png">
+  </div>
+  <div class="container_name">
+    <h2>
+      <img src="image/iosAppIcon.png">
+      <span>菁英时代</span>
+      <span>企业版</span>
+    </h2>
+  </div>
+  <div class="scontainer_describe">
+    <ul class="breadcrumb pb-20" >
+      <li>版本：1.0.0 (build 3)</li>
+      <li>大小：31.1 MB</li>
+      <li >更新时间：2018-03-18</li>
+    </ul>
+  </div>
+  <div class="scontainer_qrcode">
+    <img src="image/iosAppIcon.png"/>
+  </div>
+  <div class="col-md-12" style="margin-top:20px;">
+    <div class="row mb-10 install-btn" >
+      <div class="span12 margin-bottom-20" style="text-align:center;">
+        <div class="spinner">
+          <a href="javascript:void(0);" onclick="javascript:install_loading();" id="down_load"  class="btn-u btn-u-lg " > 
+            <img src="https://static.pgyer.com/static-20180322/images/dl.png" class="hide">
+            点击安装
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="span12 gray-text" style="text-align:center; ">
+        <p style="padding-top:10px;color:#969b9d;">或者用手机扫描二维码安装</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal-dialog">
+    <div class="modal-header">
+        <button type="button" class="close">×</button>
+        <h4 class="modal-title font-16">"未受信任的企业级开发者"的解决办法</h4>
+    </div>
+    <div class="modal-body" style="background:#f2f2f2;height:600px;overflow-y: scroll;">
+      <section>
+        <div style="padding:0 20px 20px;color:#333;">
+          <p>因苹果公司的政策原因，在iOS系统中首次安装企业版应用时会出现"未受信任的企业级开发者"提示</p>
+        </div>
+        <div style="padding:0 10px 20px;">
+          <img class="img-responsive center-block" src="https://static.pgyer.com/image/view/admin_images/d8090f2e4fd0f00be88be9d86355db12" style="width:80%;">
+          <br/>
+          <h4 class="font-16">解决办法如下（以iOS11系统为例）：</h4>
+          <li style="list-style:none;color:#333;">1、在手机中打开设置功能，选择"通用"</li>
+          <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow1.png" style="width:80%;">
+          <li style="list-style:none;color:#333;">2、在通用中，选择"描述文件与设备管理"功能</li>
+          <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow2.png" style="width:80%;">
+          <li style="list-style:none;color:#333;">3、在描述文件与设备管理中的企业级应用分类中，选择要安装的企业应用的文件名称（与打开时的提示一致），点击进入</li>
+          <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow3.png" style="width:80%;">
+          <li style="list-style:none;color:#333;">4、进入企业签名页面后，确认企业签名中的公司名称与应用名称后，点击信任"企业签名公司名称"</li>
+          <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow4.png" style="width:80%;">
+          <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow5.png" style="width:80%;">
+          <li style="list-style:none;color:#333;">5、回到桌面，重新打开应用即可使用</li>
+          <br/>
+        </div>
+      </section>
+  </div>
+ </div> 
+<script src="lib/jquery.min.js"></script>
+<script type="text/javascript">
+  // 获取app下载信息
+  // asn : appShortName   string   app名缩写  例如 jysd
+  // at: appType  string   app类型  例如 android   或  IOS
+  // adlid: adlid int app信息ID
+  // an：appName String app名称
+  // asn：appShortName String app简称
+  // at：appType String app类型  android  IOS
+  // alu：applogoUrl String app logo URL
+  // ver：version String app版本
+  // as：appSize String app大小
+  // dlu：downLoadUrl String app下载地址
+  // ad：appDesc String app描述
+  // qc：QRCode String app二维码
+  // wu：WebUrl String web页地址
+  // ut：UpdateTime String app更新时间
+
+  var url = '';
+  if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t-dist')>-1){
+    url = 'http://t-dist.green-stone.cn';
+  }else{
+    url = 'http://dist.green-stone.cn';
+  }
+  $.ajax({
+    type: 'get',
+    url: url+'/comm/GetAppDownLoadInfo.do?asn=jysd&at=IO',
+    success: function(data) {
+        //alert('wxscan:' + JSON.stringify(data));
+        if (data.c == 1000) {
+          console.log(data)
+        }
+    },
+    error: function() {
+        alert('系统开了小差，请刷新页面');
+    }
+});
+</script>
+</body>

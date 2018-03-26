@@ -6,19 +6,16 @@ var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
 
-var LiveShow = React.createClass({
+var LiveDetailShow = React.createClass({
   mixins:[CommonMixin],
   getInitialState: function(){
     return {
       FirstData: [],
-      ListData: [],
       QuestionList: [],
       askQuestionFlag: true,  //是否可以进行提问data.ls为2即正在直播时可以进行提问，其余情况都不可以
-      ldid: 0,
       ShareTitile: '直播详情',
       ShareDesc: '直播详情页面',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png',
-      ShareLdid: 0,
       shareData: [],
       liveListTitle: '',
       loginFlag: false,
@@ -28,39 +25,17 @@ var LiveShow = React.createClass({
       userSession: ''
     };
   },
-  getLiveListPic: function(){
-    var ownUri = this.getUrlParams('ownUri');
-    var lid = this.getUrlParams('lid');
+  getLiveQuestion:function(ldid){
     var ldid = this.getUrlParams('ldid');
-    var session = this.getUrlParams('session');
-    if(session){
-      this.setState({
-        userSession: session
-      })
-    }
-    var url = session?global.url+'/exp/GetLiveListInfo.do?do='+ownUri+'&session='+session:global.url+'/exp/GetLiveListInfo.do?do='+ownUri
+    // console.log(ldid);
     $.ajax({
       type: 'get',
-      url: url,
+      url: global.url+'/exp/GetLiveQuestion.do?ldid='+ldid,
       success: function(data) {
         // console.log(data);
         if(data.c == 1000){
-          for (var i = data.ll.length - 1; i >= 0; i--) {
-            if(data.ll[i].lid == lid){
-              this.setState({
-                liveListPic: data.ll[i].lp,
-                liveListTitle: data.ll[i].ln
-              })
-              this.setDocumentTitle(data.ll[i].ln);
-              // window.location.href = '#LiveDetail?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
-            }
-          }
-        }else if(data.c == 1016){
-          var that = this;
-          this.showAlert('身份验证失败，请登录！',function(){
-            that.setState({
-              LoginBoxFlag: true
-            })
+          this.setState({
+            QuestionList: data.ql
           })
         }
       }.bind(this),
@@ -69,138 +44,26 @@ var LiveShow = React.createClass({
       }.bind(this)
     })
   },
-  setDocumentTitle: function(wxTitle){
-    document.title = wxTitle;
-    if (/ip(hone|od|ad)/i.test(navigator.userAgent)) {
-        var i = document.createElement('iframe');
-        i.src = '/favicon.ico';
-        i.style.display = 'none';
-        i.onload = function() {
-            setTimeout(function(){
-                i.remove();
-            }, 9)
-        }
-        document.body.appendChild(i);
-    }
-  },
-  getTheOne: function(data,LiveDetailId){
-    var arr = [];
-    // console.log(data);
-    for(var i = 0,len = data.length;i<len;i++){
-      if(data[i].ldid == LiveDetailId){
-        arr = data[i]
-      }
-    }
-    // console.log(arr);
-    return [arr];
-  },
-  postLiveQuestions:function(){
-    var text = $('.live_detail_text').val();
-    if(!text){
-      this.showAlert('请输入问题')
-      return;
-    }
-    // console.log(this.state.ownUri);
-    var data = {
-      ldid: this.state.ldid,
-      lsu: this.state.ownUri,
-      qd: text
-    }
-    $.ajax({
-      type: 'post',
-      url: global.url+'/exp/AddLiveQuestion.do?',
-      data: JSON.stringify(data),
-      success: function(data) {
-        // console.log(data);
-        if(data.c == 1000){
-          $('.live_detail_text').val('');
-          this.getLiveQuestion(this.state.ldid);
-        }else if(data.c == 1052){
-          $('.live_detail_text').val('');
-          this.showAlert('主讲人已经关闭提问功能。');
-        }
-      }.bind(this),
-      error: function(data) {
-        this.showRefresh('系统开了小差，请刷新页面');
-      }.bind(this)
-    })
-  },
-  gotoDownLoadApp:function(){
-    if(this.isWechat()) {
-      window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.greenstone.exp';
-    } else if(this.isAndroid()){
-      window.location.href = 'http://cdn.askgreenstone.com/client/android.exp.apk';
-    } else if(this.isIOS()){
-      window.location.href = 'https://itunes.apple.com/us/app/lu-shi-zhuan-jia-ban/id976040724';
-    }
-  },
-  getLiveQuestion:function(LiveDetailId){
-    var ldid = LiveDetailId?LiveDetailId:this.state.ldid;
-    // console.log(ldid);
-    if(ldid == 0 || !ldid){
-      this.setState({
-        QuestionList: [],
-        askQuestionFlag: false
-      })
-    }else{
-      $.ajax({
-        type: 'get',
-        url: global.url+'/exp/GetLiveQuestion.do?ldid='+ldid,
-        success: function(data) {
-          // console.log(data);
-          if(data.c == 1000){
-            this.setState({
-              QuestionList: data.ql
-            })
-          }
-        }.bind(this),
-        error: function(data) {
-          this.showRefresh('系统开了小差，请刷新页面');
-        }.bind(this)
-      })
-    }
-    
-  },
-  getLiveInfo: function(LiveDetailId){
+  getLiveInfo: function(ldid){
     var ownUri = this.getUrlParams('ownUri');
-    var lid = this.getUrlParams('lid');
-    var livedetailid = LiveDetailId;
-    // console.log(livedetailid);
+    var ldid = this.getUrlParams('ldid');
     // 新增ip字段，区分直播公开，私有（微信端没有授权，所以只展示公开课程）乔凡：2017.04.26
     // ip=1表示公开   ip=2表示内部
     $.ajax({
       type: 'get',
-      url: global.url+'/exp/GetLiveInfo.do?do='+ownUri+'&lid='+lid+'&ip=1',
+      url: global.url+'/exp/GetLiveDetailNoList.do?dou='+ownUri+'&ldid='+ldid+'&ip=1',
       success: function(data) {
-        // console.log(data);
+        console.log(data);
         if(data.c == 1000){
           // livestatus: int 直播状态  1 未直播   2直播中  3直播结束
-          var urlLdid = this.getUrlParams('ldid');
-          // console.log(urlLdid);
-          if(!urlLdid){
-            this.setState({
-              ldid: data.sldid
-            })
-          }
-          var livedid = livedetailid?livedetailid:data.sldid;
-          // console.log(livedid);
           this.setState({
-            ldid: livedid,
-            ownUri: this.getTheOne(data.ll,livedid)[0].dou,
-            FirstData: this.getTheOne(data.ll,livedid),
-            ListData: data.ll,
-            askQuestionFlag: this.getTheOne(data.ll,livedid)[0].ls == 2?true:false,
-            ShareTitile: this.getTheOne(data.ll,livedid)[0].lt,
-            ShareDesc: this.getTheOne(data.ll,livedid)[0].sn+'带来关于'+this.getTheOne(data.ll,livedid)[0].lt+'的精彩讲课',
-            ShareImg: this.getTheOne(data.ll,livedid)[0].sp,
-            ShareLdid: this.getTheOne(data.ll,livedid)[0].ldid,
-            shareData: this.getTheOne(data.ll,livedid)
+            FirstData:data.ll,
+            askQuestionFlag: data.ll[0].ls == 2?true:false,
+            ShareTitile: data.ll[0].lt,
+            ShareDesc: data.ll[0].sn+'带来关于'+data.ll[0].lt+'的精彩讲课',
+            ShareImg: data.ll[0].sp,
+            shareData: data.ll
           })
-          if(this.getTheOne(data.ll,livedid)[0].ls == 2){
-            $('.live_detail_question_text').show();
-          }
-
-          this.getLiveQuestion(livedid);
         }
       }.bind(this),
       error: function(data) {
@@ -209,8 +72,9 @@ var LiveShow = React.createClass({
     })
   },
   addLiveWatchNum: function(){
+    var ldid = this.getUrlParams('ldid');
     var data = {
-      ldid: this.state.ldid
+      ldid: ldid
     }
     $.ajax({
       type: 'post',
@@ -472,27 +336,21 @@ var LiveShow = React.createClass({
   },
   componentWillMount: function(){
     var ldid = this.getUrlParams('ldid');
-    this.getLiveListPic();
-    if(ldid){
       this.getLiveInfo(ldid);
-    }else{
-      this.getLiveInfo();
-    }
+      this.getLiveQuestion(ldid);
   },
   render:function(){
     var ldid = this.state.ldid;
     // console.log(this.state.liveListPic);
-    var idShow = this.getUrlParams('idShow');
     var now  = new Date().getTime();
     // console.log(this.state.ShareTitile);
     // console.log(this.state.ShareDesc);
     // console.log(this.state.ShareImg);
-    // console.log(this.state.ShareLdid);
     var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
           <div id="J_prismPlayer" className="prism-player"></div>
-          <img className="live_detail_bg" src={item.lp?(global.img+item.lp):(global.img+this.state.liveListPic)} />
+          <img className="live_detail_bg" src={global.img+'livenolistpic20180322_W720_H482_S240.jpg'} />
           <div className="live_list_top_content live_detail_top_content">
             <div><span>{item.lt?(item.lt.length>13?item.lt.substring(0,13)+'...':item.lt):'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
             <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
@@ -508,22 +366,6 @@ var LiveShow = React.createClass({
             <span className="live_detail_shadow_logIn_all">已是会员请继续<i onClick={this.showLoginBox}>登录</i>观看</span>
           </div>
         </div>
-       );
-    }.bind(this));
-    var len = this.state.ListData.length-1;
-    // console.log(len);
-    var ListDataShow = this.state.ListData.map(function(item,i){
-      return(
-        <li data-id={item.ldid} className={item.ldid == ldid?(item.ls == 3?"live_detail_list_online_active":"live_detail_list_video_active"):(item.ls == 3?"live_detail_list_online_off":"")} key={new Date().getTime()+i} onClick={this.gotoDetail.bind(this,item)}>
-          <div className="live_detail_list_img">
-            <i></i>
-            <div></div>
-          </div>
-          <div className="live_detail_list_content">
-            <div className="live_list_title">{item.lt.length>20?(item.lt.substring(0,20)+'...'):item.lt}<br/><i>{item.ls == 3?'视频':'直播'}</i></div>
-            <div className="live_list_content">{item.ls == 3?item.ldur:new Date(item.livetime).Format("yyyy-MM-dd hh:mm")}</div>
-          </div>
-        </li>
        );
     }.bind(this));
     var TeacherDataShow = this.state.FirstData.map(function(item,i){
@@ -564,21 +406,16 @@ var LiveShow = React.createClass({
         <Share key={new Date().getTime()+i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetail" ldid={item.ldid?item.ldid:'0'}/>
       )
     }.bind(this)); 
+    console.log(this.state.askQuestionFlag);
     return(
         <div className="live_list_box">
           {FirstDataShow}
           <ul className="live_detail_nav">
-            <li className={idShow == 1?"":"live_detail_nav_active"}><span>目录</span><span>.</span></li>
-            <li className={idShow == 1?"live_detail_nav_active":""}><span>介绍</span><span>.</span></li>
+            <li className="live_detail_nav_active"><span>介绍</span><span>.</span></li>
             <li><span>提问</span><span>.</span></li>
           </ul>
           <div className="live_detail">
-            <div className="live_detail_list_box" style={{display:idShow == 1?"none":"block"}}>
-              <ul className="live_detail_list">
-                {ListDataShow}
-              </ul>
-            </div>
-            <div className="live_detail_introduce" style={{display:idShow == 1?"block":"none"}}>
+            <div className="live_detail_introduce live_detail_show_introduce">
               {TeacherDataShow}
             </div>
             <div className="live_detail_question">
@@ -625,4 +462,4 @@ var LiveShow = React.createClass({
   }
 });
 
-module.exports = LiveShow;
+module.exports = LiveDetailShow;
