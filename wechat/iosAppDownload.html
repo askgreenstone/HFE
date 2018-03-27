@@ -86,7 +86,7 @@
       font-size: 14px;
       line-height: 1.6;
       color: #969b9d;
-      padding: 0 5px;
+      padding: 0 10px;
     }
     .container_qrcode{
       text-align: center;
@@ -161,7 +161,8 @@
   <div>
     <p class="container_install">点击安装</p>
   </div>
-  <div class="container_ios_solution">
+  <div class="container_ios_tips">
+    <div class="container_ios_solution">
       "未受信任的企业级开发者"的解决办法      
   </div>
   <div class="modal-dialog">
@@ -171,26 +172,27 @@
         <p>因苹果公司的政策原因，在iOS系统中首次使用企业版应用时会出现"未受信任的企业级开发者"提示</p>
       </div>
       <div style="padding:0 10px 20px;">
-        <img class="img-responsive center-block" src="https://static.pgyer.com/image/view/admin_images/d8090f2e4fd0f00be88be9d86355db12" style="width:80%;">
+        <img class="img-responsive center-block" src="image/001.png" style="width:80%;">
         <br/>
         <h4 class="font-16">解决办法如下（以iOS11系统为例）：</h4>
         <li style="list-style:none;color:#333;">1、在手机中打开设置功能，选择"通用"</li>
-        <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow1.png" style="width:80%;">
+        <img class="img-responsive center-block mt-20 mb-20" src="image/002.png" style="width:80%;">
         <li style="list-style:none;color:#333;">2、在通用中，选择"描述文件与设备管理"功能</li>
-        <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow2.png" style="width:80%;">
+        <img class="img-responsive center-block mt-20 mb-20" src="image/003.png" style="width:80%;">
         <li style="list-style:none;color:#333;">3、在描述文件与设备管理中的企业级应用分类中，选择要安装的企业应用的文件名称（与打开时的提示一致），点击进入</li>
-        <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow3.png" style="width:80%;">
+        <img class="img-responsive center-block mt-20 mb-20" src="image/004.png" style="width:80%;">
         <li style="list-style:none;color:#333;">4、进入企业签名页面后，确认企业签名中的公司名称与应用名称后，点击信任"企业签名公司名称"</li>
-        <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow4.png" style="width:80%;">
-        <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180322/images/resovelFlow5.png" style="width:80%;">
+        <img class="img-responsive center-block mt-20 mb-20" src="image/005.png" style="width:80%;">
+        <img class="img-responsive center-block mt-20 mb-20" src="image/006.png" style="width:80%;">
         <li style="list-style:none;color:#333;">5、回到桌面，重新打开应用即可使用</li>
         <br/>
       </div>
     </section>
   </div>
 </div>
+  </div>
+  
 </div>
-  <div id="ua"></div>
 
 
 
@@ -241,6 +243,10 @@ if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t
   }
 var asn = getUrlParams('asn');
 var at = getUrlParams('at');
+console.log(at)
+if(at == 'android'){
+  $('.container_ios_tips').hide();
+}
 
 // 获取app下载信息
 // asn : appShortName   string   app名缩写  例如 jysd
@@ -302,13 +308,6 @@ $.ajax({
 
 
   $('.container_install').on('click' , function(){
-    var askBrowserAlert = '请在手机上使用浏览器打开本页面',
-      forIosAlert = '您的手机是Android系统，无法安装iOS应用';
-      forAndroidAlert = '您的手机是iOS系统，无法安装Android应用';
-      reminderWechatDownloadContent = '请点击微信右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载',
-      reminderUCDownloadContent = '您当前使用的是 UC 浏览器，该浏览器不支持安装App。请在浏览器中打开，即可下载',
-      reminderWeiboDownloadContent = '请点击微博右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载',
-      reminderQQDownloadContent = '请点击QQ右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载';
     // 判断浏览器类型
     var browser = {
       versions: function () {
@@ -329,44 +328,30 @@ $.ajax({
       language: (navigator.browserLanguage || navigator.language).toLowerCase()
     }
     //判断是否是移动设备打开。browser代码在下面
-    if (browser.versions.mobile) {
-      var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
-      alert('手机ua'+ua);
-      $('#ua').text(ua);
-      // console.log(browser.versions)
-      if (ua.match(/MicroMessenger/i) == "micromessenger") {
-        //在微信中打开
-        alert(reminderWechatDownloadContent)
-      }
-      if (ua.match(/WeiBo/i) == "weibo") {
-        //在新浪微博客户端打开
-        alert(reminderWeiboDownloadContent)
-      }
-      if (ua.match(/QQ/i) == "qq") {
-        //在QQ打开
-        alert(reminderQQDownloadContent)
-      }
-      if (browser.versions.ios && at === 'IOS') {
-        //是否在IOS浏览器打开
-        window.location.href = $('.container_downloadUrl').text();
-      }
-      if (browser.versions.ios && at === 'android') {
-        //在IOS浏览器打开，应用是安卓版本
-        alert(forAndroidAlert)
-      } 
-      if(browser.versions.android && at === 'android'){
-        //是否在安卓浏览器打开
-        window.location.href = $('.container_downloadUrl').text();
-      }
-      if (browser.versions.android && at === 'IOS') {
-        //在android览器打开，应用是IOS版本
-        alert(forIosAlert)
-      }
-    } else {
-      //否则就是PC浏览器打开
-      alert(askBrowserAlert)
-      alert(navigator.userAgent.toLowerCase());
-    } 
+    console.log(browser.versions.ios)
+    console.log(browser.versions.android)
+    console.log(at)
+    console.log(navigator.userAgent.toLowerCase());
+    var ua = navigator.userAgent.toLowerCase();
+    if(!browser.versions.mobile){
+      alert('请在手机上使用浏览器打开本页面!');
+      return;
+    }else if(browser.versions.ios && at === 'android'){
+      alert('您的手机是iOS系统，无法安装Android应用!')
+      return;
+    }else if(browser.versions.ios && at === 'ios'){
+      window.location.href = $('.container_downloadUrl').text();
+    }else if(browser.versions.android && at === 'ios'){
+      alert('您的手机是Android系统，无法安装iOS应用!');
+      return;
+    }else if(/micromessenger/i.test(ua) || typeof navigator.wxuserAgent !== 'undefined'){
+      alert('请点击微信右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载');
+    }else{
+      window.location.href = $('.container_downloadUrl').text();
+    }
+    
+
+
   })
   
 
