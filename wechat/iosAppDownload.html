@@ -25,7 +25,7 @@
     .container{
       width: 100%;
       height: 100%;
-      overflow: scroll;
+      /*overflow: scroll;*/
     }
     .container_bg{
       width: 100%;
@@ -155,6 +155,7 @@
   <!-- <div class="container_qrcode">
     <img src="image/appDownloadIos.jpg"/>
   </div> -->
+  <div style="display:none" class="container_downloadUrl"></div>
 
   
   <div>
@@ -167,7 +168,7 @@
   <div class="modal-body">
     <section>
       <div style="padding:0 20px 20px;color:#333;">
-        <p>因苹果公司的政策原因，在iOS系统中首次安装企业版应用时会出现"未受信任的企业级开发者"提示</p>
+        <p>因苹果公司的政策原因，在iOS系统中首次使用企业版应用时会出现"未受信任的企业级开发者"提示</p>
       </div>
       <div style="padding:0 10px 20px;">
         <img class="img-responsive center-block" src="https://static.pgyer.com/image/view/admin_images/d8090f2e4fd0f00be88be9d86355db12" style="width:80%;">
@@ -189,6 +190,7 @@
   </div>
 </div>
 </div>
+  <div id="ua"></div>
 
 
 
@@ -196,7 +198,6 @@
 
  
 <script src="lib/jquery.min.js"></script>
-
 <script type="text/javascript">
 // 获取URL地址参数
 function getUrlParams(p) {
@@ -266,6 +267,7 @@ $.ajax({
       //alert('wxscan:' + JSON.stringify(data));
       if (data.c == 1000) {
         console.log(data);
+        // alert(data.dlu);
         // 下载app的logo
         $('.container_logo img').attr('src',data.alu);
         // 下载系统是安卓还是ios
@@ -284,11 +286,93 @@ $.ajax({
         $('.container_describe_time').text(new Date(data.ut).Format('yyyy-MM-dd'));
         // 下载app的二维码
         // $('.container_qrcode img').attr('src',data.qc);
+        // 下载app的地址
+        $('.container_downloadUrl').text(data.dlu)
       }
   },
   error: function() {
       alert('系统开了小差，请刷新页面');
   }
 });
+
+
+
+
+// 安装app
+
+
+  $('.container_install').on('click' , function(){
+    var askBrowserAlert = '请在手机上使用浏览器打开本页面',
+      forIosAlert = '您的手机是Android系统，无法安装iOS应用';
+      forAndroidAlert = '您的手机是iOS系统，无法安装Android应用';
+      reminderWechatDownloadContent = '请点击微信右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载',
+      reminderUCDownloadContent = '您当前使用的是 UC 浏览器，该浏览器不支持安装App。请在浏览器中打开，即可下载',
+      reminderWeiboDownloadContent = '请点击微博右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载',
+      reminderQQDownloadContent = '请点击QQ右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载';
+    // 判断浏览器类型
+    var browser = {
+      versions: function () {
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {   //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+        };
+      }(),
+      language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    //判断是否是移动设备打开。browser代码在下面
+    if (browser.versions.mobile) {
+      var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+      alert('手机ua'+ua);
+      $('#ua').text(ua);
+      // console.log(browser.versions)
+      if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        //在微信中打开
+        alert(reminderWechatDownloadContent)
+      }
+      if (ua.match(/WeiBo/i) == "weibo") {
+        //在新浪微博客户端打开
+        alert(reminderWeiboDownloadContent)
+      }
+      if (ua.match(/QQ/i) == "qq") {
+        //在QQ打开
+        alert(reminderQQDownloadContent)
+      }
+      if (browser.versions.ios && at === 'IOS') {
+        //是否在IOS浏览器打开
+        window.location.href = $('.container_downloadUrl').text();
+      }
+      if (browser.versions.ios && at === 'android') {
+        //在IOS浏览器打开，应用是安卓版本
+        alert(forAndroidAlert)
+      } 
+      if(browser.versions.android && at === 'android'){
+        //是否在安卓浏览器打开
+        window.location.href = $('.container_downloadUrl').text();
+      }
+      if (browser.versions.android && at === 'IOS') {
+        //在android览器打开，应用是IOS版本
+        alert(forIosAlert)
+      }
+    } else {
+      //否则就是PC浏览器打开
+      alert(askBrowserAlert)
+      alert(navigator.userAgent.toLowerCase());
+    } 
+  })
+  
+
+
+
+  
+
 </script>
 </body>

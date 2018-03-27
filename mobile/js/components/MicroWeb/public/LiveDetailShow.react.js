@@ -22,7 +22,8 @@ var LiveDetailShow = React.createClass({
       LoginBoxFlag: false,
       messageCodeFlag: true,      //发送短信验证码
       time: 60,
-      userSession: ''
+      userSession: '',
+      openBaiduOfficeText: '打开'   //打开百度文档
     };
   },
   getLiveQuestion:function(ldid){
@@ -70,6 +71,53 @@ var LiveDetailShow = React.createClass({
         this.showRefresh('系统开了小差，请刷新页面');
       }.bind(this)
     })
+  },
+  // 打开百度文档
+  openBaiduOffice: function(bdid){
+    // console.log(bdid);
+    var text = this.state.openBaiduOfficeText;
+    console.log(text);
+    var that = this;
+    if(text === '打开'){
+      var docId = bdid.substring(0,bdid.indexOf('_'));
+      // console.log(docId);
+      var option = {
+          docId: docId,
+          token: 'TOKEN',
+          host: 'BCEDOC',
+          width: 600, //文档容器宽度
+          zoom: false,              //是否显示放大缩小按钮
+          zoomStepWidth:200,
+          pn: 1,  //定位到第几页，可选
+          ready: function (handler) {  // 设置字体大小和颜色, 背景颜色（可设置白天黑夜模式）
+              handler.setFontSize(1);
+              handler.setBackgroundColor('#000');
+              handler.setFontColor('#fff');
+          },
+          flip: function (data) {    // 翻页时回调函数, 可供客户进行统计等
+              // console.log(data.pn);
+          },
+          fontSize:'big',
+          toolbarConf: {
+                  page: true, //上下翻页箭头图标
+                  pagenum: true, //几分之几页
+                  full: false, //是否显示全屏图标,点击后全屏
+                  copy: true, //是否可以复制文档内容
+                  position: 'center',// 设置 toolbar中翻页和放大图标的位置(值有left/center)
+          } //文档顶部工具条配置对象,必选
+      };
+      new Document('reader', option); 
+      that.setState({
+        openBaiduOfficeText: '收起'
+      })
+    }else if(text === '收起'){
+      $('#reader').hide('slow', function() {
+        that.setState({
+          openBaiduOfficeText: '打开'
+        })
+      });
+    }
+    
   },
   addLiveWatchNum: function(){
     var ldid = this.getUrlParams('ldid');
@@ -371,6 +419,11 @@ var LiveDetailShow = React.createClass({
     var TeacherDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div key={new Date().getTime()+i}>
+          <div className="live_detail_class" style={{display:item.bdid?"block":"none"}}>
+            <p className="live_detail_introduce_box">课程附件</p>
+            <div onClick={this.openBaiduOffice.bind(this,item.bdid)}>{item.dn}<span className="live_detail_introduce_box_span">{this.state.openBaiduOfficeText}</span></div>
+            <div id="reader"></div>
+          </div>
           <div className="live_detail_class">
               <p className="live_detail_introduce_box">课程详情</p>
               <div>{item.ld}</div>
