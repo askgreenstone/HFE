@@ -425,6 +425,10 @@ var Dynamic = React.createClass({
       waterMarkFlag = 'jingYingShiDai'
     }else if(isFromWhichApp == 5){
       waterMarkFlag = 'gaoduansusong'
+    }else if(isFromWhichApp == 6){
+      waterMarkFlag = 'dachengxian'
+    }else if(isFromWhichApp == 7){
+      waterMarkFlag = 'dachengjinrong'
     }else{
       waterMarkFlag = 'onLineLaw'
     }
