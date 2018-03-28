@@ -141,7 +141,7 @@
   <div class="container_name">
     <h2>
       <img src="image/appDownloadAndroid.png">
-      <span class="container_name_appname">菁英时代</span>
+      <span class="container_name_appname">在线法律</span>
       <span class="container_name_appclass">企业版</span>
     </h2>
   </div>
@@ -339,8 +339,6 @@ $.ajax({
     }else if(browser.versions.ios && at === 'android'){
       alert('您的手机是iOS系统，无法安装Android应用!')
       return;
-    }else if(browser.versions.ios && at === 'ios'){
-      window.location.href = $('.container_downloadUrl').text();
     }else if(browser.versions.android && at === 'ios'){
       alert('您的手机是Android系统，无法安装iOS应用!');
       return;
