@@ -119,6 +119,39 @@ var LiveDetailShow = React.createClass({
     }
     
   },
+  postLiveQuestions:function(){
+    var text = $('.live_detail_text').val();
+    if(!text){
+      this.showAlert('请输入问题')
+      return;
+    }
+    var ownUri = this.getUrlParams('ownUri');
+    var ldid = this.getUrlParams('ldid');
+    // console.log(this.state.ownUri);
+    var data = {
+      ldid: ldid,
+      lsu: ownUri,
+      qd: text
+    }
+    $.ajax({
+      type: 'post',
+      url: global.url+'/exp/AddLiveQuestion.do?',
+      data: JSON.stringify(data),
+      success: function(data) {
+        // console.log(data);
+        if(data.c == 1000){
+          $('.live_detail_text').val('');
+          this.getLiveQuestion(ldid);
+        }else if(data.c == 1052){
+          $('.live_detail_text').val('');
+          this.showAlert('主讲人已经关闭提问功能。');
+        }
+      }.bind(this),
+      error: function(data) {
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
+  },
   addLiveWatchNum: function(){
     var ldid = this.getUrlParams('ldid');
     var data = {
@@ -456,7 +489,7 @@ var LiveDetailShow = React.createClass({
     }.bind(this));
     var ShareBox = this.state.shareData.map(function(item,i){
       return(
-        <Share key={new Date().getTime()+i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetail" ldid={item.ldid?item.ldid:'0'}/>
+        <Share key={new Date().getTime()+i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetailShow" ldid={item.ldid?item.ldid:'0'}/>
       )
     }.bind(this)); 
     console.log(this.state.askQuestionFlag);
