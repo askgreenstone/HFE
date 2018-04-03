@@ -133,9 +133,8 @@ var Lawyers = React.createClass({
     var arr =[]; 
     var descArr = [];
     if(!str){
-      descArr = ['公司企业','资本市场','证券期货'];
+      descArr = [];
       return descArr.join(" ");
-      return;
     }
     // arr = str.replace(/"/g,"").replace(/\[/,"").replace(/\]/g,"").split(",");
     arr = JSON.parse(str);
@@ -149,7 +148,7 @@ var Lawyers = React.createClass({
       }
     }
     if(descArr.length == 0){
-      descArr = ['公司企业','资本市场','证券期货']
+      descArr = []
     }
     var lawyerArr = descArr.slice(0,3);
     // console.log(descArr);

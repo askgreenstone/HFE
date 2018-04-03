@@ -299,7 +299,7 @@ var Dynamic = React.createClass({
     // console.log(arr);
     var eilArr = ['','公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
     if(arr.length < 1){
-      descArr = ['公司企业','资本市场','证券期货']
+      descArr = []
     }else{
       for(var i = 0; i<arr.length; i++){
         if(arr[i] == 99){
@@ -310,8 +310,8 @@ var Dynamic = React.createClass({
       }
     }
     // console.log(descArr);
-    var lawyerArr = descArr?descArr.slice(0,3):['公司企业','资本市场','证券期货'];
-    // console.log(lawyerArr);
+    var lawyerArr = descArr?descArr.slice(0,3):[];
+    console.log(lawyerArr.join(" "));
     return lawyerArr.join(" ");
   },
   gotoConsult:function(){
@@ -513,7 +513,7 @@ var Dynamic = React.createClass({
             <img className="dynamic_exp_img" onClick={this.gotoIndex} src={global.img+this.state.head} width="50" height="50"/>
             <p className="dynamic_exp_name">
               <span className="dynamic_exp_name_name">{this.state.nm}</span><br/>
-              <span className="dynamic_exp_date">擅长{this.transferArr(this.state.esl)}</span>
+              <span className="dynamic_exp_date" style={{display:this.transferArr(this.state.esl)?'block':'none'}}>擅长{this.transferArr(this.state.esl)}</span>
               <span className="dynamic_usr_consult" style={{display:this.state.expConsultState?'block':'none'}} onClick={this.gotoConsult} ><span>在线</span><span>咨询</span></span>
               <span className="dynamic_usr_consult dynamic_exp_card" style={{display:this.state.expConsultState?'none':'block'}} onClick={this.gotoIndex} ><span>名片</span></span>
             </p>

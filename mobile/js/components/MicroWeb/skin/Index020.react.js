@@ -65,10 +65,11 @@ var Index020 = React.createClass({
     var descArr = [];
     // arr = str.replace(/"/g,"").replace(/\[/,"").replace(/\]/g,"").split(",");
     arr = JSON.parse(str);
-    // console.log(arr);
+    // 如果用户没有选择擅长领域，则不显示
+    console.log('乔凡测试'+arr);
     var eilArr = ['','公司企业','资本市场','证券期货','知识产权','金融保险','合同债务','劳动人事','矿业能源','房地产','贸易','海事海商','涉外','财税','物权','婚姻家庭','侵权','诉讼仲裁','刑事','破产','新三板','反垄断','家族财富','交通事故','医疗','人格权','其他'];
     if(arr.length < 1){
-      descArr = ['公司企业','资本市场','证券期货']
+      descArr = []
     }else{
       for(var i = 0; i<arr.length; i++){
         if(arr[i] == 99){
@@ -102,7 +103,7 @@ var Index020 = React.createClass({
             nm:data.nm,
             dp:data.dp,
             rk:data.rk,
-            expspecial:data.es?(this.transferArr(data.es).slice(0,3)):(this.transferArr("[1,2,3]"))
+            expspecial:data.es?(this.transferArr(data.es).slice(0,3)):(this.transferArr("[]"))
           });
         }
       }.bind(this),
