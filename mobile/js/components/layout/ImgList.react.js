@@ -33,6 +33,7 @@ var ImgList = React.createClass({
       var gaoduansusong = 'ZmVlZGxvZ28yMDE3MDExOF9XNDJfSDM4X1M0LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEwCg==';
       var dachengxian = 'ZGFjaGVuZ3hpYW5zaHVpeWluMjAxODAzMjhfVzEwOF9IMTA4X1M4LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
       var dachengjinrong = 'ZGFjaGVuZ2ppbnJvbmdzaHVpeWluMjAxODAzMjhfVzEwOF9IMTA4X1MxMi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+      var jiuhefashang = 'aml1aGVmYXNoYW5nMjAxODA0MDNfVzEwOF9IMTA4X1MzNi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMAo='
       if(this.props.waterMarkFlag === 'onLineLaw'){
         imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+onLineLaw+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
       }else if(this.props.waterMarkFlag === 'deHeHeng'){
@@ -47,6 +48,8 @@ var ImgList = React.createClass({
         imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+dachengxian+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
       }else if(this.props.waterMarkFlag === 'dachengjinrong'){
         imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+dachengjinrong+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      }else if(this.props.waterMarkFlag === 'jiuhefashang'){
+        imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+jiuhefashang+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
       }
 
 

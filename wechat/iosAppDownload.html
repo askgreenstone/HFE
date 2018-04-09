@@ -342,7 +342,9 @@ $.ajax({
     }else if(browser.versions.android && at === 'ios'){
       alert('您的手机是Android系统，无法安装iOS应用!');
       return;
-    }else if(/micromessenger/i.test(ua) || typeof navigator.wxuserAgent !== 'undefined'){
+    }else if(browser.versions.ios && /micromessenger/i.test(ua)){
+      alert('请点击微信右上角按钮，然后在弹出的菜单中，点击在Safari浏览器中打开，即可下载');
+    }else if(browser.versions.android && /micromessenger/i.test(ua)){
       alert('请点击微信右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可下载');
     }else{
       window.location.href = $('.container_downloadUrl').text();
