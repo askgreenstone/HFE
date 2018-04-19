@@ -557,6 +557,21 @@ var LiveDetail = React.createClass({
       that.setState({
         openBaiduOfficeText: '收起'
       })
+      // 解决打开百度文档页面滚动问题
+
+      var el=document.getElementById('live_detail_introduce');
+      var scrollStartPos=0;
+
+      document.getElementById('live_detail_introduce').addEventListener("touchstart", function(event) {
+        console.log(event);
+        scrollStartPos=this.scrollTop+event.touches[0].pageY;
+        // event.preventDefault();
+      },false);
+
+      document.getElementById('live_detail_introduce').addEventListener("touchmove", function(event) {
+        this.scrollTop=scrollStartPos-event.touches[0].pageY;
+        // event.preventDefault();
+      },false);
     }else if(text === '收起'){
       $('#reader').hide('slow', function() {
         that.setState({
@@ -592,6 +607,8 @@ var LiveDetail = React.createClass({
             index++;
         }, 50)
     })
+
+    
     
   },
   componentWillMount: function(){
@@ -705,7 +722,7 @@ var LiveDetail = React.createClass({
                 {ListDataShow}
               </ul>
             </div>
-	          <div className="live_detail_introduce" style={{display:idShow == 1?"block":"none"}}>
+	          <div className="live_detail_introduce" id="live_detail_introduce" style={{display:idShow == 1?"block":"none"}}>
 	          	{TeacherDataShow}
 	          </div>
 	          <div className="live_detail_question">
