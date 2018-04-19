@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>app列表页展示</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style type="text/css">
+  	html,body{
+  		width: 100%;
+  		height: 100%;
+  	}
+  	*{
+  		margin: 0;
+  		padding: 0;
+  	}
+  	.wrap{
+  		width: 100%;
+  		height: 100%;
+  		background: #eee;
+      padding-top: 20px;
+  	}
+    table,table tr th, table tr td { 
+      border:1px solid #0094ff; 
+    }
+    table { 
+      width: 95%; 
+      min-height: 25px; 
+      line-height: 25px; 
+      text-align: center; 
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+  </style>
+</head>
+<body>
+	<div class="wrap">
+    <table border="5" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>名称</td>
+        <td>简称</td>
+        <td>类型</td>
+        <td>ID</td>
+        <td>版本</td>
+        <td>大小</td>
+        <td>下载地址</td>
+        <td>更新时间</td>
+        <td>描述</td>
+      </tr>
+      <tr>
+        <td>app名称</td>
+        <td>app简称</td>
+        <td>app类型</td>
+        <td>appID</td>
+        <td>app版本</td>
+        <td>app大小</td>
+        <td>app下载地址</td>
+        <td>app更新时间</td>
+        <td>app描述</td>
+      </tr>
+    </table>
+	</div>
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  init();
+		});
+
+
+		function init(){
+		  // 获取app下载信息
+      // asn : appShortName   string   app名缩写  例如 jysd
+      // at: appType  string   app类型  例如 android   或  IOS
+      // adlid: adlid int app信息ID
+      // an：appName String app名称
+      // asn：appShortName String app简称
+      // at：appType String app类型  android  IOS
+      // alu：applogoUrl String app logo URL
+      // ver：version String app版本
+      // as：appSize String app大小
+      // dlu：downLoadUrl String app下载地址
+      // ad：appDesc String app描述
+      // qc：QRCode String app二维码
+      // wu：WebUrl String web页地址
+      // ut：UpdateTime String app更新时间
+
+
+
+      $.ajax({
+        type: 'get',
+        url: Common.globalDistUrl()+'/comm/GetAppDownLoadList.do',
+        success: function(data) {
+            //alert('wxscan:' + JSON.stringify(data));
+            if (data.c == 1000) {
+              console.log(data);
+              var html = '<table border="5" cellspacing="0" cellpadding="0"><tr><td>ID</td><td>名称</td><td>简称</td><td>类型</td><td>版本</td><td>大小</td><td>二维码</td><td>更新时间</td></tr>';
+              console.log(html);
+              for (var i = 0; i <= data.al.length-1; i++) {
+                html += '<tr><td>'+data.al[i].adlid+'</td><td>'+data.al[i].an+'</td><td>'+data.al[i].asn+'</td><td>'+data.al[i].at+'</td><td>'+data.al[i].ver+'</td><td>'+data.al[i].as+' M</td><td><a href="'+data.al[i].qc+'">'+data.al[i].qc+'</a></td><td>'+formatDate(data.al[i].ut)+'</td></tr>'
+              }
+              $('.wrap').html(html);
+              console.log(html);
+            }
+        },
+        error: function() {
+            alert('系统开了小差，请刷新页面');
+        }
+      });
+
+		}
+
+		// 显示时间格式
+		function formatDate(now)   {  
+      var year = new Date(now).getFullYear();
+      var month = new Date(now).getMonth()+1;     
+      var date =new Date(now).getDate();     
+      return year+'-'+month+"-"+date;     
+    }     
+
+    var d=new Date();     
+    console.log(formatDate(d)); 
+
+		
+	</script>
+</body>
+</html>

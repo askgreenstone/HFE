@@ -311,7 +311,7 @@ var Dynamic = React.createClass({
     }
     // console.log(descArr);
     var lawyerArr = descArr?descArr.slice(0,3):[];
-    console.log(lawyerArr.join(" "));
+    // console.log(lawyerArr.join(" "));
     return lawyerArr.join(" ");
   },
   gotoConsult:function(){
@@ -387,6 +387,30 @@ var Dynamic = React.createClass({
       $('#audioPlay')[0].pause();
       /* Act on the event */
     });
+    videoPlay.setAttribute('controls','controls');
+    videoPlay.setAttribute('x5-video-player-type','h5');
+    videoPlay.setAttribute('x5-video-player-fullscreen','true');
+    videoPlay.setAttribute('webkit-playsinline','true');
+    videoPlay.setAttribute('x-webkit-airplay','true');
+    videoPlay.setAttribute('playsinline','true');
+    videoPlay.setAttribute("x5-video-orientation", "landscape|portrait");
+
+
+    // 解决ios添加video以后页面滚动问题
+
+      var el=document.getElementById('dynamic_top');
+      var scrollStartPos=0;
+
+      document.getElementById('dynamic_top').addEventListener("touchstart", function(event) {
+        console.log(event);
+        scrollStartPos=this.scrollTop+event.touches[0].pageY;
+        event.preventDefault();
+      },false);
+
+      document.getElementById('dynamic_top').addEventListener("touchmove", function(event) {
+        this.scrollTop=scrollStartPos-event.touches[0].pageY;
+        event.preventDefault();
+      },false);
   },
   componentWillMount:function(){
     document.title = '';
@@ -463,7 +487,7 @@ var Dynamic = React.createClass({
     }.bind(this));
     return (
       <div className="dynamic_contaniner">
-        <div className="dynamic_top">
+        <div className="dynamic_top" id="dynamic_top">
           <div className="dynamic_exp">
             <div className="dynamic_exp_content">
               <div className="dynamic_exp_title">{this.state.expTitle}</div>
