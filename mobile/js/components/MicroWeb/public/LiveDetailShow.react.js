@@ -65,6 +65,9 @@ var LiveDetailShow = React.createClass({
             ShareImg: data.ll[0].sp,
             shareData: data.ll
           })
+          if(data.ll[0].ls == 2){
+            $('.live_detail_question_text').show();
+          }
         }
       }.bind(this),
       error: function(data) {
@@ -212,6 +215,9 @@ var LiveDetailShow = React.createClass({
       // 2017年3月30日14:41  暂时隐藏下载app入口
       // $('.live_detail_list_edit_box').show();
       this.addLiveWatchNum();
+      // 解决安卓手机固定定位会悬浮在播放器上层的问题
+      console.log('此时提问框被隐藏')
+      $('.live_detail_question_text').hide();
     }
     $('.live_detail_play').hide();
     $('.live_detail_shadow').hide();
@@ -233,6 +239,9 @@ var LiveDetailShow = React.createClass({
         $('.live_detail_play_play').show().parent().show();
         that.gotoDetail(data);
       });
+      // 安卓手机点击返回操作重新显示提问框
+      console.log('此时提问框被重新显示')
+      $('.live_detail_question_text').hide();
     }
     player.on("ended", function() {
       that.showAlert('播放结束！',function(){
