@@ -401,16 +401,22 @@ var Dynamic = React.createClass({
       var el=document.getElementById('dynamic_top');
       var scrollStartPos=0;
 
-      document.getElementById('dynamic_top').addEventListener("touchstart", function(event) {
-        console.log(event);
-        scrollStartPos=this.scrollTop+event.touches[0].pageY;
-        event.preventDefault();
-      },false);
+      // console.log($('#videoPlay').attr('src'));
+      // console.log(this.isIOS());
+      // 苹果手机视频滑不下来问题处理
+      // if(this.isIOS() && $('#videoPlay').attr('src')){
+      //   document.getElementById('dynamic_top').addEventListener("touchstart", function(event) {
+      //     // console.log(event);
+      //     scrollStartPos=this.scrollTop+event.touches[0].pageY;
+      //     event.preventDefault();
+      //   },false);
 
-      document.getElementById('dynamic_top').addEventListener("touchmove", function(event) {
-        this.scrollTop=scrollStartPos-event.touches[0].pageY;
-        event.preventDefault();
-      },false);
+      //   document.getElementById('dynamic_top').addEventListener("touchmove", function(event) {
+      //     this.scrollTop=scrollStartPos-event.touches[0].pageY;
+      //     event.preventDefault();
+      //   },false);
+      // }
+      
   },
   componentWillMount:function(){
     document.title = '';
@@ -504,7 +510,7 @@ var Dynamic = React.createClass({
                 <image src="image/voice.png" width="10%" />
                 <audio id="audioPlay" width="90%" controls="controls" height="100" src={this.state.acn?global.img+this.state.acn:"http://t-transfer.green-stone.cn/audio_20160914145701.mp3"}></audio>
               </div>
-              <div className="dynamic_audio" style={{display:this.state.vcn?'block':'none'}}>
+              <div className="dynamic_audio" id={this.state.vcn?'dynamic_video':'dynamic_audio'} style={{display:this.state.vcn?'block':'none'}}>
                 <video id="videoPlay" width="100%" controls="controls" webkit-playsinline="true" playsinline="true" poster={this.state.vp?global.img+this.state.vp:"http://transfer.green-stone.cn/zaixianfalvxuanchuan20170829_W900_H500_S48.jpg"} src={this.state.vcn?global.img+this.state.vcn:"http://videolive.green-stone.cn/video/livee16588103.m3u8"} ></video>
               </div>
               <div className="newContent">

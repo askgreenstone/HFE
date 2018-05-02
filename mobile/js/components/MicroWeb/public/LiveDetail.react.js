@@ -237,6 +237,7 @@ var LiveDetail = React.createClass({
   },
   liveVideoShow: function(data){
     console.log(data);
+    console.log(this.isAndroid());
     var source = data.ls==3?data.va:data.la;
     // 设置微信title（苹果手机）
     var $body = $('body')
@@ -248,6 +249,7 @@ var LiveDetail = React.createClass({
       }, 0)
     }).appendTo($body);
     var arr = [];
+    // 点播视频
     if(data.ls == 3){
       if(!this.state.userSession && data.ife == 2){
         arr = []
@@ -256,8 +258,9 @@ var LiveDetail = React.createClass({
               {name:"bigPlayButton", align:"cc", x:30, y:80},
               {name:"controlBar", align:"blabs", x:0, y:50,
                   children: [
-                      {name:"progress", align:"tlabs", x: 0, y:0},
+                      {name:"progress", align:"tlabs", x: 15, y:-10},
                       {name:"playButton", align:"tl", x:15, y:26},
+                      {name:"fullScreenButton", align:"tr", x:20, y:25},
                       {name:"timeDisplay", align:"tl", x:10, y:24}
                   ]
               }
@@ -265,41 +268,76 @@ var LiveDetail = React.createClass({
       }
       $('.live_detail_list_edit_box').hide();
     }else{
+      // 直播视频
+      // 直播增加进度条，时间，全屏按钮
+      // arr = [
+      //         {name:"bigPlayButton", align:"cc", x:30, y:80},
+      //           {name: "H5Loading", align: "cc"},
+      //           {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
+      //           {name: "infoDisplay", align: "cc"},
+      //           {name:"controlBar", align:"blabs", x:0, y:0,
+      //               children: [
+      //                   {name:"progress", align:"tlabs", x: 0, y:0},
+      //                   {name:"playButton", align:"tl", x:15, y:26},
+      //                   {name:"timeDisplay", align:"tl", x:10, y:24},
+      //                   {name:"fullScreenButton", align:"tr", x:20, y:25},
+      //                   {name:"volume", align:"tr", x:20, y:25},
+      //                   {name:"streamButton", align:"tr",x:10, y:23},
+      //                   {name:"speedButton", align:"tr",x:10, y:23},
+      //                   {name: "snapshot", align: "tr", x: 20, y: 25}
+
+      //               ]
+      //           }
+      //       ];
       arr = [];
       // 2017年3月30日14:41  暂时隐藏下载app入口
       // $('.live_detail_list_edit_box').show();
       this.addLiveWatchNum();
-      // 解决安卓手机固定定位会悬浮在播放器上层的问题
-      console.log('此时提问框被隐藏')
-      $('.live_detail_question_text').hide();
     }
     $('.live_detail_play').hide();
     $('.live_detail_shadow').hide();
+    // ios改为小屏操作
+    // if(this.isIOS()){
+    //   $('.live_detail_bg').hide();
+    //   $('.live_list_top_content').hide();
+    // }else{
+    //   // 解决安卓手机固定定位会悬浮在播放器上层的问题
+    //   console.log('此时提问框被隐藏')
+    //   $('.live_detail_question_text').hide();
+    // }
+    console.log('此时提问框被隐藏')
+    $('.live_detail_question_text').hide();
+    
     var player = new prismplayer({
             id: "J_prismPlayer", // 容器id
             source: source,// 视频地址
             autoplay: true,    //自动播放：否
             width: "100%",       // 播放器宽度
-            height: "100%",      // 播放器高度
+            height: "102%",      // 播放器高度
             skinLayout: arr
         });
     player.play();
     var that = this;
     if(data.ls ==2){
       // alert('直播！')
-      player.on("pause", function() {
-        player.setPlayerSize('1px','1px');
-        $('.live_detail_list_edit_box').hide();
-        $('.live_detail_play_play').show().parent().show();
-        if(!that.state.userSession && data.ife == 2){
-          that.gotoDetail(data,ife);
-        }else{
-          that.gotoDetail(data);
-        }
-      });
-      // 安卓手机点击返回操作重新显示提问框
-      console.log('此时提问框被重新显示')
-      $('.live_detail_question_text').hide();
+      // ios不进行任何操作，安卓暂停
+      if(that.isAndroid()){
+        player.on("pause", function() {
+          player.setPlayerSize('1px','1px');
+          $('.live_detail_list_edit_box').hide();
+          $('.live_detail_play_play').show().parent().show();
+          if(!that.state.userSession && data.ife == 2){
+            that.gotoDetail(data,ife);
+          }else{
+            that.gotoDetail(data);
+          }
+        });
+        // 安卓手机点击返回操作重新显示提问框
+        console.log('此时提问框被重新显示')
+        $('.live_detail_question_text').hide();
+      }
+      
+      
     }
     player.on("ended", function() {
       that.showAlert('播放结束！',function(){
@@ -602,6 +640,7 @@ var LiveDetail = React.createClass({
       this.showAlert('您已经是会员了！')
     }
     var timer = null;
+    // 解决iOS输入框杯键盘挡住的问题
     $('.live_detail_text').on('focus', function() {
         clearInterval(timer);
         var index = 0;

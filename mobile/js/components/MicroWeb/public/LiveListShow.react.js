@@ -1,4 +1,5 @@
 var React = require('react');
+var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var CommonMixin = require('../../Mixin');
 
@@ -9,8 +10,32 @@ var LiveListShow = React.createClass({
     return {
       ListData:[],
       pageNum: 0,
-      getMoreList: false
+      getMoreList: false,
+      ShareTitile: '直播列表分享',
+      ShareDesc: '精彩直播定期推出',
+      ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png'
     };
+  },
+  // 获取微信分享封面图
+  getDeptInfo: function(){
+    var ownUri = this.getUrlParams('ownUri').replace('e','');
+    $.ajax({
+      type: 'get',
+      url: global.url+'/exp/ExpertInfo.do?ei='+ownUri,
+      success: function(data) {
+        // console.log(data);
+        if(data.c == 1000){
+          this.setState({
+            ShareImg: data.cl,
+            ShareTitile: data.cn+'开直播课了'
+          })
+        }
+      }.bind(this),
+      error: function(data) {
+          // console.log(data);
+        this.showRefresh('系统开了小差，请刷新页面');
+      }.bind(this)
+    })
   },
   // 跳转到直播详情页面
   gotoLiveDetailShow: function(ldid){
@@ -61,6 +86,7 @@ var LiveListShow = React.createClass({
   },
   componentWillMount: function(){
     this.getLiveDetailNoList();
+    this.getDeptInfo();
   },
   render:function(){
     console.log(this.state.ListData);
@@ -94,6 +120,7 @@ var LiveListShow = React.createClass({
             </div>
           </ul>
           <Message/>
+          <Share title={this.state.ShareTitile} desc={this.state.ShareDesc} imgUrl={global.img+this.state.ShareImg} target="LiveListShow"/>
         </div> 
     );
   }

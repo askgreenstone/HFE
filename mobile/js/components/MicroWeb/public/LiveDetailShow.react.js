@@ -202,8 +202,9 @@ var LiveDetailShow = React.createClass({
               {name:"bigPlayButton", align:"cc", x:30, y:80},
               {name:"controlBar", align:"blabs", x:0, y:50,
                   children: [
-                      {name:"progress", align:"tlabs", x: 0, y:0},
+                      {name:"progress", align:"tlabs", x: 15, y:-10},
                       {name:"playButton", align:"tl", x:15, y:26},
+                      {name:"fullScreenButton", align:"tr", x:20, y:25},
                       {name:"timeDisplay", align:"tl", x:10, y:24}
                   ]
               }
@@ -226,7 +227,7 @@ var LiveDetailShow = React.createClass({
             source: source,// 视频地址
             autoplay: true,    //自动播放：否
             width: "100%",       // 播放器宽度
-            height: "100%",      // 播放器高度
+            height: "102%",      // 播放器高度
             skinLayout: arr
         });
     player.play();
