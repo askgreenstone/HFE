@@ -106,12 +106,15 @@ var SearchLawyers = require('./components/MicroWeb/public/SearchLawyers.react');
 var LiveList = require('./components/MicroWeb/public/LiveList.react');
 // 直播详情
 var LiveDetail = require('./components/MicroWeb/public/LiveDetail.react');
-// 创建我的直播
+// 公众号直播列表
 var LiveListShow = require('./components/MicroWeb/public/LiveListShow.react');
-// 播放器页面
+// 公众号直播详情
 var LiveDetailShow = require('./components/MicroWeb/public/LiveDetailShow.react');
 // 开通会员
 var MemberLogin = require('./components/MicroWeb/public/MemberLogin.react');
+
+// 打开百度文档
+var BaiduDocView = require('./components/MicroWeb/public/BaiduDocView.react');
 
 
 //定义路由：https://github.com/rackt/react-router
@@ -165,6 +168,7 @@ ReactDOM.render((
     <Route path="/LiveListShow" component={LiveListShow}/>
     <Route path="/LiveDetailShow" component={LiveDetailShow}/>
     <Route path="/MemberLogin" component={MemberLogin}/>
+    <Route path="/BaiduDocView" component={BaiduDocView}/>
     <Route path="/share" component={Share}/>
     <Route path="/board" component={Board}/>
     <Route path="/empty" component={Empty}/>

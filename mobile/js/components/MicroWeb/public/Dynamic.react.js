@@ -1,4 +1,5 @@
 var React = require('react');
+var wx = require('weixin-js-sdk');
 var CommonMixin = require('../../Mixin');
 var ImgList = require('../../layout/ImgList.react')
 var Share = require('../../common/Share.react');
@@ -416,7 +417,26 @@ var Dynamic = React.createClass({
       //     event.preventDefault();
       //   },false);
       // }
-      
+    
+
+    // 微信点击图片放大
+    console.log($('.dynamic_exp_imgs'));
+    $('.newContent').on('click','img',function(event) {
+      event.preventDefault();
+      // console.log(this);
+      var src = $(this).data('original');
+      var photoLists = [];
+      for (var i = 0; i <= $('.newContent img').length - 1; i++) {
+        photoLists.push($($('.newContent img')[i]).data('original'))
+      }
+      // console.log(photoLists);
+      wx.ready(function() {
+          wx.previewImage({
+              current: src, // 当前显示图片的http链接
+              urls: photoLists // 需要预览的图片http链接列表
+          });
+      });
+    });
   },
   componentWillMount:function(){
     document.title = '';
@@ -510,7 +530,7 @@ var Dynamic = React.createClass({
                 <image src="image/voice.png" width="10%" />
                 <audio id="audioPlay" width="90%" controls="controls" height="100" src={this.state.acn?global.img+this.state.acn:"http://t-transfer.green-stone.cn/audio_20160914145701.mp3"}></audio>
               </div>
-              <div className="dynamic_audio" id={this.state.vcn?'dynamic_video':'dynamic_audio'} style={{display:this.state.vcn?'block':'none'}}>
+              <div className="dynamic_audio" style={{display:this.state.vcn?'block':'none'}}>
                 <video id="videoPlay" width="100%" controls="controls" webkit-playsinline="true" playsinline="true" poster={this.state.vp?global.img+this.state.vp:"http://transfer.green-stone.cn/zaixianfalvxuanchuan20170829_W900_H500_S48.jpg"} src={this.state.vcn?global.img+this.state.vcn:"http://videolive.green-stone.cn/video/livee16588103.m3u8"} ></video>
               </div>
               <div className="newContent">
