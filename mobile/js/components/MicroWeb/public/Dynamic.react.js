@@ -430,6 +430,7 @@ var Dynamic = React.createClass({
         photoLists.push($($('.newContent img')[i]).data('original'))
       }
       // console.log(photoLists);
+
       wx.ready(function() {
           wx.previewImage({
               current: src, // 当前显示图片的http链接
@@ -437,6 +438,8 @@ var Dynamic = React.createClass({
           });
       });
     });
+    // 取消安卓手机点击图片放大默认事件
+    $(document).on('click', 'img', e => { e.preventDefault(); })
   },
   componentWillMount:function(){
     document.title = '';

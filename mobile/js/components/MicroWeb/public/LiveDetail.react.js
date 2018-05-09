@@ -28,7 +28,9 @@ var LiveDetail = React.createClass({
       messageCodeFlag: true,      //发送短信验证码
       time: 60,
       doubleClickFlag: true,
-      userSession: ''
+      userSession: '',
+      openBaiduOfficeText: '打开',
+      openBaiduOfficeFlag: true    //打开百度文档，隐藏其他模块
     };
   },
   getLiveListPic: function(){
@@ -275,27 +277,6 @@ var LiveDetail = React.createClass({
       }
       $('.live_detail_list_edit_box').hide();
     }else{
-      // 直播视频
-      // 直播增加进度条，时间，全屏按钮
-      // arr = [
-      //         {name:"bigPlayButton", align:"cc", x:30, y:80},
-      //           {name: "H5Loading", align: "cc"},
-      //           {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
-      //           {name: "infoDisplay", align: "cc"},
-      //           {name:"controlBar", align:"blabs", x:0, y:0,
-      //               children: [
-      //                   {name:"progress", align:"tlabs", x: 0, y:0},
-      //                   {name:"playButton", align:"tl", x:15, y:26},
-      //                   {name:"timeDisplay", align:"tl", x:10, y:24},
-      //                   {name:"fullScreenButton", align:"tr", x:20, y:25},
-      //                   {name:"volume", align:"tr", x:20, y:25},
-      //                   {name:"streamButton", align:"tr",x:10, y:23},
-      //                   {name:"speedButton", align:"tr",x:10, y:23},
-      //                   {name: "snapshot", align: "tr", x: 20, y: 25}
-
-      //               ]
-      //           }
-      //       ];
       arr = [];
       isLive = true;
       // 2017年3月30日14:41  暂时隐藏下载app入口
@@ -304,26 +285,18 @@ var LiveDetail = React.createClass({
     }
     $('.live_detail_play').hide();
     $('.live_detail_shadow').hide();
-    // ios改为小屏操作
-    // if(this.isIOS()){
-    //   $('.live_detail_bg').hide();
-    //   $('.live_list_top_content').hide();
-    // }else{
-    //   // 解决安卓手机固定定位会悬浮在播放器上层的问题
-    //   console.log('此时提问框被隐藏')
-    //   $('.live_detail_question_text').hide();
-    // }
+    // 解决安卓手机固定定位会悬浮在播放器上层的问题
     console.log('此时提问框被隐藏')
     $('.live_detail_question_text').hide();
     // 获取屏幕宽高
-    var height = screen.height+'px';
+    var height = this.isIOS()?(screen.height-50+'px'):(screen.height-100+'px');
     var width = screen.width+'px';
     var player = new prismplayer({
             id: "J_prismPlayer", // 容器id
             source: source,// 视频地址
             autoplay: false,    //自动播放：否
-            width: "100%",       // 播放器宽度
-            height: "102%",      // 播放器高度
+            width: width,       // 播放器宽度
+            height: height,      // 播放器高度
             skinLayout: arr,     //播放器组件（开始，暂停，音量，时间，全屏）
             isLive: isLive,       //是否为直播状态
             qualitySort: 'desc'     //desc表示按倒序排序（即：从大到小排序）asc表示按正序排序（即：从大到小排序）。
@@ -348,20 +321,20 @@ var LiveDetail = React.createClass({
         console.log('此时提问框被重新显示')
         $('.live_detail_question_text').hide();
       }
-      
-      
     }
 
     // 修复iOS手机横屏效果
     if(that.isIOS()){
       var height = screen.height+'px';
+      var height2 = screen.height-50+'px';
       var width = screen.width+'px';
+      var width2 = screen.width-50+'px';
       window.addEventListener('orientationchange', function(event){
         if(window.orientation == 90 || window.orientation == -90 ) {
-          player.setPlayerSize(height,width);
+          player.setPlayerSize(height,width2);
         }
         if(window.orientation == 180 || window.orientation == 0){
-          player.setPlayerSize(width,height);
+          player.setPlayerSize(width,height2);
         }
       });
     }
@@ -592,10 +565,57 @@ var LiveDetail = React.createClass({
   // 打开百度文档
   openBaiduOffice: function(bdid){
     // console.log(bdid);
+    // 跳转到新页面无法解决iframe需要点击两次才能返回的问题
     if (!bdid) {
       return;
     }
+    var text = this.state.openBaiduOfficeText;
+    console.log(text);
+    var that = this;
     location.href = '#BaiduDocView?bdid='+bdid;
+    return;
+
+    if(text === '打开'){
+      var docId = bdid.substring(0,bdid.indexOf('_'));
+      // console.log(docId);
+      var option = {
+          docId: docId,
+          token: 'TOKEN',
+          host: 'BCEDOC',
+          width: 600, //文档容器宽度
+          zoom: false,              //是否显示放大缩小按钮
+          zoomStepWidth:200,
+          pn: 1,  //定位到第几页，可选
+          ready: function (handler) {  // 设置字体大小和颜色, 背景颜色（可设置白天黑夜模式）
+              handler.setFontSize(1);
+              handler.setBackgroundColor('#000');
+              handler.setFontColor('#fff');
+          },
+          flip: function (data) {    // 翻页时回调函数, 可供客户进行统计等
+              // console.log(data.pn);
+          },
+          fontSize:'big',
+          toolbarConf: {
+                  page: true, //上下翻页箭头图标
+                  pagenum: true, //几分之几页
+                  full: false, //是否显示全屏图标,点击后全屏
+                  copy: true, //是否可以复制文档内容
+                  position: 'center',// 设置 toolbar中翻页和放大图标的位置(值有left/center)
+          } //文档顶部工具条配置对象,必选
+      };
+      new Document('reader', option); 
+      that.setState({
+        openBaiduOfficeText: '收起',
+        openBaiduOfficeFlag: false
+      })
+    }else if(text === '收起'){
+      $('#reader').hide('slow', function() {
+        that.setState({
+          openBaiduOfficeText: '打开',
+          openBaiduOfficeFlag: true
+        })
+      });
+    }
   },
   componentDidMount: function(){
     $('.live_detail_nav').on('click', 'li', function(event) {
@@ -642,6 +662,7 @@ var LiveDetail = React.createClass({
     // console.log(this.state.liveListPic);
     var idShow = this.getUrlParams('idShow');
     var now  = new Date().getTime();
+    console.log(this.state.openBaiduOfficeFlag);
     // console.log(this.state.ShareTitile);
     // console.log(this.state.ShareDesc);
     // console.log(this.state.ShareImg);
@@ -687,7 +708,8 @@ var LiveDetail = React.createClass({
       	<div key={new Date().getTime()+i}>
       		<div className="live_detail_class" style={{display:item.bdid?"block":"none"}}>
         		<p className="live_detail_introduce_box">课程附件</p>
-        		<div onClick={this.openBaiduOffice.bind(this,item.bdid)}>{item.dn}<span className="live_detail_introduce_box_span">打开</span></div>
+        		<div onClick={this.openBaiduOffice.bind(this,item.bdid)}>{item.dn}<span className="live_detail_introduce_box_span">{this.state.openBaiduOfficeText}</span></div>
+            <div id="reader"></div>
         	</div>
           <div className="live_detail_class">
             <p className="live_detail_introduce_box">课程详情</p>
@@ -726,8 +748,10 @@ var LiveDetail = React.createClass({
     }.bind(this)); 
     return(
         <div className="live_list_box">
-          {FirstDataShow}
-          <ul className="live_detail_nav">
+          <div className="live_detail_top_box" style={{display:this.state.openBaiduOfficeFlag?"block":"none"}}>
+            {FirstDataShow}
+          </div>
+          <ul className="live_detail_nav" style={{display:this.state.openBaiduOfficeFlag?"box":"none"}}>
           	<li className={idShow == 1?"":"live_detail_nav_active"}><span>目录</span><span>.</span></li>
           	<li className={idShow == 1?"live_detail_nav_active":""}><span>介绍</span><span>.</span></li>
           	<li><span>提问</span><span>.</span></li>

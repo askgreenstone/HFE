@@ -19,7 +19,7 @@
     var wapReaderCssUrlV2 = 'static.bcedocument.com/reader/v2/wap/api/api.min.css';
 
     function doError(err) {
-        console.log(err);
+        // console.log(err);
         alert(err);
     }
     function checkCommonOption(option) {
@@ -110,7 +110,7 @@
             option.container = container;
             option.apiUrl = PROTO + wapXReaderUrlV2;
             option.tag = 'opencloud';
-            console.log(option);
+            // console.log(option);
             loadCss(option.CSS_URL);
             loadScript(option.JS_URL);
             window.Wenku=option;
@@ -128,7 +128,7 @@
             option.apiUrl = PROTO + pcXReaderUrlV2;
             option.doc_id = option.docId;
             option.container = container; // 解决pc上的拼写错误
-            console.log(option);
+            // console.log(option);
             loadScript(option.JS_URL);
             window.Wenku = option;
         }
@@ -139,10 +139,10 @@
             option.width = 500;
         }
         if (option.host == "BCEDOC") {
-            console.log("use v2");
+            // console.log("use v2");
             loadV2Document(container, option);
         } else {
-            console.log("use v1");
+            // console.log("use v1");
             loadV1Document(container, option);
         }
     }
