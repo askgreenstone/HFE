@@ -2,6 +2,7 @@ var React = require('react');
 
 var CommonMixin = require('../../Mixin');
 var prismplayer = require('../../common/prism-min.react');
+var CryptoJS = require('../../common/CryptoJS.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 
@@ -357,9 +358,11 @@ var LiveDetailShow = React.createClass({
       this.showAlert('电话号码位数不正确！')
       return;
     };
+    var token = encodeURIComponent(CryptoJS.HmacSHA1('gstonesms'+userTel+'gstone-bu5-rEIqop89NZiJwkqX6Bi1ZW2wEi92','gstonesms').toString(CryptoJS.enc.Base64));
+    console.log(token);
     $.ajax({
       type: 'get',
-      url: global.url+'/comm/Verify.do?pn='+userTel,
+      url: global.url+'/comm/Verify.do?pn='+userTel+'&token='+token,
       success: function(data) {
         // console.log(data);
         if(data.c == 1000){
