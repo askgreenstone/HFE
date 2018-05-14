@@ -30,7 +30,23 @@ var BaiduDocView = React.createClass({
         },
         fontSize:'big'
     };
-    new Document('reader', option); 
+    new Document('reader', option);
+    window.Wenku.userSide = "dulearn"; 
+
+    
+    // 横屏检测
+    var ua = navigator.userAgent.toLowerCase();
+    window.addEventListener('orientationchange', function(event){
+      if ( window.orientation == 180 || window.orientation==0 ) {
+          $('#myapp').css('display','block');
+      }
+      if( window.orientation == 90 || window.orientation == -90 ) {
+          $('#myapp').css('display','none');
+          setTimeout(function(){
+            alert('横屏体验较差，请竖屏查看');
+          },500);
+      }
+    });
   },
   componentDidMount: function(){
     var that = this;

@@ -79,72 +79,64 @@ var LiveDetailShow = React.createClass({
   // 打开百度文档
   openBaiduOffice: function(bdid){
     // console.log(bdid);
-    var text = this.state.openBaiduOfficeText;
+    // alert(bdid)    
     location.href = '#BaiduDocView?bdid='+bdid;
     return;
-    console.log(text);
-    var that = this;
-    if(text === '打开'){
-      var docId = bdid.substring(0,bdid.indexOf('_'));
-      // console.log(docId);
-      var option = {
-          docId: docId,
-          token: 'TOKEN',
-          host: 'BCEDOC',
-          width: 600, //文档容器宽度
-          zoom: false,              //是否显示放大缩小按钮
-          zoomStepWidth:200,
-          pn: 1,  //定位到第几页，可选
-          ready: function (handler) {  // 设置字体大小和颜色, 背景颜色（可设置白天黑夜模式）
-              handler.setFontSize(1);
-              handler.setBackgroundColor('#000');
-              handler.setFontColor('#fff');
-          },
-          flip: function (data) {    // 翻页时回调函数, 可供客户进行统计等
-              // console.log(data.pn);
-          },
-          fontSize:'big',
-          toolbarConf: {
-                  page: true, //上下翻页箭头图标
-                  pagenum: true, //几分之几页
-                  full: false, //是否显示全屏图标,点击后全屏
-                  copy: true, //是否可以复制文档内容
-                  position: 'center',// 设置 toolbar中翻页和放大图标的位置(值有left/center)
-          } //文档顶部工具条配置对象,必选
-      };
-      new Document('reader', option); 
-      $('.live_detail_top_box').hide();
-      $('.live_detail_nav').hide();
-      that.setState({
-        openBaiduOfficeText: '收起'
-      })
-      // 解决打开百度文档页面滚动问题
-
-      // var el=document.getElementById('live_detail_introduce');
-      // console.log(el);
-      // var scrollStartPos=0;
-
-      // document.getElementById('live_detail_introduce').addEventListener("touchstart", function(event) {
-      //   console.log(event);
-      //   event.stopPropagation()
-      //   scrollStartPos=this.scrollTop+event.touches[0].pageY;
-      //   event.preventDefault();
-      // },false);
-
-      // document.getElementById('live_detail_introduce').addEventListener("touchmove", function(event) {
-      //   this.scrollTop=scrollStartPos-event.touches[0].pageY;
-      //   event.stopPropagation()
-      //   event.preventDefault();
-      // },false);
-    }else if(text === '收起'){
-      $('.live_detail_top_box').show();
-      $('.live_detail_nav').show();
-      $('#reader').hide('slow', function() {
-        that.setState({
-          openBaiduOfficeText: '打开'
-        })
-      });
-    }
+    // var text = this.state.openBaiduOfficeText;
+    // console.log(text);
+    // var that = this;
+    // if(text === '打开'){
+    //   var docId = bdid.substring(0,bdid.indexOf('_'));
+    //   // console.log(docId);
+    //   var option = {
+    //       docId: docId,
+    //       token: 'TOKEN',
+    //       host: 'BCEDOC',
+    //       width: 600, //文档容器宽度
+    //       zoom: false,              //是否显示放大缩小按钮
+    //       zoomStepWidth:200,
+    //       pn: 1,  //定位到第几页，可选
+    //       ready: function (handler) {  // 设置字体大小和颜色, 背景颜色（可设置白天黑夜模式）
+    //           handler.setFontSize(1);
+    //           handler.setBackgroundColor('#000');
+    //           handler.setFontColor('#fff');
+    //       },
+    //       flip: function (data) {    // 翻页时回调函数, 可供客户进行统计等
+    //           // console.log(data.pn);
+    //       },
+    //       fontSize:'big',
+    //       toolbarConf: {
+    //               page: true, //上下翻页箭头图标
+    //               pagenum: true, //几分之几页
+    //               full: false, //是否显示全屏图标,点击后全屏
+    //               copy: true, //是否可以复制文档内容
+    //               position: 'center',// 设置 toolbar中翻页和放大图标的位置(值有left/center)
+    //       } //文档顶部工具条配置对象,必选
+    //   };
+    //   new Document('reader', option); 
+    //   console.log(window);
+    //   console.log(window.Wenku);
+    //   window.Wenku.userSide = "dulearn";
+    //   console.log(window.Wenku);
+      
+    //   setTimeout(function(){
+    //     console.log(window.frames["wenku_reader"]);
+    //   },300)
+      
+    //   $('.live_detail_top_box').hide();
+    //   $('.live_detail_nav').hide();
+    //   that.setState({
+    //     openBaiduOfficeText: '收起'
+    //   })
+    // }else if(text === '收起'){
+    //   $('.live_detail_top_box').show();
+    //   $('.live_detail_nav').show();
+    //   $('#reader').hide('slow', function() {
+    //     that.setState({
+    //       openBaiduOfficeText: '打开'
+    //     })
+    //   });
+    // }
     
   },
   postLiveQuestions:function(){
@@ -498,6 +490,13 @@ var LiveDetailShow = React.createClass({
     if(isMember){
       this.showAlert('您已经是会员了！')
     }
+    document.getElementById('live_detail_introduce').addEventListener("click", function(event) {
+      console.log(event);
+      console.log(event.target.tagName);
+      // alert(event.target.tagName.toLowerCase())
+      // scrollStartPos=this.scrollTop+event.touches[0].pageY;
+      event.preventDefault();
+    },false);
   },
   componentWillMount: function(){
     var ldid = this.getUrlParams('ldid');
@@ -538,7 +537,7 @@ var LiveDetailShow = React.createClass({
         <div key={new Date().getTime()+i}>
           <div className="live_detail_class" style={{display:item.bdid?"block":"none"}}>
             <p className="live_detail_introduce_box">课程附件</p>
-            <div onClick={this.openBaiduOffice.bind(this,item.bdid)}>{item.dn}<span className="live_detail_introduce_box_span">{this.state.openBaiduOfficeText}</span></div>
+            <div className="live_detail_openbaiduoffice" onClick={this.openBaiduOffice.bind(this,item.bdid)}>{item.dn}<span className="live_detail_introduce_box_span">{this.state.openBaiduOfficeText}</span></div>
             <div id="reader"></div>
           </div>
           <div className="live_detail_class">
