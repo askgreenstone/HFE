@@ -37,9 +37,17 @@
       }
       #btn{
         width: 60px;
-        display: block;
+        display: inline-block;
         height: 30px;
         line-height: 30px;
+      }
+      #submit{
+        width: 80px;
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        margin-left: 20px;
+        text-align: center;
       }
     </style>
 </head>
@@ -55,10 +63,14 @@
     <p><span>微网站logo：</span><input type="text" name="" placeholder="" id="microLogo"></p>
     <p><span>管理员姓名：</span><input type="text" name="" placeholder="" id="name"></p>
     <p><span>管理员电话：</span><input type="text" name="" placeholder="" id="tel"></p>
-    <p><input type="button" id="btn" value="提交"/></p>
+    <p>
+      <input type="button" id="btn" value="提交"/>
+      <input type="button" id="submit" value="注册律客"/>
+    </p>
   </div>
   <script type="text/javascript" src="jquery.min.js"></script>
   <script type="text/javascript">
+  // 批量注册机构
     var btn = document.getElementById('btn');
     btn.onclick = function(){
       var company = $('#company').val();
@@ -119,7 +131,7 @@
             if(data.c == 1000){
               alert('成功')
             }else{
-              alert('打开控制台看看118行')
+              alert('打开控制台看看130行')
             }
           },
           error:function(){
@@ -128,6 +140,42 @@
         })
       }
     }
+
+
+    // 批量注册律客
+    var submit = document.getElementById('submit');
+    submit.onclick = function(){
+      var address = $('#address').val();
+      if(!address){
+        alert('机构地址不能为空')
+      }else{
+        var data = {
+          add: address
+        }
+        var url = '';
+        if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t-dist')>-1){
+          url = 'http://t-dist.green-stone.cn';
+        }else{
+          url = 'http://dist.green-stone.cn';
+        }
+        $.ajax({
+          type: 'POST',
+          url: url+'/exp/BatchAddExpForLVHe.do',
+          data: JSON.stringify(data),
+          success: function(data){
+            console.log(data);
+            if(data.c == 1000){
+              alert('成功')
+            }else{
+              alert('打开控制台看看166行')
+            }
+          },
+          error:function(){
+            alert('网络连接错误或服务器异常！')
+          }
+        })
+      }
+    }    
   </script>  
 </body>
 
