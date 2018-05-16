@@ -19,7 +19,7 @@ var ImgList = React.createClass({
     var that = this;
     var imgList = this.props.list.map(function(item,i){
     var imgStr = '';
-    // 在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7
+    // 在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8，大成太原传9
     // console.log(this.props.waterMarkFlag);
     // 根据不同机构添加不同水印
     // 需要加密的部分：feedlogo20170118_W42_H38_S4.png?x-oss-process=image/resize,P_10
@@ -35,23 +35,33 @@ var ImgList = React.createClass({
     var gaoduansusong = 'ZmVlZGxvZ28yMDE3MDExOF9XNDJfSDM4X1M0LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEwCg==';
     var dachengxian = 'ZGFjaGVuZ3hpYW5zaHVpeWluMjAxODAzMjhfVzEwOF9IMTA4X1M4LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
     var dachengjinrong = 'ZGFjaGVuZ2ppbnJvbmdzaHVpeWluMjAxODAzMjhfVzEwOF9IMTA4X1MxMi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
-    var jiuhefashang = 'aml1aGVmYXNoYW5nMjAxODA0MDNfVzEwOF9IMTA4X1MzNi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMAo='
+    var jiuhefashang = 'aml1aGVmYXNoYW5nMjAxODA0MDNfVzEwOF9IMTA4X1MzNi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMAo=';
+    var dachengtaiyuan = 'ZGFjaGVuZ3RhaXl1YW4yMDE4MDUxNl9XMzJfSDMyX1M0LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
+    
+    // 图片路径前半段
+    var imgStrBefore = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_';
+    // 图片路径后半段
+    var imgStrAfter = ',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10';
+
+    
     if(this.props.waterMarkFlag === 'onLineLaw'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+onLineLaw+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + onLineLaw + imgStrAfter
     }else if(this.props.waterMarkFlag === 'deHeHeng'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+deHeHeng+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + deHeHeng + imgStrAfter
     }else if(this.props.waterMarkFlag === 'timeRipper'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+timeRipper+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + timeRipper + imgStrAfter
     }else if(this.props.waterMarkFlag === 'jingYingShiDai'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+jingYingShiDai+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + jingYingShiDai + imgStrAfter
     }else if(this.props.waterMarkFlag === 'gaoduansusong'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+gaoduansusong+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + gaoduansusong + imgStrAfter
     }else if(this.props.waterMarkFlag === 'dachengxian'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+dachengxian+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + dachengxian + imgStrAfter
     }else if(this.props.waterMarkFlag === 'dachengjinrong'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+dachengjinrong+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + dachengjinrong + imgStrAfter
     }else if(this.props.waterMarkFlag === 'jiuhefashang'){
-      imgStr = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_'+jiuhefashang+',type_d3F5LXplbmhlaQ,size_20,text_'+this.props.basename+',color_FFFFFF,shadow_0,order_0,align_1,interval_10,t_60,g_se,x_10,y_10'
+      imgStr = imgStrBefore + jiuhefashang + imgStrAfter
+    }else if(this.props.waterMarkFlag === 'dachengtaiyuan'){
+      imgStr = imgStrBefore + dachengtaiyuan + imgStrAfter
     }
 
 

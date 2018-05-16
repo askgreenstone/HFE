@@ -469,7 +469,7 @@ var Dynamic = React.createClass({
     var isFromWhichApp = this.getUrlParams('isFromWhichApp');
     var waterMarkFlag = '';
     // console.log(isFromWhichApp)
-    // isFromWhichApp    在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8
+    // isFromWhichApp    在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8，大成太原传9
     if(isFromWhichApp == 2){
       waterMarkFlag = 'deHeHeng'
     }else if(isFromWhichApp == 3){
@@ -484,6 +484,8 @@ var Dynamic = React.createClass({
       waterMarkFlag = 'dachengjinrong'
     }else if(isFromWhichApp == 8){
       waterMarkFlag = 'jiuhefashang'
+    }else if(isFromWhichApp == 9){
+      waterMarkFlag = 'dachengtaiyuan'
     }else{
       waterMarkFlag = 'onLineLaw'
     }
