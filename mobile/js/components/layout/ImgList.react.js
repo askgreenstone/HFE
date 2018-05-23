@@ -37,7 +37,7 @@ var ImgList = React.createClass({
     var dachengjinrong = 'ZGFjaGVuZ2ppbnJvbmdzaHVpeWluMjAxODAzMjhfVzEwOF9IMTA4X1MxMi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
     var jiuhefashang = 'aml1aGVmYXNoYW5nMjAxODA0MDNfVzEwOF9IMTA4X1MzNi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMAo=';
     var dachengtaiyuan = 'ZGFjaGVuZ3RhaXl1YW4yMDE4MDUxNl9XMzJfSDMyX1M0LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
-    var dachengzhengzhou = 'ZGFjaGVuZ3poZW5nemhvdTIwMTgwNTIyX1cxMDhfSDEwOF9TNC5wbmc/eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+    var dachengzhengzhou = 'ZGFjaGVuZ3poZW5nemhvdTIwMTgwNTIyX1cxMDhfSDEwOF9TNC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
     // 图片路径前半段
     var imgStrBefore = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_';
     // 图片路径后半段
