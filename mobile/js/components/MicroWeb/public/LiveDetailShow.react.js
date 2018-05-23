@@ -205,7 +205,7 @@ var LiveDetailShow = React.createClass({
       }, 0)
     }).appendTo($body);
     var arr = [];
-    var isLive = true;
+    // var isLive = true;
     // 点播视频
     if(data.ls == 3){
       if(!this.state.userSession && data.ife == 2){
@@ -227,7 +227,7 @@ var LiveDetailShow = React.createClass({
                   ]
               }
             ]
-        isLive = false;
+        // isLive = false;
       }
       $('.live_detail_list_edit_box').hide();
     }else{
@@ -251,7 +251,7 @@ var LiveDetailShow = React.createClass({
             width: width,       // 播放器宽度
             height: height,      // 播放器高度
             skinLayout: arr,     //播放器组件（开始，暂停，音量，时间，全屏）
-            isLive: isLive,       //是否为直播状态
+            // isLive: isLive,       //是否为直播状态
             qualitySort: 'desc'     //desc表示按倒序排序（即：从大到小排序）asc表示按正序排序（即：从大到小排序）。
         });
     player.play();

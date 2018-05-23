@@ -251,12 +251,12 @@ var LiveDetail = React.createClass({
       }, 0)
     }).appendTo($body);
     var arr = [];
-    var isLive = true;
+    // var isLive = true;
     // 点播视频
     if(data.ls == 3){
       if(!this.state.userSession && data.ife == 2){
-        arr = [],
-        isLive = false;
+        arr = [];
+        // isLive = false;
       }else{
         arr = [
               {name:"bigPlayButton", align:"cc", x:30, y:80},
@@ -274,12 +274,12 @@ var LiveDetail = React.createClass({
                   ]
               }
             ]
-        isLive = false;
+        // isLive = false;
       }
       $('.live_detail_list_edit_box').hide();
     }else{
       arr = [];
-      isLive = true;
+      // isLive = true;
       // 2017年3月30日14:41  暂时隐藏下载app入口
       // $('.live_detail_list_edit_box').show();
       this.addLiveWatchNum();
@@ -298,9 +298,9 @@ var LiveDetail = React.createClass({
             autoplay: false,    //自动播放：否
             width: width,       // 播放器宽度
             height: height,      // 播放器高度
-            skinLayout: arr,     //播放器组件（开始，暂停，音量，时间，全屏）
-            isLive: isLive,       //是否为直播状态
-            qualitySort: 'desc'     //desc表示按倒序排序（即：从大到小排序）asc表示按正序排序（即：从大到小排序）。
+            skinLayout: arr     //播放器组件（开始，暂停，音量，时间，全屏）
+            // isLive: isLive,       //是否为直播状态
+            // qualitySort: 'desc'     //desc表示按倒序排序（即：从大到小排序）asc表示按正序排序（即：从大到小排序）。
         });
     player.play();
     var that = this;

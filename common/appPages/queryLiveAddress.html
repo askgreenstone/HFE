@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>查询直拨地址</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style type="text/css">
+  	html,body{
+  		width: 100%;
+  		height: 100%;
+  	}
+  	*{
+  		margin: 0;
+  		padding: 0;
+  	}
+  	.wrap{
+  		width: 100%;
+  		height: 100%;
+  		background: #eee;
+      padding-top: 40px;
+  	}
+    .liveTitle,.liveId{
+      width: 200px;
+      height: 40px;
+      line-height: 40px;
+      text-indent: 5px;
+      font-size: 14px;
+      color: #333;
+      display: block;
+      margin: 0 auto 40px;
+    }
+    .query{
+      width: 100px;
+      height: 40px;
+      margin: 40px auto;
+      background: #fff;
+      line-height: 40px;
+      text-align: center;
+      color: #d74218;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .start{
+      width: 200px;
+      height: 40px;
+      margin: 40px auto;
+      background: #fff;
+      line-height: 40px;
+      text-align: center;
+      color: #d74218;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .end{
+      width: 200px;
+      height: 40px;
+      margin: 40px auto;
+      background: #fff;
+      line-height: 40px;
+      text-align: center;
+      color: #d74218;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  	/*适配手机*/
+		@media screen and (max-width: 360px) {
+		  html {
+		    font-size: 62.5%;
+		  }
+		}
+		@media screen and (min-width: 361px) and (max-width: 376px) {
+		  html {
+		    font-size: 66.5%;
+		  }
+		}
+		@media screen and (min-width: 377px) {
+		  html {
+		    font-size: 75.5%;
+		  }
+		}
+
+  </style>
+</head>
+<body>
+	<div class="wrap">
+    <input type="text" name="liveTitle" class="liveTitle" placeholder="直播标题">
+    <div class="query">查询</div>
+    <div class="start">更改直播状态为开始</div>
+    <div class="end">更改直播状态为结束</div>
+	</div>
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+    // 首先获取直播ID
+    var ldid = 0;
+
+		// 查询直播ID
+    $('.query').on('click', function(event) {
+      event.preventDefault();
+      var liveTitle = $('.liveTitle').val();
+      if(!liveTitle){
+        alert('标题不能为空！');
+        return;
+      }
+      var data = {
+         'lt' : liveTitle
+        }
+      console.log(data);
+      $.ajax({
+        type: 'POST',
+        url: Common.globalDistUrl() + 'exp/GetLiveDetailRtmp.do',
+        data: JSON.stringify(data),
+        success: function(data) {
+            //alert( 'success:' + JSON.stringify(data) );
+            console.log(data);
+            if(data.c ==1000){
+              ldid = data.ldid;
+              alert('直播地址：'+data.ra)
+            }
+        },
+        error: function(err) {
+          alert('网络连接错误或服务器异常！');
+        }
+      });
+    });
+
+
+    // 更改直播状态为开始
+    $('.start').on('click', function(event) {
+      event.preventDefault();
+      if(ldid == 0){
+        alert('请先输入直播标题查询直播地址！');
+        return;
+      }
+      var data = {
+         'ldid' : ldid,
+         's' : 2
+        }
+      console.log(data);
+      // 直播状态    s = 2   直播中  s = 3  直播结束
+      if(window.confirm('确定要开始直播么？')){
+        $.ajax({
+          type: 'POST',
+          url: Common.globalDistUrl() + 'exp/UpdateLiveStatus.do',
+          data: JSON.stringify(data),
+          success: function(data) {
+              //alert( 'success:' + JSON.stringify(data) );
+              console.log(data);
+              if(data.c ==1000){
+                alert('直播已开始')
+              }
+          },
+          error: function(err) {
+            alert('网络连接错误或服务器异常！');
+          }
+        }); 
+      }
+      
+    });
+
+
+    // 更改直播状态为结束
+    $('.end').on('click', function(event) {
+      event.preventDefault();
+      if(ldid == 0){
+        alert('请先输入直播标题查询直播地址！');
+        return;
+      }
+      var data = {
+         'ldid' : ldid,
+         's' : 3
+        }
+      console.log(data);
+      // 直播状态    s = 2   直播中  s = 3  直播结束
+      if(window.confirm('确定要结束直播么？')){
+        $.ajax({
+          type: 'POST',
+          url: Common.globalDistUrl() + 'exp/UpdateLiveStatus.do',
+          data: JSON.stringify(data),
+          success: function(data) {
+              //alert( 'success:' + JSON.stringify(data) );
+              console.log(data);
+              if(data.c ==1000){
+                alert('直播已结束')
+              }
+          },
+          error: function(err) {
+            alert('网络连接错误或服务器异常！');
+          }
+        });
+      }
+      
+    });
+
+
+		
+
+
+
+		
+	</script>
+</body>
+</html>
