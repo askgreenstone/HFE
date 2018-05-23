@@ -24,7 +24,7 @@
   		background: #eee;
       padding-top: 40px;
   	}
-    .liveTitle,.liveId{
+    .liveTitle{
       width: 200px;
       height: 40px;
       line-height: 40px;
@@ -33,6 +33,14 @@
       color: #333;
       display: block;
       margin: 0 auto 40px;
+    }
+    .text{
+      width: 300px;
+      height: auto;
+      line-height: 30px;
+      color: #333;
+      word-wrap: break-word;
+      margin: 0 auto;
     }
     .query{
       width: 100px;
@@ -95,6 +103,9 @@
     <div class="query">查询</div>
     <div class="start">更改直播状态为开始</div>
     <div class="end">更改直播状态为结束</div>
+    <p class="text text1"></p>
+    <p class="text text2"></p>
+    <p class="text text3"></p>
 	</div>
 	<script type="text/javascript" src="lib/jquery.min.js"></script>
   <script type="text/javascript" src="js/common.js"></script>
@@ -123,7 +134,10 @@
             console.log(data);
             if(data.c ==1000){
               ldid = data.ldid;
-              alert('直播地址：'+data.ra)
+              // alert('直播地址：'+data.ra)
+              $('.text1').text('直播地址：'+data.ra)
+              $('.text2').text('直播ID：'+data.ldid)
+              $('.text3').text('观看直播人数：'+data.wn)
             }
         },
         error: function(err) {
