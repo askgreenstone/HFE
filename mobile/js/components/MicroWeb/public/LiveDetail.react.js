@@ -670,6 +670,9 @@ var LiveDetail = React.createClass({
     // console.log(this.state.ShareDesc);
     // console.log(this.state.ShareImg);
     // console.log(this.state.ShareLdid);
+    // 所有点播视频不能观看
+    // <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
+
   	var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
@@ -682,7 +685,7 @@ var LiveDetail = React.createClass({
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(ldid == 0?'inline':'none')}}></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 2?'inline':'none')}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 1?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播已结束</span></div>
           <div className="live_detail_shadow live_detail_shadow_logIn" style={{display:this.state.loginFlag?'block':'none'}}>
             <span className="live_detail_shadow_logIn_member">仅限学员观看</span>
             <span className="live_detail_shadow_logIn_memberlogin" onClick={this.gotoDeptMemberLogin}>学员登录</span>

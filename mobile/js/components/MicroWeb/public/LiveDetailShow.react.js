@@ -510,6 +510,9 @@ var LiveDetailShow = React.createClass({
     // console.log(this.state.ShareTitile);
     // console.log(this.state.ShareDesc);
     // console.log(this.state.ShareImg);
+    // 所有点播视频不能观看
+    // <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
+
     var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
@@ -522,7 +525,7 @@ var LiveDetailShow = React.createClass({
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(ldid == 0?'inline':'none')}}></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 2?'inline':'none')}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 1?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播已结束</span></div>
           <div className="live_detail_shadow live_detail_shadow_logIn" style={{display:this.state.loginFlag?'block':'none'}}>
             <span className="live_detail_shadow_logIn_all">开通会员后可观看完整版</span>
             <span className="live_detail_shadow_logIn_pay">年度会员仅需1999元</span>
@@ -575,7 +578,7 @@ var LiveDetailShow = React.createClass({
         <Share key={new Date().getTime()+i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetailShow" ldid={item.ldid?item.ldid:'0'}/>
       )
     }.bind(this)); 
-    console.log(this.state.askQuestionFlag);
+    // console.log(this.state.askQuestionFlag);
     return(
         <div className="live_list_box">
           <div className="live_detail_top_box">
