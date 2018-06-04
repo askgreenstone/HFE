@@ -13,7 +13,7 @@ var LiveDetailShow = React.createClass({
     return {
       FirstData: [],
       QuestionList: [],
-      askQuestionFlag: true,  //是否可以进行提问data.ls为2即正在直播时可以进行提问，其余情况都不可以
+      askQuestionFlag: true,  //是否可以进行提问data.ls为1不可以提问，直播点播可以提问
       ShareTitile: '直播详情',
       ShareDesc: '直播详情页面',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png',
@@ -24,6 +24,9 @@ var LiveDetailShow = React.createClass({
       messageCodeFlag: true,      //发送短信验证码
       time: 60,
       userSession: '',
+      niceNumber: 0,     //点赞人数
+      readNumber: 0,     //已观看人数
+      liveDetailMarkFlag: true,   //遮罩层，打开页面默认打开
       openBaiduOfficeText: '打开'   //打开百度文档
     };
   },
@@ -51,6 +54,13 @@ var LiveDetailShow = React.createClass({
     var ldid = this.getUrlParams('ldid');
     // 新增ip字段，区分直播公开，私有（微信端没有授权，所以只展示公开课程）乔凡：2017.04.26
     // ip=1表示公开   ip=2表示内部
+    // pn   点赞数
+    // deptLiveInfo.put("dl", dr.GetString("deptLogo")); //机构logo
+    // deptLiveInfo.put("dll", dr.GetString("deptLiveLogo")); //机构直播横版logo
+    // deptLiveInfo.put("dlp", dr.GetString("deptLivepic")); //机构直播封面
+    // deptLiveInfo.put("dqc", dr.GetString("deptQRCode")); //机构公众号二维码
+    // deptLiveInfo.put("dsn", dr.GetString("deptShortName")); //机构简称
+    // deptLiveInfo.put("ilo", dr.GetInt("isLiveOpen")); //是否公开直播，0 可分享到微信观看，1分享到微信显示“直播结束”
     $.ajax({
       type: 'get',
       url: global.url+'/exp/GetLiveDetailNoList.do?dou='+ownUri+'&ldid='+ldid+'&ip=1',
@@ -58,13 +68,20 @@ var LiveDetailShow = React.createClass({
         console.log(data);
         if(data.c == 1000){
           // livestatus: int 直播状态  1 未直播   2直播中  3直播结束
+          // 遍历dli对象，将需要的字段放入ll中
+          for(var item in data.dli){
+            data.ll[0][item] = data.dli[item]
+          }
+          console.log(data.ll);
           this.setState({
             FirstData:data.ll,
-            askQuestionFlag: data.ll[0].ls == 2?true:false,
+            askQuestionFlag: data.ll[0].ls == 1?false:true,
             ShareTitile: data.ll[0].lt,
             ShareDesc: data.ll[0].sn+'带来关于'+data.ll[0].lt+'的精彩讲课',
             ShareImg: data.ll[0].sp,
-            shareData: data.ll
+            shareData: data.ll,
+            readNumber: data.ll[0].rn,
+            niceNumber: data.ll[0].pn
           })
           if(data.ll[0].ls == 2){
             $('.live_detail_question_text').show();
@@ -76,71 +93,59 @@ var LiveDetailShow = React.createClass({
       }.bind(this)
     })
   },
+  // 关闭遮罩层
+  closeLiveDetailMark: function(){
+    this.setState({
+      liveDetailMarkFlag : false
+    })
+  },
+  // 点赞
+  setPraise: function(){
+    var flag = $('.live_detail_top_content_right').hasClass('live_detail_top_content_right_nice');
+    if(flag){
+      this.showAlert('已经点过赞了！');
+      return;
+    }else{
+      this.setState({
+        niceNumber: this.state.niceNumber+1
+      })
+      var ldid = this.getUrlParams('ldid');
+
+      var data = {
+        ldid: ldid
+      }
+      // ~/exp/AddLivePraiseNum.do   增加点赞数接口    参数 ldid     使用post方式传值
+      $.ajax({
+        type: 'POST',
+        url: global.url+'/exp/AddLivePraiseNum.do',
+        data: JSON.stringify(data),
+        success: function(data) {
+          // console.log(data);
+          if(data.c == 1000){
+            console.log(data);
+            $('.live_detail_top_content_right').addClass('live_detail_top_content_right_nice');
+          }
+        }.bind(this),
+        error: function(data) {
+            // console.log(data);
+            this.showRefresh('系统开了小差，请刷新页面');
+        }.bind(this)
+      })
+    }
+  },
   // 打开百度文档
   openBaiduOffice: function(bdid){
     // console.log(bdid);
-    // alert(bdid)    
+    if (!bdid) {
+      return;
+    } 
     location.href = '#BaiduDocView?bdid='+bdid;
     return;
-    // var text = this.state.openBaiduOfficeText;
-    // console.log(text);
-    // var that = this;
-    // if(text === '打开'){
-    //   var docId = bdid.substring(0,bdid.indexOf('_'));
-    //   // console.log(docId);
-    //   var option = {
-    //       docId: docId,
-    //       token: 'TOKEN',
-    //       host: 'BCEDOC',
-    //       width: 600, //文档容器宽度
-    //       zoom: false,              //是否显示放大缩小按钮
-    //       zoomStepWidth:200,
-    //       pn: 1,  //定位到第几页，可选
-    //       ready: function (handler) {  // 设置字体大小和颜色, 背景颜色（可设置白天黑夜模式）
-    //           handler.setFontSize(1);
-    //           handler.setBackgroundColor('#000');
-    //           handler.setFontColor('#fff');
-    //       },
-    //       flip: function (data) {    // 翻页时回调函数, 可供客户进行统计等
-    //           // console.log(data.pn);
-    //       },
-    //       fontSize:'big',
-    //       toolbarConf: {
-    //               page: true, //上下翻页箭头图标
-    //               pagenum: true, //几分之几页
-    //               full: false, //是否显示全屏图标,点击后全屏
-    //               copy: true, //是否可以复制文档内容
-    //               position: 'center',// 设置 toolbar中翻页和放大图标的位置(值有left/center)
-    //       } //文档顶部工具条配置对象,必选
-    //   };
-    //   new Document('reader', option); 
-    //   console.log(window);
-    //   console.log(window.Wenku);
-    //   window.Wenku.userSide = "dulearn";
-    //   console.log(window.Wenku);
-      
-    //   setTimeout(function(){
-    //     console.log(window.frames["wenku_reader"]);
-    //   },300)
-      
-    //   $('.live_detail_top_box').hide();
-    //   $('.live_detail_nav').hide();
-    //   that.setState({
-    //     openBaiduOfficeText: '收起'
-    //   })
-    // }else if(text === '收起'){
-    //   $('.live_detail_top_box').show();
-    //   $('.live_detail_nav').show();
-    //   $('#reader').hide('slow', function() {
-    //     that.setState({
-    //       openBaiduOfficeText: '打开'
-    //     })
-    //   });
-    // }
-    
   },
   postLiveQuestions:function(){
     var text = $('.live_detail_text').val();
+    var ls = this.state.FirstData[0].ls;
+    console.log(ls);
     if(!text){
       this.showAlert('请输入问题')
       return;
@@ -148,10 +153,12 @@ var LiveDetailShow = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     var ldid = this.getUrlParams('ldid');
     // console.log(this.state.ownUri);
+    // 增加参数   ls   2表示直播提问3表示点播提问
     var data = {
       ldid: ldid,
       lsu: ownUri,
-      qd: text
+      qd: text,
+      ls: ls
     }
     $.ajax({
       type: 'post',
@@ -172,10 +179,11 @@ var LiveDetailShow = React.createClass({
       }.bind(this)
     })
   },
-  addLiveWatchNum: function(){
+  addLiveWatchNum: function(livestatus){
     var ldid = this.getUrlParams('ldid');
     var data = {
-      ldid: ldid
+      ldid: ldid,
+      ls: livestatus
     }
     $.ajax({
       type: 'post',
@@ -184,7 +192,7 @@ var LiveDetailShow = React.createClass({
       success: function(data) {
         // console.log(data);
         if(data.c == 1000){
-          console.log('addLiveWatchNum success!');
+          console.log('addLiveWatchNum success! && livestatus ='+livestatus);
         }
       }.bind(this),
       error: function(data) {
@@ -229,18 +237,16 @@ var LiveDetailShow = React.createClass({
             ]
         // isLive = false;
       }
-      $('.live_detail_list_edit_box').hide();
     }else{
       arr = [];
-      // 2017年3月30日14:41  暂时隐藏下载app入口
-      // $('.live_detail_list_edit_box').show();
-      this.addLiveWatchNum();
       // 解决安卓手机固定定位会悬浮在播放器上层的问题
       console.log('此时提问框被隐藏')
       $('.live_detail_question_text').hide();
     }
     $('.live_detail_play').hide();
     $('.live_detail_shadow').hide();
+    this.addLiveWatchNum(data.ls);
+
     // 获取屏幕宽高
     var height = this.isIOS()?(screen.height-50+'px'):(screen.height-100+'px');
     var width = screen.width+'px';
@@ -262,7 +268,6 @@ var LiveDetailShow = React.createClass({
       if(that.isAndroid()){
         player.on("pause", function() {
           player.setPlayerSize('1px','1px');
-          $('.live_detail_list_edit_box').hide();
           $('.live_detail_play_play').show().parent().show();
           if(!that.state.userSession && data.ife == 2){
             that.gotoDetail(data,ife);
@@ -490,13 +495,6 @@ var LiveDetailShow = React.createClass({
     if(isMember){
       this.showAlert('您已经是会员了！')
     }
-    document.getElementById('live_detail_introduce').addEventListener("click", function(event) {
-      console.log(event);
-      console.log(event.target.tagName);
-      // alert(event.target.tagName.toLowerCase())
-      // scrollStartPos=this.scrollTop+event.touches[0].pageY;
-      event.preventDefault();
-    },false);
   },
   componentWillMount: function(){
     var ldid = this.getUrlParams('ldid');
@@ -512,20 +510,28 @@ var LiveDetailShow = React.createClass({
     // console.log(this.state.ShareImg);
     // 所有点播视频不能观看
     // <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
-
+    // <img className="live_detail_bg" src={global.img+'livenolistpic20180322_W720_H482_S240.jpg'} />
+    console.log(this.state.FirstData);
     var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
-        <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
+        <div className="live_list_top live_detail_top" key={i}>
           <div id="J_prismPlayer" className="prism-player"></div>
-          <img className="live_detail_bg" src={global.img+'livenolistpic20180322_W720_H482_S240.jpg'} />
+          <div className="live_detail_bg_box">
+            <img className="live_detail_bg" src={item.dlp?(global.img+item.dlp):(global.img+'gaoduansusonglivepic20180530_W750_H398_S44.jpg')} />
+            <div className="live_detail_title">{item.lt||'无'}</div>
+            <div className="live_detail_sp"><img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')} /></div>
+            <div className="live_detail_sn"><span className={item.ls==1?'live_detail_sn_teacher':''}>主讲人：{item.sn||'无'}</span><br/><span style={{display:item.ls==1?'none':'inline'}} className="live_detail_sn_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+            <div className="live_detail_dll"><img src={item.dll?(global.img+item.dll):(global.img+'gaoduansusonglivelogo20180530_W162_H77_S8.png')} /></div>
+            <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'感谢观看'))}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+          </div>
           <div className="live_list_top_content live_detail_top_content">
-            <div><span>{item.lt?(item.lt.length>13?item.lt.substring(0,13)+'...':item.lt):'课程介绍'}</span><span className={item.ls == 2?'live_list_live':'live_list_live_no'}>直播中</span></div>
-            <div><span className="live_list_teacher">主讲：<span>{item.sn?item.sn:'无'}</span> <span style={{display:item.sn?'inline':'none'}}>律师</span></span><span>{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'直播时间'}</span></div>
+            <div className="live_detail_top_content_left"><span className="live_detail_top_content_title">{item.lt||'课程标题'}</span><br/><span className="live_detail_top_content_isFree">{item.ife == 1?'公开':'收费'}</span><span className="live_detail_top_content_watchNum" style={{display:item.ls==3?'inline':'none'}}>已观看人数：<span>{this.state.readNumber}</span></span></div>
+            <div className="live_detail_top_content_right" onClick={this.setPraise}><span><span>{this.state.niceNumber}</span>人点赞</span></div>
           </div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(ldid == 0?'inline':'none')}}></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 2?'inline':'none')}}><span className="live_detail_play live_detail_play_play" onClick={this.liveVideoShow.bind(this,item)}>进入直播</span></div>
-          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 1?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播已结束</span></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 0?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+          <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?(item.ilo==0?'inline':'none'):'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/liveDetail/play.png"/></span></div>
           <div className="live_detail_shadow live_detail_shadow_logIn" style={{display:this.state.loginFlag?'block':'none'}}>
             <span className="live_detail_shadow_logIn_all">开通会员后可观看完整版</span>
             <span className="live_detail_shadow_logIn_pay">年度会员仅需1999元</span>
@@ -535,9 +541,20 @@ var LiveDetailShow = React.createClass({
         </div>
        );
     }.bind(this));
+    var LiveDetailMark = this.state.FirstData.map(function(item,i) {
+      return (
+        <div className="live_detail_mark_box" key={i} style={{display:this.state.liveDetailMarkFlag?'block':'none'}}>
+          <div className="live_detail_mark">
+            <div className="live_detail_mark_head">关注{item.dsn||'高端诉讼'}</div>
+            <span className="live_detail_mark_close" onClick={this.closeLiveDetailMark}><img src="image/liveDetail/close.png"/></span>
+            <div className="live_detail_mark_body"><image src={item.dqc?(global.img+item.dqc):(global.img+'gaoduansusongQrcode20180530_W480_H480_S120.png')}/>  </div>
+          </div>
+        </div>
+      )
+    }.bind(this));
     var TeacherDataShow = this.state.FirstData.map(function(item,i){
       return(
-        <div key={new Date().getTime()+i}>
+        <div key={i}>
           <div className="live_detail_class" style={{display:item.bdid?"block":"none"}}>
             <p className="live_detail_introduce_box">课程附件</p>
             <div className="live_detail_openbaiduoffice" onClick={this.openBaiduOffice.bind(this,item.bdid)}>{item.dn}<span className="live_detail_introduce_box_span">{this.state.openBaiduOfficeText}</span></div>
@@ -550,7 +567,7 @@ var LiveDetailShow = React.createClass({
             <div className="live_detail_class">
               <p className="live_detail_introduce_box">讲师介绍</p>
               <img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')}/>
-              <p className="live_detail_introduce_teacher"><span className="teacher_name">{item.sn}</span><span className="teacher_job">律师</span></p>
+              <p className="live_detail_introduce_teacher">主讲人：{item.sn}</p>
               <div>{item.sd}</div>
             </div>
         </div>
@@ -559,7 +576,7 @@ var LiveDetailShow = React.createClass({
     }.bind(this));
     var QuestionListShow = this.state.QuestionList.map(function(item,i){
       return(
-        <li key={new Date().getTime()+i}>
+        <li key={i}>
           <div className="live_detail_question_img">
             <img src={item.qp?(global.img+item.qp):(global.img+'header.jpg')} width="50" height="50"/>
           </div>
@@ -575,18 +592,20 @@ var LiveDetailShow = React.createClass({
     }.bind(this));
     var ShareBox = this.state.shareData.map(function(item,i){
       return(
-        <Share key={new Date().getTime()+i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetailShow" ldid={item.ldid?item.ldid:'0'}/>
+        <Share key={i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetailShow" ldid={item.ldid?item.ldid:'0'}/>
       )
     }.bind(this)); 
     // console.log(this.state.askQuestionFlag);
     return(
         <div className="live_list_box">
+          
+          {LiveDetailMark}
           <div className="live_detail_top_box">
             {FirstDataShow}
           </div>
           <ul className="live_detail_nav">
-            <li className="live_detail_nav_active"><span>介绍</span><span>.</span></li>
-            <li><span>提问</span><span>.</span></li>
+            <li className="live_detail_nav_active"><span>课程介绍</span><span></span></li>
+            <li><span>直播提问</span><span></span></li>
           </ul>
           <div className="live_detail">
             <div id="live_detail_introduce" className="live_detail_introduce live_detail_show_introduce">
@@ -597,8 +616,8 @@ var LiveDetailShow = React.createClass({
                 {QuestionListShow}
               </ul>
               <div className="live_detail_question_text" style={{display:this.state.askQuestionFlag?'box':'none'}}>
-                <input className="live_detail_text" placeholder="请输入文字" type="text"/>
-                <span onClick={this.postLiveQuestions}>提问</span>
+                <div className="live_detail_question_text_box"><input className="live_detail_text" placeholder="请输入文字" type="text"/></div>
+                <div className="live_detail_question_text_que" onClick={this.postLiveQuestions}>提问</div>
               </div>
             </div>
           </div>
@@ -621,14 +640,8 @@ var LiveDetailShow = React.createClass({
               <div className="login_add">还不是会员，<span onClick={this.gotoOpenMember}>现在加入</span></div>
             </div>
           </div>
-          <div className="live_detail_list_edit_box">
-            <div className="live_detail_list_edit">
-              <div className="liveShow_input" onClick={this.gotoDownLoadApp}>
-                打开在线法律App 互动更精彩
-              </div>
-              <div className="liveShow_span">接受</div>
-            </div>
-          </div>
+          
+          
           {ShareBox}
           <Message/>
         </div> 
