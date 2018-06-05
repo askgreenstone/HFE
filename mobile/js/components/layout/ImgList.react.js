@@ -28,16 +28,33 @@ var ImgList = React.createClass({
     // 将结果中的加号”+”替换成中划线“-“;
     // 将结果中的斜杠”/”替换成下划线”_”;
     // 将结果中尾部的“=”号全部保留;
+
+
+    // 在线法律
     var onLineLaw = 'ZmVlZGxvZ28yMDE3MDExOF9XNDJfSDM4X1M0LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEwCg==';
+    // 德和衡
     var deHeHeng = 'ZWNsYXNodWl5aW4yMDE3MDkyMF9XNTBfSDUwX1MyMC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+    // 时间涟漪
     var timeRipper = 'c2hpamlhbmxpYW55aWxvZ28yMDE4MDExN19XODBfSDgwX1M1LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
+    // 菁英时代
     var jingYingShiDai = 'amluZ3lpbmdzaGlkYWkyMDE4MDIwOF9XMTA4X0gxMDhfUzUucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMTA=';
+    // 高端诉讼
     var gaoduansusong = 'Z2FvZHVhbnN1c29uZzIwMTgwNTI4X1cxMDhfSDEwOF9TNC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+    // 大成西安
     var dachengxian = 'ZGFjaGVuZ3hpYW5zaHVpeWluMjAxODAzMjhfVzEwOF9IMTA4X1M4LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
+    // 大成金融
     var dachengjinrong = 'ZGFjaGVuZ2ppbnJvbmdzaHVpeWluMjAxODAzMjhfVzEwOF9IMTA4X1MxMi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+    // 九赫法商
     var jiuhefashang = 'aml1aGVmYXNoYW5nMjAxODA0MDNfVzEwOF9IMTA4X1MzNi5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMAo=';
+    // 大成太原
     var dachengtaiyuan = 'ZGFjaGVuZ3RhaXl1YW4yMDE4MDUxNl9XMzJfSDMyX1M0LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
+    // 大成郑州
     var dachengzhengzhou = 'ZGFjaGVuZ3poZW5nemhvdTIwMTgwNTIyX1cxMDhfSDEwOF9TNC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+    // 莱特法财税
+    var laitefacaishui = 'bGF0c2h1aXlpbmcyMDE4MDYwNV9XMTA4X0gxMDhfUzEyLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
+    
+
+
     // 图片路径前半段
     var imgStrBefore = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_';
     // 图片路径后半段
@@ -64,6 +81,8 @@ var ImgList = React.createClass({
       imgStr = imgStrBefore + dachengtaiyuan + imgStrAfter
     }else if(this.props.waterMarkFlag === 'dachengzhengzhou'){
       imgStr = imgStrBefore + dachengzhengzhou + imgStrAfter
+    }else if(this.props.waterMarkFlag === 'laitefacaishui'){
+      imgStr = imgStrBefore + laitefacaishui + imgStrAfter
     }
 
 

@@ -83,7 +83,7 @@ var LiveDetailShow = React.createClass({
             readNumber: data.ll[0].rn,
             niceNumber: data.ll[0].pn
           })
-          if(data.ll[0].ls == 2){
+          if(data.ll[0].ls != 1){
             $('.live_detail_question_text').show();
           }
         }
@@ -237,6 +237,7 @@ var LiveDetailShow = React.createClass({
             ]
         // isLive = false;
       }
+      $('.live_detail_question_text').hide();
     }else{
       arr = [];
       // 解决安卓手机固定定位会悬浮在播放器上层的问题
@@ -274,11 +275,12 @@ var LiveDetailShow = React.createClass({
           }else{
             that.gotoDetail(data);
           }
+          // 安卓手机点击返回操作重新显示提问框
+          console.log('此时提问框被重新显示')
+          $('.live_detail_question_text').show();
         });
       }
-      // 安卓手机点击返回操作重新显示提问框
-      console.log('此时提问框被重新显示')
-      $('.live_detail_question_text').hide();
+      
     }
 
     // 修复iOS手机横屏效果
@@ -484,7 +486,7 @@ var LiveDetailShow = React.createClass({
     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appid+'&redirect_uri=http%3a%2f%2f'+temp+'.green-stone.cn%2fexp%2fWeiXinWebOAuthForExp.do&response_type=code&scope=snsapi_base&state=livememberpay_'+ownUri+'_'+lid+'_'+ldid+'#wechat_redirect';
   },
   componentDidMount: function(){
-    $('.live_detail_nav').on('click', 'li', function(event) {
+    $('.live_detail_nav_box').on('click', 'li', function(event) {
       event.preventDefault();
       var index = $(this).index();
       // console.log(index);
@@ -522,7 +524,7 @@ var LiveDetailShow = React.createClass({
             <div className="live_detail_sp"><img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')} /></div>
             <div className="live_detail_sn"><span className={item.ls==1?'live_detail_sn_teacher':''}>主讲人：{item.sn||'无'}</span><br/><span style={{display:item.ls==1?'none':'inline'}} className="live_detail_sn_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
             <div className="live_detail_dll"><img src={item.dll?(global.img+item.dll):(global.img+'gaoduansusonglivelogo20180530_W162_H77_S8.png')} /></div>
-            <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'感谢观看'))}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+            <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'直播已结束'))}</span><br/><span style={{display:item.dqc?((item.ls==3&&item.ilo!=0)?'inline':'none'):'none'}} className="live_detail_ls_time">精彩课程关注{item.dsn}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           </div>
           <div className="live_list_top_content live_detail_top_content">
             <div className="live_detail_top_content_left"><span className="live_detail_top_content_title">{item.lt||'课程标题'}</span><br/><span className="live_detail_top_content_isFree">{item.ife == 1?'公开':'收费'}</span><span className="live_detail_top_content_watchNum" style={{display:item.ls==3?'inline':'none'}}>已观看人数：<span>{this.state.readNumber}</span></span></div>
@@ -543,7 +545,7 @@ var LiveDetailShow = React.createClass({
     }.bind(this));
     var LiveDetailMark = this.state.FirstData.map(function(item,i) {
       return (
-        <div className="live_detail_mark_box" key={i} style={{display:this.state.liveDetailMarkFlag?'block':'none'}}>
+        <div className="live_detail_mark_box" key={i} style={{display:item.dqc?(this.state.liveDetailMarkFlag?'block':'none'):'none'}}>
           <div className="live_detail_mark">
             <div className="live_detail_mark_head">关注{item.dsn||'高端诉讼'}</div>
             <span className="live_detail_mark_close" onClick={this.closeLiveDetailMark}><img src="image/liveDetail/close.png"/></span>
@@ -571,7 +573,6 @@ var LiveDetailShow = React.createClass({
               <div>{item.sd}</div>
             </div>
         </div>
-        
        );
     }.bind(this));
     var QuestionListShow = this.state.QuestionList.map(function(item,i){
@@ -594,8 +595,17 @@ var LiveDetailShow = React.createClass({
       return(
         <Share key={i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetailShow" ldid={item.ldid?item.ldid:'0'}/>
       )
-    }.bind(this)); 
+    }.bind(this));
+    var LiveDetailNav = this.state.FirstData.map(function(item,i) {
+      return(
+        <ul className="live_detail_nav" key={i}>
+          <li className="live_detail_nav_active"><span>课程介绍</span><span></span></li>
+          <li><span>{item.ls==2?'直播提问':'评论留言'}</span><span></span></li>
+        </ul>
+      )
+    })
     // console.log(this.state.askQuestionFlag);
+    console.log(this.state.FirstData);
     return(
         <div className="live_list_box">
           
@@ -603,10 +613,9 @@ var LiveDetailShow = React.createClass({
           <div className="live_detail_top_box">
             {FirstDataShow}
           </div>
-          <ul className="live_detail_nav">
-            <li className="live_detail_nav_active"><span>课程介绍</span><span></span></li>
-            <li><span>直播提问</span><span></span></li>
-          </ul>
+          <div className="live_detail_nav_box">
+            {LiveDetailNav}
+          </div>
           <div className="live_detail">
             <div id="live_detail_introduce" className="live_detail_introduce live_detail_show_introduce">
               {TeacherDataShow}

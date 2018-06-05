@@ -11,6 +11,7 @@ var LiveListShow = React.createClass({
       ListData:[],
       pageNum: 0,
       getMoreList: false,
+      isLiveOpen: 0,    //是否能观看回放  ilo=0表示可以
       ShareTitile: '直播列表分享',
       ShareDesc: '精彩直播定期推出',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png'
@@ -58,13 +59,15 @@ var LiveListShow = React.createClass({
           if(data.ll.length<10){
             this.setState({
               getMoreList: false,
-              ListData:this.state.ListData.concat(data.ll)
+              ListData:this.state.ListData.concat(data.ll),
+              isLiveOpen: data.dli.ilo
             })
           }else{
             this.setState({
               getMoreList: true,
               pageNum: this.state.pageNum*1+1,
-              ListData:this.state.ListData.concat(data.ll)
+              ListData:this.state.ListData.concat(data.ll),
+              isLiveOpen: data.dli.ilo
             })
           }
         }
@@ -90,12 +93,16 @@ var LiveListShow = React.createClass({
   },
   render:function(){
     console.log(this.state.ListData);
+    console.log(this.state.isLiveOpen);
     var that = this;
     var  LiveDetailNoList= this.state.ListData.map(function(item,i){
       return(
         <li key={i}  onClick={that.gotoLiveDetailShow.bind(that,item.ldid)}>
           <div className="lawyer_list_logo">
             <img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')} width="45" height="45"/>
+          </div>
+          <div className="lawyer_list_ilo">
+            <img src={that.state.isLiveOpen==0?('image/liveDetail/isliveopen.png'):('image/liveDetail/isliveclose.png')}/>
           </div>
           <div className="lawyer_list_msg LiveDetailNoList_box">
             <div className="lawyer_list_desc LiveDetailNoList_title">

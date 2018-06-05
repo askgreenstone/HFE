@@ -615,7 +615,7 @@ var LiveDetail = React.createClass({
     return;
   },
   componentDidMount: function(){
-    $('.live_detail_nav').on('click', 'li', function(event) {
+    $('.live_detail_nav_box').on('click', 'li', function(event) {
     	event.preventDefault();
     	var index = $(this).index();
     	// console.log(index);
@@ -665,7 +665,7 @@ var LiveDetail = React.createClass({
     // console.log(this.state.ShareLdid);
     // 所有点播视频不能观看
     // <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?'inline':'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/video_on.png"/></span></div>
-
+    console.log(this.state.FirstData);
   	var FirstDataShow = this.state.FirstData.map(function(item,i){
       return(
         <div className="live_list_top live_detail_top" key={new Date().getTime()+i}>
@@ -676,7 +676,7 @@ var LiveDetail = React.createClass({
             <div className="live_detail_sp"><img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')} /></div>
             <div className="live_detail_sn"><span className={item.ls==1?'live_detail_sn_teacher':''}>主讲人：{item.sn||'无'}</span><br/><span style={{display:item.ls==1?'none':'inline'}} className="live_detail_sn_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
             <div className="live_detail_dll"><img src={item.dll?(global.img+item.dll):(global.img+'gaoduansusonglivelogo20180530_W162_H77_S8.png')} /></div>
-            <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'感谢观看'))}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
+            <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'直播已结束'))}</span><br/><span style={{display:item.dqc?((item.ls==3&&item.ilo!=0)?'inline':'none'):'none'}} className="live_detail_ls_time">精彩课程关注{item.dsn||'高端诉讼'}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           </div>
           <div className="live_list_top_content live_detail_top_content">
             <div className="live_detail_top_content_left"><span className="live_detail_top_content_title">{item.lt||'课程标题'}</span><br/><span className="live_detail_top_content_isFree">{item.ife == 1?'公开':'收费'}</span><span className="live_detail_top_content_watchNum" style={{display:item.ls==3?'inline':'none'}}>已观看人数：<span>{this.state.readNumber}</span></span></div>
@@ -697,7 +697,7 @@ var LiveDetail = React.createClass({
     // console.log(len);
     var LiveDetailMark = this.state.FirstData.map(function(item,i) {
       return (
-        <div className="live_detail_mark_box" key={i} style={{display:this.state.liveDetailMarkFlag?'block':'none'}}>
+        <div className="live_detail_mark_box" key={i} style={{display:item.dqc?(this.state.liveDetailMarkFlag?'block':'none'):'none'}}>
           <div className="live_detail_mark">
             <div className="live_detail_mark_head">关注{item.dsn||'高端诉讼'}</div>
             <span className="live_detail_mark_close" onClick={this.closeLiveDetailMark}><img src="image/liveDetail/close.png"/></span>
@@ -762,18 +762,25 @@ var LiveDetail = React.createClass({
       return(
         <Share key={new Date().getTime()+i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetail" ldid={item.ldid?item.ldid:'0'}/>
       )
-    }.bind(this)); 
+    }.bind(this));
+    var LiveDetailNav = this.state.FirstData.map(function(item,i) {
+      return(
+        <ul className="live_detail_nav" key={i}>
+          <li className={idShow == 1?"":"live_detail_nav_active"}><span>课程目录</span><span></span></li>
+          <li className={idShow == 1?"live_detail_nav_active":""}><span>课程介绍</span><span></span></li>
+          <li><span>{item.ls==2?'直播提问':'评论留言'}</span><span></span></li>
+        </ul>
+      )
+    }) 
     return(
         <div className="live_list_box">
           {LiveDetailMark}
           <div className="live_detail_top_box">
             {FirstDataShow}
           </div>
-          <ul className="live_detail_nav">
-          	<li className={idShow == 1?"":"live_detail_nav_active"}><span>课程目录</span><span></span></li>
-          	<li className={idShow == 1?"live_detail_nav_active":""}><span>课程介绍</span><span></span></li>
-          	<li><span>直播提问</span><span></span></li>
-          </ul>
+          <div className="live_detail_nav_box">
+            {LiveDetailNav}
+          </div>
           <div className="live_detail">
             <div className="live_detail_list_box" style={{display:idShow == 1?"none":"block"}}>
               <ul className="live_detail_list">
