@@ -216,17 +216,16 @@ var LiveDetailShow = React.createClass({
     // var isLive = true;
     // 点播视频
     // 判断手机系统是ios还是安卓
-    console.log(this.isIOS());
     if(data.ls == 3){
       if(!this.state.userSession && data.ife == 2){
         arr = []
-      }else if(this.isIOS()){
+      }else{
         arr = [
               {name:"bigPlayButton", align:"cc", x:30, y:80},
               {name: "H5Loading", align: "cc"},
               {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
               {name: "infoDisplay", align: "cc"},
-              {name:"controlBar", align:"blabs", x:0, y:0,
+              {name:"controlBar", align:"blabs", x:0, y:10,
                   children: [
                       {name:"progress", align:"tlabs", x: 0, y:-10},
                       {name:"playButton", align:"tl", x:15, y:26},
@@ -238,23 +237,6 @@ var LiveDetailShow = React.createClass({
               }
             ]
         // isLive = false;
-      }else{
-        arr = [
-              {name:"bigPlayButton", align:"cc", x:30, y:80},
-              {name: "H5Loading", align: "cc"},
-              {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
-              {name: "infoDisplay", align: "cc"},
-              {name:"controlBar", align:"blabs", x:0, y:50,
-                  children: [
-                      {name:"progress", align:"tlabs", x: 0, y:-10},
-                      {name:"playButton", align:"tl", x:15, y:26},
-                      {name:"timeDisplay", align:"tl", x:10, y:24},
-                      {name:"streamButton", align:"tr",x:10, y:23},
-                      {name:"speedButton", align:"tr",x:10, y:23},
-                      {name: "volume", align: "tr", x: 20, y: 25}
-                  ]
-              }
-            ]
       }
       $('.live_detail_question_text').hide();
     }else{
@@ -543,7 +525,7 @@ var LiveDetailShow = React.createClass({
             <div className="live_detail_title">{item.lt||'无'}</div>
             <div className="live_detail_sp"><img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')} /></div>
             <div className="live_detail_sn"><span className={item.ls==1?'live_detail_sn_teacher':''}>主讲人：{item.sn||'无'}</span><br/><span style={{display:item.ls==1?'none':'inline'}} className="live_detail_sn_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-            <div className={item.dll?((item.dll.indexOf("dachengjinrong")>-1)?"live_detail_dll_verticalLogo":"live_detail_dll"):'live_detail_dll'}><img src={item.dll?(global.img+item.dll):(global.img+'zaixianfalvlivelogo20180606_W170_H80_S12.png')} /></div>
+            <div className="live_detail_dll"><img src={item.dll?(global.img+item.dll):(global.img+'zaixianfalvlivelogo20180606_W170_H80_S12.png')} /></div>
             <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'直播已结束'))}</span><br/><span style={{display:item.dqc?((item.ls==3&&item.ilo!=0)?'inline':'none'):'none'}} className="live_detail_ls_time">精彩课程关注{item.dsn}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           </div>
           <div className="live_list_top_content live_detail_top_content">
