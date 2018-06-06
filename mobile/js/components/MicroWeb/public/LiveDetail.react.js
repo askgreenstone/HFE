@@ -300,6 +300,24 @@ var LiveDetail = React.createClass({
       if(!this.state.userSession && data.ife == 2){
         arr = [];
         // isLive = false;
+      }else if(this.isIOS()){
+        arr = [
+              {name:"bigPlayButton", align:"cc", x:30, y:80},
+              {name: "H5Loading", align: "cc"},
+              {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
+              {name: "infoDisplay", align: "cc"},
+              {name:"controlBar", align:"blabs", x:0, y:0,
+                  children: [
+                      {name:"progress", align:"tlabs", x: 0, y:-10},
+                      {name:"playButton", align:"tl", x:15, y:26},
+                      {name:"timeDisplay", align:"tl", x:10, y:24},
+                      {name:"streamButton", align:"tr",x:10, y:23},
+                      {name:"speedButton", align:"tr",x:10, y:23},
+                      {name: "volume", align: "tr", x: 20, y: 25}
+                  ]
+              }
+            ]
+        // isLive = false;
       }else{
         arr = [
               {name:"bigPlayButton", align:"cc", x:30, y:80},
@@ -317,7 +335,6 @@ var LiveDetail = React.createClass({
                   ]
               }
             ]
-        // isLive = false;
       }
     }else{
       arr = [];
