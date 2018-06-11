@@ -30,7 +30,8 @@ var LiveDetail = React.createClass({
       time: 60,
       doubleClickFlag: true,
       userSession: '',
-      readNumber: 0,     //已观看人数
+      watchNumber: 0,     //点播观看人数
+      watchNumber: 0,     //直播观看人数
       niceNumber: 0,       //点赞人数
       liveDetailMarkFlag: true,   //遮罩层，打开页面默认打开
       openBaiduOfficeText: '打开'
@@ -205,6 +206,31 @@ var LiveDetail = React.createClass({
     }
     
   },
+  //查询直拨观看人数 
+  getLiveDetailRtmp: function(liveTitle){
+    var data = {
+         'lt' : liveTitle
+        }
+    console.log(data);
+    var that = this;
+    $.ajax({
+      type: 'POST',
+      url: global.url + '/exp/GetLiveDetailRtmp.do',
+      data: JSON.stringify(data),
+      success: function(data) {
+          //alert( 'success:' + JSON.stringify(data) );
+          console.log(data);
+          if(data.c ==1000){
+            that.setState({
+              watchNumber: data.wn
+            })
+          }
+      },
+      error: function(err) {
+        alert('网络连接错误或服务器异常！');
+      }
+    });
+  },
   getLiveInfo: function(LiveDetailId){
   	var ownUri = this.getUrlParams('ownUri');
   	var lid = this.getUrlParams('lid');
@@ -250,7 +276,7 @@ var LiveDetail = React.createClass({
           if(this.getTheOne(data.ll,livedid)[0].ls == 2){
             $('.live_detail_question_text').show();
           }
-
+          this.getLiveDetailRtmp(this.getTheOne(data.ll,livedid)[0].lt);
           this.getLiveQuestion(livedid);
         }
       }.bind(this),
@@ -659,6 +685,8 @@ var LiveDetail = React.createClass({
     // console.log(this.state.liveListPic);
     var idShow = this.getUrlParams('idShow');
     var now  = new Date().getTime();
+    // console.log('直拨观看人数'+this.state.watchNumber);
+    // console.log('直拨观看人数'+this.state.readNumber);
     // console.log(this.state.ShareTitile);
     // console.log(this.state.ShareDesc);
     // console.log(this.state.ShareImg);
@@ -679,7 +707,7 @@ var LiveDetail = React.createClass({
             <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'直播已结束'))}</span><br/><span style={{display:item.dqc?((item.ls==3&&item.ilo!=0)?'inline':'none'):'none'}} className="live_detail_ls_time">精彩课程关注{item.dsn||'高端诉讼'}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           </div>
           <div className="live_list_top_content live_detail_top_content">
-            <div className="live_detail_top_content_left"><span className="live_detail_top_content_title">{item.lt||'课程标题'}</span><br/><span className="live_detail_top_content_isFree">{item.ife == 1?'公开':'收费'}</span><span className="live_detail_top_content_watchNum" style={{display:item.ls==3?'inline':'none'}}>已观看人数：<span>{this.state.readNumber}</span></span></div>
+            <div className="live_detail_top_content_left"><span className="live_detail_top_content_title">{item.lt||'课程标题'}</span><br/><span className="live_detail_top_content_isFree">{item.ife == 1?'公开':'收费'}</span><span className="live_detail_top_content_watchNum" style={{display:item.ls==1?'none':'inline'}}>已观看人数：<span>{this.state.readNumber+this.state.watchNumber}</span></span></div>
             <div className="live_detail_top_content_right" onClick={this.setPraise}><span><span>{this.state.niceNumber}</span>人点赞</span></div>
           </div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(ldid == 0?'inline':'none')}}></div>
