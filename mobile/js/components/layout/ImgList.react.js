@@ -19,6 +19,8 @@ var ImgList = React.createClass({
     var that = this;
     var imgList = this.props.list.map(function(item,i){
     var imgStr = '';
+
+    // console.log(this.props.waterMarkFlag);
     // 在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8，大成太原传9
     // console.log(this.props.waterMarkFlag);
     // 根据不同机构添加不同水印
@@ -50,10 +52,11 @@ var ImgList = React.createClass({
     var dachengtaiyuan = 'ZGFjaGVuZ3RhaXl1YW4yMDE4MDUxNl9XMzJfSDMyX1M0LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
     // 大成郑州
     var dachengzhengzhou = 'ZGFjaGVuZ3poZW5nemhvdTIwMTgwNTIyX1cxMDhfSDEwOF9TNC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+    // 大成沈阳
+    var dachengshenyang = 'ZGFjaGVuZ3NoZW55YW5nc2h1aXlpbjIwMTgwNjExX1cxMDhfSDEwOF9TNC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
     // 莱特法财税
     var laitefacaishui = 'bGF0c2h1aXlpbmcyMDE4MDYwNV9XMTA4X0gxMDhfUzEyLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
     
-
 
     // 图片路径前半段
     var imgStrBefore = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_';
@@ -81,12 +84,14 @@ var ImgList = React.createClass({
       imgStr = imgStrBefore + dachengtaiyuan + imgStrAfter
     }else if(this.props.waterMarkFlag === 'dachengzhengzhou'){
       imgStr = imgStrBefore + dachengzhengzhou + imgStrAfter
+    }else if(this.props.waterMarkFlag === 'dachengshenyang'){
+      imgStr = imgStrBefore + dachengshenyang + imgStrAfter
     }else if(this.props.waterMarkFlag === 'laitefacaishui'){
       imgStr = imgStrBefore + laitefacaishui + imgStrAfter
     }
 
 
-    // console.log(imgStr);
+    console.log(imgStr);
     if(this.props.showFlag){
       return (
         <img className='lazy' key={new Date().getTime()+i} width={this.props.imgWidth} basename={this.props.basename} src={global.img+item+imgStr} data-original={global.img+item+imgStr} />
