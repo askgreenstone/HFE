@@ -29,7 +29,6 @@ var LiveDetail = React.createClass({
       messageCodeFlag: true,      //发送短信验证码
       time: 60,
       doubleClickFlag: true,
-      userSession: '',
       watchNumber: 0,     //点播观看人数
       watchNumber: 0,     //直播观看人数
       niceNumber: 0,       //点赞人数
@@ -41,11 +40,6 @@ var LiveDetail = React.createClass({
     var ownUri = this.getUrlParams('ownUri');
     var lid = this.getUrlParams('lid');
     var session = this.getUrlParams('session');
-    if(session){
-      this.setState({
-        userSession: session
-      })
-    }
     var url = session?global.url+'/exp/GetLiveListInfo.do?do='+ownUri+'&session='+session:global.url+'/exp/GetLiveListInfo.do?do='+ownUri
     $.ajax({
       type: 'get',
@@ -322,8 +316,9 @@ var LiveDetail = React.createClass({
     var arr = [];
     // var isLive = true;
     // 点播视频
+    var session = this.getUrlParams('session');
     if(data.ls == 3){
-      if(!this.state.userSession && data.ife == 2){
+      if(!session && data.ife == 2){
         arr = [];
         // isLive = false;
       }else{
@@ -377,7 +372,7 @@ var LiveDetail = React.createClass({
         player.on("pause", function() {
           player.setPlayerSize('1px','1px');
           $('.live_detail_play_play').show().parent().show();
-          if(!that.state.userSession && data.ife == 2){
+          if(!session && data.ife == 2){
             that.gotoDetail(data,ife);
           }else{
             that.gotoDetail(data);
@@ -412,7 +407,7 @@ var LiveDetail = React.createClass({
     });
     // 增加ife字段，is-fee : int是否收费（1免费  2收费）乔凡：2017年4月26日
     // 首先判断session
-    if(!this.state.userSession && data.ife == 2){
+    if(!session && data.ife == 2){
       // alert('ife是2');
       setTimeout(function(){
         var ife = 'ife';
@@ -540,8 +535,7 @@ var LiveDetail = React.createClass({
           var that = this;
           that.setState({
             LoginBoxFlag: false,
-            loginFlag: false,
-            userSession: data.session
+            loginFlag: false
           })
           
           // that.checkUserType(data.session);

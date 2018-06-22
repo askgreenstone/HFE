@@ -52,7 +52,7 @@ var LiveListShow = React.createClass({
     // 增加ife字段，is-fee : int是否收费（1免费  2收费）
     $.ajax({
       type: 'get',
-      url: global.url+'/exp/GetLiveDetailNoList.do?dou='+ownUri+'&ldid=0&c=10&ip=1&ife=1&p='+this.state.pageNum,
+      url: global.url+'/exp/GetLiveDetailNoList.do?dou='+ownUri+'&ldid=0&c=10&ip=1&p='+this.state.pageNum,
       success: function(data) {
         console.log(data);
         if(data.c == 1000){

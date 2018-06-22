@@ -23,7 +23,6 @@ var LiveDetailShow = React.createClass({
       LoginBoxFlag: false,
       messageCodeFlag: true,      //发送短信验证码
       time: 60,
-      userSession: '',
       niceNumber: 0,     //点赞人数
       readNumber: 0,     //点播观看人数
       watchNumber: 0,     //直播观看人数
@@ -243,8 +242,9 @@ var LiveDetailShow = React.createClass({
     // var isLive = true;
     // 点播视频
     // 判断手机系统是ios还是安卓
+    var session = this.getUrlParams('session');
     if(data.ls == 3){
-      if(!this.state.userSession && data.ife == 2){
+      if(!session && data.ife == 2){
         arr = []
       }else{
         arr = [
@@ -299,7 +299,7 @@ var LiveDetailShow = React.createClass({
         player.on("pause", function() {
           player.setPlayerSize('1px','1px');
           $('.live_detail_play_play').show().parent().show();
-          if(!that.state.userSession && data.ife == 2){
+          if(!session && data.ife == 2){
             that.gotoDetail(data,ife);
           }else{
             that.gotoDetail(data);
@@ -337,14 +337,14 @@ var LiveDetailShow = React.createClass({
     });
     // 增加ife字段，is-fee : int是否收费（1免费  2收费）乔凡：2017年4月26日
     // 首先判断session
-    if(!this.state.userSession && data.ife == 2){
+    if(!session && data.ife == 2){
       // alert('ife是2');
       setTimeout(function(){
         var ife = 'ife';
         player.pause();
         player.setPlayerSize('1px','1px');
         that.gotoDetail(data,ife);
-      },10000)
+      },180000)
     }
     
   },
@@ -456,8 +456,7 @@ var LiveDetailShow = React.createClass({
           var that = this;
           that.setState({
             LoginBoxFlag: false,
-            loginFlag: false,
-            userSession: data.session
+            loginFlag: false
           })
           that.checkUserType(data.session);
         }
@@ -486,7 +485,7 @@ var LiveDetailShow = React.createClass({
             var ldid = this.state.ldid;
             var that = this;
             this.showAlert('登录成功！',function(){
-              window.location.href =  global.url+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveShow&lid='+lid+'&ldid='+ldid+'&session='+session;
+              window.location.href =  global.url+'/mobile/wxMiddle.html?ownUri='+ownUri+'&target=LiveDetailShow&ldid='+ldid+'&session='+session;
               // window.location.href = 'wxMiddle.html?target=LiveDetail&ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session;
             })
           }
@@ -566,10 +565,8 @@ var LiveDetailShow = React.createClass({
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 0?'inline':'none')}}><span className="live_detail_play live_detail_play_time">直播时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(item.ls == 3?(item.ilo==0?'inline':'none'):'none')}}><span className="live_detail_play live_detail_play_button" onClick={this.liveVideoShow.bind(this,item)}><img src="image/liveDetail/play.png"/></span></div>
           <div className="live_detail_shadow live_detail_shadow_logIn" style={{display:this.state.loginFlag?'block':'none'}}>
-            <span className="live_detail_shadow_logIn_all">开通会员后可观看完整版</span>
-            <span className="live_detail_shadow_logIn_pay">年度会员仅需1999元</span>
-            <span className="live_detail_shadow_logIn_btn" onClick={this.gotoOpenMember}>开通会员</span>
-            <span className="live_detail_shadow_logIn_all">已是会员请继续<i onClick={this.showLoginBox}>登录</i>观看</span>
+            <span className="live_detail_shadow_logIn_member">仅限学员观看</span>
+            <span className="live_detail_shadow_logIn_memberlogin" onClick={this.showLoginBox}>学员登录</span>
           </div>
         </div>
        );
