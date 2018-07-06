@@ -90,6 +90,8 @@ var ImgList = React.createClass({
       imgStr = imgStrBefore + dachengshenyang + imgStrAfter
     }else if(this.props.waterMarkFlag === 'laitefacaishui'){
       imgStr = imgStrBefore + laitefacaishui + imgStrAfter
+    }else if(this.props.waterMarkFlag === 'henanlvshizhijia'){
+      imgStr = imgStrBefore + henanlvshizhijia + imgStrAfter
     }
 
 
