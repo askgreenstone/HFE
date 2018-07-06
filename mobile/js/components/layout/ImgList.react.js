@@ -56,7 +56,9 @@ var ImgList = React.createClass({
     var dachengshenyang = 'ZGFjaGVuZ3NoZW55YW5nc2h1aXlpbjIwMTgwNjExX1cxMDhfSDEwOF9TNC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
     // 莱特法财税
     var laitefacaishui = 'bGF0c2h1aXlpbmcyMDE4MDYwNV9XMTA4X0gxMDhfUzEyLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
-    
+    // 河南律师之家
+    var henanlvshizhijia = 'aGVuYW5sdnNoaXpoaWppYTIwMTgwNzA2X1cxMDhfSDEwOF9TMTIucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMTAK';
+
 
     // 图片路径前半段
     var imgStrBefore = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_';
