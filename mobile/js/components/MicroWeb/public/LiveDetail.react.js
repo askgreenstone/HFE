@@ -752,13 +752,13 @@ var LiveDetail = React.createClass({
         	</div>
           <div className="live_detail_class">
             <p className="live_detail_introduce_box">课程详情</p>
-            <div>{item.ld}</div>
+            <div className="live_detail_introduce_sd"><pre>{item.ld}</pre></div>
           </div>
         	<div className="live_detail_class">
         		<p className="live_detail_introduce_box">讲师介绍</p>
         		<img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')}/>
-        		<p className="live_detail_introduce_teacher"><span className="teacher_name">{item.sn}</span></p>
-        		<div>{item.sd}</div>
+        		<p className="live_detail_introduce_teacher">主讲人：<span className="teacher_name">{item.sn}</span></p>
+        		<div className="live_detail_introduce_sd"><pre>{item.sd}</pre></div>
         	</div>
       	</div>
         
