@@ -13,7 +13,6 @@ var LiveDetailShow = React.createClass({
     return {
       FirstData: [],
       QuestionList: [],
-      askQuestionFlag: true,  //是否可以进行提问data.ls为1不可以提问，直播点播可以提问
       ShareTitile: '直播详情',
       ShareDesc: '直播详情页面',
       ShareImg: 'batchdeptlogo20160811_W108_H108_S15.png',
@@ -100,7 +99,6 @@ var LiveDetailShow = React.createClass({
           console.log(data.ll);
           this.setState({
             FirstData:data.ll,
-            askQuestionFlag: data.ll[0].ls == 1?false:true,
             ShareTitile: data.ll[0].lt,
             ShareDesc: data.ll[0].sn+'带来关于'+data.ll[0].lt+'的精彩讲课',
             ShareImg: data.ll[0].sp,
@@ -632,7 +630,6 @@ var LiveDetailShow = React.createClass({
         </ul>
       )
     })
-    // console.log(this.state.askQuestionFlag);
     console.log(this.state.FirstData);
     return(
         <div className="live_list_box">
@@ -652,7 +649,7 @@ var LiveDetailShow = React.createClass({
               <ul className="live_detail_question_box">
                 {QuestionListShow}
               </ul>
-              <div className="live_detail_question_text" style={{display:this.state.askQuestionFlag?'box':'none'}}>
+              <div className="live_detail_question_text">
                 <div className="live_detail_question_text_box"><input className="live_detail_text" placeholder="请输入文字" type="text"/></div>
                 <div className="live_detail_question_text_que" onClick={this.postLiveQuestions}>提问</div>
               </div>

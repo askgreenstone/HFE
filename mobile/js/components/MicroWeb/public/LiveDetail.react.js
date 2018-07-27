@@ -16,7 +16,6 @@ var LiveDetail = React.createClass({
       FirstData: [],
       ListData: [],
       QuestionList: [],
-      askQuestionFlag: true,  //是否可以进行提问data.ls为1不可以提问，直播点播可以提问
       ldid: 0,
       ShareTitile: '直播详情',
       ShareDesc: '直播详情页面',
@@ -178,8 +177,7 @@ var LiveDetail = React.createClass({
     // console.log(ldid);
     if(ldid == 0 || !ldid){
       this.setState({
-        QuestionList: [],
-        askQuestionFlag: false
+        QuestionList: []
       })
     }else{
       $.ajax({
@@ -258,7 +256,6 @@ var LiveDetail = React.createClass({
             ownUri: this.getTheOne(data.ll,livedid)[0].dou,
             FirstData: this.getTheOne(data.ll,livedid),
             ListData: data.ll,
-            askQuestionFlag: this.getTheOne(data.ll,livedid)[0].ls == 1?false:true,
             ShareTitile: this.getTheOne(data.ll,livedid)[0].lt,
             ShareDesc: this.getTheOne(data.ll,livedid)[0].sn+'带来关于'+this.getTheOne(data.ll,livedid)[0].lt+'的精彩讲课',
             ShareImg: this.getTheOne(data.ll,livedid)[0].sp,
@@ -816,7 +813,7 @@ var LiveDetail = React.createClass({
               <ul className="live_detail_question_box">
                 {QuestionListShow}
               </ul>
-              <div className="live_detail_question_text" style={{display:this.state.askQuestionFlag?'box':'none'}}>
+              <div className="live_detail_question_text">
                 <div className="live_detail_question_text_box"><input className="live_detail_text" placeholder="请输入文字" type="text"/></div>
                 <div className="live_detail_question_text_que" onClick={this.postLiveQuestions}>提问</div>
               </div>
