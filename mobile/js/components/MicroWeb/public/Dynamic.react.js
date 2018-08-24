@@ -469,7 +469,7 @@ var Dynamic = React.createClass({
     var isFromWhichApp = this.getUrlParams('isFromWhichApp');
     var waterMarkFlag = '';
     // console.log(isFromWhichApp)
-    // isFromWhichApp    在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8，大成太原传9，大成郑州传10，大成沈阳传14，莱特法财税传15，河南律师之家传16
+    // isFromWhichApp    在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8，大成太原传9，大成郑州传10，大成沈阳传14，莱特法财税传15，河南律师之家传16，绿石诉讼资助传17
     if(isFromWhichApp == 2){
       waterMarkFlag = 'deHeHeng'
     }else if(isFromWhichApp == 3){
@@ -494,6 +494,8 @@ var Dynamic = React.createClass({
       waterMarkFlag = 'laitefacaishui'
     }else if(isFromWhichApp == 16){
       waterMarkFlag = 'henanlvshizhijia'
+    }else if(isFromWhichApp == 17){
+      waterMarkFlag = 'lvshisuzongzizhu'
     }else{
       waterMarkFlag = 'onLineLaw'
     }

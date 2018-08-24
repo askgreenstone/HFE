@@ -21,7 +21,7 @@ var ImgList = React.createClass({
     var imgStr = '';
 
     // console.log(this.props.waterMarkFlag);
-    // 在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8，大成太原传9
+    // isFromWhichApp    在线法律传1，德和衡传2，时间涟漪传3，菁英时代传4，高端诉讼传5，大成西安传6，大成金融传7，九赫法商传8，大成太原传9，大成郑州传10，大成沈阳传14，莱特法财税传15，河南律师之家传16，绿石诉讼资助传17
     // console.log(this.props.waterMarkFlag);
     // 根据不同机构添加不同水印
     // 需要加密的部分：feedlogo20170118_W42_H38_S4.png?x-oss-process=image/resize,P_10
@@ -58,7 +58,8 @@ var ImgList = React.createClass({
     var laitefacaishui = 'bGF0c2h1aXlpbmcyMDE4MDYwNV9XMTA4X0gxMDhfUzEyLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSxQXzEw';
     // 河南律师之家
     var henanlvshizhijia = 'aGVuYW5sdnNoaXpoaWppYTIwMTgwNzA2X1cxMDhfSDEwOF9TMTIucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMTAK';
-
+    // 绿石诉讼资助
+    var lvshisusongzizhu = 'bHZzaGlzdXNvbmd6aXpodTIwMTgwODI0X1cxMDhfSDEwOF9TOC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
 
     // 图片路径前半段
     var imgStrBefore = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_';
@@ -92,6 +93,8 @@ var ImgList = React.createClass({
       imgStr = imgStrBefore + laitefacaishui + imgStrAfter
     }else if(this.props.waterMarkFlag === 'henanlvshizhijia'){
       imgStr = imgStrBefore + henanlvshizhijia + imgStrAfter
+    }else if(this.props.waterMarkFlag === 'lvshisusongzizhu'){
+      imgStr = imgStrBefore + lvshisusongzizhu + imgStrAfter
     }
 
 
