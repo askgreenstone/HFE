@@ -495,7 +495,7 @@ var Dynamic = React.createClass({
     }else if(isFromWhichApp == 16){
       waterMarkFlag = 'henanlvshizhijia'
     }else if(isFromWhichApp == 17){
-      waterMarkFlag = 'lvshisuzongzizhu'
+      waterMarkFlag = 'lvshisusongzizhu'
     }else{
       waterMarkFlag = 'onLineLaw'
     }
