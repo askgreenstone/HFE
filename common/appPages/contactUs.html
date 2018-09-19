@@ -15,11 +15,23 @@
             width: 100%;
             display: block;
         }
+        .call{
+          width: 100%;
+          margin-top: -100px;
+        }
+        .call a{
+          width: 100%;
+          display: block;
+        }
+        .call img{
+          width: 90%;
+          margin: 0 auto;
+        }
         .box{
             width: 100%;
             height: auto;
             background: #3b4b6b;
-            padding: 10px;
+            padding: 1rem;
             box-sizing: border-box;
         }
         h3{
@@ -33,32 +45,130 @@
         p{
             height: 36px;
             line-height: 36px;
-            padding: 8px;
-            box-sizing: border-box;
             border: 1px solid #fff;
             margin-bottom: 10px;
         }
         input{
-            height: 20px;
-            line-height: 20px;
+            height: 32px;
+            line-height: 32px;
             width: 100%;
             background: #3b4b6b;
             border: 0;
+            outline: none;
+            text-indent: 10px;
+            color: #fff;
         }
+        .textarea{
+          height: 90px;
+        }
+        textarea{
+          resize: none;
+          outline: none;
+          width: 100%;
+          height: 90px;
+          background: #3b4b6b;
+          line-height: 30px;
+          text-indent: 10px;
+          border: none;
+          color: #fff;
+        }
+        .submit{
+          width: 100px;
+          height: 36px;
+          border: 1px solid #c9a063;
+          line-height: 36px;
+          color: #c9a063;
+          border-radius: 5px;
+          text-align: center;
+        }
+
     </style>
 </head>
 <body>
 <div>
-    <img src="image/contactUs.jpg">
-    <!-- <div class="box">
-        <h3>请填写您的需求，我们将尽快与您联系</h3>
-        <p><input type="text" name="username" placeholder="您的姓名" /></p>
-        <p><input type="text" name="username" placeholder="电话" /></p>
-        <p><input type="text" name="username" placeholder="诉讼金额" /></p>
-        <p><textarea placeholder="需求描述"></textarea></p>
-        <p><div>提交信息</div></p>
-    </div> -->
+    <img src="image/contact.jpg">
+    <div class="call">
+      <a href="tel://18611683380"><img src="image/call.png"></a>
+    </div>
+    <div class="box">
+      <h3>请填写您的需求，我们将尽快与您联系</h3>
+      <p><input type="text" id="userName" placeholder="您的姓名" /></p>
+      <p><input type="text" id="userTel" placeholder="电话" /></p>
+      <p><input type="text" id="userAmount" placeholder="诉讼标的" /></p>
+      <p class="textarea"><textarea id="userCommand" placeholder="需求描述"></textarea></p>
+      <div class="submit" id="submit">提交信息</div>
+    </div>
 </div>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="lib/jquery.min.js"></script>
 <script>
+$('#submit').click(function(event) {
+  /* Act on the event */
+  var userName = $('#userName').val();
+  var userTel = $('#userTel').val();
+  var userAmount= $('#userAmount').val();
+  var userCommand = $('#userCommand').val();
+  console.log(Common.globalDistUrl());
+
+
+  // ”lfdid”:诉讼基金ID   可空   int
+  // ”dName”: 姓名      string
+  // ”dMobile”: 电话    string
+  // ”dMail”: 邮件    string
+  // ”dStandard”: 标的   string
+  // ”ddesc”: 需求描述    string  
+  // ”dReply”: 是否已回复  0 否  1 是    int
+  if(!userName){
+      alert('请输入您的姓名！');
+      return;
+    }else if(!userTel){
+      alert('请输入您的电话！');
+      return;
+    }else if(userTel.length != 11){
+      alert('电话号码位数不正确');
+      return;
+    }else if(!userAmount){
+      alert('请输入诉讼标的！');
+      return;
+    }else if(!userCommand){
+      alert('请输入需求描述！');
+      return;
+    }
+
+  $.ajax({
+    url: Common.globalDistUrl() + 'exp/UpdatelfDemand.do',
+    type: 'POST',
+    data: JSON.stringify({
+          "lfdid": 0,
+          "dName": userName,
+          "dMobile": userTel,
+          "dStandard": userAmount,
+          "ddesc": userCommand,
+          "dReply": 0
+        }),
+  })
+  .done(function(data) {
+    console.log("success");
+    if (data.c === 1000) {
+      alert('提交成功！');
+      $('#userName').val('');
+      $('#userTel').val('');
+      $('#userAmount').val('');
+      $('#userCommand').val('');
+    }
+  })
+  .fail(function() {
+    console.log("error");
+    alert('网络连接错误！请刷新页面重试')
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
+
+
+
+
+});
 </script>
 </body> 
