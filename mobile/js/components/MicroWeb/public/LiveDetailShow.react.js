@@ -100,7 +100,7 @@ var LiveDetailShow = React.createClass({
           this.setState({
             FirstData:data.ll,
             ShareTitile: data.ll[0].lt,
-            ShareDesc: data.ll[0].sn+'带来关于'+data.ll[0].lt+'的精彩讲课',
+            ShareDesc: data.ll[0].sn+'关于'+data.ll[0].lt+'的精彩直播',
             ShareImg: data.ll[0].sp,
             shareData: data.ll,
             readNumber: data.ll[0].rn,
@@ -352,7 +352,7 @@ var LiveDetailShow = React.createClass({
     this.setState({
       ldid: data.ldid,
       ShareTitile: data.lt,
-      ShareDesc: data.sn+'带来关于'+data.lt+'的精彩讲课',
+      ShareDesc: data.sn+'关于'+data.lt+'的精彩直播',
       ShareImg: data.sp,
       ShareLdid: data.ldid,
       shareData: [data]
@@ -619,7 +619,7 @@ var LiveDetailShow = React.createClass({
     }.bind(this));
     var ShareBox = this.state.shareData.map(function(item,i){
       return(
-        <Share key={i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'带来关于'+item.lt+'的精彩讲课'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetailShow" ldid={item.ldid?item.ldid:'0'}/>
+        <Share key={i} title={item.lt?item.lt:this.state.liveListTitle} desc={item.lt?(item.sn+'关于'+item.lt+'的精彩直播'):this.state.liveListTitle} imgUrl={item.sp?(global.img+item.sp):(global.img+this.state.liveListPic)} target="LiveDetailShow" ldid={item.ldid?item.ldid:'0'}/>
       )
     }.bind(this));
     var LiveDetailNav = this.state.FirstData.map(function(item,i) {
