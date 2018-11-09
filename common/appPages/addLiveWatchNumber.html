@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>修改直播点赞数，观看人数，直播授权</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+	<meta name="x5-orientation" content="portrait">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<style type="text/css">
+  	html,body{
+  		width: 100%;
+  		height: 100%;
+  	}
+  	*{
+  		margin: 0;
+  		padding: 0;
+  	}
+  	.wrap{
+  		width: 100%;
+  		height: 100%;
+  		background: #eee;
+  		overflow: auto;
+      	padding: 40px 0 20px;
+  	}
+    .liveTitle{
+      width: 200px;
+      height: 40px;
+      line-height: 40px;
+      text-indent: 5px;
+      font-size: 14px;
+      color: #333;
+      display: block;
+      margin: 0 auto 20px;
+    }
+    .text{
+      width: 300px;
+      height: auto;
+      line-height: 30px;
+      color: #333;
+      word-wrap: break-word;
+      margin: 0 auto;
+    }
+    .query{
+      width: 200px;
+      height: 40px;
+      margin: 10px auto;
+      background: #fff;
+      line-height: 40px;
+      text-align: center;
+      color: #d74218;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .start{
+      width: 200px;
+      height: 40px;
+      margin: 40px auto;
+      background: #fff;
+      line-height: 40px;
+      text-align: center;
+      color: #d74218;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .end{
+      width: 200px;
+      height: 40px;
+      margin: 40px auto;
+      background: #fff;
+      line-height: 40px;
+      text-align: center;
+      color: #d74218;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  	/*适配手机*/
+		@media screen and (max-width: 360px) {
+		  html {
+		    font-size: 62.5%;
+		  }
+		}
+		@media screen and (min-width: 361px) and (max-width: 376px) {
+		  html {
+		    font-size: 66.5%;
+		  }
+		}
+		@media screen and (min-width: 377px) {
+		  html {
+		    font-size: 75.5%;
+		  }
+		}
+
+  </style>
+</head>
+<body>
+	<div class="wrap">
+		<input type="text" name="liveTitle" class="liveTitle" placeholder="直播标题">
+		<div class="query" id="query">查询</div>
+		<p class="text text1"></p>
+	    <p class="text text2"></p>
+	    <p class="text text3"></p>
+	    <p class="text text4"></p>
+	    <p class="text text5"></p>
+	    <div class="query" id="isfee">直播授权</div>
+	    <div style="display:flex">
+	    	<input type="text" style="margin-top:10px;width:100px;border:none;border-radius:5px;" class="liveTitle" name="" id="pnNum">
+			<div class="query" id="addpn">增加直播点赞数</div>
+	    </div>
+		<div style="display:flex">
+			<input type="text" style="margin-top:10px;width:100px;border:none;border-radius:5px;" class="liveTitle" name="" id="wnNum">
+			<div class="query" id="addwn">增加观看人数</div>
+		</div>
+		
+	</div>
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+  	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+    // 首先获取直播ID
+    var ldid = 0;
+
+	// 查询直播ID
+    $('#query').on('click', function(event) {
+      event.preventDefault();
+      var liveTitle = $('.liveTitle').val();
+      if(!liveTitle){
+        alert('标题不能为空！');
+        return;
+      }
+      var data = {
+         'lt' : liveTitle
+        }
+      console.log(data);
+      $.ajax({
+        type: 'POST',
+        url: Common.globalDistUrl() + 'exp/GetLiveDetailRtmp.do',
+        data: JSON.stringify(data),
+        success: function(data) {
+            //alert( 'success:' + JSON.stringify(data) );
+            console.log(data);
+            if(data.c ==1000){
+              ldid = data.ldid;
+              // alert('直播地址：'+data.ra)
+              $('.text1').text('直播地址：'+data.ra)
+              $('.text2').text('直播ID：'+data.ldid)
+              $('.text3').text('观看直播人数：'+data.wn)
+              $('.text4').text('点赞人数：'+data.pn)
+              $('.text5').text('直播标题：'+data.livetitle)
+            }
+        },
+        error: function(err) {
+          alert('网络连接错误或服务器异常！');
+        }
+      });
+    });
+
+
+    // 直播授权
+    $('#isfee').on('click', function(event) {
+      event.preventDefault();
+      if(ldid == 0){
+        alert('请先输入直播标题查询直播地址！');
+        return;
+      }
+      // isFee 1免费
+      var data = {
+         'ldid' : ldid,
+         'isFee' : 1
+        }
+      console.log(data);
+      if(window.confirm('确定要授权直播么？')){
+        $.ajax({
+          type: 'POST',
+          url: Common.globalDistUrl() + 'exp/ManualUpdateLiveInfo.do',
+          data: JSON.stringify(data),
+          success: function(data) {
+              //alert( 'success:' + JSON.stringify(data) );
+              console.log(data);
+              if(data.c ==1000){
+                alert('直播已授权！')
+              }
+          },
+          error: function(err) {
+            alert('网络连接错误或服务器异常！');
+          }
+        }); 
+      }
+      
+    });
+
+
+    // 增加直播观看人数
+    $('#addwn').on('click', function(event) {
+      event.preventDefault();
+      if(ldid == 0){
+        alert('请先输入直播标题查询直播地址！');
+        return;
+      }
+      var wnNum = $('#wnNum').val().trim();
+      if(!wnNum){
+      	alert('请先输入增加观看人数！');
+        return;
+      }
+      var data = {
+         'ldid' : ldid,
+         'wn' : wnNum
+        }
+      console.log(data);
+      // 观看人数 wn
+		$.ajax({
+		  type: 'POST',
+		  url: Common.globalDistUrl() + 'exp/ManualUpdateLiveInfo.do',
+		  data: JSON.stringify(data),
+		  success: function(data) {
+		      //alert( 'success:' + JSON.stringify(data) );
+		      console.log(data);
+		      if(data.c ==1000){
+		        alert('增加观看人数成功！')
+		        $('#query').trigger('click')
+		      }
+		  },
+		  error: function(err) {
+		    alert('网络连接错误或服务器异常！');
+		  }
+		});
+      
+    });
+
+
+    // 增加直播点赞人数
+    $('#addpn').on('click', function(event) {
+      event.preventDefault();
+      if(ldid == 0){
+        alert('请先输入直播标题查询直播地址！');
+        return;
+      }
+      var pnNum = $('#pnNum').val().trim();
+      if(!pnNum){
+      	alert('请先输入增加点赞人数！');
+        return;
+      }
+      var data = {
+         'ldid' : ldid,
+         'pn' : pnNum
+        }
+      console.log(data);
+      // 观看人数 wn
+		$.ajax({
+		  type: 'POST',
+		  url: Common.globalDistUrl() + 'exp/ManualUpdateLiveInfo.do',
+		  data: JSON.stringify(data),
+		  success: function(data) {
+		      //alert( 'success:' + JSON.stringify(data) );
+		      console.log(data);
+		      if(data.c ==1000){
+		        alert('增加点赞人数成功！')
+		        $('#query').trigger('click')
+		      }
+		  },
+		  error: function(err) {
+		    alert('网络连接错误或服务器异常！');
+		  }
+		});
+      
+    });
+
+
+		
+
+
+
+		
+	</script>
+</body>
+</html>
