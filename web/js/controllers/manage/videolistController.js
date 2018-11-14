@@ -85,12 +85,10 @@ define(['App'], function(app) {
                   }
                   vm.ownUri = data.uri;
                   // 河南律协添加上传视频
-                  // if(data.uri.indexOf('e24931') > -1){
-                  //   vm.isHenanAdmin = true;
-                  //   vm.GetLiveDetailNoList(data.uri)
-                  // }
-                  vm.isHenanAdmin = true;
-                  vm.GetLiveDetailNoList()
+                  if(data.uri.indexOf('e24931') > -1){
+                    vm.isHenanAdmin = true;
+                    vm.GetLiveDetailNoList(data.uri)
+                  }
 
 
                   vm.headImg = data.p?(vm.transferurl + data.p):vm.transferurl+'header.jpg';

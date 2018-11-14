@@ -8,6 +8,7 @@ define(['App'], function(app) {
         vm.transferUrl = TransferUrl;
         vm.selectedState = '';
         vm.isDeptAdmin = true;
+        vm.isHenanAdmin = false;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess+'&ida='+vm.ida;
