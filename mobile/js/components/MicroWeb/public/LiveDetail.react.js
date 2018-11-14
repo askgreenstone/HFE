@@ -2,6 +2,7 @@ var React = require('react');
 
 var CommonMixin = require('../../Mixin');
 var prismplayer = require('../../common/prism-min.react');
+var flash = require('../../common/flash.react');
 var Share = require('../../common/Share.react');
 var Message = require('../../common/Message.react');
 var CryptoJS = require('../../common/CryptoJS.react');
@@ -300,120 +301,187 @@ var LiveDetail = React.createClass({
   liveVideoShow: function(data){
     console.log(data);
     console.log(prismplayer);
+    console.log(flash);
     console.log(this.isAndroid());
-    var source = data.ls==3?data.va:data.la;
-    // 设置微信title（苹果手机）
-    var $body = $('body')
-    document.title = data.lt;
-    // hack在微信等webview中无法修改document.title的情况
-    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
-      setTimeout(function() {
-        $iframe.off('load').remove()
-      }, 0)
-    }).appendTo($body);
-    var arr = [];
-    // var isLive = true;
-    // 点播视频
-    var session = this.getUrlParams('session');
-    if(data.ls == 3){
-      if(!session && data.ife == 2){
-        arr = [];
-        // isLive = false;
+    var system ={
+      win : false,
+      mac : false,
+      xll : false
+    };
+    //检测平台
+    var p = navigator.platform;
+    console.log(p);
+    system.win = p.indexOf("Win") == 0;
+    system.mac = p.indexOf("Mac") == 0;
+    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+   
+    if(system.win||system.mac||system.xll){
+      //PC端
+      console.log('现在是电脑');
+      var source = data.ls==3?data.va:data.la;
+      var arr = [];
+      if(data.ls == 3){
+        if(!session && data.ife == 2){
+          arr = [];
+          // isLive = false;
+        }else{
+          arr = [
+                {name:"bigPlayButton", align:"cc", x:30, y:80},
+                {name: "H5Loading", align: "cc"},
+                {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
+                {name: "infoDisplay", align: "cc"},
+                {name:"controlBar", align:"blabs", x:0, y:10,
+                    children: [
+                        {name:"progress", align:"tlabs", x: 0, y:-10},
+                        {name:"playButton", align:"tl", x:15, y:26},
+                        {name:"timeDisplay", align:"tl", x:10, y:24},
+                        {name:"streamButton", align:"tr",x:10, y:23},
+                        {name:"speedButton", align:"tr",x:10, y:23},
+                        {name: "volume", align: "tr", x: 20, y: 25}
+                    ]
+                }
+              ]
+          // isLive = false;
+        }
       }else{
-        arr = [
-              {name:"bigPlayButton", align:"cc", x:30, y:80},
-              {name: "H5Loading", align: "cc"},
-              {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
-              {name: "infoDisplay", align: "cc"},
-              {name:"controlBar", align:"blabs", x:0, y:10,
-                  children: [
-                      {name:"progress", align:"tlabs", x: 0, y:-10},
-                      {name:"playButton", align:"tl", x:15, y:26},
-                      {name:"timeDisplay", align:"tl", x:10, y:24},
-                      {name:"streamButton", align:"tr",x:10, y:23},
-                      {name:"speedButton", align:"tr",x:10, y:23},
-                      {name: "volume", align: "tr", x: 20, y: 25}
-                  ]
-              }
-            ]
-        // isLive = false;
+        arr = [];
+        // isLive = true;
       }
+      this.addLiveWatchNum(data.ls);
+      $('.live_detail_play').hide();
+      $('.live_detail_shadow').hide();
+      // 获取屏幕宽高
+      var height = window.innerHeight+'px';
+      var width = window.innerWidth +'px';
+      var player = new flash({
+              id: "J_prismPlayer", // 容器id
+              source: source,// 视频地址
+              autoplay: true,    //自动播放：否
+              width: width,       // 播放器宽度
+              height: height,      // 播放器高度
+              skinLayout: arr     //播放器组件（开始，暂停，音量，时间，全屏）
+              // isLive: isLive,       //是否为直播状态
+              // qualitySort: 'desc'     //desc表示按倒序排序（即：从大到小排序）asc表示按正序排序（即：从大到小排序）。
+          });
+      player.play();
     }else{
-      arr = [];
-      // isLive = true;
-    }
-    this.addLiveWatchNum(data.ls);
-    $('.live_detail_play').hide();
-    $('.live_detail_shadow').hide();
-    // 解决安卓手机固定定位会悬浮在播放器上层的问题
-    console.log('此时提问框被隐藏')
-    $('.live_detail_question_text').hide();
-    // 获取屏幕宽高
-    var height = this.isIOS()?(screen.height-50+'px'):(screen.height-100+'px');
-    var width = screen.width+'px';
-    var player = new prismplayer({
-            id: "J_prismPlayer", // 容器id
-            source: source,// 视频地址
-            autoplay: false,    //自动播放：否
-            width: width,       // 播放器宽度
-            height: height,      // 播放器高度
-            skinLayout: arr     //播放器组件（开始，暂停，音量，时间，全屏）
-            // isLive: isLive,       //是否为直播状态
-            // qualitySort: 'desc'     //desc表示按倒序排序（即：从大到小排序）asc表示按正序排序（即：从大到小排序）。
-        });
-    player.play();
-    var that = this;
-    if(data.ls ==2){
-      // alert('直播！')
-      // ios不进行任何操作，安卓暂停
-      if(that.isAndroid()){
-        player.on("pause", function() {
-          player.setPlayerSize('1px','1px');
-          $('.live_detail_play_play').show().parent().show();
-          if(!session && data.ife == 2){
-            that.gotoDetail(data,ife);
-          }else{
-            that.gotoDetail(data);
+      //移动端跳转的链接
+      var source = data.ls==3?data.va:data.la;
+      // 设置微信title（苹果手机）
+      var $body = $('body')
+      document.title = data.lt;
+      // hack在微信等webview中无法修改document.title的情况
+      var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+        setTimeout(function() {
+          $iframe.off('load').remove()
+        }, 0)
+      }).appendTo($body);
+      var arr = [];
+      // var isLive = true;
+      // 点播视频
+      var session = this.getUrlParams('session');
+      if(data.ls == 3){
+        if(!session && data.ife == 2){
+          arr = [];
+          // isLive = false;
+        }else{
+          arr = [
+                {name:"bigPlayButton", align:"cc", x:30, y:80},
+                {name: "H5Loading", align: "cc"},
+                {name: "errorDisplay", align: "tlabs", x: 0, y: 0},
+                {name: "infoDisplay", align: "cc"},
+                {name:"controlBar", align:"blabs", x:0, y:10,
+                    children: [
+                        {name:"progress", align:"tlabs", x: 0, y:-10},
+                        {name:"playButton", align:"tl", x:15, y:26},
+                        {name:"timeDisplay", align:"tl", x:10, y:24},
+                        {name:"streamButton", align:"tr",x:10, y:23},
+                        {name:"speedButton", align:"tr",x:10, y:23},
+                        {name: "volume", align: "tr", x: 20, y: 25}
+                    ]
+                }
+              ]
+          // isLive = false;
+        }
+      }else{
+        arr = [];
+        // isLive = true;
+      }
+      this.addLiveWatchNum(data.ls);
+      $('.live_detail_play').hide();
+      $('.live_detail_shadow').hide();
+      // 解决安卓手机固定定位会悬浮在播放器上层的问题
+      console.log('此时提问框被隐藏')
+      $('.live_detail_question_text').hide();
+      // 获取屏幕宽高
+      var height = this.isIOS()?(screen.height-50+'px'):(screen.height-100+'px');
+      var width = screen.width+'px';
+      var player = new prismplayer({
+              id: "J_prismPlayer", // 容器id
+              source: source,// 视频地址
+              autoplay: false,    //自动播放：否
+              width: width,       // 播放器宽度
+              height: height,      // 播放器高度
+              skinLayout: arr     //播放器组件（开始，暂停，音量，时间，全屏）
+              // isLive: isLive,       //是否为直播状态
+              // qualitySort: 'desc'     //desc表示按倒序排序（即：从大到小排序）asc表示按正序排序（即：从大到小排序）。
+          });
+      player.play();
+      var that = this;
+      if(data.ls ==2){
+        // alert('直播！')
+        // ios不进行任何操作，安卓暂停
+        if(that.isAndroid()){
+          player.on("pause", function() {
+            player.setPlayerSize('1px','1px');
+            $('.live_detail_play_play').show().parent().show();
+            if(!session && data.ife == 2){
+              that.gotoDetail(data,ife);
+            }else{
+              that.gotoDetail(data);
+            }
+          });
+          // 安卓手机点击返回操作重新显示提问框
+          console.log('此时提问框被重新显示')
+          $('.live_detail_question_text').hide();
+        }
+      }
+
+      // 修复iOS手机横屏效果
+      if(that.isIOS()){
+        var height = screen.height+'px';
+        var height2 = screen.height-50+'px';
+        var width = screen.width+'px';
+        var width2 = screen.width-50+'px';
+        window.addEventListener('orientationchange', function(event){
+          if(window.orientation == 90 || window.orientation == -90 ) {
+            player.setPlayerSize(height,width2);
+          }
+          if(window.orientation == 180 || window.orientation == 0){
+            player.setPlayerSize(width,height2);
           }
         });
-        // 安卓手机点击返回操作重新显示提问框
-        console.log('此时提问框被重新显示')
-        $('.live_detail_question_text').hide();
+      }
+      player.on("ended", function() {
+        that.showAlert('播放结束！',function(){
+          player.setPlayerSize('1px','1px');
+          that.gotoDetail(data);
+        });
+      });
+      // 增加ife字段，is-fee : int是否收费（1免费  2收费）乔凡：2017年4月26日
+      // 首先判断session
+      if(!session && data.ife == 2){
+        // alert('ife是2');
+        setTimeout(function(){
+          var ife = 'ife';
+          // alert(player.getCurrentTime());
+          player.setPlayerSize('1px','1px');
+          that.gotoDetail(data,ife);
+        },180000)
       }
     }
 
-    // 修复iOS手机横屏效果
-    if(that.isIOS()){
-      var height = screen.height+'px';
-      var height2 = screen.height-50+'px';
-      var width = screen.width+'px';
-      var width2 = screen.width-50+'px';
-      window.addEventListener('orientationchange', function(event){
-        if(window.orientation == 90 || window.orientation == -90 ) {
-          player.setPlayerSize(height,width2);
-        }
-        if(window.orientation == 180 || window.orientation == 0){
-          player.setPlayerSize(width,height2);
-        }
-      });
-    }
-    player.on("ended", function() {
-      that.showAlert('播放结束！',function(){
-        player.setPlayerSize('1px','1px');
-        that.gotoDetail(data);
-      });
-    });
-    // 增加ife字段，is-fee : int是否收费（1免费  2收费）乔凡：2017年4月26日
-    // 首先判断session
-    if(!session && data.ife == 2){
-      // alert('ife是2');
-      setTimeout(function(){
-        var ife = 'ife';
-        // alert(player.getCurrentTime());
-        player.setPlayerSize('1px','1px');
-        that.gotoDetail(data,ife);
-      },180000)
-    }
+    
     
   },
   gotoDetail: function(data,ife){
