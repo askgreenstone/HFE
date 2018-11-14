@@ -365,7 +365,7 @@ var LiveDetail = React.createClass({
           });
       player.play();
     }else{
-      //移动端跳转的链接
+      //移动端
       var source = data.ls==3?data.va:data.la;
       // 设置微信title（苹果手机）
       var $body = $('body')
