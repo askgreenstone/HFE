@@ -11,6 +11,7 @@ define(['App'], function(app) {
         vm.isServerData = false;//服务器端数据还是本地上传
         vm.uploadProgress = false;//开始上传出现进度条
         vm.isDeptAdmin = true;
+        vm.isHenanAdmin = false;
         vm.docTypeName = '微课堂课程列表';
         vm.bdid = '' //上传百度文档的文档ID
         vm.bdt = '' //上传百度文档的文件类型doctype
@@ -127,11 +128,16 @@ define(['App'], function(app) {
                 console.log(data);
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
-                  vm.orgOrPer = 'orgNotExist';
                   if(data.ida == 1){
                     vm.isDeptAdmin = true;
+                    vm.orgOrPer = 'orgOrPer';
                   }else{
                     vm.isDeptAdmin = false;
+                    vm.orgOrPer = 'orgNotExist';
+                  }
+                  // 河南律协添加上传视频
+                  if(data.uri.indexOf('e24931') > -1){
+                    vm.isHenanAdmin = true;
                   }
                   vm.headImg = data.p?(vm.transferurl + data.p):vm.transferurl+'header.jpg';
                   vm.lawyerName = data.n;

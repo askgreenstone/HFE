@@ -16,6 +16,7 @@ define(['App'], function(app) {
         vm.OwnerUri = '';
         vm.logoState = false;   //logo存在为true，不存在为false 
         vm.isDeptAdmin = true;
+        vm.isHenanAdmin = false;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session'+vm.sess;
@@ -51,11 +52,16 @@ define(['App'], function(app) {
             success(function(data, status, headers, config) {
                 console.log(data);
                 if(data.c == 1000){
-                  vm.orgOrPer = 'orgNotExist';
                   if(data.ida == 1){
                     vm.isDeptAdmin = true;
+                    vm.orgOrPer = 'orgOrPer';
                   }else{
                     vm.isDeptAdmin = false;
+                    vm.orgOrPer = 'orgNotExist';
+                  }
+                  // 河南律协添加上传视频
+                  if(data.uri.indexOf('e24931') > -1){
+                    vm.isHenanAdmin = true;
                   }
                   vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
                   vm.lawyerName = data.n;

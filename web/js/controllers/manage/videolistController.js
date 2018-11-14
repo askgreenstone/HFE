@@ -3,7 +3,7 @@
 define(['App'], function(app) {
 
     var injectParams = ['$location','$http','$window','GlobalUrl','TransferUrl','Common'];
-    var FilelistController = function($location,$http,$window,GlobalUrl,TransferUrl,Common) {
+    var VideolistController = function($location,$http,$window,GlobalUrl,TransferUrl,Common) {
         var vm = this;
         vm.transferurl = TransferUrl;
         vm.typeId = '';
@@ -12,6 +12,10 @@ define(['App'], function(app) {
         vm.isHenanAdmin = false;
         vm.docTypeName = '微课堂';
         vm.uploadVideo = false;
+        vm.pageNum = 0;
+        vm.ownUri = '';
+        vm.artitleList = [];
+        vm.getMoreFlag = true;
 
         vm.gotoLink = function(){
           location.href = '#/manage?session='+vm.sess+'&ida='+vm.ida;
@@ -79,12 +83,16 @@ define(['App'], function(app) {
                     vm.isDeptAdmin = false;
                     vm.orgOrPer = 'orgNotExist';
                   }
-                  vm.GetLiveDetailNoList(data.uri)
+                  vm.ownUri = data.uri;
                   // 河南律协添加上传视频
                   // if(data.uri.indexOf('e24931') > -1){
                   //   vm.isHenanAdmin = true;
+                  //   vm.GetLiveDetailNoList(data.uri)
                   // }
                   vm.isHenanAdmin = true;
+                  vm.GetLiveDetailNoList()
+
+
                   vm.headImg = data.p?(vm.transferurl + data.p):vm.transferurl+'header.jpg';
                   vm.lawyerName = data.n;
                   console.log(vm.headImg);
@@ -97,107 +105,52 @@ define(['App'], function(app) {
         }
 
         // 查询直播分类
-        vm.GetLiveDetailNoList = function(uri){
+        vm.GetLiveDetailNoList = function(){
+          console.log(vm.pageNum);
           $http({
             method: 'GET',
             url: GlobalUrl+'/exp/GetLiveDetailNoList.do',
             params: {
-              dou:uri,
+              dou: vm.ownUri,
               lid: 0,
-              ip: 1
-            },
-            data: {}
-          }).
-          success(function(data, status, headers, config) {
-              console.log(data);
-              return;
-              if(data.c == 1000){
-                vm.artitleList = data.li;
-                vm.order = data.li?(data.li.length+1):1;
-              }
-          }).
-          error(function(data, status, headers, config) {
-              // console.log(data);
-              alert('系统开了小差，请刷新页面');
-          });
-        }
-
-
-        
-        // 查询文件分类
-        vm.queryDeptDocs = function(){
-          $http({
-            method: 'GET',
-            url: GlobalUrl+'/exp/QueryDeptDocTypes.do',
-            params: {
-              session:vm.sess,
-              dt: vm.dt
+              ip: 1,
+              c: 10,
+              p: vm.pageNum
             },
             data: {}
           }).
           success(function(data, status, headers, config) {
               console.log(data);
               if(data.c == 1000){
-                vm.artitleList = data.li;
-                vm.order = data.li?(data.li.length+1):1;
-              }
-          }).
-          error(function(data, status, headers, config) {
-              // console.log(data);
-              alert('系统开了小差，请刷新页面');
-          });
-        }
-
-
-        
-        // 删除文件分类
-        vm.deleteFileClass = function(typeId){
-          var data = {
-            li: [typeId]
-          }
-          var flag = window.confirm('确定要删除么？');
-          if(flag){
-            $http({
-              method: 'POST',
-              url: GlobalUrl+'/exp/DeleteDeptDocTypes.do',
-              params: {
-                  session:vm.sess
-              },
-              data: JSON.stringify(data)
-            }).
-            success(function(data, status, headers, config) {
-                console.log(data);
-                if(data.c == 1000){
-                  vm.queryDeptDocs()
+                console.log(data.ll.length);
+                console.log(vm.getMoreFlag);
+                if(data.ll.length < 10){
+                  console.log(data.ll.length);
+                  vm.getMoreFlag = false;
                 }
-            }).
-            error(function(data, status, headers, config) {
-                // console.log(data);
-                alert('系统开了小差，请刷新页面');
-            });
-          }
+                vm.artitleList = vm.artitleList.concat(data.ll);
+              }
+          }).
+          error(function(data, status, headers, config) {
+              // console.log(data);
+              alert('系统开了小差，请刷新页面');
+          });
         }
 
 
+        // 加载更多
+        vm.getMore = function(){
+          vm.pageNum += 1;
+          vm.GetLiveDetailNoList();
+        }
 
 
         // 点击分类跳转uploadfile
-        vm.gotoUpload = function(tid,order){
-          console.log(order);
-          console.log(vm.dt);
-          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+order+'&tid='+tid+'&dt='+vm.dt;
+        vm.gotoUpload = function(ldid){
+          window.location.href = '#/uploadvideo?session='+vm.sess+'&ida='+vm.ida+'&ldid='+ldid;
         }
 
 
-
-        // 点击加号跳转uploadfile
-        vm.gotoAddFile = function(){
-          console.log(vm.typeId);
-          console.log(vm.typeNm);
-          console.log(vm.order);
-          console.log(vm.dt);
-          window.location.href = '#/uploadfile?session='+vm.sess+'&ida='+vm.ida+'&order='+vm.order+'&dt='+vm.dt;
-        }
 
 
         function init(){
@@ -219,15 +172,14 @@ define(['App'], function(app) {
             vm.docTypeName = '上传视频'
           }
           vm.checkUsrOrOrg();
-          vm.queryDeptDocs();
           
         }
 
         init();
     };
 
-    FilelistController.$inject = injectParams;
+    VideolistController.$inject = injectParams;
 
-    app.register.controller('FilelistController', FilelistController);
+    app.register.controller('VideolistController', VideolistController);
 
 });

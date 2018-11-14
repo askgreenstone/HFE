@@ -70,6 +70,8 @@ define(['RouteResolver','Common'], function() {
                 .when('/tools', route.resolve('Tools', 'manage/','vm'))
                 .when('/tooliframe', route.resolve('Tooliframe', 'manage/','vm'))
                 .when('/temp', route.resolve('Temp', 'manage/','vm'))
+                .when('/videolist', route.resolve('Videolist', 'manage/','vm'))
+                .when('/uploadvideo', route.resolve('Uploadvideo', 'manage/','vm'))
                 .otherwise({
                     redirectTo: '/manage'
                 });

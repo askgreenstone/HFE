@@ -21,6 +21,7 @@ define(['App'], function(app) {
         vm.authenState = 22;// 获取用户是否为认证状态  21为已认证 22未认证
         vm.ownUri = ''; //获取用户ownUri 
         vm.isDeptAdmin = true;
+        vm.isHenanAdmin = false;
 
         //   跳转到文件列表页  doctype1微课堂：2文件；3通知
         vm.menuLink = function(path,type){
@@ -62,11 +63,16 @@ define(['App'], function(app) {
                 console.log(data);
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
-                  vm.orgOrPer = 'orgNotExist';
                   if(data.ida == 1){
                     vm.isDeptAdmin = true;
+                    vm.orgOrPer = 'orgOrPer';
                   }else{
                     vm.isDeptAdmin = false;
+                    vm.orgOrPer = 'orgNotExist';
+                  }
+                  // 河南律协添加上传视频
+                  if(data.uri.indexOf('e24931') > -1){
+                    vm.isHenanAdmin = true;
                   }
                   vm.headImg = data.p?(vm.transferUrl + data.p):vm.transferUrl+'header.jpg';
                   vm.lawyerName = data.n;

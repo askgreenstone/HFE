@@ -1,4 +1,4 @@
-﻿<div class="view">
+<div class="view">
 	<div class="view_title">
 		工作室管理
 	</div>
@@ -29,7 +29,7 @@
 					<img src="image/manage/data.png" width="18" height="18"/>
 					<span><a href="javascript:void(0)">用户数据</a></span>
 				</li>
-				<li class="text-active" ng-click="vm.menuLink('manage')">
+				<li ng-click="vm.menuLink('manage')">
 					<img src="image/manage/set.png"  width="18" height="18"/>
 					<span><a href="javascript:void(0)">内容维护</a></span>
 				</li>
@@ -52,35 +52,36 @@
 			</ul>
 		</div>
 		<div class="mc_right">
-			<div class="mcr_search">
-				<span>我的律师团队</span>
-			</div>
 			<div class="list_lenged">
-				<h3 class="red">上传照片</h3>
-				<span>
-					<a href="javascript:void(0);" ng-click="vm.gotoUpload('preview','上传照片')">
-						<img src="image/docs/add.png" width="20" height="20"/> 选择照片
-						<input type="file" id="choose_file" ng-model="vm.fileName"/>
-					</a>
-					<a href="javascript:void(0);" ng-click="vm.goBack()">
-						<img src="image/return.png" width="20" height="20"/> 返回
-					</a>
-				</span>
+				<h3 class="red">{{vm.docTypeName}}</h3>
+				<span ng-click="vm.goBack()"><img src="image/return.png" width="20" height="20"/> 返回</span>
 			</div>
-			<!-- 图片上传 -->
-			<div class="upload_style">
-				<div class="upload_left">
-						<span>说明：点击右上角按钮“选择照片”，添加jpg，png或gif格式图片</span>
-						<img id="imageCropper" src="image/placeholder.png">
+			<div class="mc_right_content">
+				<div class="mc_right_uploadfile">
+					<form class="form_box">
+						<div class="mb_input mc_input input_file_fix input_file_upload">
+							<i>课程文件：(支持.mpg .mpeg .dat .mp4 .3gp .mov .rm .ram .rmvb .wmv .asf.avi.asx格式)</i>
+							<div class="changeBg" ng-click="vm.getUploadFileType()">
+								上传文件
+								<input type="file" id="step5_upload" ng-model="vm.fileName"/>
+							</div>
+							<div class="uploadTextBox"></div>
+							<div class="uploadFileBox">
+								<span class="uploadFileName"></span>
+								<span class="uploadFilePercent"></span>
+								<span class="uploadProgress"><span></span></span>
+							</div>
+						</div>
+					</form>
 				</div>
-				<div class="upload_right">
-				 	<span>说明：预览图片，并上传</span>
-				 	<p id="img_preview"><img ng-src={{vm.fileUrl}} width="100%" height="140"/></p>
-				 	<i ng-click="vm.controlTimes()">上传图片</i> 
+				<div class="af_btn fix_center">
+					<span ng-click="vm.setFileUpload()">完成</span>
 				</div>
-				<div class="clean"></div>
-			</div>
+			</div>	
 		</div>
-		<div class="clean"></div>
 	</div>
+	
+	
+	
+	<div class="clean"></div>
 </div>

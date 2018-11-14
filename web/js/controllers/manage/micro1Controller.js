@@ -51,12 +51,16 @@ define(['App'], function(app) {
                 console.log(data);
                 // ida＝0表示只存在个人工作室；ida＝1表示个人，机构工作室都存在，即管理员身份 
                 if(data.c == 1000){
-                  if(data.ida == 0){
-                    vm.orgOrPer = 'orgNotExist';
-                    vm.isDeptAdmin = false;
-                  }else{
-                    vm.orgOrPer = 'orgOrPer';
+                  if(data.ida == 1){
                     vm.isDeptAdmin = true;
+                    vm.orgOrPer = 'orgOrPer';
+                  }else{
+                    vm.isDeptAdmin = false;
+                    vm.orgOrPer = 'orgNotExist';
+                  }
+                  // 河南律协添加上传视频
+                  if(data.uri.indexOf('e24931') > -1){
+                    vm.isHenanAdmin = true;
                   }
                   vm.headImg = data.p?(vm.transferUrl+ data.p):vm.transferUrl+'header.jpg';;
                   vm.lawyerName = data.n;

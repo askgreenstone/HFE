@@ -299,6 +299,7 @@ var LiveDetail = React.createClass({
   },
   liveVideoShow: function(data){
     console.log(data);
+    console.log(prismplayer);
     console.log(this.isAndroid());
     var source = data.ls==3?data.va:data.la;
     // 设置微信title（苹果手机）

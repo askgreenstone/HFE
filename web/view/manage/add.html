@@ -1,13 +1,6 @@
 ﻿<div class="view">
 	<div class="view_title">
 		工作室管理
-		<select ng-class="vm.orgOrPer" ng-model="vm.abc" ng-options="x as x.tn for x in vm.contentList" ng-change="vm.switchPerOrg(vm.abc.ida)" >
-			<option ng-selected="vm.selectedState" value="">--请选择--</option>
-		</select>
-		<span class="perLawyer">
-			<img src= {{vm.headImg}} width="20" height="20">
-			{{vm.lawyerName}} 律师
-		</span>
 	</div>
 	<div class="manage_content">
 		<div class="mc_left">
@@ -48,6 +41,11 @@
 					<img src="image/manage/notice.png"  width="20" height="20"/>
 					<span><a href="javascript:void(0)">通知</a></span>
 				</li>
+				<li ng-click="vm.menuLink('videolist')" ng-if="vm.isHenanAdmin">
+					<img src="image/manage/class.png"  width="20" height="20"/>
+					<span><a href="javascript:void(0)">上传视频</a></span>
+				</li>
+				
 			</ul>
 		</div>
 		<div class="mc_right">
