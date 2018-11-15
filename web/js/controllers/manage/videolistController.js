@@ -144,8 +144,12 @@ define(['App'], function(app) {
 
 
         // 点击分类跳转uploadfile
-        vm.gotoUpload = function(ldid){
-          window.location.href = '#/uploadvideo?session='+vm.sess+'&ida='+vm.ida+'&ldid='+ldid;
+        vm.gotoUpload = function(ls,ldid){
+          if(ls == 1){
+            window.location.href = '#/uploadvideo?session='+vm.sess+'&ida='+vm.ida+'&ldid='+ldid;
+          }else{
+            alert('正在直播中或直播已结束，不能上传视频！')
+          }
         }
 
 

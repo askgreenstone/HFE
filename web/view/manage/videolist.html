@@ -57,7 +57,7 @@
 			</div>
 	    <div class="contentBox" style="display:block;">
 	      <ul class="contentList">
-	        <li id="x.tid" ng-repeat="x in vm.artitleList" ng-click="vm.gotoUpload(x.ldid)">
+	        <li id="x.tid" ng-repeat="x in vm.artitleList" ng-click="vm.gotoUpload(x.ls,x.ldid)">
 	        	<div style="border:1px solid #ccc;padding-top:5px;width:100%;padding-left:10px;">
 	        		<div class="contentList_center">
 		        		<div class="contentList_center_title">{{x.lt?(x.lt.length>15?x.lt.substr(0,15)+'...':x.lt):'文件名'}}</div>
