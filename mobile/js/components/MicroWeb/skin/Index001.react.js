@@ -8,7 +8,8 @@ require('../../../../css/theme/theme001.less');
 
 var Index001 = React.createClass({
   render: function() {
-    var arr=['image/1.png','image/2.png','image/3.png','image/4.png','image/5.png'];
+    var arr=['image/1.png'];
+    // var arr=['image/1.png','image/2.png','image/3.png','image/4.png','image/5.png'];
     return (
       <div>
         <Carousel item={arr} width="100%" height="180"/>

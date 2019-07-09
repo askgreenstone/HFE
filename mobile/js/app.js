@@ -68,7 +68,8 @@ var Index022 = require('./components/MicroWeb/skin/Index022.react');
 var Index023 = require('./components/MicroWeb/skin/Index023.react');
 //皮肤二十四（d9x设计出品 山水画风格）
 var Index024 = require('./components/MicroWeb/skin/Index024.react');
-
+//皮肤二十五（大成本部）
+var Index025 = require('./components/MicroWeb/skin/Index025.react');
 
 
 //公共组件承载页面
@@ -146,6 +147,7 @@ ReactDOM.render((
     <Route path="/index022" component={Index022}/>
     <Route path="/index023" component={Index023}/>
     <Route path="/index024" component={Index024}/>
+    <Route path="/index025" component={Index025}/>
 
     
     <Route path="/photo" component={Photo}/>

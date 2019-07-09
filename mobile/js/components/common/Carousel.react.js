@@ -1,5 +1,5 @@
 var React = require('react');
-var Slider = require('react-slick');
+// var Slider = require('react-slick');
 
 // require('../../../css/lib/slick/slick.css');
 
@@ -21,9 +21,9 @@ var Carousel = React.createClass({
       );
     }.bind(this));
     return (
-      <Slider {...settings}>
-        {CarouselNodes}
-      </Slider>
+      // <Slider {...settings}>
+        <div>{CarouselNodes}</div>
+      // </Slider>
     );
   }
 });

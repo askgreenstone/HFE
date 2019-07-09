@@ -1,0 +1,179 @@
+/*字体大小*/
+@b-size: 1.2rem;
+@s-size: 1.3rem;
+@m-size: 1.4rem;
+@l-size: 1.5rem;
+@xl-size: 1.6rem;
+/*常用色值*/
+@black10:#000;
+@black07:rgba(0,0,0,0.7);
+@black06:rgba(0,0,0,0.6);
+
+#myapp>div{
+	width:100%;
+	height:100%;
+}
+.theme025_container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.theme025_box{
+  width: 100%;
+  padding: 15% 12%;
+  box-sizing: border-box;
+  display: box;
+  display: -webkit-box;
+}
+.theme025_headImg{
+  width: 150px;
+}
+.theme025_headImg img{
+  width: 100%;
+}
+.theme025_content{
+  -webkit-box-flex: 1;
+  display: box;
+  display: -webkit-box;
+  line-height: 1.6rem;
+}
+.theme025_content div{
+  width: 2rem;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-left: 1.2rem;
+}
+.theme025_content .theme025_content_blank{
+  -webkit-box-flex: 1;
+}
+.theme025_content_abs{
+  color: #4b4b4b;
+}
+.theme025_content_abs span{
+  display: block;
+  margin-bottom: 1rem;
+}
+.theme025_content .theme025_content_depart{
+  color: #878787;
+  font-size: 1.4rem;
+}
+.theme025_content_lawyer span{
+  color: #878787;
+  font-size: 1.4rem;
+}
+.theme025_content_lawyer span.theme025_content_lawyer{
+  color: #000;
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 1rem;
+  word-break: break-all;
+}
+.theme025_menu_list{
+  width: 76%;
+  position: absolute;
+  left: 12%;
+  bottom: 15%;
+  margin: 0px;
+  display: box;
+  display: -webkit-box;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.theme025_menu_list li{
+  list-style: none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  margin-bottom: 4.5px;
+  font-size: 15px;
+  color: #7F7E7D;
+}
+.theme025_menu_list li.expertName{
+  color: #6B1584;
+  height: 15px;
+  font-size: 15px;
+  line-height: 15px;
+  font-family: SourceHanSansCN-Regular;
+  font-weight: 400;
+}
+.theme025_menu_list li.expertClass{
+  height: 12.5px;
+  font-size: 12.5px;
+  line-height: 12.5px;
+  font-family: SourceHanSansCN-Light;
+  font-weight: 300;
+}
+.theme025_menu_list li.expertEmail{
+  height: 13px;
+  font-size: 13px;
+  line-height: 13px;
+  font-family: SourceHanSansCN-Light;
+  font-weight: 300;
+  margin: 5px 0 10px 0;
+}
+.theme025_menu_list li.expertTel{
+  height: 12px;
+  font-size: 12px;
+  line-height: 12px;
+  font-family: SourceHanSansCN-Light;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+.theme025_menu_list li.expertMobile{
+  margin-bottom: 20px;
+}
+.theme025_menu_list li.expertAddress{
+  font-size: 12px;
+  font-family: SourceHanSansCN-Normal;
+  font-weight: 400;
+  line-height: 15px;
+}
+.theme025_menu_list li.expertAddressActive{
+  color: #6B1584;
+}
+
+
+@media screen and (width: 320px) {
+  html {
+    font-size: 62.5%;
+  }
+  .theme025_menu_list{
+    bottom: 10%;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 360px) {
+  html {
+    font-size: 62.5%;
+  }
+  .theme025_menu_list{
+    bottom: 10%;
+  }
+}
+@media screen and (min-width: 361px) and (max-width: 376px) {
+  html {
+    font-size: 66.5%;
+  }
+}
+@media screen and (min-width: 377px) and (max-width: 414px) {
+  html {
+    font-size: 75.5%;
+  }
+}
+@media screen and (width: 384px) and (height: 519px) {
+  html {
+    font-size: 66.5%;
+  }
+  .theme025_menu_list{
+    bottom: 5%;
+  }
+}
+@media screen and (min-width: 415px) {
+  html {
+    font-size: 80%;
+  }
+  .theme025_menu_list{
+    bottom: 10%;
+  }
+}
+
+//魅族手机单独处理

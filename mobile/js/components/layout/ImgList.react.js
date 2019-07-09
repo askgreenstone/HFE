@@ -60,6 +60,8 @@ var ImgList = React.createClass({
     var henanlvshizhijia = 'aGVuYW5sdnNoaXpoaWppYTIwMTgwNzA2X1cxMDhfSDEwOF9TMTIucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMTAK';
     // 绿石诉讼资助
     var lvshisusongzizhu = 'bHZzaGlzdXNvbmd6aXpodTIwMTgwODI0X1cxMDhfSDEwOF9TOC5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8xMA==';
+    //大成律师
+    var dachenglvshi = 'ZGFjaGVuZ2xvZ28yMDE5MDcwOF9XMTgwX0gxODBfUzQucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMTA='
 
     // 图片路径前半段
     var imgStrBefore = '?x-oss-process=image/resize,w_'+this.props.imgWidth*2+'/auto-orient,1/quality,q_90/format,jpg/watermark,image_';
@@ -95,6 +97,8 @@ var ImgList = React.createClass({
       imgStr = imgStrBefore + henanlvshizhijia + imgStrAfter
     }else if(this.props.waterMarkFlag === 'lvshisusongzizhu'){
       imgStr = imgStrBefore + lvshisusongzizhu + imgStrAfter
+    }else if(this.props.waterMarkFlag === 'dachenglvshi'){
+      imgStr = imgStrBefore + dachenglvshi + imgStrAfter
     }
 
 
