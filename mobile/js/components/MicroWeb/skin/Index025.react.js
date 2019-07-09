@@ -365,7 +365,7 @@ var Index025 = React.createClass({
                     <div className="theme025_box">
                         <div className="theme025_content"></div>
                         <div className="theme025_headImg">
-                            <img src="../../../../image/theme025/logo.png" />
+                            <img src="./image/theme025/logo.png" />
                         </div>
                         {/* <div className="theme025_content">
                             <div className="theme025_content_blank"></div>
