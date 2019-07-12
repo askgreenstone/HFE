@@ -237,7 +237,7 @@ var Index025 = React.createClass({
                     shareTitle:data.sil[0].sti,
                     shareDesc:data.sil[0].sd,
                     // shareImg:data.sil[0].spu,
-                    shareImg: 'http://transfer.green-stone.cn/dachenglogo20190708_W180_H180_S4.png',
+                    shareImg: 'dachenglogo20190708_W180_H180_S4.png',
                     documentDepartTitle: data.dnm?data.dnm:'机构介绍',
                     documentExpTitle: data.enm?data.enm:'我'
                     });
@@ -372,17 +372,13 @@ var Index025 = React.createClass({
                     <ul className="theme025_menu_list">
                         <li className="expertName">{this.state.expertInfo.n}</li>
                         <li className="expertEmail">{this.state.expertInfo.e}</li>
-                        <li className="expertTel expertMobile"><a href={"tel://" + this.state.expertInfo.m}>手机{this.state.expertInfo.m}</a></li>
-                        <li className="expertAddress expertAddressTitle">大成律师事务所</li>
+                        <li className="expertTel expertMobile"><a href={"tel://" + this.state.expertInfo.m}>手机{this.state.expertInfo.m}<img src="./image/theme025/more.png" /></a></li>
+                        <li className="expertAddress expertAddressTitle"><a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>大成律师事务所<img width="6"  src="./image/theme025/more.png" /></a></li>
                         <li className="expertAddress">
-                            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-                                北京市朝阳区东大桥路9号
-                            </a>
+                            {this.state.expertInfo.ad ? this.state.expertInfo.ad.substr(0,12) : ''}
                         </li>
                         <li className="expertAddress">
-                            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>
-                                侨福芳草地D座7层
-                            </a>
+                            {this.state.expertInfo.ad ? this.state.expertInfo.ad.substr(12) : ''}
                         </li>
                         <li className="expertAddress">邮编: 100020</li>
                         <li className="expertAddress expertAddressActive">大成 Salans FMC SNR Denton McKenna Long</li>

@@ -257,7 +257,7 @@ var Card = React.createClass({
               </a>
             </div>
             <div className="uc_input" style={{display:this.state.web?'block':'none'}}>
-              <a href={this.state.web}>
+              <a href={this.state.web ? (this.state.web.indexOf('http') > -1 ? this.state.web : 'http://'+this.state.web):''}>
                 {this.state.web}
                 <img src="image/theme002/web.png" width="25" height="25"/>
               </a>
