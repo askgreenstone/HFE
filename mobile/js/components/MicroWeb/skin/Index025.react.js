@@ -371,6 +371,7 @@ var Index025 = React.createClass({
                     </div>
                     <ul className="theme025_menu_list">
                         <li className="expertName">{this.state.expertInfo.n}</li>
+                        <li className="expertEmail">{this.state.expertInfo.g}</li>
                         <li className="expertEmail">{this.state.expertInfo.e}</li>
                         <li className="expertTel expertMobile"><a href={"tel://" + this.state.expertInfo.m}>手机{this.state.expertInfo.m}<img src="./image/theme025/more.png" /></a></li>
                         <li className="expertAddress expertAddressTitle"><a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>大成律师事务所<img width="6"  src="./image/theme025/more.png" /></a></li>
