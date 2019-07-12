@@ -30,7 +30,7 @@ var Index025 = React.createClass({
             newsTitle:'',
             newsContent:'',
             newsShow:false,
-            expertInfo: []
+            expertInfo: {}
         };
     },
     getLatestNews:function(){
@@ -207,7 +207,7 @@ var Index025 = React.createClass({
                     console.log(arr)
                     this.setState({
                         hI:data.p||'header.jpg',
-                        expertInfo: arr 
+                        expertInfo: arr[0] 
                     })
                 }
             }.bind(this),
@@ -325,7 +325,7 @@ var Index025 = React.createClass({
         this.getExpertInfo();
     },
 	render:function(){
-        console.log(this.state.expspecial);
+        console.log(this.state.expertInfo);
         console.log(this.state.newsShow);
         var expSpecial = this.state.expspecial.map(function(item,i){
             return(
@@ -341,24 +341,13 @@ var Index025 = React.createClass({
                 </li>
             );
         }.bind(this));
-        var exportNodes = this.state.expertInfo.map(function(item,i){
-            return(
-                <div>
-                    <li className="expertName">{item.n}</li>
-                    <li className="expertClass">{item.n}</li>
-                    <li className="expertClass">{item.n}</li>
-                    <li className="expertEmail">{item.n}</li>
-                    <li className="expertTel">{item.n}</li>
-                    <li className="expertTel">{item.n}</li>
-                    <li className="expertTel">{item.n}</li>
-                    <li className="expertTel expertMobile">{item.n}</li>
-                    <li className="expertAddress">{item.n}</li>
-                    <li className="expertAddress">{item.n}</li>
-                    <li className="expertAddress">{item.n}</li>
-                    <li className="expertAddress expertAddressActive">{item.n}</li>
-                </div>
-            )
-        })
+        // var exportNodes = this.state.expertInfo.map(function(item,i){
+        //     return(
+        //         <div>
+        //             <li key={i} className="expertName">{item.n}</li>
+        //         </div>
+        //     )
+        // })
 		return (
 			<div>
 				<div className="theme025_container">
@@ -375,10 +364,14 @@ var Index025 = React.createClass({
                         </div> */}
                     </div>
                     <ul className="theme025_menu_list">
-                        {navNodes}
-                    </ul>
-                    <ul className="theme025_menu_list">
-                        {exportNodes}
+                        <li className="expertName">{this.state.expertInfo.n}</li>
+                        <li className="expertEmail">{this.state.expertInfo.e}</li>
+                        <li className="expertTel expertMobile">手机{this.state.expertInfo.m}</li>
+                        <li className="expertAddress expertAddressTitle">大成律师事务所</li>
+                        <li className="expertAddress">北京市朝阳区东大桥路9号</li>
+                        <li className="expertAddress">侨福芳草地D座7层</li>
+                        <li className="expertAddress">邮编: 100020</li>
+                        <li className="expertAddress expertAddressActive">大成 Salans FMC SNR Denton McKenna Long</li>
                     </ul>
                 </div>
                 <Share title={this.state.shareTitle} desc={this.state.shareDesc} imgUrl={global.img+this.state.shareImg} target="index025"/>
