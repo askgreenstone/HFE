@@ -236,7 +236,7 @@ var Index025 = React.createClass({
                     this.setState({
                     shareTitle:data.sil[0].sti,
                     // shareDesc:data.sil[0].sd,
-                    shareDesc: '',
+                    shareDesc: '    ',
                     // shareImg:data.sil[0].spu,
                     shareImg: 'dachenglogo20190708_W180_H180_S4.png',
                     documentDepartTitle: data.dnm?data.dnm:'机构介绍',
