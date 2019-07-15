@@ -235,7 +235,8 @@ var Index025 = React.createClass({
                 if(data.sil.length>0){
                     this.setState({
                     shareTitle:data.sil[0].sti,
-                    shareDesc:data.sil[0].sd,
+                    // shareDesc:data.sil[0].sd,
+                    shareDesc: '',
                     // shareImg:data.sil[0].spu,
                     shareImg: 'dachenglogo20190708_W180_H180_S4.png',
                     documentDepartTitle: data.dnm?data.dnm:'机构介绍',
@@ -243,17 +244,17 @@ var Index025 = React.createClass({
                     });
                 }else{
                     if(ida == 1){
-                    this.setState({
-                        shareTitle:(data.dnm?data.dnm:'我的')+'机构简介',
-                        shareDesc:'欢迎访问'+(data.dnm?data.dnm:'我的')+'机构简介',
-                        shareImg:exCompanyLogo
-                    });
+                        this.setState({
+                            shareTitle:(data.dnm?data.dnm:'我的')+'机构简介',
+                            shareDesc:'欢迎访问'+(data.dnm?data.dnm:'我的')+'机构简介',
+                            shareImg:exCompanyLogo
+                        });
                     }else{
-                    this.setState({
-                        shareTitle:(data.enm?(data.eg?(data.enm+data.eg+'的'):(data.enm+'的')):('我的'))+'名片',
-                        shareDesc:'欢迎访问我的名片，您可以直接在线咨询我',
-                        shareImg:expertHead
-                    });
+                        this.setState({
+                            shareTitle:(data.enm?(data.eg?(data.enm+data.eg+'的'):(data.enm+'的')):('我的'))+'名片',
+                            shareDesc:'欢迎访问我的名片，您可以直接在线咨询我',
+                            shareImg:expertHead
+                        });
                     }
                 }
                 }
@@ -374,12 +375,12 @@ var Index025 = React.createClass({
                         <li className="expertEmail">{this.state.expertInfo.g}</li>
                         <li className="expertEmail">{this.state.expertInfo.e}</li>
                         <li className="expertTel expertMobile"><a href={"tel://" + this.state.expertInfo.m}>手机{this.state.expertInfo.m}<img src="./image/theme025/more.png" /></a></li>
-                        <li className="expertAddress expertAddressTitle"><a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'adress')}>大成律师事务所<img width="6"  src="./image/theme025/more.png" /></a></li>
+                        <li className="expertAddress expertAddressTitle"><a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'address2')}>大成律师事务所<img width="6"  src="./image/theme025/more.png" /></a></li>
                         <li className="expertAddress">
-                            {this.state.expertInfo.ad ? this.state.expertInfo.ad.substr(0,12) : ''}
+                            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'address2')}>{this.state.expertInfo.ad ? this.state.expertInfo.ad.substr(0,12) : ''}</a>
                         </li>
                         <li className="expertAddress">
-                            {this.state.expertInfo.ad ? this.state.expertInfo.ad.substr(12) : ''}
+                            <a href="javascript:void(0);" onClick={this.gotoLink.bind(this,'address2')}>{this.state.expertInfo.ad ? this.state.expertInfo.ad.substr(12) : ''}</a>
                         </li>
                         <li className="expertAddress">邮编: 100020</li>
                         <li className="expertAddress expertAddressActive">大成 Salans FMC SNR Denton McKenna Long</li>

@@ -10,6 +10,10 @@ if(window.location.href.indexOf('localhost')>-1||window.location.href.indexOf('t
   global.img = 'http://t-transfer.green-stone.cn/';
   global.share = 'http://t-dist.green-stone.cn';
   global.mshare = 'http://t-mshare.green-stone.cn/';
+  // global.url = 'http://t-dist.green-stone.cn';
+  // global.img = 'http://t-transfer.green-stone.cn/';
+  // global.share = 'http://t-dist.green-stone.cn';
+  // global.mshare = 'http://t-mshare.green-stone.cn/';
   //临时添加
   // global.url = 'http://dist.green-stone.cn';
 }else{

@@ -583,8 +583,10 @@ var Dynamic = React.createClass({
             <p className="dynamic_exp_name">
               <span className="dynamic_exp_name_name">{this.state.nm}</span><br/>
               <span className="dynamic_exp_date" style={{display:this.transferArr(this.state.esl)?'block':'none'}}>擅长{this.transferArr(this.state.esl)}</span>
-              <span className="dynamic_usr_consult" style={{display:this.state.expConsultState?'block':'none'}} onClick={this.gotoConsult} ><span>在线</span><span>咨询</span></span>
-              <span className="dynamic_usr_consult dynamic_exp_card" style={{display:this.state.expConsultState?'none':'block'}} onClick={this.gotoIndex} ><span>名片</span></span>
+              <span className="dynamic_usr_consult" style={{display:'none'}} onClick={this.gotoConsult} ><span>在线</span><span>咨询</span></span>
+              <span className="dynamic_usr_consult dynamic_exp_card" style={{display:'none'}} onClick={this.gotoIndex} ><span>名片</span></span>
+              {/* <span className="dynamic_usr_consult" style={{display:this.state.expConsultState?'block':'none'}} onClick={this.gotoConsult} ><span>在线</span><span>咨询</span></span>
+              <span className="dynamic_usr_consult dynamic_exp_card" style={{display:this.state.expConsultState?'none':'block'}} onClick={this.gotoIndex} ><span>名片</span></span> */}
             </p>
           </div>
         </div>  

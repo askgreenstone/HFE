@@ -77,6 +77,7 @@ var Photo = require('./components/MicroWeb/public/Photo.react');
 var Single = require('./components/MicroWeb/public/Single.react');
 var ArticleList = require('./components/MicroWeb/public/ArticleList.react');
 var Adress = require('./components/MicroWeb/public/Adress.react');
+var Address2 = require('./components/MicroWeb/public/Address2.react');
 var ArticleDetail = require('./components/MicroWeb/public/ArticleDetail.react');
 var Card = require('./components/MicroWeb/public/Card.react');
 var Card2 = require('./components/MicroWeb/public/Card2.react');
@@ -155,6 +156,7 @@ ReactDOM.render((
     <Route path="/articleList" component={ArticleList}/>
     <Route path="/articleDetail" component={ArticleDetail}/>
     <Route path="/adress" component={Adress}/>
+    <Route path="/address2" component={Address2}/>
     <Route path="/card" component={Card}/>
     <Route path="/card2" component={Card2}/>
     <Route path="/card3" component={Card3}/>
