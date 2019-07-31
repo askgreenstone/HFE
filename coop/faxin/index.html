@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>河南律师之家</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="x5-orientation" content="portrait">
+  <link rel="stylesheet" href="css/style.css?v=44ba7e3">
+</head>
+<body>
+	<div id="wrap">
+		<div class="index">
+			<div class="index_container">
+				<div class="left">
+					<div class="index_head">河南律师之家</div>
+					<div class="index_main" style="width:100%">
+						<div class="border" style="width: 86%;margin: 3% auto;">
+							<span style="background-color: #e1e1e1;"><img src="image/user.png?v=b8f6d39" width="38" height="38" alt=""></span>
+							<input id="index_phone" type="text" placeholder="注册手机号">
+						</div>
+						<div class="border" style="width: 86%;margin: 3% auto;">
+							<span style="background-color: #e1e1e1;"><img src="image/pwd.png?v=902a906" width="38" height="38" alt=""></span>
+							<input id="index_pwd" type="password" placeholder="密码">
+						</div>
+						<div class="border imgCode" style="display:none">
+							<input type="text" id="img_code" placeholder="输入验证码">
+							<img src="" alt="">
+							<span>点击刷新</span>
+						</div>
+						<div class="radio_box" hidden="true">
+							<input type="radio" name="radio" value="我是律师" id="lawyer">律师
+							<input type="radio" name="radio" value="我是非律师" id="other">其他专业人士
+						</div>
+					</div>
+					<div id="index_submit" class="index_button">登录</div>
+					<div class="index_forget" hidden="true">
+						<a href="view/resetpwd.html">忘记密码?</a>
+						<a href="view/register.html">新用户注册</a>
+					</div>
+					</div>
+				<div class="right" hidden="true">
+					<img src="image/logo.png?v=9d27e1c" width="85%" height=""/>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<script src="lib/zepto.min.js?v=b0eaa27"></script>
+	<script src="lib/hmac-md5.js?v=c0cd1e8"></script>
+	<script src="http://csc.green-stone.cn/lib/sha1.js"></script>
+	<script src="http://csc.green-stone.cn/lib/enc-base64-min.js"></script>
+	<script src="js/common.js?v=c28a4fc"></script>
+	<script src="js/api.js?v=9b60cbc"></script>
+	<script src="js/index.js?v=77e8f5e"></script>
+	<script type="text/javascript">
+		var winHeight = window.screen.height;
+		// alert(winHeight);
+		$('.index').height(winHeight);
+	</script>
+</body>
+</html>
