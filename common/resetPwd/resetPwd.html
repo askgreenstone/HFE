@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <title>重置密码</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1">
+  <meta name="x5-orientation" content="portrait">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style type="text/css">
+  	html,body{
+  		width: 100%;
+  		height: 100%;
+  	}
+  	*{
+  		margin: 0;
+  		padding: 0;
+  	}
+  	.wrap{
+  		width: 100%;
+  		height: 100%;
+  		background: #eee;
+      padding-top: 40px;
+  	}
+    .telPhone{
+      width: 200px;
+      height: 40px;
+      line-height: 40px;
+      text-indent: 5px;
+      font-size: 14px;
+      color: #333;
+      display: block;
+      margin: 0 auto 40px;
+    }
+    .reset{
+      width: 100px;
+      height: 40px;
+      margin: 40px auto;
+      background: #fff;
+      line-height: 40px;
+      text-align: center;
+      color: #d74218;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  	/*适配手机*/
+		@media screen and (max-width: 360px) {
+		  html {
+		    font-size: 62.5%;
+		  }
+		}
+		@media screen and (min-width: 361px) and (max-width: 376px) {
+		  html {
+		    font-size: 66.5%;
+		  }
+		}
+		@media screen and (min-width: 377px) {
+		  html {
+		    font-size: 75.5%;
+		  }
+		}
+
+  </style>
+</head>
+<body>
+	<div class="wrap">
+    <input type="text" name="telPhone" class="telPhone" placeholder="电话号码">
+    <div class="reset">重置</div>
+	</div>
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+
+		// 重置密码
+    $('.reset').on('click', function(event) {
+      event.preventDefault();
+      var telPhone = $('.telPhone').val();
+      console.log(telPhone);
+      if(!telPhone){
+        alert('没填电话');
+        return;
+      }
+      $.ajax({
+        type: 'GET',
+        url: Common.globalDistUrl() + 'comm/ResetPassword.do?mn='+telPhone,
+        success: function(data) {
+            //alert( 'success:' + JSON.stringify(data) );
+            console.log(data);
+            if(data.c ==1000){
+              alert('重置成功！')
+            }
+        },
+        error: function(err) {
+          alert('网络连接错误或服务器异常！');
+        }
+      });
+    });
+		
+
+
+
+		
+	</script>
+</body>
+</html>
