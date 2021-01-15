@@ -623,11 +623,11 @@ var LiveDetailShow = React.createClass({
             <div className="live_detail_title">{item.lt||'无'}</div>
             <div className="live_detail_sp"><img src={item.sp?(global.img+item.sp):(global.img+'header.jpg')} /></div>
             <div className="live_detail_sn"><span className={item.ls==1?'live_detail_sn_teacher':''}>主讲人：{item.sn||'无'}</span><br/><span style={{display:item.ls==1?'none':'inline'}} className="live_detail_sn_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
-            <div className="live_detail_dll"><img src={item.dll?(global.img+item.dll):(global.img+'zaixianfalvlivelogo20180606_W170_H80_S12.png')} /></div>
+            <div className="live_detail_dll"><img src={item.dll?(global.img+item.dll):(global.img+'dachengzhibologo_W170_H80_S4.png')} /></div>
             <div className="live_detail_ls"><span className="live_detail_ls_state">{item.ls==2?'正在直播':(item.ls==1?'直播未开始':(item.ilo==0?'观看回放':'直播已结束'))}</span><br/><span style={{display:item.dqc?((item.ls==3&&item.ilo!=0)?'inline':'none'):'none'}} className="live_detail_ls_time">精彩课程关注{item.dsn}</span><br/><span style={{display:item.ls==1?'inline':'none'}} className="live_detail_ls_time">时间：{item.livetime?(new Date(item.livetime).Format("MM/dd hh:mm")):'无'}</span></div>
           </div>
           <div className="live_list_top_content live_detail_top_content">
-            <div className="live_detail_top_content_left"><span className="live_detail_top_content_title">{item.lt||'课程标题'}</span><br/><span className="live_detail_top_content_isFree">{item.ife == 1?'公开':'收费'}</span><span className="live_detail_top_content_watchNum" style={{display:item.ls==1?'none':'inline'}}>已观看人数：<span>{this.state.readNumber+this.state.watchNumber}</span></span></div>
+            <div className="live_detail_top_content_left"><span className="live_detail_top_content_title">{item.lt||'课程标题'}</span><br/><span className="live_detail_top_content_isFree">{item.ife == 1?'公开':'收费'}</span><span className="live_detail_top_content_watchNum" style={{display:'none'}}>已观看人数：<span>{this.state.readNumber+this.state.watchNumber}</span></span></div>
             <div className="live_detail_top_content_right" onClick={this.setPraise}><span><span>{this.state.niceNumber}</span>人点赞</span></div>
           </div>
           <div className="live_detail_shadow" style={{display:this.state.loginFlag?'none':(ldid == 0?'inline':'none')}}></div>
