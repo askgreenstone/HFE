@@ -1,26 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width,user-scalable=no,initial-scale=1"
+    />
     <title></title>
     <style>
-    .spinner-bounce-circle {
+      .spinner-bounce-circle {
         width: 60px;
-      height: 60px;
-      position: absolute;
+        height: 60px;
+        position: absolute;
         background: #fff;
-      top: 50%;
-      left: 50%;
-      margin: -30px 0 0 -30px;
+        top: 50%;
+        left: 50%;
+        margin: -30px 0 0 -30px;
         z-index: -1;
         padding: 5px;
         box-sizing: border-box;
-    }
-    
-    .spinner-bounce-circle div {
+      }
+
+      .spinner-bounce-circle div {
         width: 100%;
         height: 100%;
         border-radius: 50%;
@@ -28,68 +30,167 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-image: url('image/load.gif');
-    }
+        background-image: url("image/load.gif");
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="spinner-bounce-circle">
       <div></div>
     </div>
     <script src="js/lib/jquery-1.7.2.min.js"></script>
     <script type="text/javascript">
-      jQuery(document).ready(function($) {
-          //此处增加分享逻辑ntid = localStorage.getItem('tempNtid');
-          // 动态详情页面分享增加isFromWhichApp字段，在线法律传1，德和衡传2，时间涟漪传3
-          var wxShareTarget = getUrlParams('target'),
-              ownUri = getUrlParams('ownUri'),
-              ntid = getUrlParams('ntid'),
-              ida = getUrlParams('ida'),
-              idf = getUrlParams('idf')?getUrlParams('idf'):0,
-              fid = getUrlParams('fid'),
-              usrUri = getUrlParams('usrUri'),
-              isAndroid = getUrlParams('isAndroid'),
-              isIos = getUrlParams('isIos'),
-              lid = getUrlParams('lid'),
-              ldid = getUrlParams('ldid'),
-              session = getUrlParams('session'),
-              nid = getUrlParams('nid');
-              isFromWhichApp = getUrlParams('isFromWhichApp');
-          // alert(ldid);
-          if(nid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&nid='+nid+'&ntid='+ntid+'&ida='+ida+'&isFromWhichApp='+isFromWhichApp;
-          }else if(ntid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ntid='+ntid+'&ida='+ida+'&isFromWhichApp='+isFromWhichApp;
-          }else if(fid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&fid='+fid+'&ida='+ida+'&idf='+idf+'&isFromWhichApp='+isFromWhichApp;
-          }else if(isAndroid){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app&isAndroid=true'+'&isFromWhichApp='+isFromWhichApp;
-          }else if(isIos){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&usrUri='+usrUri+'&ida='+ida+'&idf='+idf+'&isFrom=app'+'&isFromWhichApp='+isFromWhichApp;
-          }else if(lid && !session){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&idShow=1'+'&isFromWhichApp='+isFromWhichApp;
-          }else if(session){
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&lid='+lid+'&ldid='+ldid+'&session='+session+'&isFromWhichApp='+isFromWhichApp;
-          }else{
-            location.href = '/mobile/#/'+wxShareTarget+'?ownUri='+ownUri+'&ida='+ida+'&idf='+idf+'&ldid='+ldid+'&isFromWhichApp='+isFromWhichApp;
-          }
+      jQuery(document).ready(function ($) {
+        //此处增加分享逻辑ntid = localStorage.getItem('tempNtid');
+        // 动态详情页面分享增加isFromWhichApp字段，在线法律传1，德和衡传2，时间涟漪传3
+        var wxShareTarget = getUrlParams("target"),
+          ownUri = getUrlParams("ownUri"),
+          ntid = getUrlParams("ntid"),
+          ida = getUrlParams("ida"),
+          idf = getUrlParams("idf") ? getUrlParams("idf") : 0,
+          fid = getUrlParams("fid"),
+          usrUri = getUrlParams("usrUri"),
+          isAndroid = getUrlParams("isAndroid"),
+          isIos = getUrlParams("isIos"),
+          lid = getUrlParams("lid"),
+          ldid = getUrlParams("ldid"),
+          session = getUrlParams("session"),
+          nid = getUrlParams("nid");
+        isFromWhichApp = getUrlParams("isFromWhichApp");
+        // alert(ldid);
+        if (nid) {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&nid=" +
+            nid +
+            "&ntid=" +
+            ntid +
+            "&ida=" +
+            ida +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        } else if (ntid) {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&ntid=" +
+            ntid +
+            "&ida=" +
+            ida +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        } else if (fid) {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&fid=" +
+            fid +
+            "&ida=" +
+            ida +
+            "&idf=" +
+            idf +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        } else if (isAndroid) {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&usrUri=" +
+            usrUri +
+            "&ida=" +
+            ida +
+            "&idf=" +
+            idf +
+            "&isFrom=app&isAndroid=true" +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        } else if (isIos) {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&usrUri=" +
+            usrUri +
+            "&ida=" +
+            ida +
+            "&idf=" +
+            idf +
+            "&isFrom=app" +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        } else if (lid && !session) {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&lid=" +
+            lid +
+            "&ldid=" +
+            ldid +
+            "&idShow=1" +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        } else if (session) {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&lid=" +
+            lid +
+            "&ldid=" +
+            ldid +
+            "&session=" +
+            session +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        } else {
+          location.href =
+            "/mobile/#/" +
+            wxShareTarget +
+            "?ownUri=" +
+            ownUri +
+            "&ida=" +
+            ida +
+            "&idf=" +
+            idf +
+            "&ldid=" +
+            ldid +
+            "&isFromWhichApp=" +
+            isFromWhichApp;
+        }
       });
-     function getUrlParams(p) {
+      function getUrlParams(p) {
         var url = location.href;
-        var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+        var paraString = url
+          .substring(url.indexOf("?") + 1, url.length)
+          .split("&");
         var paraObj = {};
-        for (var i = 0, j = 0; j = paraString[i]; i++) {
-            paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
+        for (var i = 0, j = 0; (j = paraString[i]); i++) {
+          paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(
+            j.indexOf("=") + 1,
+            j.length
+          );
         }
         var returnValue = paraObj[p.toLowerCase()];
-        if (typeof(returnValue) == "undefined") {
-            return "";
+        if (typeof returnValue == "undefined") {
+          return "";
         } else {
-            return returnValue;
+          return returnValue;
         }
-    }
+      }
     </script>
-</body>
-
+  </body>
 </html>
