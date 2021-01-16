@@ -76,10 +76,11 @@ var LiveDetailShow = React.createClass({
   },
   // 查询同系列下的课程
   getCourseList: function (seriesid) {
+    let id = seriesid === -1 ? 0 : seriesid;
     var that = this;
     $.ajax({
       type: "GET",
-      url: global.url + "/exp/GetLiveDetailBySeries.do?lsID=" + seriesid,
+      url: global.url + "/exp/GetLiveDetailBySeries.do?lsID=" + id,
       success: function (data) {
         //alert( 'success:' + JSON.stringify(data) );
         console.log(data);
