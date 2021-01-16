@@ -1000,7 +1000,7 @@ var LiveDetailShow = React.createClass({
       return (
         <ul className="live_detail_nav" key={i}>
           <li>
-            <span>课程目录</span>
+            <span>系列课</span>
             <span></span>
           </li>
           <li className="live_detail_nav_active">
