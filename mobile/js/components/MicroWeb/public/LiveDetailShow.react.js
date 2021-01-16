@@ -76,15 +76,10 @@ var LiveDetailShow = React.createClass({
   },
   // 查询同系列下的课程
   getCourseList: function (seriesid) {
-    var data = {
-      lsID: seriesid
-    };
-    console.log(data);
     var that = this;
     $.ajax({
-      type: "POST",
-      url: global.url + "/exp/GetLiveDetailBySeries.do",
-      data: JSON.stringify(data),
+      type: "GET",
+      url: global.url + "/exp/GetLiveDetailBySeries.do?lsID=" + seriesid,
       success: function (data) {
         //alert( 'success:' + JSON.stringify(data) );
         console.log(data);
@@ -101,7 +96,6 @@ var LiveDetailShow = React.createClass({
   },
   getLiveInfo: function (ldid) {
     var ownUri = this.getUrlParams("ownUri");
-    var ldid = this.getUrlParams("ldid");
     // 新增ip字段，区分直播公开，私有（微信端没有授权，所以只展示公开课程）乔凡：2017.04.26
     // ip=1表示公开   ip=2表示内部
     // pn   点赞数
@@ -1025,7 +1019,7 @@ var LiveDetailShow = React.createClass({
           <li
             data-id={item.ldid}
             className={
-              item.ldid == ldid
+              item.ldid == this.state.FirstData[0].ldid
                 ? item.ls == 3
                   ? "live_detail_list_online_active"
                   : "live_detail_list_video_active"
@@ -1065,7 +1059,7 @@ var LiveDetailShow = React.createClass({
         <div className="live_detail_top_box">{FirstDataShow}</div>
         <div className="live_detail_nav_box">{LiveDetailNav}</div>
         <div className="live_detail">
-          <div className="live_detail_list_box">
+          <div className="live_detail_list_content_box">
             <ul className="live_detail_list">{ListDataShow}</ul>
           </div>
           <div
