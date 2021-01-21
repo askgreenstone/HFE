@@ -113,8 +113,8 @@ var LiveDetailShow = React.createClass({
         "/exp/GetLiveDetailNoList.do?dou=" +
         ownUri +
         "&ldid=" +
-        ldid +
-        "&ip=1",
+        ldid,
+      // + "&ip=1",
       success: function (data) {
         console.log(data);
         if (data.c == 1000) {
@@ -734,7 +734,7 @@ var LiveDetailShow = React.createClass({
                     ? "正在直播"
                     : item.ls == 1
                     ? "直播未开始"
-                    : item.ilo == 0
+                    : item.ls === 3 && item.ip === 1 && item.isReview === 1
                     ? "观看回放"
                     : "直播已结束"}
                 </span>
@@ -838,10 +838,8 @@ var LiveDetailShow = React.createClass({
               style={{
                 display: this.state.loginFlag
                   ? "none"
-                  : item.ls == 3
-                  ? item.ilo == 0
-                    ? "inline"
-                    : "none"
+                  : item.ls == 3 && item.ip === 1 && item.isReview === 1
+                  ? "inline"
                   : "none"
               }}
             >
