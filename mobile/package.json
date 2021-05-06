@@ -28,7 +28,7 @@
     "react-swipe-views": "0.0.10",
     "style-loader": "^0.13.0",
     "swipe-js-iso": "^2.0.1",
-    "underscore": "^1.8.3",
+    "underscore": "^1.12.1",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
     "weixin-js-sdk": "^1.0.7"
